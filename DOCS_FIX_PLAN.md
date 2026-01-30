@@ -1,8 +1,8 @@
 # Documentation Fix Plan
 
 **Date:** 2026-01-30
-**Status:** Ready for Implementation
-**Total Fixes:** 15 changes across 11 files
+**Status:** ✅ IMPLEMENTED
+**Total Fixes:** 16 changes across 12 files
 
 ---
 
@@ -337,19 +337,19 @@ The message displayed when a conversation starts. Leave empty for no greeting.
 ## Implementation Checklist
 
 ```
-[ ] Fix 1: Remove web widget (3 files)
-[ ] Fix 2: Correct agent actions (creating.mdx)
-[ ] Fix 3: Rewrite conversations.mdx
-[ ] Fix 4: Update analytics index card
-[ ] Fix 5: Remove CSV export claims (usage.mdx)
-[ ] Fix 6: Remove tagged documents (first-agent.mdx)
-[ ] Fix 7: Clarify alerts (billing/usage.mdx)
-[ ] Fix 8: Clarify alerts (analytics/usage.mdx)
-[ ] Fix 9a: Rename welcome message (creating.mdx)
-[ ] Fix 9b: Rename welcome message (configuring.mdx)
-[ ] Fix 10: Remove business hours (whatsapp.mdx)
-[ ] Fix 11: Add missing formats (supported-formats.mdx)
-[ ] Build and verify no broken links
+[x] Fix 1: Remove web widget (4 locations across 3 files + plans.mdx text)
+[x] Fix 2: Correct agent actions (creating.mdx)
+[x] Fix 3: Rewrite conversations.mdx
+[x] Fix 4: Update analytics index card
+[x] Fix 5: Remove CSV export claims (analytics/usage.mdx)
+[x] Fix 6: Remove tagged documents (first-agent.mdx)
+[x] Fix 7: Clarify alerts (billing/usage.mdx)
+[x] Fix 8: Clarify alerts (analytics/usage.mdx)
+[x] Fix 9a: Rename welcome message (creating.mdx)
+[x] Fix 9b: Rename welcome message (configuring.mdx)
+[x] Fix 10: Remove business hours (whatsapp.mdx)
+[x] Fix 11: Add missing formats (supported-formats.mdx)
+[x] Verified no remaining problematic patterns
 [ ] Deploy to docs.cuneiform.chat
 ```
 

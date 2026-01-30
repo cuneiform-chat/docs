@@ -50,12 +50,17 @@ The dashboard shows:
 - Daily consumption trends
 - Projected usage for the period
 
-### Alerts
+### Usage Warnings
 
-Set up alerts for:
-- 50% of credits used
-- 80% of credits used
-- 95% of credits used (action needed)
+The platform automatically displays warnings as you approach your limits:
+
+| Threshold | What Happens |
+|-----------|--------------|
+| ~80% used | Warning banner appears in dashboard |
+| 100% used | "Limit Reached" banner with upgrade prompt |
+| Blocked | Service paused until next period or upgrade |
+
+These warnings appear automatically — no configuration needed.
 
 import { Callout } from 'nextra/components'
 
@@ -87,10 +92,7 @@ import { Callout } from 'nextra/components'
 
 ### Approaching Limits
 
-As you near your credit limit:
-1. **50%** — Usage notification (informational)
-2. **80%** — Warning notification
-3. **95%** — Urgent notification, consider upgrading
+As you near your credit limit, warning banners appear in your dashboard prompting you to upgrade or enable extra usage.
 
 ### Exceeding Limits
 
