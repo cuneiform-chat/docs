@@ -1,0 +1,138 @@
+# Google Chat Integration
+
+Connect your agent to Google Chat for seamless communication within Google Workspace.
+
+## Overview
+
+Google Chat integration provides:
+- Direct messaging with your bot
+- Google Workspace Spaces support
+- Rich card formatting
+- Enterprise-ready security
+
+## Prerequisites
+
+- Google Workspace account
+- Google Cloud Console access
+- Admin permissions to install Workspace apps
+
+## Setup Steps
+
+### 1. Create a Google Cloud Project
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select an existing one
+3. Enable the Google Chat API
+
+### 2. Configure the Chat App
+
+1. In Google Cloud Console, go to **APIs & Services** → **Google Chat API**
+2. Click **Configuration**
+3. Fill in app details:
+   - **App name** — Your bot's display name
+   - **Avatar URL** — Icon for your bot
+   - **Description** — What the bot does
+4. Set **Functionality**:
+   - Enable "Receive 1:1 messages"
+   - Enable "Join spaces and group conversations" (if needed)
+
+### 3. Set Up Authentication
+
+1. Go to **APIs & Services** → **Credentials**
+2. Create a **Service Account**
+3. Download the JSON key file
+4. Note the service account email
+
+### 4. Connect to Cuneiform Chat
+
+1. Go to **Agents** → Select your agent
+2. Navigate to **Integrations** tab
+3. Click **Google Chat**
+4. Upload your service account JSON key
+5. Click **Connect**
+
+### 5. Install in Google Workspace
+
+1. In Google Cloud Console, go to **Google Chat API** → **Configuration**
+2. Under **Visibility**, add your domain
+3. Users in your workspace can now find and message the bot
+
+## Using the Bot
+
+### Direct Messages
+
+Users can start a conversation:
+
+1. Open Google Chat
+2. Click **Start a chat** → **Find apps**
+3. Search for your bot name
+4. Start chatting
+
+### In Spaces
+
+Add the bot to a Space:
+
+1. Open the Space
+2. Click the Space name → **Manage apps**
+3. Add your bot
+4. Mention the bot with `@BotName` to interact
+
+## Features
+
+### Rich Cards
+
+Responses can include formatted cards with:
+- Headers and sections
+- Buttons and links
+- Images
+
+### Thread Support
+
+The bot can respond in threads to keep conversations organized.
+
+### Slash Commands
+
+Configure custom slash commands for quick actions.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Google Chat integration requires a Google Workspace account. Personal Gmail accounts cannot install custom Chat apps.
+</Callout>
+
+## Troubleshooting
+
+### Bot Not Appearing
+
+1. Verify the Chat API is enabled
+2. Check visibility settings include your domain
+3. Ensure the service account has proper permissions
+
+### Authentication Errors
+
+1. Verify the service account JSON is valid
+2. Check the service account has Chat API access
+3. Re-upload credentials if needed
+
+### Messages Not Received
+
+1. Verify webhook URL is configured correctly
+2. Check Google Cloud Console logs for errors
+3. Ensure the bot is properly installed in your workspace
+
+## Security
+
+- Service account credentials are encrypted
+- Messages processed over secure connections
+- Compliant with Google Workspace security standards
+
+## Disconnecting
+
+To remove the Google Chat integration:
+
+1. Go to **Agents** → Select agent → **Integrations**
+2. Click **Google Chat** → **Disconnect**
+
+To fully remove from Google Workspace:
+1. Go to Google Admin Console
+2. Remove the Chat app from your organization
