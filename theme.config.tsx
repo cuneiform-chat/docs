@@ -31,7 +31,8 @@ const config: DocsThemeConfig = {
       <meta property="og:title" content="Cuneiform Chat Documentation" />
       <meta property="og:description" content="Learn how to create document-trained AI chatbots with Cuneiform Chat" />
       <meta property="og:image" content="/og-image.png" />
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" type="image/png" href="/favicon.png" />
+      <link rel="apple-touch-icon" href="/favicon.png" />
     </>
   ),
   useNextSeoProps() {
