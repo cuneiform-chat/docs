@@ -1,0 +1,80 @@
+# Test Your Agent
+
+Before deploying your agent, use the Playground to test its responses and fine-tune its behavior.
+
+## Accessing the Playground
+
+1. Navigate to **Playground** in the sidebar
+2. Select your agent from the dropdown
+3. Start chatting!
+
+## Testing Your Agent
+
+### Ask Sample Questions
+
+Try questions that your users might ask:
+
+- Questions directly answered by your documents
+- Follow-up questions that require context
+- Edge cases and ambiguous queries
+- Questions outside your knowledge base (to test boundaries)
+
+### Evaluate Responses
+
+For each response, consider:
+
+- **Accuracy** — Is the information correct?
+- **Relevance** — Does it answer the actual question?
+- **Tone** — Does it match your expected style?
+- **Sources** — Are document references helpful?
+
+## Refining Your Agent
+
+Based on testing, you may want to adjust:
+
+### System Prompt
+
+If responses aren't quite right, refine the system prompt:
+
+- Add specific instructions for common scenarios
+- Clarify the tone and personality
+- Set boundaries for what the agent should and shouldn't do
+
+### Knowledge Base
+
+If the agent can't find information:
+
+- Check that relevant documents are uploaded
+- Verify documents processed successfully
+- Consider adding more detailed content
+
+import { Callout } from 'nextra/components'
+
+<Callout type="tip">
+  Keep a list of test questions and expected answers. Re-run these tests after making changes to ensure improvements don't break other behaviors.
+</Callout>
+
+## Conversation History
+
+The Playground maintains conversation history within a session. Use this to test:
+
+- Multi-turn conversations
+- Context retention
+- Follow-up questions
+
+## Ready to Deploy?
+
+Once you're satisfied with your agent's performance, you can deploy it to various channels:
+
+- [Web Widget](/integrations/web-widget) — Embed on your website
+- [Telegram](/integrations/telegram) — Connect to Telegram
+- [Discord](/integrations/discord) — Add to your Discord server
+- [Slack](/integrations/slack) — Integrate with Slack workspaces
+
+## Next Steps
+
+Congratulations! You've created and tested your first Cuneiform Chat agent. Explore the following sections to learn more:
+
+- [Agent Configuration](/agents/configuring) — Advanced agent settings
+- [Knowledge Base Management](/knowledge-base) — Document organization tips
+- [Integrations](/integrations) — Deploy to multiple channels

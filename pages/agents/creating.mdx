@@ -1,0 +1,75 @@
+# Creating Agents
+
+Learn how to create new agents in Cuneiform Chat.
+
+## Create a New Agent
+
+1. Navigate to **Agents** in the sidebar
+2. Click **Create Agent**
+3. Fill in the required fields
+
+## Required Fields
+
+### Agent Name
+
+Choose a descriptive name that helps you identify this agent. Examples:
+
+- "Customer Support Bot"
+- "Product FAQ Assistant"
+- "HR Policy Helper"
+
+The name is for your reference and appears in the dashboard.
+
+### System Prompt
+
+The system prompt defines your agent's behavior. See [System Prompts](/agents/system-prompts) for detailed guidance.
+
+**Quick example:**
+```
+You are a helpful assistant for [Your Company].
+Answer questions based on the provided documentation.
+Be concise and friendly.
+```
+
+## Optional Settings
+
+### Description
+
+Add a description for your own reference. This helps when managing multiple agents.
+
+### Welcome Message
+
+The first message your agent sends when a conversation starts. Examples:
+
+- "Hi! How can I help you today?"
+- "Welcome to [Company] support. What would you like to know?"
+
+### Response Settings
+
+Configure response behavior:
+
+- **Temperature** — Controls randomness (lower = more focused)
+- **Max tokens** — Maximum response length
+
+## Save and Test
+
+After creating your agent:
+
+1. Click **Create** to save
+2. Go to **Playground** to test
+3. Refine settings based on results
+
+import { Callout } from 'nextra/components'
+
+<Callout type="tip">
+  Create your first agent with minimal configuration, test it, then add complexity as needed.
+</Callout>
+
+## Managing Agents
+
+From the Agents page, you can:
+
+- **Edit** — Modify any agent's settings
+- **Duplicate** — Create a copy as a starting point
+- **Delete** — Remove agents you no longer need
+- **View Analytics** — See usage statistics

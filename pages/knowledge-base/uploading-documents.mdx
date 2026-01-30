@@ -1,0 +1,85 @@
+# Uploading Documents
+
+Learn how to add documents to your knowledge base.
+
+## Upload Methods
+
+### Direct Upload
+
+1. Go to **Knowledge Base** in the sidebar
+2. Click **Upload Documents**
+3. Select files from your computer
+4. Wait for processing to complete
+
+### Drag and Drop
+
+Simply drag files from your computer and drop them into the Knowledge Base area.
+
+### Bulk Upload
+
+Upload multiple files at once:
+
+1. Select multiple files in your file picker
+2. Or drag and drop multiple files
+3. All files will be processed in parallel
+
+## Upload Limits
+
+Limits depend on your plan:
+
+| Aspect | Description |
+|--------|-------------|
+| File size | Maximum size per individual file |
+| Storage | Total storage across all documents |
+| Processing | Monthly processing capacity |
+
+Check your current usage in the **Billing** section.
+
+## Processing Pipeline
+
+After upload, documents go through several stages:
+
+### 1. Extraction
+Text is extracted from the document. For PDFs with images, OCR is used to extract text from scanned content.
+
+### 2. Chunking
+Content is split into smaller, searchable segments. This ensures agents can find specific information within large documents.
+
+### 3. Embedding
+AI creates vector representations of each chunk. This enables semantic search—finding relevant content based on meaning, not just keywords.
+
+### 4. Indexing
+Processed content becomes searchable by your agents.
+
+## Processing Status
+
+Track document status in the Knowledge Base:
+
+| Status | Meaning |
+|--------|---------|
+| Uploading | File is being uploaded |
+| Processing | Document is being processed |
+| Ready | Document is searchable |
+| Failed | Processing error occurred |
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Processing time depends on document size and complexity. Most documents complete within a few minutes.
+</Callout>
+
+## Handling Failures
+
+If a document fails to process:
+
+1. Check the file format is [supported](/knowledge-base/supported-formats)
+2. Ensure the file isn't corrupted
+3. Try uploading again
+4. Contact support if issues persist
+
+## Tips for Better Results
+
+- **Use text-based PDFs** when possible (better than scanned images)
+- **Check document quality** before uploading
+- **Structure content clearly** with headings and sections
+- **Avoid very large files** — split into smaller documents if needed

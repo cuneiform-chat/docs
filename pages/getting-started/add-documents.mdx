@@ -1,0 +1,70 @@
+# Add Documents
+
+Your chatbot's knowledge comes from the documents you provide. This guide shows you how to upload documents to your knowledge base.
+
+## Accessing the Knowledge Base
+
+1. Sign in to your Cuneiform Chat dashboard
+2. Navigate to **Knowledge Base** in the sidebar
+3. Click **Upload Documents** or drag and drop files
+
+## Supported File Types
+
+Cuneiform Chat supports a wide range of document formats:
+
+| Format | Extensions | Notes |
+|--------|-----------|-------|
+| PDF | `.pdf` | Text-based and scanned (OCR) |
+| Word | `.docx`, `.doc` | Microsoft Word documents |
+| Text | `.txt`, `.md` | Plain text and Markdown |
+| Spreadsheets | `.xlsx`, `.csv` | Excel and CSV files |
+| PowerPoint | `.pptx` | Presentation slides |
+| HTML | `.html` | Web pages |
+
+## Upload Methods
+
+### Direct Upload
+
+1. Click **Upload Documents**
+2. Select files from your computer
+3. Wait for processing to complete
+
+### Drag and Drop
+
+Simply drag files from your computer and drop them into the Knowledge Base area.
+
+### Cloud Storage
+
+Connect your cloud storage for seamless imports:
+
+- **Google Drive** — Import directly from your Drive
+- **Dropbox** — Connect your Dropbox account
+- **OneDrive** — Import from Microsoft OneDrive
+
+See [Cloud Storage Integration](/knowledge-base/cloud-storage) for setup instructions.
+
+## Document Processing
+
+After upload, your documents go through several processing stages:
+
+1. **Extraction** — Text is extracted from the document
+2. **Chunking** — Content is split into searchable segments
+3. **Embedding** — AI creates vector representations for semantic search
+4. **Indexing** — Content becomes searchable by your agents
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Processing time depends on document size and complexity. Most documents complete within a few minutes.
+</Callout>
+
+## Best Practices
+
+- **Quality over quantity** — Well-structured documents produce better responses
+- **Keep content current** — Remove outdated documents to avoid confusion
+- **Organize with folders** — Use the folder structure to keep documents organized
+- **Check for duplicates** — Avoid uploading the same content multiple times
+
+## Next Step
+
+With documents uploaded, you're ready to [create your first agent](/getting-started/first-agent).

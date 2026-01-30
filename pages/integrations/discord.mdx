@@ -1,0 +1,149 @@
+# Discord Integration
+
+Add your agent to Discord servers using slash commands.
+
+## Overview
+
+Discord integration provides:
+- Slash command support (`/ask`)
+- Server-wide availability
+- Channel-specific responses
+- Rich embed formatting
+
+## Prerequisites
+
+- A Discord account
+- Manage Server permissions on the target server
+- Discord Developer Portal access
+
+## Setup Steps
+
+### 1. Create a Discord Application
+
+1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
+2. Click **New Application**
+3. Enter a name (e.g., "My Support Bot")
+4. Click **Create**
+
+### 2. Create a Bot User
+
+1. In your application, go to **Bot** section
+2. Click **Add Bot** → **Yes, do it!**
+3. Under **Token**, click **Copy** — save this securely
+
+### 3. Configure Bot Permissions
+
+1. Go to **OAuth2** → **URL Generator**
+2. Select scopes:
+   - `bot`
+   - `applications.commands`
+3. Select bot permissions:
+   - Send Messages
+   - Use Slash Commands
+   - Embed Links
+4. Copy the generated URL
+
+### 4. Add Bot to Your Server
+
+1. Open the generated URL in a browser
+2. Select the server to add the bot
+3. Authorize the permissions
+
+### 5. Connect to Cuneiform Chat
+
+1. Go to **Agents** → Select your agent
+2. Navigate to **Integrations** tab
+3. Click **Discord**
+4. Enter your Bot Token and Application ID
+5. Click **Connect**
+
+## Using the Bot
+
+### Slash Commands
+
+Users interact with your bot using slash commands:
+
+```
+/ask What are your business hours?
+```
+
+The bot processes the question and responds in the channel.
+
+### Response Format
+
+Responses appear as rich embeds with:
+- Answer text
+- Source references (optional)
+- Your bot's branding
+
+## Features
+
+### Server-Wide Access
+
+Once added, the bot is available in all text channels where it has permissions.
+
+### Thread Support
+
+The bot can respond in threads, keeping conversations organized.
+
+### Permissions Control
+
+Control where the bot can respond using Discord's channel permissions.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="tip">
+  Create a dedicated support channel and restrict the bot to that channel for focused use.
+</Callout>
+
+## Configuration Options
+
+### Command Settings
+
+Customize the slash command behavior:
+
+| Setting | Description |
+|---------|-------------|
+| Command name | Default is `/ask` |
+| Description | Shown in Discord's command picker |
+| Response visibility | Public or ephemeral (only visible to user) |
+
+## Troubleshooting
+
+### Bot Not Responding
+
+1. Verify the bot is online (check Discord)
+2. Confirm bot has permissions in the channel
+3. Check the token is correct in Cuneiform Chat
+4. Test slash commands are registered (`/` shows your command)
+
+### Commands Not Showing
+
+Slash commands can take up to an hour to register globally. For immediate testing:
+- Commands register instantly in development servers
+- Wait for global propagation in production
+
+### Permission Errors
+
+Ensure the bot has these permissions:
+- Send Messages
+- Use Slash Commands
+- Embed Links
+- Read Message History (for thread support)
+
+## Security
+
+- Bot tokens are encrypted
+- Commands use Discord's built-in security
+- No server data is accessed beyond messages
+
+## Disconnecting
+
+To remove the Discord integration:
+
+1. Go to **Agents** → Select agent → **Integrations**
+2. Click **Discord** → **Disconnect**
+
+To fully remove the bot:
+1. Go to your Discord server settings
+2. Navigate to **Integrations** → Remove the bot

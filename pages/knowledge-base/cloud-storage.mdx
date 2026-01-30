@@ -1,0 +1,100 @@
+# Cloud Storage Integration
+
+Import documents directly from your cloud storage providers.
+
+## Supported Providers
+
+| Provider | Status | Features |
+|----------|--------|----------|
+| Google Drive | Available | File picker, folder import |
+| Dropbox | Available | File picker |
+| OneDrive | Available | File picker |
+| Box | Available | File picker |
+
+## Connecting Cloud Storage
+
+### Google Drive
+
+1. Go to **Knowledge Base**
+2. Click **Import from Cloud**
+3. Select **Google Drive**
+4. Sign in with your Google account
+5. Grant permission to access your files
+6. Select files or folders to import
+
+### Dropbox
+
+1. Go to **Knowledge Base**
+2. Click **Import from Cloud**
+3. Select **Dropbox**
+4. Sign in with your Dropbox account
+5. Select files to import
+
+### OneDrive
+
+1. Go to **Knowledge Base**
+2. Click **Import from Cloud**
+3. Select **OneDrive**
+4. Sign in with your Microsoft account
+5. Select files to import
+
+### Box
+
+1. Go to **Knowledge Base**
+2. Click **Import from Cloud**
+3. Select **Box**
+4. Sign in with your Box account
+5. Select files to import
+
+## How It Works
+
+When you import from cloud storage:
+
+1. **Select files** using the provider's file picker
+2. **Files are downloaded** to Cuneiform Chat
+3. **Processing begins** automatically
+4. **Documents become searchable** once complete
+
+## Permissions
+
+Cuneiform Chat requests minimal permissions:
+- Read access to selected files only
+- No write access to your cloud storage
+- No access to files you don't explicitly select
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  You can revoke access at any time through your cloud provider's settings.
+</Callout>
+
+## Sync Behavior
+
+Currently, cloud imports are **one-time imports**:
+- Files are copied at the time of import
+- Changes in cloud storage are not automatically synced
+- To update content, re-import the modified files
+
+## Best Practices
+
+- **Organize files first** — Structure your cloud folders before importing
+- **Select specific files** — Import only what you need
+- **Check file formats** — Ensure files are in [supported formats](/knowledge-base/supported-formats)
+- **Monitor processing** — Verify imported files process successfully
+
+## Troubleshooting
+
+### Authorization Issues
+
+If you can't connect:
+- Check you're signed into the correct account
+- Try revoking and re-authorizing access
+- Ensure third-party app access is enabled in your provider settings
+
+### Import Failures
+
+If files fail to import:
+- Verify files are in supported formats
+- Check files aren't corrupted
+- Ensure you have permission to access the files
+- Try importing fewer files at once

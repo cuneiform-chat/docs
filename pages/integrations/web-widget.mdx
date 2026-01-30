@@ -1,0 +1,134 @@
+# Web Widget
+
+Embed a chat widget on your website to let visitors interact with your agent.
+
+## Overview
+
+The web widget provides:
+- Floating chat button on your website
+- Customizable appearance to match your brand
+- Mobile-responsive design
+- No coding required
+
+## Setup Steps
+
+### 1. Generate Widget Code
+
+1. Go to **Agents** → Select your agent
+2. Navigate to **Integrations** tab
+3. Click **Web Widget**
+4. Configure appearance settings
+5. Copy the embed code
+
+### 2. Add to Your Website
+
+Paste the embed code before the closing `</body>` tag:
+
+```html
+<script src="https://cuneiform.chat/widget.js"></script>
+<script>
+  CuneiformChat.init({
+    agentId: 'your-agent-id',
+    // Additional options
+  });
+</script>
+```
+
+### 3. Verify Installation
+
+1. Visit your website
+2. Look for the chat widget (usually bottom-right corner)
+3. Test a conversation
+
+## Customization Options
+
+### Appearance
+
+| Option | Description |
+|--------|-------------|
+| Position | Bottom-right, bottom-left |
+| Theme | Light, dark, or custom colors |
+| Button style | Icon, text, or custom |
+| Widget size | Compact, standard, or large |
+
+### Branding
+
+- **Primary color** — Match your brand
+- **Logo** — Display your logo in the widget header
+- **Welcome message** — Customize the greeting
+
+### Behavior
+
+- **Auto-open** — Open widget automatically after delay
+- **Trigger** — Show on specific pages or events
+- **Mobile** — Adjust behavior for mobile devices
+
+## Configuration Example
+
+```javascript
+CuneiformChat.init({
+  agentId: 'your-agent-id',
+  position: 'bottom-right',
+  theme: {
+    primaryColor: '#4F46E5',
+    fontFamily: 'Inter, sans-serif'
+  },
+  welcomeMessage: 'Hi! How can I help you today?',
+  placeholder: 'Type your question...'
+});
+```
+
+## Advanced Options
+
+### Show/Hide Programmatically
+
+```javascript
+// Open the widget
+CuneiformChat.open();
+
+// Close the widget
+CuneiformChat.close();
+
+// Toggle visibility
+CuneiformChat.toggle();
+```
+
+### Page-Specific Configuration
+
+Show the widget only on certain pages:
+
+```javascript
+CuneiformChat.init({
+  agentId: 'your-agent-id',
+  showOn: ['/support', '/help', '/contact']
+});
+```
+
+import { Callout } from 'nextra/components'
+
+<Callout type="tip">
+  Test your widget on different devices and browsers to ensure a consistent experience.
+</Callout>
+
+## Troubleshooting
+
+### Widget Not Appearing
+
+- Verify the embed code is correctly placed
+- Check for JavaScript errors in browser console
+- Ensure your agent ID is correct
+- Confirm your plan includes web widget access
+
+### Styling Conflicts
+
+If the widget looks wrong:
+- Check for CSS conflicts with your site
+- Try using the iframe isolation option
+- Contact support if issues persist
+
+## Security
+
+The widget uses secure HTTPS connections and:
+- Doesn't access sensitive page data
+- Isolates conversations per session
+- Respects user privacy settings

@@ -1,0 +1,55 @@
+# Create Your First Agent
+
+Agents are the chatbots that interact with your users. Each agent can be configured with specific knowledge, behavior, and personality.
+
+## Creating an Agent
+
+1. Navigate to **Agents** in the sidebar
+2. Click **Create Agent**
+3. Fill in the basic information:
+   - **Name** — A descriptive name for your agent (e.g., "Customer Support Bot")
+   - **Description** — What this agent does (for your reference)
+
+## Agent Configuration
+
+### System Prompt
+
+The system prompt defines your agent's personality and behavior. This is the instruction that guides how your agent responds.
+
+**Example:**
+```
+You are a helpful customer support assistant for Acme Corp.
+You answer questions about our products and services based on the provided documentation.
+Be friendly, professional, and concise.
+If you don't know the answer, say so rather than making something up.
+```
+
+### Knowledge Base Selection
+
+Choose which documents your agent can access:
+
+- **All Documents** — Agent can search your entire knowledge base
+- **Specific Folders** — Limit to certain document collections
+- **Tagged Documents** — Use tags to control access
+
+### Response Settings
+
+Configure how your agent generates responses:
+
+- **Response Length** — Brief, moderate, or detailed answers
+- **Tone** — Professional, friendly, or custom
+- **Language** — Primary language for responses
+
+## Save Your Agent
+
+Click **Create** to save your agent. You can always edit these settings later.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="tip">
+  Start with a simple system prompt and refine it based on how your agent performs in testing.
+</Callout>
+
+## Next Step
+
+Your agent is created! Now let's [test it in the playground](/getting-started/test-your-agent).

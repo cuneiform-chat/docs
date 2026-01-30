@@ -1,0 +1,155 @@
+# WhatsApp Integration
+
+Connect your agent to WhatsApp Business for customer communication.
+
+## Overview
+
+WhatsApp integration provides:
+- Business messaging capabilities
+- Rich media support
+- Automated responses
+- Global reach
+
+## Prerequisites
+
+- Meta Business account
+- WhatsApp Business API access
+- Verified business phone number
+
+## Setup Steps
+
+### 1. Set Up Meta Business
+
+1. Create or access your [Meta Business Suite](https://business.facebook.com/)
+2. Go to **WhatsApp** → **Getting Started**
+3. Add a phone number for WhatsApp Business
+
+### 2. Create Meta App
+
+1. Go to [Meta for Developers](https://developers.facebook.com/)
+2. Create a new app (Business type)
+3. Add WhatsApp product to your app
+4. Complete business verification if required
+
+### 3. Connect to Cuneiform Chat
+
+1. Go to **Agents** → Select your agent
+2. Navigate to **Integrations** tab
+3. Click **WhatsApp**
+4. Enter your credentials:
+   - Phone Number ID
+   - Access Token
+5. Click **Connect**
+
+### 4. Configure Webhook
+
+1. Copy the webhook URL from Cuneiform Chat
+2. In Meta Developer Portal:
+   - Go to WhatsApp → Configuration
+   - Add the webhook URL
+   - Subscribe to `messages` webhook field
+
+## Using the Bot
+
+### Customer Messages
+
+When customers message your WhatsApp number:
+
+1. Message arrives via WhatsApp
+2. Cuneiform Chat processes the request
+3. Agent generates response from knowledge base
+4. Response sent back to customer
+
+### Conversation Flow
+
+```
+Customer → WhatsApp → Cuneiform Chat → Agent → Response → Customer
+```
+
+## Features
+
+### 24-Hour Messaging Window
+
+WhatsApp Business API rules:
+- You can respond to customer-initiated messages for 24 hours
+- After 24 hours, you need message templates for outreach
+- Each new customer message reopens the window
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Your agent responds within the 24-hour window automatically. Template messages for re-engagement are not currently supported.
+</Callout>
+
+### Rich Media
+
+Responses can include:
+- Text messages
+- Links
+- Formatted text
+
+### Multi-Language
+
+Your agent can respond in the customer's language based on your knowledge base content and system prompt configuration.
+
+## Configuration Options
+
+| Setting | Description |
+|---------|-------------|
+| Welcome message | First response to new conversations |
+| Business hours | Optionally show different responses outside hours |
+
+## Business Verification
+
+Meta requires business verification for full WhatsApp API access:
+
+1. Complete Meta Business Verification
+2. Verify your business phone number
+3. Submit for API approval
+
+See [Meta's documentation](https://developers.facebook.com/docs/whatsapp/business-verification/) for details.
+
+## Troubleshooting
+
+### Messages Not Arriving
+
+1. Verify webhook is configured correctly
+2. Check webhook subscription includes `messages`
+3. Confirm access token is valid
+4. Test with Meta's built-in testing tools
+
+### Response Failures
+
+1. Check your agent works in Playground
+2. Verify 24-hour window is active
+3. Confirm phone number ID is correct
+
+### Verification Issues
+
+- Complete all required Meta Business verification steps
+- Ensure your business information matches official documents
+- Allow time for Meta's review process
+
+## Security
+
+- Access tokens are encrypted
+- Messages processed over secure connections
+- Customer data handled per your retention settings
+
+## Compliance
+
+WhatsApp Business has usage policies:
+- Respond only to customer-initiated conversations
+- Provide opt-out options
+- Follow Meta's Commerce and Business policies
+
+## Disconnecting
+
+To remove the WhatsApp integration:
+
+1. Go to **Agents** → Select agent → **Integrations**
+2. Click **WhatsApp** → **Disconnect**
+
+This stops the agent from responding. To fully remove:
+- Delete the webhook in Meta Developer Portal
+- Optionally remove the WhatsApp product from your Meta app
