@@ -4,5 +4,6 @@
   "discord": "Discord",
   "slack": "Slack",
   "whatsapp": "WhatsApp",
-  "google-chat": "Google Chat"
+  "google-chat": "Google Chat",
+  "meta": "Meta (Facebook)"
 }

@@ -1,0 +1,130 @@
+# Meta (Facebook) Integration
+
+Connect your agent to Facebook Messenger through your Facebook Page.
+
+## Overview
+
+Meta integration provides:
+- Facebook Messenger conversations
+- Page-based messaging
+- Automatic responses to customer inquiries
+- Rich message formatting
+
+## Prerequisites
+
+- A Facebook Page you manage
+- Admin or Editor role on the Page
+- Cuneiform Chat account with an active agent
+
+## Setup Steps
+
+### 1. Start Integration Setup
+
+1. Go to **Agents** → Select your agent
+2. Navigate to **Integrations** tab
+3. Click **Meta (Facebook)**
+4. Click **Connect Page**
+
+### 2. Authorize with Facebook
+
+1. Select which **Agent** should respond
+2. Click **Connect with Facebook**
+3. Log in to Facebook (if needed)
+4. Select the Page you want to connect
+5. Grant Messenger permissions
+6. You'll be redirected back with a success message
+
+### 3. Verify Connection
+
+Once connected, your Page will appear in the integrations list showing:
+- Page name and status
+- Page ID
+- Last activity timestamp
+
+## How It Works
+
+When users message your Facebook Page through Messenger:
+
+1. Message arrives via Facebook Messenger
+2. Cuneiform Chat receives the message
+3. Your agent processes the question
+4. Response is sent back through Messenger
+
+## Features
+
+### Automatic Responses
+
+Your agent automatically responds to incoming Messenger conversations based on your knowledge base.
+
+### Rich Formatting
+
+Responses support:
+- Text messages
+- Links
+- Basic formatting
+
+### 24-Hour Messaging Window
+
+Facebook's policy allows responses within 24 hours of the last user message. Your agent responds in real-time, well within this window.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Facebook requires user consent before businesses can message them. Users must initiate conversations first.
+</Callout>
+
+## Managing Pages
+
+### View Connected Pages
+
+Each connected Page displays:
+- Page name and connection status
+- Associated agent
+- Activity information
+
+### Available Actions
+
+| Action | Description |
+|--------|-------------|
+| Test Connection | Verify the integration is working |
+| Disconnect | Remove the Page connection |
+
+Access these via the three-dot menu on each connected Page.
+
+## Troubleshooting
+
+### Page Not Appearing
+
+1. Verify you have Admin or Editor role on the Page
+2. Check you granted all requested permissions
+3. Try disconnecting and reconnecting
+
+### Messages Not Receiving Responses
+
+1. Use "Test Connection" to verify the integration
+2. Check your agent is configured and working (test in Playground)
+3. Ensure Messenger permissions are granted
+
+### Authorization Errors
+
+1. Clear Facebook login session and try again
+2. Verify your Facebook account has Page access
+3. Check Page isn't restricted by Facebook
+
+## Security
+
+- OAuth tokens are encrypted and stored securely
+- No access to Page content beyond Messenger conversations
+- Compliant with Facebook Platform policies
+
+## Disconnecting
+
+To remove the Meta integration:
+
+1. Go to **Agents** → Select agent → **Integrations**
+2. Click the three-dot menu on your Page
+3. Select **Disconnect**
+
+To fully revoke access:
+1. Go to Facebook Settings → Business Integrations
+2. Remove the Cuneiform Chat app
