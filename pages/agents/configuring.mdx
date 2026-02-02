@@ -13,6 +13,36 @@ Detailed guide to all agent configuration options.
 
 The instructions that control agent behavior. See [System Prompts](/agents/system-prompts) for best practices.
 
+### AI Prompt Builder
+
+Use the AI Prompt Builder to generate a custom system prompt for your agent. Click **Build with AI** next to the System Prompt field to open the builder.
+
+#### Builder Tabs
+
+| Tab | Purpose |
+|-----|---------|
+| **Custom Build** | Select characteristics (personality traits, communication tone, response style) to generate a unique persona |
+| **Use Preset** | Load system presets or your saved organization presets |
+| **Platform Rules** | View the read-only guardrails automatically applied to all agents |
+
+#### Platform Rules
+
+These guardrails are automatically applied to ensure reliable, safe responses:
+
+- **No fabrication** — Won't invent facts not in your knowledge base
+- **Acknowledges gaps** — Says "I don't have that information" rather than guessing
+- **Resists speculation** — Won't estimate missing values even when prompted
+- **No professional impersonation** — Won't role-play as attorneys, doctors, or financial advisors
+- **Blocks harmful content** — Refuses self-harm, explicit, or fraudulent content
+
+#### Workflow
+
+1. Configure characteristics or select a preset
+2. Click **Generate Persona** to create the prompt
+3. Review and edit in the preview panel
+4. Optionally click **Save as Preset** to reuse later
+5. Click **Apply to Agent** to use the generated prompt
+
 ## Response Configuration
 
 ### Temperature
@@ -37,12 +67,36 @@ Limits how long responses can be. Consider:
 
 ## Knowledge Settings
 
-### Document Access
+### Knowledge Access Control
 
-Control which documents your agent can search:
+Control which documents your agent can access when responding to queries.
 
-- **All documents** — Search entire knowledge base
-- **Selected folders** — Limit to specific collections
+#### Access Modes
+
+Choose how the agent interacts with your knowledge base:
+
+| Mode | Behavior | When to Use |
+|------|----------|-------------|
+| **Exclude Mode** | Agent accesses ALL documents EXCEPT those selected | Hide sensitive documents while allowing access to everything else |
+| **Include Mode** | Agent accesses ONLY selected items | Restrict agent to a specific set of documents |
+
+#### Selection Options
+
+Fine-tune access using multiple selection types:
+
+- **Folders** — Select entire folders and all documents within them
+- **Tags** — Filter documents by their assigned tags
+- **Individual Documents** — Include or exclude specific documents within selected folders
+
+#### Access Preview
+
+The preview panel shows the effective document access based on your current selections. Use this to verify your configuration before saving.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="tip">
+  Start with **Exclude Mode** if you want broad access with specific restrictions. Use **Include Mode** when you need tight control over exactly which documents the agent can reference.
+</Callout>
 
 ### Retrieval Settings
 
@@ -73,8 +127,6 @@ Choose the underlying AI model (if available on your plan).
 ### Custom Instructions
 
 Additional instructions that supplement the system prompt.
-
-import { Callout } from 'nextra/components'
 
 <Callout type="info">
   Changes to agent settings take effect immediately. Test in the Playground after making changes.

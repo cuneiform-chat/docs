@@ -36,26 +36,20 @@ Google Chat integration provides:
    - Enable "Receive 1:1 messages"
    - Enable "Join spaces and group conversations" (if needed)
 
-### 3. Create Google Chat Integration
+### 3. Set Up Authentication
+
+1. Go to **APIs & Services** → **Credentials**
+2. Create a **Service Account**
+3. Download the JSON key file
+4. Note the service account email
+
+### 4. Connect to Cuneiform Chat
 
 1. Go to **Agents** → Select your agent
 2. Navigate to **Integrations** tab
-3. Click **Google Chat** → **Connect**
-4. Enter your organization's Google Workspace email domain (e.g., `yourcompany.com`)
-5. Click **Create Integration**
-6. Copy the **Verification Code** displayed (format: `VERIFY-XXXXXX`)
-
-### 4. Verify Your Workspace
-
-1. In Google Chat, find and message your bot (see step 5 for how to find it)
-2. Send the verification code as your first message
-3. The bot will confirm: "Setup complete! Your workspace is now connected."
-
-import { Callout } from 'nextra/components'
-
-<Callout type="warning">
-  Only users from the email domain you specified during setup can complete verification. If someone from a different domain tries to verify, they'll see an error.
-</Callout>
+3. Click **Google Chat**
+4. Upload your service account JSON key
+5. Click **Connect**
 
 ### 5. Install in Google Workspace
 
@@ -100,6 +94,8 @@ The bot can respond in threads to keep conversations organized.
 
 Configure custom slash commands for quick actions.
 
+import { Callout } from 'nextra/components'
+
 <Callout type="info">
   Google Chat integration requires a Google Workspace account. Personal Gmail accounts cannot install custom Chat apps.
 </Callout>
@@ -108,34 +104,25 @@ Configure custom slash commands for quick actions.
 
 ### Bot Not Appearing
 
-1. Verify the Chat API is enabled in Google Cloud Console
+1. Verify the Chat API is enabled
 2. Check visibility settings include your domain
-3. Wait a few minutes for the app to propagate
+3. Ensure the service account has proper permissions
 
-### Verification Code Not Working
+### Authentication Errors
 
-1. Ensure you're sending the code from an email address matching your configured domain
-2. Check that the code is entered exactly as shown (including the `VERIFY-` prefix)
-3. Verify the integration is still in "pending" status in the admin panel
-4. Try creating a new integration if the code has expired
+1. Verify the service account JSON is valid
+2. Check the service account has Chat API access
+3. Re-upload credentials if needed
 
-### Messages Not Being Processed
+### Messages Not Received
 
-1. Confirm your workspace has been verified (check integration status in admin panel)
-2. For spaces, ensure you're @mentioning the bot
-3. Check that the agent has an active configuration
-
-### "Organization hasn't connected" Message
-
-This means the bot doesn't recognize your Google Workspace domain. Either:
-1. Your admin hasn't created the integration yet
-2. The domain hasn't been verified
-3. You're messaging from a personal Gmail account (not supported)
+1. Verify webhook URL is configured correctly
+2. Check Google Cloud Console logs for errors
+3. Ensure the bot is properly installed in your workspace
 
 ## Security
 
-- Domain-based authentication ensures only your organization can access your bot
-- Verification codes are single-use and expire
+- Service account credentials are encrypted
 - Messages processed over secure connections
 - Compliant with Google Workspace security standards
 
