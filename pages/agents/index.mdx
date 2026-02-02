@@ -7,15 +7,15 @@ Agents are the AI chatbots that interact with your users. Each agent has its own
 An agent is a configured chatbot that:
 
 - Answers questions using your knowledge base
-- Follows instructions defined in its system prompt
+- Follows instructions defined in its agent persona
 - Maintains conversation context within sessions
 - Can be deployed to multiple channels
 
 ## Agent Concepts
 
-### System Prompt
+### Agent Persona
 
-The system prompt is the set of instructions that defines how your agent behaves. It controls:
+The agent persona is the set of instructions that defines how your agent behaves. It controls:
 
 - **Personality** — Friendly, professional, casual, etc.
 - **Scope** — What topics the agent should and shouldn't address
@@ -36,7 +36,6 @@ Agents can be deployed to multiple channels simultaneously:
 
 - Messaging platforms (Telegram, Discord, Slack, WhatsApp, Google Chat)
 - Facebook Messenger via Meta integration
-- API for custom integrations
 
 ## In This Section
 
@@ -45,6 +44,6 @@ import { Cards, Card } from 'nextra/components'
 <Cards>
   <Card title="Creating Agents" href="/agents/creating" />
   <Card title="Configuration Options" href="/agents/configuring" />
-  <Card title="System Prompts" href="/agents/system-prompts" />
+  <Card title="Agent Personas" href="/agents/agent-personas" />
   <Card title="Testing in Playground" href="/agents/testing" />
 </Cards>

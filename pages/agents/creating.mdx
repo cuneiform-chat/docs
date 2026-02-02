@@ -20,9 +20,9 @@ Choose a descriptive name that helps you identify this agent. Examples:
 
 The name is for your reference and appears in the dashboard.
 
-### System Prompt
+### Agent Persona
 
-The system prompt defines your agent's behavior. See [System Prompts](/agents/system-prompts) for detailed guidance.
+The agent persona defines your agent's behavior. See [Agent Personas](/agents/agent-personas) for detailed guidance.
 
 **Quick example:**
 ```
@@ -56,13 +56,13 @@ Configure response behavior:
 After creating your agent:
 
 1. Click **Create** to save
-2. Go to **Playground** to test
+2. Click **Test** on your agent card to open the Playground
 3. Refine settings based on results
 
 import { Callout } from 'nextra/components'
 
-<Callout type="tip">
-  Create your first agent with minimal configuration, test it, then add complexity as needed.
+<Callout type="info">
+  New agents start in **Testing** status. You can test in the Playground, but channel integrations are disabled until you activate the agent.
 </Callout>
 
 ## Managing Agents
@@ -70,5 +70,7 @@ import { Callout } from 'nextra/components'
 From the Agents page, you can:
 
 - **Edit** — Modify any agent's settings
-- **Playground** — Test your agent in an interactive chat
-- **Archive** — Hide agents you no longer need (can be restored later)
+- **Test** — Open the Playground to test your agent
+- **Change Status** — Set to Testing, Active, Inactive, or Archived
+
+See [Configuration Options](/agents/configuring) for details on agent status.

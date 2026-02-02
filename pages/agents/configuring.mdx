@@ -11,13 +11,28 @@ Detailed guide to all agent configuration options.
 - **Name** — Identifies the agent in your dashboard
 - **Description** — Internal notes about the agent's purpose
 
-### System Prompt
+### Agent Status
 
-The instructions that control agent behavior. See [System Prompts](/agents/system-prompts) for best practices.
+Control your agent's availability:
+
+| Status | Playground | Integrations | Notes |
+|--------|------------|--------------|-------|
+| **Testing** | ✅ Enabled | ❌ Disabled | Default for new agents. Test before going live. |
+| **Active** | ✅ Enabled | ✅ Enabled | Ready for production use. |
+| **Inactive** | ❌ Disabled | ❌ Disabled | Temporarily disabled. |
+| **Archived** | ❌ Disabled | ❌ Disabled | Hidden from main list. |
+
+<Callout type="info">
+  To restore an archived agent, change status to **Testing** first, then to **Active** when ready.
+</Callout>
+
+### Agent Persona
+
+The instructions that control agent behavior. See [Agent Personas](/agents/agent-personas) for best practices.
 
 ### AI Prompt Builder
 
-Use the AI Prompt Builder to generate a custom system prompt based on personality characteristics. Click **Generate** next to the System Prompt field to open the builder.
+Use the AI Prompt Builder to generate a custom agent persona based on personality characteristics. Click **Generate** next to the Agent Persona field to open the builder.
 
 #### Builder Tabs
 
@@ -151,7 +166,7 @@ Choose the underlying AI model (if available on your plan).
 
 ### Custom Instructions
 
-Additional instructions that supplement the system prompt.
+Additional instructions that supplement the agent persona.
 
 <Callout type="info">
   Changes to agent settings take effect immediately. Test in the Playground after making changes.
