@@ -1,8 +1,8 @@
 {
   "index": "Overview",
   "create-account": "Create an Account",
-  "first-agent": "Create Your First Agent",
   "add-documents": "Add Documents",
+  "first-agent": "Create Your First Agent",
   "test-your-agent": "Test Your Agent",
   "platform-assistant": "Platform Assistant"
 }
