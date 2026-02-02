@@ -129,3 +129,37 @@ After writing or updating your system prompt:
 2. Try edge cases and tricky questions
 3. Refine based on results
 4. Re-test to ensure improvements
+
+## Template Variables
+
+Personalize your agent's greeting and fallback messages with dynamic variables.
+
+### Available Variables
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `{{organization_name}}` | Your organization name | "Acme Corp" |
+| `{{company_industry}}` | Your industry type | "technology" |
+| `{{support_email}}` | Support email address | "help@acme.com" |
+| `{{website_url}}` | Company website | "https://acme.com" |
+| `{{current_date}}` | Today's date | "2026-02-03" |
+| `{{current_year}}` | Current year | "2026" |
+
+### Using Variables
+
+In your greeting or fallback message:
+
+```
+Welcome to {{organization_name}}! I'm here to help you with any questions about our {{company_industry}} solutions.
+```
+
+**Result:** "Welcome to Acme Corp! I'm here to help you with any questions about our technology solutions."
+
+### Where to Use
+
+- **Greeting Message** — First message users see
+- **Fallback Response** — When agent can't answer
+
+<Callout type="tip">
+  Click **Preview** when editing to see how variables will appear with your organization's actual values.
+</Callout>

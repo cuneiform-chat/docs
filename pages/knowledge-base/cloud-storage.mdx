@@ -22,6 +22,23 @@ Import documents directly from your cloud storage providers.
 5. Grant permission to access your files
 6. Select files or folders to import
 
+#### Google Workspace Files
+
+You can import native Google Workspace files directly:
+
+| File Type | Exported As |
+|-----------|-------------|
+| Google Docs | Text content extracted |
+| Google Sheets | CSV format (data only) |
+| Google Slides | Text content extracted |
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Google Workspace files are automatically converted during import.
+  Formatting, formulas, and charts are not preserved — only the text and data content.
+</Callout>
+
 ### Dropbox
 
 1. Go to **Knowledge Base**
