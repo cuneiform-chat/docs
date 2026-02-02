@@ -30,60 +30,11 @@ Control your agent's availability:
 
 The instructions that control agent behavior. See [Agent Personas](/agents/agent-personas) for best practices.
 
-### AI Prompt Builder
+### Agent Persona Builder
 
-Use the AI Prompt Builder to generate a custom agent persona based on personality characteristics. Click **Generate** next to the Agent Persona field to open the builder.
+Generate professional agent personas using characteristics selection. Click **Generate** next to the Agent Persona field to open the builder.
 
-#### Builder Tabs
-
-| Tab | Purpose |
-|-----|---------|
-| **Custom Build** | Select characteristics to generate a unique persona |
-| **Use Preset** | Load system presets or your saved organization presets |
-| **Platform Rules** | View the read-only guardrails applied to all agents |
-
-#### Custom Build Characteristics
-
-Configure your agent's personality across 5 categories:
-
-| Category | Options | What It Controls |
-|----------|---------|------------------|
-| **Role & Identity** | Customer support, Sales consultant, Tech support, HR specialist, etc. | Agent's primary function |
-| **Communication Style** | Formality (formal/casual), Tone (warm/neutral), Verbosity (concise/detailed), Technical level | How the agent communicates |
-| **Response Behavior** | Format (conversational/bullet points), Proactivity, Question handling | How responses are structured |
-| **Operational Boundaries** | Scope strictness, Escalation tendency, Out-of-scope handling | How strictly agent stays on topic |
-| **Knowledge Integration** | Citation style, Uncertainty handling | How agent references your documents |
-
-#### Using Presets
-
-- **System Templates** — Platform-provided presets for common use cases
-- **My Templates** — Presets saved by your organization admins
-
-Click any preset to load its characteristics, then customize further or generate directly.
-
-#### Platform Rules
-
-These guardrails are automatically applied to ensure reliable, safe responses:
-
-- **No fabrication** — Won't invent facts not in your knowledge base
-- **Acknowledges gaps** — Says "I don't have that information" rather than guessing
-- **Resists speculation** — Won't estimate missing values even when prompted
-- **No professional impersonation** — Won't role-play as attorneys, doctors, or financial advisors
-- **Corrects false premises** — Points out incorrect assumptions before answering
-- **Blocks harmful content** — Refuses self-harm, explicit, or fraudulent content
-
-#### Workflow
-
-1. Click **Generate** to open the AI Prompt Builder
-2. Configure characteristics in Custom Build, or select a preset
-3. Click **Generate Persona** to create the prompt
-4. Review and edit the generated text in the preview panel
-5. Optionally click **Save as Preset** to reuse later
-6. Click **Apply to Agent** to use the generated prompt
-
-<Callout type="tip">
-  Saved presets are available to all admins in your organization. Use them to maintain consistent agent personalities.
-</Callout>
+See [Agent Persona Builder](/agents/persona-builder) for the complete guide.
 
 ## Response Configuration
 
@@ -98,14 +49,6 @@ Controls how creative or focused the agent's responses are:
 | 0.8 - 1.0 | More creative, varied responses |
 
 **Recommendation:** Start with 0.3-0.5 for factual Q&A based on documents.
-
-### Max Response Length
-
-Limits how long responses can be. Consider:
-
-- **Short (256 tokens)** — Quick answers, mobile-friendly
-- **Medium (512 tokens)** — Standard responses
-- **Long (1024+ tokens)** — Detailed explanations
 
 ## Knowledge Settings
 
@@ -138,25 +81,11 @@ The preview panel shows the effective document access based on your current sele
   Start with **Exclude Mode** if you want broad access with specific restrictions. Use **Include Mode** when you need tight control over exactly which documents the agent can reference.
 </Callout>
 
-### Retrieval Settings
-
-Fine-tune how the agent finds information:
-
-- **Number of sources** — How many document chunks to retrieve
-- **Similarity threshold** — Minimum relevance score
-
 ## Conversation Settings
 
 ### Greeting Message
 
 The message displayed when a conversation starts. Leave empty for no greeting.
-
-### Conversation Memory
-
-How the agent handles conversation context:
-
-- **Full context** — Remembers entire conversation
-- **Limited context** — Only recent messages
 
 ## Advanced Settings
 

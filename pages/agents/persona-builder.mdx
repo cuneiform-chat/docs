@@ -1,0 +1,131 @@
+# Agent Persona Builder
+
+Generate professional agent personas in seconds using characteristics selection.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  The Agent Persona Builder helps you create effective agent personas without writing prompts from scratch.
+</Callout>
+
+## Getting Started
+
+1. Navigate to **Agents** and create or edit an agent
+2. Click **Generate** next to the Agent Persona field
+3. The Agent Persona Builder opens with three tabs
+
+## Builder Tabs
+
+### Custom Build
+
+Create a unique persona by selecting characteristics across 5 categories:
+
+| Category | What It Controls |
+|----------|------------------|
+| **Role & Identity** | Agent's primary function (customer support, sales, tech support, HR, etc.) |
+| **Communication Style** | Formality, tone, verbosity, and technical level |
+| **Response Behavior** | Format (conversational vs bullet points), proactivity, question handling |
+| **Operational Boundaries** | How strictly agent stays on topic, escalation tendency |
+| **Knowledge Integration** | Citation style, how agent handles uncertainty |
+
+#### Role & Identity Options
+
+Choose your agent's primary function:
+- Customer Support Representative
+- Sales Consultant
+- Technical Support Specialist
+- HR/People Operations
+- General Assistant
+- Custom role
+
+#### Communication Style
+
+Fine-tune how your agent communicates:
+
+| Setting | Options |
+|---------|---------|
+| **Formality** | Formal, Professional, Casual |
+| **Tone** | Warm & Friendly, Neutral, Direct |
+| **Verbosity** | Concise, Balanced, Detailed |
+| **Technical Level** | Non-technical, Mixed, Technical |
+
+#### Response Behavior
+
+Control how responses are structured:
+- **Format** — Conversational paragraphs or structured bullet points
+- **Proactivity** — Whether agent suggests related topics
+- **Question Handling** — How agent asks for clarification
+
+#### Operational Boundaries
+
+Set guardrails for your agent:
+- **Scope Strictness** — How strictly agent stays within documented topics
+- **Escalation** — When to suggest contacting human support
+- **Out-of-scope Handling** — How to respond to off-topic questions
+
+#### Knowledge Integration
+
+Configure how agent uses your documents:
+- **Citation Style** — Whether to reference specific documents
+- **Uncertainty Handling** — How to respond when unsure
+
+### Use Preset
+
+Load pre-configured personas for common use cases:
+
+- **System Templates** — Platform-provided presets optimized for specific roles
+- **My Templates** — Presets saved by your organization's admins
+
+Click any preset to load its characteristics. You can customize further before generating.
+
+### Platform Rules
+
+View the read-only guardrails automatically applied to all agents:
+
+- **No fabrication** — Won't invent facts not in your knowledge base
+- **Acknowledges gaps** — Says "I don't have that information" rather than guessing
+- **Resists speculation** — Won't estimate missing values even when prompted
+- **No professional impersonation** — Won't role-play as attorneys, doctors, or financial advisors
+- **Corrects false premises** — Points out incorrect assumptions before answering
+- **Blocks harmful content** — Refuses self-harm, explicit, or fraudulent content
+
+<Callout type="info">
+  Platform rules ensure all agents behave reliably and safely, regardless of persona configuration.
+</Callout>
+
+## Workflow
+
+1. **Open the builder** — Click **Generate** next to Agent Persona
+2. **Configure or select preset** — Use Custom Build or load a preset
+3. **Generate** — Click **Generate Persona** to create the prompt
+4. **Review** — Edit the generated text in the preview panel
+5. **Save (optional)** — Click **Save as Preset** to reuse later
+6. **Apply** — Click **Apply to Agent** to use the generated prompt
+
+## Saving Presets
+
+Save your custom configurations for reuse:
+
+1. Configure your desired characteristics
+2. Generate the persona
+3. Click **Save as Preset**
+4. Enter a name for your preset
+
+<Callout type="tip">
+  Saved presets are available to all admins in your organization. Use them to maintain consistent agent personalities across multiple agents.
+</Callout>
+
+## Best Practices
+
+- **Start with a preset** — Use system templates as a starting point, then customize
+- **Match role to purpose** — Choose a role that aligns with your agent's actual function
+- **Balance verbosity** — Concise works better for quick Q&A, detailed for complex topics
+- **Test after generating** — Always test your agent in the Playground after applying a new persona
+- **Iterate** — Regenerate with different settings if results aren't quite right
+
+## Next Steps
+
+After generating your agent persona:
+
+- [Test in the Playground](/agents/testing) — Verify the persona works as expected
+- [Learn about Agent Personas](/agents/agent-personas) — Understand persona structure and best practices
