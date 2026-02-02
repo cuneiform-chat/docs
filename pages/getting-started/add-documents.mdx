@@ -17,8 +17,7 @@ Cuneiform Chat supports a wide range of document formats:
 | PDF | `.pdf` | Text-based and scanned (OCR) |
 | Word | `.docx`, `.doc` | Microsoft Word documents |
 | Text | `.txt`, `.md` | Plain text and Markdown |
-| Spreadsheets | `.xlsx`, `.csv` | Excel and CSV files |
-| PowerPoint | `.pptx` | Presentation slides |
+| PowerPoint | `.pptx`, `.ppt` | Presentation slides |
 | HTML | `.html` | Web pages |
 
 ## Upload Methods
@@ -40,17 +39,13 @@ Connect your cloud storage for seamless imports:
 - **Google Drive** — Import directly from your Drive
 - **Dropbox** — Connect your Dropbox account
 - **OneDrive** — Import from Microsoft OneDrive
+- **Box** — Connect your Box account
 
 See [Cloud Storage Integration](/knowledge-base/cloud-storage) for setup instructions.
 
 ## Document Processing
 
-After upload, your documents go through several processing stages:
-
-1. **Extraction** — Text is extracted from the document
-2. **Chunking** — Content is split into searchable segments
-3. **Embedding** — AI creates vector representations for semantic search
-4. **Indexing** — Content becomes searchable by your agents
+After upload, your documents are automatically processed and made searchable by your agents.
 
 import { Callout } from 'nextra/components'
 
@@ -63,7 +58,6 @@ import { Callout } from 'nextra/components'
 - **Quality over quantity** — Well-structured documents produce better responses
 - **Keep content current** — Remove outdated documents to avoid confusion
 - **Organize with folders** — Use the folder structure to keep documents organized
-- **Check for duplicates** — Avoid uploading the same content multiple times
 
 ## Next Step
 
