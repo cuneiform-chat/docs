@@ -3,5 +3,9 @@
   "uploading-documents": "Uploading Documents",
   "supported-formats": "Supported Formats",
   "cloud-storage": "Cloud Storage Integration",
-  "managing-documents": "Managing Documents"
+  "managing-documents": "Managing Documents",
+  "google-drive": "Google Drive",
+  "dropbox": "Dropbox",
+  "onedrive": "OneDrive",
+  "box": "Box"
 }
