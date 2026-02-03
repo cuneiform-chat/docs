@@ -27,28 +27,20 @@ When you upload documents:
 
 ## Viewing Usage
 
-Access your usage from **Settings** → **Billing** → **Usage**:
+Access your usage from **Billing & Plans** in the sidebar:
 
 - **Current period usage** — Credits used this billing cycle
 - **Remaining credits** — Available credits
-- **Usage breakdown** — By category (queries, processing, etc.)
-
-## Usage by Category
-
-| Category | Description |
-|----------|-------------|
-| AI Queries | Agent responses to user questions |
-| Document Processing | Uploading and indexing documents |
-| Embeddings | Vector generation for search |
+- **Usage percentage** — Visual progress bar showing consumption
 
 ## Monitoring Usage
 
-### Usage Dashboard
+### Usage Display
 
-The dashboard shows:
-- Real-time credit balance
-- Daily consumption trends
-- Projected usage for the period
+The billing page shows:
+- Credits used vs. allocated
+- Usage percentage with visual progress bar
+- Status indicator (normal, warning, exceeded, blocked)
 
 ### Usage Warnings
 
@@ -56,7 +48,7 @@ The platform automatically displays warnings as you approach your limits:
 
 | Threshold | What Happens |
 |-----------|--------------|
-| ~80% used | Warning banner appears in dashboard |
+| ~80% used | Warning banner appears in Billing page |
 | 100% used | "Limit Reached" banner with upgrade prompt |
 | Blocked | Service paused until next period or upgrade |
 
@@ -90,21 +82,50 @@ import { Callout } from 'nextra/components'
 
 ### Approaching Limits
 
-As you near your credit limit, warning banners appear in your dashboard prompting you to upgrade or enable extra usage.
+As you near your credit limit, warning banners appear in the Billing page prompting you to upgrade or enable extra usage.
 
 ### Exceeding Limits
 
-Depending on your plan:
-- Service may pause until the next period
-- Overage charges may apply
-- Upgrade to continue immediately
+When you exceed your monthly quota:
+- A warning banner indicates "Limit Reached"
+- Enable **Extra Usage** to continue without waiting
+- Or upgrade your plan for more monthly credits
 
-## Credit History
+### Blocked State
 
-View historical usage:
-- Previous billing periods
-- Usage trends over time
-- Breakdown by month
+If extra usage balance is also depleted:
+- Service pauses until the next billing period
+- Or add funds to your extra usage balance
+
+## Extra Usage
+
+Extra usage lets you continue using the service when your monthly quota runs out.
+
+### Enabling Extra Usage
+
+1. Go to **Billing & Plans**
+2. Find the **Extra Usage** section
+3. Toggle to enable
+4. Complete the initial top-up (minimum $10)
+
+### Managing Extra Usage
+
+Once enabled, you can:
+
+- **View balance** — See your available extra usage funds
+- **Add funds** — Top up your balance ($10-$500 per transaction)
+- **Set spending cap** — Limit monthly extra usage spending ($10-$500)
+
+### How Extra Usage Works
+
+- Charges are deducted from your extra usage balance
+- Usage stops when you reach your spending cap
+- Balance carries over between billing periods
+- Cannot be disabled once enabled (use spending cap to limit)
+
+<Callout type="info">
+  Extra usage is only available for paid plans (Professional and Enterprise).
+</Callout>
 
 ## Billing Period
 
