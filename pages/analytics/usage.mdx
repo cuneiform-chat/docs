@@ -1,75 +1,60 @@
 # Usage Metrics
 
-Track your resource consumption and plan utilization.
+Track your resource consumption and credit utilization.
 
-## Usage Overview
+## Credit Usage Overview
 
-The usage dashboard shows:
-- Current period consumption
-- Plan limits and remaining capacity
-- Historical usage trends
+The analytics dashboard shows your current billing cycle usage:
+
+- **Credits Used** — Platform credits consumed this period
+- **Credits Remaining** — Available credits until period end
+- **Usage Percentage** — Visual progress bar of consumption
 
 ## Key Metrics
 
-### Message Volume
+### Query Volume
 
 | Metric | Description |
 |--------|-------------|
-| AI queries | Questions processed by agents |
-| Total messages | All messages (including user messages) |
-| Daily average | Average queries per day |
+| Total Queries | AI agent executions in the period |
+| Conversations | Total chat sessions |
+| Unique Users | Individual users who interacted |
 
-### Document Processing
+### Distribution Breakdown
 
-| Metric | Description |
-|--------|-------------|
-| Documents processed | Files uploaded and indexed |
-| Storage used | Total storage consumption |
-| Processing capacity | Monthly processing limit |
+View how usage is distributed:
 
-## Usage by Agent
-
-Compare usage across your agents:
-- Which agents handle the most queries
-- Storage per agent's knowledge base
-- Channel distribution per agent
+- **By Agent** — Which agents handle the most queries
+- **By Channel** — Usage across Telegram, Discord, Slack, WhatsApp, etc.
 
 ## Usage Trends
 
-### Charts
+### Query Volume Chart
 
-Visualize usage over time:
-- Daily query volume
-- Weekly patterns
-- Month-over-month comparison
+The main analytics dashboard displays a query volume chart showing:
+- Queries over time
+- Configurable granularity (hourly, daily, weekly, monthly)
+- Date range selection
 
-### Patterns
+### Distribution Charts
 
-Identify trends:
-- Growing or declining usage
-- Peak usage periods
-- Seasonal patterns
+Pie charts showing:
+- Channel distribution — Percentage of queries per platform
+- Agent distribution — Percentage of queries per agent
 
-## Plan Limits
+## Credit Monitoring
 
-### Current Plan
+### Current Period
 
-View your plan details:
-- Included queries/credits
-- Storage allocation
-- Feature access
-
-### Usage vs. Limits
-
-Monitor your consumption:
-- Percentage of limits used
-- Projected usage for the period
-- Days remaining in billing cycle
+View your billing cycle status:
+- Period start and end dates
+- Credits used vs. allocated
+- Percentage consumed
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Usage resets at the start of each billing period. Check the **Billing** section for your cycle dates.
+  Credits reset at the start of each billing period. Check the **Billing** section for your cycle dates.
 </Callout>
 
 ## Usage Warnings
@@ -89,23 +74,8 @@ These warnings appear as banners in your dashboard to help you take action befor
 - Add FAQ content to reduce follow-up questions
 - Optimize knowledge base for faster retrieval
 
-### Manage Storage
+### Monitor High-Usage Areas
 
-- Remove outdated documents
-- Avoid duplicate uploads
-- Use efficient file formats
-
-## Historical Data
-
-Access historical usage data:
-- Previous billing periods
-- Long-term trends
-- Year-over-year comparison
-
-## Usage Reports
-
-View usage summaries directly in the dashboard:
-
-- Monthly summaries
-- Detailed breakdowns by agent and channel
-- Historical comparisons
+- Check which agents consume the most credits
+- Identify channels with highest volume
+- Review conversations that use more tokens

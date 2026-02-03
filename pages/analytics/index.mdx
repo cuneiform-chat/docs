@@ -5,23 +5,30 @@ Monitor your agents' performance and understand how users interact with your cha
 ## Overview
 
 Analytics help you:
-- Track conversation volume and patterns
-- Monitor agent performance
-- Understand user behavior
+- Track conversation volume and query patterns
+- Monitor agent performance and credit usage
+- Understand channel distribution
 - Identify areas for improvement
 
 ## Dashboard
 
-Access analytics from the **Analytics** section in your dashboard.
+Access analytics from the **Analytics** section in your sidebar.
 
 ### Key Metrics
 
 | Metric | Description |
 |--------|-------------|
-| Total conversations | Number of chat sessions |
-| Messages | Total messages exchanged |
-| Unique users | Individual users who chatted |
-| Avg. messages per conversation | Engagement depth |
+| Total Queries | Agent executions (AI responses) |
+| Conversations | Number of chat sessions |
+| Unique Users | Individual users who chatted |
+| Credits Used | Platform credits consumed |
+
+### Credit Usage
+
+The dashboard shows your current billing cycle credit consumption:
+- Credits used vs. allocated
+- Percentage progress bar
+- Remaining credits for the period
 
 ## In This Section
 
@@ -35,31 +42,40 @@ import { Cards, Card } from 'nextra/components'
 ## Time Periods
 
 View analytics for different time ranges:
-- Last 24 hours
+- Current Billing Cycle
 - Last 7 days
+- Last 14 days
 - Last 30 days
-- Custom date range
+- Last 90 days
+
+## Granularity
+
+Adjust how data is grouped:
+- Hourly
+- Daily
+- Weekly
+- Monthly
 
 ## Filtering
 
 Filter analytics by:
 - **Agent** — See metrics for specific agents
-- **Channel** — Compare performance across channels
+- **Channel** — Compare performance across platforms
 - **Date range** — Analyze specific time periods
 
 ## Using Analytics
 
-### Identify Popular Topics
+### Identify Patterns
 
-See what users ask about most frequently to:
-- Improve your knowledge base
-- Create targeted content
-- Refine agent responses
+See what channels and agents handle the most queries to:
+- Optimize resource allocation
+- Focus improvements where needed
+- Understand user preferences
 
 ### Monitor Performance
 
 Track trends to ensure:
-- Response quality remains high
+- Credit usage stays within limits
 - User engagement is healthy
 - No unusual patterns
 

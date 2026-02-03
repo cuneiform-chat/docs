@@ -1,55 +1,106 @@
 # Conversation Analytics
 
-Track conversation metrics across your agents and channels.
+Track conversation metrics and view detailed transcripts across your agents and channels.
 
 ## Overview
 
-Conversation data is available through the Analytics dashboard, providing insights into:
+Conversation analytics provides:
 
 - Total conversation volume
 - Conversations per agent
 - Conversations per channel
-- Trends over time
+- Full message transcripts
+- AI-powered conversation insights
 
-## Accessing Conversation Data
+## Accessing Conversations
 
-### Agent Analytics
-
-View conversation metrics for specific agents:
-
-1. Go to **Analytics** in the sidebar
-2. Select **Agents**
-3. Click on an agent to see detailed metrics including conversation counts
-
-### Channel Analytics
-
-View conversation metrics by channel:
+### From the Dashboard
 
 1. Go to **Analytics** in the sidebar
-2. Select **Channels**
-3. See conversation breakdown across Telegram, Discord, Slack, etc.
+2. Click **View All** on the Top Agents or Top Channels cards
+3. Or navigate directly to Conversations from the analytics menu
 
-## Available Metrics
+### Conversation List
 
-| Metric | Description |
+View all conversations with:
+
+| Column | Description |
 |--------|-------------|
-| Total conversations | Number of chat sessions |
-| Conversations by agent | Which agents handle the most chats |
-| Conversations by channel | Distribution across platforms |
-| Trends | Daily/weekly conversation patterns |
+| Title | Conversation title or session ID |
+| Agent | Which agent handled the conversation |
+| Channel | Platform (Telegram, Discord, Slack, etc.) |
+| Messages | Total message count |
+| Last Active | When the conversation was last updated |
+| Status | Active, archived, or deleted |
 
-## Filtering
+## Filtering Conversations
 
-Filter analytics by:
+Filter the conversation list by:
 
-- **Date range** — Last 7 days, 30 days, or custom range
-- **Agent** — Specific agent or all agents
-- **Channel** — Specific channel or all channels
+- **Agent** — Select a specific agent or all agents
+- **Channel** — Filter by platform (WhatsApp, Telegram, Meta, Slack, Discord, Google Chat, Playground)
+- **Date range** — Last 7, 14, 30, or 90 days
+
+## Conversation Details
+
+Click any conversation to view its full details:
+
+### Overview Tab
+
+- **Total Messages** — Message count in the conversation
+- **Credits Spent** — Platform credits used
+- **Agent** — Which agent handled the conversation
+- **Channel** — Platform where it occurred
+- **Created** — When the conversation started
+- **Last Active** — Most recent activity
+
+### Message Activity Chart
+
+Visualize message patterns over time:
+- Toggle between hourly and daily granularity
+- Show/hide user messages and assistant messages
+- See conversation activity patterns
+
+### Messages Tab
+
+View the complete conversation transcript:
+
+- **Full message history** — See every message in the conversation
+- **Role indicators** — User, Assistant, System, and Tool messages are color-coded
+- **Timestamps** — When each message was sent
+- **Token usage** — Input/output tokens per message (when available)
+
+#### Message Filtering
+
+Filter messages by time period:
+- Last 24 hours
+- Last 7 days
+- Last 30 days
+- All messages
+
+#### Export
+
+Click **Export** to download the conversation as a JSON file containing:
+- Conversation metadata
+- All messages with timestamps
+- Token information
+
+## AI-Powered Insights
+
+Generate intelligent summaries of conversations:
+
+1. Navigate to a conversation's **Messages** tab
+2. Click **Generate Insights**
+3. View AI-analyzed insights including:
+   - **Key Points** — Main topics discussed
+   - **User Intents** — What the user was trying to accomplish
+   - **Key Info Shared** — Important information exchanged
+   - **Suggested Actions** — Recommendations based on the conversation
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Detailed conversation transcripts and search functionality are planned for a future release.
+  Generating insights consumes credits from your account. Results are cached for faster access on subsequent views.
 </Callout>
 
 ## Privacy Considerations
