@@ -1,12 +1,18 @@
 # Testing in Playground
 
+import { Callout } from 'nextra/components'
+
 The Playground is your environment for testing and refining agents before deployment.
 
 ## Accessing the Playground
 
 1. Navigate to **Agents** in the sidebar
-2. Click **Test** on your agent card
-3. The Playground opens as a side panel — start a conversation
+2. Click **Test** on your agent card (or **Test Agent** when editing an agent)
+3. The Playground slides open as a side panel — start a conversation
+
+<Callout type="info">
+  The Test button is disabled when the agent status is **Archived** or **Inactive**. Change the status to **Active** or **Testing** to enable testing.
+</Callout>
 
 ## What to Test
 
@@ -84,8 +90,6 @@ Create a set of standard test questions:
 ### Follow-ups
 - [ ] Q: Initial question, then "Tell me more" — Expected: Expands on previous answer
 ```
-
-import { Callout } from 'nextra/components'
 
 <Callout type="tip">
   Save your test scenarios and re-run them after making changes to catch regressions.

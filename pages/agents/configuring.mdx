@@ -4,14 +4,19 @@ import { Callout } from 'nextra/components'
 
 Detailed guide to all agent configuration options.
 
-## Basic Settings
+## Page Structure
 
-### Name and Description
+The agent edit page has three tabs:
 
-- **Name** — Identifies the agent in your dashboard
-- **Description** — Internal notes about the agent's purpose
+| Tab | Purpose |
+|-----|---------|
+| **Configuration** | Core settings (status, name, persona, LLM, messages) |
+| **Knowledge Access** | Control which documents the agent can use |
+| **Integrations** | Connect to external channels (Telegram, Discord, etc.) |
 
-### Agent Status
+## Configuration Tab
+
+### Status
 
 Control your agent's availability:
 
@@ -22,25 +27,33 @@ Control your agent's availability:
 | **Inactive** | ❌ Disabled | ❌ Disabled | Temporarily disabled. |
 | **Archived** | ❌ Disabled | ❌ Disabled | Hidden from main list. |
 
-<Callout type="info">
-  To restore an archived agent, change status to **Testing** first, then to **Active** when ready.
+<Callout type="warning">
+  If your agent has connected integrations and you change from Active to another status, you'll see a confirmation dialog warning that the agent will stop responding on connected channels.
 </Callout>
 
-### Agent Persona
+### Basic Settings
 
-The instructions that control agent behavior. See [Agent Personas](/agents/agent-personas) for best practices.
+- **Name** — Identifies the agent in your dashboard
+- **Description** — Internal notes about the agent's purpose
 
-### Agent Persona Builder
+### LLM Configuration
 
-Generate professional agent personas using characteristics selection. Click **Generate** next to the Agent Persona field to open the builder.
+Control the AI model powering your agent.
 
-See [Agent Persona Builder](/agents/persona-builder) for the complete guide.
+**Default Mode (Advanced toggle off):**
+- Uses your organization's tier defaults
+- Displays an info box explaining tier defaults are in use
+- Recommended for most use cases
 
-## Response Configuration
+**Advanced Mode (Advanced toggle on):**
 
-### Temperature
+| Setting | Description |
+|---------|-------------|
+| **Model** | Select from available AI models based on your plan |
+| **Temperature** | Controls response creativity (0.0-1.0) |
+| **Max Tokens** | Maximum response length |
 
-Controls how creative or focused the agent's responses are:
+#### Temperature Guide
 
 | Value | Behavior |
 |-------|----------|
@@ -50,22 +63,65 @@ Controls how creative or focused the agent's responses are:
 
 **Recommendation:** Start with 0.3-0.5 for factual Q&A based on documents.
 
-## Knowledge Settings
+#### Show Document References
 
-### Knowledge Access Control
+This toggle (always visible regardless of Advanced mode) controls whether the agent includes source citations in responses:
+
+- **Off** (default) — Responses don't mention source documents
+- **On** — Responses include references to source documents
+
+<Callout type="tip">
+  Enable document references for use cases requiring transparency, such as legal, compliance, or internal knowledge bases where users need to verify sources.
+</Callout>
+
+### Agent Persona
+
+The instructions that control agent behavior. See [Agent Personas](/agents/agent-personas) for best practices.
+
+**Actions available:**
+- **Generate** — Opens the [Agent Persona Builder](/agents/persona-builder)
+- **Edit** — Opens a slide-out panel to write or modify the persona directly
+
+Click on the persona text area to open the edit panel.
+
+**Platform Rules Box:**
+Click to view the platform reliability rules that are automatically applied to all agents:
+- No fabrication — won't invent facts
+- Acknowledges gaps — says "I don't know" when appropriate
+- Resists speculation — won't guess at missing information
+- No professional impersonation — won't act as lawyers, doctors, etc.
+- Corrects false premises — points out incorrect assumptions
+- Blocks harmful content — refuses inappropriate requests
+
+<Callout type="info">
+  Platform rules ensure all agents behave reliably and safely. They cannot be disabled or modified.
+</Callout>
+
+### Greeting & Fallback Messages
+
+| Field | Description |
+|-------|-------------|
+| **Greeting Message** | First message shown when users start a conversation |
+| **Fallback Response** | Message shown when the agent can't find an answer |
+
+These are optional — leave blank to use default behavior.
+
+<Callout type="tip">
+  Set a helpful fallback response that provides alternatives, like contact information or suggested topics, when the agent can't answer.
+</Callout>
+
+## Knowledge Access Tab
 
 Control which documents your agent can access when responding to queries.
 
-#### Access Modes
-
-Choose how the agent interacts with your knowledge base:
+### Access Modes
 
 | Mode | Behavior | When to Use |
 |------|----------|-------------|
 | **Exclude Mode** | Agent accesses ALL documents EXCEPT those selected | Hide sensitive documents while allowing access to everything else |
 | **Include Mode** | Agent accesses ONLY selected items | Restrict agent to a specific set of documents |
 
-#### Selection Options
+### Selection Options
 
 Fine-tune access using multiple selection types:
 
@@ -73,30 +129,58 @@ Fine-tune access using multiple selection types:
 - **Tags** — Filter documents by their assigned tags
 - **Individual Documents** — Include or exclude specific documents within selected folders
 
-#### Access Preview
+### Access Preview
 
 The preview panel shows the effective document access based on your current selections. Use this to verify your configuration before saving.
 
-<Callout type="tip">
+<Callout type="info">
   Start with **Exclude Mode** if you want broad access with specific restrictions. Use **Include Mode** when you need tight control over exactly which documents the agent can reference.
 </Callout>
 
-## Conversation Settings
+## Integrations Tab
 
-### Greeting Message
+Connect your agent to communication channels.
 
-The message displayed when a conversation starts. Leave empty for no greeting.
+This tab shows available integration options for your agent. You can connect channels like:
+- Telegram
+- Discord
+- Slack
+- WhatsApp
+- Meta (Facebook Messenger)
+- And more (based on your plan)
 
-## Advanced Settings
+See the [Integrations documentation](/integrations) for detailed setup guides for each channel.
 
-### Model Selection
+## Testing Your Agent
 
-Choose the underlying AI model (if available on your plan).
+Before saving changes, you can test your agent:
 
-### Custom Instructions
-
-Additional instructions that supplement the agent persona.
+1. Click the **Test Agent** button at the bottom of the form
+2. The Playground panel slides open
+3. Have a test conversation with your agent
+4. Close the Playground when done
 
 <Callout type="info">
-  Changes to agent settings take effect immediately. Test in the Playground after making changes.
+  The Test Agent button is disabled when the agent status is Archived or Inactive. Change the status to Active or Testing to enable testing.
+</Callout>
+
+## Saving Changes
+
+| Button | Action |
+|--------|--------|
+| **Save Changes** | Save all modifications |
+| **Test Agent** | Open the Playground to test |
+
+To discard changes, navigate away using the back button or sidebar navigation.
+
+**What gets saved:**
+- Only changed fields are updated
+- You'll see "No changes to save" if nothing was modified
+- Success or error messages appear after save
+
+**Partial Save Handling:**
+If some changes save but others fail, you'll be notified which sections failed and the page will refresh to show the current state.
+
+<Callout type="info">
+  Changes to agent settings take effect immediately after saving. Test in the Playground after making changes.
 </Callout>
