@@ -30,6 +30,34 @@ The dashboard shows your current billing cycle credit consumption:
 - Percentage progress bar
 - Remaining credits for the period
 
+### Charts
+
+The dashboard includes visual charts:
+- **Query Volume** — Line chart showing queries over time
+- **Channel Distribution** — Pie chart breaking down queries by channel
+- **Agent Distribution** — Pie chart breaking down queries by agent
+
+### Top Agents
+
+A ranked list of your most active agents showing:
+- Agent name and rank
+- Total queries handled
+- Number of conversations
+- Credits consumed
+- Current status (active, inactive, testing, archived)
+
+Click any agent to view detailed analytics, or click **View All** to see all agents.
+
+### Top Channels
+
+A ranked list of your most active communication channels showing:
+- Channel name and rank
+- Total queries handled
+- Number of conversations
+- Credits consumed
+
+Click any channel to view detailed analytics, or click **View All** to see all channels.
+
 ## In This Section
 
 import { Cards, Card } from 'nextra/components'
@@ -37,6 +65,8 @@ import { Cards, Card } from 'nextra/components'
 <Cards>
   <Card title="Conversations" href="/analytics/conversations" />
   <Card title="Usage Metrics" href="/analytics/usage" />
+  <Card title="Agent Analytics" href="/analytics/agents" />
+  <Card title="Channel Analytics" href="/analytics/channels" />
 </Cards>
 
 ## Time Periods
