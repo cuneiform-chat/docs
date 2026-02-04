@@ -1,6 +1,6 @@
 # Discord Integration
 
-Add your agent to Discord servers using slash commands.
+Add your agent to Discord servers using slash commands and direct messages.
 
 ## Overview
 
@@ -10,6 +10,7 @@ Discord integration provides:
 - Server-wide availability
 - Channel-specific responses
 - Rich embed formatting
+- Optional text-based DMs (no command prefix needed)
 
 ## Prerequisites
 
@@ -26,43 +27,54 @@ Discord integration provides:
 3. Enter a name (e.g., "My Support Bot")
 4. Click **Create**
 
-### 2. Create a Bot User
+### 2. Get Your Credentials
 
-1. In your application, go to **Bot** section
-2. Click **Add Bot** → **Yes, do it!**
-3. Under **Token**, click **Copy** — save this securely
+From the Discord Developer Portal, collect these values:
 
-### 3. Configure Bot Permissions
+| Field | Description | Where to Find |
+|-------|-------------|---------------|
+| **Application ID** | Your Discord app's ID | General Information page |
+| **Public Key** | 64-character hex string for signature verification | General Information page |
+| **Bot Token** | Secret token for your bot | Bot section → **Reset Token** |
+| **Guild ID** (optional) | Server ID for instant command registration | Right-click server → Copy Server ID |
 
-1. Go to **OAuth2** → **URL Generator**
-2. Select scopes:
-   - `bot`
-   - `applications.commands`
-3. Select bot permissions:
-   - Send Messages
-   - Use Slash Commands
-   - Embed Links
-4. Copy the generated URL
+import { Callout } from 'nextra/components'
 
-### 4. Add Bot to Your Server
+<Callout type="warning">
+  Keep your Bot Token secure — never share it publicly. Anyone with your token can control your bot.
+</Callout>
 
-1. Open the generated URL in a browser
-2. Select the server to add the bot
-3. Authorize the permissions
-
-### 5. Connect to Cuneiform Chat
+### 3. Connect to Cuneiform Chat
 
 1. Go to **Agents** → Select your agent
 2. Navigate to **Integrations** tab
 3. Click **Discord**
-4. Enter your Bot Token and Application ID
-5. Click **Connect**
+4. Enter your **Application ID**, **Public Key**, and **Bot Token**
+5. Optionally enter a **Guild ID** for instant slash command registration
+6. Click **Connect**
+
+### 4. Configure Webhook URL (Required)
+
+After connecting, you'll see a success dialog with your **Webhook URL**:
+
+1. Copy the **Webhook URL** from the success dialog
+2. In Discord Developer Portal, go to **General Information**
+3. Find **Interactions Endpoint URL**
+4. Paste the webhook URL and click **Save Changes**
+
+<Callout type="info">
+  This step is required. Discord uses this URL to send slash command interactions to your bot.
+</Callout>
+
+### 5. Add Bot to Your Server
+
+Use the **Add to Server** button on the integration card, or use the invite URL provided after connection. This adds the bot with the required permissions.
 
 ## Using the Bot
 
 ### Slash Commands
 
-Users interact with your bot using slash commands:
+Users interact with your bot using the `/ask` slash command:
 
 ```
 /ask What are your business hours?
@@ -76,7 +88,18 @@ Message the bot directly for private conversations:
 
 1. Find the bot in your server's member list
 2. Right-click and select **Message**
-3. Chat naturally — no slash command needed
+3. Use `/ask` command or enable Text DMs (see below)
+
+### Text DMs Toggle
+
+The **Text DMs** switch on the integration card controls direct message behavior:
+
+- **Off** (default): Users must use the `/ask` command in DMs
+- **On**: Users can send plain text messages in DMs (no command prefix needed)
+
+<Callout type="info">
+  When enabling Text DMs, you'll need to enable **Message Content Intent** in Discord Developer Portal → Bot section → Privileged Gateway Intents.
+</Callout>
 
 ### Response Format
 
@@ -95,33 +118,39 @@ Once added, the bot is available in all text channels where it has permissions.
 
 The bot can respond in threads, keeping conversations organized.
 
-### Permissions Control
+### Instant vs Global Commands
 
-Control where the bot can respond using Discord's channel permissions.
-
-import { Callout } from 'nextra/components'
+- **With Guild ID**: Slash commands register instantly in that server
+- **Without Guild ID**: Global commands take up to 1 hour to propagate
 
 <Callout type="tip">
-  Create a dedicated support channel and restrict the bot to that channel for focused use.
+  Provide a Guild ID during setup for instant slash command availability. You can add more servers later.
 </Callout>
 
-## Configuration Options
+## Managing Your Bot
 
-### Command Settings
+Each connected bot displays:
+- **Bot username** and status (Active/Error)
+- **Application ID**
+- **Associated agent**
+- **Last activity** timestamp
+- **Webhook URL** (for reference)
 
-Customize the slash command behavior:
+### Available Actions
 
-| Setting | Description |
-|---------|-------------|
-| Command name | Default is `/ask` |
-| Description | Shown in Discord's command picker |
-| Response visibility | Public or ephemeral (only visible to user) |
+| Action | Description |
+|--------|-------------|
+| **Add to Server** | Opens invite link to add bot to a server |
+| **Portal** | Opens Discord Developer Portal for this app |
+| **Copy URL** | Copies the webhook URL |
+| **Test Connection** | Verifies bot connectivity |
+| **Disconnect** | Removes this integration |
 
 ## Troubleshooting
 
 ### Bot Not Responding
 
-1. Verify the bot is online (check Discord)
+1. Verify the **Interactions Endpoint URL** is configured in Discord Developer Portal
 2. Confirm bot has permissions in the channel
 3. Check the token is correct in Cuneiform Chat
 4. Test slash commands are registered (`/` shows your command)
@@ -129,8 +158,8 @@ Customize the slash command behavior:
 ### Commands Not Showing
 
 Slash commands can take up to an hour to register globally. For immediate testing:
-- Commands register instantly in development servers
-- Wait for global propagation in production
+- Provide a Guild ID during setup for instant registration
+- Wait for global propagation if no Guild ID was provided
 
 ### Permission Errors
 
@@ -140,19 +169,26 @@ Ensure the bot has these permissions:
 - Embed Links
 - Read Message History (for thread support)
 
+### Text DMs Not Working
+
+1. Verify **Text DMs** toggle is enabled on the integration card
+2. Enable **Message Content Intent** in Discord Developer Portal → Bot section
+3. Restart the bot connection if needed
+
 ## Security
 
-- Bot tokens are encrypted
-- Commands use Discord's built-in security
-- No server data is accessed beyond messages
+- Bot tokens are encrypted and stored securely
+- Commands use Discord's built-in signature verification
+- No server data is accessed beyond direct interactions
 
 ## Disconnecting
 
 To remove the Discord integration:
 
 1. Go to **Agents** → Select agent → **Integrations**
-2. Click **Discord** → **Disconnect**
+2. Click the three-dot menu on your Discord bot
+3. Select **Disconnect**
 
-To fully remove the bot:
+To fully remove the bot from Discord:
 1. Go to your Discord server settings
 2. Navigate to **Integrations** → Remove the bot
