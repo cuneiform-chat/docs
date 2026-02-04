@@ -16,6 +16,8 @@ Agents are the chatbots that interact with your users. Each agent can be configu
 
 The agent persona defines your agent's personality and behavior. This is the instruction that guides how your agent responds.
 
+You can write your own persona or click **Generate** to use the AI-powered Persona Builder that creates one based on your requirements.
+
 **Example:**
 ```
 You are a helpful customer support assistant for Acme Corp.
@@ -24,28 +26,44 @@ Be friendly, professional, and concise.
 If you don't know the answer, say so rather than making something up.
 ```
 
-### Knowledge Base Selection
+### Platform Rules
 
-Choose which documents your agent can access:
+All agents automatically include built-in safety guardrails:
 
-- **All Documents** — Agent can search your entire knowledge base
-- **Specific Folders** — Limit to certain document collections
+- Won't fabricate facts, numbers, or dates
+- Says "I don't know" when information is unavailable
+- Won't guess at missing information
+- Corrects incorrect assumptions in questions
+- Won't impersonate professionals (lawyers, doctors, etc.)
+- Refuses harmful or inappropriate content
 
-### Response Settings
+These rules are always active and cannot be disabled.
 
-Configure how your agent generates responses:
+### Knowledge Access Control
 
-- **Tone** — Professional, friendly, or custom
-- **Language** — Primary language for responses
+Control which documents your agent can access:
+
+- **Exclude Mode** (default) — Agent accesses all documents except those you select to hide
+- **Include Mode** — Agent only accesses the specific folders, tags, or documents you select
+
+Use Include Mode when you want to restrict an agent to a specific knowledge set.
+
+### LLM Configuration
+
+For most users, the default AI model settings work well. Advanced users can customize:
+
+- **Model** — Choose from available AI models
+- **Temperature** — Lower = more consistent, higher = more creative
+- **Show Document References** — Enable to include source citations in responses
 
 ## Save Your Agent
 
-Click **Create** to save your agent. You can always edit these settings later.
+Click **Create Agent** to save. Your agent starts in **Testing** status, meaning you can test it in the Playground but channel integrations are disabled until you activate it.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="tip">
-  Start with a simple agent persona and refine it based on how your agent performs in testing.
+  Your draft is automatically saved as you work. If you leave and come back, your progress will be restored.
 </Callout>
 
 ## Next Step

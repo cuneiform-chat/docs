@@ -5,7 +5,7 @@ Your chatbot's knowledge comes from the documents you provide. This guide shows 
 ## Accessing the Knowledge Base
 
 1. Sign in to your Cuneiform Chat dashboard
-2. Navigate to **Knowledge Base** in the sidebar
+2. Navigate to **Knowledge** in the sidebar
 3. Click **Upload Documents** or drag and drop files
 
 ## Supported File Types
@@ -16,9 +16,10 @@ Cuneiform Chat supports a wide range of document formats:
 |--------|-----------|-------|
 | PDF | `.pdf` | Text-based and scanned (OCR) |
 | Word | `.docx`, `.doc` | Microsoft Word documents |
-| Text | `.txt`, `.md` | Plain text and Markdown |
+| Text | `.txt`, `.md`, `.rtf` | Plain text, Markdown, Rich Text |
+| Spreadsheets | `.xlsx`, `.xls`, `.csv`, `.tsv` | Excel and CSV files |
 | PowerPoint | `.pptx`, `.ppt` | Presentation slides |
-| HTML | `.html` | Web pages |
+| Web/Data | `.html`, `.htm`, `.json`, `.xml` | Web pages and structured data |
 
 ## Upload Methods
 
@@ -43,6 +44,16 @@ Connect your cloud storage for seamless imports:
 
 See [Cloud Storage Integration](/knowledge-base/cloud-storage) for setup instructions.
 
+## Upload Options
+
+### Add Tags
+
+Click **+ Add Tags** before uploading to organize documents:
+
+- Select tags from the dropdown
+- Tags apply to all documents in that upload batch
+- Makes it easier to control which documents agents can access
+
 ## Document Processing
 
 After upload, your documents are automatically processed and made searchable by your agents.
@@ -50,7 +61,7 @@ After upload, your documents are automatically processed and made searchable by 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Processing time depends on document size and complexity. Most documents complete within a few minutes.
+  Processing time depends on document size and complexity. Most documents complete within a few minutes. The system automatically detects duplicate content to avoid redundant uploads.
 </Callout>
 
 ## Best Practices
