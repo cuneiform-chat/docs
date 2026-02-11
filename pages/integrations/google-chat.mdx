@@ -6,10 +6,10 @@ Connect your agent to Google Chat for seamless communication within Google Works
 
 Google Chat integration provides:
 - Direct messaging with your bot
-- Google Workspace Spaces support
-- Rich card formatting
-- Enterprise-ready security
-- Domain-based authentication
+- Google Workspace Spaces support with @mention triggers
+- Text-based responses with conversation memory
+- Async processing with instant acknowledgment
+- Enterprise-ready security with domain-based isolation
 
 ## Prerequisites
 
@@ -67,7 +67,7 @@ Users can start a conversation:
 1. Open Google Chat
 2. Click **Start a chat** → **Find apps**
 3. Search for your bot name
-4. Start chatting naturally
+4. Start chatting naturally — the bot responds to all messages in DMs
 
 ### In Spaces
 
@@ -76,24 +76,37 @@ Add the bot to a Space:
 1. Open the Space
 2. Click the Space name → **Manage apps**
 3. Add your bot
-4. Mention the bot with `@BotName` to interact
+4. Mention the bot with `@BotName` to interact — the bot only responds to @mentions in Spaces
+
+<Callout type="info">
+  When the bot is first added to a Space or DM, it sends a welcome message introducing itself.
+</Callout>
 
 ## Features
 
-### Rich Cards
+### Async Responses
 
-Responses can include formatted cards with:
-- Headers and sections
-- Buttons and links
-- Images
+When you send a message, the bot immediately replies with a brief acknowledgment (e.g., "Working on it...") and then delivers the full answer once processing is complete. This typically takes 3–8 seconds depending on the complexity of your question.
 
-### Thread Support
+### Conversation Memory
 
-The bot can respond in threads to keep conversations organized.
+The bot remembers context within a session, so you can ask follow-up questions without repeating yourself.
+
+### Message Queuing
+
+If you send additional messages while the bot is still processing, they are queued and included in the next response. You'll see a message like "I'm still working on your previous question. I'll include this in my next response."
+
+### `/help` Command
+
+Type `/help` or `help` to see usage instructions and information about the bot.
 
 ### Domain-Based Access
 
 Only users from your Google Workspace domain can interact with your bot, ensuring enterprise-level security.
+
+### Text-Based Responses
+
+The bot responds with text messages only. Images, files, interactive buttons, and card attachments are not supported. Responses are limited to approximately 30,000 characters.
 
 ## Managing Your Integration
 
@@ -127,6 +140,12 @@ Access these via the three-dot menu on the integration card.
 3. Verify the integration is still in "Pending Verification" status
 4. Try creating a new integration if the code has expired
 
+### Bot Says "Working on it..." But No Response Follows
+
+1. The bot processes messages asynchronously — wait up to 25 seconds for the full response
+2. If no response arrives, try sending your message again
+3. Check that the associated agent is properly configured
+
 ### Messages Not Being Processed
 
 1. Confirm your workspace has been verified (status should be "Active")
@@ -142,10 +161,10 @@ This means the bot doesn't recognize your Google Workspace domain:
 
 ## Security
 
-- Domain-based authentication ensures only your organization can access your bot
-- Verification codes are single-use and expire
-- Messages processed over secure connections
-- Compliant with Google Workspace security standards
+- **Domain-based isolation** — only your organization's Google Workspace users can interact with your bot
+- **Webhook verification** — every incoming request is validated against your platform's Google Cloud project
+- **Verification codes** are single-use and tied to your domain
+- Messages processed over secure, encrypted connections
 
 ## Disconnecting
 
@@ -159,4 +178,5 @@ To remove the Google Chat integration:
 
 - **Google Workspace required**: Personal Gmail accounts cannot use this integration
 - **One integration per organization**: Each organization can have one Google Chat integration
+- **Text only**: The bot does not support images, files, or interactive buttons
 - **To change agents**: Disconnect the current integration first, then create a new one with a different agent
