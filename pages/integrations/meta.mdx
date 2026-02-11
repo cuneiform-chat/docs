@@ -5,10 +5,11 @@ Connect your agent to Facebook Messenger through your Facebook Page.
 ## Overview
 
 Meta integration provides:
-- Facebook Messenger conversations
-- Page-based messaging
-- Automatic responses to customer inquiries
-- Rich message formatting
+- Facebook Messenger conversations via your Page
+- Background processing with typing indicators
+- Automatic message splitting for long responses
+- 24-hour messaging window compliance
+- Conversation memory within sessions
 
 ## Prerequisites
 
@@ -46,31 +47,44 @@ Once connected, your Page will appear in the integrations list showing:
 When users message your Facebook Page through Messenger:
 
 1. Message arrives via Facebook Messenger
-2. Cuneiform Chat receives the message
+2. The bot shows a typing indicator while processing
 3. Your agent processes the question
 4. Response is sent back through Messenger
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Messages are processed in the background. The bot shows a typing indicator while your agent generates a response.
+</Callout>
 
 ## Features
 
 ### Automatic Responses
 
-Your agent automatically responds to incoming Messenger conversations based on your knowledge base.
+Your agent automatically responds to incoming Messenger conversations based on your knowledge base. All text messages trigger a response — no commands or prefixes needed.
 
-### Rich Formatting
+### Typing Indicators
 
-Responses support:
-- Text messages
-- Links
-- Basic formatting
+While your agent processes a message, users see a typing indicator ("...") in Messenger, providing a natural conversation feel.
+
+### Message Splitting
+
+Responses longer than 2,000 characters are automatically split into multiple messages, preserving paragraph breaks and sentence boundaries for readability.
+
+### Conversation Memory
+
+The bot remembers context within a session, so users can ask follow-up questions without repeating themselves.
+
+### Message Queuing
+
+If a user sends additional messages while the bot is still processing, they are queued and included in the next response.
 
 ### 24-Hour Messaging Window
 
-Facebook's policy allows responses within 24 hours of the last user message. Your agent responds in real-time, well within this window.
+Facebook's policy allows responses within 24 hours of the last user message. Your agent responds in real-time, well within this window. After 24 hours of inactivity, the user must send a new message to restart the conversation.
 
-import { Callout } from 'nextra/components'
-
-<Callout type="info">
-  Facebook requires user consent before businesses can message them. Users must initiate conversations first.
+<Callout type="warning">
+  Users must message your Page first — you cannot send unsolicited messages. If more than 24 hours pass since their last message, the bot cannot reply until the user messages again.
 </Callout>
 
 ## Managing Pages
@@ -86,8 +100,8 @@ Each connected Page displays:
 
 | Action | Description |
 |--------|-------------|
-| Test Connection | Verify the integration is working |
-| Disconnect | Remove the Page connection |
+| **Test Connection** | Verify the integration is working |
+| **Disconnect** | Remove the Page connection |
 
 Access these via the three-dot menu on each connected Page.
 
@@ -104,6 +118,7 @@ Access these via the three-dot menu on each connected Page.
 1. Use "Test Connection" to verify the integration
 2. Check your agent is configured and working (test in Playground)
 3. Ensure Messenger permissions are granted
+4. Verify the user messaged within the last 24 hours (messaging window policy)
 
 ### Authorization Errors
 
@@ -113,7 +128,8 @@ Access these via the three-dot menu on each connected Page.
 
 ## Security
 
-- OAuth tokens are encrypted and stored securely
+- **OAuth tokens** are encrypted and stored securely
+- **Webhook signatures** are verified using HMAC-SHA256 on every incoming request
 - No access to Page content beyond Messenger conversations
 - Compliant with Facebook Platform policies
 
@@ -128,3 +144,10 @@ To remove the Meta integration:
 To fully revoke access:
 1. Go to Facebook Settings → Business Integrations
 2. Remove the Cuneiform Chat app
+
+## Important Notes
+
+- **One agent per Page**: Each Facebook Page can only connect to one AI agent at a time
+- **Messenger only**: This integration works through Facebook Messenger, not Page comments or posts
+- **Message limit**: Individual messages are limited to 2,000 characters; longer responses are automatically split
+- **To change agents**: Disconnect the existing integration first, then reconnect with a different agent
