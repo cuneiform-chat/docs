@@ -16,16 +16,33 @@ Google Chat integration provides:
 
 - An active AI agent (created in the Agents section)
 - A Google Workspace account (personal Gmail accounts are not supported)
+- A **verified domain** — verify your domain ownership in **Settings > Domains** before connecting
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Google Chat integration requires a Google Workspace account. Personal Gmail accounts cannot install custom Chat apps.
+  Google Chat integration requires a Google Workspace account and a verified domain. Personal Gmail accounts cannot install custom Chat apps. If your organization doesn't use Google Workspace, the Google Chat section won't appear on the Integrations page.
 </Callout>
 
 ## Setup Steps
 
-### 1. Create Google Chat Integration
+### 1. Verify Your Domain (One-Time Setup)
+
+Before connecting Google Chat, verify your domain ownership:
+
+1. Go to **Settings** from the sidebar
+2. Click the **Domains** tab
+3. Your domain is auto-detected from your account email
+4. Add a **TXT record** in your DNS provider with the values shown:
+   - **Type:** TXT
+   - **Name:** `_cuneiform-verify` (or the full value shown)
+   - **Content:** The verification string displayed (e.g., `cuneiform-verify=abc123...`)
+5. Click **Verify Now** — DNS changes can take up to 48 hours to propagate
+6. Once the status changes to **Verified**, proceed to create the integration
+
+Quick links to common DNS providers (Cloudflare, GoDaddy, Namecheap, Route 53, DigitalOcean, Hostinger) are shown on the verification card.
+
+### 2. Create Google Chat Integration
 
 1. Go to **Integrations** from the sidebar
 2. Under "Google Chat Bots", click **Connect Bot**
@@ -34,7 +51,7 @@ import { Callout } from 'nextra/components'
 5. Click **Connect Bot**
 6. Copy the **Verification Code** displayed (format: `VERIFY-XXXXXX`)
 
-### 2. Complete Verification
+### 3. Complete Bot Verification
 
 After creating the integration, you'll receive a verification code:
 
@@ -149,6 +166,19 @@ Each integration card displays:
 2. Search for the bot name in "Find apps"
 3. Wait a few minutes for the app to propagate
 
+### Google Chat Section Not Visible
+
+1. Google Chat only appears for organizations using Google Workspace
+2. If your organization uses a different email provider (e.g., Microsoft 365), the section is hidden
+3. The system automatically detects your email provider via MX records
+
+### Domain Verification Issues
+
+1. DNS changes can take up to 48 hours to propagate — wait and try **Verify Now** again
+2. Check that you added the TXT record with the exact values shown in Settings > Domains
+3. Verify the record is on the correct domain (e.g., `_cuneiform-verify.yourdomain.com`)
+4. Use the DNS provider quick links on the verification card for easy access
+
 ### Verification Code Not Working
 
 1. Ensure you're sending the code from your Google Workspace email
@@ -183,6 +213,8 @@ This means the bot doesn't recognize your Google Workspace domain:
 
 ## Security
 
+- **Domain ownership verification** — DNS TXT record proves your organization owns the domain before connecting
+- **Google Workspace detection** — MX record check confirms your domain uses Google Workspace
 - **Domain-based isolation** — only your organization's Google Workspace users can interact with your bot
 - **Webhook verification** — every incoming request is validated against your platform's Google Cloud project
 - **Verification codes** are single-use and tied to your domain
@@ -199,7 +231,8 @@ To remove the Google Chat integration:
 
 ## Important Notes
 
-- **Google Workspace required**: Personal Gmail accounts cannot use this integration
+- **Google Workspace required**: Personal Gmail accounts cannot use this integration. If your org doesn't use Google Workspace, the Google Chat section won't appear.
+- **Domain verification required**: Verify your domain in Settings > Domains before connecting Google Chat.
 - **One integration per organization**: Each organization can have one Google Chat integration
 - **Text only**: The bot does not support images, files, or interactive buttons
 - **Managed at org level**: Google Chat is configured on the Integrations page, not per-agent
