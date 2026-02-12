@@ -7,6 +7,7 @@ Connect your agent to Google Chat for seamless communication within Google Works
 Google Chat integration provides:
 - Direct messaging with your bot
 - Google Workspace Spaces support with @mention triggers
+- Space-level agent routing — assign different agents to different Spaces
 - Text-based responses with conversation memory
 - Async processing with instant acknowledgment
 - Enterprise-ready security with domain-based isolation
@@ -26,20 +27,12 @@ import { Callout } from 'nextra/components'
 
 ### 1. Create Google Chat Integration
 
-**Option A: From Agents page**
-1. Go to **Agents** → Select your agent
-2. Navigate to the **Integrations** tab
-3. Under "Connect New Channel", click **Google Chat**
-
-**Option B: From Integrations page**
 1. Go to **Integrations** from the sidebar
 2. Under "Google Chat Bots", click **Connect Bot**
-
-Then complete the form:
-1. Select the **Agent** that will respond to messages (if not preselected)
-2. Enter a **Bot Name** (display name shown in Google Chat)
-3. Click **Connect Bot**
-4. Copy the **Verification Code** displayed (format: `VERIFY-XXXXXX`)
+3. Select the **Agent** that will be the default for DMs and unlinked Spaces
+4. Enter a **Bot Name** (display name shown in Google Chat)
+5. Click **Connect Bot**
+6. Copy the **Verification Code** displayed (format: `VERIFY-XXXXXX`)
 
 ### 2. Complete Verification
 
@@ -69,6 +62,8 @@ Users can start a conversation:
 3. Search for your bot name
 4. Start chatting naturally — the bot responds to all messages in DMs
 
+DMs are always handled by the **default agent**.
+
 ### In Spaces
 
 Add the bot to a Space:
@@ -76,10 +71,29 @@ Add the bot to a Space:
 1. Open the Space
 2. Click the Space name → **Manage apps**
 3. Add your bot
-4. Mention the bot with `@BotName` to interact — the bot only responds to @mentions in Spaces
+4. Mention the bot with `@Cuneiform Chat` to interact — the bot only responds to @mentions in Spaces
 
 <Callout type="info">
-  When the bot is first added to a Space or DM, it sends a welcome message introducing itself.
+  When the bot is first added to a Space, it sends a welcome message with available bot commands. In DMs, it sends a simple introduction.
+</Callout>
+
+## Space-Level Agent Routing
+
+Each Space can optionally use a different agent than the default. Use these bot commands in a Space (requires @mention):
+
+| Command | Description |
+|---------|-------------|
+| `@Cuneiform Chat /set-agent <name>` | Link this Space to a specific agent |
+| `@Cuneiform Chat /current-agent` | Show which agent handles this Space |
+| `@Cuneiform Chat /reset-agent` | Revert Space to the default agent |
+
+**How routing works:**
+- **DMs** → always use the default agent
+- **Space with custom agent** → uses the assigned agent
+- **Space without custom agent** → falls back to the default agent
+
+<Callout type="info">
+  You can view Space-agent mappings in the admin panel under the integration card's "Space mappings" section.
 </Callout>
 
 ## Features
@@ -98,7 +112,7 @@ If you send additional messages while the bot is still processing, they are queu
 
 ### `/help` Command
 
-Type `/help` or `help` to see usage instructions and information about the bot.
+Type `/help` or `help` to see usage instructions, including available space commands.
 
 ### Domain-Based Access
 
@@ -114,16 +128,18 @@ Each integration card displays:
 - **Bot name** - The display name you configured
 - **Status badge** - Active, Pending Verification, or Error
 - **Domain name** - Your Google Workspace domain (after verification)
+- **Default agent** - Dropdown to change the default agent (used for DMs + unlinked Spaces)
+- **Space mappings** - Collapsible section showing which Spaces have custom agent assignments
+- **Space commands** - Collapsible section showing available bot commands
 - **Last activity** timestamp
 
 ### Available Actions
 
 | Action | Description |
 |--------|-------------|
-| **Test Connection** | Verifies the integration is working |
-| **Disconnect** | Removes this integration |
-
-Access these via the three-dot menu on the integration card.
+| **Change default agent** | Use the dropdown to switch which agent handles DMs and unlinked Spaces |
+| **Test Connection** | Verifies the integration is working (three-dot menu) |
+| **Disconnect** | Removes this integration (three-dot menu) |
 
 ## Troubleshooting
 
@@ -159,6 +175,12 @@ This means the bot doesn't recognize your Google Workspace domain:
 2. The domain hasn't been verified with a verification code
 3. You're messaging from a personal Gmail account (not supported)
 
+### `/set-agent` Says Agent Not Found
+
+1. Check the exact agent name in the admin panel (case-sensitive)
+2. Ensure the agent is in "Active" status
+3. Agent names with spaces are supported — type the full name after `/set-agent`
+
 ## Security
 
 - **Domain-based isolation** — only your organization's Google Workspace users can interact with your bot
@@ -170,13 +192,16 @@ This means the bot doesn't recognize your Google Workspace domain:
 
 To remove the Google Chat integration:
 
-1. Go to **Agents** → Select agent → **Integrations**
-2. Click the three-dot menu on your Google Chat integration
-3. Select **Disconnect**
+1. Go to **Integrations** from the sidebar
+2. Find your Google Chat integration card
+3. Click the three-dot menu
+4. Select **Disconnect**
 
 ## Important Notes
 
 - **Google Workspace required**: Personal Gmail accounts cannot use this integration
 - **One integration per organization**: Each organization can have one Google Chat integration
 - **Text only**: The bot does not support images, files, or interactive buttons
-- **To change agents**: Disconnect the current integration first, then create a new one with a different agent
+- **Managed at org level**: Google Chat is configured on the Integrations page, not per-agent
+- **Space routing**: Use `/set-agent` in Spaces to assign specialized agents to different teams
+- **Default agent**: Change the default agent anytime using the dropdown — no disconnect needed
