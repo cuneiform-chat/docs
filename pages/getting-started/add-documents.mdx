@@ -1,6 +1,6 @@
-# Add Documents
+# Add Content to Knowledge Base
 
-Your chatbot's knowledge comes from the documents you provide. This guide shows you how to upload documents to your knowledge base.
+Your chatbot's knowledge comes from the content you provide. This guide shows you how to upload documents and crawl websites to build your knowledge base.
 
 ## Accessing the Knowledge Base
 
@@ -43,9 +43,22 @@ Connect your cloud storage for seamless imports:
 
 See [Cloud Storage Integration](/knowledge-base/cloud-storage) for setup instructions.
 
+### Website Crawling
+
+Crawl public websites and import the content as documents:
+
+1. Navigate to **Knowledge** and click the **Website** tab
+2. Enter a URL and click **Crawl**
+3. Review and edit crawled pages
+4. Select pages and click **Process Selected**
+
+The crawler follows links up to 2 levels deep. The number of pages you can crawl depends on your [plan](/billing/plans).
+
+See [Website Crawling](/knowledge-base/website-crawling) for the full guide.
+
 ## Document Processing
 
-After upload, your documents are automatically processed and made searchable by your agents.
+After uploading or crawling, your content is automatically processed and made searchable by your agents.
 
 import { Callout } from 'nextra/components'
 
@@ -58,6 +71,7 @@ import { Callout } from 'nextra/components'
 - **Quality over quantity** — Well-structured documents produce better responses
 - **Keep content current** — Remove outdated documents to avoid confusion
 - **Organize with folders** — Use the folder structure to keep documents organized
+- **Crawl selectively** — Review and edit crawled pages before processing to remove navigation and boilerplate
 
 ## Next Step
 
