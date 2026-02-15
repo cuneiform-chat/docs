@@ -1,0 +1,42 @@
+# Cuneiform Chat Documentation
+
+> Official documentation for Cuneiform Chat — an AI-powered knowledge agents platform. Build chatbots trained on your documents, websites, and knowledge bases. Deploy to Slack, WhatsApp, Telegram, Discord, Google Chat, and Facebook Messenger.
+
+Product site: https://cuneiform.chat
+Documentation site: https://docs.cuneiform.chat
+
+## Sections
+
+- [Getting Started](https://docs.cuneiform.chat/getting-started): Create your first AI chatbot in minutes
+- [Agents](https://docs.cuneiform.chat/agents): Configure chatbot personas, knowledge access, and behavior
+- [Knowledge Base](https://docs.cuneiform.chat/knowledge-base): Upload documents, connect cloud storage, crawl websites
+- [Integrations](https://docs.cuneiform.chat/integrations): Deploy to 6 messaging platforms
+- [Analytics](https://docs.cuneiform.chat/analytics): Monitor performance and usage
+- [Billing](https://docs.cuneiform.chat/billing): Plans, pricing, and subscription management
+
+## Key Topics
+
+- [Creating Agents](https://docs.cuneiform.chat/agents/creating): Step-by-step agent creation
+- [Agent Personas](https://docs.cuneiform.chat/agents/agent-personas): AI-powered persona builder
+- [Supported Formats](https://docs.cuneiform.chat/knowledge-base/supported-formats): 15+ file formats (PDF, DOCX, PPTX, TXT, MD, JSON, XML, etc.)
+- [Website Crawling](https://docs.cuneiform.chat/knowledge-base/website-crawling): Crawl public websites to extract content
+- [Cloud Storage](https://docs.cuneiform.chat/knowledge-base/cloud-storage): Import from Google Drive, Dropbox, OneDrive, Box
+- [Telegram Integration](https://docs.cuneiform.chat/integrations/telegram): Deploy chatbot to Telegram
+- [Discord Integration](https://docs.cuneiform.chat/integrations/discord): Deploy chatbot to Discord
+- [Slack Integration](https://docs.cuneiform.chat/integrations/slack): Deploy chatbot to Slack
+- [WhatsApp Integration](https://docs.cuneiform.chat/integrations/whatsapp): Deploy chatbot to WhatsApp
+- [Google Chat Integration](https://docs.cuneiform.chat/integrations/google-chat): Deploy chatbot to Google Chat
+- [Meta Integration](https://docs.cuneiform.chat/integrations/meta): Deploy chatbot to Facebook Messenger
+
+## Key Capabilities
+
+- RAG-powered AI agents trained on your documents using Retrieval-Augmented Generation
+- 6 messaging channel integrations: Telegram, Discord, Slack, WhatsApp, Google Chat, Facebook Messenger
+- 15+ document formats: PDF, DOCX, PPTX, TXT, MD, RTF, HTML, JSON, XML, and more
+- 4 cloud storage providers: Google Drive, Dropbox, OneDrive, Box
+- Website crawling to extract and index web content
+- AI persona builder for customizing agent personality and behavior
+- Real-time Playground for testing agents before deployment
+- Conversation analytics with AI-powered insights
+- Multi-model support: OpenAI, Anthropic, Google Gemini
+- No coding required — visual configuration for everything
