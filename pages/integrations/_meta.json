@@ -5,5 +5,6 @@
   "slack": "Slack",
   "whatsapp": "WhatsApp",
   "google-chat": "Google Chat",
-  "meta": "Meta (Facebook)"
+  "meta": "Meta (Facebook)",
+  "website-widget": "Website Widget"
 }
