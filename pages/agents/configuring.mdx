@@ -137,6 +137,26 @@ This tab shows available integration options for your agent. You can connect cha
 
 See the [Integrations documentation](/integrations) for detailed setup guides for each channel.
 
+## Human Handoff
+
+Enable live chat handoff so your AI agent can transfer conversations to a real human when users request it.
+
+**How to enable:**
+
+1. In the **Configuration** tab, scroll to the **Human Handoff** section
+2. Toggle **Enable Human Handoff** on
+3. Configure the messages:
+   - **Handoff Message** — Shown to the user when the transfer starts
+   - **Resolve Message** — Shown when the human agent ends the conversation
+   - **Max Wait Time** — Auto-expire if no agent accepts (default: 30 minutes)
+4. Click **Save Changes**
+
+When a user asks to speak with a human, the AI creates a handoff request visible on the **Live Chat** page. A team member accepts, chats with the user on their channel, and resolves when done.
+
+<Callout type="info">
+  Human Handoff is available on all plans. Enable it per agent in the Configuration tab.
+</Callout>
+
 ## Testing Your Agent
 
 Before saving changes, you can test your agent:
