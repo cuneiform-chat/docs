@@ -31,7 +31,7 @@ Documentation site: https://docs.cuneiform.chat
 ## Key Capabilities
 
 - RAG-powered AI agents trained on your documents using Retrieval-Augmented Generation
-- 6 messaging channel integrations: Telegram, Discord, Slack, WhatsApp, Google Chat, Facebook Messenger
+- 7 channel integrations: Telegram, Discord, Slack, WhatsApp, Google Chat, Facebook Messenger, Website Widget
 - 15+ document formats: PDF, DOCX, PPTX, TXT, MD, RTF, HTML, JSON, XML, and more
 - 4 cloud storage providers: Google Drive, Dropbox, OneDrive, Box
 - Website crawling to extract and index web content
