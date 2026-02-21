@@ -38,6 +38,19 @@ Communication style:
 - Keep responses concise unless detail is requested
 ```
 
+### 4. Response Language
+
+Configure which language your agent responds in. You can set this at two levels:
+
+- **Organization default** — Set in Account Management under Settings. All agents inherit this unless overridden.
+- **Per-agent override** — Set in the agent's configuration. Choose a specific language or "Inherit from organization."
+
+24 languages are supported including English, Arabic, French, German, Spanish, Turkish, Chinese, Japanese, Korean, Portuguese, and more.
+
+When configured to a non-English language, the agent responds in that language while its accuracy and safety rules remain in English internally.
+
+**Language resolution order:** channel override → agent language → organization default → English
+
 ### 4. Boundaries
 
 Define what the agent should NOT do:
@@ -120,6 +133,7 @@ import { Callout } from 'nextra/components'
 3. **Set clear boundaries** — Define what the agent should NOT do
 4. **Iterate** — Test and refine based on actual conversations
 5. **Keep it focused** — Long, complex prompts can confuse the model
+6. **Set the language** — Use the Response Language setting to control which language the agent replies in, rather than adding language instructions to the persona text
 
 ## Testing Your Persona
 
