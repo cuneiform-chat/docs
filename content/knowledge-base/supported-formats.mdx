@@ -1,0 +1,85 @@
+# Supported Formats
+
+Cuneiform Chat supports a wide range of document formats.
+
+## Document Types
+
+### Text Documents
+
+| Format | Extensions | Notes |
+|--------|-----------|-------|
+| PDF | `.pdf` | Text-based and scanned (with OCR) |
+| Microsoft Word | `.docx`, `.doc` | Full formatting support |
+| Plain Text | `.txt` | Simple text files |
+| Markdown | `.md` | Markdown formatting preserved |
+| Rich Text | `.rtf` | Basic formatting support |
+
+### Presentations
+
+| Format | Extensions | Notes |
+|--------|-----------|-------|
+| PowerPoint | `.pptx`, `.ppt` | Slide content extracted |
+
+### Web Content
+
+| Format | Extensions | Notes |
+|--------|-----------|-------|
+| HTML | `.html`, `.htm` | Web page content |
+
+### Data Formats
+
+| Format | Extensions | Notes |
+|--------|-----------|-------|
+| JSON | `.json` | Structured data files |
+| XML | `.xml` | XML documents |
+
+## Format-Specific Notes
+
+### PDFs
+
+PDFs work best when they are:
+- **Text-based** — Created from digital documents
+- **Searchable** — Text can be selected/copied
+
+Scanned PDFs are supported but may have lower quality extraction due to OCR limitations.
+
+### Word Documents
+
+`.docx` (modern format) is recommended over `.doc` (legacy format) for best results.
+
+Supported elements:
+- Text and paragraphs
+- Headings and styles
+- Tables
+- Lists
+
+### Markdown
+
+Markdown formatting is preserved during processing:
+- Headings become section markers
+- Lists maintain structure
+- Code blocks are recognized
+
+## Unsupported Formats
+
+The following are not currently supported:
+- Images (`.jpg`, `.png`, `.gif`)
+- Audio files (`.mp3`, `.wav`)
+- Video files (`.mp4`, `.mov`)
+- Compressed archives (`.zip`, `.rar`)
+- Executable files (`.exe`, `.app`)
+
+import { Callout } from 'nextra/components'
+
+<Callout type="important">
+  If you have content in an unsupported format, try converting it to PDF or a text-based format before uploading.
+</Callout>
+
+## File Size Limits
+
+Maximum file sizes depend on your plan. Very large documents may take longer to process.
+
+For best performance:
+- Split very large documents into smaller files
+- Remove unnecessary images from PDFs if they're not needed
+- Use text-based formats when possible

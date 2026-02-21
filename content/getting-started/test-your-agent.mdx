@@ -1,0 +1,94 @@
+# Test Your Agent
+
+Before deploying your agent, use the Playground to test its responses and fine-tune its behavior.
+
+## Accessing the Playground
+
+1. Navigate to **Agents** in the sidebar
+2. Click **Test** on your agent card
+3. The Playground opens as a side panel — start chatting!
+
+Use the sidebar toggle to hide the conversation list for more space. Press **Shift+Enter** to add new lines without sending.
+
+## Testing Your Agent
+
+### Ask Sample Questions
+
+Try questions that your users might ask:
+
+- Questions directly answered by your documents
+- Follow-up questions that require context
+- Edge cases and ambiguous queries
+- Questions outside your content (to test boundaries)
+
+### Evaluate Responses
+
+For each response, consider:
+
+- **Accuracy** — Is the information correct?
+- **Relevance** — Does it answer the actual question?
+- **Tone** — Does it match your expected style?
+- **Sources** — Are document references helpful?
+
+## Refining Your Agent
+
+Based on testing, you may want to adjust:
+
+### Agent Persona
+
+If responses aren't quite right, refine the agent persona:
+
+- Add specific instructions for common scenarios
+- Clarify the tone and personality
+- Set boundaries for what the agent should and shouldn't do
+
+### Content
+
+If the agent can't find information:
+
+- Check that relevant documents are uploaded
+- Verify documents processed successfully
+- Consider adding more detailed content
+
+import { Callout } from 'nextra/components'
+
+<Callout type="important">
+  Keep a list of test questions and expected answers. Re-run these tests after making changes to ensure improvements don't break other behaviors.
+</Callout>
+
+## Conversation History
+
+The Playground maintains conversation history within a session. Use this to test:
+
+- Multi-turn conversations
+- Context retention
+- Follow-up questions
+
+While the agent responds, you'll see tool indicators showing what it's doing (searching documents, processing your query, etc.). Click **Stop** if you need to cancel a response.
+
+## Activating Your Agent
+
+New agents start in **Testing** status — you can test in the Playground, but channel integrations are disabled.
+
+To enable integrations:
+
+1. Open your agent's edit page
+2. Change the **Status** dropdown from "Testing" to "Active"
+3. Click **Save**
+
+Once active, you can deploy to various channels:
+
+- [Telegram](/integrations/telegram) — Connect to Telegram
+- [Discord](/integrations/discord) — Add to your Discord server
+- [Slack](/integrations/slack) — Integrate with Slack workspaces
+- [WhatsApp](/integrations/whatsapp) — Connect to WhatsApp Business
+- [Messenger](/integrations/facebook) — Connect to Facebook Messenger
+- [Google Chat](/integrations/google-chat) — Integrate with Google Workspace
+
+## Next Steps
+
+Congratulations! You've created and tested your first Cuneiform Chat agent. Explore the following sections to learn more:
+
+- [Agent Configuration](/agents/configuring) — Advanced agent settings
+- [Content Management](/knowledge-base) — Document organization tips
+- [Integrations](/integrations) — Deploy to multiple channels

@@ -1,0 +1,57 @@
+---
+description: Configure AI agents with custom personas, knowledge access, and multi-channel deployment.
+---
+
+# Agents
+
+Agents are the AI chatbots that interact with your users. Each agent has its own configuration, knowledge access, and personality.
+
+## What is an Agent?
+
+An agent is a configured chatbot that:
+
+- Answers questions using your content
+- Follows instructions defined in its agent persona
+- Maintains conversation context within sessions
+- Can be deployed to multiple channels
+
+## Agent Concepts
+
+### Agent Persona
+
+The agent persona is the set of instructions that defines how your agent behaves. It controls:
+
+- **Personality** — Friendly, professional, casual, etc.
+- **Scope** — What topics the agent should and shouldn't address
+- **Response style** — Length, format, and tone of answers
+- **Guardrails** — Boundaries and limitations
+- **Language** — Which language to respond in (24 supported, configurable per agent or inherited from organization)
+
+### Knowledge Access
+
+Each agent accesses your content to find relevant information. You can configure:
+
+- Which documents the agent can search
+- How many sources to retrieve
+- Whether to show source citations
+
+### Channels
+
+Agents can be deployed to multiple channels simultaneously:
+
+- Messaging platforms (Telegram, Discord, Slack, WhatsApp, Google Chat)
+- Facebook Messenger via Meta integration
+- Human Handoff — seamlessly transfer conversations to a human team member
+
+## In This Section
+
+import { Cards } from 'nextra/components'
+
+<Cards>
+  <Cards.Card title="Creating Agents" href="/agents/creating" />
+  <Cards.Card title="Configuration Options" href="/agents/configuring" />
+  <Cards.Card title="Agent Personas" href="/agents/agent-personas" />
+  <Cards.Card title="Agent Persona Builder" href="/agents/persona-builder" />
+  <Cards.Card title="Testing in Playground" href="/agents/testing" />
+  <Cards.Card title="Inbox & Human Handoff" href="/agents/inbox" />
+</Cards>

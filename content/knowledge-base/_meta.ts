@@ -1,0 +1,18 @@
+import type { MetaRecord } from 'nextra'
+
+const meta: MetaRecord = {
+  index: 'Overview',
+  'uploading-documents': 'Uploading Documents',
+  'supported-formats': 'Supported Formats',
+  'folders-and-tags': 'Folders and Tags',
+  'cloud-storage': 'Cloud Storage',
+  'website-crawling': 'Website Crawling',
+  'managing-documents': 'Managing Documents',
+  'agent-knowledge-access': 'Agent Knowledge Access',
+  'google-drive': 'Google Drive',
+  dropbox: 'Dropbox',
+  onedrive: 'OneDrive',
+  box: 'Box',
+}
+
+export default meta

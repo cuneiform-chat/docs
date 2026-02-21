@@ -39,5 +39,8 @@ next-env.d.ts
 .DS_Store
 Thumbs.db
 
+# Pagefind search index
+_pagefind/
+
 # Misc
 *.log

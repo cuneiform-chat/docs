@@ -1,0 +1,108 @@
+# Testing in Playground
+
+import { Callout } from 'nextra/components'
+
+The Playground is your environment for testing and refining agents before deployment.
+
+## Accessing the Playground
+
+1. Navigate to **Agents** in the sidebar
+2. Click **Test** on your agent card (or **Test Agent** when editing an agent)
+3. The Playground slides open as a side panel — start a conversation
+
+<Callout type="info">
+  The Test button is disabled when the agent status is **Archived** or **Inactive**. Change the status to **Active** or **Testing** to enable testing.
+</Callout>
+
+## What to Test
+
+### Basic Functionality
+
+- Can the agent answer questions from your documents?
+- Are responses accurate and relevant?
+- Does the tone match your expectations?
+
+### Edge Cases
+
+Test scenarios that might trip up your agent:
+
+- Questions not covered by your documents
+- Ambiguous or unclear questions
+- Multi-part questions
+- Follow-up questions requiring context
+
+### Conversation Flow
+
+Test multi-turn conversations:
+
+- Does the agent remember context from earlier messages?
+- Can it handle topic changes gracefully?
+- Does it ask for clarification when needed?
+
+## Evaluating Responses
+
+For each response, consider:
+
+| Aspect | Questions to Ask |
+|--------|-----------------|
+| **Accuracy** | Is the information correct? |
+| **Relevance** | Does it answer the actual question? |
+| **Completeness** | Is anything important missing? |
+| **Tone** | Does it match your brand voice? |
+| **Length** | Is it appropriately concise or detailed? |
+
+## Iterative Improvement
+
+### Identify Issues
+
+Common problems and solutions:
+
+| Issue | Solution |
+|-------|----------|
+| Wrong information | Check document content, improve retrieval |
+| Too verbose | Add "be concise" to agent persona |
+| Too formal/casual | Adjust tone in agent persona |
+| Doesn't know answer | Add relevant documents |
+| Makes up facts | Strengthen boundaries in prompt |
+
+### Make Changes
+
+1. Identify the issue in Playground testing
+2. Adjust relevant settings (prompt, documents, configuration)
+3. Test again with the same questions
+4. Verify the fix doesn't break other behaviors
+
+## Test Scenarios Checklist
+
+Create a set of standard test questions:
+
+```markdown
+## Test Scenarios for [Agent Name]
+
+### Basic Questions
+- [ ] Q: "What is [product]?" — Expected: Clear description
+- [ ] Q: "How much does it cost?" — Expected: Pricing info
+
+### Edge Cases
+- [ ] Q: Random unrelated question — Expected: Polite redirect
+- [ ] Q: Competitor comparison — Expected: Stays on topic
+
+### Follow-ups
+- [ ] Q: Initial question, then "Tell me more" — Expected: Expands on previous answer
+```
+
+<Callout type="important">
+  Save your test scenarios and re-run them after making changes to catch regressions.
+</Callout>
+
+## Ready for Deployment
+
+Your agent is ready when:
+
+- ✅ Answers common questions accurately
+- ✅ Handles edge cases gracefully
+- ✅ Maintains appropriate tone
+- ✅ Respects defined boundaries
+- ✅ Multi-turn conversations work well
+
+Next, deploy your agent to [channels](/integrations) where users will interact with it.
