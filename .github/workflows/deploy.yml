@@ -34,7 +34,7 @@ jobs:
         run: npm run build
 
       - name: Generate search index
-        run: npx pagefind --site out
+        run: npx pagefind --site out --output-path out/_pagefind
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

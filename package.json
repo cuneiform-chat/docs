@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "pagefind --site out && next-sitemap",
+    "postbuild": "pagefind --site out --output-path out/_pagefind && next-sitemap",
     "start": "next start",
     "lint": "next lint"
   },
