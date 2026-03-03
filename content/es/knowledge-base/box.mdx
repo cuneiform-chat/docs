@@ -1,0 +1,118 @@
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+# Box Integration
+
+Import documents from Box to train your AI agents.
+
+## Overview
+
+Connect your Box account to Cuneiform Chat and import documents directly into your content. Your AI agent can then answer questions based on the content of these documents.
+
+## Getting Started
+
+### Step 1: Navigate to Knowledge
+
+1. Log in to [Cuneiform Chat](https://admin.cuneiform.chat)
+2. Go to **Knowledge** in the sidebar
+3. Look for the cloud storage icons at the top of the page
+
+### Step 2: Connect Box
+
+1. Click the **Box icon** in the cloud storage icons row
+2. Sign in with your Box account (if prompted)
+3. Grant Cuneiform Chat permission to access your files
+
+### Step 3: Select Files
+
+1. Use the Box file picker to browse your files
+2. Navigate through folders to find documents
+3. Select one or more files to import
+4. Click to confirm your selection
+
+### Step 4: Processing
+
+Once imported:
+- Documents are automatically processed
+- Text is extracted and indexed
+- Your agent can answer questions about the content
+
+## Supported File Types
+
+| Format | Extension | Notes |
+|--------|-----------|-------|
+| PDF | .pdf | Text and scanned (OCR) |
+| Word | .docx, .doc | Full formatting support |
+| Text | .txt | Plain text files |
+| Markdown | .md | Markdown formatting |
+
+See [Supported Formats](/knowledge-base/supported-formats) for the complete list.
+
+## Permissions
+
+Cuneiform Chat requests minimal permissions:
+
+- **Read-only access** to files you select
+- **No write access** to your Box account
+- **No access** to files you don't explicitly choose
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  You can revoke access at any time from Box Settings → Security → Connected Apps.
+</Callout>
+
+## How It Works
+
+```mermaid
+graph LR
+    A[Select Files in Box] --> B[Download to Cuneiform]
+    B --> C[Extract Text]
+    C --> D[Create Embeddings]
+    D --> E[Agent Can Answer Questions]
+```
+
+1. **Authorization** — You grant read access via OAuth
+2. **Selection** — Choose specific files through Box's picker
+3. **Download** — Files are securely transferred
+4. **Processing** — Text is extracted and indexed
+5. **Ready** — Your agent can now answer questions
+
+## Best Practices
+
+- **Select relevant files** — Only import documents your agent needs
+- **Organize first** — Structure your Box folders before importing
+- **Check formats** — Ensure files are in supported formats
+- **Monitor progress** — Verify documents process successfully
+
+## Troubleshooting
+
+### Can't Connect to Box
+
+- Verify you're signed into the correct Box account
+- Check that third-party apps are allowed in your Box settings
+- Try clearing browser cookies and reconnecting
+
+### Files Not Importing
+
+- Confirm files are in supported formats
+- Check you have permission to access the files
+- Try importing fewer files at once
+
+### Import Taking Too Long
+
+- Large files take longer to process
+- Check the document status in Content
+- Complex PDFs with images require more processing time
+
+## Data Privacy
+
+- Original files are not permanently stored
+- Only extracted text embeddings are retained
+- Your Box credentials are encrypted
+- We never access files you haven't selected
+
+## Need Help?
+
+- Email: support@cuneiform.chat
+- Documentation: [docs.cuneiform.chat](https://docs.cuneiform.chat)
