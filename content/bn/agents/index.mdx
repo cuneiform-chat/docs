@@ -1,61 +1,57 @@
 ---
-description: Configure AI agents with custom personas, knowledge access, and multi-channel deployment.
+description: Custom persona, knowledge access এবং multi-channel deployment সহ AI agent configure করুন।
 ---
-
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 
 # Agents
 
-Agents are the AI chatbots that interact with your users. Each agent has its own configuration, knowledge access, and personality.
+Agent হলো AI chatbot যা আপনার user-দের সাথে interact করে। প্রতিটি agent-এর নিজস্ব configuration, knowledge access এবং personality রয়েছে।
 
-## What is an Agent?
+## Agent কী?
 
-An agent is a configured chatbot that:
+Agent হলো একটি configured chatbot যা:
 
-- Answers questions using your content
-- Follows instructions defined in its agent persona
-- Maintains conversation context within sessions
-- Can be deployed to multiple channels
+- আপনার content ব্যবহার করে প্রশ্নের উত্তর দেয়
+- Agent persona-তে নির্ধারিত নির্দেশনা অনুসরণ করে
+- Session-এর মধ্যে conversation context বজায় রাখে
+- একাধিক channel-এ deploy করা যায়
 
-## Agent Concepts
+## Agent-এর ধারণাসমূহ
 
 ### Agent Persona
 
-The agent persona is the set of instructions that defines how your agent behaves. It controls:
+Agent persona হলো নির্দেশনার সেট যা আপনার agent-এর আচরণ নির্ধারণ করে। এটি নিয়ন্ত্রণ করে:
 
-- **Personality** — Friendly, professional, casual, etc.
-- **Scope** — What topics the agent should and shouldn't address
-- **Response style** — Length, format, and tone of answers
-- **Guardrails** — Boundaries and limitations
-- **Language** — Automatic per-message detection (176 languages supported)
+- **Personality** — বন্ধুসুলভ, পেশাদার, সহজ ইত্যাদি
+- **Scope** — Agent কোন বিষয়ে কথা বলবে এবং বলবে না
+- **Response style** — উত্তরের দৈর্ঘ্য, format এবং tone
+- **Guardrails** — সীমানা ও সীমাবদ্ধতা
+- **Language** — স্বয়ংক্রিয় প্রতি-message ভাষা শনাক্তকরণ (১৭৬টি ভাষা সমর্থিত)
 
 ### Knowledge Access
 
-Each agent accesses your content to find relevant information. You can configure:
+প্রতিটি agent আপনার content থেকে প্রাসঙ্গিক তথ্য খুঁজে বের করে। আপনি configure করতে পারেন:
 
-- Which documents the agent can search
-- How many sources to retrieve
-- Whether to show source citations
+- Agent কোন document-গুলো search করতে পারবে
+- কতগুলো source retrieve করবে
+- Source citation দেখানো হবে কিনা
 
 ### Channels
 
-Agents can be deployed to multiple channels simultaneously:
+Agent-গুলো একসাথে একাধিক channel-এ deploy করা যায়:
 
-- Messaging platforms (Telegram, Discord, Slack, WhatsApp, Google Chat)
-- Facebook Messenger via Meta integration
-- Human Handoff — seamlessly transfer conversations to a human team member
+- Messaging platform (Telegram, Discord, Slack, WhatsApp, Google Chat)
+- Meta integration-এর মাধ্যমে Facebook Messenger
+- Human Handoff — নির্বিঘ্নে conversation একজন মানব team member-এর কাছে transfer করুন
 
-## In This Section
+## এই বিভাগে
 
 import { Cards } from 'nextra/components'
 
 <Cards>
-  <Cards.Card title="Creating Agents" href="/agents/creating" />
-  <Cards.Card title="Configuration Options" href="/agents/configuring" />
-  <Cards.Card title="Agent Personas" href="/agents/agent-personas" />
+  <Cards.Card title="Agent তৈরি" href="/agents/creating" />
+  <Cards.Card title="Configuration বিকল্পসমূহ" href="/agents/configuring" />
+  <Cards.Card title="Agent Persona" href="/agents/agent-personas" />
   <Cards.Card title="Agent Persona Builder" href="/agents/persona-builder" />
-  <Cards.Card title="Testing in Playground" href="/agents/testing" />
-  <Cards.Card title="Inbox & Human Handoff" href="/agents/inbox" />
+  <Cards.Card title="Playground-এ Testing" href="/agents/testing" />
+  <Cards.Card title="Inbox ও Human Handoff" href="/agents/inbox" />
 </Cards>

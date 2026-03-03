@@ -1,199 +1,196 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
-# Configuration Options
+# Configuration বিকল্পসমূহ
 
 import { Callout } from 'nextra/components'
 
-Detailed guide to all agent configuration options.
+সব agent configuration option-এর বিস্তারিত গাইড।
 
-## Page Structure
+## Page কাঠামো
 
-The agent edit page has three tabs:
+Agent edit page-এ তিনটি tab আছে:
 
-| Tab | Purpose |
+| Tab | উদ্দেশ্য |
 |-----|---------|
-| **Configuration** | Core settings (status, name, persona, LLM, messages) |
-| **Knowledge Access** | Control which documents the agent can use |
-| **Integrations** | Connect to external channels (Telegram, Discord, etc.) |
+| **Configuration** | মূল setting (status, name, persona, LLM, message) |
+| **Knowledge Access** | Agent কোন document ব্যবহার করতে পারবে তা নিয়ন্ত্রণ |
+| **Integrations** | বাহ্যিক channel-এ সংযোগ (Telegram, Discord ইত্যাদি) |
 
 ## Configuration Tab
 
 ### Status
 
-Control your agent's availability:
+আপনার agent-এর availability নিয়ন্ত্রণ করুন:
 
-| Status | Playground | Integrations | Notes |
-|--------|------------|--------------|-------|
-| **Testing** | ✅ Enabled | ❌ Disabled | Default for new agents. Test before going live. |
-| **Active** | ✅ Enabled | ✅ Enabled | Ready for production use. |
-| **Inactive** | ❌ Disabled | ❌ Disabled | Temporarily disabled. |
-| **Archived** | ❌ Disabled | ❌ Disabled | Hidden from main list. |
+| Status | Playground | Integrations | নোট |
+|--------|------------|--------------|------|
+| **Testing** | ✅ Enabled | ❌ Disabled | নতুন agent-এর জন্য default। Live হওয়ার আগে test করুন। |
+| **Active** | ✅ Enabled | ✅ Enabled | Production ব্যবহারের জন্য প্রস্তুত। |
+| **Inactive** | ❌ Disabled | ❌ Disabled | সাময়িকভাবে disabled। |
+| **Archived** | ❌ Disabled | ❌ Disabled | মূল তালিকা থেকে লুকানো। |
 
 <Callout type="warning">
-  If your agent has connected integrations and you change from Active to another status, you'll see a confirmation dialog warning that the agent will stop responding on connected channels.
+  যদি আপনার agent-এ connected integration থাকে এবং আপনি Active থেকে অন্য status-এ পরিবর্তন করেন, তাহলে একটি confirmation dialog দেখাবে যে agent connected channel-এ respond করা বন্ধ করবে।
 </Callout>
 
-### Basic Settings
+### মৌলিক Setting
 
-- **Name** — Identifies the agent in your dashboard
-- **Description** — Internal notes about the agent's purpose
+- **Name** — Dashboard-এ agent চিহ্নিত করে
+- **Description** — Agent-এর উদ্দেশ্য সম্পর্কে internal নোট
 
 ### LLM Configuration
 
-Control the AI model powering your agent.
+আপনার agent-কে power করা AI model নিয়ন্ত্রণ করুন।
 
 **Default Mode (Advanced toggle off):**
-- Uses your organization's tier defaults
-- Displays an info box explaining tier defaults are in use
-- Recommended for most use cases
+- আপনার organization-এর tier default ব্যবহার করে
+- Tier default ব্যবহৃত হচ্ছে এমন একটি info box দেখায়
+- বেশিরভাগ ক্ষেত্রে recommended
 
 **Advanced Mode (Advanced toggle on):**
 
-| Setting | Description |
-|---------|-------------|
-| **Model** | Select from available AI models based on your plan |
-| **Temperature** | Controls response creativity (0.0-1.0) |
+| Setting | বিবরণ |
+|---------|-------|
+| **Model** | আপনার plan অনুযায়ী available AI model থেকে নির্বাচন করুন |
+| **Temperature** | Response creativity নিয়ন্ত্রণ করে (0.0-1.0) |
 
-#### Temperature Guide
+#### Temperature গাইড
 
-| Value | Behavior |
-|-------|----------|
-| 0.0 - 0.3 | Focused, deterministic responses |
-| 0.4 - 0.7 | Balanced creativity and consistency |
-| 0.8 - 1.0 | More creative, varied responses |
+| মান | আচরণ |
+|-----|-------|
+| 0.0 - 0.3 | Focused, deterministic response |
+| 0.4 - 0.7 | Balanced creativity ও consistency |
+| 0.8 - 1.0 | আরও creative, বৈচিত্র্যময় response |
 
-**Recommendation:** Start with 0.3-0.5 for factual Q&A based on documents.
+**সুপারিশ:** Document-ভিত্তিক factual Q&A-এর জন্য 0.3-0.5 দিয়ে শুরু করুন।
 
 #### Show Document References
 
-This toggle (always visible regardless of Advanced mode) controls whether the agent includes source citations in responses:
+এই toggle (Advanced mode নির্বিশেষে সবসময় visible) নিয়ন্ত্রণ করে agent response-এ source citation অন্তর্ভুক্ত করবে কিনা:
 
-- **Off** (default) — Responses don't mention source documents
-- **On** — Responses include references to source documents
+- **Off** (default) — Response-এ source document উল্লেখ করে না
+- **On** — Response-এ source document-এর reference অন্তর্ভুক্ত করে
 
 <Callout type="important">
-  Enable document references for use cases requiring transparency, such as legal, compliance, or internal content where users need to verify sources.
+  স্বচ্ছতা প্রয়োজন এমন ক্ষেত্রে document reference enable করুন, যেমন legal, compliance, বা internal content যেখানে user-দের source যাচাই করা প্রয়োজন।
 </Callout>
 
-### Language Support
+### ভাষা সমর্থন
 
-Your agent automatically detects the language of each user message and responds in kind — no manual configuration needed. 176 languages are supported out of the box, including Arabic, French, German, Spanish, Turkish, Chinese, Japanese, and more.
+আপনার agent স্বয়ংক্রিয়ভাবে প্রতিটি user message-এর ভাষা শনাক্ত করে এবং একই ভাষায় respond করে — কোনো manual configuration প্রয়োজন নেই। Arabic, French, German, Spanish, Turkish, Chinese, Japanese সহ ১৭৬টি ভাষা out of the box সমর্থিত।
 
 ### Agent Persona
 
-The instructions that control agent behavior. See [Agent Personas](/agents/agent-personas) for best practices.
+Agent-এর আচরণ নিয়ন্ত্রণকারী নির্দেশনা। Best practice-এর জন্য [Agent Personas](/agents/agent-personas) দেখুন।
 
-**Actions available:**
-- **Generate** — Opens the [Agent Persona Builder](/agents/persona-builder)
-- **Edit** — Opens a slide-out panel to write or modify the persona directly
+**উপলব্ধ action:**
+- **Generate** — [Agent Persona Builder](/agents/persona-builder) খোলে
+- **Edit** — সরাসরি persona লিখতে বা পরিবর্তন করতে একটি slide-out panel খোলে
 
-Click on the persona text area to open the edit panel.
+Edit panel খুলতে persona text area-তে click করুন।
 
 **Platform Rules Box:**
-Click to view the platform reliability rules that are automatically applied to all agents:
-- No fabrication — won't invent facts
-- Acknowledges gaps — says "I don't know" when appropriate
-- Resists speculation — won't guess at missing information
-- No professional impersonation — won't act as lawyers, doctors, etc.
-- Corrects false premises — points out incorrect assumptions
-- Blocks harmful content — refuses inappropriate requests
+সব agent-এ স্বয়ংক্রিয়ভাবে প্রয়োগ হওয়া platform reliability rule দেখতে click করুন:
+- No fabrication — তথ্য তৈরি করবে না
+- Acknowledges gaps — যথাযথ সময়ে "আমি জানি না" বলে
+- Resists speculation — অনুপস্থিত তথ্য অনুমান করবে না
+- No professional impersonation — আইনজীবী, ডাক্তার ইত্যাদি সেজে কাজ করবে না
+- Corrects false premises — ভুল ধারণা চিহ্নিত করে
+- Blocks harmful content — অনুচিত request প্রত্যাখ্যান করে
 
 <Callout type="info">
-  Platform rules ensure all agents behave reliably and safely. They cannot be disabled or modified.
+  Platform rule সব agent-কে নির্ভরযোগ্য ও নিরাপদভাবে কাজ করতে নিশ্চিত করে। এগুলো disable বা modify করা যায় না।
 </Callout>
 
 ## Knowledge Access Tab
 
-Control which documents your agent can access when responding to queries.
+Query-এর respond করার সময় আপনার agent কোন document access করতে পারবে তা নিয়ন্ত্রণ করুন।
 
-### Access Modes
+### Access Mode
 
-| Mode | Behavior | When to Use |
-|------|----------|-------------|
-| **Exclude Mode** | Agent accesses ALL documents EXCEPT those selected | Hide sensitive documents while allowing access to everything else |
-| **Include Mode** | Agent accesses ONLY selected items | Restrict agent to a specific set of documents |
+| Mode | আচরণ | কখন ব্যবহার করবেন |
+|------|-------|-------------------|
+| **Exclude Mode** | Agent নির্বাচিত document ছাড়া সব document access করে | বাকি সবকিছুতে access রেখে sensitive document লুকান |
+| **Include Mode** | Agent শুধুমাত্র নির্বাচিত item access করে | নির্দিষ্ট document set-এ agent সীমাবদ্ধ করুন |
 
-### Selection Options
+### নির্বাচন বিকল্প
 
-Fine-tune access using multiple selection types:
+একাধিক selection type ব্যবহার করে access fine-tune করুন:
 
-- **Folders** — Select entire folders and all documents within them
-- **Tags** — Filter documents by their assigned tags
-- **Individual Documents** — Include or exclude specific documents within selected folders
+- **Folders** — সম্পূর্ণ folder ও তার মধ্যের সব document নির্বাচন করুন
+- **Tags** — Assign করা tag অনুযায়ী document filter করুন
+- **Individual Documents** — নির্বাচিত folder-এর মধ্যে নির্দিষ্ট document include বা exclude করুন
 
 ### Access Preview
 
-The preview panel shows the effective document access based on your current selections. Use this to verify your configuration before saving.
+Preview panel আপনার বর্তমান নির্বাচন অনুযায়ী কার্যকর document access দেখায়। Save করার আগে আপনার configuration যাচাই করতে এটি ব্যবহার করুন।
 
 <Callout type="info">
-  Start with **Exclude Mode** if you want broad access with specific restrictions. Use **Include Mode** when you need tight control over exactly which documents the agent can reference.
+  নির্দিষ্ট restriction সহ broad access চাইলে **Exclude Mode** দিয়ে শুরু করুন। Agent ঠিক কোন document reference করতে পারবে তার উপর tight control প্রয়োজন হলে **Include Mode** ব্যবহার করুন।
 </Callout>
 
 ## Integrations Tab
 
-Connect your agent to communication channels.
+আপনার agent-কে communication channel-এ সংযুক্ত করুন।
 
-This tab shows available integration options for your agent. You can connect channels like:
+এই tab আপনার agent-এর জন্য উপলব্ধ integration option দেখায়। আপনি এই ধরনের channel সংযুক্ত করতে পারেন:
 - Telegram
 - Discord
 - Slack
 - WhatsApp
 - Meta (Facebook Messenger)
-- And more (based on your plan)
+- এবং আরও (আপনার plan অনুযায়ী)
 
-See the [Integrations documentation](/integrations) for detailed setup guides for each channel.
+প্রতিটি channel-এর বিস্তারিত setup guide-এর জন্য [Integrations documentation](/integrations) দেখুন।
 
 ## Human Handoff
 
-Enable live chat handoff so your AI agent can transfer conversations to a real human when users request it.
+Live chat handoff enable করুন যাতে user request করলে আপনার AI agent conversation একজন মানুষের কাছে transfer করতে পারে।
 
-**How to enable:**
+**কীভাবে enable করবেন:**
 
-1. In the **Configuration** tab, scroll to the **Human Handoff** section
-2. Toggle **Enable Human Handoff** on
-3. Configure the messages:
-   - **Handoff Message** — Shown to the user when the transfer starts
-   - **Resolve Message** — Shown when the human agent ends the conversation
-   - **Max Wait Time** — Auto-expire if no agent accepts (default: 30 minutes)
-4. Click **Save Changes**
+1. **Configuration** tab-এ **Human Handoff** section-এ scroll করুন
+2. **Enable Human Handoff** toggle on করুন
+3. Message-গুলো configure করুন:
+   - **Handoff Message** — Transfer শুরু হলে user-কে দেখানো হয়
+   - **Resolve Message** — Human agent conversation শেষ করলে দেখানো হয়
+   - **Max Wait Time** — কেউ accept না করলে auto-expire (default: ৩০ মিনিট)
+4. **Save Changes**-এ click করুন
 
-When a user asks to speak with a human, the AI creates a handoff request visible on the **Inbox** page. A team member accepts, chats with the user on their channel, and resolves when done.
-
-<Callout type="info">
-  Human Handoff is available on all plans. Enable it per agent in the Configuration tab.
-</Callout>
-
-## Testing Your Agent
-
-Before saving changes, you can test your agent:
-
-1. Click the **Test Agent** button at the bottom of the form
-2. The Playground panel slides open
-3. Have a test conversation with your agent
-4. Close the Playground when done
+User যখন একজন মানুষের সাথে কথা বলতে চায়, AI **Inbox** page-এ দৃশ্যমান একটি handoff request তৈরি করে। একজন team member accept করে, তাদের channel-এ user-এর সাথে chat করে এবং শেষ হলে resolve করে।
 
 <Callout type="info">
-  The Test Agent button is disabled when the agent status is Archived or Inactive. Change the status to Active or Testing to enable testing.
+  Human Handoff সব plan-এ available। Configuration tab-এ প্রতি agent-এ enable করুন।
 </Callout>
 
-## Saving Changes
+## আপনার Agent Testing
+
+পরিবর্তন save করার আগে আপনি আপনার agent test করতে পারেন:
+
+1. Form-এর নিচে **Test Agent** button-এ click করুন
+2. Playground panel slide করে খোলে
+3. আপনার agent-এর সাথে একটি test conversation করুন
+4. শেষ হলে Playground বন্ধ করুন
+
+<Callout type="info">
+  Agent status Archived বা Inactive হলে Test Agent button disabled থাকে। Testing enable করতে status Active বা Testing-এ পরিবর্তন করুন।
+</Callout>
+
+## পরিবর্তন Save করা
 
 | Button | Action |
 |--------|--------|
-| **Save Changes** | Save all modifications |
-| **Test Agent** | Open the Playground to test |
+| **Save Changes** | সব পরিবর্তন save করুন |
+| **Test Agent** | Test করতে Playground খুলুন |
 
-To discard changes, navigate away using the back button or sidebar navigation.
+পরিবর্তন বাতিল করতে back button বা sidebar navigation ব্যবহার করে navigate away করুন।
 
-**What gets saved:**
-- Only changed fields are updated
-- You'll see "No changes to save" if nothing was modified
-- Success or error messages appear after save
+**যা save হয়:**
+- শুধুমাত্র পরিবর্তিত field update হয়
+- কিছু পরিবর্তন না হলে "No changes to save" দেখাবে
+- Save-এর পর success বা error message দেখায়
 
 **Partial Save Handling:**
-If some changes save but others fail, you'll be notified which sections failed and the page will refresh to show the current state.
+কিছু পরিবর্তন save হলে কিন্তু অন্যগুলো fail করলে, কোন section fail করেছে তা জানানো হবে এবং page বর্তমান state দেখাতে refresh হবে।
 
 <Callout type="info">
-  Changes to agent settings take effect immediately after saving. Test in the Playground after making changes.
+  Agent setting-এর পরিবর্তন save করার সাথে সাথে কার্যকর হয়। পরিবর্তন করার পর Playground-এ test করুন।
 </Callout>

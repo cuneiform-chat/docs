@@ -1,219 +1,216 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Inbox ও Human Handoff
 
-# Inbox & Human Handoff
-
-When your AI agent can't fully resolve a conversation, it can transfer the user to a human team member. This is called Human Handoff — it connects your AI-powered support with real people when they're needed most.
+যখন আপনার AI agent একটি conversation সম্পূর্ণভাবে সমাধান করতে পারে না, এটি user-কে একজন মানব team member-এর কাছে transfer করতে পারে। এটিকে Human Handoff বলা হয় — এটি আপনার AI-powered support-কে প্রকৃত মানুষের সাথে সংযুক্ত করে যখন তাদের সবচেয়ে বেশি প্রয়োজন।
 
 import { Callout } from 'nextra/components'
 
-## Overview
+## সংক্ষিপ্ত বিবরণ
 
-Human Handoff provides:
-- Seamless transfer from AI agent to a human team member
-- Real-time chat with end users on any connected channel
-- Queue management with status tracking
-- In-app and email notifications when users request help
-- Automatic expiry if no agent is available within the configured time
+Human Handoff প্রদান করে:
+- AI agent থেকে মানব team member-এ নির্বিঘ্ন transfer
+- যেকোনো connected channel-এ end user-দের সাথে real-time chat
+- Status tracking সহ queue management
+- User সাহায্য চাইলে in-app ও email notification
+- Configured সময়ের মধ্যে কোনো agent available না থাকলে automatic expiry
 
-## Prerequisites
+## পূর্বশর্ত
 
-- An active AI agent with Human Handoff enabled
-- At least one connected channel (or the Website Widget)
-- A team member available to respond in the admin panel
+- Human Handoff enabled একটি active AI agent
+- কমপক্ষে একটি connected channel (বা Website Widget)
+- Admin panel-এ respond করতে available একজন team member
 
-## Enabling Human Handoff
+## Human Handoff Enable করা
 
-Human Handoff is configured per agent.
+Human Handoff প্রতি agent-এ configure করা হয়।
 
-1. Go to **Agents** and click your agent to edit
-2. In the **Configuration** tab, scroll to the **Human Handoff** section
-3. Toggle **Enable Human Handoff** on
-4. Configure the settings:
+1. **Agents**-এ যান এবং edit করতে আপনার agent-এ click করুন
+2. **Configuration** tab-এ **Human Handoff** section-এ scroll করুন
+3. **Enable Human Handoff** toggle on করুন
+4. Setting-গুলো configure করুন:
 
-| Setting | Description | Default |
-|---------|-------------|---------|
-| **Handoff Message** | Shown to the user when the transfer starts | "I'm connecting you with a human agent. Please hold on." |
-| **Accept Message** | Auto-sent when a team member accepts the chat | "Hi! I'm {'{agent_name}'} from {'{org_name}'}. How can I help you?" |
-| **Resolve Message** | Shown to the user when the chat ends | "You're now back with the AI assistant. How can I help?" |
-| **Max Wait Time** | Auto-expire if no one accepts (5, 10, 15, 30, or 60 minutes) | 30 minutes |
+| Setting | বিবরণ | Default |
+|---------|-------|---------|
+| **Handoff Message** | Transfer শুরু হলে user-কে দেখানো হয় | "I'm connecting you with a human agent. Please hold on." |
+| **Accept Message** | Team member chat accept করলে auto-sent হয় | "Hi! I'm {'{agent_name}'} from {'{org_name}'}. How can I help you?" |
+| **Resolve Message** | Chat শেষ হলে user-কে দেখানো হয় | "You're now back with the AI assistant. How can I help?" |
+| **Max Wait Time** | কেউ accept না করলে auto-expire (৫, ১০, ১৫, ৩০, বা ৬০ মিনিট) | ৩০ মিনিট |
 
-5. Click **Save Changes**
+5. **Save Changes**-এ click করুন
 
 <Callout type="info">
-  Messages support `{'{agent_name}'}` and `{'{org_name}'}` placeholders that are automatically replaced with real values.
+  Message-গুলো `{'{agent_name}'}` এবং `{'{org_name}'}` placeholder সমর্থন করে যা স্বয়ংক্রিয়ভাবে প্রকৃত মান দিয়ে প্রতিস্থাপিত হয়।
 </Callout>
 
-For more details on agent settings, see [Configuration Options](/agents/configuring#human-handoff).
+Agent setting-এর আরও বিস্তারিত জানতে [Configuration Options](/agents/configuring#human-handoff) দেখুন।
 
-## How It Works
+## কীভাবে কাজ করে
 
 ```
-User asks to speak with a human
-  → AI agent detects the request
-  → Handoff message shown to the user
-  → Session appears in the Inbox queue (status: Queued)
-  → Team members receive in-app notification
-  → If no response in 3 min, email reminder sent
-  → Team member opens Inbox and clicks Accept
-  → Accept message sent to the user
-  → Real-time chat between user and team member
-  → Team member clicks Resolve when done
-  → Resolve message sent to the user
-  → AI agent resumes the conversation
+User মানুষের সাথে কথা বলতে চায়
+  → AI agent request শনাক্ত করে
+  → User-কে handoff message দেখানো হয়
+  → Session Inbox queue-তে দেখা যায় (status: Queued)
+  → Team member-রা in-app notification পায়
+  → ৩ মিনিটে response না পেলে email reminder পাঠানো হয়
+  → Team member Inbox খুলে Accept-এ click করে
+  → User-কে accept message পাঠানো হয়
+  → User ও team member-এর মধ্যে real-time chat
+  → শেষ হলে team member Resolve-এ click করে
+  → User-কে resolve message পাঠানো হয়
+  → AI agent conversation পুনরায় শুরু করে
 ```
 
-During a handoff, the AI agent pauses. All messages from the user are routed directly to the human team member. When resolved, the AI agent automatically resumes handling the conversation.
+Handoff চলাকালীন AI agent pause থাকে। User-এর সব message সরাসরি মানব team member-এর কাছে route হয়। Resolve হলে AI agent স্বয়ংক্রিয়ভাবে conversation handling পুনরায় শুরু করে।
 
-## Using the Inbox Page
+## Inbox Page ব্যবহার
 
-Navigate to **Inbox** in the sidebar to see the handoff queue.
+Handoff queue দেখতে sidebar-এ **Inbox**-এ navigate করুন।
 
 ### Queue Stats
 
-At the top of the page you'll see:
+Page-এর উপরে আপনি দেখবেন:
 
-- **Queued** — Number of users waiting for a team member
-- **Active** — Number of chats currently being handled
-- **Agents online** — How many team members have the Inbox page open
+- **Queued** — Team member-এর জন্য অপেক্ষারত user-এর সংখ্যা
+- **Active** — বর্তমানে handle হচ্ছে এমন chat-এর সংখ্যা
+- **Agents online** — কতজন team member-এর Inbox page খোলা আছে
 
 <Callout type="info">
-  Your online status is tracked automatically while you have the Inbox page open. No manual "go online" action is needed.
+  Inbox page খোলা থাকলে আপনার online status স্বয়ংক্রিয়ভাবে track হয়। কোনো manual "go online" action প্রয়োজন নেই।
 </Callout>
 
 ### Filtering
 
-Use the status filter dropdown to view specific sessions:
+নির্দিষ্ট session দেখতে status filter dropdown ব্যবহার করুন:
 
-| Filter | Shows |
+| Filter | দেখায় |
 |--------|-------|
-| Queued & Active | Conversations that need attention (default) |
-| Queued Only | Users waiting for someone to accept |
-| Active Only | Conversations currently being handled |
-| Resolved | Completed conversations |
-| Expired | Sessions that timed out |
-| All | Everything |
+| Queued & Active | মনোযোগ প্রয়োজন এমন conversation (default) |
+| Queued Only | কেউ accept করার অপেক্ষায় থাকা user |
+| Active Only | বর্তমানে handle হচ্ছে এমন conversation |
+| Resolved | সম্পন্ন conversation |
+| Expired | সময় শেষ হয়ে যাওয়া session |
+| All | সবকিছু |
 
 ### Queue Table
 
-Each row shows the AI agent that escalated, the user's channel, session status, escalation reason, wait time, and which team member is assigned (if any).
+প্রতিটি row দেখায় কোন AI agent escalate করেছে, user-এর channel, session status, escalation reason, wait time এবং কোন team member assign আছে (যদি থাকে)।
 
-Click any row to open the chat detail page.
+Chat detail page খুলতে যেকোনো row-তে click করুন।
 
-## Accepting and Chatting
+## Accept করা ও Chat
 
-When you click a queued session, the chat detail page opens.
+আপনি একটি queued session-এ click করলে chat detail page খোলে।
 
-### Accepting a Session
+### Session Accept করা
 
-Click the green **Accept** button in the header. This:
+Header-এ সবুজ **Accept** button-এ click করুন। এটি:
 
-1. Changes the session status from Queued to Active
-2. Sends the accept message to the user on their channel
-3. Opens the message input so you can start chatting
+1. Session status Queued থেকে Active-এ পরিবর্তন করে
+2. User-এর channel-এ accept message পাঠায়
+3. Chat শুরু করতে message input খোলে
 
 <Callout type="warning">
-  Only one team member can accept a session. Once accepted, it's assigned to you.
+  শুধুমাত্র একজন team member একটি session accept করতে পারে। Accept করলে এটি আপনাকে assign হয়ে যায়।
 </Callout>
 
 ### Chat Interface
 
-The chat detail page has two sections:
+Chat detail page-এ দুটি section আছে:
 
-**Chat Panel (left):**
-- Messages are grouped by sender with distinct styling:
-  - **User messages** (dark) — on the left
-  - **AI bot messages** (light) — on the right
-  - **Human agent messages** (blue) — on the right, labeled with your name
-- Type in the text area at the bottom and press Enter to send
-- Messages are delivered in real-time to the user's channel
+**Chat Panel (বাম):**
+- Message sender অনুযায়ী আলাদা styling-এ grouped:
+  - **User message** (dark) — বাম দিকে
+  - **AI bot message** (light) — ডান দিকে
+  - **Human agent message** (blue) — ডান দিকে, আপনার নাম সহ labeled
+- নিচের text area-তে type করুন এবং পাঠাতে Enter চাপুন
+- Message real-time-এ user-এর channel-এ deliver হয়
 
-**Context Sidebar (right, desktop only):**
-- **Timeline** — Created, Accepted, Resolved timestamps with live wait timer
+**Context Sidebar (ডান, শুধু desktop):**
+- **Timeline** — Created, Accepted, Resolved timestamp সহ live wait timer
 - **Session** — Status, channel, message count, assigned agent
-- **Participants** — End user, AI agent, and human agent
-- **Escalation Reason** — Why the AI decided to hand off (if provided)
+- **Participants** — End user, AI agent এবং human agent
+- **Escalation Reason** — AI কেন hand off করার সিদ্ধান্ত নিয়েছে (যদি প্রদত্ত)
 
-## Resolving Sessions
+## Session Resolve করা
 
-When you've addressed the user's issue:
+User-এর সমস্যা সমাধান হলে:
 
-1. Click the **Resolve** button in the header
-2. A confirmation dialog appears
-3. Optionally add an **internal note** (not shown to the user — for your team's records)
-4. Click **Resolve** to confirm
+1. Header-এ **Resolve** button-এ click করুন
+2. একটি confirmation dialog দেখায়
+3. ঐচ্ছিকভাবে একটি **internal note** যোগ করুন (user-কে দেখানো হয় না — আপনার team-এর record-এর জন্য)
+4. নিশ্চিত করতে **Resolve**-এ click করুন
 
-After resolving:
-- The resolve message is sent to the user
-- The conversation returns to the AI agent
-- The session moves to Resolved status
+Resolve করার পর:
+- User-কে resolve message পাঠানো হয়
+- Conversation AI agent-এর কাছে ফিরে যায়
+- Session Resolved status-এ চলে যায়
 
-## What Happens When No One Is Available
+## কেউ Available না থাকলে কী হয়
 
-If no team member accepts within the configured **Max Wait Time**:
+Configured **Max Wait Time**-এর মধ্যে কোনো team member accept না করলে:
 
-1. The session status changes to **Expired**
-2. The user receives a message that no agent is available
-3. The conversation returns to the AI agent automatically
+1. Session status **Expired**-এ পরিবর্তন হয়
+2. User একটি message পায় যে কোনো agent available নেই
+3. Conversation স্বয়ংক্রিয়ভাবে AI agent-এর কাছে ফিরে যায়
 
 <Callout type="important">
-  Set the Max Wait Time based on your team's availability. If you have limited staff, a shorter time (5–10 minutes) is better than leaving users waiting.
+  আপনার team-এর availability অনুযায়ী Max Wait Time সেট করুন। সীমিত staff থাকলে user-দের অপেক্ষায় রাখার চেয়ে কম সময় (৫-১০ মিনিট) ভালো।
 </Callout>
 
 ## Notifications
 
 ### In-App Notifications
 
-When a user requests a human agent, all team members in your organization receive an in-app notification via the notification bell in the admin panel header.
+User human agent request করলে আপনার organization-এর সব team member admin panel header-এর notification bell-এর মাধ্যমে in-app notification পায়।
 
 ### Email Reminders
 
-If a handoff session remains queued for **3 minutes** without being accepted, an email reminder is sent to all team members in your organization. This ensures someone is notified even if they're not currently in the admin panel.
+Handoff session **৩ মিনিট** accept না হয়ে queued থাকলে আপনার organization-এর সব team member-কে email reminder পাঠানো হয়। এটি নিশ্চিত করে যে কেউ admin panel-এ না থাকলেও notified হয়।
 
-## Supported Channels
+## সমর্থিত Channels
 
-Human Handoff works with all connected channels:
+Human Handoff সব connected channel-এ কাজ করে:
 
 | Channel | Delivery Method |
 |---------|----------------|
-| Telegram | Messages sent via bot |
-| Discord | Messages sent to channel |
-| Slack | Messages sent to channel |
-| WhatsApp | Messages sent via API |
-| Meta (Facebook Messenger) | Messages sent via page |
-| Google Chat | Messages sent to space |
-| Website Widget | Messages appear in chat widget |
+| Telegram | Bot-এর মাধ্যমে message পাঠানো হয় |
+| Discord | Channel-এ message পাঠানো হয় |
+| Slack | Channel-এ message পাঠানো হয় |
+| WhatsApp | API-এর মাধ্যমে message পাঠানো হয় |
+| Meta (Facebook Messenger) | Page-এর মাধ্যমে message পাঠানো হয় |
+| Google Chat | Space-এ message পাঠানো হয় |
+| Website Widget | Chat widget-এ message দেখা যায় |
 
 <Callout type="info">
-  On the Website Widget, messages are delivered via real-time streaming. On all other channels, messages are pushed directly through the channel's API.
+  Website Widget-এ message real-time streaming-এর মাধ্যমে deliver হয়। অন্য সব channel-এ message সরাসরি channel-এর API-এর মাধ্যমে push করা হয়।
 </Callout>
 
 ## FAQ
 
-### Which plans include Human Handoff?
+### কোন plan-এ Human Handoff আছে?
 
-Human Handoff is available on all plans, including Trial. Enable it per agent in the Configuration tab.
+Human Handoff Trial সহ সব plan-এ available। Configuration tab-এ প্রতি agent-এ enable করুন।
 
-### Can multiple team members handle handoffs?
+### একাধিক team member কি handoff handle করতে পারে?
 
-Yes. Any team member in your organization can accept queued sessions. The "Agents online" counter shows how many team members currently have the Inbox page open.
+হ্যাঁ। আপনার organization-এর যেকোনো team member queued session accept করতে পারে। "Agents online" counter দেখায় বর্তমানে কতজন team member-এর Inbox page খোলা আছে।
 
-### What if I close my browser during an active chat?
+### Active chat চলাকালীন browser বন্ধ করলে কী হয়?
 
-The session remains Active. When you return to the Inbox page, you can continue the conversation where you left off.
+Session Active থাকে। Inbox page-এ ফিরে এলে যেখানে ছিলেন সেখান থেকে conversation চালিয়ে যেতে পারবেন।
 
-### Can the user tell they're talking to a human?
+### User কি বুঝতে পারে যে মানুষের সাথে কথা বলছে?
 
-The user receives the configured accept message when you join. Beyond that, the experience depends on how you write the handoff messages and your conversation style.
+আপনি join করলে user configured accept message পায়। এর বাইরে, অভিজ্ঞতা নির্ভর করে আপনি handoff message কীভাবে লিখেছেন এবং আপনার conversation style-এর উপর।
 
-### Does the AI see the human agent's messages?
+### AI কি human agent-এর message দেখতে পায়?
 
-Human agent messages are stored in the conversation history. When the AI resumes after resolution, it has context from the handoff exchange.
+Human agent-এর message conversation history-তে store হয়। Resolution-এর পর AI পুনরায় শুরু করলে handoff exchange-এর context থাকে।
 
-### Can I review past handoff sessions?
+### আমি কি অতীতের handoff session review করতে পারি?
 
-Yes. Use the status filter on the Inbox page to view **Resolved** or **Expired** sessions. Click any session to review the full conversation.
+হ্যাঁ। **Resolved** বা **Expired** session দেখতে Inbox page-এ status filter ব্যবহার করুন। সম্পূর্ণ conversation review করতে যেকোনো session-এ click করুন।
 
-### What triggers the AI to hand off?
+### কী AI-কে hand off করতে trigger করে?
 
-The AI agent decides to escalate when a user explicitly asks to speak with a human (e.g., "Can I talk to a real person?"). The AI uses a classification check to verify the user genuinely wants a human before creating the handoff.
+AI agent escalate করার সিদ্ধান্ত নেয় যখন user স্পষ্টভাবে মানুষের সাথে কথা বলতে চায় (যেমন, "Can I talk to a real person?")। AI একটি classification check ব্যবহার করে যাচাই করে যে user সত্যিই handoff তৈরি করার আগে মানুষ চায়।

@@ -1,83 +1,80 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
-# Testing in Playground
+# Playground-এ Testing
 
 import { Callout } from 'nextra/components'
 
-The Playground is your environment for testing and refining agents before deployment.
+Playground হলো deployment-এর আগে agent test ও refine করার environment।
 
-## Accessing the Playground
+## Playground-এ প্রবেশ
 
-1. Navigate to **Agents** in the sidebar
-2. Click **Test** on your agent card (or **Test Agent** when editing an agent)
-3. The Playground slides open as a side panel — start a conversation
+1. Sidebar-এ **Agents**-এ navigate করুন
+2. আপনার agent card-এ **Test**-এ click করুন (অথবা agent edit করার সময় **Test Agent**)
+3. Playground একটি side panel হিসেবে slide করে খোলে — conversation শুরু করুন
 
 <Callout type="info">
-  The Test button is disabled when the agent status is **Archived** or **Inactive**. Change the status to **Active** or **Testing** to enable testing.
+  Agent status **Archived** বা **Inactive** হলে Test button disabled থাকে। Testing enable করতে status **Active** বা **Testing**-এ পরিবর্তন করুন।
 </Callout>
 
-## What to Test
+## কী Test করবেন
 
-### Basic Functionality
+### মৌলিক কার্যকারিতা
 
-- Can the agent answer questions from your documents?
-- Are responses accurate and relevant?
-- Does the tone match your expectations?
+- Agent আপনার document থেকে প্রশ্নের উত্তর দিতে পারে?
+- Response সঠিক ও প্রাসঙ্গিক?
+- Tone আপনার প্রত্যাশার সাথে মিলছে?
 
 ### Edge Cases
 
-Test scenarios that might trip up your agent:
+Agent-কে বিভ্রান্ত করতে পারে এমন scenario test করুন:
 
-- Questions not covered by your documents
-- Ambiguous or unclear questions
-- Multi-part questions
-- Follow-up questions requiring context
+- আপনার document-এ নেই এমন প্রশ্ন
+- অস্পষ্ট বা unclear প্রশ্ন
+- একাধিক অংশের প্রশ্ন
+- Context প্রয়োজন এমন follow-up প্রশ্ন
 
 ### Conversation Flow
 
-Test multi-turn conversations:
+Multi-turn conversation test করুন:
 
-- Does the agent remember context from earlier messages?
-- Can it handle topic changes gracefully?
-- Does it ask for clarification when needed?
+- Agent আগের message-এর context মনে রাখে?
+- Topic পরিবর্তন সুন্দরভাবে handle করতে পারে?
+- প্রয়োজনে clarification চায়?
 
-## Evaluating Responses
+## Response মূল্যায়ন
 
-For each response, consider:
+প্রতিটি response-এর জন্য বিবেচনা করুন:
 
-| Aspect | Questions to Ask |
-|--------|-----------------|
-| **Accuracy** | Is the information correct? |
-| **Relevance** | Does it answer the actual question? |
-| **Completeness** | Is anything important missing? |
-| **Tone** | Does it match your brand voice? |
-| **Length** | Is it appropriately concise or detailed? |
+| দিক | জিজ্ঞাসা করুন |
+|-----|--------------|
+| **Accuracy** | তথ্য সঠিক? |
+| **Relevance** | প্রকৃত প্রশ্নের উত্তর দিয়েছে? |
+| **Completeness** | গুরুত্বপূর্ণ কিছু বাদ পড়েছে? |
+| **Tone** | আপনার brand voice-এর সাথে মিলছে? |
+| **Length** | যথাযথভাবে সংক্ষিপ্ত বা বিস্তারিত? |
 
-## Iterative Improvement
+## ধাপে ধাপে উন্নতি
 
-### Identify Issues
+### সমস্যা চিহ্নিত করুন
 
-Common problems and solutions:
+সাধারণ সমস্যা ও সমাধান:
 
-| Issue | Solution |
-|-------|----------|
-| Wrong information | Check document content, improve retrieval |
-| Too verbose | Add "be concise" to agent persona |
-| Too formal/casual | Adjust tone in agent persona |
-| Doesn't know answer | Add relevant documents |
-| Makes up facts | Strengthen boundaries in prompt |
+| সমস্যা | সমাধান |
+|---------|--------|
+| ভুল তথ্য | Document content পরীক্ষা করুন, retrieval উন্নত করুন |
+| অতিরিক্ত verbose | Agent persona-তে "be concise" যোগ করুন |
+| অতিরিক্ত formal/casual | Agent persona-তে tone adjust করুন |
+| উত্তর জানে না | প্রাসঙ্গিক document যোগ করুন |
+| তথ্য তৈরি করে | Prompt-এ boundary শক্তিশালী করুন |
 
-### Make Changes
+### পরিবর্তন করুন
 
-1. Identify the issue in Playground testing
-2. Adjust relevant settings (prompt, documents, configuration)
-3. Test again with the same questions
-4. Verify the fix doesn't break other behaviors
+1. Playground testing-এ সমস্যা চিহ্নিত করুন
+2. প্রাসঙ্গিক setting adjust করুন (prompt, document, configuration)
+3. একই প্রশ্ন দিয়ে আবার test করুন
+4. Fix অন্য আচরণ ভাঙেনি তা যাচাই করুন
 
-## Test Scenarios Checklist
+## Test Scenario Checklist
 
-Create a set of standard test questions:
+একটি standard test question set তৈরি করুন:
 
 ```markdown
 ## Test Scenarios for [Agent Name]
@@ -95,17 +92,17 @@ Create a set of standard test questions:
 ```
 
 <Callout type="important">
-  Save your test scenarios and re-run them after making changes to catch regressions.
+  আপনার test scenario save করুন এবং পরিবর্তনের পর regression ধরতে আবার চালান।
 </Callout>
 
-## Ready for Deployment
+## Deployment-এর জন্য প্রস্তুত
 
-Your agent is ready when:
+আপনার agent প্রস্তুত যখন:
 
-- ✅ Answers common questions accurately
-- ✅ Handles edge cases gracefully
-- ✅ Maintains appropriate tone
-- ✅ Respects defined boundaries
-- ✅ Multi-turn conversations work well
+- ✅ সাধারণ প্রশ্নের সঠিক উত্তর দেয়
+- ✅ Edge case সুন্দরভাবে handle করে
+- ✅ যথাযথ tone বজায় রাখে
+- ✅ নির্ধারিত সীমানা মেনে চলে
+- ✅ Multi-turn conversation ভালো কাজ করে
 
-Next, deploy your agent to [channels](/integrations) where users will interact with it.
+এরপর, আপনার agent-কে [channel](/integrations)-এ deploy করুন যেখানে user-রা interact করবে।

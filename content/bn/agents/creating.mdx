@@ -1,57 +1,54 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
-# Creating Agents
+# Agent তৈরি
 
 import { Callout } from 'nextra/components'
 
-Learn how to create new agents in Cuneiform Chat.
+Cuneiform Chat-এ নতুন agent কীভাবে তৈরি করবেন তা শিখুন।
 
-## Getting Started
+## শুরু করুন
 
-1. Navigate to **Agents** in the sidebar
-2. Click the **Create Agent** button in the top right
-3. Fill in the form sections below
+1. Sidebar-এ **Agents**-এ navigate করুন
+2. উপরের ডানদিকে **Create Agent** button-এ click করুন
+3. নিচের form section-গুলো পূরণ করুন
 
-## Basic Information
+## মৌলিক তথ্য
 
-This section captures essential details about your agent.
+এই section-এ আপনার agent সম্পর্কে প্রয়োজনীয় তথ্য থাকে।
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| **Name** | Yes | A name for your agent (e.g., "Customer Support Agent"). Maximum 100 characters. |
-| **Description** | No | A brief description of what this agent does. Maximum 500 characters. |
+| ক্ষেত্র | আবশ্যক | বিবরণ |
+|---------|---------|-------|
+| **Name** | হ্যাঁ | আপনার agent-এর একটি নাম (যেমন, "Customer Support Agent")। সর্বোচ্চ ১০০ অক্ষর। |
+| **Description** | না | Agent কী করে তার সংক্ষিপ্ত বিবরণ। সর্বোচ্চ ৫০০ অক্ষর। |
 
-**Tips:**
-- Choose a descriptive name that indicates the agent's purpose
-- The description helps you and your team understand the agent's role
+**পরামর্শ:**
+- Agent-এর উদ্দেশ্য বোঝায় এমন একটি বর্ণনামূলক নাম বেছে নিন
+- Description আপনাকে এবং আপনার team-কে agent-এর ভূমিকা বুঝতে সাহায্য করে
 
 ## Agent Persona
 
-The agent persona defines how your agent behaves and responds through a system prompt.
+Agent persona একটি system prompt-এর মাধ্যমে আপনার agent-এর আচরণ ও response নির্ধারণ করে।
 
-**Key Elements:**
+**মূল উপাদানসমূহ:**
 
-- **Platform Rules Box** — Shows built-in safety rules that are automatically applied (click to view details)
-- **Generate Button** — Opens the [Agent Persona Builder](/agents/persona-builder) to help create your persona
-- **Edit Button** — Opens a panel to manually write or edit the persona
+- **Platform Rules Box** — Built-in safety rule দেখায় যা স্বয়ংক্রিয়ভাবে প্রয়োগ হয় (detail দেখতে click করুন)
+- **Generate Button** — আপনার persona তৈরিতে সাহায্য করতে [Agent Persona Builder](/agents/persona-builder) খোলে
+- **Edit Button** — Persona manually লিখতে বা edit করতে একটি panel খোলে
 
 ### Platform Rules
 
-These safety guardrails are automatically applied to all agents:
+এই safety guardrail-গুলো সব agent-এ স্বয়ংক্রিয়ভাবে প্রয়োগ হয়:
 
-- **No fabrication** — Won't invent facts not in your content
-- **Acknowledges gaps** — Says "I don't know" when appropriate
-- **Resists speculation** — Won't guess at missing information
-- **No professional impersonation** — Won't act as lawyers, doctors, etc.
-- **Corrects false premises** — Points out incorrect assumptions
-- **Blocks harmful content** — Refuses inappropriate requests
+- **No fabrication** — আপনার content-এ নেই এমন তথ্য তৈরি করবে না
+- **Acknowledges gaps** — যথাযথ সময়ে "আমি জানি না" বলে
+- **Resists speculation** — অনুপস্থিত তথ্য অনুমান করবে না
+- **No professional impersonation** — আইনজীবী, ডাক্তার ইত্যাদি সেজে কাজ করবে না
+- **Corrects false premises** — ভুল ধারণা চিহ্নিত করে
+- **Blocks harmful content** — অনুচিত request প্রত্যাখ্যান করে
 
 <Callout type="info">
-  Platform rules ensure all agents behave reliably and safely. They cannot be disabled. See [Agent Persona Builder](/agents/persona-builder#platform-rules) for details.
+  Platform rule সব agent-কে নির্ভরযোগ্য ও নিরাপদভাবে কাজ করতে নিশ্চিত করে। এগুলো disable করা যায় না। বিস্তারিত দেখুন [Agent Persona Builder](/agents/persona-builder#platform-rules)।
 </Callout>
 
-### Quick Persona Example
+### দ্রুত Persona উদাহরণ
 
 ```
 You are a helpful assistant for [Your Company].
@@ -59,89 +56,89 @@ Answer questions based on the provided documentation.
 Be concise and friendly.
 ```
 
-See [Agent Personas](/agents/agent-personas) for detailed guidance on writing effective personas.
+কার্যকর persona লেখার বিস্তারিত নির্দেশনার জন্য [Agent Personas](/agents/agent-personas) দেখুন।
 
-## Language Support
+## ভাষা সমর্থন
 
-Your agent automatically detects the language of each user message and responds in the same language — no configuration needed. 176 languages are supported out of the box. See [Agent Personas — Language Detection](/agents/agent-personas#4-automatic-language-detection) for details.
+আপনার agent স্বয়ংক্রিয়ভাবে প্রতিটি user message-এর ভাষা শনাক্ত করে এবং একই ভাষায় respond করে — কোনো configuration প্রয়োজন নেই। ১৭৬টি ভাষা out of the box সমর্থিত। বিস্তারিত দেখুন [Agent Personas — Language Detection](/agents/agent-personas#4-automatic-language-detection)।
 
 ## LLM Configuration
 
-This section controls the AI model settings.
+এই section AI model-এর setting নিয়ন্ত্রণ করে।
 
 **Default Mode:**
 
-By default, LLM settings use your organization's tier defaults. You'll see an info box showing "Using tier defaults". This is recommended for most use cases.
+By default, LLM setting আপনার organization-এর tier default ব্যবহার করে। আপনি "Using tier defaults" দেখানো একটি info box দেখবেন। বেশিরভাগ ক্ষেত্রে এটি recommended।
 
 **Advanced Mode:**
 
-Toggle on **Advanced** to customize:
+**Advanced** toggle on করে customize করুন:
 
-| Setting | Description |
-|---------|-------------|
-| **Model** | Choose from available AI models based on your plan |
-| **Temperature** | Controls response creativity (lower = more consistent, higher = more creative) |
+| Setting | বিবরণ |
+|---------|-------|
+| **Model** | আপনার plan অনুযায়ী available AI model থেকে বেছে নিন |
+| **Temperature** | Response creativity নিয়ন্ত্রণ করে (কম = আরও consistent, বেশি = আরও creative) |
 
 **Show Document References:**
 
-This toggle (always visible) controls whether the agent includes source citations in responses:
-- **Off** (default) — Responses don't mention source documents
-- **On** — Responses include references to source documents (useful for legal/compliance)
+এই toggle (সবসময় visible) নিয়ন্ত্রণ করে agent response-এ source citation অন্তর্ভুক্ত করবে কিনা:
+- **Off** (default) — Response-এ source document উল্লেখ করে না
+- **On** — Response-এ source document-এর reference অন্তর্ভুক্ত করে (legal/compliance-এর জন্য উপযোগী)
 
 ## Knowledge Access Control
 
-Control what documents your agent can access when answering questions.
+প্রশ্নের উত্তর দেওয়ার সময় আপনার agent কোন document access করতে পারবে তা নিয়ন্ত্রণ করুন।
 
-| Mode | Behavior | When to Use |
-|------|----------|-------------|
-| **Exclude Mode** | Agent accesses ALL documents EXCEPT those selected | Hide sensitive documents from the agent |
-| **Include Mode** | Agent accesses ONLY selected items | Restrict agent to a specific set of knowledge |
+| Mode | আচরণ | কখন ব্যবহার করবেন |
+|------|-------|-------------------|
+| **Exclude Mode** | Agent নির্বাচিত document ছাড়া সব document access করে | Agent থেকে sensitive document লুকান |
+| **Include Mode** | Agent শুধুমাত্র নির্বাচিত item access করে | নির্দিষ্ট knowledge set-এ agent সীমাবদ্ধ করুন |
 
-**When using Include Mode:**
-- Select specific folders the agent can access
-- Select specific tags the agent can access
-- Select individual documents the agent can access
+**Include Mode ব্যবহার করলে:**
+- Agent যে specific folder access করতে পারবে তা নির্বাচন করুন
+- Agent যে specific tag access করতে পারবে তা নির্বাচন করুন
+- Agent যে individual document access করতে পারবে তা নির্বাচন করুন
 
-The agent will only use information from the selected sources when responding.
+Agent শুধুমাত্র নির্বাচিত source-এর তথ্য ব্যবহার করে respond করবে।
 
 <Callout type="important">
-  Start with Exclude Mode (full knowledge access) unless you need to hide specific documents. You can always restrict access later.
+  নির্দিষ্ট document লুকাতে না চাইলে Exclude Mode (full knowledge access) দিয়ে শুরু করুন। পরে যেকোনো সময় access সীমিত করতে পারবেন।
 </Callout>
 
 ## Form Actions
 
-At the bottom of the form:
+Form-এর নিচে:
 
 | Button | Action |
 |--------|--------|
-| **Cancel** | Discard changes and go back |
-| **Reset** | Clear all fields and start over (shows confirmation dialog) |
-| **Create Agent** | Save the agent and open its edit page |
+| **Cancel** | পরিবর্তন বাতিল করুন এবং ফিরে যান |
+| **Reset** | সব field মুছে নতুন করে শুরু করুন (confirmation dialog দেখায়) |
+| **Create Agent** | Agent save করুন এবং এর edit page খুলুন |
 
 <Callout type="info">
-  Your draft is automatically saved as you work. If you leave and come back, your progress will be restored.
+  আপনার draft কাজ করার সময় স্বয়ংক্রিয়ভাবে save হয়। আপনি চলে গিয়ে ফিরে আসলে আপনার progress পুনরুদ্ধার হবে।
 </Callout>
 
-## After Creating
+## তৈরির পরে
 
-When you click **Create Agent**:
+আপনি **Create Agent**-এ click করলে:
 
-1. The agent is created with **Testing** status
-2. You're taken to the agent's edit page
-3. Test the agent using the Playground
-4. Connect integrations when ready to go live
-5. Change status to **Active** when ready
+1. Agent **Testing** status-এ তৈরি হয়
+2. আপনাকে agent-এর edit page-এ নিয়ে যাওয়া হয়
+3. Playground ব্যবহার করে agent test করুন
+4. Live হতে প্রস্তুত হলে integration connect করুন
+5. প্রস্তুত হলে status **Active**-এ পরিবর্তন করুন
 
 <Callout type="info">
-  New agents start in **Testing** status. You can test in the Playground, but channel integrations are disabled until you activate the agent.
+  নতুন agent **Testing** status-এ শুরু হয়। আপনি Playground-এ test করতে পারবেন, তবে agent activate না করা পর্যন্ত channel integration disabled থাকবে।
 </Callout>
 
-## Managing Agents
+## Agent পরিচালনা
 
-From the Agents page, you can:
+Agents page থেকে আপনি:
 
-- **Edit** — Click on any agent to modify its settings
-- **Test** — Click **Test** on an agent card to open the Playground
-- **Change Status** — Set to Testing, Active, Inactive, or Archived
+- **Edit** — Setting পরিবর্তন করতে যেকোনো agent-এ click করুন
+- **Test** — Playground খুলতে agent card-এ **Test**-এ click করুন
+- **Change Status** — Testing, Active, Inactive, বা Archived-এ সেট করুন
 
-See [Configuration Options](/agents/configuring) for details on all agent settings.
+সব agent setting-এর বিস্তারিত জানতে [Configuration Options](/agents/configuring) দেখুন।

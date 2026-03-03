@@ -1,27 +1,24 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Agent Persona
 
-# Agent Personas
+Agent persona আপনার agent-এর সবচেয়ে গুরুত্বপূর্ণ configuration। এটি personality, আচরণ এবং সীমানা নির্ধারণ করে।
 
-The agent persona is the most important configuration for your agent. It defines personality, behavior, and boundaries.
+## Agent Persona কী?
 
-## What is an Agent Persona?
+Agent persona হলো AI-কে দেওয়া নির্দেশনার সেট যেকোনো user conversation-এর আগে। এটি আপনার agent-এর প্রতিটি response গঠন করে।
 
-The agent persona is a set of instructions given to the AI before any user conversation. It shapes every response your agent gives.
+## একটি ভালো Agent Persona-এর কাঠামো
 
-## Structure of a Good Agent Persona
+### ১. Role Definition
 
-### 1. Role Definition
-
-Start by defining who the agent is:
+Agent কে তা define করে শুরু করুন:
 
 ```
 You are a customer support assistant for TechCorp, a software company.
 ```
 
-### 2. Core Responsibilities
+### ২. মূল দায়িত্ব
 
-Describe what the agent should do:
+Agent কী করবে তা বর্ণনা করুন:
 
 ```
 Your role is to:
@@ -30,9 +27,9 @@ Your role is to:
 - Guide users to relevant documentation
 ```
 
-### 3. Behavior Guidelines
+### ৩. আচরণ নির্দেশিকা
 
-Set the tone and style:
+Tone ও style সেট করুন:
 
 ```
 Communication style:
@@ -41,15 +38,15 @@ Communication style:
 - Keep responses concise unless detail is requested
 ```
 
-### 4. Automatic Language Detection
+### ৪. স্বয়ংক্রিয় ভাষা শনাক্তকরণ
 
-Your agent automatically detects the language of each user message and responds in kind — no manual configuration needed. 176 languages are supported out of the box.
+আপনার agent স্বয়ংক্রিয়ভাবে প্রতিটি user message-এর ভাষা শনাক্ত করে এবং একই ভাষায় respond করে — কোনো manual configuration প্রয়োজন নেই। ১৭৬টি ভাষা out of the box সমর্থিত।
 
-The agent adapts per-message, so it can handle multilingual conversations naturally. Safety and accuracy rules remain in English internally.
+Agent প্রতি-message অভিযোজন করে, তাই এটি স্বাভাবিকভাবে multilingual conversation handle করতে পারে। Safety ও accuracy rule অভ্যন্তরীণভাবে English-এ থাকে।
 
-### 4. Boundaries
+### ৪. সীমানা
 
-Define what the agent should NOT do:
+Agent কী করবে না তা define করুন:
 
 ```
 Important boundaries:
@@ -59,7 +56,7 @@ Important boundaries:
 - If unsure, acknowledge uncertainty and suggest contacting support
 ```
 
-## Example Agent Personas
+## Agent Persona-এর উদাহরণ
 
 ### Customer Support
 
@@ -116,52 +113,52 @@ If a question isn't covered in the documentation:
 Tone: Friendly and helpful, but concise.
 ```
 
-## Tips for Better Personas
+## আরও ভালো Persona-এর পরামর্শ
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-**Start simple.** Begin with a basic prompt and add complexity based on testing results.
+**সহজ দিয়ে শুরু করুন।** একটি basic prompt দিয়ে শুরু করুন এবং testing result অনুযায়ী জটিলতা যোগ করুন।
 </Callout>
 
-1. **Be specific** — Vague instructions lead to inconsistent behavior
-2. **Use examples** — Show the agent what good responses look like
-3. **Set clear boundaries** — Define what the agent should NOT do
-4. **Iterate** — Test and refine based on actual conversations
-5. **Keep it focused** — Long, complex prompts can confuse the model
-6. **Language is automatic** — Your agent detects the user's language and responds accordingly. No need to add language instructions to the persona text
+1. **নির্দিষ্ট হন** — অস্পষ্ট নির্দেশনা inconsistent আচরণের দিকে নিয়ে যায়
+2. **উদাহরণ ব্যবহার করুন** — Agent-কে দেখান ভালো response কেমন হয়
+3. **স্পষ্ট সীমানা সেট করুন** — Agent কী করবে না তা define করুন
+4. **পুনরাবৃত্তি করুন** — প্রকৃত conversation-এর উপর ভিত্তি করে test ও refine করুন
+5. **Focused রাখুন** — দীর্ঘ, জটিল prompt model-কে confused করতে পারে
+6. **ভাষা স্বয়ংক্রিয়** — আপনার agent user-এর ভাষা শনাক্ত করে এবং সেই অনুযায়ী respond করে। Persona text-এ ভাষার নির্দেশনা যোগ করার প্রয়োজন নেই
 
-## Testing Your Persona
+## আপনার Persona Testing
 
-After writing or updating your agent persona:
+Agent persona লেখা বা update করার পর:
 
-1. Test in the [Playground](/agents/testing)
-2. Try edge cases and tricky questions
-3. Refine based on results
-4. Re-test to ensure improvements
+1. [Playground](/agents/testing)-এ test করুন
+2. Edge case ও কঠিন প্রশ্ন চেষ্টা করুন
+3. Result অনুযায়ী refine করুন
+4. উন্নতি নিশ্চিত করতে আবার test করুন
 
 ## Template Variables
 
-Personalize your agent's system prompt with dynamic variables.
+Dynamic variable দিয়ে আপনার agent-এর system prompt personalize করুন।
 
-### Available Variables
+### উপলব্ধ Variables
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `{{organization_name}}` | Your organization name | "Acme Corp" |
-| `{{current_date}}` | Today's date | "2026-02-03" |
-| `{{current_year}}` | Current year | "2026" |
+| Variable | বিবরণ | উদাহরণ |
+|----------|-------|--------|
+| `{{organization_name}}` | আপনার organization-এর নাম | "Acme Corp" |
+| `{{current_date}}` | আজকের তারিখ | "2026-02-03" |
+| `{{current_year}}` | বর্তমান বছর | "2026" |
 
-### Using Variables
+### Variables ব্যবহার
 
-In your system prompt:
+আপনার system prompt-এ:
 
 ```
 Welcome to {{organization_name}}! I'm here to help you today.
 ```
 
-**Result:** "Welcome to Acme Corp! I'm here to help you today."
+**ফলাফল:** "Welcome to Acme Corp! I'm here to help you today."
 
 <Callout type="important">
-  Click **Preview** when editing to see how variables will appear with your organization's actual values.
+  Variable আপনার organization-এর প্রকৃত মান সহ কেমন দেখাবে তা দেখতে edit করার সময় **Preview**-তে click করুন।
 </Callout>
