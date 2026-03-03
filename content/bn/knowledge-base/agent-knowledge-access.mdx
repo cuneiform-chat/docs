@@ -1,88 +1,85 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Agent Knowledge Access
 
-Control which documents each agent can access when answering questions. Restrict agents to specific folders or tags, or exclude certain content from their reach.
+প্রশ্নের উত্তর দেওয়ার সময় প্রতিটি agent কোন document access করতে পারবে তা নিয়ন্ত্রণ করুন। নির্দিষ্ট folder বা tag-এ agent সীমাবদ্ধ করুন, বা নির্দিষ্ট content agent-এর নাগালের বাইরে রাখুন।
 
-## Getting There
+## কীভাবে যাবেন
 
-1. Navigate to **Agents** in the sidebar
-2. Click on an agent to edit it, or create a new agent
-3. Scroll to the **Knowledge Access Control** section
+1. Sidebar-এ **Agents**-এ navigate করুন
+2. Edit করতে একটি agent-এ click করুন, বা নতুন agent তৈরি করুন
+3. **Knowledge Access Control** section-এ scroll করুন
 
-## Access Modes
+## Access Mode
 
-The access mode determines how your selections affect the agent's document access.
+Access mode নির্ধারণ করে আপনার নির্বাচন agent-এর document access-এ কীভাবে প্রভাব ফেলবে।
 
-| Mode | Icon | Description | Use When |
-|------|------|-------------|----------|
-| **Exclude Mode** | Red X | Agent accesses ALL documents EXCEPT selected | You want to hide sensitive documents but allow everything else |
-| **Include Mode** | Green Check | Agent accesses ONLY selected documents | You want to restrict the agent to specific content |
+| Mode | Icon | বিবরণ | কখন ব্যবহার করবেন |
+|------|------|-------|-------------------|
+| **Exclude Mode** | Red X | নির্বাচিত ছাড়া agent সব document access করে | Sensitive document লুকিয়ে বাকি সব অনুমতি দিতে চাইলে |
+| **Include Mode** | Green Check | Agent শুধুমাত্র নির্বাচিত document access করে | নির্দিষ্ট content-এ agent সীমাবদ্ধ করতে চাইলে |
 
-### Choosing the Right Mode
+### সঠিক Mode বেছে নেওয়া
 
 **Exclude Mode** (default):
-- Starts with full access to all documents
-- Select folders/tags to block from the agent
-- Good for: Hiding HR documents, financial data, or drafts
+- সব document-এ সম্পূর্ণ access দিয়ে শুরু
+- Agent থেকে block করতে folder/tag নির্বাচন করুন
+- উপযুক্ত: HR document, financial data, বা draft লুকাতে
 
 **Include Mode**:
-- Starts with no access
-- Select folders/tags to grant access
-- Good for: Creating specialized agents for specific topics
+- কোনো access ছাড়া শুরু
+- Access দিতে folder/tag নির্বাচন করুন
+- উপযুক্ত: নির্দিষ্ট বিষয়ের জন্য specialized agent তৈরি করতে
 
-## Selecting Content
+## Content নির্বাচন
 
-### By Folders
+### Folder অনুযায়ী
 
-1. Click the **Folders** tab
-2. Use the search box to find folders
-3. Check folders to include/exclude
-4. Expand folders (click arrow) to select individual documents
-5. A checkmark shows selected items; partial selection shows a dash
+1. **Folders** tab-এ click করুন
+2. Folder খুঁজতে search box ব্যবহার করুন
+3. Include/exclude করতে folder check করুন
+4. Individual document নির্বাচন করতে folder expand করুন (arrow click করুন)
+5. নির্বাচিত item-এ checkmark দেখায়; আংশিক নির্বাচনে dash দেখায়
 
-### By Tags
+### Tag অনুযায়ী
 
-1. Click the **Tags** tab
-2. Use the search box to find tags
-3. Check tags to include/exclude
-4. Each tag shows how many documents use it
+1. **Tags** tab-এ click করুন
+2. Tag খুঁজতে search box ব্যবহার করুন
+3. Include/exclude করতে tag check করুন
+4. প্রতিটি tag কতটি document ব্যবহার করে তা দেখায়
 
 ## Preview Panel
 
-The preview panel on the right shows:
-- Total accessible documents based on current selection
-- Updates in real-time as you make changes
+ডানদিকের preview panel দেখায়:
+- বর্তমান নির্বাচনের ভিত্তিতে মোট accessible document
+- আপনি পরিবর্তন করার সাথে সাথে real-time-এ update হয়
 
-## Saving Changes
+## পরিবর্তন Save করা
 
-When editing an existing agent:
-1. Make your selections
-2. Click **Save Changes** (green button)
-3. Or click **Reset Changes** to undo unsaved changes
+বিদ্যমান agent edit করার সময়:
+1. আপনার নির্বাচন করুন
+2. **Save Changes** (green button)-এ click করুন
+3. অথবা unsaved পরিবর্তন undo করতে **Reset Changes**-এ click করুন
 
-When creating a new agent:
-- Knowledge access settings save automatically when you submit the agent form
+নতুন agent তৈরির সময়:
+- Agent form submit করলে knowledge access setting স্বয়ংক্রিয়ভাবে save হয়
 
-## Tips
+## পরামর্শ
 
-- Use **Exclude Mode** when you want broad access with a few exceptions
-- Use **Include Mode** for focused, topic-specific agents
-- Combine folders AND tags for precise control
-- Check the preview panel to verify your selection before saving
-- For Include Mode, you must select at least one folder or tag
+- কিছু ব্যতিক্রম সহ বিস্তৃত access চাইলে **Exclude Mode** ব্যবহার করুন
+- নির্দিষ্ট বিষয়ের agent-এর জন্য **Include Mode** ব্যবহার করুন
+- সুনির্দিষ্ট নিয়ন্ত্রণের জন্য folder এবং tag একসাথে ব্যবহার করুন
+- Save করার আগে নির্বাচন যাচাই করতে preview panel পরীক্ষা করুন
+- Include Mode-এ অন্তত একটি folder বা tag নির্বাচন করতে হবে
 
-## Common Questions
+## সাধারণ প্রশ্ন
 
-**Q: What happens if I select both folders and tags?**
-A: The agent can access documents that match ANY of your selections. Folders and tags combine inclusively.
+**প্রশ্ন: Folder ও tag দুটোই নির্বাচন করলে কী হয়?**
+উত্তর: Agent আপনার যেকোনো নির্বাচনের সাথে মেলে এমন document access করতে পারে। Folder ও tag inclusively combine হয়।
 
-**Q: Can I give an agent access to everything?**
-A: Yes. Use Exclude Mode and don't select anything to exclude. The agent will have full access.
+**প্রশ্ন: Agent-কে সবকিছুতে access দেওয়া যায়?**
+উত্তর: হ্যাঁ। Exclude Mode ব্যবহার করুন এবং কিছু exclude নির্বাচন করবেন না। Agent সম্পূর্ণ access পাবে।
 
-**Q: What if a document is in a selected folder but has an excluded tag?**
-A: In Exclude Mode, any match to excluded content blocks access. In Include Mode, any match to included content grants access.
+**প্রশ্ন: Document নির্বাচিত folder-এ আছে কিন্তু excluded tag আছে — তাহলে কী হয়?**
+উত্তর: Exclude Mode-এ excluded content-এর সাথে যেকোনো মিল access block করে। Include Mode-এ included content-এর সাথে যেকোনো মিল access দেয়।
 
-**Q: Does this affect existing conversations?**
-A: Yes. Changes take effect immediately for new messages. The agent will use the updated access rules.
+**প্রশ্ন: এটি কি বিদ্যমান conversation-এ প্রভাব ফেলে?**
+উত্তর: হ্যাঁ। পরিবর্তন নতুন message-এর জন্য তৎক্ষণাৎ কার্যকর হয়। Agent updated access rule ব্যবহার করবে।

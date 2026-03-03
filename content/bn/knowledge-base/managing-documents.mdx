@@ -1,145 +1,142 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Document পরিচালনা
 
-# Managing Documents
+আপনার content document সংগঠিত, update ও রক্ষণাবেক্ষণ করতে শিখুন। এতে document দেখা, folder দিয়ে সংগঠিত করা, content update করা এবং bulk operation সম্পাদন অন্তর্ভুক্ত।
 
-Learn how to organize, update, and maintain your content documents. This includes viewing documents, organizing with folders, updating content, and performing bulk operations.
+## কীভাবে যাবেন
 
-## Getting There
+1. Sidebar-এ **Knowledge**-এ click করুন
+2. List-এ আপনার সব document দেখুন
 
-1. Click **Knowledge** in the sidebar
-2. View all your documents in the list
+## Document দেখা
 
-## Viewing Documents
+Content section থেকে আপনার document access করুন:
 
-Access your documents from the Content section:
+- List-এ সব document দেখুন
+- প্রতিটি document-এর processing status দেখুন
+- Document কখন যোগ বা update হয়েছে পরীক্ষা করুন
 
-- View all documents in a list
-- See processing status for each document
-- Check when documents were added or updated
+### Document-এর বিবরণ
 
-### Document Details
+যেকোনো document-এ click করে দেখুন:
 
-Click on any document to view:
+| তথ্য | বিবরণ |
+|------|-------|
+| **File information** | Name, size, format, আপলোডের তারিখ |
+| **Processing status** | Pipeline-এ বর্তমান অবস্থা |
+| **Chunk count** | তৈরি হওয়া searchable segment-এর সংখ্যা |
 
-| Information | Description |
-|-------------|-------------|
-| **File information** | Name, size, format, upload date |
-| **Processing status** | Current state in the pipeline |
-| **Chunk count** | Number of searchable segments created |
+## Document সংগঠিত করা
 
-## Organizing Documents
+### Folder ব্যবহার
 
-### Using Folders
+সম্পর্কিত document সংগঠিত করতে folder তৈরি করুন:
 
-Create folders to organize related documents:
+1. **New Folder** button-এ (folder icon with plus) click করুন
+2. Folder name দিন
+3. **Create**-এ click করুন
 
-1. Click the **New Folder** button (folder icon with plus)
-2. Enter a folder name
-3. Click **Create**
+প্রস্তাবিত সংগঠন:
+- বিষয় অনুযায়ী (Products, Policies, FAQs)
+- Department অনুযায়ী (Sales, Support, HR)
+- Document type অনুযায়ী (Guides, References, Tutorials)
 
-Suggested organization:
-- By topic (Products, Policies, FAQs)
-- By department (Sales, Support, HR)
-- By document type (Guides, References, Tutorials)
+### Document স্থানান্তর
 
-### Moving Documents
+Folder-এর মধ্যে document সরান:
 
-Move documents between folders:
+1. Document menu-তে (⋮) click করুন
+2. **Move to Folder** নির্বাচন করুন
+3. Destination folder বেছে নিন
 
-1. Click the document menu (⋮)
-2. Select **Move to Folder**
-3. Choose the destination folder
+### Tag ব্যবহার
 
-### Using Tags
+নমনীয় শ্রেণিবিভাগের জন্য document-এ tag যোগ করুন:
 
-Add tags to documents for flexible categorization:
+1. Document menu-তে (⋮) click করুন
+2. **Manage Tags** নির্বাচন করুন
+3. প্রয়োজনমতো tag যোগ বা সরান
 
-1. Click the document menu (⋮)
-2. Select **Manage Tags**
-3. Add or remove tags as needed
+Tag folder-এর পাশাপাশি কাজ করে — প্রাথমিক সংগঠনের জন্য folder এবং cross-cutting বিভাগের জন্য tag ব্যবহার করুন।
 
-Tags work alongside folders — use folders for primary organization and tags for cross-cutting categories.
+## Document Update করা
 
-## Updating Documents
+### ব্যর্থ Document পুনরায় Process
 
-### Re-process a Failed Document
+Document process ব্যর্থ হলে পুনরায় চেষ্টা করতে পারেন:
 
-If a document fails to process, you can retry:
-
-1. Click the document menu (⋮)
-2. Select **Reprocess**
+1. Document menu-তে (⋮) click করুন
+2. **Reprocess** নির্বাচন করুন
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  The Reprocess option only appears for documents with a "Failed" status.
+  Reprocess option শুধুমাত্র "Failed" status-এর document-এ দেখা যায়।
 </Callout>
 
-### Replacing Content
+### Content প্রতিস্থাপন
 
-To update a document's content, delete the old version and upload the new file. The document will be processed automatically.
+Document-এর content update করতে পুরানো version delete করে নতুন file আপলোড করুন। Document স্বয়ংক্রিয়ভাবে process হবে।
 
-## Deleting Documents
+## Document Delete করা
 
-Remove documents you no longer need:
+আর প্রয়োজন নেই এমন document সরান:
 
-1. Click the document menu (⋮)
-2. Select **Delete**
-3. Confirm deletion
+1. Document menu-তে (⋮) click করুন
+2. **Delete** নির্বাচন করুন
+3. Deletion নিশ্চিত করুন
 
 <Callout type="warning">
-  Deleted documents are permanently removed and cannot be recovered. The content will no longer be searchable by your agents.
+  Delete করা document স্থায়ীভাবে সরানো হয় এবং পুনরুদ্ধার করা যায় না। Content আর আপনার agent-দের দ্বারা searchable থাকবে না।
 </Callout>
 
-## Bulk Operations
+## Bulk Operation
 
-Manage multiple documents at once:
+একসাথে একাধিক document পরিচালনা করুন:
 
-1. Select multiple documents using checkboxes
-2. Use the bulk action menu:
-   - **Move to Folder** — Move selected documents to a folder
-   - **Reprocess Failed** — Retry processing for failed documents in selection
+1. Checkbox ব্যবহার করে একাধিক document নির্বাচন করুন
+2. Bulk action menu ব্যবহার করুন:
+   - **Move to Folder** — নির্বাচিত document folder-এ সরান
+   - **Reprocess Failed** — নির্বাচনের মধ্যে ব্যর্থ document পুনরায় process করুন
 
-## Search and Filter
+## Search ও Filter
 
-Find specific documents:
+নির্দিষ্ট document খুঁজুন:
 
-| Feature | Description |
-|---------|-------------|
-| **Search** | Search by document name |
-| **Filter by folder** | Click a folder in the document browser to view its contents |
-| **Filter by tag** | Use the tag filter to show documents with specific tags |
+| বৈশিষ্ট্য | বিবরণ |
+|-----------|-------|
+| **Search** | Document name দিয়ে search করুন |
+| **Filter by folder** | Content দেখতে document browser-এ folder-এ click করুন |
+| **Filter by tag** | নির্দিষ্ট tag আছে এমন document দেখতে tag filter ব্যবহার করুন |
 
-Documents are sorted by upload date (newest first).
+Document আপলোড তারিখ অনুযায়ী সাজানো থাকে (নতুন আগে)।
 
-## Storage Management
+## Storage পরিচালনা
 
-Track your storage usage:
+আপনার storage ব্যবহার track করুন:
 
-1. Go to the **Dashboard**
-2. View the "Storage Used" card showing current usage and limit
-3. Delete unnecessary documents to free space
+1. **Dashboard**-এ যান
+2. বর্তমান ব্যবহার ও সীমা দেখানো "Storage Used" card দেখুন
+3. জায়গা খালি করতে অপ্রয়োজনীয় document delete করুন
 
-## Tips
+## পরামর্শ
 
-- Remove outdated documents regularly to keep your content clean
-- Use folders and tags to organize documents for easy retrieval
-- Check for failed documents and reprocess them when needed
-- To update content, delete the old document and upload the new version
-- Use bulk operations to move multiple documents to folders at once
-- Delete duplicates to avoid confusing your agents
+- Content পরিষ্কার রাখতে নিয়মিত পুরানো document সরান
+- সহজ retrieval-এর জন্য folder ও tag দিয়ে document সংগঠিত করুন
+- ব্যর্থ document পরীক্ষা করুন এবং প্রয়োজনে reprocess করুন
+- Content update করতে পুরানো document delete করে নতুন version আপলোড করুন
+- একসাথে একাধিক document folder-এ সরাতে bulk operation ব্যবহার করুন
+- Agent-কে বিভ্রান্ত করা এড়াতে duplicate delete করুন
 
-## Common Questions
+## সাধারণ প্রশ্ন
 
-**Q: How do I update a document's content?**
-A: Delete the old document and upload the new version. The new document will be processed automatically.
+**প্রশ্ন: Document-এর content কীভাবে update করব?**
+উত্তর: পুরানো document delete করে নতুন version আপলোড করুন। নতুন document স্বয়ংক্রিয়ভাবে process হবে।
 
-**Q: Can I recover a deleted document?**
-A: No, deleted documents are permanently removed and cannot be recovered. Make sure you have a backup before deleting.
+**প্রশ্ন: Delete করা document কি পুনরুদ্ধার করা যায়?**
+উত্তর: না, delete করা document স্থায়ীভাবে সরানো হয় এবং পুনরুদ্ধার করা যায় না। Delete করার আগে backup আছে কিনা নিশ্চিত করুন।
 
-**Q: How do I know if a document processed successfully?**
-A: Check the processing status column. Documents show **Ready** when complete, or **Failed** if there was an error.
+**প্রশ্ন: Document সফলভাবে process হয়েছে কিনা কীভাবে জানব?**
+উত্তর: Processing status column পরীক্ষা করুন। সম্পন্ন হলে document **Ready** দেখায়, error হলে **Failed** দেখায়।
 
-**Q: What should I do if a document fails to process?**
-A: Click the document menu (⋮) and select **Reprocess**. This option only appears for failed documents. If it continues to fail, check the file format and size.
+**প্রশ্ন: Document process ব্যর্থ হলে কী করব?**
+উত্তর: Document menu-তে (⋮) click করে **Reprocess** নির্বাচন করুন। এই option শুধুমাত্র failed document-এ দেখা যায়। বারবার ব্যর্থ হলে file format ও size পরীক্ষা করুন।

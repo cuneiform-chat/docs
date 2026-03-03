@@ -1,88 +1,85 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# সমর্থিত Format
 
-# Supported Formats
+Cuneiform Chat বিভিন্ন ধরনের document format সমর্থন করে।
 
-Cuneiform Chat supports a wide range of document formats.
+## Document Type
 
-## Document Types
+### Text Document
 
-### Text Documents
+| Format | Extension | নোট |
+|--------|-----------|------|
+| PDF | `.pdf` | Text-based ও scanned (OCR সহ) |
+| Microsoft Word | `.docx`, `.doc` | সম্পূর্ণ formatting সমর্থন |
+| Plain Text | `.txt` | সাধারণ text file |
+| Markdown | `.md` | Markdown formatting সংরক্ষিত |
+| Rich Text | `.rtf` | মৌলিক formatting সমর্থন |
 
-| Format | Extensions | Notes |
-|--------|-----------|-------|
-| PDF | `.pdf` | Text-based and scanned (with OCR) |
-| Microsoft Word | `.docx`, `.doc` | Full formatting support |
-| Plain Text | `.txt` | Simple text files |
-| Markdown | `.md` | Markdown formatting preserved |
-| Rich Text | `.rtf` | Basic formatting support |
+### Presentation
 
-### Presentations
-
-| Format | Extensions | Notes |
-|--------|-----------|-------|
-| PowerPoint | `.pptx`, `.ppt` | Slide content extracted |
+| Format | Extension | নোট |
+|--------|-----------|------|
+| PowerPoint | `.pptx`, `.ppt` | Slide content extract করা হয় |
 
 ### Web Content
 
-| Format | Extensions | Notes |
-|--------|-----------|-------|
+| Format | Extension | নোট |
+|--------|-----------|------|
 | HTML | `.html`, `.htm` | Web page content |
 
-### Data Formats
+### Data Format
 
-| Format | Extensions | Notes |
-|--------|-----------|-------|
-| JSON | `.json` | Structured data files |
-| XML | `.xml` | XML documents |
+| Format | Extension | নোট |
+|--------|-----------|------|
+| JSON | `.json` | Structured data file |
+| XML | `.xml` | XML document |
 
-## Format-Specific Notes
+## Format-বিশেষ নোট
 
-### PDFs
+### PDF
 
-PDFs work best when they are:
-- **Text-based** — Created from digital documents
-- **Searchable** — Text can be selected/copied
+PDF সবচেয়ে ভালো কাজ করে যখন:
+- **Text-based** — Digital document থেকে তৈরি
+- **Searchable** — Text select/copy করা যায়
 
-Scanned PDFs are supported but may have lower quality extraction due to OCR limitations.
+Scanned PDF সমর্থিত তবে OCR সীমাবদ্ধতার কারণে extraction-এর মান কম হতে পারে।
 
-### Word Documents
+### Word Document
 
-`.docx` (modern format) is recommended over `.doc` (legacy format) for best results.
+`.docx` (আধুনিক format) সেরা ফলাফলের জন্য `.doc` (legacy format)-এর চেয়ে recommended।
 
-Supported elements:
-- Text and paragraphs
-- Headings and styles
-- Tables
-- Lists
+সমর্থিত উপাদান:
+- Text ও paragraph
+- Heading ও style
+- Table
+- List
 
 ### Markdown
 
-Markdown formatting is preserved during processing:
-- Headings become section markers
-- Lists maintain structure
-- Code blocks are recognized
+Processing-এর সময় Markdown formatting সংরক্ষিত থাকে:
+- Heading section marker হয়
+- List-এর গঠন বজায় থাকে
+- Code block চিহ্নিত হয়
 
-## Unsupported Formats
+## অসমর্থিত Format
 
-The following are not currently supported:
-- Images (`.jpg`, `.png`, `.gif`)
-- Audio files (`.mp3`, `.wav`)
-- Video files (`.mp4`, `.mov`)
-- Compressed archives (`.zip`, `.rar`)
-- Executable files (`.exe`, `.app`)
+বর্তমানে নিচের format সমর্থিত নয়:
+- Image (`.jpg`, `.png`, `.gif`)
+- Audio file (`.mp3`, `.wav`)
+- Video file (`.mp4`, `.mov`)
+- Compressed archive (`.zip`, `.rar`)
+- Executable file (`.exe`, `.app`)
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  If you have content in an unsupported format, try converting it to PDF or a text-based format before uploading.
+  আপনার content অসমর্থিত format-এ থাকলে আপলোডের আগে PDF বা text-based format-এ রূপান্তর করুন।
 </Callout>
 
-## File Size Limits
+## File Size সীমা
 
-Maximum file sizes depend on your plan. Very large documents may take longer to process.
+সর্বোচ্চ file size আপনার plan-এর উপর নির্ভর করে। অনেক বড় document process হতে বেশি সময় নিতে পারে।
 
-For best performance:
-- Split very large documents into smaller files
-- Remove unnecessary images from PDFs if they're not needed
-- Use text-based formats when possible
+সেরা পারফরম্যান্সের জন্য:
+- অনেক বড় document ছোট file-এ ভাগ করুন
+- প্রয়োজন না হলে PDF থেকে অপ্রয়োজনীয় image সরান
+- সম্ভব হলে text-based format ব্যবহার করুন

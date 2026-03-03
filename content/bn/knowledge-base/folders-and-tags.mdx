@@ -1,109 +1,106 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Folder ও Tag
 
-# Folders and Tags
+Folder ও tag ব্যবহার করে আপনার Content-এর document সংগঠিত করুন। Folder শ্রেণিবদ্ধ সংগঠন প্রদান করে, আর tag folder জুড়ে cross-cutting শ্রেণিবিভাগের সুযোগ দেয়।
 
-Organize your Content documents using folders and tags. Folders provide hierarchical organization, while tags allow cross-cutting categorization across folders.
+## কীভাবে যাবেন
 
-## Getting There
+Sidebar-এ **Knowledge**-এ navigate করুন। Document browser-এ folder দেখা যায়, এবং toolbar-এ tag control আছে।
 
-Navigate to **Knowledge** in the sidebar. Folders appear in the document browser, and tag controls are in the toolbar.
+## Folder নিয়ে কাজ করা
 
-## Working with Folders
+### Folder তৈরি
 
-### Create a Folder
+1. Toolbar-এ **New Folder** button-এ (folder icon with +) click করুন
+2. একটি folder name দিন (আবশ্যক)
+3. ঐচ্ছিকভাবে একটি description যোগ করুন
+4. Color picker ব্যবহার করে একটি রঙ বেছে নিন
+5. **Create**-এ click করুন
 
-1. Click the **New Folder** button (folder icon with +) in the toolbar
-2. Enter a folder name (required)
-3. Optionally add a description
-4. Choose a color using the color picker
-5. Click **Create**
+### Folder Edit
 
-### Edit a Folder
+1. Folder row-তে three-dot menu (...)-এ click করুন
+2. **Rename** নির্বাচন করুন
+3. Name, description, বা color update করুন
+4. **Save Changes**-এ click করুন
 
-1. Click the three-dot menu (...) on a folder row
-2. Select **Rename**
-3. Update the name, description, or color
-4. Click **Save Changes**
+### Folder Delete
 
-### Delete a Folder
-
-1. Click the three-dot menu (...) on a folder row
-2. Select **Delete**
-3. Confirm deletion
+1. Folder row-তে three-dot menu (...)-এ click করুন
+2. **Delete** নির্বাচন করুন
+3. Deletion নিশ্চিত করুন
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Folders can only be deleted when empty. Move or delete documents first.
+  Folder শুধুমাত্র খালি থাকলেই delete করা যায়। আগে document সরান বা delete করুন।
 </Callout>
 
-### Upload to a Folder
+### Folder-এ আপলোড
 
-- Drag files directly onto a folder row
-- Hover over a folder to reveal upload icons (cloud storage + local files)
-- Click to expand a folder and see its documents
+- সরাসরি folder row-তে file drag করুন
+- Folder-এর উপর hover করলে upload icon দেখা যায় (cloud storage + local file)
+- Folder expand করতে click করুন এবং এর document দেখুন
 
-## Working with Tags
+## Tag নিয়ে কাজ করা
 
-### Manage Tags (Create, Edit, Delete)
+### Tag পরিচালনা (তৈরি, Edit, Delete)
 
-1. Click the **Tag Filter** dropdown in the toolbar
-2. Click **Manage Tags** at the bottom
-3. In the modal:
-   - Click **Create Tag** to add a new tag
-   - Use suggested tags for quick creation
-   - Edit existing tags (name, color)
-   - Delete unused tags
+1. Toolbar-এ **Tag Filter** dropdown-এ click করুন
+2. নিচে **Manage Tags**-এ click করুন
+3. Modal-এ:
+   - নতুন tag যোগ করতে **Create Tag**-এ click করুন
+   - দ্রুত তৈরির জন্য suggested tag ব্যবহার করুন
+   - বিদ্যমান tag edit করুন (name, color)
+   - অব্যবহৃত tag delete করুন
 
-### Add Tags to a Document
+### Document-এ Tag যোগ
 
-1. Hover over a document row
-2. Click the **Tag** button (tag icon)
-3. In the Manage Tags dialog:
-   - See current tags at the top
-   - Search available tags
-   - Check tags to add
-   - Click **Add X tags** button
+1. Document row-এর উপর hover করুন
+2. **Tag** button-এ (tag icon) click করুন
+3. Manage Tags dialog-এ:
+   - উপরে বর্তমান tag দেখুন
+   - উপলব্ধ tag search করুন
+   - যোগ করতে tag check করুন
+   - **Add X tags** button-এ click করুন
 
-### Remove Tags from a Document
+### Document থেকে Tag সরানো
 
-1. Open the Manage Tags dialog for a document
-2. In the "Current Tags" section, click the X on tags to select for removal
-3. Click **Remove X tags** button
+1. Document-এর জন্য Manage Tags dialog খুলুন
+2. "Current Tags" section-এ সরাতে চাওয়া tag-এ X click করুন
+3. **Remove X tags** button-এ click করুন
 
-### Filter Documents by Tags
+### Tag দিয়ে Document Filter
 
-1. Click the **Tag Filter** dropdown in the toolbar
-2. Select one or more tags
-3. Only documents with those tags are shown
-4. Selected tags appear in a filter bar below the toolbar
-5. Click X on a tag chip to remove that filter, or **Clear all**
+1. Toolbar-এ **Tag Filter** dropdown-এ click করুন
+2. এক বা একাধিক tag নির্বাচন করুন
+3. শুধুমাত্র সেই tag আছে এমন document দেখা যায়
+4. নির্বাচিত tag toolbar-এর নিচে filter bar-এ দেখা যায়
+5. Filter সরাতে tag chip-এ X click করুন, বা **Clear all**
 
-## Folders vs Tags
+## Folder বনাম Tag
 
-| Feature | Folders | Tags |
-|---------|---------|------|
-| Structure | Hierarchical (one folder per document) | Flat (multiple tags per document) |
-| Best for | Broad categories, projects, departments | Topics, themes, status, cross-cutting concerns |
-| Filtering | Click folder to see contents | Use tag filter to find across folders |
-| Document limit | One folder per document | Unlimited tags per document |
+| বৈশিষ্ট্য | Folder | Tag |
+|-----------|--------|-----|
+| গঠন | শ্রেণিবদ্ধ (প্রতি document একটি folder) | সমতল (প্রতি document একাধিক tag) |
+| উপযুক্ত | বিস্তৃত বিভাগ, project, department | বিষয়, theme, status, cross-cutting বিষয় |
+| Filtering | Folder-এ click করে content দেখুন | Folder জুড়ে খুঁজতে tag filter ব্যবহার করুন |
+| Document সীমা | প্রতি document একটি folder | প্রতি document সীমাহীন tag |
 
-## Tips
+## পরামর্শ
 
-- Use folders for major categories (e.g., "Product Docs", "HR Policies")
-- Use tags for cross-cutting themes (e.g., "Q1-2024", "Compliance", "Draft")
-- Color-code folders and tags for visual organization
-- Tags show usage count so you can see how many documents use each tag
-- Combine folder and tag filtering for precise document discovery
+- প্রধান বিভাগের জন্য folder ব্যবহার করুন (যেমন, "Product Docs", "HR Policies")
+- Cross-cutting theme-এর জন্য tag ব্যবহার করুন (যেমন, "Q1-2024", "Compliance", "Draft")
+- Visual সংগঠনের জন্য folder ও tag-এ color দিন
+- প্রতিটি tag কতটি document ব্যবহার করে তা usage count দেখায়
+- সুনির্দিষ্ট document আবিষ্কারের জন্য folder ও tag filtering একসাথে ব্যবহার করুন
 
-## Common Questions
+## সাধারণ প্রশ্ন
 
-**Q: Can a document be in multiple folders?**
-A: No, each document belongs to one folder (or "Unfiled"). Use tags for cross-cutting categorization.
+**প্রশ্ন: একটি document কি একাধিক folder-এ থাকতে পারে?**
+উত্তর: না, প্রতিটি document একটি folder-এ (বা "Unfiled"-এ) থাকে। Cross-cutting শ্রেণিবিভাগের জন্য tag ব্যবহার করুন।
 
-**Q: What happens to documents when I delete a folder?**
-A: Folders with documents cannot be deleted. Move or delete documents first.
+**প্রশ্ন: Folder delete করলে document-এর কী হয়?**
+উত্তর: Document থাকা folder delete করা যায় না। আগে document সরান বা delete করুন।
 
-**Q: How do I see all documents with a specific tag?**
-A: Use the Tag Filter dropdown in the toolbar and select the tag.
+**প্রশ্ন: নির্দিষ্ট tag-এর সব document কীভাবে দেখব?**
+উত্তর: Toolbar-এ Tag Filter dropdown ব্যবহার করুন এবং tag নির্বাচন করুন।

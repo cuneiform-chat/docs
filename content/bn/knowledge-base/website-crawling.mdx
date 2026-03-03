@@ -1,129 +1,126 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Website Crawling
 
 import { Callout } from 'nextra/components'
 
-Crawl public websites and add the content to your Content. The crawler visits pages, extracts content as Markdown, and lets you review and edit before processing.
+Public website crawl করে content আপনার Content-এ যোগ করুন। Crawler page visit করে, content Markdown হিসেবে extract করে এবং processing-এর আগে আপনাকে review ও edit করতে দেয়।
 
-## Getting There
+## কীভাবে যাবেন
 
-Navigate to **Knowledge** in the sidebar, then click the **Website** tab.
+Sidebar-এ **Knowledge**-এ navigate করুন, তারপর **Website** tab-এ click করুন।
 
-## How to Crawl a Website
+## কীভাবে Website Crawl করবেন
 
-### Step 1: Enter the URL
+### Step 1: URL দিন
 
-Paste the website URL in the input field (e.g., `https://docs.example.com`). The crawler will start from this page and follow links to discover more pages.
+Input field-এ website URL paste করুন (যেমন, `https://docs.example.com`)। Crawler এই page থেকে শুরু করে link follow করে আরও page আবিষ্কার করবে।
 
-### Step 2: Configure Options
+### Step 2: বিকল্প Configure করুন
 
-| Option | Default | Description |
-|--------|---------|-------------|
-| Target Folder | No folder (root) | Select a destination folder for crawled documents |
-| Single page only | Off | Only crawl the entered URL, don't follow links |
-| Respect robots.txt | On | Honor the site's robots.txt crawling rules |
+| বিকল্প | Default | বিবরণ |
+|---------|---------|-------|
+| Target Folder | কোনো folder নেই (root) | Crawl করা document-এর জন্য destination folder নির্বাচন করুন |
+| Single page only | Off | শুধুমাত্র দেওয়া URL crawl করুন, link follow করবে না |
+| Respect robots.txt | On | Site-এর robots.txt crawling rule মেনে চলুন |
 
-### Step 3: Start Crawling
+### Step 3: Crawling শুরু করুন
 
-Click **Crawl** to begin. The crawler visits pages starting from your URL and extracts their content.
+শুরু করতে **Crawl**-এ click করুন। Crawler আপনার URL থেকে শুরু করে page visit করে content extract করে।
 
-### Step 4: Monitor Progress
+### Step 4: Progress পর্যবেক্ষণ করুন
 
-- A progress bar shows pages crawled vs. your plan's maximum
-- Pages appear in a live list as they are discovered
-- Click any page to preview its content immediately
-- Use the **Cancel** button to stop the crawl at any time
-
-<Callout type="info">
-  Only one crawl can run at a time per organization. Wait for the current crawl to complete or cancel it before starting another.
-</Callout>
-
-## Reviewing Crawled Pages
-
-After crawling completes, you can review and edit pages before adding them to your Content.
-
-### Edit Page Content
-
-1. Click any page in the list to open the editor
-2. Edit the **title** and **markdown content**
-3. Remove irrelevant sections (navigation menus, footers, sidebars)
-4. Click **Save** to update
+- Progress bar দেখায় কতটি page crawl হয়েছে বনাম আপনার plan-এর সর্বোচ্চ সীমা
+- Page আবিষ্কৃত হওয়ার সাথে সাথে live list-এ দেখা যায়
+- যেকোনো page-এ click করে তৎক্ষণাৎ content preview করুন
+- যেকোনো সময় crawl বন্ধ করতে **Cancel** button ব্যবহার করুন
 
 <Callout type="info">
-  Only pages with "Pending" status can be edited. Once processing starts, pages cannot be changed.
+  প্রতি organization-এ একসাথে একটি মাত্র crawl চলতে পারে। নতুন crawl শুরু করার আগে বর্তমান crawl সম্পন্ন হতে দিন বা cancel করুন।
 </Callout>
 
-### Select and Process Pages
+## Crawl করা Page Review
 
-1. Use checkboxes to select pages you want to keep
-2. Use **Select All** to select all pending pages at once
-3. Optionally choose a target folder
-4. Click **Process Selected**
+Crawling সম্পন্ন হলে আপনার Content-এ যোগ করার আগে page review ও edit করতে পারেন।
 
-After processing starts, you're automatically switched to the **Documents** tab where the new documents will appear.
+### Page Content Edit
+
+1. Editor খুলতে list-এ যেকোনো page-এ click করুন
+2. **Title** ও **markdown content** edit করুন
+3. অপ্রাসঙ্গিক section (navigation menu, footer, sidebar) সরান
+4. Update করতে **Save**-এ click করুন
+
+<Callout type="info">
+  শুধুমাত্র "Pending" status-এর page edit করা যায়। Processing শুরু হলে page পরিবর্তন করা যায় না।
+</Callout>
+
+### Page নির্বাচন ও Process
+
+1. যে page রাখতে চান সেগুলো checkbox দিয়ে নির্বাচন করুন
+2. সব pending page একসাথে নির্বাচন করতে **Select All** ব্যবহার করুন
+3. ঐচ্ছিকভাবে target folder বেছে নিন
+4. **Process Selected**-এ click করুন
+
+Processing শুরু হলে আপনি স্বয়ংক্রিয়ভাবে **Documents** tab-এ চলে যাবেন যেখানে নতুন document দেখা যাবে।
 
 ## Crawl Status Reference
 
-| Status | Meaning |
-|--------|---------|
-| Pending | Crawl is queued to start |
-| Crawling | Actively visiting pages |
-| Completed | All reachable pages crawled |
-| Partial | Some pages crawled, some failed |
-| Failed | Crawl could not complete |
-| Cancelled | Stopped by you |
+| Status | অর্থ |
+|--------|------|
+| Pending | Crawl শুরু হওয়ার জন্য queue-তে আছে |
+| Crawling | সক্রিয়ভাবে page visit হচ্ছে |
+| Completed | সব reachable page crawl সম্পন্ন |
+| Partial | কিছু page crawl হয়েছে, কিছু ব্যর্থ |
+| Failed | Crawl সম্পন্ন হতে পারেনি |
+| Cancelled | আপনি বন্ধ করেছেন |
 
 ## Session Persistence
 
-Your crawl session survives navigation and page refresh:
-- Active crawls automatically restore when you return to the Website tab
-- Completed crawls are available for review for up to 1 hour
+আপনার crawl session navigation ও page refresh-এও টিকে থাকে:
+- Active crawl Website tab-এ ফিরে এলে স্বয়ংক্রিয়ভাবে restore হয়
+- সম্পন্ন crawl ১ ঘণ্টা পর্যন্ত review-এর জন্য উপলব্ধ থাকে
 
-## Tips
+## পরামর্শ
 
-- Review and edit crawled content before processing to improve quality
-- Use "Single page only" for individual pages you want to add quickly
-- Keep "Respect robots.txt" enabled to follow site owner preferences
-- Crawled documents appear in the Documents tab as Markdown (.md) files
+- মান উন্নত করতে processing-এর আগে crawl করা content review ও edit করুন
+- দ্রুত individual page যোগ করতে "Single page only" ব্যবহার করুন
+- Site owner-এর পছন্দ মেনে "Respect robots.txt" enabled রাখুন
+- Crawl করা document Markdown (.md) file হিসেবে Documents tab-এ দেখা যায়
 
-## Common Questions
+## সাধারণ প্রশ্ন
 
-**Q: How many pages can I crawl?**
-A: The maximum number of pages depends on your plan. The crawler follows links up to 2 levels deep from your starting URL.
+**প্রশ্ন: কতটি page crawl করা যায়?**
+উত্তর: সর্বোচ্চ page সংখ্যা আপনার plan-এর উপর নির্ভর করে। Crawler আপনার starting URL থেকে ২ level গভীরতা পর্যন্ত link follow করে।
 
-**Q: Can I crawl pages behind a login?**
-A: No. The crawler can only access publicly available pages. Pages behind authentication will be skipped.
+**প্রশ্ন: Login-এর পেছনের page crawl করা যায়?**
+উত্তর: না। Crawler শুধুমাত্র publicly available page access করতে পারে। Authentication-এর পেছনের page skip করা হবে।
 
-**Q: What format are crawled pages?**
-A: Content is extracted as Markdown (.md) documents and processed through the standard pipeline (chunking, embedding, and search indexing).
+**প্রশ্ন: Crawl করা page কোন format-এ থাকে?**
+উত্তর: Content Markdown (.md) document হিসেবে extract করা হয় এবং standard pipeline-এ (chunking, embedding, ও search indexing) process হয়।
 
-**Q: Why did some pages fail?**
-A: Pages can fail due to bot protection (firewalls like Cloudflare), server errors, or empty content. The crawl will show "Partial" status.
+**প্রশ্ন: কিছু page কেন ব্যর্থ হলো?**
+উত্তর: Bot protection (Cloudflare-এর মতো firewall), server error, বা খালি content-এর কারণে page ব্যর্থ হতে পারে। Crawl "Partial" status দেখাবে।
 
-**Q: Can I re-crawl the same site?**
-A: Yes. Start a new crawl with the same URL. Previous crawled pages are replaced when a new crawl begins.
+**প্রশ্ন: একই site পুনরায় crawl করা যায়?**
+উত্তর: হ্যাঁ। একই URL দিয়ে নতুন crawl শুরু করুন। নতুন crawl শুরু হলে আগের crawl করা page replace হয়।
 
-**Q: Where do processed pages appear?**
-A: In the **Documents** tab of the Knowledge page. They appear as Markdown (.md) files.
+**প্রশ্ন: Process করা page কোথায় দেখা যায়?**
+উত্তর: Knowledge page-এর **Documents** tab-এ। সেগুলো Markdown (.md) file হিসেবে দেখা যায়।
 
-## Troubleshooting
+## সমস্যা সমাধান
 
-### Pages Return 403 or 503 Errors
+### Page 403 বা 503 Error দিচ্ছে
 
-The site may be blocking automated crawlers. Options:
-- Ask the site owner to whitelist `CuneiformBot/1.0`
-- Try crawling a specific page with "Single page only" enabled
+Site automated crawler block করতে পারে। বিকল্প:
+- Site owner-কে `CuneiformBot/1.0` whitelist করতে বলুন
+- "Single page only" enabled রেখে নির্দিষ্ট page crawl করার চেষ্টা করুন
 
-### Empty or Garbled Content
+### খালি বা বিকৃত Content
 
-Some sites use heavy JavaScript rendering. The crawler supports most modern frameworks, but:
-- Single-page apps that require authentication won't work
-- Content loaded via infinite scroll may be partially captured
+কিছু site ভারী JavaScript rendering ব্যবহার করে। Crawler বেশিরভাগ আধুনিক framework সমর্থন করে, তবে:
+- Authentication প্রয়োজন এমন single-page app কাজ করবে না
+- Infinite scroll-এ load হওয়া content আংশিকভাবে capture হতে পারে
 
-### Crawl Seems Slow
+### Crawl ধীর মনে হচ্ছে
 
-- Each page takes a few seconds to crawl (includes rendering and rate limiting)
-- Larger sites with many pages will take several minutes
-- You can cancel and retry if a crawl appears stuck
+- প্রতিটি page crawl হতে কয়েক সেকেন্ড লাগে (rendering ও rate limiting সহ)
+- অনেক page-এর বড় site-এ কয়েক মিনিট লাগবে
+- Crawl আটকে গেছে মনে হলে cancel করে পুনরায় চেষ্টা করতে পারেন

@@ -1,105 +1,101 @@
 ---
-description: Manage your AI content. Upload documents, connect cloud storage, and crawl websites.
+description: আপনার AI content পরিচালনা করুন। Document আপলোড করুন, cloud storage সংযুক্ত করুন এবং website crawl করুন।
 ---
-
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 
 # Content
 
-Content is where you manage all the documents that your AI agents use to answer questions. Upload documents, organize them into folders, add tags, and control which agents can access which content.
+Content হলো সেই জায়গা যেখানে আপনার AI agent-গুলো প্রশ্নের উত্তর দিতে যে সব document ব্যবহার করে সেগুলো পরিচালনা করবেন। Document আপলোড করুন, folder-এ সংগঠিত করুন, tag যোগ করুন এবং কোন agent কোন content access করতে পারবে তা নিয়ন্ত্রণ করুন।
 
-## How It Works
+## কীভাবে কাজ করে
 
-1. **Add Content** — Upload documents, import from cloud storage, or crawl websites
-2. **Process** — Documents are automatically processed and indexed
-3. **Search** — Agents search relevant content when answering questions
-4. **Respond** — Answers are generated based on your actual content
+1. **Content যোগ করুন** — Document আপলোড করুন, cloud storage থেকে import করুন, বা website crawl করুন
+2. **Process** — Document স্বয়ংক্রিয়ভাবে process ও index করা হয়
+3. **Search** — প্রশ্নের উত্তর দেওয়ার সময় agent প্রাসঙ্গিক content search করে
+4. **Respond** — আপনার প্রকৃত content-এর উপর ভিত্তি করে উত্তর তৈরি হয়
 
-## Getting There
+## কীভাবে যাবেন
 
-Navigate to **Knowledge** in the sidebar menu. This is your central hub for document management.
+Sidebar menu-তে **Knowledge**-এ navigate করুন। এটি আপনার document management-এর কেন্দ্রীয় hub।
 
-## What You See
+## আপনি যা দেখবেন
 
 ### Upload Area
 
-At the top of the page:
-- **Cloud Storage Icons** — Click Google Drive, Dropbox, OneDrive, or Box to import files directly
-- **Drop Zone** — Drag and drop files or click to browse local files
-- **Website Tab** — Switch to the Website tab to crawl and import public website content
+Page-এর উপরে:
+- **Cloud Storage Icon** — সরাসরি file import করতে Google Drive, Dropbox, OneDrive, বা Box-এ click করুন
+- **Drop Zone** — File drag and drop করুন বা local file browse করতে click করুন
+- **Website Tab** — Public website content crawl ও import করতে Website tab-এ যান
 
 ### Document Browser
 
-Below the upload area, a table displays all your documents:
+Upload area-র নিচে একটি table আপনার সব document দেখায়:
 
-| Column | Description |
-|--------|-------------|
-| Name | Document filename with type icon and source indicator |
-| Tags | Labels assigned to the document |
-| Status | Processing state (see Document Status below) |
-| Size | File size in MB |
-| Type | File extension (PDF, DOCX, etc.) |
-| Uploaded | Date and time of upload |
-| Actions | Menu for document operations |
+| কলাম | বিবরণ |
+|------|-------|
+| Name | Type icon ও source indicator সহ document-এর filename |
+| Tags | Document-এ assign করা label |
+| Status | Processing-এর অবস্থা (নিচে Document Status দেখুন) |
+| Size | MB-তে file size |
+| Type | File extension (PDF, DOCX, ইত্যাদি) |
+| Uploaded | আপলোডের তারিখ ও সময় |
+| Actions | Document operation-এর menu |
 
 ### Toolbar
 
-- **Search** — Find documents by name
-- **Tag Filter** — Show only documents with specific tags
-- **Refresh** — Update the document list
-- **New Folder** — Create a folder for organization
-- **Fullscreen** — Expand the browser for more space
+- **Search** — নাম দিয়ে document খুঁজুন
+- **Tag Filter** — নির্দিষ্ট tag আছে এমন document দেখুন
+- **Refresh** — Document list update করুন
+- **New Folder** — সংগঠনের জন্য folder তৈরি করুন
+- **Fullscreen** — আরও জায়গার জন্য browser expand করুন
 
 ## Document Status
 
-| Status | Meaning |
-|--------|---------|
-| Uploading | Document is being uploaded to the system |
-| Ready | Document is processed and available for your agents |
-| Processing | Document is being analyzed |
-| Queued | Waiting to be processed |
-| Retrying | Processing is being retried |
-| Failed | Processing encountered an error (can be retried) |
+| Status | অর্থ |
+|--------|------|
+| Uploading | Document system-এ আপলোড হচ্ছে |
+| Ready | Document process সম্পন্ন এবং আপনার agent-দের জন্য উপলব্ধ |
+| Processing | Document analyze হচ্ছে |
+| Queued | Process হওয়ার অপেক্ষায় |
+| Retrying | Processing পুনরায় চেষ্টা হচ্ছে |
+| Failed | Processing-এ সমস্যা হয়েছে (পুনরায় চেষ্টা করা যায়) |
 
-## Working with Documents
+## Document নিয়ে কাজ করা
 
-### View a Document
+### Document দেখুন
 
-Click any document row to open the document viewer, which displays the content and metadata.
+যেকোনো document row-তে click করলে document viewer খুলবে, যেখানে content ও metadata দেখা যায়।
 
 ### Document Actions
 
-Hover over a document to see quick action buttons:
-- **Tag** — Add or remove tags
-- **Premium Processing** — Upgrade processing quality (if eligible)
-- **Retry** — Reprocess failed documents
-- **Chat** — Have a conversation about this specific document
+Document-এর উপর hover করলে quick action button দেখা যায়:
+- **Tag** — Tag যোগ বা সরান
+- **Premium Processing** — Processing-এর মান উন্নত করুন (যোগ্য হলে)
+- **Retry** — ব্যর্থ document পুনরায় process করুন
+- **Chat** — এই নির্দিষ্ট document নিয়ে কথোপকথন করুন
 
-From the Actions menu (...):
-- **Move to Folder** — Relocate the document
-- **Reprocess** — Retry processing for failed documents
-- **Delete** — Remove the document permanently
+Actions menu (...) থেকে:
+- **Move to Folder** — Document স্থানান্তর করুন
+- **Reprocess** — ব্যর্থ document পুনরায় process করুন
+- **Delete** — Document স্থায়ীভাবে মুছুন
 
-## In This Section
+## এই Section-এ
 
 import { Cards } from 'nextra/components'
 
 <Cards>
-  <Cards.Card title="Uploading Documents" href="/knowledge-base/uploading-documents" />
-  <Cards.Card title="Supported Formats" href="/knowledge-base/supported-formats" />
-  <Cards.Card title="Folders and Tags" href="/knowledge-base/folders-and-tags" />
+  <Cards.Card title="Document আপলোড" href="/knowledge-base/uploading-documents" />
+  <Cards.Card title="সমর্থিত Format" href="/knowledge-base/supported-formats" />
+  <Cards.Card title="Folder ও Tag" href="/knowledge-base/folders-and-tags" />
   <Cards.Card title="Cloud Storage" href="/knowledge-base/cloud-storage" />
   <Cards.Card title="Website Crawling" href="/knowledge-base/website-crawling" />
-  <Cards.Card title="Managing Documents" href="/knowledge-base/managing-documents" />
+  <Cards.Card title="Document পরিচালনা" href="/knowledge-base/managing-documents" />
   <Cards.Card title="Agent Knowledge Access" href="/knowledge-base/agent-knowledge-access" />
 </Cards>
 
-## Best Practices
+## সেরা অনুশীলন
 
-- **Keep content current** — Regularly update documents to maintain accuracy
-- **Organize with folders** — Group related documents for easier management
-- **Use tags for cross-cutting themes** — Tags help find documents across folders
-- **Quality matters** — Well-structured documents produce better AI responses
-- **Remove duplicates** — Avoid uploading the same content multiple times
+- **Content আপ-টু-ডেট রাখুন** — সঠিকতা বজায় রাখতে নিয়মিত document update করুন
+- **Folder দিয়ে সংগঠিত করুন** — সহজ পরিচালনার জন্য সম্পর্কিত document গ্রুপ করুন
+- **Cross-cutting theme-এর জন্য tag ব্যবহার করুন** — Tag folder জুড়ে document খুঁজতে সাহায্য করে
+- **মান গুরুত্বপূর্ণ** — সুসংগঠিত document ভালো AI response তৈরি করে
+- **Duplicate সরান** — একই content একাধিকবার আপলোড করা এড়িয়ে চলুন

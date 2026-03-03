@@ -1,134 +1,131 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Cloud Storage Integration
 
 import { Callout } from 'nextra/components'
 
-Import documents directly from your cloud storage accounts. Connect to Google Drive, Dropbox, OneDrive, or Box to add files to your Content without downloading them first.
+আপনার cloud storage account থেকে সরাসরি document import করুন। Google Drive, Dropbox, OneDrive, বা Box সংযুক্ত করে আগে download না করেই আপনার Content-এ file যোগ করুন।
 
-## Getting There
+## কীভাবে যাবেন
 
-Navigate to **Knowledge** in the sidebar. Cloud storage icons appear at the top of the page, next to the upload drop zone.
+Sidebar-এ **Knowledge**-এ navigate করুন। Upload drop zone-এর পাশে page-এর উপরে cloud storage icon দেখা যায়।
 
-## Supported Providers
+## সমর্থিত Provider
 
-| Provider | Icon Location | What You Can Import |
-|----------|---------------|---------------------|
-| Google Drive | Cloud icons row | Files, Google Docs, Slides |
-| Dropbox | Cloud icons row | Files from your Dropbox |
-| OneDrive | Cloud icons row | Files from your OneDrive |
-| Box | Cloud icons row | Files from your Box account |
+| Provider | Icon-এর অবস্থান | যা Import করতে পারবেন |
+|----------|-----------------|----------------------|
+| Google Drive | Cloud icon row | File, Google Docs, Slides |
+| Dropbox | Cloud icon row | আপনার Dropbox-এর file |
+| OneDrive | Cloud icon row | আপনার OneDrive-এর file |
+| Box | Cloud icon row | আপনার Box account-এর file |
 
-## How to Import Files
+## কীভাবে File Import করবেন
 
-### Step 1: Click the Provider Icon
+### Step 1: Provider Icon-এ Click করুন
 
-Click the icon for your cloud storage provider. You'll see a tooltip showing the provider name when you hover.
+আপনার cloud storage provider-এর icon-এ click করুন। Hover করলে provider name সহ tooltip দেখা যায়।
 
-### Step 2: Sign In
+### Step 2: Sign In করুন
 
-You'll be prompted to sign in and authorize access. This authorization is remembered for your browser session.
+Sign in ও access authorize করতে বলা হবে। এই authorization আপনার browser session-এর জন্য মনে রাখা হয়।
 
-### Step 3: Select Files
+### Step 3: File নির্বাচন করুন
 
-A file picker opens showing your cloud storage contents:
-- Navigate through folders to find files
-- Select multiple files at once
-- Only supported file types are shown (based on your plan)
+আপনার cloud storage-এর content দেখানো file picker খুলবে:
+- File খুঁজতে folder-এ navigate করুন
+- একসাথে একাধিক file নির্বাচন করুন
+- শুধুমাত্র সমর্থিত file type দেখা যায় (আপনার plan অনুযায়ী)
 
-### Step 4: Import
+### Step 4: Import করুন
 
-Click to confirm your selection. Files are queued for import and processing begins automatically.
+নির্বাচন নিশ্চিত করতে click করুন। File import-এর জন্য queue হয় এবং স্বয়ংক্রিয়ভাবে processing শুরু হয়।
 
-## Import Options
+## Import বিকল্প
 
-Before importing, you can configure:
+Import-এর আগে আপনি configure করতে পারেন:
 
-| Option | Description |
-|--------|-------------|
-| Premium Processing | Enable for better AI understanding (checkbox below upload area) |
-| Target Folder | Upload directly to a folder by clicking the provider icon on a folder row |
+| বিকল্প | বিবরণ |
+|---------|-------|
+| Premium Processing | ভালো AI বোঝাপড়ার জন্য enable করুন (upload area-র নিচে checkbox) |
+| Target Folder | Folder row-তে provider icon-এ click করে সরাসরি folder-এ আপলোড করুন |
 
-## Importing to a Specific Folder
+## নির্দিষ্ট Folder-এ Import
 
-You can import cloud files directly into a folder:
+আপনি cloud file সরাসরি folder-এ import করতে পারেন:
 
-1. Find the folder in your document browser
-2. Hover over the folder row
-3. Click the cloud storage icon that appears
-4. Select files from your cloud storage
-5. Files are imported directly into that folder
+1. Document browser-এ folder খুঁজুন
+2. Folder row-এর উপর hover করুন
+3. দেখা যাওয়া cloud storage icon-এ click করুন
+4. আপনার cloud storage থেকে file নির্বাচন করুন
+5. File সরাসরি সেই folder-এ import হয়
 
-## During Import
+## Import-এর সময়
 
-- A progress indicator shows import status
-- Files appear in your document list as they're processed
-- You can continue working while files import
-- If duplicates are detected, you'll be notified after import completes
+- Progress indicator import-এর status দেখায়
+- Process হওয়ার সাথে সাথে file আপনার document list-এ দেখা যায়
+- File import হওয়ার সময় আপনি কাজ চালিয়ে যেতে পারেন
+- Duplicate সনাক্ত হলে import সম্পন্ন হওয়ার পর জানানো হবে
 
-## Google Workspace Files
+## Google Workspace File
 
-Google Drive supports native Google Workspace documents:
-- **Google Docs** — Automatically converted to text
-- **Google Slides** — Automatically converted to presentation format
-
-<Callout type="info">
-  Formatting and charts are not preserved — only the text content is extracted.
-</Callout>
-
-## Permissions
-
-Cuneiform Chat requests minimal permissions:
-- Read access to selected files only
-- No write access to your cloud storage
-- No access to files you don't explicitly select
+Google Drive native Google Workspace document সমর্থন করে:
+- **Google Docs** — স্বয়ংক্রিয়ভাবে text-এ রূপান্তরিত
+- **Google Slides** — স্বয়ংক্রিয়ভাবে presentation format-এ রূপান্তরিত
 
 <Callout type="info">
-  You can revoke access at any time through your cloud provider's settings.
+  Formatting ও chart সংরক্ষিত হয় না — শুধুমাত্র text content extract করা হয়।
 </Callout>
 
-## Sync Behavior
+## Permission
 
-Currently, cloud imports are **one-time imports**:
-- Files are copied at the time of import
-- Changes in cloud storage are not automatically synced
-- To update content, re-import the modified files
+Cuneiform Chat ন্যূনতম permission অনুরোধ করে:
+- শুধুমাত্র নির্বাচিত file-এ read access
+- আপনার cloud storage-এ কোনো write access নেই
+- আপনি স্পষ্টভাবে নির্বাচন করেননি এমন file-এ কোনো access নেই
 
-## Tips
+<Callout type="info">
+  আপনি যেকোনো সময় আপনার cloud provider-এর setting থেকে access প্রত্যাহার করতে পারেন।
+</Callout>
 
-- Select multiple files at once to save time
-- Only supported file types appear in the picker (based on your plan)
-- Use folder-level import for better organization
-- Large files may take longer to process after import
+## Sync আচরণ
 
-## Common Questions
+বর্তমানে cloud import হলো **একবারের import**:
+- Import-এর সময় file copy করা হয়
+- Cloud storage-এ পরিবর্তন স্বয়ংক্রিয়ভাবে sync হয় না
+- Content update করতে পরিবর্তিত file পুনরায় import করুন
 
-**Q: Do I need to re-authorize each time?**
-A: Usually not. If your session is active, clicking the icon opens the file picker directly. You may occasionally need to re-authorize after clearing your browser data or using a new browser.
+## পরামর্শ
 
-**Q: Can I import entire folders?**
-A: Currently, you select individual files. Navigate into folders in the picker to select files within them.
+- সময় বাঁচাতে একসাথে একাধিক file নির্বাচন করুন
+- Picker-এ শুধুমাত্র সমর্থিত file type দেখা যায় (আপনার plan অনুযায়ী)
+- ভালো সংগঠনের জন্য folder-level import ব্যবহার করুন
+- বড় file import-এর পর process হতে বেশি সময় নিতে পারে
 
-**Q: What happens to my original files?**
-A: Your cloud files remain unchanged. We create a copy in your Content.
+## সাধারণ প্রশ্ন
 
-**Q: Why don't I see some files in the picker?**
-A: Only supported file types are shown. Check the [supported file types](/knowledge-base/supported-formats) for available formats.
+**প্রশ্ন: প্রতিবার কি পুনরায় authorize করতে হয়?**
+উত্তর: সাধারণত না। আপনার session active থাকলে icon-এ click করলে সরাসরি file picker খুলবে। Browser data clear করলে বা নতুন browser ব্যবহার করলে মাঝে মাঝে পুনরায় authorize করতে হতে পারে।
 
-## Troubleshooting
+**প্রশ্ন: পুরো folder import করা যায়?**
+উত্তর: বর্তমানে আপনি individual file নির্বাচন করেন। Picker-এ folder-এ navigate করে ভেতরের file নির্বাচন করুন।
 
-### Authorization Issues
+**প্রশ্ন: আমার মূল file-এর কী হয়?**
+উত্তর: আপনার cloud file অপরিবর্তিত থাকে। আমরা আপনার Content-এ একটি copy তৈরি করি।
 
-If you can't connect:
-- Check you're signed into the correct account
-- Try revoking and re-authorizing access
-- Ensure third-party app access is enabled in your provider settings
+**প্রশ্ন: Picker-এ কিছু file কেন দেখা যাচ্ছে না?**
+উত্তর: শুধুমাত্র সমর্থিত file type দেখানো হয়। উপলব্ধ format দেখতে [সমর্থিত file type](/knowledge-base/supported-formats) পরীক্ষা করুন।
 
-### Import Failures
+## সমস্যা সমাধান
 
-If files fail to import:
-- Verify files are in supported formats
-- Check files aren't corrupted
-- Ensure you have permission to access the files
-- Try importing fewer files at once
+### Authorization সমস্যা
+
+সংযোগ করতে না পারলে:
+- সঠিক account-এ sign in আছেন কিনা পরীক্ষা করুন
+- Access প্রত্যাহার করে পুনরায় authorize করার চেষ্টা করুন
+- আপনার provider setting-এ third-party app access enabled আছে কিনা নিশ্চিত করুন
+
+### Import ব্যর্থতা
+
+File import ব্যর্থ হলে:
+- File সমর্থিত format-এ আছে কিনা যাচাই করুন
+- File corrupt নয় কিনা পরীক্ষা করুন
+- File access-এর permission আছে কিনা নিশ্চিত করুন
+- একবারে কম file import করার চেষ্টা করুন

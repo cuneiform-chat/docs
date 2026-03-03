@@ -1,118 +1,115 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Dropbox Integration
 
-Import documents from Dropbox to train your AI agents.
+আপনার AI agent-দের train করতে Dropbox থেকে document import করুন।
 
-## Overview
+## সংক্ষিপ্ত বিবরণ
 
-Connect your Dropbox account to Cuneiform Chat and import documents directly into your content. Your AI agent can then answer questions based on the content of these documents.
+আপনার Dropbox account Cuneiform Chat-এ সংযুক্ত করুন এবং সরাসরি আপনার content-এ document import করুন। এরপর আপনার AI agent এই document-এর content-এর উপর ভিত্তি করে প্রশ্নের উত্তর দিতে পারবে।
 
-## Getting Started
+## শুরু করুন
 
-### Step 1: Navigate to Knowledge
+### Step 1: Knowledge-এ Navigate করুন
 
-1. Log in to [Cuneiform Chat](https://admin.cuneiform.chat)
-2. Go to **Knowledge** in the sidebar
-3. Look for the cloud storage icons at the top of the page
+1. [Cuneiform Chat](https://admin.cuneiform.chat)-এ log in করুন
+2. Sidebar-এ **Knowledge**-এ যান
+3. Page-এর উপরে cloud storage icon খুঁজুন
 
-### Step 2: Connect Dropbox
+### Step 2: Dropbox সংযুক্ত করুন
 
-1. Click the **Dropbox icon** in the cloud storage icons row
-2. Sign in with your Dropbox account (if prompted)
-3. Grant Cuneiform Chat permission to access your files
+1. Cloud storage icon row-তে **Dropbox icon**-এ click করুন
+2. আপনার Dropbox account দিয়ে sign in করুন (জিজ্ঞাসা করলে)
+3. আপনার file access করার জন্য Cuneiform Chat-কে permission দিন
 
-### Step 3: Select Files
+### Step 3: File নির্বাচন করুন
 
-1. Use the Dropbox file picker to browse your files
-2. Navigate through folders to find documents
-3. Select one or more files to import
-4. Click to confirm your selection
+1. আপনার file browse করতে Dropbox file picker ব্যবহার করুন
+2. Document খুঁজতে folder-এ navigate করুন
+3. এক বা একাধিক file import করতে নির্বাচন করুন
+4. নির্বাচন নিশ্চিত করতে click করুন
 
 ### Step 4: Processing
 
-Once imported:
-- Documents are automatically processed
-- Text is extracted and indexed
-- Your agent can answer questions about the content
+Import হওয়ার পর:
+- Document স্বয়ংক্রিয়ভাবে process হয়
+- Text extract ও index করা হয়
+- আপনার agent content সম্পর্কে প্রশ্নের উত্তর দিতে পারে
 
-## Supported File Types
+## সমর্থিত File Type
 
-| Format | Extension | Notes |
-|--------|-----------|-------|
-| PDF | .pdf | Text and scanned (OCR) |
-| Word | .docx, .doc | Full formatting support |
-| Text | .txt | Plain text files |
+| Format | Extension | নোট |
+|--------|-----------|------|
+| PDF | .pdf | Text ও scanned (OCR) |
+| Word | .docx, .doc | সম্পূর্ণ formatting সমর্থন |
+| Text | .txt | Plain text file |
 | Markdown | .md | Markdown formatting |
 
-See [Supported Formats](/knowledge-base/supported-formats) for the complete list.
+সম্পূর্ণ তালিকার জন্য [সমর্থিত Format](/knowledge-base/supported-formats) দেখুন।
 
-## Permissions
+## Permission
 
-Cuneiform Chat requests minimal permissions:
+Cuneiform Chat ন্যূনতম permission অনুরোধ করে:
 
-- **Read-only access** to files you select
-- **No write access** to your Dropbox account
-- **No access** to files you don't explicitly choose
+- আপনি নির্বাচিত file-এ **read-only access**
+- আপনার Dropbox account-এ **কোনো write access নেই**
+- আপনি স্পষ্টভাবে নির্বাচন করেননি এমন file-এ **কোনো access নেই**
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  You can revoke access at any time from Dropbox Settings → Connected apps.
+  আপনি যেকোনো সময় Dropbox Settings → Connected apps থেকে access প্রত্যাহার করতে পারেন।
 </Callout>
 
-## How It Works
+## কীভাবে কাজ করে
 
 ```mermaid
 graph LR
-    A[Select Files in Dropbox] --> B[Download to Cuneiform]
-    B --> C[Extract Text]
-    C --> D[Create Embeddings]
-    D --> E[Agent Can Answer Questions]
+    A[Dropbox-এ File নির্বাচন] --> B[Cuneiform-এ Download]
+    B --> C[Text Extract]
+    C --> D[Embedding তৈরি]
+    D --> E[Agent প্রশ্নের উত্তর দিতে পারে]
 ```
 
-1. **Authorization** — You grant read access via OAuth
-2. **Selection** — Choose specific files through Dropbox's picker
-3. **Download** — Files are securely transferred
-4. **Processing** — Text is extracted and indexed
-5. **Ready** — Your agent can now answer questions
+1. **Authorization** — আপনি OAuth-এর মাধ্যমে read access দেন
+2. **Selection** — Dropbox-এর picker-এর মাধ্যমে নির্দিষ্ট file বেছে নিন
+3. **Download** — File নিরাপদে transfer করা হয়
+4. **Processing** — Text extract ও index করা হয়
+5. **Ready** — আপনার agent এখন প্রশ্নের উত্তর দিতে পারে
 
-## Best Practices
+## সেরা অনুশীলন
 
-- **Select relevant files** — Only import documents your agent needs
-- **Organize first** — Structure your Dropbox folders before importing
-- **Check formats** — Ensure files are in supported formats
-- **Monitor progress** — Verify documents process successfully
+- **প্রাসঙ্গিক file নির্বাচন করুন** — শুধুমাত্র আপনার agent-এর প্রয়োজনীয় document import করুন
+- **আগে সংগঠিত করুন** — Import-এর আগে আপনার Dropbox folder সাজান
+- **Format পরীক্ষা করুন** — File সমর্থিত format-এ আছে কিনা নিশ্চিত করুন
+- **Progress পর্যবেক্ষণ করুন** — Document সফলভাবে process হয়েছে কিনা যাচাই করুন
 
-## Troubleshooting
+## সমস্যা সমাধান
 
-### Can't Connect to Dropbox
+### Dropbox-এ সংযোগ করতে পারছেন না
 
-- Verify you're signed into the correct Dropbox account
-- Check that third-party apps are allowed in your Dropbox settings
-- Try clearing browser cookies and reconnecting
+- সঠিক Dropbox account-এ sign in আছেন কিনা যাচাই করুন
+- আপনার Dropbox setting-এ third-party app অনুমোদিত কিনা পরীক্ষা করুন
+- Browser cookie clear করে পুনরায় সংযোগ করার চেষ্টা করুন
 
-### Files Not Importing
+### File Import হচ্ছে না
 
-- Confirm files are in supported formats
-- Check you have permission to access the files
-- Try importing fewer files at once
+- File সমর্থিত format-এ আছে কিনা নিশ্চিত করুন
+- File access করার permission আছে কিনা পরীক্ষা করুন
+- একবারে কম file import করার চেষ্টা করুন
 
-### Import Taking Too Long
+### Import-এ অনেক সময় লাগছে
 
-- Large files take longer to process
-- Check the document status in Content
-- Complex PDFs with images require more processing time
+- বড় file process হতে বেশি সময় লাগে
+- Content-এ document status পরীক্ষা করুন
+- Image সহ জটিল PDF-এ বেশি processing time প্রয়োজন
 
 ## Data Privacy
 
-- Original files are not permanently stored
-- Only extracted text embeddings are retained
-- Your Dropbox credentials are encrypted
-- We never access files you haven't selected
+- মূল file স্থায়ীভাবে সংরক্ষণ করা হয় না
+- শুধুমাত্র extract করা text embedding রাখা হয়
+- আপনার Dropbox credential encrypted
+- আপনি নির্বাচন করেননি এমন file আমরা কখনো access করি না
 
-## Need Help?
+## সাহায্য প্রয়োজন?
 
 - Email: support@cuneiform.chat
 - Documentation: [docs.cuneiform.chat](https://docs.cuneiform.chat)
