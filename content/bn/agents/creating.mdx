@@ -1,0 +1,147 @@
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+# Creating Agents
+
+import { Callout } from 'nextra/components'
+
+Learn how to create new agents in Cuneiform Chat.
+
+## Getting Started
+
+1. Navigate to **Agents** in the sidebar
+2. Click the **Create Agent** button in the top right
+3. Fill in the form sections below
+
+## Basic Information
+
+This section captures essential details about your agent.
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| **Name** | Yes | A name for your agent (e.g., "Customer Support Agent"). Maximum 100 characters. |
+| **Description** | No | A brief description of what this agent does. Maximum 500 characters. |
+
+**Tips:**
+- Choose a descriptive name that indicates the agent's purpose
+- The description helps you and your team understand the agent's role
+
+## Agent Persona
+
+The agent persona defines how your agent behaves and responds through a system prompt.
+
+**Key Elements:**
+
+- **Platform Rules Box** — Shows built-in safety rules that are automatically applied (click to view details)
+- **Generate Button** — Opens the [Agent Persona Builder](/agents/persona-builder) to help create your persona
+- **Edit Button** — Opens a panel to manually write or edit the persona
+
+### Platform Rules
+
+These safety guardrails are automatically applied to all agents:
+
+- **No fabrication** — Won't invent facts not in your content
+- **Acknowledges gaps** — Says "I don't know" when appropriate
+- **Resists speculation** — Won't guess at missing information
+- **No professional impersonation** — Won't act as lawyers, doctors, etc.
+- **Corrects false premises** — Points out incorrect assumptions
+- **Blocks harmful content** — Refuses inappropriate requests
+
+<Callout type="info">
+  Platform rules ensure all agents behave reliably and safely. They cannot be disabled. See [Agent Persona Builder](/agents/persona-builder#platform-rules) for details.
+</Callout>
+
+### Quick Persona Example
+
+```
+You are a helpful assistant for [Your Company].
+Answer questions based on the provided documentation.
+Be concise and friendly.
+```
+
+See [Agent Personas](/agents/agent-personas) for detailed guidance on writing effective personas.
+
+## Language Support
+
+Your agent automatically detects the language of each user message and responds in the same language — no configuration needed. 176 languages are supported out of the box. See [Agent Personas — Language Detection](/agents/agent-personas#4-automatic-language-detection) for details.
+
+## LLM Configuration
+
+This section controls the AI model settings.
+
+**Default Mode:**
+
+By default, LLM settings use your organization's tier defaults. You'll see an info box showing "Using tier defaults". This is recommended for most use cases.
+
+**Advanced Mode:**
+
+Toggle on **Advanced** to customize:
+
+| Setting | Description |
+|---------|-------------|
+| **Model** | Choose from available AI models based on your plan |
+| **Temperature** | Controls response creativity (lower = more consistent, higher = more creative) |
+
+**Show Document References:**
+
+This toggle (always visible) controls whether the agent includes source citations in responses:
+- **Off** (default) — Responses don't mention source documents
+- **On** — Responses include references to source documents (useful for legal/compliance)
+
+## Knowledge Access Control
+
+Control what documents your agent can access when answering questions.
+
+| Mode | Behavior | When to Use |
+|------|----------|-------------|
+| **Exclude Mode** | Agent accesses ALL documents EXCEPT those selected | Hide sensitive documents from the agent |
+| **Include Mode** | Agent accesses ONLY selected items | Restrict agent to a specific set of knowledge |
+
+**When using Include Mode:**
+- Select specific folders the agent can access
+- Select specific tags the agent can access
+- Select individual documents the agent can access
+
+The agent will only use information from the selected sources when responding.
+
+<Callout type="important">
+  Start with Exclude Mode (full knowledge access) unless you need to hide specific documents. You can always restrict access later.
+</Callout>
+
+## Form Actions
+
+At the bottom of the form:
+
+| Button | Action |
+|--------|--------|
+| **Cancel** | Discard changes and go back |
+| **Reset** | Clear all fields and start over (shows confirmation dialog) |
+| **Create Agent** | Save the agent and open its edit page |
+
+<Callout type="info">
+  Your draft is automatically saved as you work. If you leave and come back, your progress will be restored.
+</Callout>
+
+## After Creating
+
+When you click **Create Agent**:
+
+1. The agent is created with **Testing** status
+2. You're taken to the agent's edit page
+3. Test the agent using the Playground
+4. Connect integrations when ready to go live
+5. Change status to **Active** when ready
+
+<Callout type="info">
+  New agents start in **Testing** status. You can test in the Playground, but channel integrations are disabled until you activate the agent.
+</Callout>
+
+## Managing Agents
+
+From the Agents page, you can:
+
+- **Edit** — Click on any agent to modify its settings
+- **Test** — Click **Test** on an agent card to open the Playground
+- **Change Status** — Set to Testing, Active, Inactive, or Archived
+
+See [Configuration Options](/agents/configuring) for details on all agent settings.

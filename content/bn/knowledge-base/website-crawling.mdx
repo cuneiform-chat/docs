@@ -1,0 +1,129 @@
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+# Website Crawling
+
+import { Callout } from 'nextra/components'
+
+Crawl public websites and add the content to your Content. The crawler visits pages, extracts content as Markdown, and lets you review and edit before processing.
+
+## Getting There
+
+Navigate to **Knowledge** in the sidebar, then click the **Website** tab.
+
+## How to Crawl a Website
+
+### Step 1: Enter the URL
+
+Paste the website URL in the input field (e.g., `https://docs.example.com`). The crawler will start from this page and follow links to discover more pages.
+
+### Step 2: Configure Options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| Target Folder | No folder (root) | Select a destination folder for crawled documents |
+| Single page only | Off | Only crawl the entered URL, don't follow links |
+| Respect robots.txt | On | Honor the site's robots.txt crawling rules |
+
+### Step 3: Start Crawling
+
+Click **Crawl** to begin. The crawler visits pages starting from your URL and extracts their content.
+
+### Step 4: Monitor Progress
+
+- A progress bar shows pages crawled vs. your plan's maximum
+- Pages appear in a live list as they are discovered
+- Click any page to preview its content immediately
+- Use the **Cancel** button to stop the crawl at any time
+
+<Callout type="info">
+  Only one crawl can run at a time per organization. Wait for the current crawl to complete or cancel it before starting another.
+</Callout>
+
+## Reviewing Crawled Pages
+
+After crawling completes, you can review and edit pages before adding them to your Content.
+
+### Edit Page Content
+
+1. Click any page in the list to open the editor
+2. Edit the **title** and **markdown content**
+3. Remove irrelevant sections (navigation menus, footers, sidebars)
+4. Click **Save** to update
+
+<Callout type="info">
+  Only pages with "Pending" status can be edited. Once processing starts, pages cannot be changed.
+</Callout>
+
+### Select and Process Pages
+
+1. Use checkboxes to select pages you want to keep
+2. Use **Select All** to select all pending pages at once
+3. Optionally choose a target folder
+4. Click **Process Selected**
+
+After processing starts, you're automatically switched to the **Documents** tab where the new documents will appear.
+
+## Crawl Status Reference
+
+| Status | Meaning |
+|--------|---------|
+| Pending | Crawl is queued to start |
+| Crawling | Actively visiting pages |
+| Completed | All reachable pages crawled |
+| Partial | Some pages crawled, some failed |
+| Failed | Crawl could not complete |
+| Cancelled | Stopped by you |
+
+## Session Persistence
+
+Your crawl session survives navigation and page refresh:
+- Active crawls automatically restore when you return to the Website tab
+- Completed crawls are available for review for up to 1 hour
+
+## Tips
+
+- Review and edit crawled content before processing to improve quality
+- Use "Single page only" for individual pages you want to add quickly
+- Keep "Respect robots.txt" enabled to follow site owner preferences
+- Crawled documents appear in the Documents tab as Markdown (.md) files
+
+## Common Questions
+
+**Q: How many pages can I crawl?**
+A: The maximum number of pages depends on your plan. The crawler follows links up to 2 levels deep from your starting URL.
+
+**Q: Can I crawl pages behind a login?**
+A: No. The crawler can only access publicly available pages. Pages behind authentication will be skipped.
+
+**Q: What format are crawled pages?**
+A: Content is extracted as Markdown (.md) documents and processed through the standard pipeline (chunking, embedding, and search indexing).
+
+**Q: Why did some pages fail?**
+A: Pages can fail due to bot protection (firewalls like Cloudflare), server errors, or empty content. The crawl will show "Partial" status.
+
+**Q: Can I re-crawl the same site?**
+A: Yes. Start a new crawl with the same URL. Previous crawled pages are replaced when a new crawl begins.
+
+**Q: Where do processed pages appear?**
+A: In the **Documents** tab of the Knowledge page. They appear as Markdown (.md) files.
+
+## Troubleshooting
+
+### Pages Return 403 or 503 Errors
+
+The site may be blocking automated crawlers. Options:
+- Ask the site owner to whitelist `CuneiformBot/1.0`
+- Try crawling a specific page with "Single page only" enabled
+
+### Empty or Garbled Content
+
+Some sites use heavy JavaScript rendering. The crawler supports most modern frameworks, but:
+- Single-page apps that require authentication won't work
+- Content loaded via infinite scroll may be partially captured
+
+### Crawl Seems Slow
+
+- Each page takes a few seconds to crawl (includes rendering and rate limiting)
+- Larger sites with many pages will take several minutes
+- You can cancel and retry if a crawl appears stuck
