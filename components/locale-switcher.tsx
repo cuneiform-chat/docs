@@ -37,7 +37,7 @@ export function LocaleSwitcher() {
       }}
     >
       {LOCALES.map((l) => (
-        <option key={l} value={l}>
+        <option key={l} value={l} style={{ color: '#000', background: '#fff' }}>
           {LOCALE_LABELS[l]}
         </option>
       ))}
