@@ -1,27 +1,24 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# আপনার প্রথম এজেন্ট তৈরি করুন
 
-# Create Your First Agent
+এজেন্ট হলো চ্যাটবট যা আপনার ব্যবহারকারীদের সাথে যোগাযোগ করে। প্রতিটি এজেন্ট নির্দিষ্ট জ্ঞান, আচরণ এবং ব্যক্তিত্ব দিয়ে কনফিগার করা যায়।
 
-Agents are the chatbots that interact with your users. Each agent can be configured with specific knowledge, behavior, and personality.
+## একটি এজেন্ট তৈরি করা
 
-## Creating an Agent
+1. সাইডবারে **Agents**-এ নেভিগেট করুন
+2. **Create Agent** ক্লিক করুন
+3. মৌলিক তথ্য পূরণ করুন:
+   - **Name** — আপনার এজেন্টের একটি বর্ণনামূলক নাম (যেমন, "Customer Support Bot")
+   - **Description** — এই এজেন্ট কী করে (আপনার রেফারেন্সের জন্য)
 
-1. Navigate to **Agents** in the sidebar
-2. Click **Create Agent**
-3. Fill in the basic information:
-   - **Name** — A descriptive name for your agent (e.g., "Customer Support Bot")
-   - **Description** — What this agent does (for your reference)
+## এজেন্ট কনফিগারেশন
 
-## Agent Configuration
+### এজেন্ট পার্সোনা
 
-### Agent Persona
+এজেন্ট পার্সোনা আপনার এজেন্টের ব্যক্তিত্ব ও আচরণ নির্ধারণ করে। এটি হলো সেই নির্দেশনা যা আপনার এজেন্টের উত্তর দেওয়ার ধরন পরিচালনা করে।
 
-The agent persona defines your agent's personality and behavior. This is the instruction that guides how your agent responds.
+আপনি নিজে পার্সোনা লিখতে পারেন অথবা **Generate** ক্লিক করে AI-চালিত Persona Builder ব্যবহার করতে পারেন যা আপনার প্রয়োজন অনুযায়ী একটি তৈরি করে।
 
-You can write your own persona or click **Generate** to use the AI-powered Persona Builder that creates one based on your requirements.
-
-**Example:**
+**উদাহরণ:**
 ```
 You are a helpful customer support assistant for Acme Corp.
 You answer questions about our products and services based on the provided documentation.
@@ -29,46 +26,46 @@ Be friendly, professional, and concise.
 If you don't know the answer, say so rather than making something up.
 ```
 
-### Platform Rules
+### প্ল্যাটফর্ম নিয়মাবলী
 
-All agents automatically include built-in safety guardrails:
+সব এজেন্টে স্বয়ংক্রিয়ভাবে বিল্ট-ইন নিরাপত্তা গার্ডরেইল অন্তর্ভুক্ত থাকে:
 
-- Won't fabricate facts, numbers, or dates
-- Says "I don't know" when information is unavailable
-- Won't guess at missing information
-- Corrects incorrect assumptions in questions
-- Won't impersonate professionals (lawyers, doctors, etc.)
-- Refuses harmful or inappropriate content
+- তথ্য, সংখ্যা বা তারিখ বানোয়াট করবে না
+- তথ্য পাওয়া না গেলে "আমি জানি না" বলবে
+- অনুপস্থিত তথ্য অনুমান করবে না
+- প্রশ্নে ভুল ধারণা থাকলে সংশোধন করবে
+- পেশাদারদের (আইনজীবী, ডাক্তার ইত্যাদি) ভূমিকায় অভিনয় করবে না
+- ক্ষতিকর বা অনুপযুক্ত কন্টেন্ট প্রত্যাখ্যান করবে
 
-These rules are always active and cannot be disabled.
+এই নিয়মগুলো সবসময় সক্রিয় থাকে এবং নিষ্ক্রিয় করা যায় না।
 
-### Knowledge Access Control
+### জ্ঞান অ্যাক্সেস নিয়ন্ত্রণ
 
-Control which documents your agent can access:
+আপনার এজেন্ট কোন ডকুমেন্টগুলো অ্যাক্সেস করতে পারবে তা নিয়ন্ত্রণ করুন:
 
-- **Exclude Mode** (default) — Agent accesses all documents except those you select to hide
-- **Include Mode** — Agent only accesses the specific folders, tags, or documents you select
+- **Exclude Mode** (ডিফল্ট) — আপনি যেগুলো লুকাতে বেছে নেন সেগুলো ছাড়া এজেন্ট সব ডকুমেন্ট অ্যাক্সেস করে
+- **Include Mode** — এজেন্ট শুধুমাত্র আপনার নির্বাচিত নির্দিষ্ট ফোল্ডার, ট্যাগ বা ডকুমেন্ট অ্যাক্সেস করে
 
-Use Include Mode when you want to restrict an agent to a specific knowledge set.
+একটি নির্দিষ্ট জ্ঞানভাণ্ডারে এজেন্টকে সীমাবদ্ধ রাখতে Include Mode ব্যবহার করুন।
 
-### LLM Configuration
+### LLM কনফিগারেশন
 
-For most users, the default AI model settings work well. Advanced users can customize:
+বেশিরভাগ ব্যবহারকারীর জন্য ডিফল্ট AI মডেল সেটিংস ভালো কাজ করে। উন্নত ব্যবহারকারীরা কাস্টমাইজ করতে পারেন:
 
-- **Model** — Choose from available AI models
-- **Temperature** — Lower = more consistent, higher = more creative
-- **Show Document References** — Enable to include source citations in responses
+- **Model** — উপলব্ধ AI মডেল থেকে বেছে নিন
+- **Temperature** — কম = বেশি সামঞ্জস্যপূর্ণ, বেশি = বেশি সৃজনশীল
+- **Show Document References** — উত্তরে সোর্স সাইটেশন অন্তর্ভুক্ত করতে সক্রিয় করুন
 
-## Save Your Agent
+## আপনার এজেন্ট সংরক্ষণ করুন
 
-Click **Create Agent** to save. Your agent starts in **Testing** status, meaning you can test it in the Playground but channel integrations are disabled until you activate it.
+সংরক্ষণ করতে **Create Agent** ক্লিক করুন। আপনার এজেন্ট **Testing** স্ট্যাটাসে শুরু হয়, অর্থাৎ আপনি Playground-এ পরীক্ষা করতে পারবেন কিন্তু চ্যানেল ইন্টিগ্রেশনগুলো সক্রিয় না করা পর্যন্ত নিষ্ক্রিয় থাকবে।
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  Your draft is automatically saved as you work. If you leave and come back, your progress will be restored.
+  আপনার কাজ করার সময় ড্রাফট স্বয়ংক্রিয়ভাবে সংরক্ষিত হয়। আপনি চলে গিয়ে ফিরে আসলে, আপনার অগ্রগতি পুনরুদ্ধার হবে।
 </Callout>
 
-## Next Step
+## পরবর্তী ধাপ
 
-Your agent is created! Now let's [test it in the playground](/getting-started/test-your-agent).
+আপনার এজেন্ট তৈরি হয়ে গেছে! এবার [Playground-এ পরীক্ষা](/bn/getting-started/test-your-agent) করা যাক।

@@ -1,81 +1,78 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# বিষয়বস্তু যোগ করুন
 
-# Add Content
+আপনার চ্যাটবটের জ্ঞান আপনার দেওয়া বিষয়বস্তু থেকে আসে। এই গাইড আপনাকে দেখাবে কীভাবে ডকুমেন্ট আপলোড ও ওয়েবসাইট ক্রল করে আপনার বিষয়বস্তু তৈরি করবেন।
 
-Your chatbot's knowledge comes from the content you provide. This guide shows you how to upload documents and crawl websites to build your content.
+## বিষয়বস্তুতে প্রবেশ
 
-## Accessing Content
+1. আপনার Cuneiform Chat ড্যাশবোর্ডে সাইন ইন করুন
+2. সাইডবারে **Knowledge**-এ নেভিগেট করুন
+3. **Upload Documents** ক্লিক করুন অথবা ফাইল ড্র্যাগ অ্যান্ড ড্রপ করুন
 
-1. Sign in to your Cuneiform Chat dashboard
-2. Navigate to **Knowledge** in the sidebar
-3. Click **Upload Documents** or drag and drop files
+## সমর্থিত ফাইল ফরম্যাট
 
-## Supported File Types
+Cuneiform Chat বিভিন্ন ধরনের ডকুমেন্ট ফরম্যাট সমর্থন করে:
 
-Cuneiform Chat supports a wide range of document formats:
+| ফরম্যাট | এক্সটেনশন | বিবরণ |
+|---------|-----------|-------|
+| PDF | `.pdf` | টেক্সট-ভিত্তিক এবং স্ক্যান করা (OCR) |
+| Word | `.docx`, `.doc` | Microsoft Word ডকুমেন্ট |
+| Text | `.txt`, `.md`, `.rtf` | প্লেইন টেক্সট, Markdown, Rich Text |
+| PowerPoint | `.pptx`, `.ppt` | প্রেজেন্টেশন স্লাইড |
+| Web/Data | `.html`, `.htm`, `.json`, `.xml` | ওয়েব পেজ ও স্ট্রাকচার্ড ডেটা |
 
-| Format | Extensions | Notes |
-|--------|-----------|-------|
-| PDF | `.pdf` | Text-based and scanned (OCR) |
-| Word | `.docx`, `.doc` | Microsoft Word documents |
-| Text | `.txt`, `.md`, `.rtf` | Plain text, Markdown, Rich Text |
-| PowerPoint | `.pptx`, `.ppt` | Presentation slides |
-| Web/Data | `.html`, `.htm`, `.json`, `.xml` | Web pages and structured data |
+## আপলোড পদ্ধতি
 
-## Upload Methods
+### সরাসরি আপলোড
 
-### Direct Upload
+1. **Upload Documents** ক্লিক করুন
+2. আপনার কম্পিউটার থেকে ফাইল নির্বাচন করুন
+3. প্রসেসিং সম্পন্ন হওয়া পর্যন্ত অপেক্ষা করুন
 
-1. Click **Upload Documents**
-2. Select files from your computer
-3. Wait for processing to complete
+### ড্র্যাগ অ্যান্ড ড্রপ
 
-### Drag and Drop
+আপনার কম্পিউটার থেকে ফাইল ড্র্যাগ করে Content এরিয়ায় ড্রপ করুন।
 
-Simply drag files from your computer and drop them into the Content area.
+### ক্লাউড স্টোরেজ
 
-### Cloud Storage
+সহজে ইম্পোর্ট করতে আপনার ক্লাউড স্টোরেজ সংযুক্ত করুন:
 
-Connect your cloud storage for seamless imports:
+- **Google Drive** — সরাসরি আপনার Drive থেকে ইম্পোর্ট করুন
+- **Dropbox** — আপনার Dropbox অ্যাকাউন্ট সংযুক্ত করুন
+- **OneDrive** — Microsoft OneDrive থেকে ইম্পোর্ট করুন
+- **Box** — আপনার Box অ্যাকাউন্ট সংযুক্ত করুন
 
-- **Google Drive** — Import directly from your Drive
-- **Dropbox** — Connect your Dropbox account
-- **OneDrive** — Import from Microsoft OneDrive
-- **Box** — Connect your Box account
+সেটআপের নির্দেশাবলীর জন্য [ক্লাউড স্টোরেজ ইন্টিগ্রেশন](/bn/knowledge-base/cloud-storage) দেখুন।
 
-See [Cloud Storage Integration](/knowledge-base/cloud-storage) for setup instructions.
+### ওয়েবসাইট ক্রলিং
 
-### Website Crawling
+পাবলিক ওয়েবসাইট ক্রল করে বিষয়বস্তু হিসেবে ইম্পোর্ট করুন:
 
-Crawl public websites and import the content as documents:
+1. **Knowledge**-এ নেভিগেট করুন এবং **Website** ট্যাবে ক্লিক করুন
+2. একটি URL লিখুন এবং **Crawl** ক্লিক করুন
+3. ক্রল করা পেজগুলো পর্যালোচনা ও সম্পাদনা করুন
+4. পেজ নির্বাচন করুন এবং **Process Selected** ক্লিক করুন
 
-1. Navigate to **Knowledge** and click the **Website** tab
-2. Enter a URL and click **Crawl**
-3. Review and edit crawled pages
-4. Select pages and click **Process Selected**
+ক্রলার ২ লেভেল গভীরতা পর্যন্ত লিংক অনুসরণ করে। আপনি কতগুলো পেজ ক্রল করতে পারবেন তা আপনার [প্ল্যান](/bn/billing/plans)-এর উপর নির্ভর করে।
 
-The crawler follows links up to 2 levels deep. The number of pages you can crawl depends on your [plan](/billing/plans).
+সম্পূর্ণ গাইডের জন্য [ওয়েবসাইট ক্রলিং](/bn/knowledge-base/website-crawling) দেখুন।
 
-See [Website Crawling](/knowledge-base/website-crawling) for the full guide.
+## ডকুমেন্ট প্রসেসিং
 
-## Document Processing
-
-After uploading or crawling, your content is automatically processed and made searchable by your agents.
+আপলোড বা ক্রল করার পর, আপনার বিষয়বস্তু স্বয়ংক্রিয়ভাবে প্রসেস হয় এবং আপনার এজেন্টদের দ্বারা সার্চযোগ্য হয়ে ওঠে।
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Processing time depends on document size and complexity. Most documents complete within a few minutes. The system automatically detects duplicate content to avoid redundant uploads.
+  প্রসেসিং সময় ডকুমেন্টের আকার ও জটিলতার উপর নির্ভর করে। বেশিরভাগ ডকুমেন্ট কয়েক মিনিটের মধ্যে সম্পন্ন হয়। সিস্টেম স্বয়ংক্রিয়ভাবে ডুপ্লিকেট কন্টেন্ট শনাক্ত করে অপ্রয়োজনীয় আপলোড এড়ায়।
 </Callout>
 
-## Best Practices
+## সেরা অনুশীলন
 
-- **Quality over quantity** — Well-structured documents produce better responses
-- **Keep content current** — Remove outdated documents to avoid confusion
-- **Organize with folders** — Use the folder structure to keep documents organized
-- **Crawl selectively** — Review and edit crawled pages before processing to remove navigation and boilerplate
+- **পরিমাণের চেয়ে গুণমান** — সুগঠিত ডকুমেন্ট ভালো উত্তর তৈরি করে
+- **বিষয়বস্তু আপডেট রাখুন** — বিভ্রান্তি এড়াতে পুরোনো ডকুমেন্ট সরিয়ে ফেলুন
+- **ফোল্ডার দিয়ে সাজান** — ডকুমেন্ট সংগঠিত রাখতে ফোল্ডার স্ট্রাকচার ব্যবহার করুন
+- **বেছে বেছে ক্রল করুন** — প্রসেস করার আগে ক্রল করা পেজ পর্যালোচনা ও সম্পাদনা করে নেভিগেশন ও বয়লারপ্লেট সরিয়ে ফেলুন
 
-## Next Step
+## পরবর্তী ধাপ
 
-With documents uploaded, you're ready to [create your first agent](/getting-started/first-agent).
+ডকুমেন্ট আপলোড হয়ে গেলে, আপনি [আপনার প্রথম এজেন্ট তৈরি](/bn/getting-started/first-agent) করতে প্রস্তুত।
