@@ -30,11 +30,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Fill missing translations
+        run: node scripts/fill-missing-translations.mjs
+
       - name: Build
         run: npm run build
 
-      - name: Generate search index
-        run: npx pagefind --site out --output-path out/_pagefind
+      - name: Generate search indexes (per locale)
+        run: |
+          npx pagefind --site out/en --output-path out/en/_pagefind
+          npx pagefind --site out/bn --output-path out/bn/_pagefind
+
+      - name: Generate sitemap
+        run: npx next-sitemap
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

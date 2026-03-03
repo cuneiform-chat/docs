@@ -44,3 +44,7 @@ _pagefind/
 
 # Misc
 *.log
+
+# Auto-generated translation fallback files (created by prebuild script)
+# Only manually translated files should be committed to content/bn/ etc.
+# The prebuild script fills gaps with English content at build time.
