@@ -1,202 +1,199 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# WhatsApp ইন্টিগ্রেশন
 
-# WhatsApp Integration
+গ্রাহক যোগাযোগের জন্য আপনার agent-কে WhatsApp Business-এ সংযুক্ত করুন।
 
-Connect your agent to WhatsApp Business for customer communication.
+## সংক্ষিপ্ত বিবরণ
 
-## Overview
-
-WhatsApp integration provides:
-- Business messaging capabilities
+WhatsApp integration প্রদান করে:
+- Business messaging সক্ষমতা
 - Rich media support
-- Automated responses
-- Global reach
-- 24-hour messaging window compliance
+- স্বয়ংক্রিয় response
+- বৈশ্বিক পরিসর
+- ২৪ ঘণ্টার messaging window compliance
 
-## Prerequisites
+## পূর্বশর্ত
 
-- An active AI agent (created in the Agents section)
-- A WhatsApp Business Account (WABA)
-- A verified phone number in WhatsApp Business
-- Access to the Meta Developer Portal
+- একটি active AI agent (Agents section-এ তৈরি)
+- একটি WhatsApp Business Account (WABA)
+- WhatsApp Business-এ একটি verified ফোন নম্বর
+- Meta Developer Portal-এ access
 
-## Setup Steps
+## সেটআপ ধাপসমূহ
 
-### 1. Connect with Embedded Signup (Recommended)
+### ১. Embedded Signup-এর মাধ্যমে সংযুক্ত করুন (সুপারিশকৃত)
 
-The easiest way to connect WhatsApp is through the embedded Meta signup flow:
+WhatsApp সংযুক্ত করার সবচেয়ে সহজ উপায় হলো embedded Meta signup flow:
 
-1. Go to **Agents** → Select your agent
-2. Navigate to **Integrations** tab
-3. Click **WhatsApp**
-4. Click **Connect with Facebook** to open the Meta signup popup
-5. Log in with your Facebook/Meta account
-6. Select or create a WhatsApp Business Account
-7. Choose the phone number to connect
-8. The popup closes and your connection is established
+1. **Agents** → আপনার agent নির্বাচন করুন
+2. **Integrations** tab-এ navigate করুন
+3. **WhatsApp**-এ click করুন
+4. Meta signup popup খুলতে **Connect with Facebook**-এ click করুন
+5. আপনার Facebook/Meta account দিয়ে log in করুন
+6. একটি WhatsApp Business Account নির্বাচন বা তৈরি করুন
+7. সংযুক্ত করতে ফোন নম্বর বেছে নিন
+8. Popup বন্ধ হয় এবং আপনার সংযোগ স্থাপিত হয়
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  The embedded signup flow handles most of the configuration automatically. It's the recommended method for most users.
+  Embedded signup flow স্বয়ংক্রিয়ভাবে অধিকাংশ configuration সামলায়। বেশিরভাগ user-এর জন্য এটি সুপারিশকৃত পদ্ধতি।
 </Callout>
 
-### 2. Phone Verification (If Required)
+### ২. ফোন Verification (প্রয়োজন হলে)
 
-After completing the Meta signup, you may need to verify your phone number:
+Meta signup সম্পন্ন হওয়ার পর আপনার ফোন নম্বর verify করতে হতে পারে:
 
-1. Choose how to receive your verification code: **SMS** or **Voice Call**
-2. Click **Send Code**
-3. Enter the 6-digit code you receive
-4. Click **Verify**
+1. Verification code কীভাবে পাবেন তা বেছে নিন: **SMS** বা **Voice Call**
+2. **Send Code**-এ click করুন
+3. আপনি যে ৬-সংখ্যার code পাবেন তা দিন
+4. **Verify**-এ click করুন
 
-If you didn't receive the code, click "Didn't receive the code? Send again" to retry.
+Code না পেলে পুনরায় চেষ্টা করতে "Didn't receive the code? Send again"-এ click করুন।
 
-### 3. Two-Step Verification (If Enabled)
+### ৩. Two-Step Verification (Enable থাকলে)
 
-If your WhatsApp Business account has Two-Step Verification enabled:
+আপনার WhatsApp Business account-এ Two-Step Verification enable থাকলে:
 
-1. Enter your 6-digit PIN when prompted
-2. Click **Complete Registration**
+1. Prompt হলে আপনার ৬-সংখ্যার PIN দিন
+2. **Complete Registration**-এ click করুন
 
 <Callout type="info">
-  This PIN was set up in WhatsApp Business Manager → Security Center. It's different from the SMS verification code.
+  এই PIN WhatsApp Business Manager → Security Center-এ সেট আপ করা হয়েছিল। এটি SMS verification code থেকে ভিন্ন।
 </Callout>
 
-### 4. Configure Webhook (If Required)
+### ৪. Webhook configure করুন (প্রয়োজন হলে)
 
-After setup, you may need to configure your webhook in Meta Business Suite:
+সেটআপের পর Meta Business Suite-এ আপনার webhook configure করতে হতে পারে:
 
-1. Copy the webhook URL provided after connection
-2. In Meta Developer Portal, go to **WhatsApp** → **Configuration**
-3. Add the webhook URL
-4. Subscribe to the `messages` webhook field
+1. সংযুক্ত হওয়ার পর প্রদত্ত webhook URL copy করুন
+2. Meta Developer Portal-এ **WhatsApp** → **Configuration**-এ যান
+3. Webhook URL যোগ করুন
+4. `messages` webhook field subscribe করুন
 
-## Using the Bot
+## Bot ব্যবহার করা
 
-### Customer Messages
+### গ্রাহক Message
 
-When customers message your WhatsApp number:
+গ্রাহকরা আপনার WhatsApp নম্বরে message করলে:
 
-1. Message arrives via WhatsApp
-2. Cuneiform Chat processes the request
-3. Agent generates response from content
-4. Response sent back to customer
+1. Message WhatsApp-এর মাধ্যমে আসে
+2. Cuneiform Chat request প্রক্রিয়া করে
+3. Agent content থেকে response তৈরি করে
+4. Response গ্রাহকের কাছে ফেরত যায়
 
 ### Conversation Flow
 
 ```
-Customer → WhatsApp → Cuneiform Chat → Agent → Response → Customer
+গ্রাহক → WhatsApp → Cuneiform Chat → Agent → Response → গ্রাহক
 ```
 
-## Features
+## বৈশিষ্ট্যসমূহ
 
-### 24-Hour Messaging Window
+### ২৪ ঘণ্টার Messaging Window
 
-WhatsApp Business API rules:
-- You can respond to customer-initiated messages for 24 hours
-- After 24 hours, the window closes until the customer messages again
-- Each new customer message reopens the window
+WhatsApp Business API নিয়ম:
+- গ্রাহক-initiated message-এ ২৪ ঘণ্টা respond করতে পারবেন
+- ২৪ ঘণ্টা পর গ্রাহক আবার message না করা পর্যন্ত window বন্ধ থাকে
+- প্রতিটি নতুন গ্রাহক message window পুনরায় খোলে
 
 <Callout type="info">
-  Your agent responds within the 24-hour window automatically. Template messages for re-engagement are not currently supported.
+  আপনার agent স্বয়ংক্রিয়ভাবে ২৪ ঘণ্টার window-এর মধ্যে respond করে। Re-engagement-এর জন্য template message বর্তমানে সমর্থিত নয়।
 </Callout>
 
 ### Rich Media
 
-Responses can include:
-- Text messages
-- Links
+Response-এ অন্তর্ভুক্ত থাকতে পারে:
+- Text message
+- Link
 - Formatted text
 
-### Multi-Language
+### বহু-ভাষা
 
-Your agent automatically detects the customer's language and responds in kind — 176 languages supported, no configuration needed.
+আপনার agent স্বয়ংক্রিয়ভাবে গ্রাহকের ভাষা শনাক্ত করে এবং সেই ভাষায় respond করে — ১৭৬টি ভাষা সমর্থিত, কোনো configuration প্রয়োজন নেই।
 
-## Managing Connected Numbers
+## সংযুক্ত নম্বর পরিচালনা
 
-Each connected WhatsApp number displays:
-- **Business name** or display phone number
-- **Status badge** - Active, Inactive, or Error
-- **Phone number**
-- **Last activity** timestamp
+প্রতিটি সংযুক্ত WhatsApp নম্বর দেখায়:
+- **Business name** বা display ফোন নম্বর
+- **Status badge** - Active, Inactive, বা Error
+- **ফোন নম্বর**
+- **শেষ কার্যকলাপ** timestamp
 
-### Available Actions
+### উপলব্ধ Action
 
-| Action | Description |
-|--------|-------------|
-| **Test Connection** | Verifies the integration is working |
-| **Disconnect** | Removes this integration |
+| Action | বিবরণ |
+|--------|-------|
+| **Test Connection** | Integration কাজ করছে কিনা যাচাই করে |
+| **Disconnect** | এই integration সরায় |
 
-Access these via the three-dot menu on the integration card.
+Integration card-এ three-dot menu-র মাধ্যমে এগুলো access করুন।
 
-## Troubleshooting
+## সমস্যা সমাধান
 
-### Connection Failed
+### সংযোগ ব্যর্থ
 
-1. Ensure you have a valid WhatsApp Business Account
-2. Check that your phone number is verified
-3. Try the embedded signup flow again
+1. আপনার একটি valid WhatsApp Business Account আছে কিনা নিশ্চিত করুন
+2. আপনার ফোন নম্বর verified কিনা পরীক্ষা করুন
+3. Embedded signup flow আবার চেষ্টা করুন
 
-### Phone Verification Not Working
+### ফোন Verification কাজ করছে না
 
-1. Ensure you have access to the phone number for SMS/Voice
-2. Wait a few minutes before requesting a new code
-3. Check that the phone number isn't already connected elsewhere
+1. SMS/Voice-এর জন্য ফোন নম্বরে access আছে কিনা নিশ্চিত করুন
+2. নতুন code অনুরোধ করার আগে কয়েক মিনিট অপেক্ষা করুন
+3. ফোন নম্বর অন্যত্র সংযুক্ত নেই কিনা পরীক্ষা করুন
 
 ### Two-Step Verification Error
 
-1. Enter the PIN set up in WhatsApp Business Manager → Security Center
-2. This is different from the SMS verification code
-3. Contact your WhatsApp Business admin if you don't know the PIN
+1. WhatsApp Business Manager → Security Center-এ সেট আপ করা PIN দিন
+2. এটি SMS verification code থেকে ভিন্ন
+3. PIN না জানলে আপনার WhatsApp Business admin-এর সাথে যোগাযোগ করুন
 
-### Messages Not Arriving
+### Message আসছে না
 
-1. Verify webhook is configured correctly in Meta Business Suite
-2. Check webhook subscription includes `messages`
-3. Confirm the integration status is "Active"
+1. Meta Business Suite-এ webhook সঠিকভাবে configured কিনা যাচাই করুন
+2. Webhook subscription-এ `messages` অন্তর্ভুক্ত কিনা পরীক্ষা করুন
+3. Integration status "Active" কিনা নিশ্চিত করুন
 
-### Response Failures
+### Response ব্যর্থতা
 
-1. Check your agent works in Playground
-2. Verify the 24-hour window is active (customer messaged recently)
-3. Check the integration status in the admin panel
+1. Playground-এ আপনার agent কাজ করছে কিনা পরীক্ষা করুন
+2. ২৪ ঘণ্টার window active কিনা যাচাই করুন (গ্রাহক সম্প্রতি message করেছে)
+3. Admin panel-এ integration status পরীক্ষা করুন
 
-## Security
+## নিরাপত্তা
 
-- Access tokens are encrypted and stored securely
-- Messages processed over secure connections
+- Access token এনক্রিপ্ট করে সুরক্ষিতভাবে সংরক্ষণ করা হয়
+- Message secure connection-এর মাধ্যমে প্রক্রিয়া হয়
 
 ## Compliance
 
-WhatsApp Business has usage policies:
-- Respond only to customer-initiated conversations
-- Provide opt-out options
-- Follow Meta's Commerce and Business policies
+WhatsApp Business-এর ব্যবহার নীতিমালা:
+- শুধুমাত্র গ্রাহক-initiated conversation-এ respond করুন
+- Opt-out বিকল্প প্রদান করুন
+- Meta-এর Commerce এবং Business নীতিমালা অনুসরণ করুন
 
-## Disconnecting
+## সংযোগ বিচ্ছিন্ন করা
 
-To remove the WhatsApp integration:
+WhatsApp integration সরাতে:
 
-1. Go to **Agents** → Select agent → **Integrations**
-2. Click the three-dot menu on your WhatsApp integration
-3. Select **Disconnect**
+1. **Agents** → agent নির্বাচন করুন → **Integrations**
+2. আপনার WhatsApp integration-এ three-dot menu-তে click করুন
+3. **Disconnect** নির্বাচন করুন
 
-This stops the agent from responding. To fully remove:
-- Delete the webhook in Meta Developer Portal
-- Optionally remove the WhatsApp product from your Meta app
+এটি agent-কে respond করা বন্ধ করে। সম্পূর্ণ সরাতে:
+- Meta Developer Portal-এ webhook মুছুন
+- ঐচ্ছিকভাবে আপনার Meta app থেকে WhatsApp product সরান
 
-## Common Questions
+## সাধারণ প্রশ্ন
 
-**Q: How do I connect WhatsApp?**
-A: Use the embedded signup by clicking "WhatsApp" in the Integrations tab, then "Connect with Facebook". This guides you through the Meta signup process automatically.
+**প্রশ্ন: কীভাবে WhatsApp সংযুক্ত করব?**
+উত্তর: Integrations tab-এ "WhatsApp"-এ click করে, তারপর "Connect with Facebook"-এ click করে embedded signup ব্যবহার করুন। এটি স্বয়ংক্রিয়ভাবে Meta signup প্রক্রিয়ার মাধ্যমে আপনাকে গাইড করে।
 
-**Q: Why am I asked for a verification code?**
-A: WhatsApp requires phone verification for new connections. Choose SMS or Voice Call to receive a 6-digit code, then enter it to complete setup.
+**প্রশ্ন: কেন আমাকে verification code দিতে বলা হচ্ছে?**
+উত্তর: নতুন সংযোগের জন্য WhatsApp-এর ফোন verification প্রয়োজন। ৬-সংখ্যার code পেতে SMS বা Voice Call বেছে নিন, তারপর setup সম্পন্ন করতে এটি দিন।
 
-**Q: What is the Two-Step Verification PIN?**
-A: If you enabled Two-Step Verification in WhatsApp Business Manager, you'll need to enter that 6-digit PIN during setup. This is different from the SMS verification code.
+**প্রশ্ন: Two-Step Verification PIN কী?**
+উত্তর: WhatsApp Business Manager-এ Two-Step Verification enable করে থাকলে, setup-এর সময় সেই ৬-সংখ্যার PIN দিতে হবে। এটি SMS verification code থেকে ভিন্ন।
 
-**Q: Can I connect multiple WhatsApp numbers?**
-A: Yes, you can connect multiple WhatsApp Business numbers. Each number can be connected to a different (or the same) AI agent.
+**প্রশ্ন: একাধিক WhatsApp নম্বর সংযুক্ত করা যায়?**
+উত্তর: হ্যাঁ, আপনি একাধিক WhatsApp Business নম্বর সংযুক্ত করতে পারেন। প্রতিটি নম্বর একটি ভিন্ন (বা একই) AI agent-এর সাথে সংযুক্ত করা যায়।

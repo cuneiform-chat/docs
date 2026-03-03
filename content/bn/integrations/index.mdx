@@ -1,56 +1,52 @@
 ---
-description: Deploy AI chatbots to Telegram, Discord, Slack, WhatsApp, Google Chat, Facebook Messenger, and your own website.
+description: Telegram, Discord, Slack, WhatsApp, Google Chat, Facebook Messenger এবং আপনার নিজের ওয়েবসাইটে AI chatbot deploy করুন।
 ---
 
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# ইন্টিগ্রেশন
 
+আপনার agent-গুলো একাধিক channel-এ deploy করুন এবং user-দের কাছে পৌঁছান যেখানেই তারা আছেন।
 
-# Integrations
+## উপলব্ধ Channel সমূহ
 
-Deploy your agents to multiple channels and reach users wherever they are.
+| Channel | বিবরণ | সবচেয়ে উপযুক্ত |
+|---------|-------|-----------------|
+| [Telegram](/integrations/telegram) | Telegram bot | Mobile user, community |
+| [Discord](/integrations/discord) | Slash command সহ Discord bot | Gaming, developer community |
+| [Slack](/integrations/slack) | Slack app | Team workspace |
+| [WhatsApp](/integrations/whatsapp) | WhatsApp Business | গ্রাহক যোগাযোগ |
+| [Google Chat](/integrations/google-chat) | Google Workspace app | Enterprise team |
+| [Meta (Facebook)](/integrations/facebook) | Facebook Messenger | সাধারণ ব্যবহারকারী |
+| [ওয়েবসাইট উইজেট](/integrations/website-widget) | Embeddable chat widget | গ্রাহক সহায়তা, যেকোনো ওয়েবসাইট |
 
-## Available Channels
+## ইন্টিগ্রেশন কীভাবে কাজ করে
 
-| Channel | Description | Best For |
-|---------|-------------|----------|
-| [Telegram](/integrations/telegram) | Telegram bot | Mobile users, communities |
-| [Discord](/integrations/discord) | Discord bot with slash commands | Gaming, developer communities |
-| [Slack](/integrations/slack) | Slack app | Team workspaces |
-| [WhatsApp](/integrations/whatsapp) | WhatsApp Business | Customer communication |
-| [Google Chat](/integrations/google-chat) | Google Workspace app | Enterprise teams |
-| [Meta (Facebook)](/integrations/facebook) | Facebook Messenger | Consumer audience |
-| [Website Widget](/integrations/website-widget) | Embeddable chat widget | Customer support, any website |
+1. **Configure** — আপনার পছন্দের channel-এর জন্য integration সেট আপ করুন
+2. **Connect** — আপনার agent-কে channel-এর সাথে সংযুক্ত করুন
+3. **Deploy** — আপনার agent user-দের জন্য উপলব্ধ হয়ে যায়
+4. **Monitor** — Conversation এবং ব্যবহার ট্র্যাক করুন
 
-## How Integrations Work
+## মাল্টি-চ্যানেল Deployment
 
-1. **Configure** — Set up the integration for your chosen channel
-2. **Connect** — Link your agent to the channel
-3. **Deploy** — Your agent becomes available to users
-4. **Monitor** — Track conversations and usage
+একটি agent একসাথে একাধিক channel-এ deploy করা যায়:
 
-## Multi-Channel Deployment
+- সব channel-এ একই content
+- সর্বত্র সামঞ্জস্যপূর্ণ response
+- কেন্দ্রীভূত conversation history
+- একীভূত analytics
 
-A single agent can be deployed to multiple channels simultaneously:
+## Channel-ভিত্তিক বৈশিষ্ট্য
 
-- Same content across all channels
-- Consistent responses everywhere
-- Centralized conversation history
-- Unified analytics
+প্রতিটি channel-এর নিজস্ব সক্ষমতা রয়েছে:
 
-## Channel-Specific Features
-
-Each channel has unique capabilities:
-
-- **Telegram** — Rich messages, inline keyboards
-- **Discord** — Slash commands, server integration
-- **Slack** — Workspace apps, channel responses
+- **Telegram** — Rich message, inline keyboard
+- **Discord** — Slash command, server integration
+- **Slack** — Workspace app, channel response
 - **WhatsApp** — Business messaging, rich media
-- **Google Chat** — Google Workspace integration, spaces support
-- **Meta (Facebook)** — Messenger integration, page messaging
-- **Website Widget** — Embeddable chat, customizable appearance, domain allowlisting
+- **Google Chat** — Google Workspace integration, Spaces support
+- **Meta (Facebook)** — Messenger integration, Page messaging
+- **ওয়েবসাইট উইজেট** — Embeddable chat, customizable appearance, domain allowlisting
 
-## Getting Started
+## শুরু করুন
 
 import { Cards } from 'nextra/components'
 
@@ -61,15 +57,15 @@ import { Cards } from 'nextra/components'
   <Cards.Card title="WhatsApp" href="/integrations/whatsapp" />
   <Cards.Card title="Google Chat" href="/integrations/google-chat" />
   <Cards.Card title="Meta (Facebook)" href="/integrations/facebook" />
-  <Cards.Card title="Website Widget" href="/integrations/website-widget" />
+  <Cards.Card title="ওয়েবসাইট উইজেট" href="/integrations/website-widget" />
 </Cards>
 
-## Requirements
+## প্রয়োজনীয়তা
 
-Before setting up integrations:
+Integration সেটআপ করার আগে:
 
-1. ✅ Create at least one agent
-2. ✅ Upload documents to your content
-3. ✅ Test your agent in the Playground
+1. কমপক্ষে একটি agent তৈরি করুন
+2. আপনার content-এ document আপলোড করুন
+3. Playground-এ আপনার agent test করুন
 
-Each channel may have additional requirements (bot tokens, app credentials, etc.) detailed in their respective guides.
+প্রতিটি channel-এর অতিরিক্ত প্রয়োজনীয়তা থাকতে পারে (bot token, app credential ইত্যাদি) যা তাদের নিজ নিজ guide-এ বিস্তারিত দেওয়া আছে।

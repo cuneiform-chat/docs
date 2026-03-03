@@ -1,156 +1,153 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Meta (Facebook) ইন্টিগ্রেশন
 
-# Meta (Facebook) Integration
+আপনার Facebook Page-এর মাধ্যমে agent-কে Facebook Messenger-এ সংযুক্ত করুন।
 
-Connect your agent to Facebook Messenger through your Facebook Page.
+## সংক্ষিপ্ত বিবরণ
 
-## Overview
+Meta integration প্রদান করে:
+- আপনার Page-এর মাধ্যমে Facebook Messenger conversation
+- Typing indicator সহ background processing
+- দীর্ঘ response-এর জন্য স্বয়ংক্রিয় message splitting
+- ২৪ ঘণ্টার messaging window compliance
+- Session-এর মধ্যে conversation memory
 
-Meta integration provides:
-- Facebook Messenger conversations via your Page
-- Background processing with typing indicators
-- Automatic message splitting for long responses
-- 24-hour messaging window compliance
-- Conversation memory within sessions
+## পূর্বশর্ত
 
-## Prerequisites
+- আপনি পরিচালনা করেন এমন একটি Facebook Page
+- Page-এ Admin বা Editor role
+- একটি active agent সহ Cuneiform Chat account
 
-- A Facebook Page you manage
-- Admin or Editor role on the Page
-- Cuneiform Chat account with an active agent
+## সেটআপ ধাপসমূহ
 
-## Setup Steps
+### ১. Integration সেটআপ শুরু করুন
 
-### 1. Start Integration Setup
+1. **Agents** → আপনার agent নির্বাচন করুন
+2. **Integrations** tab-এ navigate করুন
+3. **Meta (Facebook)**-এ click করুন
+4. **Connect Page**-এ click করুন
 
-1. Go to **Agents** → Select your agent
-2. Navigate to **Integrations** tab
-3. Click **Meta (Facebook)**
-4. Click **Connect Page**
+### ২. Facebook-এ Authorize করুন
 
-### 2. Authorize with Facebook
+1. কোন **Agent** respond করবে তা নির্বাচন করুন
+2. **Connect with Facebook**-এ click করুন
+3. Facebook-এ log in করুন (প্রয়োজন হলে)
+4. আপনি যে Page সংযুক্ত করতে চান তা নির্বাচন করুন
+5. Messenger permission দিন
+6. আপনাকে success message সহ ফিরিয়ে আনা হবে
 
-1. Select which **Agent** should respond
-2. Click **Connect with Facebook**
-3. Log in to Facebook (if needed)
-4. Select the Page you want to connect
-5. Grant Messenger permissions
-6. You'll be redirected back with a success message
+### ৩. সংযোগ যাচাই করুন
 
-### 3. Verify Connection
-
-Once connected, your Page will appear in the integrations list showing:
-- Page name and status
+সংযুক্ত হলে আপনার Page integration list-এ দেখা যাবে:
+- Page name এবং status
 - Page ID
-- Last activity timestamp
+- শেষ কার্যকলাপ timestamp
 
-## How It Works
+## এটি কীভাবে কাজ করে
 
-When users message your Facebook Page through Messenger:
+User-রা Messenger-এর মাধ্যমে আপনার Facebook Page-এ message করলে:
 
-1. Message arrives via Facebook Messenger
-2. The bot shows a typing indicator while processing
-3. Your agent processes the question
-4. Response is sent back through Messenger
+1. Message Facebook Messenger-এর মাধ্যমে আসে
+2. Bot প্রক্রিয়ার সময় typing indicator দেখায়
+3. আপনার agent প্রশ্ন প্রক্রিয়া করে
+4. Response Messenger-এর মাধ্যমে ফেরত যায়
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Messages are processed in the background. The bot shows a typing indicator while your agent generates a response.
+  Message background-এ প্রক্রিয়া হয়। আপনার agent response তৈরি করার সময় bot typing indicator দেখায়।
 </Callout>
 
-## Features
+## বৈশিষ্ট্যসমূহ
 
-### Automatic Responses
+### স্বয়ংক্রিয় Response
 
-Your agent automatically responds to incoming Messenger conversations based on your content. All text messages trigger a response — no commands or prefixes needed.
+আপনার agent স্বয়ংক্রিয়ভাবে আপনার content-এর ভিত্তিতে আগত Messenger conversation-এ respond করে। সব text message response trigger করে — কোনো command বা prefix প্রয়োজন নেই।
 
-### Typing Indicators
+### Typing Indicator
 
-While your agent processes a message, users see a typing indicator ("...") in Messenger, providing a natural conversation feel.
+আপনার agent message প্রক্রিয়া করার সময় user-রা Messenger-এ typing indicator ("...") দেখে, স্বাভাবিক conversation-এর অনুভূতি দেয়।
 
 ### Message Splitting
 
-Responses longer than 2,000 characters are automatically split into multiple messages, preserving paragraph breaks and sentence boundaries for readability.
+২,০০০ অক্ষরের বেশি দীর্ঘ response স্বয়ংক্রিয়ভাবে একাধিক message-এ বিভক্ত হয়, পাঠযোগ্যতার জন্য paragraph break এবং sentence boundary সংরক্ষণ করে।
 
 ### Conversation Memory
 
-The bot remembers context within a session, so users can ask follow-up questions without repeating themselves.
+Bot একটি session-এর মধ্যে context মনে রাখে, তাই user-রা নিজেদের পুনরাবৃত্তি না করে follow-up প্রশ্ন করতে পারে।
 
 ### Message Queuing
 
-If a user sends additional messages while the bot is still processing, they are queued and included in the next response.
+Bot এখনও প্রক্রিয়া করার সময় user অতিরিক্ত message পাঠালে, সেগুলো queue হয় এবং পরবর্তী response-এ অন্তর্ভুক্ত হয়।
 
-### 24-Hour Messaging Window
+### ২৪ ঘণ্টার Messaging Window
 
-Facebook's policy allows responses within 24 hours of the last user message. Your agent responds in real-time, well within this window. After 24 hours of inactivity, the user must send a new message to restart the conversation.
+Facebook-এর নীতি শেষ user message-এর ২৪ ঘণ্টার মধ্যে respond করার অনুমতি দেয়। আপনার agent real-time-এ respond করে, এই window-এর মধ্যেই। ২৪ ঘণ্টা নিষ্ক্রিয়তার পর conversation পুনরায় শুরু করতে user-কে নতুন message পাঠাতে হবে।
 
 <Callout type="warning">
-  Users must message your Page first — you cannot send unsolicited messages. If more than 24 hours pass since their last message, the bot cannot reply until the user messages again.
+  User-দের প্রথমে আপনার Page-এ message করতে হবে — আপনি অযাচিত message পাঠাতে পারবেন না। তাদের শেষ message-এর পর ২৪ ঘণ্টা পার হলে user আবার message না করা পর্যন্ত bot reply করতে পারবে না।
 </Callout>
 
-## Managing Pages
+## Page পরিচালনা
 
-### View Connected Pages
+### সংযুক্ত Page দেখুন
 
-Each connected Page displays:
-- Page name and connection status
-- Associated agent
-- Activity information
+প্রতিটি সংযুক্ত Page দেখায়:
+- Page name এবং সংযোগ status
+- সংশ্লিষ্ট agent
+- কার্যকলাপ তথ্য
 
-### Available Actions
+### উপলব্ধ Action
 
-| Action | Description |
-|--------|-------------|
-| **Test Connection** | Verify the integration is working |
-| **Disconnect** | Remove the Page connection |
+| Action | বিবরণ |
+|--------|-------|
+| **Test Connection** | Integration কাজ করছে কিনা যাচাই করুন |
+| **Disconnect** | Page সংযোগ সরান |
 
-Access these via the three-dot menu on each connected Page.
+প্রতিটি সংযুক্ত Page-এ three-dot menu-র মাধ্যমে এগুলো access করুন।
 
-## Troubleshooting
+## সমস্যা সমাধান
 
-### Page Not Appearing
+### Page দেখা যাচ্ছে না
 
-1. Verify you have Admin or Editor role on the Page
-2. Check you granted all requested permissions
-3. Try disconnecting and reconnecting
+1. Page-এ আপনার Admin বা Editor role আছে কিনা যাচাই করুন
+2. সব অনুরোধকৃত permission দিয়েছেন কিনা পরীক্ষা করুন
+3. Disconnect করে পুনরায় connect করে দেখুন
 
-### Messages Not Receiving Responses
+### Message-এ Response আসছে না
 
-1. Use "Test Connection" to verify the integration
-2. Check your agent is configured and working (test in Playground)
-3. Ensure Messenger permissions are granted
-4. Verify the user messaged within the last 24 hours (messaging window policy)
+1. Integration যাচাই করতে "Test Connection" ব্যবহার করুন
+2. আপনার agent configured এবং কাজ করছে কিনা পরীক্ষা করুন (Playground-এ test করুন)
+3. Messenger permission দেওয়া হয়েছে কিনা নিশ্চিত করুন
+4. User গত ২৪ ঘণ্টায় message করেছে কিনা যাচাই করুন (messaging window নীতি)
 
-### Authorization Errors
+### Authorization Error
 
-1. Clear Facebook login session and try again
-2. Verify your Facebook account has Page access
-3. Check Page isn't restricted by Facebook
+1. Facebook login session clear করে আবার চেষ্টা করুন
+2. আপনার Facebook account-এ Page access আছে কিনা যাচাই করুন
+3. Page Facebook দ্বারা restricted কিনা পরীক্ষা করুন
 
-## Security
+## নিরাপত্তা
 
-- **OAuth tokens** are encrypted and stored securely
-- **Webhook signatures** are verified using HMAC-SHA256 on every incoming request
-- No access to Page content beyond Messenger conversations
-- Compliant with Facebook Platform policies
+- **OAuth token** এনক্রিপ্ট করে সুরক্ষিতভাবে সংরক্ষণ করা হয়
+- **Webhook signature** প্রতিটি incoming request-এ HMAC-SHA256 ব্যবহার করে verify করা হয়
+- Messenger conversation-এর বাইরে Page content-এ কোনো access নেই
+- Facebook Platform নীতিমালার সাথে সামঞ্জস্যপূর্ণ
 
-## Disconnecting
+## সংযোগ বিচ্ছিন্ন করা
 
-To remove the Meta integration:
+Meta integration সরাতে:
 
-1. Go to **Agents** → Select agent → **Integrations**
-2. Click the three-dot menu on your Page
-3. Select **Disconnect**
+1. **Agents** → agent নির্বাচন করুন → **Integrations**
+2. আপনার Page-এ three-dot menu-তে click করুন
+3. **Disconnect** নির্বাচন করুন
 
-To fully revoke access:
-1. Go to Facebook Settings → Business Integrations
-2. Remove the Cuneiform Chat app
+সম্পূর্ণভাবে access revoke করতে:
+1. Facebook Settings → Business Integrations-এ যান
+2. Cuneiform Chat app সরান
 
-## Important Notes
+## গুরুত্বপূর্ণ তথ্য
 
-- **One agent per Page**: Each Facebook Page can only connect to one AI agent at a time
-- **Messenger only**: This integration works through Facebook Messenger, not Page comments or posts
-- **Message limit**: Individual messages are limited to 2,000 characters; longer responses are automatically split
-- **To change agents**: Disconnect the existing integration first, then reconnect with a different agent
+- **প্রতি Page একটি agent**: প্রতিটি Facebook Page একবারে শুধুমাত্র একটি AI agent-এর সাথে সংযুক্ত করা যায়
+- **শুধুমাত্র Messenger**: এই integration Facebook Messenger-এর মাধ্যমে কাজ করে, Page comment বা post-এ নয়
+- **Message সীমা**: Individual message ২,০০০ অক্ষরে সীমাবদ্ধ; দীর্ঘ response স্বয়ংক্রিয়ভাবে বিভক্ত হয়
+- **Agent পরিবর্তন করতে**: প্রথমে বিদ্যমান integration disconnect করুন, তারপর ভিন্ন agent দিয়ে পুনরায় connect করুন

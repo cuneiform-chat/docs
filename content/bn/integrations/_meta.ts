@@ -8,7 +8,7 @@ const meta: MetaRecord = {
   whatsapp: 'WhatsApp',
   'google-chat': 'Google Chat',
   facebook: 'Meta (Facebook)',
-  'website-widget': 'Website Widget',
+  'website-widget': 'ওয়েবসাইট উইজেট',
 }
 
 export default meta
