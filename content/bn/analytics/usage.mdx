@@ -1,85 +1,82 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# ব্যবহার পরিসংখ্যান
 
-# Usage Metrics
+আপনার resource ব্যবহার এবং credit ব্যবহার ট্র্যাক করুন।
 
-Track your resource consumption and credit utilization.
+## Credit ব্যবহারের সংক্ষিপ্ত বিবরণ
 
-## Credit Usage Overview
+Analytics dashboard আপনার বর্তমান billing cycle-এর ব্যবহার দেখায়:
 
-The analytics dashboard shows your current billing cycle usage:
+- **Credits Used** — এই সময়ে ব্যবহৃত platform credit
+- **Credits Remaining** — সময়সীমা শেষ পর্যন্ত পাওয়া যাবে এমন credit
+- **Usage Percentage** — ব্যবহারের visual progress bar
 
-- **Credits Used** — Platform credits consumed this period
-- **Credits Remaining** — Available credits until period end
-- **Usage Percentage** — Visual progress bar of consumption
-
-## Key Metrics
+## প্রধান পরিসংখ্যান
 
 ### Query Volume
 
-| Metric | Description |
-|--------|-------------|
-| Total Queries | AI agent executions in the period |
-| Conversations | Total chat sessions |
-| Unique Users | Individual users who interacted |
+| পরিসংখ্যান | বিবরণ |
+|-------------|-------|
+| Total Queries | এই সময়ে AI agent execution |
+| Conversations | মোট chat session |
+| Unique Users | যেসব user interact করেছে |
 
-### Distribution Breakdown
+### বিতরণ বিশ্লেষণ
 
-View how usage is distributed:
+ব্যবহার কীভাবে বিতরণ হচ্ছে দেখুন:
 
-- **By Agent** — Which agents handle the most queries
-- **By Channel** — Usage across Telegram, Discord, Slack, WhatsApp, etc.
+- **Agent অনুযায়ী** — কোন agent সবচেয়ে বেশি query পরিচালনা করে
+- **Channel অনুযায়ী** — Telegram, Discord, Slack, WhatsApp ইত্যাদি জুড়ে ব্যবহার
 
-## Usage Trends
+## ব্যবহারের প্রবণতা
 
 ### Query Volume Chart
 
-The main analytics dashboard displays a query volume chart showing:
-- Queries over time
-- Configurable granularity (hourly, daily, weekly, monthly)
-- Date range selection
+প্রধান analytics dashboard একটি query volume chart দেখায় যেখানে রয়েছে:
+- সময়ের সাথে query
+- কনফিগারযোগ্য granularity (ঘণ্টা ভিত্তিক, দৈনিক, সাপ্তাহিক, মাসিক)
+- Date range নির্বাচন
 
-### Distribution Charts
+### Distribution Chart
 
-Pie charts showing:
-- Channel distribution — Percentage of queries per platform
-- Agent distribution — Percentage of queries per agent
+Pie chart দেখায়:
+- Channel distribution — প্রতি platform-এ query-এর শতকরা হার
+- Agent distribution — প্রতি agent-এ query-এর শতকরা হার
 
-## Credit Monitoring
+## Credit পর্যবেক্ষণ
 
-### Current Period
+### বর্তমান সময়কাল
 
-View your billing cycle status:
-- Period start and end dates
-- Credits used vs. allocated
-- Percentage consumed
+আপনার billing cycle-এর অবস্থা দেখুন:
+- সময়কালের শুরু এবং শেষের তারিখ
+- ব্যবহৃত credit বনাম বরাদ্দকৃত credit
+- ব্যবহারের শতকরা হার
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Credits reset at the start of each billing period. Check the **Billing** section for your cycle dates.
+  প্রতিটি billing period-এর শুরুতে credit reset হয়। আপনার cycle-এর তারিখ জানতে **Billing** বিভাগ দেখুন।
 </Callout>
 
-## Usage Warnings
+## ব্যবহারের সতর্কতা
 
-The **Billing** page displays automatic warning banners when:
+**Billing** page-এ স্বয়ংক্রিয় সতর্কতা banner দেখায় যখন:
 
-- **Approaching limit** — You've used most of your monthly quota
-- **Limit reached** — Monthly quota is depleted
-- **Blocked** — Extra usage balance also depleted
+- **সীমার কাছাকাছি** — আপনি মাসিক quota-র বেশিরভাগ ব্যবহার করেছেন
+- **সীমায় পৌঁছেছে** — মাসিক quota শেষ হয়ে গেছে
+- **Blocked** — Extra usage balance-ও শেষ হয়ে গেছে
 
-These warnings appear in **Billing & Plans** to help you take action before service is affected.
+এই সতর্কতা **Billing ও Plans**-এ দেখা যায় যাতে service প্রভাবিত হওয়ার আগে আপনি পদক্ষেপ নিতে পারেন।
 
-## Optimization Tips
+## অপটিমাইজেশন পরামর্শ
 
-### Reduce Query Usage
+### Query ব্যবহার কমানো
 
-- Improve agent personas for better first-response accuracy
-- Add FAQ content to reduce follow-up questions
-- Optimize content for faster retrieval
+- প্রথম response-এর সঠিকতা বাড়াতে agent persona উন্নত করুন
+- Follow-up প্রশ্ন কমাতে FAQ content যোগ করুন
+- দ্রুত retrieval-এর জন্য content অপটিমাইজ করুন
 
-### Monitor High-Usage Areas
+### বেশি ব্যবহারের ক্ষেত্র পর্যবেক্ষণ
 
-- Check which agents consume the most credits
-- Identify channels with highest volume
-- Review conversations that use more tokens
+- কোন agent সবচেয়ে বেশি credit ব্যবহার করে পরীক্ষা করুন
+- সর্বোচ্চ volume-এর channel চিহ্নিত করুন
+- বেশি token ব্যবহার করা কথোপকথন পর্যালোচনা করুন

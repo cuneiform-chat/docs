@@ -1,145 +1,142 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# কথোপকথন বিশ্লেষণ
 
-# Conversation Analytics
+আপনার agent এবং channel জুড়ে কথোপকথনের পরিসংখ্যান ট্র্যাক করুন এবং বিস্তারিত transcript দেখুন।
 
-Track conversation metrics and view detailed transcripts across your agents and channels.
+## সংক্ষিপ্ত বিবরণ
 
-## Overview
+কথোপকথন বিশ্লেষণ প্রদান করে:
 
-Conversation analytics provides:
+- মোট কথোপকথনের পরিমাণ
+- প্রতি agent-এ কথোপকথন
+- প্রতি channel-এ কথোপকথন
+- সম্পূর্ণ message transcript
+- AI-চালিত কথোপকথন insight
 
-- Total conversation volume
-- Conversations per agent
-- Conversations per channel
-- Full message transcripts
-- AI-powered conversation insights
+## কথোপকথনে প্রবেশ
 
-## Accessing Conversations
+### Dashboard থেকে
 
-### From the Dashboard
+1. সাইডবারে **Analytics**-এ যান
+2. Top Agents বা Top Channels card-এ **View All**-এ click করুন
+3. অথবা সরাসরি analytics menu থেকে Conversations-এ navigate করুন
 
-1. Go to **Analytics** in the sidebar
-2. Click **View All** on the Top Agents or Top Channels cards
-3. Or navigate directly to Conversations from the analytics menu
+### কথোপকথন তালিকা
 
-### Conversation List
+সব কথোপকথন দেখুন:
 
-View all conversations with:
+| কলাম | বিবরণ |
+|------|-------|
+| Title | কথোপকথনের শিরোনাম বা session ID |
+| Agent | কোন agent কথোপকথন পরিচালনা করেছে |
+| Channel | Platform (Telegram, Discord, Slack, ইত্যাদি) |
+| Messages | মোট message সংখ্যা |
+| Last Active | কথোপকথন সর্বশেষ কখন আপডেট হয়েছে |
+| Status | Active, archived, বা deleted |
 
-| Column | Description |
-|--------|-------------|
-| Title | Conversation title or session ID |
-| Agent | Which agent handled the conversation |
-| Channel | Platform (Telegram, Discord, Slack, etc.) |
-| Messages | Total message count |
-| Last Active | When the conversation was last updated |
-| Status | Active, archived, or deleted |
+## কথোপকথন ফিল্টার করা
 
-## Filtering Conversations
+কথোপকথন তালিকা ফিল্টার করুন:
 
-Filter the conversation list by:
+- **Agent** — একটি নির্দিষ্ট agent বা সব agent নির্বাচন করুন
+- **Channel** — Platform অনুযায়ী ফিল্টার করুন (WhatsApp, Telegram, Meta, Slack, Discord, Google Chat, Playground)
+- **Date range** — গত ৭, ১৪, ৩০, বা ৯০ দিন
 
-- **Agent** — Select a specific agent or all agents
-- **Channel** — Filter by platform (WhatsApp, Telegram, Meta, Slack, Discord, Google Chat, Playground)
-- **Date range** — Last 7, 14, 30, or 90 days
+## কথোপকথনের বিস্তারিত
 
-## Conversation Details
-
-Click any conversation to view its full details:
+যেকোনো কথোপকথনে click করে সম্পূর্ণ বিবরণ দেখুন:
 
 ### Overview Tab
 
-- **Total Messages** — Message count in the conversation
-- **Credits Spent** — Platform credits used
-- **Agent** — Which agent handled the conversation
-- **Channel** — Platform where it occurred
-- **Created** — When the conversation started
-- **Last Active** — Most recent activity
+- **Total Messages** — কথোপকথনে message সংখ্যা
+- **Credits Spent** — ব্যবহৃত platform credit
+- **Agent** — কোন agent কথোপকথন পরিচালনা করেছে
+- **Channel** — যে platform-এ হয়েছে
+- **Created** — কথোপকথন কখন শুরু হয়েছে
+- **Last Active** — সর্বশেষ কার্যকলাপ
 
 ### Message Activity Chart
 
-Visualize message patterns over time:
-- Toggle between hourly and daily granularity
-- Show/hide user messages and assistant messages
-- See conversation activity patterns
+সময়ের সাথে message pattern দেখুন:
+- ঘণ্টা ভিত্তিক এবং দৈনিক granularity-র মধ্যে toggle করুন
+- User message এবং assistant message দেখান/লুকান
+- কথোপকথনের কার্যকলাপ pattern দেখুন
 
 ### Messages Tab
 
-View the complete conversation transcript:
+সম্পূর্ণ কথোপকথন transcript দেখুন:
 
-- **Full message history** — See every message in the conversation
-- **Role indicators** — User, Assistant, System, and Tool messages are color-coded
-- **Timestamps** — When each message was sent
-- **Token usage** — Input/output tokens per message (when available)
+- **সম্পূর্ণ message history** — কথোপকথনের প্রতিটি message দেখুন
+- **Role indicator** — User, Assistant, System, এবং Tool message রঙ-কোডেড
+- **Timestamp** — প্রতিটি message কখন পাঠানো হয়েছে
+- **Token usage** — প্রতি message-এ input/output token (যখন পাওয়া যায়)
 
-#### Message Filtering
+#### Message ফিল্টারিং
 
-Filter messages by time period:
-- Last 24 hours
-- Last 7 days
-- Last 30 days
-- All messages
+সময়সীমা অনুযায়ী message ফিল্টার করুন:
+- গত ২৪ ঘণ্টা
+- গত ৭ দিন
+- গত ৩০ দিন
+- সব message
 
 #### Export
 
-Click **Export** to download the conversation as a JSON file containing:
-- Conversation metadata
-- All messages with timestamps
-- Token information
+কথোপকথন JSON file হিসেবে download করতে **Export**-এ click করুন যাতে থাকবে:
+- কথোপকথনের metadata
+- Timestamp সহ সব message
+- Token তথ্য
 
-## AI-Powered Insights
+## AI-চালিত Insight
 
-Generate intelligent summaries of conversations:
+কথোপকথনের intelligent সারাংশ তৈরি করুন:
 
-1. Navigate to a conversation's **Messages** tab
-2. Click **Generate Insights**
-3. View AI-analyzed insights including:
-   - **Key Points** — Main topics discussed
-   - **User Intents** — What the user was trying to accomplish
-   - **Key Info Shared** — Important information exchanged
-   - **Suggested Actions** — Recommendations based on the conversation
+1. একটি কথোপকথনের **Messages** tab-এ navigate করুন
+2. **Generate Insights**-এ click করুন
+3. AI-বিশ্লেষিত insight দেখুন যার মধ্যে রয়েছে:
+   - **Key Points** — আলোচিত মূল বিষয়
+   - **User Intents** — User কী অর্জন করতে চেয়েছিলেন
+   - **Key Info Shared** — বিনিময় করা গুরুত্বপূর্ণ তথ্য
+   - **Suggested Actions** — কথোপকথনের ভিত্তিতে সুপারিশ
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Generating insights consumes credits from your account. Results are cached for faster access on subsequent views.
+  Insight তৈরি করলে আপনার account থেকে credit খরচ হয়। পরবর্তী দেখার জন্য result cache করা থাকে।
 </Callout>
 
-## Privacy Considerations
+## গোপনীয়তা বিবেচনা
 
-Conversation data is handled according to:
+কথোপকথনের data পরিচালনা করা হয়:
 
-- Privacy policy requirements
-- User consent where applicable
+- গোপনীয়তা নীতির প্রয়োজনীয়তা অনুযায়ী
+- প্রযোজ্য ক্ষেত্রে user-এর সম্মতি অনুযায়ী
 
-## Tips
+## পরামর্শ
 
-- Use filters to find conversations from specific agents or channels
-- Export important conversations for record-keeping or analysis
-- Generate AI insights to quickly understand long conversations
-- Check the Message Activity chart to identify peak usage times
-- Review conversation transcripts to improve your agent's persona
-- Monitor credits spent to track usage patterns
+- নির্দিষ্ট agent বা channel থেকে কথোপকথন খুঁজতে filter ব্যবহার করুন
+- রেকর্ড রাখা বা বিশ্লেষণের জন্য গুরুত্বপূর্ণ কথোপকথন export করুন
+- দীর্ঘ কথোপকথন দ্রুত বুঝতে AI insight তৈরি করুন
+- Peak ব্যবহারের সময় চিহ্নিত করতে Message Activity chart পরীক্ষা করুন
+- আপনার agent-এর persona উন্নত করতে কথোপকথন transcript পর্যালোচনা করুন
+- ব্যবহারের pattern ট্র্যাক করতে ব্যয়িত credit পর্যবেক্ষণ করুন
 
-## Common Questions
+## সাধারণ প্রশ্ন
 
-**Q: How do I find conversations from a specific channel?**
+**প্রশ্ন: নির্দিষ্ট channel থেকে কথোপকথন কীভাবে খুঁজবো?**
 
-Use the Channel filter at the top of the conversation list to select a specific platform like Telegram, Discord, or Slack.
+কথোপকথন তালিকার উপরে Channel filter ব্যবহার করে Telegram, Discord, বা Slack-এর মতো নির্দিষ্ট platform নির্বাচন করুন।
 
-**Q: Can I export multiple conversations at once?**
+**প্রশ্ন: একসাথে একাধিক কথোপকথন export করা যায়?**
 
-Currently, export works one conversation at a time. Export each conversation individually from the Messages tab.
+বর্তমানে export একবারে একটি কথোপকথনের জন্য কাজ করে। Messages tab থেকে প্রতিটি কথোপকথন আলাদাভাবে export করুন।
 
-**Q: What does "Generate Insights" do?**
+**প্রশ্ন: "Generate Insights" কী করে?**
 
-It uses AI to analyze the conversation and provide a summary including key points, user intents, important information shared, and suggested actions.
+এটি AI ব্যবহার করে কথোপকথন বিশ্লেষণ করে এবং key point, user intent, বিনিময় করা গুরুত্বপূর্ণ তথ্য এবং সুপারিশকৃত পদক্ষেপসহ একটি সারাংশ প্রদান করে।
 
-**Q: Do AI insights cost credits?**
+**প্রশ্ন: AI insight-এ কি credit খরচ হয়?**
 
-Yes, generating insights consumes credits from your account. However, results are cached so viewing the same insights again is free.
+হ্যাঁ, insight তৈরি করলে আপনার account থেকে credit খরচ হয়। তবে result cache করা থাকে তাই একই insight আবার দেখা বিনামূল্যে।
 
-**Q: How long are conversations stored?**
+**প্রশ্ন: কথোপকথন কতদিন সংরক্ষিত থাকে?**
 
-Conversations are stored securely and available for analytics. Contact support if you have questions about data storage.
+কথোপকথন নিরাপদভাবে সংরক্ষিত থাকে এবং বিশ্লেষণের জন্য পাওয়া যায়। Data সংরক্ষণ সম্পর্কে প্রশ্ন থাকলে support-এ যোগাযোগ করুন।

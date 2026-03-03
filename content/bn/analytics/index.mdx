@@ -1,125 +1,121 @@
 ---
-description: Monitor agent performance, track conversations, and analyze usage across all channels.
+description: Agent-এর কার্যকারিতা পর্যবেক্ষণ করুন, কথোপকথন ট্র্যাক করুন এবং সব channel জুড়ে ব্যবহার বিশ্লেষণ করুন।
 ---
 
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# বিশ্লেষণ
 
+আপনার agent-গুলোর কার্যকারিতা পর্যবেক্ষণ করুন এবং user-রা আপনার chatbot-এর সাথে কীভাবে interact করে তা বুঝুন।
 
-# Analytics
+## সংক্ষিপ্ত বিবরণ
 
-Monitor your agents' performance and understand how users interact with your chatbots.
-
-## Overview
-
-Analytics help you:
-- Track conversation volume and query patterns
-- Monitor agent performance and credit usage
-- Understand channel distribution
-- Identify areas for improvement
+বিশ্লেষণ আপনাকে সাহায্য করে:
+- কথোপকথনের পরিমাণ এবং query pattern ট্র্যাক করতে
+- Agent-এর কার্যকারিতা এবং credit ব্যবহার পর্যবেক্ষণ করতে
+- Channel বিতরণ বুঝতে
+- উন্নতির ক্ষেত্র চিহ্নিত করতে
 
 ## Dashboard
 
-Access analytics from the **Analytics** section in your sidebar.
+সাইডবারে **Analytics** বিভাগ থেকে বিশ্লেষণে প্রবেশ করুন।
 
-### Key Metrics
+### প্রধান পরিসংখ্যান
 
-| Metric | Description |
-|--------|-------------|
-| Total Queries | Agent executions (AI responses) |
-| Conversations | Number of chat sessions |
-| Unique Users | Individual users who chatted |
-| Credits Used | Platform credits consumed |
+| পরিসংখ্যান | বিবরণ |
+|-------------|-------|
+| Total Queries | Agent execution (AI response) |
+| Conversations | Chat session-এর সংখ্যা |
+| Unique Users | যেসব user chat করেছে |
+| Credits Used | ব্যবহৃত platform credit |
 
-### Credit Usage
+### Credit ব্যবহার
 
-The dashboard shows your current billing cycle credit consumption:
-- Credits used vs. allocated
-- Percentage progress bar
-- Remaining credits for the period
+Dashboard আপনার বর্তমান billing cycle-এর credit ব্যবহার দেখায়:
+- ব্যবহৃত credit বনাম বরাদ্দকৃত credit
+- শতকরা progress bar
+- এই সময়ের জন্য অবশিষ্ট credit
 
-### Charts
+### চার্ট
 
-The dashboard includes visual charts:
-- **Query Volume** — Line chart showing queries over time
-- **Channel Distribution** — Pie chart breaking down queries by channel
-- **Agent Distribution** — Pie chart breaking down queries by agent
+Dashboard-এ visual chart অন্তর্ভুক্ত রয়েছে:
+- **Query Volume** — সময়ের সাথে query দেখানো line chart
+- **Channel Distribution** — Channel অনুযায়ী query-এর pie chart
+- **Agent Distribution** — Agent অনুযায়ী query-এর pie chart
 
-### Top Agents
+### শীর্ষ Agent সমূহ
 
-A ranked list of your most active agents showing:
-- Agent name and rank
-- Total queries handled
-- Number of conversations
-- Credits consumed
-- Current status (active, inactive, testing, archived)
+আপনার সবচেয়ে সক্রিয় agent-গুলোর ranked তালিকা যেখানে দেখানো হয়:
+- Agent-এর নাম এবং rank
+- মোট query পরিচালিত
+- কথোপকথনের সংখ্যা
+- ব্যবহৃত credit
+- বর্তমান অবস্থা (active, inactive, testing, archived)
 
-Click any agent to view detailed analytics, or click **View All** to see all agents.
+বিস্তারিত বিশ্লেষণ দেখতে যেকোনো agent-এ click করুন, অথবা সব agent দেখতে **View All**-এ click করুন।
 
-### Top Channels
+### শীর্ষ Channel সমূহ
 
-A ranked list of your most active communication channels showing:
-- Channel name and rank
-- Total queries handled
-- Number of conversations
-- Credits consumed
+আপনার সবচেয়ে সক্রিয় communication channel-গুলোর ranked তালিকা যেখানে দেখানো হয়:
+- Channel-এর নাম এবং rank
+- মোট query পরিচালিত
+- কথোপকথনের সংখ্যা
+- ব্যবহৃত credit
 
-Click any channel to view detailed analytics, or click **View All** to see all channels.
+বিস্তারিত বিশ্লেষণ দেখতে যেকোনো channel-এ click করুন, অথবা সব channel দেখতে **View All**-এ click করুন।
 
-## In This Section
+## এই বিভাগে
 
 import { Cards } from 'nextra/components'
 
 <Cards>
-  <Cards.Card title="Conversations" href="/analytics/conversations" />
-  <Cards.Card title="Usage Metrics" href="/analytics/usage" />
-  <Cards.Card title="Agent Analytics" href="/analytics/agents" />
-  <Cards.Card title="Channel Analytics" href="/analytics/channels" />
+  <Cards.Card title="কথোপকথন" href="/analytics/conversations" />
+  <Cards.Card title="ব্যবহার পরিসংখ্যান" href="/analytics/usage" />
+  <Cards.Card title="Agent বিশ্লেষণ" href="/analytics/agents" />
+  <Cards.Card title="Channel বিশ্লেষণ" href="/analytics/channels" />
 </Cards>
 
-## Time Periods
+## সময়সীমা
 
-View analytics for different time ranges:
-- Current Billing Cycle
-- Last 7 days
-- Last 14 days
-- Last 30 days
-- Last 90 days
+বিভিন্ন সময়সীমার জন্য বিশ্লেষণ দেখুন:
+- বর্তমান Billing Cycle
+- গত ৭ দিন
+- গত ১৪ দিন
+- গত ৩০ দিন
+- গত ৯০ দিন
 
-## Granularity
+## বিস্তারিতকরণ
 
-Adjust how data is grouped:
-- Hourly
-- Daily
-- Weekly
-- Monthly
+Data কীভাবে group করা হবে তা নির্ধারণ করুন:
+- ঘণ্টা ভিত্তিক
+- দৈনিক
+- সাপ্তাহিক
+- মাসিক
 
-## Filtering
+## ফিল্টারিং
 
-Filter analytics by:
-- **Agent** — See metrics for specific agents
-- **Channel** — Compare performance across platforms
-- **Date range** — Analyze specific time periods
+বিশ্লেষণ ফিল্টার করুন:
+- **Agent** — নির্দিষ্ট agent-এর পরিসংখ্যান দেখুন
+- **Channel** — বিভিন্ন platform জুড়ে কার্যকারিতা তুলনা করুন
+- **Date range** — নির্দিষ্ট সময়সীমা বিশ্লেষণ করুন
 
-## Using Analytics
+## বিশ্লেষণ ব্যবহার
 
-### Identify Patterns
+### প্যাটার্ন চিহ্নিত করুন
 
-See what channels and agents handle the most queries to:
-- Optimize resource allocation
-- Focus improvements where needed
-- Understand user preferences
+কোন channel এবং agent সবচেয়ে বেশি query পরিচালনা করে দেখুন:
+- Resource বরাদ্দ অপটিমাইজ করুন
+- যেখানে প্রয়োজন সেখানে উন্নতিতে মনোযোগ দিন
+- User-দের পছন্দ বুঝুন
 
-### Monitor Performance
+### কার্যকারিতা পর্যবেক্ষণ করুন
 
-Track trends to ensure:
-- Credit usage stays within limits
-- User engagement is healthy
-- No unusual patterns
+Trend ট্র্যাক করুন যাতে নিশ্চিত করা যায়:
+- Credit ব্যবহার সীমার মধ্যে থাকছে
+- User engagement সুস্থ আছে
+- অস্বাভাবিক কোনো pattern নেই
 
-### Optimize Agents
+### Agent অপটিমাইজ করুন
 
-Use insights to:
-- Adjust agent personas
-- Add missing documentation
-- Improve response accuracy
+Insight ব্যবহার করুন:
+- Agent persona সমন্বয় করুন
+- অনুপস্থিত documentation যোগ করুন
+- Response-এর সঠিকতা উন্নত করুন
