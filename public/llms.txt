@@ -9,7 +9,7 @@ Documentation site: https://docs.cuneiform.chat
 
 - [Getting Started](https://docs.cuneiform.chat/getting-started): Create your first AI chatbot in minutes
 - [Agents](https://docs.cuneiform.chat/agents): Configure chatbot personas, knowledge access, and behavior
-- [Knowledge Base](https://docs.cuneiform.chat/knowledge-base): Upload documents, connect cloud storage, crawl websites
+- [Content](https://docs.cuneiform.chat/knowledge-base): Upload documents, connect cloud storage, crawl websites
 - [Integrations](https://docs.cuneiform.chat/integrations): Deploy to 6 messaging platforms
 - [Analytics](https://docs.cuneiform.chat/analytics): Monitor performance and usage
 - [Billing](https://docs.cuneiform.chat/billing): Plans, pricing, and subscription management
