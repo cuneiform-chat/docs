@@ -1,158 +1,155 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# จัดการ Subscription
 
-# Manage Subscription
+ควบคุม plan, วิธีการชำระเงิน และการตั้งค่า billing ของคุณ
 
-Control your plan, payment methods, and billing settings.
+## เข้าถึงการตั้งค่า Subscription
 
-## Accessing Subscription Settings
+ไปที่ **Billing & Plans** ใน sidebar เพื่อจัดการ subscription ของคุณ
 
-Go to **Billing & Plans** in the sidebar to manage your subscription.
+## การ Upgrade Plan
 
-## Upgrading Your Plan
+### เมื่อไหร่ควร Upgrade
 
-### When to Upgrade
+พิจารณา upgrade เมื่อ:
+- เข้าใกล้ขีดจำกัด credit
+- ต้องการ feature จาก plan ที่สูงกว่า
+- การใช้งาน chatbot เพิ่มขึ้น
 
-Consider upgrading when:
-- Approaching your credit limits
-- Needing features from a higher plan
-- Growing your chatbot usage
+### วิธี Upgrade
 
-### How to Upgrade
-
-1. Go to **Billing** → **Change Plan**
-2. Select your new plan
-3. Confirm the change
-4. New plan activates immediately
+1. ไปที่ **Billing** → **Change Plan**
+2. เลือก plan ใหม่ของคุณ
+3. ยืนยันการเปลี่ยนแปลง
+4. plan ใหม่จะเปิดใช้งานทันที
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Upgrades take effect immediately. You'll be charged a prorated amount for the remainder of your current billing period.
+  Upgrade มีผลทันที คุณจะถูกเรียกเก็บเงินตามสัดส่วน (prorated) สำหรับระยะเวลาที่เหลือของ billing period ปัจจุบัน
 </Callout>
 
-## Downgrading Your Plan
+## การ Downgrade Plan
 
-### Before You Downgrade
+### ก่อนที่จะ Downgrade
 
-Review what changes:
-- Credit allocation decreases
-- Some features may become unavailable
-- Verify current usage fits new plan
+ตรวจสอบสิ่งที่จะเปลี่ยนแปลง:
+- การจัดสรร credit จะลดลง
+- feature บางอย่างอาจไม่สามารถใช้ได้
+- ตรวจสอบว่าการใช้งานปัจจุบันเหมาะสมกับ plan ใหม่
 
-### How to Downgrade
+### วิธี Downgrade
 
-1. Go to **Billing** → **Change Plan**
-2. Select a lower plan
-3. Confirm the change
-4. Change takes effect at your next billing date
+1. ไปที่ **Billing** → **Change Plan**
+2. เลือก plan ที่ต่ำกว่า
+3. ยืนยันการเปลี่ยนแปลง
+4. การเปลี่ยนแปลงจะมีผลในวัน billing ถัดไป
 
 <Callout type="warning">
-  Downgrades take effect at the end of your current billing period. Once scheduled, no further plan changes can be made until the new billing period begins. Make sure you're choosing the right plan before confirming.
+  Downgrade จะมีผลเมื่อสิ้นสุด billing period ปัจจุบัน เมื่อกำหนดแล้ว จะไม่สามารถเปลี่ยน plan ได้อีกจนกว่า billing period ใหม่จะเริ่มต้น ตรวจสอบให้แน่ใจว่าคุณเลือก plan ที่ถูกต้องก่อนยืนยัน
 </Callout>
 
-## Payment Methods
+## วิธีการชำระเงิน
 
-### Viewing Payment Methods
+### ดูวิธีการชำระเงิน
 
-See your current payment method in **Billing** → **Payment Method**.
+ดูวิธีการชำระเงินปัจจุบันของคุณใน **Billing** → **Payment Method**
 
-### Updating Payment Method
+### อัปเดตวิธีการชำระเงิน
 
-1. Go to **Billing** → **Payment Method**
-2. Click **Update**
-3. Enter new card details
-4. Save changes
+1. ไปที่ **Billing** → **Payment Method**
+2. คลิก **Update**
+3. กรอกรายละเอียดบัตรใหม่
+4. บันทึกการเปลี่ยนแปลง
 
-### Adding Backup Payment
+### เพิ่ม Backup Payment
 
-Add a backup payment method to avoid service interruption if your primary method fails.
+เพิ่มวิธีการชำระเงินสำรองเพื่อหลีกเลี่ยงการหยุดชะงักของบริการหากวิธีหลักล้มเหลว
 
 ## Billing History
 
-### View Invoices
+### ดู Invoice
 
-Access past invoices:
-1. Go to **Billing** → **History**
-2. View or download any invoice
-3. Invoices are available in PDF format
+เข้าถึง invoice ที่ผ่านมา:
+1. ไปที่ **Billing** → **History**
+2. ดูหรือดาวน์โหลด invoice ใดก็ได้
+3. Invoice มีในรูปแบบ PDF
 
-### Invoice Details
+### รายละเอียด Invoice
 
-Each invoice shows:
+แต่ละ invoice แสดง:
 - Billing period
-- Plan charges
-- Any additional charges
-- Payment status
+- ค่าบริการ plan
+- ค่าใช้จ่ายเพิ่มเติม (ถ้ามี)
+- สถานะการชำระเงิน
 
-## Billing Information
+## ข้อมูล Billing
 
-### Update Billing Details
+### อัปเดตรายละเอียด Billing
 
-Update your billing information:
-- Company name
-- Billing address
-- Tax ID (if applicable)
+อัปเดตข้อมูล billing ของคุณ:
+- ชื่อบริษัท
+- ที่อยู่สำหรับ billing
+- Tax ID (ถ้ามี)
 
-Changes apply to future invoices.
+การเปลี่ยนแปลงจะมีผลกับ invoice ในอนาคต
 
-## Cancellation
+## การยกเลิก
 
-### Before Canceling
+### ก่อนยกเลิก
 
-Consider:
-- Your agents will stop responding
-- Documents remain stored for a limited time
-- You can reactivate later
+พิจารณา:
+- agent ของคุณจะหยุดตอบคำถาม
+- document จะถูกเก็บไว้ในระยะเวลาจำกัด
+- คุณสามารถเปิดใช้งานใหม่ได้ในภายหลัง
 
-### How to Cancel
+### วิธียกเลิก
 
-1. Go to **Billing** → **Cancel Subscription**
-2. Complete the cancellation survey (optional)
-3. Confirm cancellation
-4. Access continues until the end of your billing period
+1. ไปที่ **Billing** → **Cancel Subscription**
+2. ทำแบบสำรวจการยกเลิก (ไม่บังคับ)
+3. ยืนยันการยกเลิก
+4. ยังคงเข้าถึงได้จนกว่าจะสิ้นสุด billing period
 
-### After Cancellation
+### หลังจากยกเลิก
 
-- Service continues until period end
-- Your data remains available if you reactivate
-- Reactivate anytime by subscribing again
+- บริการยังคงใช้งานได้จนกว่าจะสิ้นสุด period
+- ข้อมูลของคุณยังคงอยู่หากคุณเปิดใช้งานใหม่
+- เปิดใช้งานใหม่ได้ตลอดเวลาโดยการ subscribe อีกครั้ง
 
-## Reactivating
+## การเปิดใช้งานใหม่
 
-To reactivate a canceled subscription:
+เพื่อเปิดใช้งาน subscription ที่ถูกยกเลิก:
 
-1. Log in to your account
-2. Go to **Billing**
-3. Select a plan
-4. Complete payment
+1. เข้าสู่ระบบ account ของคุณ
+2. ไปที่ **Billing**
+3. เลือก plan
+4. ชำระเงินให้เสร็จสิ้น
 
-Your existing agents and documents (if retained) will become available again.
+agent และ document ที่มีอยู่ (หากยังเก็บไว้) จะพร้อมใช้งานอีกครั้ง
 
 ## Enterprise Billing
 
-Enterprise plans have customized billing:
-- Annual contracts available
-- Custom payment terms
-- Volume discounts
-- Contact your account manager for changes
+Enterprise plan มี billing แบบกำหนดเอง:
+- สัญญารายปี
+- เงื่อนไขการชำระเงินแบบกำหนดเอง
+- ส่วนลดตามปริมาณ
+- ติดต่อ account manager ของคุณสำหรับการเปลี่ยนแปลง
 
-## FAQs
+## คำถามที่พบบ่อย
 
-### When am I charged?
+### เรียกเก็บเงินเมื่อไหร่?
 
-You're charged at the start of each billing period, based on your subscription date.
+คุณจะถูกเรียกเก็บเงินเมื่อเริ่มต้น billing period ตามวันที่ subscription ของคุณ
 
-### Can I get a refund?
+### สามารถขอ refund ได้หรือไม่?
 
-See our refund policy or contact support for specific situations.
+ดูนโยบาย refund ของเราหรือติดต่อ support สำหรับกรณีเฉพาะ
 
-### How do I update my billing email?
+### จะอัปเดต billing email ได้อย่างไร?
 
-Update your billing email in **Settings** → **Account** → **Email Preferences**.
+อัปเดต billing email ใน **Settings** → **Account** → **Email Preferences**
 
-### What if my payment fails?
+### หากการชำระเงินล้มเหลวจะเกิดอะไรขึ้น?
 
-- You'll receive email notifications
-- Service continues briefly with retry attempts
-- Update payment method to avoid interruption
+- คุณจะได้รับ email แจ้งเตือน
+- บริการยังคงใช้งานได้ชั่วคราวพร้อมการ retry อัตโนมัติ
+- อัปเดตวิธีการชำระเงินเพื่อหลีกเลี่ยงการหยุดชะงัก

@@ -1,144 +1,141 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# การใช้งานและเครดิต
 
-# Usage & Credits
+ทำความเข้าใจการทำงานของ credit และติดตามการใช้งานของคุณ
 
-Understand how credits work and monitor your consumption.
+## ระบบ Credit
 
-## Credit System
+Cuneiform Chat ใช้ credit (เรียกว่า Platform Credits) ในการวัดการใช้งาน:
+- **AI query** — เมื่อ agent ของคุณตอบคำถาม
+- **Document processing** — เมื่อ document ถูกอัปโหลดและ index
+- **Embedding** — การสร้าง vector สำหรับการค้นหา
 
-Cuneiform Chat uses credits (called Platform Credits) to measure usage:
-- **AI queries** — When your agents answer questions
-- **Document processing** — When documents are uploaded and indexed
-- **Embeddings** — Vector generation for search
+## Credit ถูกใช้อย่างไร
 
-## How Credits Are Used
+### AI Query
 
-### AI Queries
-
-Each time your agent answers a question:
-- Credits are consumed based on the AI model used
-- Longer responses may use slightly more credits
-- Failed queries don't consume credits
+ทุกครั้งที่ agent ของคุณตอบคำถาม:
+- credit ถูกใช้ตาม AI model ที่ใช้งาน
+- response ที่ยาวขึ้นอาจใช้ credit มากขึ้นเล็กน้อย
+- query ที่ล้มเหลวไม่ใช้ credit
 
 ### Document Processing
 
-When you upload documents:
-- Credits are used to extract and process content
-- Larger documents use more credits
-- Re-processing uses additional credits
+เมื่อคุณอัปโหลด document:
+- credit ถูกใช้ในการ extract และประมวลผลเนื้อหา
+- document ที่ใหญ่กว่าใช้ credit มากกว่า
+- การประมวลผลซ้ำใช้ credit เพิ่มเติม
 
-## Viewing Usage
+## ดูการใช้งาน
 
-Access your usage from **Billing & Plans** in the sidebar:
+เข้าถึงการใช้งานของคุณจาก **Billing & Plans** ใน sidebar:
 
-- **Current period usage** — Credits used this billing cycle
-- **Remaining credits** — Available credits
-- **Usage percentage** — Visual progress bar showing consumption
+- **การใช้งาน period ปัจจุบัน** — credit ที่ใช้ใน billing cycle นี้
+- **credit ที่เหลือ** — credit ที่ยังใช้ได้
+- **เปอร์เซ็นต์การใช้งาน** — progress bar แสดงการใช้งาน
 
-## Monitoring Usage
+## การติดตามการใช้งาน
 
-### Usage Display
+### การแสดง Usage
 
-The billing page shows:
-- Credits used vs. allocated
-- Usage percentage with visual progress bar
+หน้า billing แสดง:
+- credit ที่ใช้ vs. ที่จัดสรร
+- เปอร์เซ็นต์การใช้งานพร้อม progress bar
 - Status indicator (normal, warning, exceeded, blocked)
 
-### Usage Warnings
+### การแจ้งเตือนการใช้งาน
 
-The platform automatically displays warnings as you approach your limits:
+platform จะแสดงการแจ้งเตือนโดยอัตโนมัติเมื่อคุณเข้าใกล้ขีดจำกัด:
 
-| Threshold | What Happens |
-|-----------|--------------|
-| ~80% used | Warning banner appears in Billing page |
-| 100% used | "Limit Reached" banner with upgrade prompt |
-| Blocked | Service paused until next period or upgrade |
+| เกณฑ์ | สิ่งที่เกิดขึ้น |
+|-------|---------------|
+| ~80% ใช้แล้ว | warning banner ปรากฏในหน้า Billing |
+| 100% ใช้แล้ว | "Limit Reached" banner พร้อม prompt ให้ upgrade |
+| Blocked | บริการหยุดชั่วคราวจนกว่าจะถึง period ถัดไปหรือ upgrade |
 
-These warnings appear automatically — no configuration needed.
+การแจ้งเตือนเหล่านี้ปรากฏโดยอัตโนมัติ — ไม่ต้องตั้งค่าใดๆ
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  Review your usage weekly to catch unexpected spikes early and optimize as needed.
+  ตรวจสอบการใช้งานของคุณทุกสัปดาห์เพื่อจับ spike ที่ไม่คาดคิดได้เร็วและปรับปรุงตามความจำเป็น
 </Callout>
 
-## Optimizing Credit Usage
+## การปรับปรุงการใช้ Credit
 
-### Efficient Agents
+### Agent ที่มีประสิทธิภาพ
 
-- Write clear agent personas for accurate first responses
+- เขียน agent persona ที่ชัดเจนเพื่อให้ได้ response ที่แม่นยำตั้งแต่ครั้งแรก
 
-### Smart Document Management
+### การจัดการ Document อย่างชาญฉลาด
 
-- Upload only necessary documents
-- Remove outdated content
-- Avoid duplicate documents
+- อัปโหลดเฉพาะ document ที่จำเป็น
+- ลบเนื้อหาที่ล้าสมัย
+- หลีกเลี่ยง document ซ้ำกัน
 
-### Usage Patterns
+### รูปแบบการใช้งาน
 
-- Monitor which agents use the most credits
-- Identify high-volume time periods
-- Optimize based on patterns
+- ติดตามว่า agent ตัวไหนใช้ credit มากที่สุด
+- ระบุช่วงเวลาที่มีปริมาณการใช้งานสูง
+- ปรับปรุงตามรูปแบบที่พบ
 
-## What Happens at Limits
+## เมื่อถึงขีดจำกัด
 
-### Approaching Limits
+### เข้าใกล้ขีดจำกัด
 
-As you near your credit limit, warning banners appear in the Billing page prompting you to upgrade or enable extra usage.
+เมื่อคุณเข้าใกล้ขีดจำกัด credit จะมี warning banner ปรากฏในหน้า Billing เพื่อแนะนำให้ upgrade หรือเปิดใช้ extra usage
 
-### Exceeding Limits
+### เกินขีดจำกัด
 
-When you exceed your monthly quota:
-- A warning banner indicates "Limit Reached"
-- Enable **Extra Usage** to continue without waiting
-- Or upgrade your plan for more monthly credits
+เมื่อคุณใช้เกิน quota รายเดือน:
+- warning banner แสดง "Limit Reached"
+- เปิดใช้ **Extra Usage** เพื่อใช้งานต่อโดยไม่ต้องรอ
+- หรือ upgrade plan เพื่อรับ credit รายเดือนเพิ่ม
 
-### Blocked State
+### สถานะ Blocked
 
-If extra usage balance is also depleted:
-- Service pauses until the next billing period
-- Or add funds to your extra usage balance
+หาก extra usage balance หมดด้วย:
+- บริการหยุดชั่วคราวจนกว่าจะถึง billing period ถัดไป
+- หรือเพิ่ม fund ในยอด extra usage ของคุณ
 
 ## Extra Usage
 
-Extra usage lets you continue using the service when your monthly quota runs out.
+Extra usage ช่วยให้คุณใช้บริการต่อได้เมื่อ quota รายเดือนหมด
 
-### Enabling Extra Usage
+### การเปิดใช้ Extra Usage
 
-1. Go to **Billing & Plans**
-2. Find the **Extra Usage** section
-3. Toggle to enable
-4. Complete the initial top-up (minimum $10)
+1. ไปที่ **Billing & Plans**
+2. หา **Extra Usage** section
+3. Toggle เพื่อเปิดใช้
+4. ทำ top-up เริ่มต้น (ขั้นต่ำ $10)
 
-### Managing Extra Usage
+### การจัดการ Extra Usage
 
-Once enabled, you can:
+เมื่อเปิดใช้แล้ว คุณสามารถ:
 
-- **View balance** — See your available extra usage funds
-- **Add funds** — Top up your balance ($10-$500 per transaction)
-- **Set spending cap** — Limit monthly extra usage spending ($10-$500)
+- **ดูยอดคงเหลือ** — ดู fund extra usage ที่มีอยู่
+- **เพิ่ม fund** — Top up ยอดคงเหลือ ($10-$500 ต่อ transaction)
+- **ตั้ง spending cap** — จำกัดการใช้จ่าย extra usage รายเดือน ($10-$500)
 
-### How Extra Usage Works
+### Extra Usage ทำงานอย่างไร
 
-- Charges are deducted from your extra usage balance
-- Usage stops when you reach your spending cap
-- Balance carries over between billing periods
-- Cannot be disabled once enabled (use spending cap to limit)
+- ค่าใช้จ่ายถูกหักจากยอด extra usage ของคุณ
+- การใช้งานหยุดเมื่อถึง spending cap
+- ยอดคงเหลือสะสมข้าม billing period ได้
+- ไม่สามารถปิดใช้เมื่อเปิดแล้ว (ใช้ spending cap เพื่อจำกัด)
 
 <Callout type="info">
-  Extra usage is only available for paid plans (Starter, Plus, and Enterprise).
+  Extra usage มีให้เฉพาะ paid plan (Starter, Plus และ Enterprise)
 </Callout>
 
 ## Billing Period
 
-- Credits reset at the start of each billing period
-- Your billing date is shown in account settings
-- Unused credits may not roll over (check your plan)
+- credit จะ reset เมื่อเริ่มต้น billing period ใหม่
+- วันที่ billing ของคุณแสดงในการตั้งค่า account
+- credit ที่ไม่ได้ใช้อาจไม่สะสมไปเดือนถัดไป (ตรวจสอบ plan ของคุณ)
 
-## Questions?
+## มีคำถาม?
 
-For usage questions:
-- Review the [Plans & Pricing](/billing/plans) page
-- Check [Manage Subscription](/billing/manage-subscription) for upgrades
-- Contact support for billing inquiries
+สำหรับคำถามเกี่ยวกับการใช้งาน:
+- อ่านหน้า [แผนและราคา](/billing/plans)
+- ดู [จัดการ Subscription](/billing/manage-subscription) สำหรับการ upgrade
+- ติดต่อ support สำหรับคำถามเกี่ยวกับ billing
