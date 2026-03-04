@@ -1,164 +1,161 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Website Chat Widget
 
-Embed an AI-powered chat widget directly on your website. Visitors get instant answers from your AI agent without leaving your site.
+अपनी website पर सीधे AI-powered chat widget embed करें। Visitors आपकी site छोड़े बिना आपके AI agent से instant answers पा सकते हैं।
 
-## Overview
+## अवलोकन
 
-The Website Widget provides:
-- Floating chat bubble on your website
+Website Widget प्रदान करता है:
+- आपकी website पर floating chat bubble
 - Real-time streaming AI responses
 - Customizable appearance (colors, position, messages)
-- Less than 11KB gzipped — near-zero performance impact
-- Domain allowlisting for security
+- 11KB से कम gzipped — near-zero performance impact
+- Security के लिए domain allowlisting
 
-## Prerequisites
+## पूर्व-आवश्यकताएं
 
-- An active AI agent in your admin panel
-- Access to your website's HTML (to paste a script tag)
+- आपके admin panel में एक active AI agent
+- आपकी website के HTML का access (script tag paste करने के लिए)
 
 ## Setup Steps
 
-### 1. Create a Widget
+### 1. Widget बनाएं
 
-1. Go to **Integrations** from the sidebar
-2. Scroll to the **Website Widget** section
-3. Click **Create Widget**
-4. Enter a name and select the AI agent
-5. Click **Create**
+1. Sidebar से **Integrations** पर जाएं
+2. **Website Widget** section तक scroll करें
+3. **Create Widget** पर क्लिक करें
+4. नाम दर्ज करें और AI agent चुनें
+5. **Create** पर क्लिक करें
 
-### 2. Customize Appearance
+### 2. Appearance Customize करें
 
-Click the widget card to open the edit sheet:
+Edit sheet खोलने के लिए widget card पर क्लिक करें:
 
-- **Primary Color** — Chat bubble and header color
-- **Text Color** — Text on the bubble and header
-- **Position** — Bottom-right or bottom-left
-- **Welcome Message** — First message visitors see
-- **Suggested Questions** — Up to 4 clickable starters
-- **Avatar URL** — Custom image in the chat header
+- **Primary Color** — Chat bubble और header color
+- **Text Color** — Bubble और header पर text
+- **Position** — Bottom-right या bottom-left
+- **Welcome Message** — Visitors को पहला message दिखाई देगा
+- **Suggested Questions** — 4 clickable starters तक
+- **Avatar URL** — Chat header में custom image
 - **Border Radius** — Corner roundness
 
-A live preview updates as you make changes.
+Changes करते समय live preview update होता है।
 
-### 3. Set Allowed Domains (Recommended)
+### 3. Allowed Domains सेट करें (Recommended)
 
-Restrict which websites can embed your widget:
+Restrict करें कि कौन सी websites आपका widget embed कर सकती हैं:
 
-- Leave empty to allow all domains (default)
-- Add specific domains: `example.com`, `*.example.com`
-- Use port entries for development: `localhost:3000`
+- सभी domains allow करने के लिए empty छोड़ें (default)
+- Specific domains जोड़ें: `example.com`, `*.example.com`
+- Development के लिए port entries उपयोग करें: `localhost:3000`
 
-### 4. Embed on Your Website
+### 4. अपनी Website पर Embed करें
 
-Click the embed icon on your widget card and copy the code:
+अपने widget card पर embed icon पर क्लिक करें और code copy करें:
 
 ```html
 <script src="https://core-api.cuneiform.chat/api/widget/widget.js"
   data-widget-id="your-widget-id" async></script>
 ```
 
-Paste before the closing `</body>` tag on your website.
+अपनी website पर closing `</body>` tag से पहले paste करें।
 
-## How It Works
+## यह कैसे काम करता है
 
 ```
-Visitor opens your website
-  → Chat bubble appears in the corner
-  → Visitor clicks → Chat panel opens
-  → Welcome message + suggested questions shown
-  → Visitor types a question
-  → AI agent searches your content
-  → Response streams in real-time
+Visitor आपकी website खोलता है
+  → Chat bubble corner में दिखाई देता है
+  → Visitor click करता है → Chat panel खुलता है
+  → Welcome message + suggested questions दिखते हैं
+  → Visitor सवाल type करता है
+  → AI agent आपके content में खोज करता है
+  → Response real-time में stream होता है
 ```
 
-Messages are processed in real-time. The agent searches your content and generates responses using the same AI pipeline as all other channels.
+Messages real-time में process होते हैं। Agent आपके content में खोज करता है और सभी अन्य channels के समान AI pipeline का उपयोग करके responses generate करता है।
 
 ## Features
 
 ### Streaming Responses
 
-Responses stream in real-time using Server-Sent Events (SSE). Visitors see the answer appear progressively, similar to ChatGPT.
+Responses Server-Sent Events (SSE) का उपयोग करके real-time में stream होते हैं। Visitors answer progressively दिखाई देते हैं, ChatGPT के समान।
 
 ### Session Persistence
 
-Returning visitors on the same browser resume their previous conversation within a 24-hour window. Sessions are stored in the browser's localStorage.
+Same browser पर returning visitors 24-hour window के भीतर अपनी previous conversation resume करते हैं। Sessions browser के localStorage में stored होते हैं।
 
 ### Suggested Questions
 
-Configure up to 4 clickable questions that appear when the chat opens. Great for guiding visitors toward common topics.
+Chat खुलने पर 4 clickable questions तक configure करें। Visitors को common topics की ओर guide करने के लिए बहुत अच्छा है।
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  The widget runs inside a Shadow DOM, so it won't interfere with your website's styles or JavaScript.
+  Widget Shadow DOM के अंदर चलता है, इसलिए यह आपकी website के styles या JavaScript में interfere नहीं करेगा।
 </Callout>
 
 ### Markdown Rendering
 
-Agent responses support markdown formatting including bold, italic, lists, code blocks, and links.
+Agent responses markdown formatting support करते हैं जिसमें bold, italic, lists, code blocks, और links शामिल हैं।
 
-## Managing Widgets
+## Widgets Manage करना
 
-On the Integrations page, each widget card shows:
+Integrations page पर, प्रत्येक widget card दिखाता है:
 
-- Widget name and status
+- Widget name और status
 - Assigned agent
-- Edit, embed code, and delete actions
+- Edit, embed code, और delete actions
 
-| Action | How |
+| Action | कैसे |
 |--------|-----|
-| Edit settings | Click the widget card |
-| Get embed code | Click the embed icon |
-| Delete | Three-dot menu → Delete |
+| Settings edit करें | Widget card पर क्लिक करें |
+| Embed code प्राप्त करें | Embed icon पर क्लिक करें |
+| Delete करें | Three-dot menu → Delete |
 
 ## Security
 
-- **Shadow DOM isolation** — Widget is sandboxed from your page
-- **HMAC session tokens** — Signed tokens with 24-hour expiry
-- **Domain allowlisting** — Restrict which sites can embed your widget
+- **Shadow DOM isolation** — Widget आपके page से sandboxed है
+- **HMAC session tokens** — 24-hour expiry के साथ signed tokens
+- **Domain allowlisting** — Restrict करें कि कौन सी sites आपका widget embed कर सकती हैं
 - **Rate limiting** — 30 messages/minute per session
-- **No data access** — Widget cannot read or modify your page content
+- **No data access** — Widget आपके page content को read या modify नहीं कर सकता
 
 ## Troubleshooting
 
-### Widget doesn't appear
+### Widget दिखाई नहीं दे रहा
 
-1. Verify the script tag is before `</body>`, not in `<head>`
-2. Check `data-widget-id` matches your admin panel
-3. If domain allowlisting is set, verify your domain is listed
-4. Check the browser console for errors
+1. Verify करें कि script tag `</body>` से पहले है, `<head>` में नहीं
+2. Check करें कि `data-widget-id` आपके admin panel से match करता है
+3. अगर domain allowlisting सेट है, verify करें कि आपका domain listed है
+4. Browser console में errors check करें
 
-### Widget doesn't respond
+### Widget Respond नहीं कर रहा
 
-1. Ensure the assigned agent is in **Active** status
-2. Verify the agent has documents in its content
-3. Check the browser Network tab for failed API requests
+1. Ensure करें कि assigned agent **Active** status में है
+2. Verify करें कि agent के content में documents हैं
+3. Failed API requests के लिए browser Network tab check करें
 
-### Appearance issues
+### Appearance Issues
 
-The widget uses Shadow DOM isolation. Your page's CSS will not affect the widget. Use the edit sheet's live preview to customize appearance.
+Widget Shadow DOM isolation उपयोग करता है। आपके page की CSS widget को affect नहीं करेगी। Appearance customize करने के लिए edit sheet का live preview उपयोग करें।
 
 ## FAQ
 
-### Can I embed the widget on multiple pages?
+### क्या मैं widget को कई pages पर embed कर सकता हूं?
 
-Yes. Use the same embed code on every page. The widget shares session state across pages on the same domain.
+हाँ। हर page पर same embed code उपयोग करें। Widget same domain पर pages में session state share करता है।
 
-### Does it work on mobile?
+### क्या यह mobile पर काम करता है?
 
-Yes. The widget is fully responsive and optimized for mobile browsers.
+हाँ। Widget पूरी तरह responsive है और mobile browsers के लिए optimized है।
 
-### Can I remove the "Powered by" badge?
+### क्या मैं "Powered by" badge हटा सकता हूं?
 
-The badge is required on Trial and Starter plans. Upgrade to Professional or higher to remove it.
+Trial और Starter plans पर badge जरूरी है। इसे हटाने के लिए Professional या higher plan पर upgrade करें।
 
-### Does it work with React/Next.js/Vue?
+### क्या यह React/Next.js/Vue के साथ काम करता है?
 
-Yes. The widget loads as a standalone script and works with any framework, including single-page applications.
+हाँ। Widget एक standalone script के रूप में load होता है और किसी भी framework के साथ काम करता है, single-page applications सहित।
 
-### What's the message length limit?
+### Message length limit क्या है?
 
-4,000 characters per message.
+4,000 characters per message।

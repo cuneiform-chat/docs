@@ -1,133 +1,130 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Telegram Integration
 
-Connect your agent to Telegram and let users chat with it directly in the Telegram app.
+अपने agent को Telegram से connect करें और users को सीधे Telegram app में chat करने दें।
 
-## Overview
+## अवलोकन
 
-Telegram integration provides:
-- Direct messaging with your bot
+Telegram integration प्रदान करती है:
+- Bot के साथ direct messaging
 - Group chat support
 - Rich message formatting
-- Inline keyboards for interactions
+- Interactions के लिए inline keyboards
 
-## Prerequisites
+## पूर्व-आवश्यकताएं
 
-- A Telegram account
-- BotFather access (Telegram's bot creation tool)
+- एक Telegram account
+- BotFather access (Telegram का bot बनाने का tool)
 
 ## Setup Steps
 
-### 1. Create a Telegram Bot
+### 1. Telegram Bot बनाएं
 
-1. Open Telegram and search for **@BotFather**
-2. Start a chat and send `/newbot`
-3. Follow the prompts:
-   - Enter a name for your bot (e.g., "My Support Bot")
-   - Enter a username (must end in "bot", e.g., "mysupportbot")
-4. BotFather will give you a **Bot Token** — save this securely
+1. Telegram खोलें और **@BotFather** खोजें
+2. Chat शुरू करें और `/newbot` भेजें
+3. Prompts follow करें:
+   - अपने bot के लिए नाम दर्ज करें (जैसे, "My Support Bot")
+   - Username दर्ज करें (अंत में "bot" होना चाहिए, जैसे, "mysupportbot")
+4. BotFather आपको एक **Bot Token** देगा — इसे सुरक्षित रख लें
 
-### 2. Connect to Cuneiform Chat
+### 2. Cuneiform Chat से Connect करें
 
-1. Go to **Agents** → Select your agent
-2. Navigate to **Integrations** tab
-3. Click **Telegram**
-4. Paste your Bot Token
-5. Click **Connect**
+1. **Agents** में जाएं → अपना agent चुनें
+2. **Integrations** tab पर जाएं
+3. **Telegram** पर क्लिक करें
+4. अपना Bot Token paste करें
+5. **Connect** पर क्लिक करें
 
-### 3. Configure Your Bot
+### 3. अपना Bot Configure करें
 
-Optional bot settings via BotFather:
+BotFather के माध्यम से optional bot settings:
 
-- `/setdescription` — What the bot does
-- `/setabouttext` — Information in the bot profile
-- `/setuserpic` — Profile picture for your bot
+- `/setdescription` — Bot क्या करता है
+- `/setabouttext` — Bot profile में जानकारी
+- `/setuserpic` — अपने bot के लिए profile picture
 
-### 4. Test Your Bot
+### 4. अपना Bot Test करें
 
-1. Find your bot in Telegram by searching its username
-2. Start a conversation with `/start`
-3. Send a message and verify you get a response
+1. Telegram में अपने bot का username खोजें
+2. `/start` के साथ conversation शुरू करें
+3. Message भेजें और verify करें कि response मिलता है
 
-## How It Works
+## यह कैसे काम करता है
 
 ```
 User sends message → Telegram → Cuneiform Chat → Agent processes → Response sent back
 ```
 
-Messages are processed in real-time. The agent searches your content and generates responses based on your configuration.
+Messages real-time में process होते हैं। Agent आपके content में खोज करता है और आपकी configuration के आधार पर responses generate करता है।
 
 ## Features
 
 ### Direct Messages
 
-Users can chat with your bot one-on-one for private support conversations.
+Users आपके bot के साथ एकांत में private support conversations के लिए chat कर सकते हैं।
 
 ### Group Chats
 
-Add your bot to group chats:
+अपने bot को group chats में जोड़ें:
 
-1. Add the bot to a group
-2. Make it an admin (for message access)
-3. Users can mention the bot or use commands
+1. Bot को group में जोड़ें
+2. इसे admin बनाएं (message access के लिए)
+3. Users bot को mention कर सकते हैं या commands का उपयोग कर सकते हैं
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  In groups, the bot only responds when mentioned or when using commands, to avoid spam.
+  Groups में, bot केवल तब respond करता है जब mention किया जाए या commands का उपयोग किया जाए, spam से बचने के लिए।
 </Callout>
 
 ### Rich Formatting
 
-Your agent's responses support:
-- **Bold** and *italic* text
+आपके agent के responses support करते हैं:
+- **Bold** और *italic* text
 - Links
 - Code blocks
 - Lists
 
 ## Bot Commands
 
-You can configure custom commands via BotFather:
+आप BotFather के माध्यम से custom commands configure कर सकते हैं:
 
-| Command | Description |
+| Command | विवरण |
 |---------|-------------|
-| `/start` | Begin conversation |
-| `/help` | Show help message |
-| `/ask [question]` | Ask a specific question |
+| `/start` | Conversation शुरू करें |
+| `/help` | Help message दिखाएं |
+| `/ask [question]` | कोई specific सवाल पूछें |
 
 ## Troubleshooting
 
-### Bot Not Responding
+### Bot Respond नहीं कर रहा
 
-1. Verify the bot token is correct
-2. Check the integration is connected in Cuneiform Chat
-3. Ensure your agent is properly configured
-4. Test the agent in Playground first
+1. Verify करें कि bot token सही है
+2. Check करें कि Cuneiform Chat में integration connected है
+3. सुनिश्चित करें कि आपका agent सही तरह configure है
+4. पहले Playground में agent test करें
 
 ### Token Issues
 
-If you need a new token:
-1. Go to BotFather
-2. Send `/mybots` → Select your bot → **API Token** → **Revoke**
-3. Update the new token in Cuneiform Chat
+अगर आपको नया token चाहिए:
+1. BotFather पर जाएं
+2. `/mybots` भेजें → अपना bot चुनें → **API Token** → **Revoke**
+3. Cuneiform Chat में नया token update करें
 
 ### Group Chat Issues
 
-- Ensure the bot has admin permissions
-- Check privacy mode settings via BotFather (`/setprivacy`)
+- Ensure करें कि bot के पास admin permissions हैं
+- BotFather के माध्यम से privacy mode settings check करें (`/setprivacy`)
 
 ## Security
 
-- Bot tokens are encrypted and stored securely
-- Conversations are processed through secure connections
+- Bot tokens encrypted और सुरक्षित रूप से stored हैं
+- Conversations secure connections के माध्यम से process होते हैं
 
-## Disconnecting
+## Disconnect करना
 
-To remove the Telegram integration:
+Telegram integration हटाने के लिए:
 
-1. Go to **Agents** → Select agent → **Integrations**
-2. Click **Telegram** → **Disconnect**
+1. **Agents** में जाएं → Agent चुनें → **Integrations**
+2. **Telegram** पर क्लिक करें → **Disconnect**
 
-This stops the bot from responding but doesn't delete the Telegram bot itself. Delete via BotFather if needed.
+यह bot को respond करने से रोकता है लेकिन Telegram bot को delete नहीं करता। जरूरत पड़ने पर BotFather के माध्यम से delete करें।

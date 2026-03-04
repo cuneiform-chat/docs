@@ -1,67 +1,64 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Slack Integration
 
-Add your agent to Slack workspaces for team-wide access.
+Team-wide access के लिए अपने agent को Slack workspaces में जोड़ें।
 
-## Overview
+## अवलोकन
 
-Slack integration provides:
+Slack integration प्रदान करती है:
 - Slash command support (`/ask`)
 - Direct message conversations
 - Channel mentions
 - Workspace-wide availability
 
-## Prerequisites
+## पूर्व-आवश्यकताएं
 
-- Slack workspace admin or app installation permissions
-- Cuneiform Chat account with an active agent
+- Slack workspace admin या app installation permissions
+- Active agent के साथ Cuneiform Chat account
 
 ## Setup Steps
 
-### 1. Start Integration Setup
+### 1. Integration Setup शुरू करें
 
-1. Go to **Agents** → Select your agent
-2. Navigate to **Integrations** tab
-3. Click **Slack**
-4. Click **Add to Slack**
+1. **Agents** में जाएं → अपना agent चुनें
+2. **Integrations** tab पर जाएं
+3. **Slack** पर क्लिक करें
+4. **Add to Slack** पर क्लिक करें
 
-### 2. Authorize the App
+### 2. App Authorize करें
 
-1. Select the workspace to install
-2. Review the permissions
-3. Click **Allow**
+1. Install करने के लिए workspace चुनें
+2. Permissions review करें
+3. **Allow** पर क्लिक करें
 
-### 3. Verify Installation
+### 3. Installation Verify करें
 
-1. Open Slack
-2. Try the slash command: `/ask Hello`
-3. Verify you receive a response
+1. Slack खोलें
+2. Slash command try करें: `/ask Hello`
+3. Verify करें कि response मिलता है
 
-## Using the Bot
+## Bot का उपयोग करना
 
 ### Slash Commands
 
-Use the `/ask` command in any channel:
+किसी भी channel में `/ask` command का उपयोग करें:
 
 ```
 /ask What is our refund policy?
 ```
 
-The response appears in the channel (or as an ephemeral message, depending on settings).
+Response channel में दिखता है (या settings के अनुसार ephemeral message के रूप में)।
 
 ### Direct Messages
 
-Message the bot directly for private conversations:
+Private conversations के लिए bot को directly message करें:
 
-1. Find the app in your Slack sidebar
-2. Open a direct message
-3. Chat naturally
+1. Slack sidebar में app खोजें
+2. Direct message खोलें
+3. स्वाभाविक रूप से chat करें
 
 ### Channel Mentions
 
-Mention the bot in channels to ask questions:
+Channels में सवाल पूछने के लिए bot को mention करें:
 
 ```
 @YourBot What are the shipping options?
@@ -71,16 +68,16 @@ Mention the bot in channels to ask questions:
 
 ### Workspace-Wide Access
 
-Once installed, the bot is available to all workspace members.
+एक बार install हो जाने के बाद, bot सभी workspace members के लिए उपलब्ध है।
 
 ### Thread Replies
 
-Responses can be posted in threads to keep channels organized.
+Responses threads में post हो सकते हैं ताकि channels organized रहें।
 
 ### Rich Formatting
 
-Responses support Slack's formatting:
-- Bold and italic text
+Responses Slack की formatting support करते हैं:
+- Bold और italic text
 - Links
 - Code blocks
 - Lists
@@ -88,68 +85,68 @@ Responses support Slack's formatting:
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  The bot only responds when explicitly invoked (slash command or mention) to avoid noise.
+  Bot केवल तब respond करता है जब explicitly invoke किया जाए (slash command या mention) ताकि noise से बचा जाए।
 </Callout>
 
 ## Configuration Options
 
 ### Response Settings
 
-| Setting | Description |
+| Setting | विवरण |
 |---------|-------------|
-| Response type | In-channel or ephemeral |
-| Thread behavior | Reply in thread or main channel |
+| Response type | In-channel या ephemeral |
+| Thread behavior | Thread में या main channel में reply करें |
 
 ### Channel Restrictions
 
-Optionally restrict the bot to specific channels for focused use.
+Bot को specific channels तक restrict करने के लिए optionally सेट करें।
 
 ## Multi-Workspace Support
 
-You can install the same agent to multiple Slack workspaces:
+आप same agent को कई Slack workspaces में install कर सकते हैं:
 
-1. Each workspace requires separate authorization
-2. All workspaces share the same agent and content
-3. Conversations are tracked separately per workspace
+1. प्रत्येक workspace के लिए अलग authorization जरूरी है
+2. सभी workspaces same agent और content share करते हैं
+3. Conversations प्रत्येक workspace के लिए अलग-अलग track होते हैं
 
 ## Troubleshooting
 
-### Command Not Found
+### Command नहीं मिल रहा
 
-If `/ask` doesn't work:
-1. Verify the app is installed in your workspace
-2. Check the app has proper permissions
-3. Try reinstalling the integration
+अगर `/ask` काम नहीं कर रहा:
+1. Verify करें कि app आपके workspace में installed है
+2. Check करें कि app के पास proper permissions हैं
+3. Integration दोबारा install करने की कोशिश करें
 
-### No Response
+### Response नहीं आ रहा
 
-If the bot doesn't respond:
-1. Verify your agent is configured and working (test in Playground)
-2. Check the Slack integration is connected
-3. Ensure the bot has channel access
+अगर bot respond नहीं कर रहा:
+1. Verify करें कि आपका agent configured और working है (Playground में test करें)
+2. Check करें कि Slack integration connected है
+3. Ensure करें कि bot के पास channel access है
 
 ### Permission Issues
 
-Required permissions:
-- `commands` — For slash commands
-- `chat:write` — To send messages
-- `app_mentions:read` — For @ mentions
+जरूरी permissions:
+- `commands` — Slash commands के लिए
+- `chat:write` — Messages भेजने के लिए
+- `app_mentions:read` — @ mentions के लिए
 
 ## Security
 
-- OAuth tokens are encrypted
-- No access to messages except explicit commands/mentions
-- Workspace data remains private
+- OAuth tokens encrypted हैं
+- Explicit commands/mentions के अलावा messages का कोई access नहीं
+- Workspace data private रहता है
 
-## Disconnecting
+## Disconnect करना
 
-To remove the Slack integration:
+Slack integration हटाने के लिए:
 
-1. **From Cuneiform Chat:**
-   - Agents → Select agent → Integrations → Slack → Disconnect
+1. **Cuneiform Chat से:**
+   - Agents → Agent चुनें → Integrations → Slack → Disconnect
 
-2. **From Slack:**
-   - Go to workspace settings
-   - Apps → Find the app → Remove
+2. **Slack से:**
+   - Workspace settings पर जाएं
+   - Apps → App खोजें → Remove
 
-Both steps ensure complete removal.
+दोनों steps complete removal ensure करते हैं।

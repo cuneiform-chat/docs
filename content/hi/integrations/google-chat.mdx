@@ -1,243 +1,240 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Google Chat Integration
 
-Connect your agent to Google Chat for seamless communication within Google Workspace.
+Google Workspace के भीतर seamless communication के लिए अपने agent को Google Chat से connect करें।
 
-## Overview
+## अवलोकन
 
-Google Chat integration provides:
-- Direct messaging with your bot
-- Google Workspace Spaces support with @mention triggers
-- Space-level agent routing — assign different agents to different Spaces
-- Text-based responses with conversation memory
-- Async processing with instant acknowledgment
-- Enterprise-ready security with domain-based isolation
+Google Chat integration प्रदान करती है:
+- Bot के साथ direct messaging
+- @mention triggers के साथ Google Workspace Spaces support
+- Space-level agent routing — अलग-अलग Spaces को अलग-अलग agents assign करें
+- Conversation memory के साथ text-based responses
+- Instant acknowledgment के साथ async processing
+- Domain-based isolation के साथ enterprise-ready security
 
-## Prerequisites
+## पूर्व-आवश्यकताएं
 
-- An active AI agent (created in the Agents section)
-- A Google Workspace account (personal Gmail accounts are not supported)
-- A **verified domain** — verify your domain ownership in **Settings > Domains** before connecting
+- एक active AI agent (Agents section में बनाया गया)
+- एक Google Workspace account (personal Gmail accounts supported नहीं हैं)
+- एक **verified domain** — connect करने से पहले **Settings > Domains** में अपना domain ownership verify करें
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Google Chat integration requires a Google Workspace account and a verified domain. Personal Gmail accounts cannot install custom Chat apps. If your organization doesn't use Google Workspace, the Google Chat section won't appear on the Integrations page.
+  Google Chat integration के लिए Google Workspace account और verified domain जरूरी है। Personal Gmail accounts custom Chat apps install नहीं कर सकते। अगर आपका organization Google Workspace उपयोग नहीं करता, तो Integrations page पर Google Chat section दिखाई नहीं देगा।
 </Callout>
 
 ## Setup Steps
 
-### 1. Verify Your Domain (One-Time Setup)
+### 1. अपना Domain Verify करें (One-Time Setup)
 
-Before connecting Google Chat, verify your domain ownership:
+Google Chat connect करने से पहले, अपना domain ownership verify करें:
 
-1. Go to **Settings** from the sidebar
-2. Click the **Domains** tab
-3. Your domain is auto-detected from your account email
-4. Add a **TXT record** in your DNS provider with the values shown:
+1. Sidebar से **Settings** पर जाएं
+2. **Domains** tab पर क्लिक करें
+3. आपका domain आपके account email से auto-detect होता है
+4. दिखाई गई values के साथ अपने DNS provider में **TXT record** जोड़ें:
    - **Type:** TXT
-   - **Name:** `_cuneiform-verify` (or the full value shown)
-   - **Content:** The verification string displayed (e.g., `cuneiform-verify=abc123...`)
-5. Click **Verify Now** — DNS changes can take up to 48 hours to propagate
-6. Once the status changes to **Verified**, proceed to create the integration
+   - **Name:** `_cuneiform-verify` (या दिखाई गई full value)
+   - **Content:** Displayed verification string (जैसे, `cuneiform-verify=abc123...`)
+5. **Verify Now** पर क्लिक करें — DNS changes propagate होने में 48 घंटे तक लग सकते हैं
+6. Status **Verified** हो जाने पर, integration बनाने के लिए आगे बढ़ें
 
-Quick links to common DNS providers (Cloudflare, GoDaddy, Namecheap, Route 53, DigitalOcean, Hostinger) are shown on the verification card.
+Verification card पर common DNS providers (Cloudflare, GoDaddy, Namecheap, Route 53, DigitalOcean, Hostinger) के quick links दिखाए जाते हैं।
 
-### 2. Create Google Chat Integration
+### 2. Google Chat Integration बनाएं
 
-1. Go to **Integrations** from the sidebar
-2. Under "Google Chat Bots", click **Connect Bot**
-3. Select the **Agent** that will be the default for DMs and unlinked Spaces
-4. Enter a **Bot Name** (for your reference in the admin panel)
-5. Click **Connect Bot**
-6. Copy the **Verification Code** displayed (format: `VERIFY-XXXXXX`)
+1. Sidebar से **Integrations** पर जाएं
+2. "Google Chat Bots" के under, **Connect Bot** पर क्लिक करें
+3. वह **Agent** चुनें जो DMs और unlinked Spaces के लिए default होगा
+4. एक **Bot Name** दर्ज करें (admin panel में आपके reference के लिए)
+5. **Connect Bot** पर क्लिक करें
+6. Displayed **Verification Code** copy करें (format: `VERIFY-XXXXXX`)
 
-### 3. Complete Bot Verification
+### 3. Bot Verification Complete करें
 
-After creating the integration, you'll receive a verification code:
+Integration बनाने के बाद, आपको verification code मिलेगा:
 
-1. Open Google Chat
-2. Click **Start a chat** → **Find apps**
-3. Search for the platform bot
-4. Start a direct message with the bot
-5. Send the verification code (e.g., `VERIFY-ABC123`)
-6. The bot will confirm: "Setup complete! Your workspace (yourdomain.com) is now connected. Send a message to start chatting!"
+1. Google Chat खोलें
+2. **Start a chat** → **Find apps** पर क्लिक करें
+3. Platform bot खोजें
+4. Bot के साथ direct message शुरू करें
+5. Verification code भेजें (जैसे, `VERIFY-ABC123`)
+6. Bot confirm करेगा: "Setup complete! Your workspace (yourdomain.com) is now connected. Send a message to start chatting!"
 
-Your integration status will change from "Pending Verification" to "Active".
+आपका integration status "Pending Verification" से "Active" हो जाएगा।
 
 <Callout type="warning">
-  Only users from your Google Workspace domain can complete verification. Users from other domains or personal Gmail accounts will see an error.
+  केवल आपके Google Workspace domain के users ही verification complete कर सकते हैं। अन्य domains या personal Gmail accounts के users को error दिखेगा।
 </Callout>
 
-## Using the Bot
+## Bot का उपयोग करना
 
 ### Direct Messages
 
-Users can start a conversation:
+Users conversation शुरू कर सकते हैं:
 
-1. Open Google Chat
-2. Click **Start a chat** → **Find apps**
-3. Search for your bot name
-4. Start chatting naturally — the bot responds to all messages in DMs
+1. Google Chat खोलें
+2. **Start a chat** → **Find apps** पर क्लिक करें
+3. अपने bot का नाम खोजें
+4. स्वाभाविक रूप से chat करें — bot DMs में सभी messages का respond करता है
 
-DMs are always handled by the **default agent**.
+DMs हमेशा **default agent** द्वारा handle किए जाते हैं।
 
-### In Spaces
+### Spaces में
 
-Add the bot to a Space:
+Bot को Space में जोड़ें:
 
-1. Open the Space
-2. Click the Space name → **Manage apps**
-3. Add your bot
-4. Mention the bot with `@Cuneiform Chat` to interact — the bot only responds to @mentions in Spaces
+1. Space खोलें
+2. Space name पर क्लिक करें → **Manage apps**
+3. अपना bot जोड़ें
+4. Interact करने के लिए `@Cuneiform Chat` से bot mention करें — bot Spaces में केवल @mentions का respond करता है
 
 <Callout type="info">
-  When the bot is first added to a Space, it sends a welcome message with available bot commands. In DMs, it sends a simple introduction.
+  जब bot पहली बार Space में जोड़ा जाता है, तो वह available bot commands के साथ welcome message भेजता है। DMs में, यह एक simple introduction भेजता है।
 </Callout>
 
 ## Space-Level Agent Routing
 
-Each Space can optionally use a different agent than the default. Use these bot commands in a Space (requires @mention):
+प्रत्येक Space optionally default से अलग agent उपयोग कर सकता है। Space में ये bot commands उपयोग करें (@mention जरूरी है):
 
-| Command | Description |
+| Command | विवरण |
 |---------|-------------|
-| `@Cuneiform Chat /set-agent <name>` | Link this Space to a specific agent |
-| `@Cuneiform Chat /current-agent` | Show which agent handles this Space |
-| `@Cuneiform Chat /reset-agent` | Revert Space to the default agent |
+| `@Cuneiform Chat /set-agent <name>` | इस Space को specific agent से link करें |
+| `@Cuneiform Chat /current-agent` | दिखाएं कि कौन सा agent इस Space को handle करता है |
+| `@Cuneiform Chat /reset-agent` | Space को default agent पर revert करें |
 
-**How routing works:**
-- **DMs** → always use the default agent
-- **Space with custom agent** → uses the assigned agent
-- **Space without custom agent** → falls back to the default agent
+**Routing कैसे काम करती है:**
+- **DMs** → हमेशा default agent उपयोग करते हैं
+- **Custom agent वाला Space** → assigned agent उपयोग करता है
+- **Custom agent के बिना Space** → default agent पर fall back होता है
 
 <Callout type="info">
-  You can view Space-agent mappings in the admin panel under the integration card's "Space mappings" section.
+  आप integration card के "Space mappings" section में admin panel में Space-agent mappings देख सकते हैं।
 </Callout>
 
 ## Features
 
 ### Async Responses
 
-When you send a message, the bot immediately replies with a brief acknowledgment (e.g., "Working on it...") and then delivers the full answer once processing is complete. This typically takes 3–8 seconds depending on the complexity of your question.
+जब आप message भेजते हैं, bot तुरंत एक brief acknowledgment (जैसे, "Working on it...") reply करता है और फिर processing complete होने पर full answer deliver करता है। यह आपके सवाल की complexity के आधार पर typically 3–8 seconds लेता है।
 
 ### Conversation Memory
 
-The bot remembers context within a session, so you can ask follow-up questions without repeating yourself.
+Bot एक session के भीतर context याद रखता है, इसलिए आप follow-up questions बिना खुद को दोहराए पूछ सकते हैं।
 
 ### Message Queuing
 
-If you send additional messages while the bot is still processing, they are queued and included in the next response. You'll see a message like "I'm still working on your previous question. I'll include this in my next response."
+अगर bot अभी process कर रहा है तो आप additional messages भेजते हैं, तो वे queued हो जाते हैं और अगले response में शामिल होते हैं। आपको message मिलेगा जैसे "I'm still working on your previous question. I'll include this in my next response."
 
 ### `/help` Command
 
-Type `/help` or `help` to see usage instructions, including available space commands.
+Usage instructions देखने के लिए `/help` या `help` type करें, जिसमें available space commands शामिल हैं।
 
 ### Domain-Based Access
 
-Only users from your Google Workspace domain can interact with your bot, ensuring enterprise-level security.
+केवल आपके Google Workspace domain के users ही आपके bot के साथ interact कर सकते हैं, जो enterprise-level security ensure करता है।
 
 ### Text-Based Responses
 
-The bot responds with text messages only. Images, files, interactive buttons, and card attachments are not supported. Responses are limited to approximately 30,000 characters.
+Bot केवल text messages से respond करता है। Images, files, interactive buttons, और card attachments supported नहीं हैं। Responses approximately 30,000 characters तक limited हैं।
 
-## Managing Your Integration
+## अपना Integration Manage करना
 
-Each integration card displays:
-- **Bot name** - The display name you configured
-- **Status badge** - Active, Pending Verification, or Error
-- **Domain name** - Your Google Workspace domain (after verification)
-- **Default agent** - Dropdown to change the default agent (used for DMs + unlinked Spaces)
-- **Space mappings** - Collapsible section showing which Spaces have custom agent assignments
-- **Space commands** - Collapsible section showing available bot commands
+प्रत्येक integration card दिखाता है:
+- **Bot name** - आपका configured display name
+- **Status badge** - Active, Pending Verification, या Error
+- **Domain name** - आपका Google Workspace domain (verification के बाद)
+- **Default agent** - Default agent बदलने के लिए Dropdown (DMs + unlinked Spaces के लिए उपयोग किया जाता है)
+- **Space mappings** - Collapsible section जो दिखाता है कि किन Spaces में custom agent assignments हैं
+- **Space commands** - Collapsible section जो available bot commands दिखाता है
 - **Last activity** timestamp
 
-### Available Actions
+### उपलब्ध Actions
 
-| Action | Description |
+| Action | विवरण |
 |--------|-------------|
-| **Change default agent** | Use the dropdown to switch which agent handles DMs and unlinked Spaces |
-| **Test Connection** | Verifies the integration is working (three-dot menu) |
-| **Disconnect** | Removes this integration (three-dot menu) |
+| **Default agent बदलें** | DMs और unlinked Spaces को handle करने वाला agent switch करने के लिए dropdown उपयोग करें |
+| **Test Connection** | Verify करता है कि integration काम कर रहा है (three-dot menu) |
+| **Disconnect** | यह integration हटाता है (three-dot menu) |
 
 ## Troubleshooting
 
-### Bot Not Appearing in Google Chat
+### Google Chat में Bot नहीं दिख रहा
 
-1. Ensure you're using a Google Workspace account (not personal Gmail)
-2. Search for the bot name in "Find apps"
-3. Wait a few minutes for the app to propagate
+1. Ensure करें कि आप Google Workspace account उपयोग कर रहे हैं (personal Gmail नहीं)
+2. "Find apps" में bot का नाम खोजें
+3. App propagate होने के लिए कुछ मिनट wait करें
 
-### Google Chat Section Not Visible
+### Google Chat Section दिखाई नहीं दे रहा
 
-1. Google Chat only appears for organizations using Google Workspace
-2. If your organization uses a different email provider (e.g., Microsoft 365), the section is hidden
-3. The system automatically detects your email provider via MX records
+1. Google Chat केवल Google Workspace उपयोग करने वाले organizations के लिए दिखता है
+2. अगर आपका organization कोई अलग email provider उपयोग करता है (जैसे, Microsoft 365), तो section hidden है
+3. System automatically MX records के माध्यम से आपके email provider को detect करता है
 
 ### Domain Verification Issues
 
-1. DNS changes can take up to 48 hours to propagate — wait and try **Verify Now** again
-2. Check that you added the TXT record with the exact values shown in Settings > Domains
-3. Verify the record is on the correct domain (e.g., `_cuneiform-verify.yourdomain.com`)
-4. Use the DNS provider quick links on the verification card for easy access
+1. DNS changes propagate होने में 48 घंटे तक लग सकते हैं — wait करें और **Verify Now** दोबारा try करें
+2. Check करें कि आपने Settings > Domains में दिखाई exact values के साथ TXT record जोड़ा है
+3. Verify करें कि record correct domain पर है (जैसे, `_cuneiform-verify.yourdomain.com`)
+4. Easy access के लिए verification card पर DNS provider quick links उपयोग करें
 
-### Verification Code Not Working
+### Verification Code काम नहीं कर रहा
 
-1. Ensure you're sending the code from your Google Workspace email
-2. Check that the code is entered exactly as shown (including the `VERIFY-` prefix)
-3. Verify the integration is still in "Pending Verification" status
-4. Try creating a new integration if the code has expired
+1. Ensure करें कि आप अपने Google Workspace email से code भेज रहे हैं
+2. Check करें कि code exactly जैसा दिखाया गया है वैसे दर्ज किया गया है (`VERIFY-` prefix सहित)
+3. Verify करें कि integration अभी भी "Pending Verification" status में है
+4. अगर code expire हो गया है तो नया integration बनाने की कोशिश करें
 
-### Bot Says "Working on it..." But No Response Follows
+### Bot "Working on it..." बोल रहा है लेकिन Response नहीं आता
 
-1. The bot processes messages asynchronously — wait up to 25 seconds for the full response
-2. If no response arrives, try sending your message again
-3. Check that the associated agent is properly configured
+1. Bot messages asynchronously process करता है — full response के लिए 25 seconds तक wait करें
+2. अगर response नहीं आता, तो अपना message दोबारा भेजने की कोशिश करें
+3. Check करें कि associated agent सही तरह configured है
 
-### Messages Not Being Processed
+### Messages Process नहीं हो रहे
 
-1. Confirm your workspace has been verified (status should be "Active")
-2. For Spaces, ensure you're @mentioning the bot
-3. Check that the associated agent is properly configured
+1. Confirm करें कि आपका workspace verified है (status "Active" होनी चाहिए)
+2. Spaces के लिए, ensure करें कि आप bot को @mention कर रहे हैं
+3. Check करें कि associated agent सही तरह configured है
 
 ### "Organization hasn't connected" Message
 
-This means the bot doesn't recognize your Google Workspace domain:
-1. Your admin hasn't created the integration yet
-2. The domain hasn't been verified with a verification code
-3. You're messaging from a personal Gmail account (not supported)
+इसका मतलब है bot आपके Google Workspace domain को recognize नहीं कर रहा:
+1. आपके admin ने अभी तक integration नहीं बनाया
+2. Domain को verification code से verify नहीं किया गया है
+3. आप personal Gmail account से message कर रहे हैं (supported नहीं)
 
-### `/set-agent` Says Agent Not Found
+### `/set-agent` कहता है Agent नहीं मिला
 
-1. Check the exact agent name in the admin panel (case-sensitive)
-2. Ensure the agent is in "Active" status
-3. Agent names with spaces are supported — type the full name after `/set-agent`
+1. Admin panel में exact agent नाम check करें (case-sensitive)
+2. Ensure करें कि agent "Active" status में है
+3. Spaces वाले agent names supported हैं — `/set-agent` के बाद full name type करें
 
 ## Security
 
-- **Domain ownership verification** — DNS TXT record proves your organization owns the domain before connecting
-- **Google Workspace detection** — MX record check confirms your domain uses Google Workspace
-- **Domain-based isolation** — only your organization's Google Workspace users can interact with your bot
-- **Webhook verification** — every incoming request is validated against your platform's Google Cloud project
-- **Verification codes** are single-use and tied to your domain
-- Messages processed over secure, encrypted connections
+- **Domain ownership verification** — DNS TXT record prove करता है कि आपका organization domain own करता है, connect करने से पहले
+- **Google Workspace detection** — MX record check confirm करता है कि आपका domain Google Workspace उपयोग करता है
+- **Domain-based isolation** — केवल आपके organization के Google Workspace users आपके bot के साथ interact कर सकते हैं
+- **Webhook verification** — हर incoming request आपके platform के Google Cloud project के खिलाफ validated होती है
+- **Verification codes** single-use हैं और आपके domain से tied हैं
+- Messages secure, encrypted connections पर process होते हैं
 
-## Disconnecting
+## Disconnect करना
 
-To remove the Google Chat integration:
+Google Chat integration हटाने के लिए:
 
-1. Go to **Integrations** from the sidebar
-2. Find your Google Chat integration card
-3. Click the three-dot menu
-4. Select **Disconnect**
+1. Sidebar से **Integrations** पर जाएं
+2. अपना Google Chat integration card खोजें
+3. Three-dot menu पर क्लिक करें
+4. **Disconnect** चुनें
 
-## Important Notes
+## महत्वपूर्ण Notes
 
-- **Google Workspace required**: Personal Gmail accounts cannot use this integration. If your org doesn't use Google Workspace, the Google Chat section won't appear.
-- **Domain verification required**: Verify your domain in Settings > Domains before connecting Google Chat.
-- **One integration per organization**: Each organization can have one Google Chat integration
-- **Text only**: The bot does not support images, files, or interactive buttons
-- **Managed at org level**: Google Chat is configured on the Integrations page, not per-agent
-- **Space routing**: Use `/set-agent` in Spaces to assign specialized agents to different teams
-- **Default agent**: Change the default agent anytime using the dropdown — no disconnect needed
+- **Google Workspace जरूरी है**: Personal Gmail accounts इस integration का उपयोग नहीं कर सकते। अगर आपका org Google Workspace उपयोग नहीं करता, तो Google Chat section दिखाई नहीं देगा।
+- **Domain verification जरूरी है**: Google Chat connect करने से पहले Settings > Domains में अपना domain verify करें।
+- **प्रति organization एक integration**: प्रत्येक organization एक Google Chat integration रख सकता है
+- **केवल text**: Bot images, files, या interactive buttons support नहीं करता
+- **Org level पर manage**: Google Chat Integrations page पर configure होता है, per-agent नहीं
+- **Space routing**: अलग-अलग teams को specialized agents assign करने के लिए Spaces में `/set-agent` उपयोग करें
+- **Default agent**: Dropdown का उपयोग करके कभी भी default agent बदलें — disconnect की जरूरत नहीं
