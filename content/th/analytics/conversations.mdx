@@ -1,145 +1,142 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# การวิเคราะห์การสนทนา
 
-# Conversation Analytics
+ติดตามตัวชี้วัดการสนทนาและดูรายละเอียดบทสนทนาจาก agent และ channel ทั้งหมดของคุณ
 
-Track conversation metrics and view detailed transcripts across your agents and channels.
+## ภาพรวม
 
-## Overview
+การวิเคราะห์การสนทนามีให้:
 
-Conversation analytics provides:
+- ปริมาณการสนทนาทั้งหมด
+- การสนทนาต่อ agent
+- การสนทนาต่อ channel
+- บทสนทนาทั้งหมด
+- ข้อมูลเชิงลึกจาก AI
 
-- Total conversation volume
-- Conversations per agent
-- Conversations per channel
-- Full message transcripts
-- AI-powered conversation insights
+## การเข้าถึงการสนทนา
 
-## Accessing Conversations
+### จาก Dashboard
 
-### From the Dashboard
+1. ไปที่ **Analytics** ในแถบด้านข้าง
+2. คลิก **View All** ที่การ์ด Top Agents หรือ Top Channels
+3. หรือไปที่ Conversations จากเมนูการวิเคราะห์โดยตรง
 
-1. Go to **Analytics** in the sidebar
-2. Click **View All** on the Top Agents or Top Channels cards
-3. Or navigate directly to Conversations from the analytics menu
+### รายการการสนทนา
 
-### Conversation List
+ดูการสนทนาทั้งหมดพร้อม:
 
-View all conversations with:
+| คอลัมน์ | คำอธิบาย |
+|---------|----------|
+| Title | ชื่อการสนทนาหรือ session ID |
+| Agent | Agent ที่จัดการการสนทนา |
+| Channel | แพลตฟอร์ม (Telegram, Discord, Slack ฯลฯ) |
+| Messages | จำนวนข้อความทั้งหมด |
+| Last Active | เวลาที่อัปเดตล่าสุด |
+| Status | Active, archived หรือ deleted |
 
-| Column | Description |
-|--------|-------------|
-| Title | Conversation title or session ID |
-| Agent | Which agent handled the conversation |
-| Channel | Platform (Telegram, Discord, Slack, etc.) |
-| Messages | Total message count |
-| Last Active | When the conversation was last updated |
-| Status | Active, archived, or deleted |
+## การกรองการสนทนา
 
-## Filtering Conversations
+กรองรายการการสนทนาตาม:
 
-Filter the conversation list by:
+- **Agent** — เลือก agent เฉพาะหรือ agent ทั้งหมด
+- **Channel** — กรองตามแพลตฟอร์ม (WhatsApp, Telegram, Meta, Slack, Discord, Google Chat, Playground)
+- **Date range** — 7, 14, 30 หรือ 90 วันที่ผ่านมา
 
-- **Agent** — Select a specific agent or all agents
-- **Channel** — Filter by platform (WhatsApp, Telegram, Meta, Slack, Discord, Google Chat, Playground)
-- **Date range** — Last 7, 14, 30, or 90 days
+## รายละเอียดการสนทนา
 
-## Conversation Details
+คลิกการสนทนาใดก็ได้เพื่อดูรายละเอียดทั้งหมด:
 
-Click any conversation to view its full details:
+### แท็บภาพรวม
 
-### Overview Tab
+- **Total Messages** — จำนวนข้อความในการสนทนา
+- **Credits Spent** — Credit ของแพลตฟอร์มที่ใช้ไป
+- **Agent** — Agent ที่จัดการการสนทนา
+- **Channel** — แพลตฟอร์มที่เกิดการสนทนา
+- **Created** — เวลาที่เริ่มการสนทนา
+- **Last Active** — กิจกรรมล่าสุด
 
-- **Total Messages** — Message count in the conversation
-- **Credits Spent** — Platform credits used
-- **Agent** — Which agent handled the conversation
-- **Channel** — Platform where it occurred
-- **Created** — When the conversation started
-- **Last Active** — Most recent activity
+### กราฟกิจกรรมข้อความ
 
-### Message Activity Chart
+แสดงรูปแบบข้อความตามเวลา:
+- สลับระหว่างระดับรายชั่วโมงและรายวัน
+- แสดง/ซ่อนข้อความผู้ใช้และข้อความ assistant
+- ดูรูปแบบกิจกรรมของการสนทนา
 
-Visualize message patterns over time:
-- Toggle between hourly and daily granularity
-- Show/hide user messages and assistant messages
-- See conversation activity patterns
+### แท็บข้อความ
 
-### Messages Tab
+ดูบทสนทนาทั้งหมด:
 
-View the complete conversation transcript:
+- **ประวัติข้อความทั้งหมด** — ดูทุกข้อความในการสนทนา
+- **ตัวบ่งชี้บทบาท** — ข้อความ User, Assistant, System และ Tool แยกสีตามบทบาท
+- **Timestamp** — เวลาที่ส่งแต่ละข้อความ
+- **การใช้ token** — Input/output token ต่อข้อความ (เมื่อมีข้อมูล)
 
-- **Full message history** — See every message in the conversation
-- **Role indicators** — User, Assistant, System, and Tool messages are color-coded
-- **Timestamps** — When each message was sent
-- **Token usage** — Input/output tokens per message (when available)
+#### การกรองข้อความ
 
-#### Message Filtering
-
-Filter messages by time period:
-- Last 24 hours
-- Last 7 days
-- Last 30 days
-- All messages
+กรองข้อความตามช่วงเวลา:
+- 24 ชั่วโมงที่ผ่านมา
+- 7 วันที่ผ่านมา
+- 30 วันที่ผ่านมา
+- ข้อความทั้งหมด
 
 #### Export
 
-Click **Export** to download the conversation as a JSON file containing:
-- Conversation metadata
-- All messages with timestamps
-- Token information
+คลิก **Export** เพื่อดาวน์โหลดการสนทนาเป็นไฟล์ JSON ที่ประกอบด้วย:
+- ข้อมูล metadata ของการสนทนา
+- ข้อความทั้งหมดพร้อม timestamp
+- ข้อมูล token
 
-## AI-Powered Insights
+## ข้อมูลเชิงลึกจาก AI
 
-Generate intelligent summaries of conversations:
+สร้างบทสรุปอัจฉริยะของการสนทนา:
 
-1. Navigate to a conversation's **Messages** tab
-2. Click **Generate Insights**
-3. View AI-analyzed insights including:
-   - **Key Points** — Main topics discussed
-   - **User Intents** — What the user was trying to accomplish
-   - **Key Info Shared** — Important information exchanged
-   - **Suggested Actions** — Recommendations based on the conversation
+1. ไปที่แท็บ **Messages** ของการสนทนา
+2. คลิก **Generate Insights**
+3. ดูข้อมูลเชิงลึกที่วิเคราะห์โดย AI ได้แก่:
+   - **Key Points** — หัวข้อหลักที่พูดคุย
+   - **User Intents** — สิ่งที่ผู้ใช้ต้องการทำ
+   - **Key Info Shared** — ข้อมูลสำคัญที่แลกเปลี่ยน
+   - **Suggested Actions** — คำแนะนำจากการสนทนา
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Generating insights consumes credits from your account. Results are cached for faster access on subsequent views.
+  การสร้างข้อมูลเชิงลึกใช้ credit จากบัญชีของคุณ ผลลัพธ์จะถูก cache ไว้เพื่อให้เข้าถึงได้เร็วขึ้นในครั้งต่อไป
 </Callout>
 
-## Privacy Considerations
+## ข้อพิจารณาด้านความเป็นส่วนตัว
 
-Conversation data is handled according to:
+ข้อมูลการสนทนาถูกจัดการตาม:
 
-- Privacy policy requirements
-- User consent where applicable
+- ข้อกำหนดนโยบายความเป็นส่วนตัว
+- ความยินยอมของผู้ใช้ตามที่เกี่ยวข้อง
 
-## Tips
+## เคล็ดลับ
 
-- Use filters to find conversations from specific agents or channels
-- Export important conversations for record-keeping or analysis
-- Generate AI insights to quickly understand long conversations
-- Check the Message Activity chart to identify peak usage times
-- Review conversation transcripts to improve your agent's persona
-- Monitor credits spent to track usage patterns
+- ใช้ตัวกรองเพื่อค้นหาการสนทนาจาก agent หรือ channel เฉพาะ
+- Export การสนทนาสำคัญเพื่อเก็บบันทึกหรือวิเคราะห์
+- สร้างข้อมูลเชิงลึกจาก AI เพื่อเข้าใจการสนทนาที่ยาวอย่างรวดเร็ว
+- ตรวจสอบกราฟ Message Activity เพื่อระบุช่วงเวลาที่ใช้งานสูงสุด
+- ดูบทสนทนาเพื่อปรับปรุง persona ของ agent
+- ตรวจสอบ credit ที่ใช้เพื่อติดตามรูปแบบการใช้งาน
 
-## Common Questions
+## คำถามที่พบบ่อย
 
-**Q: How do I find conversations from a specific channel?**
+**ถาม: ฉันจะหาการสนทนาจาก channel เฉพาะได้อย่างไร?**
 
-Use the Channel filter at the top of the conversation list to select a specific platform like Telegram, Discord, or Slack.
+ใช้ตัวกรอง Channel ที่ด้านบนของรายการการสนทนาเพื่อเลือกแพลตฟอร์มเฉพาะ เช่น Telegram, Discord หรือ Slack
 
-**Q: Can I export multiple conversations at once?**
+**ถาม: ฉันสามารถ export หลายการสนทนาพร้อมกันได้ไหม?**
 
-Currently, export works one conversation at a time. Export each conversation individually from the Messages tab.
+ปัจจุบัน export ทำได้ทีละ 1 การสนทนา Export แต่ละการสนทนาจากแท็บ Messages
 
-**Q: What does "Generate Insights" do?**
+**ถาม: "Generate Insights" ทำอะไร?**
 
-It uses AI to analyze the conversation and provide a summary including key points, user intents, important information shared, and suggested actions.
+ใช้ AI วิเคราะห์การสนทนาและสร้างบทสรุปที่ประกอบด้วย key point, user intent, ข้อมูลสำคัญที่แลกเปลี่ยน และคำแนะนำ
 
-**Q: Do AI insights cost credits?**
+**ถาม: ข้อมูลเชิงลึกจาก AI ใช้ credit ไหม?**
 
-Yes, generating insights consumes credits from your account. However, results are cached so viewing the same insights again is free.
+ใช่ การสร้างข้อมูลเชิงลึกใช้ credit จากบัญชีของคุณ อย่างไรก็ตาม ผลลัพธ์จะถูก cache ไว้ ดังนั้นการดูข้อมูลเชิงลึกเดิมอีกครั้งจะไม่เสีย credit
 
-**Q: How long are conversations stored?**
+**ถาม: การสนทนาถูกเก็บนานแค่ไหน?**
 
-Conversations are stored securely and available for analytics. Contact support if you have questions about data storage.
+การสนทนาถูกเก็บอย่างปลอดภัยและพร้อมใช้งานสำหรับการวิเคราะห์ ติดต่อฝ่ายสนับสนุนหากมีคำถามเกี่ยวกับการจัดเก็บข้อมูล

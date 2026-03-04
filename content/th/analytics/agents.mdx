@@ -1,98 +1,95 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# การวิเคราะห์ Agent
 
-# Agent Analytics
+ดูตัวชี้วัดประสิทธิภาพโดยละเอียดสำหรับ agent ทั้งหมดของคุณ เปรียบเทียบปริมาณ query, การสนทนา และการใช้ credit ทั่วทั้ง agent portfolio
 
-View detailed performance metrics for all your agents. Compare query volumes, conversations, and credit usage across your entire agent portfolio.
+## การเข้าถึงการวิเคราะห์ Agent
 
-## Accessing Agent Analytics
+1. ไปที่ **Analytics** ในแถบด้านข้าง
+2. คลิก **View All** ถัดจาก "Top Agents" หรือ
+3. ไปที่ **Analytics > Agents** โดยตรง
 
-1. Navigate to **Analytics** in the sidebar
-2. Click **View All** next to "Top Agents", or
-3. Go directly to **Analytics > Agents**
+## การนำทาง
 
-## Navigation
+Breadcrumb แสดงตำแหน่งของคุณ: **Dashboard / Agents** คลิก "Dashboard" เพื่อกลับไปหน้าการวิเคราะห์หลัก
 
-The breadcrumb shows your location: **Dashboard / Agents**. Click "Dashboard" to return to the main analytics page.
+## ตัวควบคุมช่วงวันที่
 
-## Date Range Controls
+| ตัวควบคุม | คำอธิบาย |
+|-----------|----------|
+| **Last 7 days** | ดูตัวชี้วัดย้อนหลัง 1 สัปดาห์ |
+| **Last 14 days** | ดูตัวชี้วัดย้อนหลัง 2 สัปดาห์ |
+| **Last 30 days** | ดูตัวชี้วัดย้อนหลัง 1 เดือน |
+| **Last 90 days** | ดูตัวชี้วัดย้อนหลัง 1 ไตรมาส |
+| **Refresh** | โหลดข้อมูลใหม่ด้วยค่าล่าสุด |
 
-| Control | Description |
-|---------|-------------|
-| **Last 7 days** | View metrics for the past week |
-| **Last 14 days** | View metrics for two weeks |
-| **Last 30 days** | View metrics for the past month |
-| **Last 90 days** | View metrics for the past quarter |
-| **Refresh** | Reload data with latest values |
+## ตาราง Agent
 
-## Agents Table
+Agent ทั้งหมดพร้อมตัวชี้วัดประสิทธิภาพ:
 
-All your agents listed with performance metrics:
+| คอลัมน์ | คำอธิบาย | เรียงลำดับได้ |
+|---------|----------|--------------|
+| Agent | ชื่อ agent | ไม่ |
+| Status | active, inactive, testing หรือ archived | ไม่ |
+| Queries | จำนวนคำถามที่ตอบทั้งหมด | ได้ |
+| Conversations | จำนวน chat session | ได้ |
+| Credits | ทรัพยากรที่ใช้ไป | ได้ |
+| Channels | channel ที่ agent ถูกใช้งาน | ไม่ |
+| (ลูกศร) | ลิงก์ไปยังมุมมองโดยละเอียด | ไม่ |
 
-| Column | Description | Sortable |
-|--------|-------------|----------|
-| Agent | Agent name | No |
-| Status | active, inactive, testing, or archived | No |
-| Queries | Total questions answered | Yes |
-| Conversations | Chat sessions | Yes |
-| Credits | Resources consumed | Yes |
-| Channels | Which channels the agent is used on | No |
-| (Arrow) | Link to detailed view | No |
+### การเรียงลำดับ
 
-### Sorting
+คลิกหัวคอลัมน์ที่เรียงลำดับได้เพื่อเรียงตามตัวชี้วัดนั้น:
+- **คลิกครั้งแรก**: เรียงจากมากไปน้อย (สูงสุดก่อน)
+- **คลิกครั้งที่สอง**: เรียงจากน้อยไปมาก (ต่ำสุดก่อน)
+- คอลัมน์ที่กำลังเรียงจะถูกไฮไลต์
 
-Click any sortable column header to sort by that metric:
-- **First click**: Sort descending (highest first)
-- **Second click**: Sort ascending (lowest first)
-- Active sort column is highlighted
+### การแบ่งหน้า
 
-### Pagination
+สำหรับรายการ agent จำนวนมาก:
+- แสดง "Showing X - Y of Z"
+- ใช้ปุ่ม **Previous/Next** เพื่อเปลี่ยนหน้า
 
-For large agent lists:
-- Shows "Showing X - Y of Z"
-- Use **Previous/Next** buttons to navigate pages
+## ป้ายสถานะ Agent
 
-## Agent Status Badges
+| ป้าย | สี | ความหมาย |
+|------|-----|----------|
+| active | เขียว | Agent ถูก deploy แล้วและกำลังรับ query |
+| inactive | เทา | Agent ถูกหยุดชั่วคราว |
+| testing | เหลือง | Agent กำลังถูกทดสอบก่อน deploy |
+| archived | เหลือง | Agent ถูกเก็บถาวร |
 
-| Badge | Color | Meaning |
-|-------|-------|---------|
-| active | Green | Agent is deployed and receiving queries |
-| inactive | Gray | Agent is paused |
-| testing | Yellow | Agent is being tested before deployment |
-| archived | Yellow | Agent is archived |
+## ป้าย Channel
 
-## Channel Badges
+คอลัมน์ Channels แสดงแพลตฟอร์มที่ agent แต่ละตัวถูกใช้งาน:
+- แสดงป้าย channel สูงสุด 3 รายการ (เช่น "web", "telegram", "discord")
+- ถ้ามากกว่า 3 จะแสดง "+X" เพื่อบอกจำนวน channel เพิ่มเติม
 
-The Channels column shows which platforms each agent is used on:
-- Up to 3 channel badges shown (e.g., "web", "telegram", "discord")
-- If more than 3, shows "+X" to indicate additional channels
+## การดูรายละเอียด Agent
 
-## Viewing Agent Details
+คลิกลูกศรที่แถว agent ใดก็ได้เพื่อดู:
+- ตัวชี้วัดโดยละเอียดสำหรับ agent นั้น
+- กราฟแบบ time-series
+- การแยกย่อยตาม channel
+- ข้อมูลที่ละเอียดยิ่งขึ้น
 
-Click the arrow on any agent row to see:
-- Detailed metrics for that specific agent
-- Time-series charts
-- Channel breakdown
-- More granular data
+## เคล็ดลับ
 
-## Tips
+- เรียงตาม **Credits** เพื่อหา agent ที่ใช้ทรัพยากรมากที่สุด
+- เรียงตาม **Queries** เพื่อระบุ agent ที่ได้รับความนิยมมากที่สุด
+- ใช้ **90 days** สำหรับการวิเคราะห์แนวโน้มระยะยาว
+- ตรวจสอบ agent ที่ inactive ว่าควรเปิดใช้งานอีกครั้งหรือไม่
+- คลิกเข้าไปที่ agent แต่ละตัวเพื่อข้อมูลเชิงลึกที่มากขึ้น
 
-- Sort by **Credits** to find your most resource-intensive agents
-- Sort by **Queries** to identify your most popular agents
-- Use **90 days** for long-term trend analysis
-- Check inactive agents to see if they should be reactivated
-- Click through to individual agents for deeper insights
+## คำถามที่พบบ่อย
 
-## Common Questions
+**ถาม: ฉันจะหา agent ที่ถูกใช้มากที่สุดได้อย่างไร?**
 
-**Q: How do I find my most used agent?**
+คลิกหัวคอลัมน์ "Queries" เพื่อเรียงตามจำนวน query แถวบนสุดคือ agent ที่ใช้งานมากที่สุดของคุณ
 
-Click the "Queries" column header to sort by query count. The top row is your most active agent.
+**ถาม: ป้าย channel หมายความว่าอย่างไร?**
 
-**Q: What do the channel badges mean?**
+แสดงว่าแพลตฟอร์มใด (Web, Telegram, Discord, Slack ฯลฯ) ที่ agent แต่ละตัวรับ query
 
-They show which platforms (Web, Telegram, Discord, Slack, etc.) each agent receives queries from.
+**ถาม: ทำไม agent แสดง query เป็นศูนย์?**
 
-**Q: Why is an agent showing zero queries?**
-
-The agent may be new, inactive, or not yet deployed to any channel.
+Agent อาจเป็นตัวใหม่, inactive หรือยังไม่ได้ deploy ไปยัง channel ใด

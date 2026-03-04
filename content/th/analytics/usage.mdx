@@ -1,85 +1,82 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# ตัวชี้วัดการใช้งาน
 
-# Usage Metrics
+ติดตามการใช้ทรัพยากรและการใช้ credit ของคุณ
 
-Track your resource consumption and credit utilization.
+## ภาพรวมการใช้ Credit
 
-## Credit Usage Overview
+Dashboard การวิเคราะห์แสดงการใช้งานรอบบิลปัจจุบันของคุณ:
 
-The analytics dashboard shows your current billing cycle usage:
+- **Credits Used** — Credit ของแพลตฟอร์มที่ใช้ในช่วงเวลานี้
+- **Credits Remaining** — Credit ที่เหลือจนถึงสิ้นรอบบิล
+- **Usage Percentage** — แถบแสดงเปอร์เซ็นต์การใช้งาน
 
-- **Credits Used** — Platform credits consumed this period
-- **Credits Remaining** — Available credits until period end
-- **Usage Percentage** — Visual progress bar of consumption
+## ตัวชี้วัดหลัก
 
-## Key Metrics
+### ปริมาณ Query
 
-### Query Volume
+| ตัวชี้วัด | คำอธิบาย |
+|-----------|----------|
+| Total Queries | จำนวนการทำงานของ AI agent ในช่วงเวลา |
+| Conversations | จำนวน chat session ทั้งหมด |
+| Unique Users | ผู้ใช้ที่โต้ตอบเข้ามา |
 
-| Metric | Description |
-|--------|-------------|
-| Total Queries | AI agent executions in the period |
-| Conversations | Total chat sessions |
-| Unique Users | Individual users who interacted |
+### การกระจายการใช้งาน
 
-### Distribution Breakdown
+ดูว่าการใช้งานกระจายอย่างไร:
 
-View how usage is distributed:
+- **By Agent** — Agent ใดจัดการ query มากที่สุด
+- **By Channel** — การใช้งานใน Telegram, Discord, Slack, WhatsApp ฯลฯ
 
-- **By Agent** — Which agents handle the most queries
-- **By Channel** — Usage across Telegram, Discord, Slack, WhatsApp, etc.
+## แนวโน้มการใช้งาน
 
-## Usage Trends
+### กราฟปริมาณ Query
 
-### Query Volume Chart
+Dashboard การวิเคราะห์หลักแสดงกราฟปริมาณ query:
+- Query ตามช่วงเวลา
+- ปรับระดับความละเอียดได้ (รายชั่วโมง, รายวัน, รายสัปดาห์, รายเดือน)
+- เลือกช่วงวันที่ได้
 
-The main analytics dashboard displays a query volume chart showing:
-- Queries over time
-- Configurable granularity (hourly, daily, weekly, monthly)
-- Date range selection
+### กราฟการกระจาย
 
-### Distribution Charts
+กราฟวงกลมแสดง:
+- การกระจายตาม channel — เปอร์เซ็นต์ query ต่อแพลตฟอร์ม
+- การกระจายตาม agent — เปอร์เซ็นต์ query ต่อ agent
 
-Pie charts showing:
-- Channel distribution — Percentage of queries per platform
-- Agent distribution — Percentage of queries per agent
+## การตรวจสอบ Credit
 
-## Credit Monitoring
+### รอบปัจจุบัน
 
-### Current Period
-
-View your billing cycle status:
-- Period start and end dates
-- Credits used vs. allocated
-- Percentage consumed
+ดูสถานะรอบบิลของคุณ:
+- วันเริ่มต้นและสิ้นสุดของรอบ
+- Credit ที่ใช้ไป เทียบกับ credit ที่ได้รับ
+- เปอร์เซ็นต์ที่ใช้ไป
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Credits reset at the start of each billing period. Check the **Billing** section for your cycle dates.
+  Credit จะรีเซ็ตเมื่อเริ่มรอบบิลใหม่ ตรวจสอบส่วน **Billing** สำหรับวันที่ของรอบบิลของคุณ
 </Callout>
 
-## Usage Warnings
+## คำเตือนการใช้งาน
 
-The **Billing** page displays automatic warning banners when:
+หน้า **Billing** จะแสดงแบนเนอร์คำเตือนอัตโนมัติเมื่อ:
 
-- **Approaching limit** — You've used most of your monthly quota
-- **Limit reached** — Monthly quota is depleted
-- **Blocked** — Extra usage balance also depleted
+- **ใกล้ถึงขีดจำกัด** — คุณใช้ quota รายเดือนไปเกือบหมดแล้ว
+- **ถึงขีดจำกัด** — Quota รายเดือนหมดแล้ว
+- **ถูกบล็อก** — ยอดคงเหลือการใช้งานเพิ่มเติมหมดเช่นกัน
 
-These warnings appear in **Billing & Plans** to help you take action before service is affected.
+คำเตือนเหล่านี้แสดงใน **Billing & Plans** เพื่อช่วยให้คุณดำเนินการก่อนบริการได้รับผลกระทบ
 
-## Optimization Tips
+## เคล็ดลับการปรับปรุง
 
-### Reduce Query Usage
+### ลดการใช้ Query
 
-- Improve agent personas for better first-response accuracy
-- Add FAQ content to reduce follow-up questions
-- Optimize content for faster retrieval
+- ปรับปรุง agent persona เพื่อความแม่นยำในการตอบครั้งแรก
+- เพิ่มเนื้อหา FAQ เพื่อลดคำถามติดตาม
+- ปรับปรุงเนื้อหาเพื่อการค้นหาที่เร็วขึ้น
 
-### Monitor High-Usage Areas
+### ตรวจสอบพื้นที่ที่ใช้งานสูง
 
-- Check which agents consume the most credits
-- Identify channels with highest volume
-- Review conversations that use more tokens
+- ตรวจสอบว่า agent ใดใช้ credit มากที่สุด
+- ระบุ channel ที่มีปริมาณสูงที่สุด
+- ดูการสนทนาที่ใช้ token มาก

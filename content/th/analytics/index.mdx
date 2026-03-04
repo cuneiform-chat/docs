@@ -1,125 +1,121 @@
 ---
-description: Monitor agent performance, track conversations, and analyze usage across all channels.
+description: ติดตามประสิทธิภาพของ agent, ตรวจสอบการสนทนา และวิเคราะห์การใช้งานในทุกช่องทาง
 ---
 
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# การวิเคราะห์
 
+ติดตามประสิทธิภาพของ agent และทำความเข้าใจว่าผู้ใช้โต้ตอบกับ chatbot ของคุณอย่างไร
 
-# Analytics
+## ภาพรวม
 
-Monitor your agents' performance and understand how users interact with your chatbots.
-
-## Overview
-
-Analytics help you:
-- Track conversation volume and query patterns
-- Monitor agent performance and credit usage
-- Understand channel distribution
-- Identify areas for improvement
+การวิเคราะห์ช่วยให้คุณ:
+- ติดตามปริมาณการสนทนาและรูปแบบ query
+- ตรวจสอบประสิทธิภาพของ agent และการใช้ credit
+- เข้าใจการกระจายตามช่องทาง
+- ระบุจุดที่ต้องปรับปรุง
 
 ## Dashboard
 
-Access analytics from the **Analytics** section in your sidebar.
+เข้าถึงการวิเคราะห์จากส่วน **Analytics** ในแถบด้านข้าง
 
-### Key Metrics
+### ตัวชี้วัดหลัก
 
-| Metric | Description |
-|--------|-------------|
-| Total Queries | Agent executions (AI responses) |
-| Conversations | Number of chat sessions |
-| Unique Users | Individual users who chatted |
-| Credits Used | Platform credits consumed |
+| ตัวชี้วัด | คำอธิบาย |
+|-----------|----------|
+| Total Queries | การทำงานของ Agent (AI response) |
+| Conversations | จำนวน chat session |
+| Unique Users | ผู้ใช้ที่ chat เข้ามา |
+| Credits Used | Credit ของแพลตฟอร์มที่ใช้ไป |
 
-### Credit Usage
+### การใช้ Credit
 
-The dashboard shows your current billing cycle credit consumption:
-- Credits used vs. allocated
-- Percentage progress bar
-- Remaining credits for the period
+Dashboard แสดงการใช้ credit ในรอบบิลปัจจุบันของคุณ:
+- Credit ที่ใช้ไป เทียบกับ credit ที่ได้รับ
+- แถบแสดงเปอร์เซ็นต์
+- Credit ที่เหลือสำหรับช่วงเวลานี้
 
-### Charts
+### แผนภูมิ
 
-The dashboard includes visual charts:
-- **Query Volume** — Line chart showing queries over time
-- **Channel Distribution** — Pie chart breaking down queries by channel
-- **Agent Distribution** — Pie chart breaking down queries by agent
+Dashboard มีแผนภูมิให้ดู:
+- **Query Volume** — กราฟเส้นแสดง query ตามช่วงเวลา
+- **Channel Distribution** — กราฟวงกลมแสดง query แยกตาม channel
+- **Agent Distribution** — กราฟวงกลมแสดง query แยกตาม agent
 
-### Top Agents
+### Agent ยอดนิยม
 
-A ranked list of your most active agents showing:
-- Agent name and rank
-- Total queries handled
-- Number of conversations
-- Credits consumed
-- Current status (active, inactive, testing, archived)
+รายการจัดอันดับ agent ที่มีการใช้งานมากที่สุด แสดง:
+- ชื่อและอันดับของ agent
+- จำนวน query ที่จัดการทั้งหมด
+- จำนวนการสนทนา
+- Credit ที่ใช้ไป
+- สถานะปัจจุบัน (active, inactive, testing, archived)
 
-Click any agent to view detailed analytics, or click **View All** to see all agents.
+คลิกที่ agent ใดก็ได้เพื่อดูการวิเคราะห์โดยละเอียด หรือคลิก **View All** เพื่อดู agent ทั้งหมด
 
-### Top Channels
+### Channel ยอดนิยม
 
-A ranked list of your most active communication channels showing:
-- Channel name and rank
-- Total queries handled
-- Number of conversations
-- Credits consumed
+รายการจัดอันดับช่องทางการสื่อสารที่มีการใช้งานมากที่สุด แสดง:
+- ชื่อและอันดับของ channel
+- จำนวน query ที่จัดการทั้งหมด
+- จำนวนการสนทนา
+- Credit ที่ใช้ไป
 
-Click any channel to view detailed analytics, or click **View All** to see all channels.
+คลิกที่ channel ใดก็ได้เพื่อดูการวิเคราะห์โดยละเอียด หรือคลิก **View All** เพื่อดู channel ทั้งหมด
 
-## In This Section
+## ในส่วนนี้
 
 import { Cards } from 'nextra/components'
 
 <Cards>
-  <Cards.Card title="Conversations" href="/analytics/conversations" />
-  <Cards.Card title="Usage Metrics" href="/analytics/usage" />
-  <Cards.Card title="Agent Analytics" href="/analytics/agents" />
-  <Cards.Card title="Channel Analytics" href="/analytics/channels" />
+  <Cards.Card title="การวิเคราะห์การสนทนา" href="/analytics/conversations" />
+  <Cards.Card title="ตัวชี้วัดการใช้งาน" href="/analytics/usage" />
+  <Cards.Card title="การวิเคราะห์ Agent" href="/analytics/agents" />
+  <Cards.Card title="การวิเคราะห์ช่องทาง" href="/analytics/channels" />
 </Cards>
 
-## Time Periods
+## ช่วงเวลา
 
-View analytics for different time ranges:
-- Current Billing Cycle
-- Last 7 days
-- Last 14 days
-- Last 30 days
-- Last 90 days
+ดูการวิเคราะห์สำหรับช่วงเวลาต่างๆ:
+- รอบบิลปัจจุบัน
+- 7 วันที่ผ่านมา
+- 14 วันที่ผ่านมา
+- 30 วันที่ผ่านมา
+- 90 วันที่ผ่านมา
 
-## Granularity
+## ระดับความละเอียด
 
-Adjust how data is grouped:
-- Hourly
-- Daily
-- Weekly
-- Monthly
+ปรับวิธีการจัดกลุ่มข้อมูล:
+- รายชั่วโมง
+- รายวัน
+- รายสัปดาห์
+- รายเดือน
 
-## Filtering
+## การกรอง
 
-Filter analytics by:
-- **Agent** — See metrics for specific agents
-- **Channel** — Compare performance across platforms
-- **Date range** — Analyze specific time periods
+กรองการวิเคราะห์ตาม:
+- **Agent** — ดูตัวชี้วัดสำหรับ agent ที่เฉพาะเจาะจง
+- **Channel** — เปรียบเทียบประสิทธิภาพข้ามแพลตฟอร์ม
+- **Date range** — วิเคราะห์ช่วงเวลาที่ต้องการ
 
-## Using Analytics
+## การใช้งานการวิเคราะห์
 
-### Identify Patterns
+### ระบุรูปแบบ
 
-See what channels and agents handle the most queries to:
-- Optimize resource allocation
-- Focus improvements where needed
-- Understand user preferences
+ดูว่า channel และ agent ใดจัดการ query มากที่สุดเพื่อ:
+- ปรับการจัดสรรทรัพยากรให้เหมาะสม
+- มุ่งเน้นการปรับปรุงในจุดที่จำเป็น
+- เข้าใจความต้องการของผู้ใช้
 
-### Monitor Performance
+### ตรวจสอบประสิทธิภาพ
 
-Track trends to ensure:
-- Credit usage stays within limits
-- User engagement is healthy
-- No unusual patterns
+ติดตามแนวโน้มเพื่อให้แน่ใจว่า:
+- การใช้ credit อยู่ในขอบเขต
+- การมีส่วนร่วมของผู้ใช้อยู่ในเกณฑ์ดี
+- ไม่มีรูปแบบที่ผิดปกติ
 
-### Optimize Agents
+### ปรับปรุง Agent
 
-Use insights to:
-- Adjust agent personas
-- Add missing documentation
-- Improve response accuracy
+ใช้ข้อมูลเชิงลึกเพื่อ:
+- ปรับ agent persona
+- เพิ่มเอกสารที่ขาดหายไป
+- ปรับปรุงความแม่นยำของคำตอบ
