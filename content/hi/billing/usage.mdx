@@ -1,144 +1,141 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# उपयोग और Credits
 
-# Usage & Credits
-
-Understand how credits work and monitor your consumption.
+Credits कैसे काम करते हैं यह समझें और अपनी consumption monitor करें।
 
 ## Credit System
 
-Cuneiform Chat uses credits (called Platform Credits) to measure usage:
-- **AI queries** — When your agents answer questions
-- **Document processing** — When documents are uploaded and indexed
-- **Embeddings** — Vector generation for search
+Cuneiform Chat usage मापने के लिए credits (Platform Credits) उपयोग करता है:
+- **AI queries** — जब आपके agents सवालों का जवाब देते हैं
+- **Document processing** — जब documents upload और index किए जाते हैं
+- **Embeddings** — Search के लिए vector generation
 
-## How Credits Are Used
+## Credits कैसे उपयोग होते हैं
 
 ### AI Queries
 
-Each time your agent answers a question:
-- Credits are consumed based on the AI model used
-- Longer responses may use slightly more credits
-- Failed queries don't consume credits
+हर बार जब आपका agent कोई सवाल का जवाब देता है:
+- Credits उपयोग किए गए AI model के आधार पर consume होते हैं
+- लंबे responses थोड़े अधिक credits उपयोग कर सकते हैं
+- Failed queries credits consume नहीं करती
 
 ### Document Processing
 
-When you upload documents:
-- Credits are used to extract and process content
-- Larger documents use more credits
-- Re-processing uses additional credits
+जब आप documents upload करते हैं:
+- Content extract और process करने के लिए credits उपयोग होते हैं
+- बड़े documents अधिक credits उपयोग करते हैं
+- Re-processing अतिरिक्त credits उपयोग करती है
 
-## Viewing Usage
+## Usage देखें
 
-Access your usage from **Billing & Plans** in the sidebar:
+Sidebar में **Billing & Plans** से अपना usage access करें:
 
-- **Current period usage** — Credits used this billing cycle
-- **Remaining credits** — Available credits
-- **Usage percentage** — Visual progress bar showing consumption
+- **Current period usage** — इस billing cycle में उपयोग किए गए credits
+- **Remaining credits** — उपलब्ध credits
+- **Usage percentage** — Consumption दिखाता visual progress bar
 
-## Monitoring Usage
+## Usage Monitor करें
 
 ### Usage Display
 
-The billing page shows:
-- Credits used vs. allocated
-- Usage percentage with visual progress bar
+Billing page दिखाता है:
+- उपयोग किए गए vs. allocated credits
+- Visual progress bar के साथ usage percentage
 - Status indicator (normal, warning, exceeded, blocked)
 
 ### Usage Warnings
 
-The platform automatically displays warnings as you approach your limits:
+Platform अपने-आप warnings display करता है जैसे-जैसे आप limits के पास पहुंचते हैं:
 
-| Threshold | What Happens |
+| Threshold | क्या होता है |
 |-----------|--------------|
-| ~80% used | Warning banner appears in Billing page |
-| 100% used | "Limit Reached" banner with upgrade prompt |
-| Blocked | Service paused until next period or upgrade |
+| ~80% उपयोग | Billing page में Warning banner दिखता है |
+| 100% उपयोग | Upgrade prompt के साथ "Limit Reached" banner |
+| Blocked | अगले period या upgrade तक service paused |
 
-These warnings appear automatically — no configuration needed.
+ये warnings अपने-आप दिखती हैं — कोई configuration नहीं चाहिए।
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  Review your usage weekly to catch unexpected spikes early and optimize as needed.
+  अप्रत्याशित spikes को जल्दी पकड़ने और optimize करने के लिए साप्ताहिक रूप से अपना usage review करें।
 </Callout>
 
-## Optimizing Credit Usage
+## Credit Usage Optimize करें
 
 ### Efficient Agents
 
-- Write clear agent personas for accurate first responses
+- सटीक first responses के लिए clear agent personas लिखें
 
 ### Smart Document Management
 
-- Upload only necessary documents
-- Remove outdated content
-- Avoid duplicate documents
+- केवल जरूरी documents upload करें
+- पुराना content हटाएं
+- Duplicate documents से बचें
 
 ### Usage Patterns
 
-- Monitor which agents use the most credits
-- Identify high-volume time periods
-- Optimize based on patterns
+- Monitor करें कि कौन से agents सबसे अधिक credits उपयोग करते हैं
+- उच्च-volume समय अवधि पहचानें
+- Patterns के आधार पर optimize करें
 
-## What Happens at Limits
+## Limits पर क्या होता है
 
-### Approaching Limits
+### Limits के पास पहुंचने पर
 
-As you near your credit limit, warning banners appear in the Billing page prompting you to upgrade or enable extra usage.
+जैसे-जैसे आप credit limit के पास पहुंचते हैं, Billing page में warning banners दिखते हैं जो आपको upgrade करने या extra usage enable करने के लिए prompt करते हैं।
 
-### Exceeding Limits
+### Limits से अधिक होने पर
 
-When you exceed your monthly quota:
-- A warning banner indicates "Limit Reached"
-- Enable **Extra Usage** to continue without waiting
-- Or upgrade your plan for more monthly credits
+जब आप अपना monthly quota exceed करते हैं:
+- एक warning banner "Limit Reached" indicate करता है
+- बिना इंतजार किए जारी रखने के लिए **Extra Usage** enable करें
+- या अधिक monthly credits के लिए अपना plan upgrade करें
 
 ### Blocked State
 
-If extra usage balance is also depleted:
-- Service pauses until the next billing period
-- Or add funds to your extra usage balance
+अगर extra usage balance भी समाप्त हो जाए:
+- अगले billing period तक service pause होती है
+- या अपने extra usage balance में funds जोड़ें
 
 ## Extra Usage
 
-Extra usage lets you continue using the service when your monthly quota runs out.
+Extra usage आपको अपना monthly quota समाप्त होने पर service जारी रखने देता है।
 
-### Enabling Extra Usage
+### Extra Usage Enable करें
 
-1. Go to **Billing & Plans**
-2. Find the **Extra Usage** section
-3. Toggle to enable
-4. Complete the initial top-up (minimum $10)
+1. **Billing & Plans** पर जाएं
+2. **Extra Usage** section ढूंढें
+3. Enable करने के लिए toggle करें
+4. Initial top-up complete करें (minimum $10)
 
-### Managing Extra Usage
+### Extra Usage Manage करें
 
-Once enabled, you can:
+Enable होने के बाद, आप कर सकते हैं:
 
-- **View balance** — See your available extra usage funds
-- **Add funds** — Top up your balance ($10-$500 per transaction)
-- **Set spending cap** — Limit monthly extra usage spending ($10-$500)
+- **Balance देखें** — अपने available extra usage funds देखें
+- **Funds जोड़ें** — Balance top up करें ($10-$500 प्रति transaction)
+- **Spending cap set करें** — Monthly extra usage spending limit करें ($10-$500)
 
-### How Extra Usage Works
+### Extra Usage कैसे काम करता है
 
-- Charges are deducted from your extra usage balance
-- Usage stops when you reach your spending cap
-- Balance carries over between billing periods
-- Cannot be disabled once enabled (use spending cap to limit)
+- Charges आपके extra usage balance से deduct होते हैं
+- Usage तब रुकती है जब आप spending cap तक पहुंचते हैं
+- Balance billing periods के बीच carry over होता है
+- Enable होने के बाद disable नहीं किया जा सकता (limit के लिए spending cap उपयोग करें)
 
 <Callout type="info">
-  Extra usage is only available for paid plans (Starter, Plus, and Enterprise).
+  Extra usage केवल paid plans (Starter, Plus, और Enterprise) के लिए उपलब्ध है।
 </Callout>
 
 ## Billing Period
 
-- Credits reset at the start of each billing period
-- Your billing date is shown in account settings
-- Unused credits may not roll over (check your plan)
+- Credits प्रत्येक billing period की शुरुआत में reset होते हैं
+- आपकी billing date account settings में दिखती है
+- अप्रयुक्त credits roll over नहीं हो सकते (अपना plan check करें)
 
-## Questions?
+## प्रश्न?
 
-For usage questions:
-- Review the [Plans & Pricing](/billing/plans) page
-- Check [Manage Subscription](/billing/manage-subscription) for upgrades
-- Contact support for billing inquiries
+Usage संबंधी प्रश्नों के लिए:
+- [Plans और Pricing](/billing/plans) page review करें
+- Upgrades के लिए [Subscription प्रबंधित करें](/billing/manage-subscription) check करें
+- Billing inquiries के लिए support से संपर्क करें
