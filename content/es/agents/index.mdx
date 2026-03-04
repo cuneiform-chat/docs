@@ -1,61 +1,57 @@
 ---
-description: Configure AI agents with custom personas, knowledge access, and multi-channel deployment.
+description: Configura agents de IA con personas personalizadas, acceso al conocimiento y despliegue multicanal.
 ---
-
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 
 # Agents
 
-Agents are the AI chatbots that interact with your users. Each agent has its own configuration, knowledge access, and personality.
+Los agents son los chatbots de IA que interactúan con tus usuarios. Cada agent tiene su propia configuración, acceso al conocimiento y personalidad.
 
-## What is an Agent?
+## ¿Qué es un Agent?
 
-An agent is a configured chatbot that:
+Un agent es un chatbot configurado que:
 
-- Answers questions using your content
-- Follows instructions defined in its agent persona
-- Maintains conversation context within sessions
-- Can be deployed to multiple channels
+- Responde preguntas usando tu contenido
+- Sigue las instrucciones definidas en su agent persona
+- Mantiene el contexto de la conversación dentro de las sesiones
+- Puede desplegarse en múltiples canales
 
-## Agent Concepts
+## Conceptos de Agent
 
 ### Agent Persona
 
-The agent persona is the set of instructions that defines how your agent behaves. It controls:
+El agent persona es el conjunto de instrucciones que define cómo se comporta tu agent. Controla:
 
-- **Personality** — Friendly, professional, casual, etc.
-- **Scope** — What topics the agent should and shouldn't address
-- **Response style** — Length, format, and tone of answers
-- **Guardrails** — Boundaries and limitations
-- **Language** — Automatic per-message detection (176 languages supported)
+- **Personality** — Amigable, profesional, casual, etc.
+- **Scope** — Qué temas debe y no debe abordar el agent
+- **Response style** — Longitud, formato y tono de las respuestas
+- **Guardrails** — Límites y restricciones
+- **Language** — Detección automática por mensaje (176 idiomas soportados)
 
 ### Knowledge Access
 
-Each agent accesses your content to find relevant information. You can configure:
+Cada agent accede a tu contenido para encontrar información relevante. Puedes configurar:
 
-- Which documents the agent can search
-- How many sources to retrieve
-- Whether to show source citations
+- Qué documentos puede buscar el agent
+- Cuántas fuentes recuperar
+- Si mostrar citas de fuentes
 
 ### Channels
 
-Agents can be deployed to multiple channels simultaneously:
+Los agents pueden desplegarse en múltiples canales simultáneamente:
 
-- Messaging platforms (Telegram, Discord, Slack, WhatsApp, Google Chat)
-- Facebook Messenger via Meta integration
-- Human Handoff — seamlessly transfer conversations to a human team member
+- Plataformas de mensajería (Telegram, Discord, Slack, WhatsApp, Google Chat)
+- Facebook Messenger a través de la integración con Meta
+- Human Handoff — transfiere conversaciones a un miembro humano del equipo de forma fluida
 
-## In This Section
+## En esta sección
 
 import { Cards } from 'nextra/components'
 
 <Cards>
-  <Cards.Card title="Creating Agents" href="/agents/creating" />
-  <Cards.Card title="Configuration Options" href="/agents/configuring" />
+  <Cards.Card title="Crear Agents" href="/agents/creating" />
+  <Cards.Card title="Opciones de Configuración" href="/agents/configuring" />
   <Cards.Card title="Agent Personas" href="/agents/agent-personas" />
   <Cards.Card title="Agent Persona Builder" href="/agents/persona-builder" />
-  <Cards.Card title="Testing in Playground" href="/agents/testing" />
-  <Cards.Card title="Inbox & Human Handoff" href="/agents/inbox" />
+  <Cards.Card title="Probar en Playground" href="/agents/testing" />
+  <Cards.Card title="Inbox y Human Handoff" href="/agents/inbox" />
 </Cards>

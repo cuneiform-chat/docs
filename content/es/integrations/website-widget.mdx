@@ -1,164 +1,161 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Website Chat Widget
 
-Embed an AI-powered chat widget directly on your website. Visitors get instant answers from your AI agent without leaving your site.
+Integra un widget de chat con IA directamente en tu sitio web. Los visitantes obtienen respuestas instantáneas de tu agent de IA sin salir de tu sitio.
 
-## Overview
+## Descripción General
 
-The Website Widget provides:
-- Floating chat bubble on your website
-- Real-time streaming AI responses
-- Customizable appearance (colors, position, messages)
-- Less than 11KB gzipped — near-zero performance impact
-- Domain allowlisting for security
+El Website Widget proporciona:
+- Burbuja de chat flotante en tu sitio web
+- Respuestas de IA con streaming en tiempo real
+- Apariencia personalizable (colores, posición, mensajes)
+- Menos de 11KB comprimido — impacto de rendimiento casi nulo
+- Allowlisting de dominios para seguridad
 
-## Prerequisites
+## Requisitos Previos
 
-- An active AI agent in your admin panel
-- Access to your website's HTML (to paste a script tag)
+- Un agent de IA activo en tu panel de admin
+- Acceso al HTML de tu sitio web (para pegar una etiqueta script)
 
-## Setup Steps
+## Pasos de Configuración
 
-### 1. Create a Widget
+### 1. Crear un Widget
 
-1. Go to **Integrations** from the sidebar
-2. Scroll to the **Website Widget** section
-3. Click **Create Widget**
-4. Enter a name and select the AI agent
-5. Click **Create**
+1. Ve a **Integrations** desde la barra lateral
+2. Desplázate a la sección **Website Widget**
+3. Haz clic en **Create Widget**
+4. Ingresa un nombre y selecciona el agent de IA
+5. Haz clic en **Create**
 
-### 2. Customize Appearance
+### 2. Personalizar la Apariencia
 
-Click the widget card to open the edit sheet:
+Haz clic en la tarjeta del widget para abrir el panel de edición:
 
-- **Primary Color** — Chat bubble and header color
-- **Text Color** — Text on the bubble and header
-- **Position** — Bottom-right or bottom-left
-- **Welcome Message** — First message visitors see
-- **Suggested Questions** — Up to 4 clickable starters
-- **Avatar URL** — Custom image in the chat header
-- **Border Radius** — Corner roundness
+- **Primary Color** — Color de la burbuja de chat y el encabezado
+- **Text Color** — Texto en la burbuja y el encabezado
+- **Position** — Inferior derecha o inferior izquierda
+- **Welcome Message** — Primer mensaje que ven los visitantes
+- **Suggested Questions** — Hasta 4 preguntas iniciales clicables
+- **Avatar URL** — Imagen personalizada en el encabezado del chat
+- **Border Radius** — Redondez de las esquinas
 
-A live preview updates as you make changes.
+Una vista previa en vivo se actualiza a medida que realizas cambios.
 
-### 3. Set Allowed Domains (Recommended)
+### 3. Configurar Dominios Permitidos (Recomendado)
 
-Restrict which websites can embed your widget:
+Restringe qué sitios web pueden integrar tu widget:
 
-- Leave empty to allow all domains (default)
-- Add specific domains: `example.com`, `*.example.com`
-- Use port entries for development: `localhost:3000`
+- Déjalo vacío para permitir todos los dominios (predeterminado)
+- Agrega dominios específicos: `example.com`, `*.example.com`
+- Usa entradas con puerto para desarrollo: `localhost:3000`
 
-### 4. Embed on Your Website
+### 4. Integrar en tu Sitio Web
 
-Click the embed icon on your widget card and copy the code:
+Haz clic en el ícono de embed en la tarjeta del widget y copia el código:
 
 ```html
 <script src="https://core-api.cuneiform.chat/api/widget/widget.js"
   data-widget-id="your-widget-id" async></script>
 ```
 
-Paste before the closing `</body>` tag on your website.
+Pégalo antes de la etiqueta de cierre `</body>` en tu sitio web.
 
-## How It Works
+## Cómo Funciona
 
 ```
-Visitor opens your website
-  → Chat bubble appears in the corner
-  → Visitor clicks → Chat panel opens
-  → Welcome message + suggested questions shown
-  → Visitor types a question
-  → AI agent searches your content
-  → Response streams in real-time
+El visitante abre tu sitio web
+  → La burbuja de chat aparece en la esquina
+  → El visitante hace clic → Se abre el panel de chat
+  → Se muestran el mensaje de bienvenida + preguntas sugeridas
+  → El visitante escribe una pregunta
+  → El agent de IA busca en tu contenido
+  → La respuesta se transmite en tiempo real
 ```
 
-Messages are processed in real-time. The agent searches your content and generates responses using the same AI pipeline as all other channels.
+Los mensajes se procesan en tiempo real. El agent busca en tu contenido y genera respuestas usando el mismo pipeline de IA que todos los demás canales.
 
-## Features
+## Características
 
-### Streaming Responses
+### Respuestas con Streaming
 
-Responses stream in real-time using Server-Sent Events (SSE). Visitors see the answer appear progressively, similar to ChatGPT.
+Las respuestas se transmiten en tiempo real usando Server-Sent Events (SSE). Los visitantes ven la respuesta aparecer progresivamente, similar a ChatGPT.
 
-### Session Persistence
+### Persistencia de Sesión
 
-Returning visitors on the same browser resume their previous conversation within a 24-hour window. Sessions are stored in the browser's localStorage.
+Los visitantes que regresan en el mismo navegador retoman su conversación anterior dentro de una ventana de 24 horas. Las sesiones se almacenan en el localStorage del navegador.
 
-### Suggested Questions
+### Preguntas Sugeridas
 
-Configure up to 4 clickable questions that appear when the chat opens. Great for guiding visitors toward common topics.
+Configura hasta 4 preguntas clicables que aparecen cuando se abre el chat. Ideal para guiar a los visitantes hacia temas comunes.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  The widget runs inside a Shadow DOM, so it won't interfere with your website's styles or JavaScript.
+  El widget se ejecuta dentro de un Shadow DOM, por lo que no interferirá con los estilos ni el JavaScript de tu sitio web.
 </Callout>
 
-### Markdown Rendering
+### Renderizado de Markdown
 
-Agent responses support markdown formatting including bold, italic, lists, code blocks, and links.
+Las respuestas del agent soportan formato markdown incluyendo negritas, cursiva, listas, bloques de código y enlaces.
 
-## Managing Widgets
+## Gestión de Widgets
 
-On the Integrations page, each widget card shows:
+En la página de Integrations, cada tarjeta de widget muestra:
 
-- Widget name and status
-- Assigned agent
-- Edit, embed code, and delete actions
+- Nombre del widget y estado
+- Agent asignado
+- Acciones de editar, código embed y eliminar
 
-| Action | How |
-|--------|-----|
-| Edit settings | Click the widget card |
-| Get embed code | Click the embed icon |
-| Delete | Three-dot menu → Delete |
+| Acción | Cómo |
+|--------|------|
+| Editar configuración | Haz clic en la tarjeta del widget |
+| Obtener código embed | Haz clic en el ícono de embed |
+| Eliminar | Menú de tres puntos → Delete |
 
-## Security
+## Seguridad
 
-- **Shadow DOM isolation** — Widget is sandboxed from your page
-- **HMAC session tokens** — Signed tokens with 24-hour expiry
-- **Domain allowlisting** — Restrict which sites can embed your widget
-- **Rate limiting** — 30 messages/minute per session
-- **No data access** — Widget cannot read or modify your page content
+- **Aislamiento Shadow DOM** — El widget está aislado de tu página
+- **Tokens de sesión HMAC** — Tokens firmados con expiración de 24 horas
+- **Allowlisting de dominios** — Restringe qué sitios pueden integrar tu widget
+- **Rate limiting** — 30 mensajes/minuto por sesión
+- **Sin acceso a datos** — El widget no puede leer ni modificar el contenido de tu página
 
-## Troubleshooting
+## Solución de Problemas
 
-### Widget doesn't appear
+### El widget no aparece
 
-1. Verify the script tag is before `</body>`, not in `<head>`
-2. Check `data-widget-id` matches your admin panel
-3. If domain allowlisting is set, verify your domain is listed
-4. Check the browser console for errors
+1. Verifica que la etiqueta script esté antes de `</body>`, no en `<head>`
+2. Comprueba que `data-widget-id` coincida con tu panel de admin
+3. Si el allowlisting de dominios está configurado, verifica que tu dominio esté listado
+4. Revisa la consola del navegador para errores
 
-### Widget doesn't respond
+### El widget no responde
 
-1. Ensure the assigned agent is in **Active** status
-2. Verify the agent has documents in its content
-3. Check the browser Network tab for failed API requests
+1. Asegúrate de que el agent asignado esté en estado **Active**
+2. Verifica que el agent tenga documentos en su contenido
+3. Revisa la pestaña Network del navegador para solicitudes API fallidas
 
-### Appearance issues
+### Problemas de apariencia
 
-The widget uses Shadow DOM isolation. Your page's CSS will not affect the widget. Use the edit sheet's live preview to customize appearance.
+El widget usa aislamiento Shadow DOM. El CSS de tu página no afectará al widget. Usa la vista previa en vivo del panel de edición para personalizar la apariencia.
 
-## FAQ
+## Preguntas Frecuentes
 
-### Can I embed the widget on multiple pages?
+### ¿Puedo integrar el widget en múltiples páginas?
 
-Yes. Use the same embed code on every page. The widget shares session state across pages on the same domain.
+Sí. Usa el mismo código embed en cada página. El widget comparte el estado de sesión entre páginas del mismo dominio.
 
-### Does it work on mobile?
+### ¿Funciona en dispositivos móviles?
 
-Yes. The widget is fully responsive and optimized for mobile browsers.
+Sí. El widget es completamente responsivo y está optimizado para navegadores móviles.
 
-### Can I remove the "Powered by" badge?
+### ¿Puedo eliminar el badge "Powered by"?
 
-The badge is required on Trial and Starter plans. Upgrade to Professional or higher to remove it.
+El badge es obligatorio en los planes Trial y Starter. Actualiza a Professional o superior para eliminarlo.
 
-### Does it work with React/Next.js/Vue?
+### ¿Funciona con React/Next.js/Vue?
 
-Yes. The widget loads as a standalone script and works with any framework, including single-page applications.
+Sí. El widget se carga como un script independiente y funciona con cualquier framework, incluyendo aplicaciones de página única.
 
-### What's the message length limit?
+### ¿Cuál es el límite de longitud de mensajes?
 
-4,000 characters per message.
+4,000 caracteres por mensaje.

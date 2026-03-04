@@ -1,202 +1,199 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Integración con WhatsApp
 
-# WhatsApp Integration
+Conecta tu agent a WhatsApp Business para comunicación con clientes.
 
-Connect your agent to WhatsApp Business for customer communication.
+## Descripción General
 
-## Overview
+La integración con WhatsApp proporciona:
+- Capacidades de mensajería empresarial
+- Soporte de medios enriquecidos
+- Respuestas automatizadas
+- Alcance global
+- Cumplimiento de la ventana de mensajería de 24 horas
 
-WhatsApp integration provides:
-- Business messaging capabilities
-- Rich media support
-- Automated responses
-- Global reach
-- 24-hour messaging window compliance
+## Requisitos Previos
 
-## Prerequisites
+- Un agent de IA activo (creado en la sección Agents)
+- Una WhatsApp Business Account (WABA)
+- Un número de teléfono verificado en WhatsApp Business
+- Acceso al Meta Developer Portal
 
-- An active AI agent (created in the Agents section)
-- A WhatsApp Business Account (WABA)
-- A verified phone number in WhatsApp Business
-- Access to the Meta Developer Portal
+## Pasos de Configuración
 
-## Setup Steps
+### 1. Conectar con Embedded Signup (Recomendado)
 
-### 1. Connect with Embedded Signup (Recommended)
+La forma más fácil de conectar WhatsApp es a través del flujo de registro integrado de Meta:
 
-The easiest way to connect WhatsApp is through the embedded Meta signup flow:
-
-1. Go to **Agents** → Select your agent
-2. Navigate to **Integrations** tab
-3. Click **WhatsApp**
-4. Click **Connect with Facebook** to open the Meta signup popup
-5. Log in with your Facebook/Meta account
-6. Select or create a WhatsApp Business Account
-7. Choose the phone number to connect
-8. The popup closes and your connection is established
+1. Ve a **Agents** → Selecciona tu agent
+2. Navega a la pestaña **Integrations**
+3. Haz clic en **WhatsApp**
+4. Haz clic en **Connect with Facebook** para abrir el popup de registro de Meta
+5. Inicia sesión con tu cuenta de Facebook/Meta
+6. Selecciona o crea una WhatsApp Business Account
+7. Elige el número de teléfono a conectar
+8. El popup se cierra y tu conexión queda establecida
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  The embedded signup flow handles most of the configuration automatically. It's the recommended method for most users.
+  El flujo de embedded signup maneja la mayor parte de la configuración automáticamente. Es el método recomendado para la mayoría de los usuarios.
 </Callout>
 
-### 2. Phone Verification (If Required)
+### 2. Verificación de Teléfono (Si es Necesario)
 
-After completing the Meta signup, you may need to verify your phone number:
+Después de completar el registro con Meta, puede que necesites verificar tu número de teléfono:
 
-1. Choose how to receive your verification code: **SMS** or **Voice Call**
-2. Click **Send Code**
-3. Enter the 6-digit code you receive
-4. Click **Verify**
+1. Elige cómo recibir tu código de verificación: **SMS** o **Voice Call**
+2. Haz clic en **Send Code**
+3. Ingresa el código de 6 dígitos que recibas
+4. Haz clic en **Verify**
 
-If you didn't receive the code, click "Didn't receive the code? Send again" to retry.
+Si no recibiste el código, haz clic en "Didn't receive the code? Send again" para reintentar.
 
-### 3. Two-Step Verification (If Enabled)
+### 3. Two-Step Verification (Si está Habilitada)
 
-If your WhatsApp Business account has Two-Step Verification enabled:
+Si tu cuenta de WhatsApp Business tiene Two-Step Verification habilitada:
 
-1. Enter your 6-digit PIN when prompted
-2. Click **Complete Registration**
+1. Ingresa tu PIN de 6 dígitos cuando se solicite
+2. Haz clic en **Complete Registration**
 
 <Callout type="info">
-  This PIN was set up in WhatsApp Business Manager → Security Center. It's different from the SMS verification code.
+  Este PIN fue configurado en WhatsApp Business Manager → Security Center. Es diferente del código de verificación por SMS.
 </Callout>
 
-### 4. Configure Webhook (If Required)
+### 4. Configurar Webhook (Si es Necesario)
 
-After setup, you may need to configure your webhook in Meta Business Suite:
+Después de la configuración, puede que necesites configurar tu webhook en Meta Business Suite:
 
-1. Copy the webhook URL provided after connection
-2. In Meta Developer Portal, go to **WhatsApp** → **Configuration**
-3. Add the webhook URL
-4. Subscribe to the `messages` webhook field
+1. Copia la webhook URL proporcionada después de la conexión
+2. En el Meta Developer Portal, ve a **WhatsApp** → **Configuration**
+3. Agrega la webhook URL
+4. Suscríbete al campo webhook `messages`
 
-## Using the Bot
+## Uso del Bot
 
-### Customer Messages
+### Mensajes de Clientes
 
-When customers message your WhatsApp number:
+Cuando los clientes envían mensajes a tu número de WhatsApp:
 
-1. Message arrives via WhatsApp
-2. Cuneiform Chat processes the request
-3. Agent generates response from content
-4. Response sent back to customer
+1. El mensaje llega a través de WhatsApp
+2. Cuneiform Chat procesa la solicitud
+3. El agent genera la respuesta desde el contenido
+4. La respuesta se envía de vuelta al cliente
 
-### Conversation Flow
+### Flujo de Conversación
 
 ```
-Customer → WhatsApp → Cuneiform Chat → Agent → Response → Customer
+Cliente → WhatsApp → Cuneiform Chat → Agent → Respuesta → Cliente
 ```
 
-## Features
+## Características
 
-### 24-Hour Messaging Window
+### Ventana de Mensajería de 24 Horas
 
-WhatsApp Business API rules:
-- You can respond to customer-initiated messages for 24 hours
-- After 24 hours, the window closes until the customer messages again
-- Each new customer message reopens the window
+Reglas de la API de WhatsApp Business:
+- Puedes responder a mensajes iniciados por clientes durante 24 horas
+- Después de 24 horas, la ventana se cierra hasta que el cliente envíe un nuevo mensaje
+- Cada nuevo mensaje del cliente reabre la ventana
 
 <Callout type="info">
-  Your agent responds within the 24-hour window automatically. Template messages for re-engagement are not currently supported.
+  Tu agent responde dentro de la ventana de 24 horas automáticamente. Los mensajes de plantilla para reactivación no están soportados actualmente.
 </Callout>
 
-### Rich Media
+### Medios Enriquecidos
 
-Responses can include:
-- Text messages
-- Links
-- Formatted text
+Las respuestas pueden incluir:
+- Mensajes de texto
+- Enlaces
+- Texto formateado
 
-### Multi-Language
+### Multi-Idioma
 
-Your agent automatically detects the customer's language and responds in kind — 176 languages supported, no configuration needed.
+Tu agent detecta automáticamente el idioma del cliente y responde en consecuencia — 176 idiomas soportados, sin necesidad de configuración.
 
-## Managing Connected Numbers
+## Gestión de Números Conectados
 
-Each connected WhatsApp number displays:
-- **Business name** or display phone number
-- **Status badge** - Active, Inactive, or Error
-- **Phone number**
-- **Last activity** timestamp
+Cada número de WhatsApp conectado muestra:
+- **Nombre comercial** o número de teléfono
+- **Badge de estado** - Active, Inactive o Error
+- **Número de teléfono**
+- **Última actividad** con marca de tiempo
 
-### Available Actions
+### Acciones Disponibles
 
-| Action | Description |
+| Acción | Descripción |
 |--------|-------------|
-| **Test Connection** | Verifies the integration is working |
-| **Disconnect** | Removes this integration |
+| **Test Connection** | Verifica que la integración esté funcionando |
+| **Disconnect** | Elimina esta integración |
 
-Access these via the three-dot menu on the integration card.
+Accede a estas opciones mediante el menú de tres puntos en la tarjeta de integración.
 
-## Troubleshooting
+## Solución de Problemas
 
-### Connection Failed
+### Conexión Fallida
 
-1. Ensure you have a valid WhatsApp Business Account
-2. Check that your phone number is verified
-3. Try the embedded signup flow again
+1. Asegúrate de tener una WhatsApp Business Account válida
+2. Verifica que tu número de teléfono esté verificado
+3. Intenta el flujo de embedded signup nuevamente
 
-### Phone Verification Not Working
+### La Verificación de Teléfono No Funciona
 
-1. Ensure you have access to the phone number for SMS/Voice
-2. Wait a few minutes before requesting a new code
-3. Check that the phone number isn't already connected elsewhere
+1. Asegúrate de tener acceso al número de teléfono para SMS/Voice
+2. Espera unos minutos antes de solicitar un nuevo código
+3. Verifica que el número de teléfono no esté ya conectado en otro lugar
 
-### Two-Step Verification Error
+### Error de Two-Step Verification
 
-1. Enter the PIN set up in WhatsApp Business Manager → Security Center
-2. This is different from the SMS verification code
-3. Contact your WhatsApp Business admin if you don't know the PIN
+1. Ingresa el PIN configurado en WhatsApp Business Manager → Security Center
+2. Este es diferente del código de verificación por SMS
+3. Contacta a tu admin de WhatsApp Business si no conoces el PIN
 
-### Messages Not Arriving
+### Los Mensajes No Llegan
 
-1. Verify webhook is configured correctly in Meta Business Suite
-2. Check webhook subscription includes `messages`
-3. Confirm the integration status is "Active"
+1. Verifica que el webhook esté configurado correctamente en Meta Business Suite
+2. Comprueba que la suscripción del webhook incluya `messages`
+3. Confirma que el estado de la integración sea "Active"
 
-### Response Failures
+### Fallos en las Respuestas
 
-1. Check your agent works in Playground
-2. Verify the 24-hour window is active (customer messaged recently)
-3. Check the integration status in the admin panel
+1. Verifica que tu agent funcione en el Playground
+2. Confirma que la ventana de 24 horas esté activa (el cliente envió un mensaje recientemente)
+3. Revisa el estado de la integración en el panel de admin
 
-## Security
+## Seguridad
 
-- Access tokens are encrypted and stored securely
-- Messages processed over secure connections
+- Los access tokens se encriptan y almacenan de forma segura
+- Los mensajes se procesan a través de conexiones seguras
 
-## Compliance
+## Cumplimiento
 
-WhatsApp Business has usage policies:
-- Respond only to customer-initiated conversations
-- Provide opt-out options
-- Follow Meta's Commerce and Business policies
+WhatsApp Business tiene políticas de uso:
+- Responde solo a conversaciones iniciadas por el cliente
+- Proporciona opciones de exclusión
+- Sigue las políticas de Commerce y Business de Meta
 
-## Disconnecting
+## Desconexión
 
-To remove the WhatsApp integration:
+Para eliminar la integración con WhatsApp:
 
-1. Go to **Agents** → Select agent → **Integrations**
-2. Click the three-dot menu on your WhatsApp integration
-3. Select **Disconnect**
+1. Ve a **Agents** → Selecciona el agent → **Integrations**
+2. Haz clic en el menú de tres puntos de tu integración de WhatsApp
+3. Selecciona **Disconnect**
 
-This stops the agent from responding. To fully remove:
-- Delete the webhook in Meta Developer Portal
-- Optionally remove the WhatsApp product from your Meta app
+Esto detiene las respuestas del agent. Para eliminar completamente:
+- Elimina el webhook en el Meta Developer Portal
+- Opcionalmente elimina el producto de WhatsApp de tu app de Meta
 
-## Common Questions
+## Preguntas Frecuentes
 
-**Q: How do I connect WhatsApp?**
-A: Use the embedded signup by clicking "WhatsApp" in the Integrations tab, then "Connect with Facebook". This guides you through the Meta signup process automatically.
+**P: ¿Cómo conecto WhatsApp?**
+R: Usa el embedded signup haciendo clic en "WhatsApp" en la pestaña Integrations, luego "Connect with Facebook". Esto te guía automáticamente a través del proceso de registro de Meta.
 
-**Q: Why am I asked for a verification code?**
-A: WhatsApp requires phone verification for new connections. Choose SMS or Voice Call to receive a 6-digit code, then enter it to complete setup.
+**P: ¿Por qué me piden un código de verificación?**
+R: WhatsApp requiere verificación telefónica para nuevas conexiones. Elige SMS o Voice Call para recibir un código de 6 dígitos, luego ingrésalo para completar la configuración.
 
-**Q: What is the Two-Step Verification PIN?**
-A: If you enabled Two-Step Verification in WhatsApp Business Manager, you'll need to enter that 6-digit PIN during setup. This is different from the SMS verification code.
+**P: ¿Qué es el PIN de Two-Step Verification?**
+R: Si habilitaste Two-Step Verification en WhatsApp Business Manager, necesitarás ingresar ese PIN de 6 dígitos durante la configuración. Es diferente del código de verificación por SMS.
 
-**Q: Can I connect multiple WhatsApp numbers?**
-A: Yes, you can connect multiple WhatsApp Business numbers. Each number can be connected to a different (or the same) AI agent.
+**P: ¿Puedo conectar múltiples números de WhatsApp?**
+R: Sí, puedes conectar múltiples números de WhatsApp Business. Cada número puede conectarse a un agent de IA diferente (o al mismo).

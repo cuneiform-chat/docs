@@ -1,56 +1,52 @@
 ---
-description: Deploy AI chatbots to Telegram, Discord, Slack, WhatsApp, Google Chat, Facebook Messenger, and your own website.
+description: Despliega chatbots de IA en Telegram, Discord, Slack, WhatsApp, Google Chat, Facebook Messenger y tu propio sitio web.
 ---
 
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Integraciones
 
+Despliega tus agents en múltiples canales y llega a los usuarios dondequiera que estén.
 
-# Integrations
+## Canales Disponibles
 
-Deploy your agents to multiple channels and reach users wherever they are.
+| Canal | Descripción | Ideal Para |
+|-------|-------------|------------|
+| [Telegram](/integrations/telegram) | Telegram bot | Usuarios móviles, comunidades |
+| [Discord](/integrations/discord) | Discord bot con slash commands | Gaming, comunidades de desarrolladores |
+| [Slack](/integrations/slack) | Slack app | Workspaces de equipo |
+| [WhatsApp](/integrations/whatsapp) | WhatsApp Business | Comunicación con clientes |
+| [Google Chat](/integrations/google-chat) | Google Workspace app | Equipos empresariales |
+| [Meta (Facebook)](/integrations/facebook) | Facebook Messenger | Audiencia de consumidores |
+| [Website Widget](/integrations/website-widget) | Widget de chat integrable | Soporte al cliente, cualquier sitio web |
 
-## Available Channels
+## Cómo Funcionan las Integraciones
 
-| Channel | Description | Best For |
-|---------|-------------|----------|
-| [Telegram](/integrations/telegram) | Telegram bot | Mobile users, communities |
-| [Discord](/integrations/discord) | Discord bot with slash commands | Gaming, developer communities |
-| [Slack](/integrations/slack) | Slack app | Team workspaces |
-| [WhatsApp](/integrations/whatsapp) | WhatsApp Business | Customer communication |
-| [Google Chat](/integrations/google-chat) | Google Workspace app | Enterprise teams |
-| [Meta (Facebook)](/integrations/facebook) | Facebook Messenger | Consumer audience |
-| [Website Widget](/integrations/website-widget) | Embeddable chat widget | Customer support, any website |
+1. **Configure** — Configure la integración para el canal elegido
+2. **Connect** — Vincule su agent al canal
+3. **Deploy** — Su agent queda disponible para los usuarios
+4. **Monitor** — Monitoree las conversaciones y el uso
 
-## How Integrations Work
+## Despliegue Multicanal
 
-1. **Configure** — Set up the integration for your chosen channel
-2. **Connect** — Link your agent to the channel
-3. **Deploy** — Your agent becomes available to users
-4. **Monitor** — Track conversations and usage
+Un solo agent puede desplegarse en múltiples canales simultáneamente:
 
-## Multi-Channel Deployment
+- Mismo contenido en todos los canales
+- Respuestas consistentes en todas partes
+- Historial de conversaciones centralizado
+- Analytics unificados
 
-A single agent can be deployed to multiple channels simultaneously:
+## Características por Canal
 
-- Same content across all channels
-- Consistent responses everywhere
-- Centralized conversation history
-- Unified analytics
+Cada canal tiene capacidades únicas:
 
-## Channel-Specific Features
+- **Telegram** — Mensajes enriquecidos, teclados inline
+- **Discord** — Slash commands, integración con servidores
+- **Slack** — Apps de workspace, respuestas en canales
+- **WhatsApp** — Mensajería empresarial, medios enriquecidos
+- **Google Chat** — Integración con Google Workspace, soporte de Spaces
+- **Meta (Facebook)** — Integración con Messenger, mensajería de Page
+- **Website Widget** — Chat integrable, apariencia personalizable, allowlisting de dominios
 
-Each channel has unique capabilities:
-
-- **Telegram** — Rich messages, inline keyboards
-- **Discord** — Slash commands, server integration
-- **Slack** — Workspace apps, channel responses
-- **WhatsApp** — Business messaging, rich media
-- **Google Chat** — Google Workspace integration, spaces support
-- **Meta (Facebook)** — Messenger integration, page messaging
-- **Website Widget** — Embeddable chat, customizable appearance, domain allowlisting
-
-## Getting Started
+## Comenzar
 
 import { Cards } from 'nextra/components'
 
@@ -64,12 +60,12 @@ import { Cards } from 'nextra/components'
   <Cards.Card title="Website Widget" href="/integrations/website-widget" />
 </Cards>
 
-## Requirements
+## Requisitos
 
-Before setting up integrations:
+Antes de configurar integraciones:
 
-1. ✅ Create at least one agent
-2. ✅ Upload documents to your content
-3. ✅ Test your agent in the Playground
+1. ✅ Cree al menos un agent
+2. ✅ Suba documentos a su contenido
+3. ✅ Pruebe su agent en el Playground
 
-Each channel may have additional requirements (bot tokens, app credentials, etc.) detailed in their respective guides.
+Cada canal puede tener requisitos adicionales (bot tokens, credenciales de app, etc.) detallados en sus respectivas guías.

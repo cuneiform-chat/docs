@@ -1,81 +1,78 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Agregar Contenido
 
-# Add Content
+El conocimiento de tu chatbot proviene del contenido que proporcionas. Esta guía te muestra cómo subir documentos y rastrear sitios web para construir tu contenido.
 
-Your chatbot's knowledge comes from the content you provide. This guide shows you how to upload documents and crawl websites to build your content.
+## Acceder al contenido
 
-## Accessing Content
+1. Inicia sesión en tu dashboard de Cuneiform Chat
+2. Navega a **Knowledge** en la barra lateral
+3. Haz clic en **Upload Documents** o arrastra y suelta archivos
 
-1. Sign in to your Cuneiform Chat dashboard
-2. Navigate to **Knowledge** in the sidebar
-3. Click **Upload Documents** or drag and drop files
+## Tipos de archivo compatibles
 
-## Supported File Types
+Cuneiform Chat soporta una amplia variedad de formatos de documentos:
 
-Cuneiform Chat supports a wide range of document formats:
+| Formato | Extensiones | Notas |
+|---------|------------|-------|
+| PDF | `.pdf` | Basados en texto y escaneados (OCR) |
+| Word | `.docx`, `.doc` | Documentos de Microsoft Word |
+| Texto | `.txt`, `.md`, `.rtf` | Texto plano, Markdown, Rich Text |
+| PowerPoint | `.pptx`, `.ppt` | Diapositivas de presentación |
+| Web/Datos | `.html`, `.htm`, `.json`, `.xml` | Páginas web y datos estructurados |
 
-| Format | Extensions | Notes |
-|--------|-----------|-------|
-| PDF | `.pdf` | Text-based and scanned (OCR) |
-| Word | `.docx`, `.doc` | Microsoft Word documents |
-| Text | `.txt`, `.md`, `.rtf` | Plain text, Markdown, Rich Text |
-| PowerPoint | `.pptx`, `.ppt` | Presentation slides |
-| Web/Data | `.html`, `.htm`, `.json`, `.xml` | Web pages and structured data |
+## Métodos de subida
 
-## Upload Methods
+### Subida directa
 
-### Direct Upload
+1. Haz clic en **Upload Documents**
+2. Selecciona archivos desde tu computadora
+3. Espera a que se complete el procesamiento
 
-1. Click **Upload Documents**
-2. Select files from your computer
-3. Wait for processing to complete
+### Arrastrar y soltar
 
-### Drag and Drop
+Simplemente arrastra archivos desde tu computadora y suéltalos en el área de contenido.
 
-Simply drag files from your computer and drop them into the Content area.
+### Almacenamiento en la nube
 
-### Cloud Storage
+Conecta tu almacenamiento en la nube para importaciones fluidas:
 
-Connect your cloud storage for seamless imports:
+- **Google Drive** — Importa directamente desde tu Drive
+- **Dropbox** — Conecta tu cuenta de Dropbox
+- **OneDrive** — Importa desde Microsoft OneDrive
+- **Box** — Conecta tu cuenta de Box
 
-- **Google Drive** — Import directly from your Drive
-- **Dropbox** — Connect your Dropbox account
-- **OneDrive** — Import from Microsoft OneDrive
-- **Box** — Connect your Box account
+Consulta [Integración de almacenamiento en la nube](/es/knowledge-base/cloud-storage) para instrucciones de configuración.
 
-See [Cloud Storage Integration](/knowledge-base/cloud-storage) for setup instructions.
+### Rastreo de sitios web
 
-### Website Crawling
+Rastrea sitios web públicos e importa el contenido como documentos:
 
-Crawl public websites and import the content as documents:
+1. Navega a **Knowledge** y haz clic en la pestaña **Website**
+2. Ingresa una URL y haz clic en **Crawl**
+3. Revisa y edita las páginas rastreadas
+4. Selecciona las páginas y haz clic en **Process Selected**
 
-1. Navigate to **Knowledge** and click the **Website** tab
-2. Enter a URL and click **Crawl**
-3. Review and edit crawled pages
-4. Select pages and click **Process Selected**
+El rastreador sigue enlaces hasta 2 niveles de profundidad. La cantidad de páginas que puedes rastrear depende de tu [plan](/es/billing/plans).
 
-The crawler follows links up to 2 levels deep. The number of pages you can crawl depends on your [plan](/billing/plans).
+Consulta [Rastreo de sitios web](/es/knowledge-base/website-crawling) para la guía completa.
 
-See [Website Crawling](/knowledge-base/website-crawling) for the full guide.
+## Procesamiento de documentos
 
-## Document Processing
-
-After uploading or crawling, your content is automatically processed and made searchable by your agents.
+Después de subir o rastrear, tu contenido se procesa automáticamente y queda disponible para búsqueda por tus agents.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Processing time depends on document size and complexity. Most documents complete within a few minutes. The system automatically detects duplicate content to avoid redundant uploads.
+  El tiempo de procesamiento depende del tamaño y complejidad del documento. La mayoría de los documentos se completan en pocos minutos. El sistema detecta automáticamente contenido duplicado para evitar subidas redundantes.
 </Callout>
 
-## Best Practices
+## Mejores prácticas
 
-- **Quality over quantity** — Well-structured documents produce better responses
-- **Keep content current** — Remove outdated documents to avoid confusion
-- **Organize with folders** — Use the folder structure to keep documents organized
-- **Crawl selectively** — Review and edit crawled pages before processing to remove navigation and boilerplate
+- **Calidad sobre cantidad** — Documentos bien estructurados producen mejores respuestas
+- **Mantén el contenido actualizado** — Elimina documentos desactualizados para evitar confusiones
+- **Organiza con carpetas** — Usa la estructura de carpetas para mantener los documentos organizados
+- **Rastrea selectivamente** — Revisa y edita las páginas rastreadas antes de procesarlas para eliminar navegación y contenido repetitivo
 
-## Next Step
+## Siguiente paso
 
-With documents uploaded, you're ready to [create your first agent](/getting-started/first-agent).
+Con los documentos subidos, estás listo para [crear tu primer agent](/es/getting-started/first-agent).

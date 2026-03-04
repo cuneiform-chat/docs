@@ -1,156 +1,153 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Integración con Meta (Facebook)
 
-# Meta (Facebook) Integration
+Conecta tu agent a Facebook Messenger a través de tu Facebook Page.
 
-Connect your agent to Facebook Messenger through your Facebook Page.
+## Descripción General
 
-## Overview
+La integración con Meta proporciona:
+- Conversaciones por Facebook Messenger a través de tu Page
+- Procesamiento en segundo plano con indicadores de escritura
+- División automática de mensajes para respuestas largas
+- Cumplimiento de la ventana de mensajería de 24 horas
+- Memoria de conversación dentro de las sesiones
 
-Meta integration provides:
-- Facebook Messenger conversations via your Page
-- Background processing with typing indicators
-- Automatic message splitting for long responses
-- 24-hour messaging window compliance
-- Conversation memory within sessions
+## Requisitos Previos
 
-## Prerequisites
+- Una Facebook Page que administres
+- Rol de Admin o Editor en la Page
+- Cuenta de Cuneiform Chat con un agent activo
 
-- A Facebook Page you manage
-- Admin or Editor role on the Page
-- Cuneiform Chat account with an active agent
+## Pasos de Configuración
 
-## Setup Steps
+### 1. Iniciar la Configuración de la Integración
 
-### 1. Start Integration Setup
+1. Ve a **Agents** → Selecciona tu agent
+2. Navega a la pestaña **Integrations**
+3. Haz clic en **Meta (Facebook)**
+4. Haz clic en **Connect Page**
 
-1. Go to **Agents** → Select your agent
-2. Navigate to **Integrations** tab
-3. Click **Meta (Facebook)**
-4. Click **Connect Page**
+### 2. Autorizar con Facebook
 
-### 2. Authorize with Facebook
+1. Selecciona qué **Agent** debe responder
+2. Haz clic en **Connect with Facebook**
+3. Inicia sesión en Facebook (si es necesario)
+4. Selecciona la Page que deseas conectar
+5. Otorga permisos de Messenger
+6. Serás redirigido de vuelta con un mensaje de éxito
 
-1. Select which **Agent** should respond
-2. Click **Connect with Facebook**
-3. Log in to Facebook (if needed)
-4. Select the Page you want to connect
-5. Grant Messenger permissions
-6. You'll be redirected back with a success message
+### 3. Verificar la Conexión
 
-### 3. Verify Connection
-
-Once connected, your Page will appear in the integrations list showing:
-- Page name and status
+Una vez conectada, tu Page aparecerá en la lista de integraciones mostrando:
+- Nombre de la Page y estado
 - Page ID
-- Last activity timestamp
+- Última actividad con marca de tiempo
 
-## How It Works
+## Cómo Funciona
 
-When users message your Facebook Page through Messenger:
+Cuando los usuarios envían mensajes a tu Facebook Page a través de Messenger:
 
-1. Message arrives via Facebook Messenger
-2. The bot shows a typing indicator while processing
-3. Your agent processes the question
-4. Response is sent back through Messenger
+1. El mensaje llega a través de Facebook Messenger
+2. El bot muestra un indicador de escritura mientras procesa
+3. Tu agent procesa la pregunta
+4. La respuesta se envía de vuelta a través de Messenger
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Messages are processed in the background. The bot shows a typing indicator while your agent generates a response.
+  Los mensajes se procesan en segundo plano. El bot muestra un indicador de escritura mientras tu agent genera una respuesta.
 </Callout>
 
-## Features
+## Características
 
-### Automatic Responses
+### Respuestas Automáticas
 
-Your agent automatically responds to incoming Messenger conversations based on your content. All text messages trigger a response — no commands or prefixes needed.
+Tu agent responde automáticamente a las conversaciones entrantes de Messenger basándose en tu contenido. Todos los mensajes de texto generan una respuesta — no se necesitan comandos ni prefijos.
 
-### Typing Indicators
+### Indicadores de Escritura
 
-While your agent processes a message, users see a typing indicator ("...") in Messenger, providing a natural conversation feel.
+Mientras tu agent procesa un mensaje, los usuarios ven un indicador de escritura ("...") en Messenger, proporcionando una sensación de conversación natural.
 
-### Message Splitting
+### División de Mensajes
 
-Responses longer than 2,000 characters are automatically split into multiple messages, preserving paragraph breaks and sentence boundaries for readability.
+Las respuestas de más de 2,000 caracteres se dividen automáticamente en múltiples mensajes, preservando los saltos de párrafo y los límites de oraciones para legibilidad.
 
-### Conversation Memory
+### Memoria de Conversación
 
-The bot remembers context within a session, so users can ask follow-up questions without repeating themselves.
+El bot recuerda el contexto dentro de una sesión, permitiendo a los usuarios hacer preguntas de seguimiento sin repetirse.
 
-### Message Queuing
+### Cola de Mensajes
 
-If a user sends additional messages while the bot is still processing, they are queued and included in the next response.
+Si un usuario envía mensajes adicionales mientras el bot aún está procesando, se ponen en cola y se incluyen en la siguiente respuesta.
 
-### 24-Hour Messaging Window
+### Ventana de Mensajería de 24 Horas
 
-Facebook's policy allows responses within 24 hours of the last user message. Your agent responds in real-time, well within this window. After 24 hours of inactivity, the user must send a new message to restart the conversation.
+La política de Facebook permite respuestas dentro de las 24 horas del último mensaje del usuario. Tu agent responde en tiempo real, bien dentro de esta ventana. Después de 24 horas de inactividad, el usuario debe enviar un nuevo mensaje para reiniciar la conversación.
 
 <Callout type="warning">
-  Users must message your Page first — you cannot send unsolicited messages. If more than 24 hours pass since their last message, the bot cannot reply until the user messages again.
+  Los usuarios deben enviar un mensaje a tu Page primero — no puedes enviar mensajes no solicitados. Si pasan más de 24 horas desde su último mensaje, el bot no puede responder hasta que el usuario envíe un mensaje nuevamente.
 </Callout>
 
-## Managing Pages
+## Gestión de Pages
 
-### View Connected Pages
+### Ver Pages Conectadas
 
-Each connected Page displays:
-- Page name and connection status
-- Associated agent
-- Activity information
+Cada Page conectada muestra:
+- Nombre de la Page y estado de conexión
+- Agent asociado
+- Información de actividad
 
-### Available Actions
+### Acciones Disponibles
 
-| Action | Description |
+| Acción | Descripción |
 |--------|-------------|
-| **Test Connection** | Verify the integration is working |
-| **Disconnect** | Remove the Page connection |
+| **Test Connection** | Verifica que la integración funcione |
+| **Disconnect** | Elimina la conexión de la Page |
 
-Access these via the three-dot menu on each connected Page.
+Accede a estas opciones mediante el menú de tres puntos en cada Page conectada.
 
-## Troubleshooting
+## Solución de Problemas
 
-### Page Not Appearing
+### La Page No Aparece
 
-1. Verify you have Admin or Editor role on the Page
-2. Check you granted all requested permissions
-3. Try disconnecting and reconnecting
+1. Verifica que tengas rol de Admin o Editor en la Page
+2. Comprueba que otorgaste todos los permisos solicitados
+3. Intenta desconectar y reconectar
 
-### Messages Not Receiving Responses
+### Los Mensajes No Reciben Respuestas
 
-1. Use "Test Connection" to verify the integration
-2. Check your agent is configured and working (test in Playground)
-3. Ensure Messenger permissions are granted
-4. Verify the user messaged within the last 24 hours (messaging window policy)
+1. Usa "Test Connection" para verificar la integración
+2. Verifica que tu agent esté configurado y funcionando (prueba en el Playground)
+3. Asegúrate de que los permisos de Messenger estén otorgados
+4. Confirma que el usuario envió un mensaje en las últimas 24 horas (política de ventana de mensajería)
 
-### Authorization Errors
+### Errores de Autorización
 
-1. Clear Facebook login session and try again
-2. Verify your Facebook account has Page access
-3. Check Page isn't restricted by Facebook
+1. Limpia la sesión de inicio de Facebook e intenta nuevamente
+2. Verifica que tu cuenta de Facebook tenga acceso a la Page
+3. Comprueba que la Page no esté restringida por Facebook
 
-## Security
+## Seguridad
 
-- **OAuth tokens** are encrypted and stored securely
-- **Webhook signatures** are verified using HMAC-SHA256 on every incoming request
-- No access to Page content beyond Messenger conversations
-- Compliant with Facebook Platform policies
+- Los **tokens OAuth** se encriptan y almacenan de forma segura
+- Las **firmas de webhook** se verifican usando HMAC-SHA256 en cada solicitud entrante
+- Sin acceso al contenido de la Page más allá de las conversaciones de Messenger
+- Cumple con las políticas de la plataforma de Facebook
 
-## Disconnecting
+## Desconexión
 
-To remove the Meta integration:
+Para eliminar la integración con Meta:
 
-1. Go to **Agents** → Select agent → **Integrations**
-2. Click the three-dot menu on your Page
-3. Select **Disconnect**
+1. Ve a **Agents** → Selecciona el agent → **Integrations**
+2. Haz clic en el menú de tres puntos de tu Page
+3. Selecciona **Disconnect**
 
-To fully revoke access:
-1. Go to Facebook Settings → Business Integrations
-2. Remove the Cuneiform Chat app
+Para revocar completamente el acceso:
+1. Ve a Facebook Settings → Business Integrations
+2. Elimina la app de Cuneiform Chat
 
-## Important Notes
+## Notas Importantes
 
-- **One agent per Page**: Each Facebook Page can only connect to one AI agent at a time
-- **Messenger only**: This integration works through Facebook Messenger, not Page comments or posts
-- **Message limit**: Individual messages are limited to 2,000 characters; longer responses are automatically split
-- **To change agents**: Disconnect the existing integration first, then reconnect with a different agent
+- **Un agent por Page**: Cada Facebook Page solo puede conectarse a un agent de IA a la vez
+- **Solo Messenger**: Esta integración funciona a través de Facebook Messenger, no comentarios ni publicaciones de la Page
+- **Límite de mensajes**: Los mensajes individuales están limitados a 2,000 caracteres; las respuestas más largas se dividen automáticamente
+- **Para cambiar agents**: Desconecta la integración existente primero, luego reconecta con un agent diferente

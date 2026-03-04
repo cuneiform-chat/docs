@@ -1,129 +1,126 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
-# Website Crawling
+# Rastreo de Sitios Web
 
 import { Callout } from 'nextra/components'
 
-Crawl public websites and add the content to your Content. The crawler visits pages, extracts content as Markdown, and lets you review and edit before processing.
+Rastree sitios web públicos y agregue el contenido a su Content. El crawler visita páginas, extrae contenido como Markdown y le permite revisar y editar antes de procesarlos.
 
-## Getting There
+## Cómo Llegar
 
-Navigate to **Knowledge** in the sidebar, then click the **Website** tab.
+Navegue a **Knowledge** en el menú lateral, luego haga clic en la pestaña **Website**.
 
-## How to Crawl a Website
+## Cómo Rastrear un Sitio Web
 
-### Step 1: Enter the URL
+### Paso 1: Ingrese la URL
 
-Paste the website URL in the input field (e.g., `https://docs.example.com`). The crawler will start from this page and follow links to discover more pages.
+Pegue la URL del sitio web en el campo de entrada (ej. `https://docs.example.com`). El crawler comenzará desde esta página y seguirá enlaces para descubrir más páginas.
 
-### Step 2: Configure Options
+### Paso 2: Configurar Opciones
 
-| Option | Default | Description |
-|--------|---------|-------------|
-| Target Folder | No folder (root) | Select a destination folder for crawled documents |
-| Single page only | Off | Only crawl the entered URL, don't follow links |
-| Respect robots.txt | On | Honor the site's robots.txt crawling rules |
+| Opción | Predeterminado | Descripción |
+|--------|---------------|-------------|
+| Carpeta de destino | Sin carpeta (raíz) | Seleccione una carpeta de destino para los documentos rastreados |
+| Solo página individual | Desactivado | Solo rastrear la URL ingresada, no seguir enlaces |
+| Respetar robots.txt | Activado | Respetar las reglas de rastreo del sitio en robots.txt |
 
-### Step 3: Start Crawling
+### Paso 3: Iniciar Rastreo
 
-Click **Crawl** to begin. The crawler visits pages starting from your URL and extracts their content.
+Haga clic en **Crawl** para comenzar. El crawler visita páginas comenzando desde su URL y extrae su contenido.
 
-### Step 4: Monitor Progress
+### Paso 4: Monitorear Progreso
 
-- A progress bar shows pages crawled vs. your plan's maximum
-- Pages appear in a live list as they are discovered
-- Click any page to preview its content immediately
-- Use the **Cancel** button to stop the crawl at any time
-
-<Callout type="info">
-  Only one crawl can run at a time per organization. Wait for the current crawl to complete or cancel it before starting another.
-</Callout>
-
-## Reviewing Crawled Pages
-
-After crawling completes, you can review and edit pages before adding them to your Content.
-
-### Edit Page Content
-
-1. Click any page in the list to open the editor
-2. Edit the **title** and **markdown content**
-3. Remove irrelevant sections (navigation menus, footers, sidebars)
-4. Click **Save** to update
+- Una barra de progreso muestra las páginas rastreadas vs. el máximo de su plan
+- Las páginas aparecen en una lista en tiempo real a medida que se descubren
+- Haga clic en cualquier página para previsualizar su contenido inmediatamente
+- Use el botón **Cancel** para detener el rastreo en cualquier momento
 
 <Callout type="info">
-  Only pages with "Pending" status can be edited. Once processing starts, pages cannot be changed.
+  Solo se puede ejecutar un rastreo a la vez por organización. Espere a que el rastreo actual se complete o cancélelo antes de iniciar otro.
 </Callout>
 
-### Select and Process Pages
+## Revisar Páginas Rastreadas
 
-1. Use checkboxes to select pages you want to keep
-2. Use **Select All** to select all pending pages at once
-3. Optionally choose a target folder
-4. Click **Process Selected**
+Después de completar el rastreo, puede revisar y editar las páginas antes de agregarlas a su Content.
 
-After processing starts, you're automatically switched to the **Documents** tab where the new documents will appear.
+### Editar Contenido de Página
 
-## Crawl Status Reference
+1. Haga clic en cualquier página de la lista para abrir el editor
+2. Edite el **título** y el **contenido en markdown**
+3. Elimine secciones irrelevantes (menús de navegación, pies de página, barras laterales)
+4. Haga clic en **Save** para actualizar
 
-| Status | Meaning |
-|--------|---------|
-| Pending | Crawl is queued to start |
-| Crawling | Actively visiting pages |
-| Completed | All reachable pages crawled |
-| Partial | Some pages crawled, some failed |
-| Failed | Crawl could not complete |
-| Cancelled | Stopped by you |
+<Callout type="info">
+  Solo las páginas con estado "Pending" se pueden editar. Una vez que comienza el procesamiento, las páginas no se pueden modificar.
+</Callout>
 
-## Session Persistence
+### Seleccionar y Procesar Páginas
 
-Your crawl session survives navigation and page refresh:
-- Active crawls automatically restore when you return to the Website tab
-- Completed crawls are available for review for up to 1 hour
+1. Use las casillas de verificación para seleccionar las páginas que desea conservar
+2. Use **Select All** para seleccionar todas las páginas pendientes a la vez
+3. Opcionalmente elija una carpeta de destino
+4. Haga clic en **Process Selected**
 
-## Tips
+Después de iniciar el procesamiento, se le redirige automáticamente a la pestaña **Documents** donde aparecerán los nuevos documentos.
 
-- Review and edit crawled content before processing to improve quality
-- Use "Single page only" for individual pages you want to add quickly
-- Keep "Respect robots.txt" enabled to follow site owner preferences
-- Crawled documents appear in the Documents tab as Markdown (.md) files
+## Referencia de Estado del Rastreo
 
-## Common Questions
+| Status | Significado |
+|--------|-------------|
+| Pending | El rastreo está en cola para iniciar |
+| Crawling | Visitando páginas activamente |
+| Completed | Todas las páginas accesibles rastreadas |
+| Partial | Algunas páginas rastreadas, algunas fallaron |
+| Failed | El rastreo no pudo completarse |
+| Cancelled | Detenido por usted |
 
-**Q: How many pages can I crawl?**
-A: The maximum number of pages depends on your plan. The crawler follows links up to 2 levels deep from your starting URL.
+## Persistencia de Sesión
 
-**Q: Can I crawl pages behind a login?**
-A: No. The crawler can only access publicly available pages. Pages behind authentication will be skipped.
+Su sesión de rastreo sobrevive la navegación y la recarga de página:
+- Los rastreos activos se restauran automáticamente cuando regresa a la pestaña Website
+- Los rastreos completados están disponibles para revisión hasta por 1 hora
 
-**Q: What format are crawled pages?**
-A: Content is extracted as Markdown (.md) documents and processed through the standard pipeline (chunking, embedding, and search indexing).
+## Consejos
 
-**Q: Why did some pages fail?**
-A: Pages can fail due to bot protection (firewalls like Cloudflare), server errors, or empty content. The crawl will show "Partial" status.
+- Revise y edite el contenido rastreado antes de procesarlo para mejorar la calidad
+- Use "Single page only" para páginas individuales que desee agregar rápidamente
+- Mantenga "Respect robots.txt" habilitado para respetar las preferencias del propietario del sitio
+- Los documentos rastreados aparecen en la pestaña Documents como archivos Markdown (.md)
 
-**Q: Can I re-crawl the same site?**
-A: Yes. Start a new crawl with the same URL. Previous crawled pages are replaced when a new crawl begins.
+## Preguntas Frecuentes
 
-**Q: Where do processed pages appear?**
-A: In the **Documents** tab of the Knowledge page. They appear as Markdown (.md) files.
+**P: ¿Cuántas páginas puedo rastrear?**
+R: El número máximo de páginas depende de su plan. El crawler sigue enlaces hasta 2 niveles de profundidad desde su URL inicial.
 
-## Troubleshooting
+**P: ¿Puedo rastrear páginas detrás de un login?**
+R: No. El crawler solo puede acceder a páginas disponibles públicamente. Las páginas detrás de autenticación se omitirán.
 
-### Pages Return 403 or 503 Errors
+**P: ¿En qué formato están las páginas rastreadas?**
+R: El contenido se extrae como documentos Markdown (.md) y se procesa a través del pipeline estándar (chunking, embedding e indexación de búsqueda).
 
-The site may be blocking automated crawlers. Options:
-- Ask the site owner to whitelist `CuneiformBot/1.0`
-- Try crawling a specific page with "Single page only" enabled
+**P: ¿Por qué fallaron algunas páginas?**
+R: Las páginas pueden fallar por protección contra bots (firewalls como Cloudflare), errores del servidor o contenido vacío. El rastreo mostrará el estado "Partial".
 
-### Empty or Garbled Content
+**P: ¿Puedo volver a rastrear el mismo sitio?**
+R: Sí. Inicie un nuevo rastreo con la misma URL. Las páginas rastreadas anteriormente se reemplazan cuando comienza un nuevo rastreo.
 
-Some sites use heavy JavaScript rendering. The crawler supports most modern frameworks, but:
-- Single-page apps that require authentication won't work
-- Content loaded via infinite scroll may be partially captured
+**P: ¿Dónde aparecen las páginas procesadas?**
+R: En la pestaña **Documents** de la página Knowledge. Aparecen como archivos Markdown (.md).
 
-### Crawl Seems Slow
+## Solución de Problemas
 
-- Each page takes a few seconds to crawl (includes rendering and rate limiting)
-- Larger sites with many pages will take several minutes
-- You can cancel and retry if a crawl appears stuck
+### Las páginas devuelven errores 403 o 503
+
+El sitio puede estar bloqueando crawlers automatizados. Opciones:
+- Pida al propietario del sitio que permita `CuneiformBot/1.0`
+- Intente rastrear una página específica con "Single page only" habilitado
+
+### Contenido vacío o ilegible
+
+Algunos sitios usan renderización intensiva de JavaScript. El crawler admite la mayoría de los frameworks modernos, pero:
+- Las aplicaciones de página única que requieren autenticación no funcionarán
+- El contenido cargado mediante scroll infinito puede capturarse parcialmente
+
+### El rastreo parece lento
+
+- Cada página tarda unos segundos en rastrearse (incluye renderización y limitación de velocidad)
+- Los sitios más grandes con muchas páginas tardarán varios minutos
+- Puede cancelar y reintentar si un rastreo parece atascado

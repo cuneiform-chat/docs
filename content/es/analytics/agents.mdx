@@ -1,98 +1,95 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Analíticas de Agents
 
-# Agent Analytics
+Visualiza métricas de rendimiento detalladas para todos tus agents. Compara volúmenes de consultas, conversaciones y uso de credits en todo tu portafolio de agents.
 
-View detailed performance metrics for all your agents. Compare query volumes, conversations, and credit usage across your entire agent portfolio.
+## Acceder a Analíticas de Agents
 
-## Accessing Agent Analytics
+1. Navega a **Analytics** en la barra lateral
+2. Haz clic en **View All** junto a "Top Agents", o
+3. Ve directamente a **Analytics > Agents**
 
-1. Navigate to **Analytics** in the sidebar
-2. Click **View All** next to "Top Agents", or
-3. Go directly to **Analytics > Agents**
+## Navegación
 
-## Navigation
+La ruta de navegación muestra tu ubicación: **Dashboard / Agents**. Haz clic en "Dashboard" para regresar a la página principal de analytics.
 
-The breadcrumb shows your location: **Dashboard / Agents**. Click "Dashboard" to return to the main analytics page.
+## Controles de Rango de Fechas
 
-## Date Range Controls
-
-| Control | Description |
+| Control | Descripción |
 |---------|-------------|
-| **Last 7 days** | View metrics for the past week |
-| **Last 14 days** | View metrics for two weeks |
-| **Last 30 days** | View metrics for the past month |
-| **Last 90 days** | View metrics for the past quarter |
-| **Refresh** | Reload data with latest values |
+| **Last 7 days** | Ver métricas de la última semana |
+| **Last 14 days** | Ver métricas de las últimas dos semanas |
+| **Last 30 days** | Ver métricas del último mes |
+| **Last 90 days** | Ver métricas del último trimestre |
+| **Refresh** | Recargar datos con los valores más recientes |
 
-## Agents Table
+## Tabla de Agents
 
-All your agents listed with performance metrics:
+Todos tus agents listados con métricas de rendimiento:
 
-| Column | Description | Sortable |
-|--------|-------------|----------|
-| Agent | Agent name | No |
-| Status | active, inactive, testing, or archived | No |
-| Queries | Total questions answered | Yes |
-| Conversations | Chat sessions | Yes |
-| Credits | Resources consumed | Yes |
-| Channels | Which channels the agent is used on | No |
-| (Arrow) | Link to detailed view | No |
+| Columna | Descripción | Ordenable |
+|---------|-------------|-----------|
+| Agent | Nombre del agent | No |
+| Status | active, inactive, testing o archived | No |
+| Queries | Total de preguntas respondidas | Sí |
+| Conversations | Sesiones de chat | Sí |
+| Credits | Recursos consumidos | Sí |
+| Channels | En qué canales se usa el agent | No |
+| (Flecha) | Enlace a vista detallada | No |
 
-### Sorting
+### Ordenamiento
 
-Click any sortable column header to sort by that metric:
-- **First click**: Sort descending (highest first)
-- **Second click**: Sort ascending (lowest first)
-- Active sort column is highlighted
+Haz clic en cualquier encabezado de columna ordenable para ordenar por esa métrica:
+- **Primer clic**: Orden descendente (mayor primero)
+- **Segundo clic**: Orden ascendente (menor primero)
+- La columna de orden activa se resalta
 
-### Pagination
+### Paginación
 
-For large agent lists:
-- Shows "Showing X - Y of Z"
-- Use **Previous/Next** buttons to navigate pages
+Para listas grandes de agents:
+- Muestra "Showing X - Y of Z"
+- Usa los botones **Previous/Next** para navegar entre páginas
 
-## Agent Status Badges
+## Badges de Estado del Agent
 
-| Badge | Color | Meaning |
-|-------|-------|---------|
-| active | Green | Agent is deployed and receiving queries |
-| inactive | Gray | Agent is paused |
-| testing | Yellow | Agent is being tested before deployment |
-| archived | Yellow | Agent is archived |
+| Badge | Color | Significado |
+|-------|-------|-------------|
+| active | Verde | El agent está desplegado y recibiendo consultas |
+| inactive | Gris | El agent está pausado |
+| testing | Amarillo | El agent se está probando antes del despliegue |
+| archived | Amarillo | El agent está archivado |
 
-## Channel Badges
+## Badges de Canales
 
-The Channels column shows which platforms each agent is used on:
-- Up to 3 channel badges shown (e.g., "web", "telegram", "discord")
-- If more than 3, shows "+X" to indicate additional channels
+La columna Channels muestra en qué plataformas se usa cada agent:
+- Se muestran hasta 3 badges de canal (ej., "web", "telegram", "discord")
+- Si hay más de 3, muestra "+X" para indicar canales adicionales
 
-## Viewing Agent Details
+## Ver Detalles del Agent
 
-Click the arrow on any agent row to see:
-- Detailed metrics for that specific agent
-- Time-series charts
-- Channel breakdown
-- More granular data
+Haz clic en la flecha de cualquier fila de agent para ver:
+- Métricas detalladas para ese agent específico
+- Gráficos de series de tiempo
+- Desglose por canales
+- Datos más granulares
 
-## Tips
+## Consejos
 
-- Sort by **Credits** to find your most resource-intensive agents
-- Sort by **Queries** to identify your most popular agents
-- Use **90 days** for long-term trend analysis
-- Check inactive agents to see if they should be reactivated
-- Click through to individual agents for deeper insights
+- Ordena por **Credits** para encontrar tus agents que consumen más recursos
+- Ordena por **Queries** para identificar tus agents más populares
+- Usa **90 days** para análisis de tendencias a largo plazo
+- Revisa los agents inactive para ver si deberían reactivarse
+- Haz clic en agents individuales para obtener insights más profundos
 
-## Common Questions
+## Preguntas Frecuentes
 
-**Q: How do I find my most used agent?**
+**P: ¿Cómo encuentro mi agent más utilizado?**
 
-Click the "Queries" column header to sort by query count. The top row is your most active agent.
+Haz clic en el encabezado de la columna "Queries" para ordenar por cantidad de consultas. La primera fila es tu agent más activo.
 
-**Q: What do the channel badges mean?**
+**P: ¿Qué significan los badges de canales?**
 
-They show which platforms (Web, Telegram, Discord, Slack, etc.) each agent receives queries from.
+Muestran desde qué plataformas (Web, Telegram, Discord, Slack, etc.) cada agent recibe consultas.
 
-**Q: Why is an agent showing zero queries?**
+**P: ¿Por qué un agent muestra cero consultas?**
 
-The agent may be new, inactive, or not yet deployed to any channel.
+El agent puede ser nuevo, estar inactive, o no estar desplegado en ningún canal aún.

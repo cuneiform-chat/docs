@@ -1,88 +1,85 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Formatos Compatibles
 
-# Supported Formats
+Cuneiform Chat admite una amplia variedad de formatos de documentos.
 
-Cuneiform Chat supports a wide range of document formats.
+## Tipos de Documentos
 
-## Document Types
+### Documentos de Texto
 
-### Text Documents
+| Formato | Extensiones | Notas |
+|---------|-------------|-------|
+| PDF | `.pdf` | Basados en texto y escaneados (con OCR) |
+| Microsoft Word | `.docx`, `.doc` | Soporte completo de formato |
+| Texto plano | `.txt` | Archivos de texto simples |
+| Markdown | `.md` | Se preserva el formato Markdown |
+| Rich Text | `.rtf` | Soporte básico de formato |
 
-| Format | Extensions | Notes |
-|--------|-----------|-------|
-| PDF | `.pdf` | Text-based and scanned (with OCR) |
-| Microsoft Word | `.docx`, `.doc` | Full formatting support |
-| Plain Text | `.txt` | Simple text files |
-| Markdown | `.md` | Markdown formatting preserved |
-| Rich Text | `.rtf` | Basic formatting support |
+### Presentaciones
 
-### Presentations
+| Formato | Extensiones | Notas |
+|---------|-------------|-------|
+| PowerPoint | `.pptx`, `.ppt` | Se extrae el contenido de las diapositivas |
 
-| Format | Extensions | Notes |
-|--------|-----------|-------|
-| PowerPoint | `.pptx`, `.ppt` | Slide content extracted |
+### Contenido Web
 
-### Web Content
+| Formato | Extensiones | Notas |
+|---------|-------------|-------|
+| HTML | `.html`, `.htm` | Contenido de páginas web |
 
-| Format | Extensions | Notes |
-|--------|-----------|-------|
-| HTML | `.html`, `.htm` | Web page content |
+### Formatos de Datos
 
-### Data Formats
+| Formato | Extensiones | Notas |
+|---------|-------------|-------|
+| JSON | `.json` | Archivos de datos estructurados |
+| XML | `.xml` | Documentos XML |
 
-| Format | Extensions | Notes |
-|--------|-----------|-------|
-| JSON | `.json` | Structured data files |
-| XML | `.xml` | XML documents |
-
-## Format-Specific Notes
+## Notas Específicas por Formato
 
 ### PDFs
 
-PDFs work best when they are:
-- **Text-based** — Created from digital documents
-- **Searchable** — Text can be selected/copied
+Los PDFs funcionan mejor cuando son:
+- **Basados en texto** — Creados a partir de documentos digitales
+- **Buscables** — El texto se puede seleccionar/copiar
 
-Scanned PDFs are supported but may have lower quality extraction due to OCR limitations.
+Los PDFs escaneados son compatibles pero pueden tener menor calidad de extracción debido a las limitaciones del OCR.
 
-### Word Documents
+### Documentos de Word
 
-`.docx` (modern format) is recommended over `.doc` (legacy format) for best results.
+Se recomienda `.docx` (formato moderno) sobre `.doc` (formato legacy) para mejores resultados.
 
-Supported elements:
-- Text and paragraphs
-- Headings and styles
-- Tables
-- Lists
+Elementos compatibles:
+- Texto y párrafos
+- Encabezados y estilos
+- Tablas
+- Listas
 
 ### Markdown
 
-Markdown formatting is preserved during processing:
-- Headings become section markers
-- Lists maintain structure
-- Code blocks are recognized
+El formato Markdown se preserva durante el procesamiento:
+- Los encabezados se convierten en marcadores de sección
+- Las listas mantienen su estructura
+- Los bloques de código se reconocen
 
-## Unsupported Formats
+## Formatos No Compatibles
 
-The following are not currently supported:
-- Images (`.jpg`, `.png`, `.gif`)
-- Audio files (`.mp3`, `.wav`)
-- Video files (`.mp4`, `.mov`)
-- Compressed archives (`.zip`, `.rar`)
-- Executable files (`.exe`, `.app`)
+Los siguientes formatos no son compatibles actualmente:
+- Imágenes (`.jpg`, `.png`, `.gif`)
+- Archivos de audio (`.mp3`, `.wav`)
+- Archivos de video (`.mp4`, `.mov`)
+- Archivos comprimidos (`.zip`, `.rar`)
+- Archivos ejecutables (`.exe`, `.app`)
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  If you have content in an unsupported format, try converting it to PDF or a text-based format before uploading.
+  Si tiene contenido en un formato no compatible, intente convertirlo a PDF o un formato basado en texto antes de subirlo.
 </Callout>
 
-## File Size Limits
+## Límites de Tamaño de Archivo
 
-Maximum file sizes depend on your plan. Very large documents may take longer to process.
+Los tamaños máximos de archivo dependen de su plan. Los documentos muy grandes pueden tardar más en procesarse.
 
-For best performance:
-- Split very large documents into smaller files
-- Remove unnecessary images from PDFs if they're not needed
-- Use text-based formats when possible
+Para un mejor rendimiento:
+- Divida documentos muy grandes en archivos más pequeños
+- Elimine imágenes innecesarias de los PDFs si no son necesarias
+- Use formatos basados en texto cuando sea posible

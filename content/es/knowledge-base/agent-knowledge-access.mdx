@@ -1,88 +1,85 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Acceso al Conocimiento del Agent
 
-# Agent Knowledge Access
+Controle a qué documentos puede acceder cada agent al responder preguntas. Restrinja agents a carpetas o tags específicos, o excluya cierto contenido de su alcance.
 
-Control which documents each agent can access when answering questions. Restrict agents to specific folders or tags, or exclude certain content from their reach.
+## Cómo Llegar
 
-## Getting There
+1. Navegue a **Agents** en el menú lateral
+2. Haga clic en un agent para editarlo, o cree un nuevo agent
+3. Desplácese hasta la sección **Knowledge Access Control**
 
-1. Navigate to **Agents** in the sidebar
-2. Click on an agent to edit it, or create a new agent
-3. Scroll to the **Knowledge Access Control** section
+## Modos de Acceso
 
-## Access Modes
+El modo de acceso determina cómo sus selecciones afectan el acceso del agent a los documentos.
 
-The access mode determines how your selections affect the agent's document access.
+| Modo | Icono | Descripción | Cuándo Usar |
+|------|-------|-------------|-------------|
+| **Exclude Mode** | X roja | El agent accede a TODOS los documentos EXCEPTO los seleccionados | Cuando quiere ocultar documentos sensibles pero permitir todo lo demás |
+| **Include Mode** | Check verde | El agent accede SOLO a los documentos seleccionados | Cuando quiere restringir el agent a contenido específico |
 
-| Mode | Icon | Description | Use When |
-|------|------|-------------|----------|
-| **Exclude Mode** | Red X | Agent accesses ALL documents EXCEPT selected | You want to hide sensitive documents but allow everything else |
-| **Include Mode** | Green Check | Agent accesses ONLY selected documents | You want to restrict the agent to specific content |
+### Elegir el Modo Correcto
 
-### Choosing the Right Mode
-
-**Exclude Mode** (default):
-- Starts with full access to all documents
-- Select folders/tags to block from the agent
-- Good for: Hiding HR documents, financial data, or drafts
+**Exclude Mode** (predeterminado):
+- Comienza con acceso completo a todos los documentos
+- Seleccione carpetas/tags para bloquear del agent
+- Ideal para: Ocultar documentos de RRHH, datos financieros o borradores
 
 **Include Mode**:
-- Starts with no access
-- Select folders/tags to grant access
-- Good for: Creating specialized agents for specific topics
+- Comienza sin acceso
+- Seleccione carpetas/tags para otorgar acceso
+- Ideal para: Crear agents especializados para temas específicos
 
-## Selecting Content
+## Seleccionar Contenido
 
-### By Folders
+### Por Carpetas
 
-1. Click the **Folders** tab
-2. Use the search box to find folders
-3. Check folders to include/exclude
-4. Expand folders (click arrow) to select individual documents
-5. A checkmark shows selected items; partial selection shows a dash
+1. Haga clic en la pestaña **Folders**
+2. Use el cuadro de búsqueda para encontrar carpetas
+3. Marque carpetas para incluir/excluir
+4. Expanda carpetas (haga clic en la flecha) para seleccionar documentos individuales
+5. Una marca de verificación muestra los elementos seleccionados; la selección parcial muestra un guion
 
-### By Tags
+### Por Tags
 
-1. Click the **Tags** tab
-2. Use the search box to find tags
-3. Check tags to include/exclude
-4. Each tag shows how many documents use it
+1. Haga clic en la pestaña **Tags**
+2. Use el cuadro de búsqueda para encontrar tags
+3. Marque tags para incluir/excluir
+4. Cada tag muestra cuántos documentos lo usan
 
-## Preview Panel
+## Panel de Vista Previa
 
-The preview panel on the right shows:
-- Total accessible documents based on current selection
-- Updates in real-time as you make changes
+El panel de vista previa a la derecha muestra:
+- Total de documentos accesibles según la selección actual
+- Se actualiza en tiempo real a medida que realiza cambios
 
-## Saving Changes
+## Guardar Cambios
 
-When editing an existing agent:
-1. Make your selections
-2. Click **Save Changes** (green button)
-3. Or click **Reset Changes** to undo unsaved changes
+Al editar un agent existente:
+1. Realice sus selecciones
+2. Haga clic en **Save Changes** (botón verde)
+3. O haga clic en **Reset Changes** para deshacer cambios no guardados
 
-When creating a new agent:
-- Knowledge access settings save automatically when you submit the agent form
+Al crear un nuevo agent:
+- La configuración de acceso al conocimiento se guarda automáticamente al enviar el formulario del agent
 
-## Tips
+## Consejos
 
-- Use **Exclude Mode** when you want broad access with a few exceptions
-- Use **Include Mode** for focused, topic-specific agents
-- Combine folders AND tags for precise control
-- Check the preview panel to verify your selection before saving
-- For Include Mode, you must select at least one folder or tag
+- Use **Exclude Mode** cuando desee acceso amplio con algunas excepciones
+- Use **Include Mode** para agents enfocados en temas específicos
+- Combine carpetas Y tags para un control preciso
+- Verifique el panel de vista previa para confirmar su selección antes de guardar
+- Para Include Mode, debe seleccionar al menos una carpeta o tag
 
-## Common Questions
+## Preguntas Frecuentes
 
-**Q: What happens if I select both folders and tags?**
-A: The agent can access documents that match ANY of your selections. Folders and tags combine inclusively.
+**P: ¿Qué pasa si selecciono carpetas y tags?**
+R: El agent puede acceder a documentos que coincidan con CUALQUIERA de sus selecciones. Las carpetas y los tags se combinan de forma inclusiva.
 
-**Q: Can I give an agent access to everything?**
-A: Yes. Use Exclude Mode and don't select anything to exclude. The agent will have full access.
+**P: ¿Puedo dar a un agent acceso a todo?**
+R: Sí. Use Exclude Mode y no seleccione nada para excluir. El agent tendrá acceso completo.
 
-**Q: What if a document is in a selected folder but has an excluded tag?**
-A: In Exclude Mode, any match to excluded content blocks access. In Include Mode, any match to included content grants access.
+**P: ¿Qué pasa si un documento está en una carpeta seleccionada pero tiene un tag excluido?**
+R: En Exclude Mode, cualquier coincidencia con contenido excluido bloquea el acceso. En Include Mode, cualquier coincidencia con contenido incluido otorga acceso.
 
-**Q: Does this affect existing conversations?**
-A: Yes. Changes take effect immediately for new messages. The agent will use the updated access rules.
+**P: ¿Esto afecta las conversaciones existentes?**
+R: Sí. Los cambios surten efecto inmediatamente para los nuevos mensajes. El agent usará las reglas de acceso actualizadas.

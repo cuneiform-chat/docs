@@ -1,27 +1,24 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Crea tu Primer Agent
 
-# Create Your First Agent
+Los agents son los chatbots que interactúan con tus usuarios. Cada agent puede configurarse con conocimiento, comportamiento y personalidad específicos.
 
-Agents are the chatbots that interact with your users. Each agent can be configured with specific knowledge, behavior, and personality.
+## Crear un agent
 
-## Creating an Agent
+1. Navega a **Agents** en la barra lateral
+2. Haz clic en **Create Agent**
+3. Completa la información básica:
+   - **Name** — Un nombre descriptivo para tu agent (ej. "Bot de Soporte al Cliente")
+   - **Description** — Qué hace este agent (para tu referencia)
 
-1. Navigate to **Agents** in the sidebar
-2. Click **Create Agent**
-3. Fill in the basic information:
-   - **Name** — A descriptive name for your agent (e.g., "Customer Support Bot")
-   - **Description** — What this agent does (for your reference)
-
-## Agent Configuration
+## Configuración del agent
 
 ### Agent Persona
 
-The agent persona defines your agent's personality and behavior. This is the instruction that guides how your agent responds.
+El agent persona define la personalidad y el comportamiento de tu agent. Esta es la instrucción que guía cómo responde tu agent.
 
-You can write your own persona or click **Generate** to use the AI-powered Persona Builder that creates one based on your requirements.
+Puedes escribir tu propio persona o hacer clic en **Generate** para usar el Persona Builder impulsado por AI que crea uno basado en tus requisitos.
 
-**Example:**
+**Ejemplo:**
 ```
 You are a helpful customer support assistant for Acme Corp.
 You answer questions about our products and services based on the provided documentation.
@@ -29,46 +26,46 @@ Be friendly, professional, and concise.
 If you don't know the answer, say so rather than making something up.
 ```
 
-### Platform Rules
+### Reglas de la plataforma
 
-All agents automatically include built-in safety guardrails:
+Todos los agents incluyen automáticamente medidas de seguridad integradas:
 
-- Won't fabricate facts, numbers, or dates
-- Says "I don't know" when information is unavailable
-- Won't guess at missing information
-- Corrects incorrect assumptions in questions
-- Won't impersonate professionals (lawyers, doctors, etc.)
-- Refuses harmful or inappropriate content
+- No fabrican hechos, números ni fechas
+- Dicen "No lo sé" cuando la información no está disponible
+- No adivinan información faltante
+- Corrigen suposiciones incorrectas en las preguntas
+- No se hacen pasar por profesionales (abogados, médicos, etc.)
+- Rechazan contenido dañino o inapropiado
 
-These rules are always active and cannot be disabled.
+Estas reglas están siempre activas y no pueden desactivarse.
 
 ### Knowledge Access Control
 
-Control which documents your agent can access:
+Controla a qué documentos puede acceder tu agent:
 
-- **Exclude Mode** (default) — Agent accesses all documents except those you select to hide
-- **Include Mode** — Agent only accesses the specific folders, tags, or documents you select
+- **Exclude Mode** (predeterminado) — El agent accede a todos los documentos excepto los que selecciones para ocultar
+- **Include Mode** — El agent solo accede a las carpetas, etiquetas o documentos específicos que selecciones
 
-Use Include Mode when you want to restrict an agent to a specific knowledge set.
+Usa Include Mode cuando quieras restringir un agent a un conjunto de conocimiento específico.
 
-### LLM Configuration
+### Configuración de LLM
 
-For most users, the default AI model settings work well. Advanced users can customize:
+Para la mayoría de los usuarios, la configuración predeterminada del modelo de AI funciona bien. Los usuarios avanzados pueden personalizar:
 
-- **Model** — Choose from available AI models
-- **Temperature** — Lower = more consistent, higher = more creative
-- **Show Document References** — Enable to include source citations in responses
+- **Model** — Elige entre los modelos de AI disponibles
+- **Temperature** — Más bajo = más consistente, más alto = más creativo
+- **Show Document References** — Activa para incluir citas de fuentes en las respuestas
 
-## Save Your Agent
+## Guarda tu agent
 
-Click **Create Agent** to save. Your agent starts in **Testing** status, meaning you can test it in the Playground but channel integrations are disabled until you activate it.
+Haz clic en **Create Agent** para guardar. Tu agent comienza en estado **Testing**, lo que significa que puedes probarlo en el Playground pero las integraciones de canales están desactivadas hasta que lo actives.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  Your draft is automatically saved as you work. If you leave and come back, your progress will be restored.
+  Tu borrador se guarda automáticamente mientras trabajas. Si sales y vuelves, tu progreso se restaurará.
 </Callout>
 
-## Next Step
+## Siguiente paso
 
-Your agent is created! Now let's [test it in the playground](/getting-started/test-your-agent).
+¡Tu agent está creado! Ahora vamos a [probarlo en el Playground](/es/getting-started/test-your-agent).

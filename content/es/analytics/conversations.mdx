@@ -1,145 +1,142 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Analíticas de Conversaciones
 
-# Conversation Analytics
+Rastrea métricas de conversaciones y visualiza transcripciones detalladas de tus agents y canales.
 
-Track conversation metrics and view detailed transcripts across your agents and channels.
+## Descripción General
 
-## Overview
+Las analíticas de conversaciones proporcionan:
 
-Conversation analytics provides:
+- Volumen total de conversaciones
+- Conversaciones por agent
+- Conversaciones por canal
+- Transcripciones completas de mensajes
+- Insights de conversaciones potenciados por IA
 
-- Total conversation volume
-- Conversations per agent
-- Conversations per channel
-- Full message transcripts
-- AI-powered conversation insights
+## Acceder a Conversaciones
 
-## Accessing Conversations
+### Desde el Dashboard
 
-### From the Dashboard
+1. Ve a **Analytics** en la barra lateral
+2. Haz clic en **View All** en las tarjetas de Top Agents o Top Channels
+3. O navega directamente a Conversations desde el menú de analytics
 
-1. Go to **Analytics** in the sidebar
-2. Click **View All** on the Top Agents or Top Channels cards
-3. Or navigate directly to Conversations from the analytics menu
+### Lista de Conversaciones
 
-### Conversation List
+Visualiza todas las conversaciones con:
 
-View all conversations with:
+| Columna | Descripción |
+|---------|-------------|
+| Title | Título de la conversación o ID de sesión |
+| Agent | Qué agent manejó la conversación |
+| Channel | Plataforma (Telegram, Discord, Slack, etc.) |
+| Messages | Conteo total de mensajes |
+| Last Active | Cuándo se actualizó por última vez la conversación |
+| Status | Active, archived o deleted |
 
-| Column | Description |
-|--------|-------------|
-| Title | Conversation title or session ID |
-| Agent | Which agent handled the conversation |
-| Channel | Platform (Telegram, Discord, Slack, etc.) |
-| Messages | Total message count |
-| Last Active | When the conversation was last updated |
-| Status | Active, archived, or deleted |
+## Filtrar Conversaciones
 
-## Filtering Conversations
+Filtra la lista de conversaciones por:
 
-Filter the conversation list by:
+- **Agent** — Selecciona un agent específico o todos los agents
+- **Channel** — Filtra por plataforma (WhatsApp, Telegram, Meta, Slack, Discord, Google Chat, Playground)
+- **Rango de fechas** — Últimos 7, 14, 30 o 90 días
 
-- **Agent** — Select a specific agent or all agents
-- **Channel** — Filter by platform (WhatsApp, Telegram, Meta, Slack, Discord, Google Chat, Playground)
-- **Date range** — Last 7, 14, 30, or 90 days
+## Detalles de la Conversación
 
-## Conversation Details
+Haz clic en cualquier conversación para ver sus detalles completos:
 
-Click any conversation to view its full details:
+### Pestaña Overview
 
-### Overview Tab
+- **Total Messages** — Conteo de mensajes en la conversación
+- **Credits Spent** — Credits de la plataforma utilizados
+- **Agent** — Qué agent manejó la conversación
+- **Channel** — Plataforma donde ocurrió
+- **Created** — Cuándo comenzó la conversación
+- **Last Active** — Actividad más reciente
 
-- **Total Messages** — Message count in the conversation
-- **Credits Spent** — Platform credits used
-- **Agent** — Which agent handled the conversation
-- **Channel** — Platform where it occurred
-- **Created** — When the conversation started
-- **Last Active** — Most recent activity
+### Gráfico de Actividad de Mensajes
 
-### Message Activity Chart
+Visualiza patrones de mensajes a lo largo del tiempo:
+- Alterna entre granularidad por hora y diaria
+- Muestra/oculta mensajes del usuario y del asistente
+- Observa patrones de actividad de la conversación
 
-Visualize message patterns over time:
-- Toggle between hourly and daily granularity
-- Show/hide user messages and assistant messages
-- See conversation activity patterns
+### Pestaña Messages
 
-### Messages Tab
+Visualiza la transcripción completa de la conversación:
 
-View the complete conversation transcript:
+- **Historial completo de mensajes** — Ve cada mensaje en la conversación
+- **Indicadores de rol** — Los mensajes de User, Assistant, System y Tool tienen colores distintos
+- **Timestamps** — Cuándo se envió cada mensaje
+- **Uso de tokens** — Tokens de entrada/salida por mensaje (cuando está disponible)
 
-- **Full message history** — See every message in the conversation
-- **Role indicators** — User, Assistant, System, and Tool messages are color-coded
-- **Timestamps** — When each message was sent
-- **Token usage** — Input/output tokens per message (when available)
+#### Filtrado de Mensajes
 
-#### Message Filtering
-
-Filter messages by time period:
-- Last 24 hours
-- Last 7 days
-- Last 30 days
-- All messages
+Filtra mensajes por período de tiempo:
+- Últimas 24 horas
+- Últimos 7 días
+- Últimos 30 días
+- Todos los mensajes
 
 #### Export
 
-Click **Export** to download the conversation as a JSON file containing:
-- Conversation metadata
-- All messages with timestamps
-- Token information
+Haz clic en **Export** para descargar la conversación como un archivo JSON que contiene:
+- Metadata de la conversación
+- Todos los mensajes con timestamps
+- Información de tokens
 
-## AI-Powered Insights
+## Insights Potenciados por IA
 
-Generate intelligent summaries of conversations:
+Genera resúmenes inteligentes de conversaciones:
 
-1. Navigate to a conversation's **Messages** tab
-2. Click **Generate Insights**
-3. View AI-analyzed insights including:
-   - **Key Points** — Main topics discussed
-   - **User Intents** — What the user was trying to accomplish
-   - **Key Info Shared** — Important information exchanged
-   - **Suggested Actions** — Recommendations based on the conversation
+1. Navega a la pestaña **Messages** de una conversación
+2. Haz clic en **Generate Insights**
+3. Visualiza los insights analizados por IA incluyendo:
+   - **Key Points** — Temas principales discutidos
+   - **User Intents** — Lo que el usuario intentaba lograr
+   - **Key Info Shared** — Información importante intercambiada
+   - **Suggested Actions** — Recomendaciones basadas en la conversación
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Generating insights consumes credits from your account. Results are cached for faster access on subsequent views.
+  Generar insights consume credits de tu cuenta. Los resultados se almacenan en caché para un acceso más rápido en vistas posteriores.
 </Callout>
 
-## Privacy Considerations
+## Consideraciones de Privacidad
 
-Conversation data is handled according to:
+Los datos de las conversaciones se manejan de acuerdo con:
 
-- Privacy policy requirements
-- User consent where applicable
+- Requisitos de la política de privacidad
+- Consentimiento del usuario donde sea aplicable
 
-## Tips
+## Consejos
 
-- Use filters to find conversations from specific agents or channels
-- Export important conversations for record-keeping or analysis
-- Generate AI insights to quickly understand long conversations
-- Check the Message Activity chart to identify peak usage times
-- Review conversation transcripts to improve your agent's persona
-- Monitor credits spent to track usage patterns
+- Usa filtros para encontrar conversaciones de agents o canales específicos
+- Exporta conversaciones importantes para registro o análisis
+- Genera insights de IA para comprender rápidamente conversaciones largas
+- Revisa el gráfico de Message Activity para identificar horarios pico de uso
+- Revisa las transcripciones de conversaciones para mejorar la persona de tu agent
+- Monitorea los credits gastados para rastrear patrones de uso
 
-## Common Questions
+## Preguntas Frecuentes
 
-**Q: How do I find conversations from a specific channel?**
+**P: ¿Cómo encuentro conversaciones de un canal específico?**
 
-Use the Channel filter at the top of the conversation list to select a specific platform like Telegram, Discord, or Slack.
+Usa el filtro de Channel en la parte superior de la lista de conversaciones para seleccionar una plataforma específica como Telegram, Discord o Slack.
 
-**Q: Can I export multiple conversations at once?**
+**P: ¿Puedo exportar múltiples conversaciones a la vez?**
 
-Currently, export works one conversation at a time. Export each conversation individually from the Messages tab.
+Actualmente, la exportación funciona una conversación a la vez. Exporta cada conversación individualmente desde la pestaña Messages.
 
-**Q: What does "Generate Insights" do?**
+**P: ¿Qué hace "Generate Insights"?**
 
-It uses AI to analyze the conversation and provide a summary including key points, user intents, important information shared, and suggested actions.
+Usa IA para analizar la conversación y proporcionar un resumen que incluye puntos clave, intenciones del usuario, información importante compartida y acciones sugeridas.
 
-**Q: Do AI insights cost credits?**
+**P: ¿Los insights de IA cuestan credits?**
 
-Yes, generating insights consumes credits from your account. However, results are cached so viewing the same insights again is free.
+Sí, generar insights consume credits de tu cuenta. Sin embargo, los resultados se almacenan en caché, por lo que ver los mismos insights nuevamente es gratuito.
 
-**Q: How long are conversations stored?**
+**P: ¿Por cuánto tiempo se almacenan las conversaciones?**
 
-Conversations are stored securely and available for analytics. Contact support if you have questions about data storage.
+Las conversaciones se almacenan de forma segura y están disponibles para analytics. Contacta a soporte si tienes preguntas sobre el almacenamiento de datos.

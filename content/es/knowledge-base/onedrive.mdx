@@ -1,68 +1,65 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Integración con OneDrive
 
-# OneDrive Integration
+Importe documentos desde OneDrive para entrenar a sus AI agents.
 
-Import documents from OneDrive to train your AI agents.
+## Descripción General
 
-## Overview
+Conecte su cuenta de Microsoft a Cuneiform Chat e importe documentos directamente a su content. Su AI agent podrá entonces responder preguntas basándose en el contenido de estos documentos.
 
-Connect your Microsoft account to Cuneiform Chat and import documents directly into your content. Your AI agent can then answer questions based on the content of these documents.
+## Primeros Pasos
 
-## Getting Started
+### Paso 1: Navegar a Knowledge
 
-### Step 1: Navigate to Knowledge
+1. Inicie sesión en [Cuneiform Chat](https://admin.cuneiform.chat)
+2. Vaya a **Knowledge** en el menú lateral
+3. Busque los iconos de cloud storage en la parte superior de la página
 
-1. Log in to [Cuneiform Chat](https://admin.cuneiform.chat)
-2. Go to **Knowledge** in the sidebar
-3. Look for the cloud storage icons at the top of the page
+### Paso 2: Conectar OneDrive
 
-### Step 2: Connect OneDrive
+1. Haga clic en el **icono de OneDrive** en la fila de iconos de cloud storage
+2. Inicie sesión con su cuenta de Microsoft (si se le solicita)
+3. Otorgue permiso a Cuneiform Chat para acceder a sus archivos
 
-1. Click the **OneDrive icon** in the cloud storage icons row
-2. Sign in with your Microsoft account (if prompted)
-3. Grant Cuneiform Chat permission to access your files
+### Paso 3: Seleccionar Archivos
 
-### Step 3: Select Files
+1. Use el selector de archivos de OneDrive para explorar sus archivos
+2. Navegue por las carpetas para encontrar documentos
+3. Seleccione uno o más archivos para importar
+4. Haga clic para confirmar su selección
 
-1. Use the OneDrive file picker to browse your files
-2. Navigate through folders to find documents
-3. Select one or more files to import
-4. Click to confirm your selection
+### Paso 4: Procesamiento
 
-### Step 4: Processing
+Una vez importados:
+- Los documentos se procesan automáticamente
+- El texto se extrae e indexa
+- Su agent puede responder preguntas sobre el contenido
 
-Once imported:
-- Documents are automatically processed
-- Text is extracted and indexed
-- Your agent can answer questions about the content
+## Tipos de Archivo Compatibles
 
-## Supported File Types
+| Formato | Extensión | Notas |
+|---------|-----------|-------|
+| PDF | .pdf | Texto y escaneado (OCR) |
+| Word | .docx, .doc | Soporte completo de formato |
+| Texto | .txt | Archivos de texto plano |
+| Markdown | .md | Formato Markdown |
 
-| Format | Extension | Notes |
-|--------|-----------|-------|
-| PDF | .pdf | Text and scanned (OCR) |
-| Word | .docx, .doc | Full formatting support |
-| Text | .txt | Plain text files |
-| Markdown | .md | Markdown formatting |
+Consulte [Formatos Compatibles](/knowledge-base/supported-formats) para la lista completa.
 
-See [Supported Formats](/knowledge-base/supported-formats) for the complete list.
+## Permisos
 
-## Permissions
+Cuneiform Chat solicita permisos mínimos:
 
-Cuneiform Chat requests minimal permissions:
-
-- **Read-only access** to files you select
-- **No write access** to your OneDrive account
-- **No access** to files you don't explicitly choose
+- **Acceso de solo lectura** a los archivos que seleccione
+- **Sin acceso de escritura** a su cuenta de OneDrive
+- **Sin acceso** a archivos que no elija explícitamente
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  You can revoke access at any time from your Microsoft Account → Privacy → Apps and services.
+  Puede revocar el acceso en cualquier momento desde su Cuenta de Microsoft → Privacidad → Aplicaciones y servicios.
 </Callout>
 
-## How It Works
+## Cómo Funciona
 
 ```mermaid
 graph LR
@@ -72,47 +69,47 @@ graph LR
     D --> E[Agent Can Answer Questions]
 ```
 
-1. **Authorization** — You grant read access via OAuth
-2. **Selection** — Choose specific files through OneDrive's picker
-3. **Download** — Files are securely transferred
-4. **Processing** — Text is extracted and indexed
-5. **Ready** — Your agent can now answer questions
+1. **Autorización** — Otorga acceso de lectura vía OAuth
+2. **Selección** — Elige archivos específicos a través del selector de OneDrive
+3. **Descarga** — Los archivos se transfieren de forma segura
+4. **Procesamiento** — El texto se extrae e indexa
+5. **Listo** — Su agent ahora puede responder preguntas
 
-## Best Practices
+## Mejores Prácticas
 
-- **Select relevant files** — Only import documents your agent needs
-- **Organize first** — Structure your OneDrive folders before importing
-- **Check formats** — Ensure files are in supported formats
-- **Monitor progress** — Verify documents process successfully
+- **Seleccione archivos relevantes** — Solo importe documentos que su agent necesite
+- **Organice primero** — Estructure sus carpetas de OneDrive antes de importar
+- **Verifique los formatos** — Asegúrese de que los archivos estén en formatos compatibles
+- **Monitoree el progreso** — Verifique que los documentos se procesen correctamente
 
-## Troubleshooting
+## Solución de Problemas
 
-### Can't Connect to OneDrive
+### No se puede conectar a OneDrive
 
-- Verify you're signed into the correct Microsoft account
-- Check that third-party apps are allowed in your Microsoft settings
-- Try clearing browser cookies and reconnecting
+- Verifique que esté conectado a la cuenta de Microsoft correcta
+- Compruebe que las aplicaciones de terceros estén permitidas en su configuración de Microsoft
+- Intente borrar las cookies del navegador y reconectarse
 
-### Files Not Importing
+### Los archivos no se importan
 
-- Confirm files are in supported formats
-- Check you have permission to access the files
-- Try importing fewer files at once
+- Confirme que los archivos estén en formatos compatibles
+- Verifique que tenga permiso para acceder a los archivos
+- Intente importar menos archivos a la vez
 
-### Import Taking Too Long
+### La importación tarda demasiado
 
-- Large files take longer to process
-- Check the document status in Content
-- Complex PDFs with images require more processing time
+- Los archivos grandes tardan más en procesarse
+- Verifique el estado del documento en Content
+- Los PDFs complejos con imágenes requieren más tiempo de procesamiento
 
-## Data Privacy
+## Privacidad de Datos
 
-- Original files are not permanently stored
-- Only extracted text embeddings are retained
-- Your Microsoft credentials are encrypted
-- We never access files you haven't selected
+- Los archivos originales no se almacenan permanentemente
+- Solo se retienen los embeddings de texto extraído
+- Sus credenciales de Microsoft están encriptadas
+- Nunca accedemos a archivos que no haya seleccionado
 
-## Need Help?
+## ¿Necesita Ayuda?
 
 - Email: support@cuneiform.chat
-- Documentation: [docs.cuneiform.chat](https://docs.cuneiform.chat)
+- Documentación: [docs.cuneiform.chat](https://docs.cuneiform.chat)

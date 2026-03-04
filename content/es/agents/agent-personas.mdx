@@ -1,27 +1,24 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Agent Personas
 
-The agent persona is the most important configuration for your agent. It defines personality, behavior, and boundaries.
+El agent persona es la configuración más importante de tu agent. Define la personalidad, el comportamiento y los límites.
 
-## What is an Agent Persona?
+## ¿Qué es un Agent Persona?
 
-The agent persona is a set of instructions given to the AI before any user conversation. It shapes every response your agent gives.
+El agent persona es un conjunto de instrucciones que se le dan a la IA antes de cualquier conversación con el usuario. Moldea cada respuesta que da tu agent.
 
-## Structure of a Good Agent Persona
+## Estructura de un buen Agent Persona
 
-### 1. Role Definition
+### 1. Definición de rol
 
-Start by defining who the agent is:
+Comienza definiendo quién es el agent:
 
 ```
 You are a customer support assistant for TechCorp, a software company.
 ```
 
-### 2. Core Responsibilities
+### 2. Responsabilidades principales
 
-Describe what the agent should do:
+Describe lo que el agent debe hacer:
 
 ```
 Your role is to:
@@ -30,9 +27,9 @@ Your role is to:
 - Guide users to relevant documentation
 ```
 
-### 3. Behavior Guidelines
+### 3. Directrices de comportamiento
 
-Set the tone and style:
+Establece el tono y el estilo:
 
 ```
 Communication style:
@@ -41,15 +38,15 @@ Communication style:
 - Keep responses concise unless detail is requested
 ```
 
-### 4. Automatic Language Detection
+### 4. Detección automática de idioma
 
-Your agent automatically detects the language of each user message and responds in kind — no manual configuration needed. 176 languages are supported out of the box.
+Tu agent detecta automáticamente el idioma de cada mensaje del usuario y responde en el mismo idioma — sin necesidad de configuración manual. Se soportan 176 idiomas de forma nativa.
 
-The agent adapts per-message, so it can handle multilingual conversations naturally. Safety and accuracy rules remain in English internally.
+El agent se adapta por mensaje, por lo que puede manejar conversaciones multilingües de forma natural. Las reglas de seguridad y precisión se mantienen internamente en inglés.
 
-### 4. Boundaries
+### 4. Límites
 
-Define what the agent should NOT do:
+Define lo que el agent NO debe hacer:
 
 ```
 Important boundaries:
@@ -59,7 +56,7 @@ Important boundaries:
 - If unsure, acknowledge uncertainty and suggest contacting support
 ```
 
-## Example Agent Personas
+## Ejemplos de Agent Personas
 
 ### Customer Support
 
@@ -116,52 +113,52 @@ If a question isn't covered in the documentation:
 Tone: Friendly and helpful, but concise.
 ```
 
-## Tips for Better Personas
+## Consejos para mejores Personas
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-**Start simple.** Begin with a basic prompt and add complexity based on testing results.
+**Comienza simple.** Empieza con un prompt básico y añade complejidad basándote en los resultados de las pruebas.
 </Callout>
 
-1. **Be specific** — Vague instructions lead to inconsistent behavior
-2. **Use examples** — Show the agent what good responses look like
-3. **Set clear boundaries** — Define what the agent should NOT do
-4. **Iterate** — Test and refine based on actual conversations
-5. **Keep it focused** — Long, complex prompts can confuse the model
-6. **Language is automatic** — Your agent detects the user's language and responds accordingly. No need to add language instructions to the persona text
+1. **Sé específico** — Las instrucciones vagas llevan a un comportamiento inconsistente
+2. **Usa ejemplos** — Muestra al agent cómo son las buenas respuestas
+3. **Establece límites claros** — Define lo que el agent NO debe hacer
+4. **Itera** — Prueba y refina basándote en conversaciones reales
+5. **Mantenlo enfocado** — Los prompts largos y complejos pueden confundir al modelo
+6. **El idioma es automático** — Tu agent detecta el idioma del usuario y responde de la misma forma. No necesitas añadir instrucciones de idioma al texto de la persona
 
-## Testing Your Persona
+## Probar tu Persona
 
-After writing or updating your agent persona:
+Después de escribir o actualizar tu agent persona:
 
-1. Test in the [Playground](/agents/testing)
-2. Try edge cases and tricky questions
-3. Refine based on results
-4. Re-test to ensure improvements
+1. Prueba en el [Playground](/agents/testing)
+2. Intenta casos extremos y preguntas difíciles
+3. Refina basándote en los resultados
+4. Vuelve a probar para asegurar las mejoras
 
 ## Template Variables
 
-Personalize your agent's system prompt with dynamic variables.
+Personaliza el system prompt de tu agent con variables dinámicas.
 
-### Available Variables
+### Variables disponibles
 
-| Variable | Description | Example |
+| Variable | Descripción | Ejemplo |
 |----------|-------------|---------|
-| `{{organization_name}}` | Your organization name | "Acme Corp" |
-| `{{current_date}}` | Today's date | "2026-02-03" |
-| `{{current_year}}` | Current year | "2026" |
+| `{{organization_name}}` | El nombre de tu organización | "Acme Corp" |
+| `{{current_date}}` | La fecha de hoy | "2026-02-03" |
+| `{{current_year}}` | El año actual | "2026" |
 
-### Using Variables
+### Usar variables
 
-In your system prompt:
+En tu system prompt:
 
 ```
 Welcome to {{organization_name}}! I'm here to help you today.
 ```
 
-**Result:** "Welcome to Acme Corp! I'm here to help you today."
+**Resultado:** "Welcome to Acme Corp! I'm here to help you today."
 
 <Callout type="important">
-  Click **Preview** when editing to see how variables will appear with your organization's actual values.
+  Haz clic en **Preview** al editar para ver cómo se mostrarán las variables con los valores reales de tu organización.
 </Callout>

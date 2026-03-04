@@ -1,129 +1,126 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Subir Documentos
 
-# Uploading Documents
+Suba documentos a su content para que sus AI agents puedan usarlos para responder preguntas. Los documentos se procesan automáticamente y se hacen buscables.
 
-Upload documents to your content so your AI agents can use them to answer questions. Documents are automatically processed and made searchable.
+## Cómo Llegar
 
-## Getting There
+1. Inicie sesión en el Admin Panel
+2. Navegue a **Knowledge** en el menú lateral
+3. El área de upload se muestra en la parte superior de la página
 
-1. Log in to the Admin Panel
-2. Navigate to **Knowledge** in the sidebar menu
-3. The upload area is displayed at the top of the page
+## Métodos de Upload
 
-## Upload Methods
+### Upload de Archivos Locales
 
-### Local File Upload
+1. **Arrastre y suelte** archivos directamente en el área de upload, O
+2. **Haga clic** en el área de upload para abrir el explorador de archivos
+3. Seleccione uno o más archivos
+4. Los archivos comienzan a subirse automáticamente con seguimiento de progreso
 
-1. **Drag and drop** files directly onto the upload area, OR
-2. **Click** the upload area to open a file browser
-3. Select one or more files to upload
-4. Files begin uploading automatically with progress tracking
+### Importar desde Cloud Storage
 
-### Cloud Storage Import
+Importe archivos directamente desde sus proveedores de cloud storage:
 
-Import files directly from your cloud storage providers:
+| Proveedor | Icono | Cómo Usar |
+|-----------|-------|-----------|
+| Google Drive | Icono de Google Drive | Haga clic para abrir el selector de Google Drive, seleccione archivos |
+| Dropbox | Icono de Dropbox | Haga clic para abrir el selector de Dropbox, seleccione archivos |
+| OneDrive | Icono de OneDrive | Haga clic para abrir el selector de OneDrive, seleccione archivos |
+| Box | Icono de Box | Haga clic para abrir el selector de Box, seleccione archivos |
 
-| Provider | Icon | How to Use |
-|----------|------|------------|
-| Google Drive | Google Drive icon | Click to open Google Drive picker, select files |
-| Dropbox | Dropbox icon | Click to open Dropbox chooser, select files |
-| OneDrive | OneDrive icon | Click to open OneDrive picker, select files |
-| Box | Box icon | Click to open Box picker, select files |
+Después de seleccionar archivos de cualquier proveedor, se importan automáticamente a su content.
 
-After selecting files from any provider, they are automatically imported to your content.
+## Opciones de Upload
 
-## Upload Options
+### Agregar Tags
 
-### Adding Tags
+Opcionalmente asigne tags a los documentos durante el upload:
 
-Optionally assign tags to documents during upload:
+1. Haga clic en **+ Add Tags** antes de subir
+2. Seleccione tags del menú desplegable
+3. Los tags seleccionados se aplicarán a todos los documentos subidos
 
-1. Click **+ Add Tags** before uploading
-2. Select tags from the dropdown
-3. Selected tags will be applied to all uploaded documents
+## Tipos de Archivo Compatibles
 
-## Supported File Types
+Los tipos de archivo que puede subir dependen de su plan. Los formatos comunes incluyen:
 
-The file types you can upload depend on your plan. Common formats include:
+- **Documentos:** PDF, DOCX, DOC, TXT, MD, RTF
+- **Presentaciones:** PPTX, PPT
+- **Web/Datos:** HTML, HTM, JSON, XML
 
-- **Documents:** PDF, DOCX, DOC, TXT, MD, RTF
-- **Presentations:** PPTX, PPT
-- **Web/Data:** HTML, HTM, JSON, XML
+Los límites de tamaño de archivo también varían según el plan (se muestran en el área de upload).
 
-File size limits also vary by plan (shown in the upload area).
+Consulte [Formatos Compatibles](/knowledge-base/supported-formats) para la lista completa.
 
-See [Supported Formats](/knowledge-base/supported-formats) for the complete list.
+## Durante el Upload
 
-## During Upload
+### Seguimiento de Progreso
 
-### Progress Tracking
+- Cada archivo muestra el progreso de upload con una barra de porcentaje
+- Se muestra la velocidad de upload y el tiempo estimado restante
+- Los archivos se procesan uno a la vez
 
-- Each file shows upload progress with a percentage bar
-- Upload speed and estimated time remaining are displayed
-- Files are processed one at a time
+### Opciones de Cancelación
 
-### Cancel Options
+- **Cancelar archivo individual:** Haga clic en la X junto a un archivo
+- **Cancelar todos:** Haga clic en "Cancel All Pending" para detener todo el lote
+- Aparece una advertencia si intenta salir de la página durante el upload
 
-- **Cancel individual file:** Click the X next to a file
-- **Cancel all:** Click "Cancel All Pending" to stop the entire batch
-- A warning appears if you try to leave the page during upload
+## Estado de Procesamiento
 
-## Processing Status
+Rastree el estado de los documentos en Content:
 
-Track document status in Content:
-
-| Status | Meaning |
-|--------|---------|
-| Uploading | Document is being uploaded to the system |
-| Ready | Document is processed and available for your agents |
-| Processing | Document is being analyzed |
-| Queued | Waiting to be processed |
-| Retrying | Processing is being retried |
-| Failed | Processing encountered an error (can be retried) |
+| Status | Significado |
+|--------|-------------|
+| Uploading | El documento se está subiendo al sistema |
+| Ready | El documento está procesado y disponible para sus agents |
+| Processing | El documento se está analizando |
+| Queued | En espera de ser procesado |
+| Retrying | El procesamiento se está reintentando |
+| Failed | El procesamiento encontró un error (se puede reintentar) |
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Processing time depends on document size and complexity. Most documents complete within a few minutes.
+  El tiempo de procesamiento depende del tamaño y la complejidad del documento. La mayoría de los documentos se completan en pocos minutos.
 </Callout>
 
-## After Upload
+## Después del Upload
 
-### Success
+### Upload Exitoso
 
-- Successfully uploaded files appear in your document browser
-- Documents are automatically processed for search
-- You can organize them into folders or add tags
+- Los archivos subidos exitosamente aparecen en su navegador de documentos
+- Los documentos se procesan automáticamente para búsqueda
+- Puede organizarlos en carpetas o agregar tags
 
-### Handling Duplicates
+### Detección de Duplicados
 
-- The system detects duplicate content automatically
-- If a file with identical content already exists, you'll see a warning
-- The existing file location is shown in the error message
+- El sistema detecta contenido duplicado automáticamente
+- Si ya existe un archivo con contenido idéntico, verá una advertencia
+- La ubicación del archivo existente se muestra en el mensaje de error
 
-### Handling Errors
+### Manejo de Errores
 
-- If a file fails to upload, an error message explains why
-- Common issues include file too large or unsupported format
-- You can retry individual files or upload them again
+- Si un archivo falla al subirse, un mensaje de error explica por qué
+- Los problemas comunes incluyen archivo demasiado grande o formato no compatible
+- Puede reintentar archivos individuales o subirlos de nuevo
 
-## Tips
+## Consejos
 
-- Upload multiple files at once to save time
-- Apply tags during upload to keep documents organized
-- Check the supported file types shown in the upload area
+- Suba múltiples archivos a la vez para ahorrar tiempo
+- Aplique tags durante el upload para mantener los documentos organizados
+- Verifique los tipos de archivo compatibles mostrados en el área de upload
 
-## Common Questions
+## Preguntas Frecuentes
 
-**Q: How many files can I upload at once?**
-A: You can select multiple files for batch upload. They process one at a time with progress tracking.
+**P: ¿Cuántos archivos puedo subir a la vez?**
+R: Puede seleccionar múltiples archivos para upload por lotes. Se procesan uno a la vez con seguimiento de progreso.
 
-**Q: Why was my file rejected?**
-A: Check if the file type is supported and the file size is within limits (shown in the upload area). Some files may be blocked for security reasons.
+**P: ¿Por qué fue rechazado mi archivo?**
+R: Verifique si el tipo de archivo es compatible y si el tamaño está dentro de los límites (se muestra en el área de upload). Algunos archivos pueden ser bloqueados por razones de seguridad.
 
-**Q: How long does processing take?**
-A: Upload time depends on file size and your connection. After upload, documents are processed in the background and become searchable automatically.
+**P: ¿Cuánto tarda el procesamiento?**
+R: El tiempo de upload depende del tamaño del archivo y su conexión. Después del upload, los documentos se procesan en segundo plano y se vuelven buscables automáticamente.
 
-**Q: Can I upload to a specific folder?**
-A: Yes, you can upload directly to folders using the folder menu or organize documents after upload.
+**P: ¿Puedo subir a una carpeta específica?**
+R: Sí, puede subir directamente a carpetas usando el menú de carpetas u organizar los documentos después del upload.

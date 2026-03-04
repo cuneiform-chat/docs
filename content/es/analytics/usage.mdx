@@ -1,85 +1,82 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Métricas de Uso
 
-# Usage Metrics
+Rastrea tu consumo de recursos y utilización de credits.
 
-Track your resource consumption and credit utilization.
+## Resumen de Uso de Credits
 
-## Credit Usage Overview
+El dashboard de analytics muestra el uso de tu ciclo de facturación actual:
 
-The analytics dashboard shows your current billing cycle usage:
+- **Credits Used** — Credits de la plataforma consumidos en este período
+- **Credits Remaining** — Credits disponibles hasta el fin del período
+- **Usage Percentage** — Barra de progreso visual del consumo
 
-- **Credits Used** — Platform credits consumed this period
-- **Credits Remaining** — Available credits until period end
-- **Usage Percentage** — Visual progress bar of consumption
+## Métricas Principales
 
-## Key Metrics
+### Volumen de Consultas
 
-### Query Volume
+| Métrica | Descripción |
+|---------|-------------|
+| Total Queries | Ejecuciones del agent de IA en el período |
+| Conversations | Total de sesiones de chat |
+| Unique Users | Usuarios individuales que interactuaron |
 
-| Metric | Description |
-|--------|-------------|
-| Total Queries | AI agent executions in the period |
-| Conversations | Total chat sessions |
-| Unique Users | Individual users who interacted |
+### Desglose de Distribución
 
-### Distribution Breakdown
+Visualiza cómo se distribuye el uso:
 
-View how usage is distributed:
+- **Por Agent** — Qué agents manejan más consultas
+- **Por Channel** — Uso en Telegram, Discord, Slack, WhatsApp, etc.
 
-- **By Agent** — Which agents handle the most queries
-- **By Channel** — Usage across Telegram, Discord, Slack, WhatsApp, etc.
+## Tendencias de Uso
 
-## Usage Trends
+### Gráfico de Volumen de Consultas
 
-### Query Volume Chart
+El dashboard principal de analytics muestra un gráfico de volumen de consultas que incluye:
+- Consultas a lo largo del tiempo
+- Granularidad configurable (por hora, diario, semanal, mensual)
+- Selección de rango de fechas
 
-The main analytics dashboard displays a query volume chart showing:
-- Queries over time
-- Configurable granularity (hourly, daily, weekly, monthly)
-- Date range selection
+### Gráficos de Distribución
 
-### Distribution Charts
+Gráficos circulares mostrando:
+- Distribución por canal — Porcentaje de consultas por plataforma
+- Distribución por agent — Porcentaje de consultas por agent
 
-Pie charts showing:
-- Channel distribution — Percentage of queries per platform
-- Agent distribution — Percentage of queries per agent
+## Monitoreo de Credits
 
-## Credit Monitoring
+### Período Actual
 
-### Current Period
-
-View your billing cycle status:
-- Period start and end dates
-- Credits used vs. allocated
-- Percentage consumed
+Visualiza el estado de tu ciclo de facturación:
+- Fechas de inicio y fin del período
+- Credits utilizados vs. asignados
+- Porcentaje consumido
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Credits reset at the start of each billing period. Check the **Billing** section for your cycle dates.
+  Los credits se reinician al inicio de cada período de facturación. Revisa la sección **Billing** para ver las fechas de tu ciclo.
 </Callout>
 
-## Usage Warnings
+## Advertencias de Uso
 
-The **Billing** page displays automatic warning banners when:
+La página de **Billing** muestra banners de advertencia automáticos cuando:
 
-- **Approaching limit** — You've used most of your monthly quota
-- **Limit reached** — Monthly quota is depleted
-- **Blocked** — Extra usage balance also depleted
+- **Approaching limit** — Has usado la mayor parte de tu cuota mensual
+- **Limit reached** — La cuota mensual se ha agotado
+- **Blocked** — El saldo de uso extra también se ha agotado
 
-These warnings appear in **Billing & Plans** to help you take action before service is affected.
+Estas advertencias aparecen en **Billing & Plans** para ayudarte a tomar acción antes de que el servicio se vea afectado.
 
-## Optimization Tips
+## Consejos de Optimización
 
-### Reduce Query Usage
+### Reducir el Uso de Consultas
 
-- Improve agent personas for better first-response accuracy
-- Add FAQ content to reduce follow-up questions
-- Optimize content for faster retrieval
+- Mejora las personas de los agents para mayor precisión en la primera respuesta
+- Agrega contenido de FAQ para reducir preguntas de seguimiento
+- Optimiza el contenido para una recuperación más rápida
 
-### Monitor High-Usage Areas
+### Monitorear Áreas de Alto Uso
 
-- Check which agents consume the most credits
-- Identify channels with highest volume
-- Review conversations that use more tokens
+- Revisa qué agents consumen más credits
+- Identifica canales con mayor volumen
+- Revisa conversaciones que usan más tokens

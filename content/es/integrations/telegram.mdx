@@ -1,133 +1,130 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Integración con Telegram
 
-# Telegram Integration
+Conecta tu agent a Telegram y permite que los usuarios chateen directamente en la app de Telegram.
 
-Connect your agent to Telegram and let users chat with it directly in the Telegram app.
+## Descripción General
 
-## Overview
+La integración con Telegram proporciona:
+- Mensajería directa con tu bot
+- Soporte de group chats
+- Formato de mensajes enriquecidos
+- Teclados inline para interacciones
 
-Telegram integration provides:
-- Direct messaging with your bot
-- Group chat support
-- Rich message formatting
-- Inline keyboards for interactions
+## Requisitos Previos
 
-## Prerequisites
+- Una cuenta de Telegram
+- Acceso a BotFather (herramienta de creación de bots de Telegram)
 
-- A Telegram account
-- BotFather access (Telegram's bot creation tool)
+## Pasos de Configuración
 
-## Setup Steps
+### 1. Crear un Bot de Telegram
 
-### 1. Create a Telegram Bot
+1. Abre Telegram y busca **@BotFather**
+2. Inicia un chat y envía `/newbot`
+3. Sigue las instrucciones:
+   - Ingresa un nombre para tu bot (ej., "My Support Bot")
+   - Ingresa un username (debe terminar en "bot", ej., "mysupportbot")
+4. BotFather te dará un **Bot Token** — guárdalo de forma segura
 
-1. Open Telegram and search for **@BotFather**
-2. Start a chat and send `/newbot`
-3. Follow the prompts:
-   - Enter a name for your bot (e.g., "My Support Bot")
-   - Enter a username (must end in "bot", e.g., "mysupportbot")
-4. BotFather will give you a **Bot Token** — save this securely
+### 2. Conectar a Cuneiform Chat
 
-### 2. Connect to Cuneiform Chat
+1. Ve a **Agents** → Selecciona tu agent
+2. Navega a la pestaña **Integrations**
+3. Haz clic en **Telegram**
+4. Pega tu Bot Token
+5. Haz clic en **Connect**
 
-1. Go to **Agents** → Select your agent
-2. Navigate to **Integrations** tab
-3. Click **Telegram**
-4. Paste your Bot Token
-5. Click **Connect**
+### 3. Configurar tu Bot
 
-### 3. Configure Your Bot
+Ajustes opcionales del bot mediante BotFather:
 
-Optional bot settings via BotFather:
+- `/setdescription` — Qué hace el bot
+- `/setabouttext` — Información en el perfil del bot
+- `/setuserpic` — Imagen de perfil de tu bot
 
-- `/setdescription` — What the bot does
-- `/setabouttext` — Information in the bot profile
-- `/setuserpic` — Profile picture for your bot
+### 4. Probar tu Bot
 
-### 4. Test Your Bot
+1. Busca tu bot en Telegram por su username
+2. Inicia una conversación con `/start`
+3. Envía un mensaje y verifica que recibes una respuesta
 
-1. Find your bot in Telegram by searching its username
-2. Start a conversation with `/start`
-3. Send a message and verify you get a response
-
-## How It Works
+## Cómo Funciona
 
 ```
-User sends message → Telegram → Cuneiform Chat → Agent processes → Response sent back
+El usuario envía un mensaje → Telegram → Cuneiform Chat → El agent procesa → La respuesta se envía de vuelta
 ```
 
-Messages are processed in real-time. The agent searches your content and generates responses based on your configuration.
+Los mensajes se procesan en tiempo real. El agent busca en tu contenido y genera respuestas basadas en tu configuración.
 
-## Features
+## Características
 
-### Direct Messages
+### Mensajes Directos
 
-Users can chat with your bot one-on-one for private support conversations.
+Los usuarios pueden chatear con tu bot de forma privada para conversaciones de soporte.
 
 ### Group Chats
 
-Add your bot to group chats:
+Agrega tu bot a group chats:
 
-1. Add the bot to a group
-2. Make it an admin (for message access)
-3. Users can mention the bot or use commands
+1. Agrega el bot a un grupo
+2. Hazlo admin (para acceso a mensajes)
+3. Los usuarios pueden mencionar al bot o usar comandos
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  In groups, the bot only responds when mentioned or when using commands, to avoid spam.
+  En grupos, el bot solo responde cuando es mencionado o cuando se usan comandos, para evitar spam.
 </Callout>
 
-### Rich Formatting
+### Formato Enriquecido
 
-Your agent's responses support:
-- **Bold** and *italic* text
-- Links
-- Code blocks
-- Lists
+Las respuestas de tu agent soportan:
+- Texto en **negritas** y *cursiva*
+- Enlaces
+- Bloques de código
+- Listas
 
-## Bot Commands
+## Comandos del Bot
 
-You can configure custom commands via BotFather:
+Puedes configurar comandos personalizados mediante BotFather:
 
-| Command | Description |
+| Comando | Descripción |
 |---------|-------------|
-| `/start` | Begin conversation |
-| `/help` | Show help message |
-| `/ask [question]` | Ask a specific question |
+| `/start` | Iniciar conversación |
+| `/help` | Mostrar mensaje de ayuda |
+| `/ask [pregunta]` | Hacer una pregunta específica |
 
-## Troubleshooting
+## Solución de Problemas
 
-### Bot Not Responding
+### El Bot No Responde
 
-1. Verify the bot token is correct
-2. Check the integration is connected in Cuneiform Chat
-3. Ensure your agent is properly configured
-4. Test the agent in Playground first
+1. Verifica que el bot token sea correcto
+2. Comprueba que la integración está conectada en Cuneiform Chat
+3. Asegúrate de que tu agent esté configurado correctamente
+4. Prueba el agent en el Playground primero
 
-### Token Issues
+### Problemas con el Token
 
-If you need a new token:
-1. Go to BotFather
-2. Send `/mybots` → Select your bot → **API Token** → **Revoke**
-3. Update the new token in Cuneiform Chat
+Si necesitas un nuevo token:
+1. Ve a BotFather
+2. Envía `/mybots` → Selecciona tu bot → **API Token** → **Revoke**
+3. Actualiza el nuevo token en Cuneiform Chat
 
-### Group Chat Issues
+### Problemas en Group Chats
 
-- Ensure the bot has admin permissions
-- Check privacy mode settings via BotFather (`/setprivacy`)
+- Asegúrate de que el bot tenga permisos de admin
+- Verifica la configuración del modo de privacidad en BotFather (`/setprivacy`)
 
-## Security
+## Seguridad
 
-- Bot tokens are encrypted and stored securely
-- Conversations are processed through secure connections
+- Los bot tokens se encriptan y almacenan de forma segura
+- Las conversaciones se procesan a través de conexiones seguras
 
-## Disconnecting
+## Desconexión
 
-To remove the Telegram integration:
+Para eliminar la integración con Telegram:
 
-1. Go to **Agents** → Select agent → **Integrations**
-2. Click **Telegram** → **Disconnect**
+1. Ve a **Agents** → Selecciona el agent → **Integrations**
+2. Haz clic en **Telegram** → **Disconnect**
 
-This stops the bot from responding but doesn't delete the Telegram bot itself. Delete via BotFather if needed.
+Esto detiene las respuestas del bot pero no elimina el bot de Telegram en sí. Elimínalo mediante BotFather si es necesario.

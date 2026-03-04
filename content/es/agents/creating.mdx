@@ -1,57 +1,54 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
-# Creating Agents
+# Crear Agents
 
 import { Callout } from 'nextra/components'
 
-Learn how to create new agents in Cuneiform Chat.
+Aprende a crear nuevos agents en Cuneiform Chat.
 
-## Getting Started
+## Primeros pasos
 
-1. Navigate to **Agents** in the sidebar
-2. Click the **Create Agent** button in the top right
-3. Fill in the form sections below
+1. Navega a **Agents** en la barra lateral
+2. Haz clic en el botón **Create Agent** en la esquina superior derecha
+3. Completa las secciones del formulario a continuación
 
-## Basic Information
+## Información básica
 
-This section captures essential details about your agent.
+Esta sección captura los detalles esenciales de tu agent.
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| **Name** | Yes | A name for your agent (e.g., "Customer Support Agent"). Maximum 100 characters. |
-| **Description** | No | A brief description of what this agent does. Maximum 500 characters. |
+| Campo | Requerido | Descripción |
+|-------|-----------|-------------|
+| **Name** | Sí | Un nombre para tu agent (ej., "Customer Support Agent"). Máximo 100 caracteres. |
+| **Description** | No | Una breve descripción de lo que hace este agent. Máximo 500 caracteres. |
 
-**Tips:**
-- Choose a descriptive name that indicates the agent's purpose
-- The description helps you and your team understand the agent's role
+**Consejos:**
+- Elige un nombre descriptivo que indique el propósito del agent
+- La descripción te ayuda a ti y a tu equipo a entender el rol del agent
 
 ## Agent Persona
 
-The agent persona defines how your agent behaves and responds through a system prompt.
+El agent persona define cómo se comporta y responde tu agent a través de un system prompt.
 
-**Key Elements:**
+**Elementos clave:**
 
-- **Platform Rules Box** — Shows built-in safety rules that are automatically applied (click to view details)
-- **Generate Button** — Opens the [Agent Persona Builder](/agents/persona-builder) to help create your persona
-- **Edit Button** — Opens a panel to manually write or edit the persona
+- **Platform Rules Box** — Muestra las reglas de seguridad integradas que se aplican automáticamente (haz clic para ver detalles)
+- **Generate Button** — Abre el [Agent Persona Builder](/agents/persona-builder) para ayudarte a crear tu persona
+- **Edit Button** — Abre un panel para escribir o editar la persona manualmente
 
 ### Platform Rules
 
-These safety guardrails are automatically applied to all agents:
+Estas salvaguardas de seguridad se aplican automáticamente a todos los agents:
 
-- **No fabrication** — Won't invent facts not in your content
-- **Acknowledges gaps** — Says "I don't know" when appropriate
-- **Resists speculation** — Won't guess at missing information
-- **No professional impersonation** — Won't act as lawyers, doctors, etc.
-- **Corrects false premises** — Points out incorrect assumptions
-- **Blocks harmful content** — Refuses inappropriate requests
+- **No fabrication** — No inventará hechos que no estén en tu contenido
+- **Acknowledges gaps** — Dice "no lo sé" cuando corresponde
+- **Resists speculation** — No adivinará información faltante
+- **No professional impersonation** — No actuará como abogados, médicos, etc.
+- **Corrects false premises** — Señala suposiciones incorrectas
+- **Blocks harmful content** — Rechaza solicitudes inapropiadas
 
 <Callout type="info">
-  Platform rules ensure all agents behave reliably and safely. They cannot be disabled. See [Agent Persona Builder](/agents/persona-builder#platform-rules) for details.
+  Las platform rules aseguran que todos los agents se comporten de manera confiable y segura. No se pueden desactivar. Consulta [Agent Persona Builder](/agents/persona-builder#platform-rules) para más detalles.
 </Callout>
 
-### Quick Persona Example
+### Ejemplo rápido de Persona
 
 ```
 You are a helpful assistant for [Your Company].
@@ -59,89 +56,89 @@ Answer questions based on the provided documentation.
 Be concise and friendly.
 ```
 
-See [Agent Personas](/agents/agent-personas) for detailed guidance on writing effective personas.
+Consulta [Agent Personas](/agents/agent-personas) para una guía detallada sobre cómo escribir personas efectivas.
 
-## Language Support
+## Soporte de idiomas
 
-Your agent automatically detects the language of each user message and responds in the same language — no configuration needed. 176 languages are supported out of the box. See [Agent Personas — Language Detection](/agents/agent-personas#4-automatic-language-detection) for details.
+Tu agent detecta automáticamente el idioma de cada mensaje del usuario y responde en el mismo idioma — sin necesidad de configuración. Se soportan 176 idiomas de forma nativa. Consulta [Agent Personas — Language Detection](/agents/agent-personas#4-automatic-language-detection) para más detalles.
 
 ## LLM Configuration
 
-This section controls the AI model settings.
+Esta sección controla la configuración del modelo de IA.
 
 **Default Mode:**
 
-By default, LLM settings use your organization's tier defaults. You'll see an info box showing "Using tier defaults". This is recommended for most use cases.
+Por defecto, la configuración de LLM usa los valores predeterminados del tier de tu organización. Verás un cuadro informativo que indica "Using tier defaults". Esto es lo recomendado para la mayoría de los casos.
 
 **Advanced Mode:**
 
-Toggle on **Advanced** to customize:
+Activa **Advanced** para personalizar:
 
-| Setting | Description |
-|---------|-------------|
-| **Model** | Choose from available AI models based on your plan |
-| **Temperature** | Controls response creativity (lower = more consistent, higher = more creative) |
+| Configuración | Descripción |
+|---------------|-------------|
+| **Model** | Elige entre los modelos de IA disponibles según tu plan |
+| **Temperature** | Controla la creatividad de las respuestas (menor = más consistente, mayor = más creativo) |
 
 **Show Document References:**
 
-This toggle (always visible) controls whether the agent includes source citations in responses:
-- **Off** (default) — Responses don't mention source documents
-- **On** — Responses include references to source documents (useful for legal/compliance)
+Este toggle (siempre visible) controla si el agent incluye citas de fuentes en las respuestas:
+- **Off** (predeterminado) — Las respuestas no mencionan documentos fuente
+- **On** — Las respuestas incluyen referencias a documentos fuente (útil para legal/compliance)
 
 ## Knowledge Access Control
 
-Control what documents your agent can access when answering questions.
+Controla qué documentos puede acceder tu agent al responder preguntas.
 
-| Mode | Behavior | When to Use |
-|------|----------|-------------|
-| **Exclude Mode** | Agent accesses ALL documents EXCEPT those selected | Hide sensitive documents from the agent |
-| **Include Mode** | Agent accesses ONLY selected items | Restrict agent to a specific set of knowledge |
+| Modo | Comportamiento | Cuándo usarlo |
+|------|----------------|---------------|
+| **Exclude Mode** | El agent accede a TODOS los documentos EXCEPTO los seleccionados | Ocultar documentos sensibles del agent |
+| **Include Mode** | El agent accede SOLO a los elementos seleccionados | Restringir el agent a un conjunto específico de conocimiento |
 
-**When using Include Mode:**
-- Select specific folders the agent can access
-- Select specific tags the agent can access
-- Select individual documents the agent can access
+**Al usar Include Mode:**
+- Selecciona las carpetas específicas a las que el agent puede acceder
+- Selecciona los tags específicos a los que el agent puede acceder
+- Selecciona documentos individuales a los que el agent puede acceder
 
-The agent will only use information from the selected sources when responding.
+El agent solo usará información de las fuentes seleccionadas al responder.
 
 <Callout type="important">
-  Start with Exclude Mode (full knowledge access) unless you need to hide specific documents. You can always restrict access later.
+  Comienza con Exclude Mode (acceso completo al conocimiento) a menos que necesites ocultar documentos específicos. Siempre puedes restringir el acceso más adelante.
 </Callout>
 
-## Form Actions
+## Acciones del formulario
 
-At the bottom of the form:
+En la parte inferior del formulario:
 
-| Button | Action |
-|--------|--------|
-| **Cancel** | Discard changes and go back |
-| **Reset** | Clear all fields and start over (shows confirmation dialog) |
-| **Create Agent** | Save the agent and open its edit page |
+| Botón | Acción |
+|-------|--------|
+| **Cancel** | Descartar cambios y volver |
+| **Reset** | Borrar todos los campos y empezar de nuevo (muestra diálogo de confirmación) |
+| **Create Agent** | Guardar el agent y abrir su página de edición |
 
 <Callout type="info">
-  Your draft is automatically saved as you work. If you leave and come back, your progress will be restored.
+  Tu borrador se guarda automáticamente mientras trabajas. Si sales y vuelves, tu progreso se restaurará.
 </Callout>
 
-## After Creating
+## Después de crear
 
-When you click **Create Agent**:
+Cuando haces clic en **Create Agent**:
 
-1. The agent is created with **Testing** status
-2. You're taken to the agent's edit page
-3. Test the agent using the Playground
-4. Connect integrations when ready to go live
-5. Change status to **Active** when ready
+1. El agent se crea con estado **Testing**
+2. Se te lleva a la página de edición del agent
+3. Prueba el agent usando el Playground
+4. Conecta integraciones cuando estés listo para lanzar
+5. Cambia el estado a **Active** cuando estés listo
 
 <Callout type="info">
-  New agents start in **Testing** status. You can test in the Playground, but channel integrations are disabled until you activate the agent.
+  Los nuevos agents comienzan en estado **Testing**. Puedes probar en el Playground, pero las integraciones de canal estarán desactivadas hasta que actives el agent.
 </Callout>
 
-## Managing Agents
+## Gestionar Agents
 
-From the Agents page, you can:
+Desde la página de Agents, puedes:
 
-- **Edit** — Click on any agent to modify its settings
-- **Test** — Click **Test** on an agent card to open the Playground
-- **Change Status** — Set to Testing, Active, Inactive, or Archived
+- **Edit** — Haz clic en cualquier agent para modificar su configuración
+- **Test** — Haz clic en **Test** en la tarjeta del agent para abrir el Playground
+- **Change Status** — Establecer como Testing, Active, Inactive o Archived
 
-See [Configuration Options](/agents/configuring) for details on all agent settings.
+Consulta [Configuration Options](/agents/configuring) para detalles sobre todas las configuraciones del agent.

@@ -1,83 +1,80 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
-# Testing in Playground
+# Probar en Playground
 
 import { Callout } from 'nextra/components'
 
-The Playground is your environment for testing and refining agents before deployment.
+El Playground es tu entorno para probar y refinar agents antes del despliegue.
 
-## Accessing the Playground
+## Acceder al Playground
 
-1. Navigate to **Agents** in the sidebar
-2. Click **Test** on your agent card (or **Test Agent** when editing an agent)
-3. The Playground slides open as a side panel — start a conversation
+1. Navega a **Agents** en la barra lateral
+2. Haz clic en **Test** en la tarjeta de tu agent (o **Test Agent** al editar un agent)
+3. El Playground se abre deslizándose como un panel lateral — inicia una conversación
 
 <Callout type="info">
-  The Test button is disabled when the agent status is **Archived** or **Inactive**. Change the status to **Active** or **Testing** to enable testing.
+  El botón Test se desactiva cuando el estado del agent es **Archived** o **Inactive**. Cambia el estado a **Active** o **Testing** para habilitar las pruebas.
 </Callout>
 
-## What to Test
+## Qué probar
 
-### Basic Functionality
+### Funcionalidad básica
 
-- Can the agent answer questions from your documents?
-- Are responses accurate and relevant?
-- Does the tone match your expectations?
+- ¿Puede el agent responder preguntas de tus documentos?
+- ¿Son las respuestas precisas y relevantes?
+- ¿El tono coincide con tus expectativas?
 
-### Edge Cases
+### Casos extremos
 
-Test scenarios that might trip up your agent:
+Prueba escenarios que podrían complicar a tu agent:
 
-- Questions not covered by your documents
-- Ambiguous or unclear questions
-- Multi-part questions
-- Follow-up questions requiring context
+- Preguntas no cubiertas por tus documentos
+- Preguntas ambiguas o poco claras
+- Preguntas de múltiples partes
+- Preguntas de seguimiento que requieren contexto
 
-### Conversation Flow
+### Flujo de conversación
 
-Test multi-turn conversations:
+Prueba conversaciones de múltiples turnos:
 
-- Does the agent remember context from earlier messages?
-- Can it handle topic changes gracefully?
-- Does it ask for clarification when needed?
+- ¿Recuerda el agent el contexto de mensajes anteriores?
+- ¿Puede manejar cambios de tema con naturalidad?
+- ¿Pide aclaraciones cuando es necesario?
 
-## Evaluating Responses
+## Evaluar respuestas
 
-For each response, consider:
+Para cada respuesta, considera:
 
-| Aspect | Questions to Ask |
-|--------|-----------------|
-| **Accuracy** | Is the information correct? |
-| **Relevance** | Does it answer the actual question? |
-| **Completeness** | Is anything important missing? |
-| **Tone** | Does it match your brand voice? |
-| **Length** | Is it appropriately concise or detailed? |
+| Aspecto | Preguntas a hacer |
+|---------|-------------------|
+| **Accuracy** | ¿Es correcta la información? |
+| **Relevance** | ¿Responde la pregunta real? |
+| **Completeness** | ¿Falta algo importante? |
+| **Tone** | ¿Coincide con la voz de tu marca? |
+| **Length** | ¿Es apropiadamente concisa o detallada? |
 
-## Iterative Improvement
+## Mejora iterativa
 
-### Identify Issues
+### Identificar problemas
 
-Common problems and solutions:
+Problemas comunes y soluciones:
 
-| Issue | Solution |
-|-------|----------|
-| Wrong information | Check document content, improve retrieval |
-| Too verbose | Add "be concise" to agent persona |
-| Too formal/casual | Adjust tone in agent persona |
-| Doesn't know answer | Add relevant documents |
-| Makes up facts | Strengthen boundaries in prompt |
+| Problema | Solución |
+|----------|----------|
+| Información incorrecta | Revisa el contenido de los documentos, mejora la recuperación |
+| Demasiado verboso | Añade "be concise" al agent persona |
+| Demasiado formal/casual | Ajusta el tono en el agent persona |
+| No sabe la respuesta | Añade documentos relevantes |
+| Inventa hechos | Fortalece los límites en el prompt |
 
-### Make Changes
+### Hacer cambios
 
-1. Identify the issue in Playground testing
-2. Adjust relevant settings (prompt, documents, configuration)
-3. Test again with the same questions
-4. Verify the fix doesn't break other behaviors
+1. Identifica el problema en las pruebas del Playground
+2. Ajusta las configuraciones relevantes (prompt, documentos, configuración)
+3. Prueba de nuevo con las mismas preguntas
+4. Verifica que la corrección no rompa otros comportamientos
 
-## Test Scenarios Checklist
+## Checklist de escenarios de prueba
 
-Create a set of standard test questions:
+Crea un conjunto de preguntas de prueba estándar:
 
 ```markdown
 ## Test Scenarios for [Agent Name]
@@ -95,17 +92,17 @@ Create a set of standard test questions:
 ```
 
 <Callout type="important">
-  Save your test scenarios and re-run them after making changes to catch regressions.
+  Guarda tus escenarios de prueba y vuelve a ejecutarlos después de hacer cambios para detectar regresiones.
 </Callout>
 
-## Ready for Deployment
+## Listo para desplegar
 
-Your agent is ready when:
+Tu agent está listo cuando:
 
-- ✅ Answers common questions accurately
-- ✅ Handles edge cases gracefully
-- ✅ Maintains appropriate tone
-- ✅ Respects defined boundaries
-- ✅ Multi-turn conversations work well
+- ✅ Responde preguntas comunes con precisión
+- ✅ Maneja casos extremos con naturalidad
+- ✅ Mantiene un tono apropiado
+- ✅ Respeta los límites definidos
+- ✅ Las conversaciones de múltiples turnos funcionan bien
 
-Next, deploy your agent to [channels](/integrations) where users will interact with it.
+A continuación, despliega tu agent en los [canales](/integrations) donde los usuarios interactuarán con él.

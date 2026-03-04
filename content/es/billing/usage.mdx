@@ -1,144 +1,141 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Uso y Créditos
 
-# Usage & Credits
+Entiende cómo funcionan los créditos y monitorea tu consumo.
 
-Understand how credits work and monitor your consumption.
+## Sistema de Créditos
 
-## Credit System
+Cuneiform Chat utiliza créditos (llamados Platform Credits) para medir el uso:
+- **Consultas de IA** — Cuando tus agents responden preguntas
+- **Procesamiento de documentos** — Cuando se suben e indexan documentos
+- **Embeddings** — Generación de vectores para búsqueda
 
-Cuneiform Chat uses credits (called Platform Credits) to measure usage:
-- **AI queries** — When your agents answer questions
-- **Document processing** — When documents are uploaded and indexed
-- **Embeddings** — Vector generation for search
+## Cómo se Usan los Créditos
 
-## How Credits Are Used
+### Consultas de IA
 
-### AI Queries
+Cada vez que tu agent responde una pregunta:
+- Los créditos se consumen según el modelo de IA utilizado
+- Las respuestas más largas pueden usar ligeramente más créditos
+- Las consultas fallidas no consumen créditos
 
-Each time your agent answers a question:
-- Credits are consumed based on the AI model used
-- Longer responses may use slightly more credits
-- Failed queries don't consume credits
+### Procesamiento de Documentos
 
-### Document Processing
+Cuando subes documentos:
+- Los créditos se usan para extraer y procesar contenido
+- Los documentos más grandes usan más créditos
+- El reprocesamiento usa créditos adicionales
 
-When you upload documents:
-- Credits are used to extract and process content
-- Larger documents use more credits
-- Re-processing uses additional credits
+## Ver el Uso
 
-## Viewing Usage
+Accede a tu uso desde **Billing & Plans** en la barra lateral:
 
-Access your usage from **Billing & Plans** in the sidebar:
+- **Uso del período actual** — Créditos usados en este ciclo de billing
+- **Créditos restantes** — Créditos disponibles
+- **Porcentaje de uso** — Barra de progreso visual mostrando el consumo
 
-- **Current period usage** — Credits used this billing cycle
-- **Remaining credits** — Available credits
-- **Usage percentage** — Visual progress bar showing consumption
+## Monitoreo de Uso
 
-## Monitoring Usage
+### Visualización de Uso
 
-### Usage Display
+La página de billing muestra:
+- Créditos usados vs. asignados
+- Porcentaje de uso con barra de progreso visual
+- Indicador de estado (normal, advertencia, excedido, bloqueado)
 
-The billing page shows:
-- Credits used vs. allocated
-- Usage percentage with visual progress bar
-- Status indicator (normal, warning, exceeded, blocked)
+### Advertencias de Uso
 
-### Usage Warnings
+La plataforma muestra advertencias automáticamente a medida que te acercas a tus límites:
 
-The platform automatically displays warnings as you approach your limits:
+| Umbral | Qué Sucede |
+|--------|------------|
+| ~80% usado | Aparece un banner de advertencia en la página de Billing |
+| 100% usado | Banner de "Limit Reached" con solicitud de upgrade |
+| Bloqueado | Servicio pausado hasta el próximo período o upgrade |
 
-| Threshold | What Happens |
-|-----------|--------------|
-| ~80% used | Warning banner appears in Billing page |
-| 100% used | "Limit Reached" banner with upgrade prompt |
-| Blocked | Service paused until next period or upgrade |
-
-These warnings appear automatically — no configuration needed.
+Estas advertencias aparecen automáticamente — no se necesita configuración.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  Review your usage weekly to catch unexpected spikes early and optimize as needed.
+  Revisa tu uso semanalmente para detectar picos inesperados a tiempo y optimizar según sea necesario.
 </Callout>
 
-## Optimizing Credit Usage
+## Optimizar el Uso de Créditos
 
-### Efficient Agents
+### Agents Eficientes
 
-- Write clear agent personas for accurate first responses
+- Escribe agent personas claras para respuestas precisas desde el primer intento
 
-### Smart Document Management
+### Gestión Inteligente de Documentos
 
-- Upload only necessary documents
-- Remove outdated content
-- Avoid duplicate documents
+- Sube solo los documentos necesarios
+- Elimina contenido desactualizado
+- Evita documentos duplicados
 
-### Usage Patterns
+### Patrones de Uso
 
-- Monitor which agents use the most credits
-- Identify high-volume time periods
-- Optimize based on patterns
+- Monitorea qué agents usan más créditos
+- Identifica períodos de alto volumen
+- Optimiza basándote en patrones
 
-## What Happens at Limits
+## Qué Sucede en los Límites
 
-### Approaching Limits
+### Acercándose a los Límites
 
-As you near your credit limit, warning banners appear in the Billing page prompting you to upgrade or enable extra usage.
+A medida que te acercas a tu límite de créditos, aparecen banners de advertencia en la página de Billing sugiriendo que actualices tu plan o habilites Extra Usage.
 
-### Exceeding Limits
+### Excediendo los Límites
 
-When you exceed your monthly quota:
-- A warning banner indicates "Limit Reached"
-- Enable **Extra Usage** to continue without waiting
-- Or upgrade your plan for more monthly credits
+Cuando excedes tu cuota mensual:
+- Un banner de advertencia indica "Limit Reached"
+- Habilita **Extra Usage** para continuar sin esperar
+- O actualiza tu plan para más créditos mensuales
 
-### Blocked State
+### Estado Bloqueado
 
-If extra usage balance is also depleted:
-- Service pauses until the next billing period
-- Or add funds to your extra usage balance
+Si el saldo de Extra Usage también se agota:
+- El servicio se pausa hasta el próximo período de billing
+- O agrega fondos a tu saldo de Extra Usage
 
 ## Extra Usage
 
-Extra usage lets you continue using the service when your monthly quota runs out.
+Extra Usage te permite seguir usando el servicio cuando tu cuota mensual se agota.
 
-### Enabling Extra Usage
+### Habilitar Extra Usage
 
-1. Go to **Billing & Plans**
-2. Find the **Extra Usage** section
-3. Toggle to enable
-4. Complete the initial top-up (minimum $10)
+1. Ve a **Billing & Plans**
+2. Encuentra la sección **Extra Usage**
+3. Activa el toggle para habilitar
+4. Completa la recarga inicial (mínimo $10)
 
-### Managing Extra Usage
+### Gestionar Extra Usage
 
-Once enabled, you can:
+Una vez habilitado, puedes:
 
-- **View balance** — See your available extra usage funds
-- **Add funds** — Top up your balance ($10-$500 per transaction)
-- **Set spending cap** — Limit monthly extra usage spending ($10-$500)
+- **Ver saldo** — Consulta tus fondos disponibles de Extra Usage
+- **Agregar fondos** — Recarga tu saldo ($10-$500 por transacción)
+- **Establecer límite de gasto** — Limita el gasto mensual de Extra Usage ($10-$500)
 
-### How Extra Usage Works
+### Cómo Funciona Extra Usage
 
-- Charges are deducted from your extra usage balance
-- Usage stops when you reach your spending cap
-- Balance carries over between billing periods
-- Cannot be disabled once enabled (use spending cap to limit)
+- Los cargos se deducen de tu saldo de Extra Usage
+- El uso se detiene cuando alcanzas tu límite de gasto
+- El saldo se mantiene entre períodos de billing
+- No se puede deshabilitar una vez activado (usa el límite de gasto para controlar)
 
 <Callout type="info">
-  Extra usage is only available for paid plans (Starter, Plus, and Enterprise).
+  Extra Usage solo está disponible para planes de pago (Starter, Plus y Enterprise).
 </Callout>
 
-## Billing Period
+## Período de Billing
 
-- Credits reset at the start of each billing period
-- Your billing date is shown in account settings
-- Unused credits may not roll over (check your plan)
+- Los créditos se reinician al inicio de cada período de billing
+- Tu fecha de billing se muestra en la configuración de la cuenta
+- Los créditos no utilizados podrían no acumularse (consulta tu plan)
 
-## Questions?
+## ¿Preguntas?
 
-For usage questions:
-- Review the [Plans & Pricing](/billing/plans) page
-- Check [Manage Subscription](/billing/manage-subscription) for upgrades
-- Contact support for billing inquiries
+Para consultas sobre uso:
+- Revisa la página de [Planes y Precios](/billing/plans)
+- Consulta [Gestionar Suscripción](/billing/manage-subscription) para upgrades
+- Contacta a soporte para consultas de billing
