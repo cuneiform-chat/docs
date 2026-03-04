@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { LocaleSwitcher } from '../../components/locale-switcher'
 
-const LOCALES = ['en', 'bn', 'es', 'hi'] as const
+const LOCALES = ['en', 'bn', 'es', 'hi', 'th'] as const
 type Locale = (typeof LOCALES)[number]
 const RTL_LOCALES: Locale[] = [] // Add 'ar' when ready
 
@@ -50,6 +50,14 @@ const UI_STRINGS: Record<
     title: 'Cuneiform Chat Documentation',
     description:
       'Cuneiform Chat के साथ document-trained AI chatbot बनाना सीखें',
+    tagline: 'Clay tablets to chatbot. Remembering the beginning.',
+  },
+  th: {
+    editLink: 'แก้ไขหน้านี้บน GitHub →',
+    feedbackContent: 'มีคำถาม? ให้คำติชมแก่เรา →',
+    title: 'Cuneiform Chat Documentation',
+    description:
+      'เรียนรู้วิธีสร้าง AI chatbot ที่ฝึกด้วยเอกสารด้วย Cuneiform Chat',
     tagline: 'Clay tablets to chatbot. Remembering the beginning.',
   },
 }

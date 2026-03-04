@@ -1,0 +1,164 @@
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+# Website Chat Widget
+
+Embed an AI-powered chat widget directly on your website. Visitors get instant answers from your AI agent without leaving your site.
+
+## Overview
+
+The Website Widget provides:
+- Floating chat bubble on your website
+- Real-time streaming AI responses
+- Customizable appearance (colors, position, messages)
+- Less than 11KB gzipped — near-zero performance impact
+- Domain allowlisting for security
+
+## Prerequisites
+
+- An active AI agent in your admin panel
+- Access to your website's HTML (to paste a script tag)
+
+## Setup Steps
+
+### 1. Create a Widget
+
+1. Go to **Integrations** from the sidebar
+2. Scroll to the **Website Widget** section
+3. Click **Create Widget**
+4. Enter a name and select the AI agent
+5. Click **Create**
+
+### 2. Customize Appearance
+
+Click the widget card to open the edit sheet:
+
+- **Primary Color** — Chat bubble and header color
+- **Text Color** — Text on the bubble and header
+- **Position** — Bottom-right or bottom-left
+- **Welcome Message** — First message visitors see
+- **Suggested Questions** — Up to 4 clickable starters
+- **Avatar URL** — Custom image in the chat header
+- **Border Radius** — Corner roundness
+
+A live preview updates as you make changes.
+
+### 3. Set Allowed Domains (Recommended)
+
+Restrict which websites can embed your widget:
+
+- Leave empty to allow all domains (default)
+- Add specific domains: `example.com`, `*.example.com`
+- Use port entries for development: `localhost:3000`
+
+### 4. Embed on Your Website
+
+Click the embed icon on your widget card and copy the code:
+
+```html
+<script src="https://core-api.cuneiform.chat/api/widget/widget.js"
+  data-widget-id="your-widget-id" async></script>
+```
+
+Paste before the closing `</body>` tag on your website.
+
+## How It Works
+
+```
+Visitor opens your website
+  → Chat bubble appears in the corner
+  → Visitor clicks → Chat panel opens
+  → Welcome message + suggested questions shown
+  → Visitor types a question
+  → AI agent searches your content
+  → Response streams in real-time
+```
+
+Messages are processed in real-time. The agent searches your content and generates responses using the same AI pipeline as all other channels.
+
+## Features
+
+### Streaming Responses
+
+Responses stream in real-time using Server-Sent Events (SSE). Visitors see the answer appear progressively, similar to ChatGPT.
+
+### Session Persistence
+
+Returning visitors on the same browser resume their previous conversation within a 24-hour window. Sessions are stored in the browser's localStorage.
+
+### Suggested Questions
+
+Configure up to 4 clickable questions that appear when the chat opens. Great for guiding visitors toward common topics.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  The widget runs inside a Shadow DOM, so it won't interfere with your website's styles or JavaScript.
+</Callout>
+
+### Markdown Rendering
+
+Agent responses support markdown formatting including bold, italic, lists, code blocks, and links.
+
+## Managing Widgets
+
+On the Integrations page, each widget card shows:
+
+- Widget name and status
+- Assigned agent
+- Edit, embed code, and delete actions
+
+| Action | How |
+|--------|-----|
+| Edit settings | Click the widget card |
+| Get embed code | Click the embed icon |
+| Delete | Three-dot menu → Delete |
+
+## Security
+
+- **Shadow DOM isolation** — Widget is sandboxed from your page
+- **HMAC session tokens** — Signed tokens with 24-hour expiry
+- **Domain allowlisting** — Restrict which sites can embed your widget
+- **Rate limiting** — 30 messages/minute per session
+- **No data access** — Widget cannot read or modify your page content
+
+## Troubleshooting
+
+### Widget doesn't appear
+
+1. Verify the script tag is before `</body>`, not in `<head>`
+2. Check `data-widget-id` matches your admin panel
+3. If domain allowlisting is set, verify your domain is listed
+4. Check the browser console for errors
+
+### Widget doesn't respond
+
+1. Ensure the assigned agent is in **Active** status
+2. Verify the agent has documents in its content
+3. Check the browser Network tab for failed API requests
+
+### Appearance issues
+
+The widget uses Shadow DOM isolation. Your page's CSS will not affect the widget. Use the edit sheet's live preview to customize appearance.
+
+## FAQ
+
+### Can I embed the widget on multiple pages?
+
+Yes. Use the same embed code on every page. The widget shares session state across pages on the same domain.
+
+### Does it work on mobile?
+
+Yes. The widget is fully responsive and optimized for mobile browsers.
+
+### Can I remove the "Powered by" badge?
+
+The badge is required on Trial and Starter plans. Upgrade to Professional or higher to remove it.
+
+### Does it work with React/Next.js/Vue?
+
+Yes. The widget loads as a standalone script and works with any framework, including single-page applications.
+
+### What's the message length limit?
+
+4,000 characters per message.
