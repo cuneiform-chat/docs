@@ -1,81 +1,78 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# เพิ่มเนื้อหา
 
-# Add Content
+ความรู้ของ chatbot มาจากเนื้อหาที่คุณให้ คู่มือนี้แสดงวิธีอัปโหลดเอกสารและ crawl เว็บไซต์เพื่อสร้างเนื้อหาของคุณ
 
-Your chatbot's knowledge comes from the content you provide. This guide shows you how to upload documents and crawl websites to build your content.
+## การเข้าถึงเนื้อหา
 
-## Accessing Content
+1. เข้าสู่ระบบ Cuneiform Chat dashboard ของคุณ
+2. ไปที่ **Content** ในแถบด้านข้าง
+3. คลิก **Upload Documents** หรือลากและวางไฟล์
 
-1. Sign in to your Cuneiform Chat dashboard
-2. Navigate to **Content** in the sidebar
-3. Click **Upload Documents** or drag and drop files
+## ประเภทไฟล์ที่รองรับ
 
-## Supported File Types
+Cuneiform Chat รองรับรูปแบบเอกสารหลากหลาย:
 
-Cuneiform Chat supports a wide range of document formats:
-
-| Format | Extensions | Notes |
-|--------|-----------|-------|
-| PDF | `.pdf` | Text-based and scanned (OCR) |
-| Word | `.docx`, `.doc` | Microsoft Word documents |
+| รูปแบบ | นามสกุล | หมายเหตุ |
+|--------|---------|----------|
+| PDF | `.pdf` | แบบข้อความและสแกน (OCR) |
+| Word | `.docx`, `.doc` | เอกสาร Microsoft Word |
 | Text | `.txt`, `.md`, `.rtf` | Plain text, Markdown, Rich Text |
-| PowerPoint | `.pptx`, `.ppt` | Presentation slides |
-| Web/Data | `.html`, `.htm`, `.json`, `.xml` | Web pages and structured data |
+| PowerPoint | `.pptx`, `.ppt` | สไลด์นำเสนอ |
+| Web/Data | `.html`, `.htm`, `.json`, `.xml` | หน้าเว็บและข้อมูลเชิงโครงสร้าง |
 
-## Upload Methods
+## วิธีการอัปโหลด
 
-### Direct Upload
+### อัปโหลดโดยตรง
 
-1. Click **Upload Documents**
-2. Select files from your computer
-3. Wait for processing to complete
+1. คลิก **Upload Documents**
+2. เลือกไฟล์จากคอมพิวเตอร์ของคุณ
+3. รอให้การประมวลผลเสร็จสิ้น
 
-### Drag and Drop
+### ลากและวาง
 
-Simply drag files from your computer and drop them into the Content area.
+เพียงลากไฟล์จากคอมพิวเตอร์ของคุณและวางลงในพื้นที่ Content
 
 ### Cloud Storage
 
-Connect your cloud storage for seamless imports:
+เชื่อมต่อ cloud storage สำหรับการนำเข้าที่สะดวก:
 
-- **Google Drive** — Import directly from your Drive
-- **Dropbox** — Connect your Dropbox account
-- **OneDrive** — Import from Microsoft OneDrive
-- **Box** — Connect your Box account
+- **Google Drive** — นำเข้าจาก Drive ของคุณโดยตรง
+- **Dropbox** — เชื่อมต่อบัญชี Dropbox ของคุณ
+- **OneDrive** — นำเข้าจาก Microsoft OneDrive
+- **Box** — เชื่อมต่อบัญชี Box ของคุณ
 
-See [Cloud Storage Integration](/knowledge-base/cloud-storage) for setup instructions.
+ดู [Cloud Storage Integration](/knowledge-base/cloud-storage) สำหรับคำแนะนำการตั้งค่า
 
 ### Website Crawling
 
-Crawl public websites and import the content as documents:
+Crawl เว็บไซต์สาธารณะและนำเข้าเนื้อหาเป็นเอกสาร:
 
-1. Navigate to **Content** and click the **Website** tab
-2. Enter a URL and click **Crawl**
-3. Review and edit crawled pages
-4. Select pages and click **Process Selected**
+1. ไปที่ **Content** และคลิกแท็บ **Website**
+2. กรอก URL และคลิก **Crawl**
+3. ตรวจสอบและแก้ไขหน้าที่ crawl ได้
+4. เลือกหน้าและคลิก **Process Selected**
 
-The crawler follows links up to 2 levels deep. The number of pages you can crawl depends on your [plan](/billing/plans).
+Crawler จะตามลิงก์ได้ลึกสูงสุด 2 ระดับ จำนวนหน้าที่สามารถ crawl ได้ขึ้นอยู่กับ [plan](/billing/plans) ของคุณ
 
-See [Website Crawling](/knowledge-base/website-crawling) for the full guide.
+ดู [Website Crawling](/knowledge-base/website-crawling) สำหรับคู่มือฉบับเต็ม
 
-## Document Processing
+## การประมวลผลเอกสาร
 
-After uploading or crawling, your content is automatically processed and made searchable by your agents.
+หลังจากอัปโหลดหรือ crawl เนื้อหาของคุณจะถูกประมวลผลและพร้อมให้ agent ค้นหาโดยอัตโนมัติ
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Processing time depends on document size and complexity. Most documents complete within a few minutes. The system automatically detects duplicate content to avoid redundant uploads.
+  เวลาในการประมวลผลขึ้นอยู่กับขนาดและความซับซ้อนของเอกสาร เอกสารส่วนใหญ่จะเสร็จภายในไม่กี่นาที ระบบจะตรวจจับเนื้อหาที่ซ้ำซ้อนโดยอัตโนมัติเพื่อหลีกเลี่ยงการอัปโหลดซ้ำ
 </Callout>
 
-## Best Practices
+## แนวทางปฏิบัติที่ดี
 
-- **Quality over quantity** — Well-structured documents produce better responses
-- **Keep content current** — Remove outdated documents to avoid confusion
-- **Organize with folders** — Use the folder structure to keep documents organized
-- **Crawl selectively** — Review and edit crawled pages before processing to remove navigation and boilerplate
+- **คุณภาพสำคัญกว่าปริมาณ** — เอกสารที่มีโครงสร้างดีจะให้คำตอบที่ดีกว่า
+- **อัปเดตเนื้อหาให้ทันสมัย** — ลบเอกสารที่ล้าสมัยเพื่อหลีกเลี่ยงความสับสน
+- **จัดระเบียบด้วยโฟลเดอร์** — ใช้โครงสร้างโฟลเดอร์เพื่อจัดระเบียบเอกสาร
+- **Crawl อย่างเลือกสรร** — ตรวจสอบและแก้ไขหน้าที่ crawl ก่อนประมวลผลเพื่อลบ navigation และ boilerplate
 
-## Next Step
+## ขั้นตอนถัดไป
 
-With documents uploaded, you're ready to [create your first agent](/getting-started/first-agent).
+เมื่ออัปโหลดเอกสารแล้ว คุณพร้อมที่จะ[สร้าง agent ตัวแรกของคุณ](/getting-started/first-agent)

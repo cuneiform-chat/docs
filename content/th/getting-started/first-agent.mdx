@@ -1,27 +1,24 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# สร้าง Agent แรกของคุณ
 
-# Create Your First Agent
+Agent คือ chatbot ที่โต้ตอบกับผู้ใช้ของคุณ แต่ละ agent สามารถตั้งค่า knowledge, พฤติกรรม และ personality เฉพาะได้
 
-Agents are the chatbots that interact with your users. Each agent can be configured with specific knowledge, behavior, and personality.
+## การสร้าง Agent
 
-## Creating an Agent
+1. ไปที่ **Agents** ในแถบด้านข้าง
+2. คลิก **Create Agent**
+3. กรอกข้อมูลพื้นฐาน:
+   - **Name** — ชื่อที่สื่อความหมายสำหรับ agent ของคุณ (เช่น "Customer Support Bot")
+   - **Description** — agent ตัวนี้ทำอะไร (สำหรับอ้างอิงของคุณ)
 
-1. Navigate to **Agents** in the sidebar
-2. Click **Create Agent**
-3. Fill in the basic information:
-   - **Name** — A descriptive name for your agent (e.g., "Customer Support Bot")
-   - **Description** — What this agent does (for your reference)
-
-## Agent Configuration
+## การตั้งค่า Agent
 
 ### Agent Persona
 
-The agent persona defines your agent's personality and behavior. This is the instruction that guides how your agent responds.
+Agent persona กำหนด personality และพฤติกรรมของ agent คือคำสั่งที่แนะนำวิธีการตอบของ agent
 
-You can write your own persona or click **Generate** to use the AI-powered Persona Builder that creates one based on your requirements.
+คุณสามารถเขียน persona เองหรือคลิก **Generate** เพื่อใช้ Persona Builder ที่ขับเคลื่อนด้วย AI ซึ่งจะสร้าง persona ตามความต้องการของคุณ
 
-**Example:**
+**ตัวอย่าง:**
 ```
 You are a helpful customer support assistant for Acme Corp.
 You answer questions about our products and services based on the provided documentation.
@@ -31,44 +28,44 @@ If you don't know the answer, say so rather than making something up.
 
 ### Platform Rules
 
-All agents automatically include built-in safety guardrails:
+Agent ทุกตัวจะมี safety guardrail ในตัวโดยอัตโนมัติ:
 
-- Won't fabricate facts, numbers, or dates
-- Says "I don't know" when information is unavailable
-- Won't guess at missing information
-- Corrects incorrect assumptions in questions
-- Won't impersonate professionals (lawyers, doctors, etc.)
-- Refuses harmful or inappropriate content
+- ไม่สร้างข้อเท็จจริง ตัวเลข หรือวันที่ปลอม
+- บอกว่า "ไม่ทราบ" เมื่อไม่มีข้อมูล
+- ไม่เดาข้อมูลที่ขาดหายไป
+- แก้ไขสมมติฐานที่ไม่ถูกต้องในคำถาม
+- ไม่แอบอ้างเป็นผู้เชี่ยวชาญ (ทนายความ, แพทย์ เป็นต้น)
+- ปฏิเสธเนื้อหาที่เป็นอันตรายหรือไม่เหมาะสม
 
-These rules are always active and cannot be disabled.
+กฎเหล่านี้ทำงานตลอดเวลาและไม่สามารถปิดได้
 
 ### Knowledge Access Control
 
-Control which documents your agent can access:
+ควบคุมว่า agent สามารถเข้าถึงเอกสารใดได้บ้าง:
 
-- **Exclude Mode** (default) — Agent accesses all documents except those you select to hide
-- **Include Mode** — Agent only accesses the specific folders, tags, or documents you select
+- **Exclude Mode** (ค่าเริ่มต้น) — Agent เข้าถึงเอกสารทั้งหมด ยกเว้นที่คุณเลือกซ่อน
+- **Include Mode** — Agent เข้าถึงเฉพาะโฟลเดอร์ แท็ก หรือเอกสารที่คุณเลือกเท่านั้น
 
-Use Include Mode when you want to restrict an agent to a specific knowledge set.
+ใช้ Include Mode เมื่อคุณต้องการจำกัด agent ให้เข้าถึงเฉพาะชุด knowledge ที่กำหนด
 
 ### LLM Configuration
 
-For most users, the default AI model settings work well. Advanced users can customize:
+สำหรับผู้ใช้ส่วนใหญ่ การตั้งค่า AI model เริ่มต้นจะเหมาะสมดีอยู่แล้ว ผู้ใช้ขั้นสูงสามารถปรับแต่ง:
 
-- **Model** — Choose from available AI models
-- **Temperature** — Lower = more consistent, higher = more creative
-- **Show Document References** — Enable to include source citations in responses
+- **Model** — เลือกจาก AI model ที่มีให้
+- **Temperature** — ต่ำ = สม่ำเสมอมากขึ้น, สูง = สร้างสรรค์มากขึ้น
+- **Show Document References** — เปิดใช้เพื่อแสดง source citation ในคำตอบ
 
-## Save Your Agent
+## บันทึก Agent ของคุณ
 
-Click **Create Agent** to save. Your agent starts in **Testing** status, meaning you can test it in the Playground but channel integrations are disabled until you activate it.
+คลิก **Create Agent** เพื่อบันทึก Agent ของคุณจะเริ่มต้นในสถานะ **Testing** หมายความว่าคุณสามารถทดสอบใน Playground ได้ แต่ channel integration จะถูกปิดจนกว่าคุณจะเปิดใช้งาน
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  Your draft is automatically saved as you work. If you leave and come back, your progress will be restored.
+  draft ของคุณจะถูกบันทึกอัตโนมัติขณะที่คุณทำงาน หากคุณออกไปและกลับมา ความคืบหน้าของคุณจะถูกกู้คืน
 </Callout>
 
-## Next Step
+## ขั้นตอนถัดไป
 
-Your agent is created! Now let's [test it in the playground](/getting-started/test-your-agent).
+Agent ของคุณถูกสร้างแล้ว! ตอนนี้มา[ทดสอบใน Playground](/getting-started/test-your-agent) กันเลย
