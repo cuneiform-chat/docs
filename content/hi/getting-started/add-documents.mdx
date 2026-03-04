@@ -1,81 +1,82 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+---
+description: अपने chatbot को सिखाने के लिए documents upload करें और websites crawl करें।
+---
 
-# Add Content
+# Content जोड़ें
 
-Your chatbot's knowledge comes from the content you provide. This guide shows you how to upload documents and crawl websites to build your content.
+आपके chatbot का ज्ञान आपके द्वारा दिए गए content से आता है। यह guide आपको documents upload करने और websites crawl करके अपना content बनाने का तरीका बताती है।
 
-## Accessing Content
+## Content तक पहुंचें
 
-1. Sign in to your Cuneiform Chat dashboard
-2. Navigate to **Content** in the sidebar
-3. Click **Upload Documents** or drag and drop files
+1. अपने Cuneiform Chat dashboard में sign in करें
+2. Sidebar में **Content** पर जाएं
+3. **Upload Documents** पर क्लिक करें या files drag और drop करें
 
-## Supported File Types
+## समर्थित File प्रकार
 
-Cuneiform Chat supports a wide range of document formats:
+Cuneiform Chat कई document formats को support करता है:
 
-| Format | Extensions | Notes |
+| Format | Extensions | विवरण |
 |--------|-----------|-------|
-| PDF | `.pdf` | Text-based and scanned (OCR) |
+| PDF | `.pdf` | Text-based और scanned (OCR) |
 | Word | `.docx`, `.doc` | Microsoft Word documents |
 | Text | `.txt`, `.md`, `.rtf` | Plain text, Markdown, Rich Text |
 | PowerPoint | `.pptx`, `.ppt` | Presentation slides |
-| Web/Data | `.html`, `.htm`, `.json`, `.xml` | Web pages and structured data |
+| Web/Data | `.html`, `.htm`, `.json`, `.xml` | Web pages और structured data |
 
-## Upload Methods
+## Upload के तरीके
 
-### Direct Upload
+### सीधा Upload
 
-1. Click **Upload Documents**
-2. Select files from your computer
-3. Wait for processing to complete
+1. **Upload Documents** पर क्लिक करें
+2. अपने computer से files चुनें
+3. Processing पूरी होने तक प्रतीक्षा करें
 
-### Drag and Drop
+### Drag और Drop
 
-Simply drag files from your computer and drop them into the Content area.
+अपने computer से files को drag करें और Content area में drop करें।
 
 ### Cloud Storage
 
-Connect your cloud storage for seamless imports:
+seamless import के लिए अपना cloud storage connect करें:
 
-- **Google Drive** — Import directly from your Drive
-- **Dropbox** — Connect your Dropbox account
-- **OneDrive** — Import from Microsoft OneDrive
-- **Box** — Connect your Box account
+- **Google Drive** — अपने Drive से सीधे import करें
+- **Dropbox** — अपना Dropbox account connect करें
+- **OneDrive** — Microsoft OneDrive से import करें
+- **Box** — अपना Box account connect करें
 
-See [Cloud Storage Integration](/knowledge-base/cloud-storage) for setup instructions.
+setup के निर्देशों के लिए [Cloud Storage Integration](/knowledge-base/cloud-storage) देखें।
 
 ### Website Crawling
 
-Crawl public websites and import the content as documents:
+Public websites crawl करें और content को documents के रूप में import करें:
 
-1. Navigate to **Content** and click the **Website** tab
-2. Enter a URL and click **Crawl**
-3. Review and edit crawled pages
-4. Select pages and click **Process Selected**
+1. **Content** पर जाएं और **Website** tab पर क्लिक करें
+2. एक URL डालें और **Crawl** पर क्लिक करें
+3. Crawl किए गए pages review और edit करें
+4. Pages चुनें और **Process Selected** पर क्लिक करें
 
-The crawler follows links up to 2 levels deep. The number of pages you can crawl depends on your [plan](/billing/plans).
+Crawler 2 levels deep तक links follow करता है। आप कितने pages crawl कर सकते हैं यह आपके [plan](/billing/plans) पर निर्भर करता है।
 
-See [Website Crawling](/knowledge-base/website-crawling) for the full guide.
+पूरी guide के लिए [Website Crawling](/knowledge-base/website-crawling) देखें।
 
 ## Document Processing
 
-After uploading or crawling, your content is automatically processed and made searchable by your agents.
+Upload या crawl करने के बाद, आपका content automatically process होता है और आपके agents के लिए searchable बन जाता है।
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Processing time depends on document size and complexity. Most documents complete within a few minutes. The system automatically detects duplicate content to avoid redundant uploads.
+  Processing का समय document के आकार और जटिलता पर निर्भर करता है। अधिकांश documents कुछ ही मिनटों में complete हो जाते हैं। System automatically duplicate content detect करता है ताकि redundant uploads से बचा जा सके।
 </Callout>
 
-## Best Practices
+## सर्वोत्तम अभ्यास
 
-- **Quality over quantity** — Well-structured documents produce better responses
-- **Keep content current** — Remove outdated documents to avoid confusion
-- **Organize with folders** — Use the folder structure to keep documents organized
-- **Crawl selectively** — Review and edit crawled pages before processing to remove navigation and boilerplate
+- **मात्रा से बेहतर गुणवत्ता** — अच्छी तरह structured documents बेहतर responses देते हैं
+- **Content को अद्यतन रखें** — भ्रम से बचने के लिए पुराने documents हटाएं
+- **Folders से organize करें** — Documents को व्यवस्थित रखने के लिए folder structure का उपयोग करें
+- **Selectively crawl करें** — Processing से पहले crawl किए गए pages review और edit करें ताकि navigation और boilerplate हटाया जा सके
 
-## Next Step
+## अगला चरण
 
-With documents uploaded, you're ready to [create your first agent](/getting-started/first-agent).
+Documents upload होने के बाद, आप [अपना पहला agent बनाने](/getting-started/first-agent) के लिए तैयार हैं।

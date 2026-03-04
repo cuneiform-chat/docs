@@ -1,27 +1,28 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+---
+description: अपना पहला AI agent बनाएं और configure करें।
+---
 
-# Create Your First Agent
+# अपना पहला Agent बनाएं
 
-Agents are the chatbots that interact with your users. Each agent can be configured with specific knowledge, behavior, and personality.
+Agents वे chatbots हैं जो आपके users के साथ interact करते हैं। हर agent को specific knowledge, behavior, और personality के साथ configure किया जा सकता है।
 
-## Creating an Agent
+## Agent बनाना
 
-1. Navigate to **Agents** in the sidebar
-2. Click **Create Agent**
-3. Fill in the basic information:
-   - **Name** — A descriptive name for your agent (e.g., "Customer Support Bot")
-   - **Description** — What this agent does (for your reference)
+1. Sidebar में **Agents** पर जाएं
+2. **Create Agent** पर क्लिक करें
+3. बुनियादी जानकारी भरें:
+   - **Name** — अपने agent के लिए एक descriptive नाम (जैसे, "Customer Support Bot")
+   - **Description** — यह agent क्या करता है (आपके reference के लिए)
 
 ## Agent Configuration
 
 ### Agent Persona
 
-The agent persona defines your agent's personality and behavior. This is the instruction that guides how your agent responds.
+Agent persona आपके agent की personality और behavior को define करती है। यह वह instruction है जो आपके agent के responses को guide करती है।
 
-You can write your own persona or click **Generate** to use the AI-powered Persona Builder that creates one based on your requirements.
+आप अपनी खुद की persona लिख सकते हैं या **Generate** पर क्लिक करके AI-powered Persona Builder का उपयोग कर सकते हैं जो आपकी ज़रूरतों के आधार पर एक बनाता है।
 
-**Example:**
+**उदाहरण:**
 ```
 You are a helpful customer support assistant for Acme Corp.
 You answer questions about our products and services based on the provided documentation.
@@ -31,44 +32,44 @@ If you don't know the answer, say so rather than making something up.
 
 ### Platform Rules
 
-All agents automatically include built-in safety guardrails:
+सभी agents में built-in safety guardrails automatically शामिल होते हैं:
 
-- Won't fabricate facts, numbers, or dates
-- Says "I don't know" when information is unavailable
-- Won't guess at missing information
-- Corrects incorrect assumptions in questions
-- Won't impersonate professionals (lawyers, doctors, etc.)
-- Refuses harmful or inappropriate content
+- तथ्य, संख्याएं, या तारीखें गढ़ेगा नहीं
+- जब जानकारी उपलब्ध नहीं होती है तो "I don't know" कहता है
+- लापता जानकारी का अनुमान नहीं लगाएगा
+- प्रश्नों में गलत assumptions को सुधारता है
+- पेशेवरों (lawyers, doctors, आदि) का रूप धारण नहीं करेगा
+- हानिकारक या अनुचित content से मना करता है
 
-These rules are always active and cannot be disabled.
+ये rules हमेशा active रहते हैं और इन्हें disable नहीं किया जा सकता।
 
 ### Knowledge Access Control
 
-Control which documents your agent can access:
+नियंत्रित करें कि आपका agent कौन से documents access कर सकता है:
 
-- **Exclude Mode** (default) — Agent accesses all documents except those you select to hide
-- **Include Mode** — Agent only accesses the specific folders, tags, or documents you select
+- **Exclude Mode** (default) — Agent उन सभी documents को access करता है सिवाय उनके जिन्हें आप hide करना चुनते हैं
+- **Include Mode** — Agent केवल उन्हीं specific folders, tags, या documents को access करता है जिन्हें आप चुनते हैं
 
-Use Include Mode when you want to restrict an agent to a specific knowledge set.
+Include Mode का उपयोग तब करें जब आप किसी agent को एक specific knowledge set तक सीमित रखना चाहते हों।
 
 ### LLM Configuration
 
-For most users, the default AI model settings work well. Advanced users can customize:
+अधिकांश users के लिए, default AI model settings ठीक काम करती हैं। Advanced users customize कर सकते हैं:
 
-- **Model** — Choose from available AI models
-- **Temperature** — Lower = more consistent, higher = more creative
-- **Show Document References** — Enable to include source citations in responses
+- **Model** — उपलब्ध AI models में से चुनें
+- **Temperature** — कम = अधिक consistent, अधिक = अधिक creative
+- **Show Document References** — responses में source citations शामिल करने के लिए enable करें
 
-## Save Your Agent
+## Agent सहेजें
 
-Click **Create Agent** to save. Your agent starts in **Testing** status, meaning you can test it in the Playground but channel integrations are disabled until you activate it.
+सहेजने के लिए **Create Agent** पर क्लिक करें। आपका agent **Testing** status में शुरू होता है, जिसका मतलब है कि आप इसे Playground में test कर सकते हैं लेकिन activate करने तक channel integrations disabled रहती हैं।
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  Your draft is automatically saved as you work. If you leave and come back, your progress will be restored.
+  काम करते समय आपका draft automatically save होता है। यदि आप चले जाते हैं और वापस आते हैं, तो आपकी प्रगति restore हो जाएगी।
 </Callout>
 
-## Next Step
+## अगला चरण
 
-Your agent is created! Now let's [test it in the playground](/getting-started/test-your-agent).
+आपका agent बन गया! अब इसे [playground में test करते हैं](/getting-started/test-your-agent)।

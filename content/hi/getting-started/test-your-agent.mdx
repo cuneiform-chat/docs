@@ -1,97 +1,98 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+---
+description: Deploy करने से पहले Playground में अपने agent को test करें और उसे बेहतर बनाएं।
+---
 
-# Test Your Agent
+# Agent का परीक्षण करें
 
-Before deploying your agent, use the Playground to test its responses and fine-tune its behavior.
+Agent deploy करने से पहले, Playground का उपयोग करके उसके responses test करें और उसके behavior को fine-tune करें।
 
-## Accessing the Playground
+## Playground तक पहुंचें
 
-1. Navigate to **Agents** in the sidebar
-2. Click **Test** on your agent card
-3. The Playground opens as a side panel — start chatting!
+1. Sidebar में **Agents** पर जाएं
+2. अपने agent card पर **Test** पर क्लिक करें
+3. Playground एक side panel के रूप में खुलता है — chatting शुरू करें!
 
-Use the sidebar toggle to hide the conversation list for more space. Press **Shift+Enter** to add new lines without sending.
+अधिक space के लिए conversation list छिपाने के लिए sidebar toggle का उपयोग करें। बिना send किए नई lines जोड़ने के लिए **Shift+Enter** दबाएं।
 
-## Testing Your Agent
+## Agent को Test करें
 
-### Ask Sample Questions
+### Sample प्रश्न पूछें
 
-Try questions that your users might ask:
+वे प्रश्न आज़माएं जो आपके users पूछ सकते हैं:
 
-- Questions directly answered by your documents
-- Follow-up questions that require context
-- Edge cases and ambiguous queries
-- Questions outside your content (to test boundaries)
+- आपके documents द्वारा सीधे उत्तर दिए जाने वाले प्रश्न
+- Follow-up प्रश्न जिनके लिए context की आवश्यकता है
+- Edge cases और अस्पष्ट queries
+- आपके content के बाहर के प्रश्न (boundaries test करने के लिए)
 
-### Evaluate Responses
+### Responses का मूल्यांकन करें
 
-For each response, consider:
+हर response के लिए विचार करें:
 
-- **Accuracy** — Is the information correct?
-- **Relevance** — Does it answer the actual question?
-- **Tone** — Does it match your expected style?
-- **Sources** — Are document references helpful?
+- **Accuracy** — क्या जानकारी सही है?
+- **Relevance** — क्या यह वास्तविक प्रश्न का उत्तर देता है?
+- **Tone** — क्या यह आपकी अपेक्षित style से मेल खाता है?
+- **Sources** — क्या document references helpful हैं?
 
-## Refining Your Agent
+## Agent को बेहतर बनाएं
 
-Based on testing, you may want to adjust:
+Testing के आधार पर, आप adjust करना चाहेंगे:
 
 ### Agent Persona
 
-If responses aren't quite right, refine the agent persona:
+यदि responses बिल्कुल सही नहीं हैं, तो agent persona को refine करें:
 
-- Add specific instructions for common scenarios
-- Clarify the tone and personality
-- Set boundaries for what the agent should and shouldn't do
+- सामान्य scenarios के लिए specific instructions जोड़ें
+- Tone और personality स्पष्ट करें
+- agent को क्या करना चाहिए और क्या नहीं, इसके लिए boundaries निर्धारित करें
 
 ### Content
 
-If the agent can't find information:
+यदि agent जानकारी नहीं ढूंढ पाता:
 
-- Check that relevant documents are uploaded
-- Verify documents processed successfully
-- Consider adding more detailed content
+- जांचें कि relevant documents upload हैं
+- Verify करें कि documents successfully process हुए
+- अधिक detailed content जोड़ने पर विचार करें
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  Keep a list of test questions and expected answers. Re-run these tests after making changes to ensure improvements don't break other behaviors.
+  Test प्रश्नों और expected answers की एक list रखें। Changes करने के बाद ये tests फिर से चलाएं ताकि यह सुनिश्चित हो सके कि improvements से अन्य behaviors नहीं टूटते।
 </Callout>
 
 ## Conversation History
 
-The Playground maintains conversation history within a session. Use this to test:
+Playground एक session के भीतर conversation history बनाए रखता है। इसका उपयोग test करने के लिए करें:
 
 - Multi-turn conversations
 - Context retention
-- Follow-up questions
+- Follow-up प्रश्न
 
-While the agent responds, you'll see tool indicators showing what it's doing (searching documents, processing your query, etc.). Click **Stop** if you need to cancel a response.
+जब agent respond करता है, तो आप tool indicators देखेंगे जो दिखाते हैं कि वह क्या कर रहा है (documents खोजना, आपकी query process करना, आदि)। Response रद्द करने के लिए **Stop** पर क्लिक करें।
 
-## Activating Your Agent
+## Agent को Activate करें
 
-New agents start in **Testing** status — you can test in the Playground, but channel integrations are disabled.
+नए agents **Testing** status में शुरू होते हैं — आप Playground में test कर सकते हैं, लेकिन channel integrations disabled रहती हैं।
 
-To enable integrations:
+Integrations enable करने के लिए:
 
-1. Open your agent's edit page
-2. Change the **Status** dropdown from "Testing" to "Active"
-3. Click **Save**
+1. अपने agent का edit page खोलें
+2. **Status** dropdown को "Testing" से "Active" में बदलें
+3. **Save** पर क्लिक करें
 
-Once active, you can deploy to various channels:
+Active होने के बाद, आप विभिन्न channels पर deploy कर सकते हैं:
 
-- [Telegram](/integrations/telegram) — Connect to Telegram
-- [Discord](/integrations/discord) — Add to your Discord server
-- [Slack](/integrations/slack) — Integrate with Slack workspaces
-- [WhatsApp](/integrations/whatsapp) — Connect to WhatsApp Business
-- [Messenger](/integrations/facebook) — Connect to Facebook Messenger
-- [Google Chat](/integrations/google-chat) — Integrate with Google Workspace
+- [Telegram](/integrations/telegram) — Telegram से connect करें
+- [Discord](/integrations/discord) — अपने Discord server में जोड़ें
+- [Slack](/integrations/slack) — Slack workspaces के साथ integrate करें
+- [WhatsApp](/integrations/whatsapp) — WhatsApp Business से connect करें
+- [Messenger](/integrations/facebook) — Facebook Messenger से connect करें
+- [Google Chat](/integrations/google-chat) — Google Workspace के साथ integrate करें
 
-## Next Steps
+## अगले चरण
 
-Congratulations! You've created and tested your first Cuneiform Chat agent. Explore the following sections to learn more:
+बधाई! आपने अपना पहला Cuneiform Chat agent बना लिया और test कर लिया। अधिक जानने के लिए इन sections को explore करें:
 
 - [Agent Configuration](/agents/configuring) — Advanced agent settings
 - [Content Management](/knowledge-base) — Document organization tips
-- [Integrations](/integrations) — Deploy to multiple channels
+- [Integrations](/integrations) — कई channels पर deploy करें
