@@ -1,0 +1,105 @@
+---
+description: Manage your AI content. Upload documents, connect cloud storage, and crawl websites.
+---
+
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+
+# Content
+
+Content is where you manage all the documents that your AI agents use to answer questions. Upload documents, organize them into folders, add tags, and control which agents can access which content.
+
+## How It Works
+
+1. **Add Content** — Upload documents, import from cloud storage, or crawl websites
+2. **Process** — Documents are automatically processed and indexed
+3. **Search** — Agents search relevant content when answering questions
+4. **Respond** — Answers are generated based on your actual content
+
+## Getting There
+
+Navigate to **Content** in the sidebar menu. This is your central hub for document management.
+
+## What You See
+
+### Upload Area
+
+At the top of the page:
+- **Cloud Storage Icons** — Click Google Drive, Dropbox, OneDrive, or Box to import files directly
+- **Drop Zone** — Drag and drop files or click to browse local files
+- **Website Tab** — Switch to the Website tab to crawl and import public website content
+
+### Document Browser
+
+Below the upload area, a table displays all your documents:
+
+| Column | Description |
+|--------|-------------|
+| Name | Document filename with type icon and source indicator |
+| Tags | Labels assigned to the document |
+| Status | Processing state (see Document Status below) |
+| Size | File size in MB |
+| Type | File extension (PDF, DOCX, etc.) |
+| Uploaded | Date and time of upload |
+| Actions | Menu for document operations |
+
+### Toolbar
+
+- **Search** — Find documents by name
+- **Tag Filter** — Show only documents with specific tags
+- **Refresh** — Update the document list
+- **New Folder** — Create a folder for organization
+- **Fullscreen** — Expand the browser for more space
+
+## Document Status
+
+| Status | Meaning |
+|--------|---------|
+| Uploading | Document is being uploaded to the system |
+| Ready | Document is processed and available for your agents |
+| Processing | Document is being analyzed |
+| Queued | Waiting to be processed |
+| Retrying | Processing is being retried |
+| Failed | Processing encountered an error (can be retried) |
+
+## Working with Documents
+
+### View a Document
+
+Click any document row to open the document viewer, which displays the content and metadata.
+
+### Document Actions
+
+Hover over a document to see quick action buttons:
+- **Tag** — Add or remove tags
+- **Premium Processing** — Upgrade processing quality (if eligible)
+- **Retry** — Reprocess failed documents
+- **Chat** — Have a conversation about this specific document
+
+From the Actions menu (...):
+- **Move to Folder** — Relocate the document
+- **Reprocess** — Retry processing for failed documents
+- **Delete** — Remove the document permanently
+
+## In This Section
+
+import { Cards } from 'nextra/components'
+
+<Cards>
+  <Cards.Card title="Uploading Documents" href="/knowledge-base/uploading-documents" />
+  <Cards.Card title="Supported Formats" href="/knowledge-base/supported-formats" />
+  <Cards.Card title="Folders and Tags" href="/knowledge-base/folders-and-tags" />
+  <Cards.Card title="Cloud Storage" href="/knowledge-base/cloud-storage" />
+  <Cards.Card title="Website Crawling" href="/knowledge-base/website-crawling" />
+  <Cards.Card title="Managing Documents" href="/knowledge-base/managing-documents" />
+  <Cards.Card title="Agent Knowledge Access" href="/knowledge-base/agent-knowledge-access" />
+</Cards>
+
+## Best Practices
+
+- **Keep content current** — Regularly update documents to maintain accuracy
+- **Organize with folders** — Group related documents for easier management
+- **Use tags for cross-cutting themes** — Tags help find documents across folders
+- **Quality matters** — Well-structured documents produce better AI responses
+- **Remove duplicates** — Avoid uploading the same content multiple times

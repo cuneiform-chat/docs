@@ -1,0 +1,81 @@
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+# Add Content
+
+Your chatbot's knowledge comes from the content you provide. This guide shows you how to upload documents and crawl websites to build your content.
+
+## Accessing Content
+
+1. Sign in to your Cuneiform Chat dashboard
+2. Navigate to **Content** in the sidebar
+3. Click **Upload Documents** or drag and drop files
+
+## Supported File Types
+
+Cuneiform Chat supports a wide range of document formats:
+
+| Format | Extensions | Notes |
+|--------|-----------|-------|
+| PDF | `.pdf` | Text-based and scanned (OCR) |
+| Word | `.docx`, `.doc` | Microsoft Word documents |
+| Text | `.txt`, `.md`, `.rtf` | Plain text, Markdown, Rich Text |
+| PowerPoint | `.pptx`, `.ppt` | Presentation slides |
+| Web/Data | `.html`, `.htm`, `.json`, `.xml` | Web pages and structured data |
+
+## Upload Methods
+
+### Direct Upload
+
+1. Click **Upload Documents**
+2. Select files from your computer
+3. Wait for processing to complete
+
+### Drag and Drop
+
+Simply drag files from your computer and drop them into the Content area.
+
+### Cloud Storage
+
+Connect your cloud storage for seamless imports:
+
+- **Google Drive** — Import directly from your Drive
+- **Dropbox** — Connect your Dropbox account
+- **OneDrive** — Import from Microsoft OneDrive
+- **Box** — Connect your Box account
+
+See [Cloud Storage Integration](/knowledge-base/cloud-storage) for setup instructions.
+
+### Website Crawling
+
+Crawl public websites and import the content as documents:
+
+1. Navigate to **Content** and click the **Website** tab
+2. Enter a URL and click **Crawl**
+3. Review and edit crawled pages
+4. Select pages and click **Process Selected**
+
+The crawler follows links up to 2 levels deep. The number of pages you can crawl depends on your [plan](/billing/plans).
+
+See [Website Crawling](/knowledge-base/website-crawling) for the full guide.
+
+## Document Processing
+
+After uploading or crawling, your content is automatically processed and made searchable by your agents.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Processing time depends on document size and complexity. Most documents complete within a few minutes. The system automatically detects duplicate content to avoid redundant uploads.
+</Callout>
+
+## Best Practices
+
+- **Quality over quantity** — Well-structured documents produce better responses
+- **Keep content current** — Remove outdated documents to avoid confusion
+- **Organize with folders** — Use the folder structure to keep documents organized
+- **Crawl selectively** — Review and edit crawled pages before processing to remove navigation and boilerplate
+
+## Next Step
+
+With documents uploaded, you're ready to [create your first agent](/getting-started/first-agent).

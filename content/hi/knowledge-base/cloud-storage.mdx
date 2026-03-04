@@ -1,0 +1,134 @@
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+# Cloud Storage Integration
+
+import { Callout } from 'nextra/components'
+
+Import documents directly from your cloud storage accounts. Connect to Google Drive, Dropbox, OneDrive, or Box to add files to your Content without downloading them first.
+
+## Getting There
+
+Navigate to **Content** in the sidebar. Cloud storage icons appear at the top of the page, next to the upload drop zone.
+
+## Supported Providers
+
+| Provider | Icon Location | What You Can Import |
+|----------|---------------|---------------------|
+| Google Drive | Cloud icons row | Files, Google Docs, Slides |
+| Dropbox | Cloud icons row | Files from your Dropbox |
+| OneDrive | Cloud icons row | Files from your OneDrive |
+| Box | Cloud icons row | Files from your Box account |
+
+## How to Import Files
+
+### Step 1: Click the Provider Icon
+
+Click the icon for your cloud storage provider. You'll see a tooltip showing the provider name when you hover.
+
+### Step 2: Sign In
+
+You'll be prompted to sign in and authorize access. This authorization is remembered for your browser session.
+
+### Step 3: Select Files
+
+A file picker opens showing your cloud storage contents:
+- Navigate through folders to find files
+- Select multiple files at once
+- Only supported file types are shown (based on your plan)
+
+### Step 4: Import
+
+Click to confirm your selection. Files are queued for import and processing begins automatically.
+
+## Import Options
+
+Before importing, you can configure:
+
+| Option | Description |
+|--------|-------------|
+| Premium Processing | Enable for better AI understanding (checkbox below upload area) |
+| Target Folder | Upload directly to a folder by clicking the provider icon on a folder row |
+
+## Importing to a Specific Folder
+
+You can import cloud files directly into a folder:
+
+1. Find the folder in your document browser
+2. Hover over the folder row
+3. Click the cloud storage icon that appears
+4. Select files from your cloud storage
+5. Files are imported directly into that folder
+
+## During Import
+
+- A progress indicator shows import status
+- Files appear in your document list as they're processed
+- You can continue working while files import
+- If duplicates are detected, you'll be notified after import completes
+
+## Google Workspace Files
+
+Google Drive supports native Google Workspace documents:
+- **Google Docs** — Automatically converted to text
+- **Google Slides** — Automatically converted to presentation format
+
+<Callout type="info">
+  Formatting and charts are not preserved — only the text content is extracted.
+</Callout>
+
+## Permissions
+
+Cuneiform Chat requests minimal permissions:
+- Read access to selected files only
+- No write access to your cloud storage
+- No access to files you don't explicitly select
+
+<Callout type="info">
+  You can revoke access at any time through your cloud provider's settings.
+</Callout>
+
+## Sync Behavior
+
+Currently, cloud imports are **one-time imports**:
+- Files are copied at the time of import
+- Changes in cloud storage are not automatically synced
+- To update content, re-import the modified files
+
+## Tips
+
+- Select multiple files at once to save time
+- Only supported file types appear in the picker (based on your plan)
+- Use folder-level import for better organization
+- Large files may take longer to process after import
+
+## Common Questions
+
+**Q: Do I need to re-authorize each time?**
+A: Usually not. If your session is active, clicking the icon opens the file picker directly. You may occasionally need to re-authorize after clearing your browser data or using a new browser.
+
+**Q: Can I import entire folders?**
+A: Currently, you select individual files. Navigate into folders in the picker to select files within them.
+
+**Q: What happens to my original files?**
+A: Your cloud files remain unchanged. We create a copy in your Content.
+
+**Q: Why don't I see some files in the picker?**
+A: Only supported file types are shown. Check the [supported file types](/knowledge-base/supported-formats) for available formats.
+
+## Troubleshooting
+
+### Authorization Issues
+
+If you can't connect:
+- Check you're signed into the correct account
+- Try revoking and re-authorizing access
+- Ensure third-party app access is enabled in your provider settings
+
+### Import Failures
+
+If files fail to import:
+- Verify files are in supported formats
+- Check files aren't corrupted
+- Ensure you have permission to access the files
+- Try importing fewer files at once

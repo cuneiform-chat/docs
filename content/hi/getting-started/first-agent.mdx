@@ -1,0 +1,74 @@
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+# Create Your First Agent
+
+Agents are the chatbots that interact with your users. Each agent can be configured with specific knowledge, behavior, and personality.
+
+## Creating an Agent
+
+1. Navigate to **Agents** in the sidebar
+2. Click **Create Agent**
+3. Fill in the basic information:
+   - **Name** — A descriptive name for your agent (e.g., "Customer Support Bot")
+   - **Description** — What this agent does (for your reference)
+
+## Agent Configuration
+
+### Agent Persona
+
+The agent persona defines your agent's personality and behavior. This is the instruction that guides how your agent responds.
+
+You can write your own persona or click **Generate** to use the AI-powered Persona Builder that creates one based on your requirements.
+
+**Example:**
+```
+You are a helpful customer support assistant for Acme Corp.
+You answer questions about our products and services based on the provided documentation.
+Be friendly, professional, and concise.
+If you don't know the answer, say so rather than making something up.
+```
+
+### Platform Rules
+
+All agents automatically include built-in safety guardrails:
+
+- Won't fabricate facts, numbers, or dates
+- Says "I don't know" when information is unavailable
+- Won't guess at missing information
+- Corrects incorrect assumptions in questions
+- Won't impersonate professionals (lawyers, doctors, etc.)
+- Refuses harmful or inappropriate content
+
+These rules are always active and cannot be disabled.
+
+### Knowledge Access Control
+
+Control which documents your agent can access:
+
+- **Exclude Mode** (default) — Agent accesses all documents except those you select to hide
+- **Include Mode** — Agent only accesses the specific folders, tags, or documents you select
+
+Use Include Mode when you want to restrict an agent to a specific knowledge set.
+
+### LLM Configuration
+
+For most users, the default AI model settings work well. Advanced users can customize:
+
+- **Model** — Choose from available AI models
+- **Temperature** — Lower = more consistent, higher = more creative
+- **Show Document References** — Enable to include source citations in responses
+
+## Save Your Agent
+
+Click **Create Agent** to save. Your agent starts in **Testing** status, meaning you can test it in the Playground but channel integrations are disabled until you activate it.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="important">
+  Your draft is automatically saved as you work. If you leave and come back, your progress will be restored.
+</Callout>
+
+## Next Step
+
+Your agent is created! Now let's [test it in the playground](/getting-started/test-your-agent).
