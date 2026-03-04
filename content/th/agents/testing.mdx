@@ -1,83 +1,80 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
-# Testing in Playground
+# การทดสอบใน Playground
 
 import { Callout } from 'nextra/components'
 
-The Playground is your environment for testing and refining agents before deployment.
+Playground คือสภาพแวดล้อมสำหรับทดสอบและปรับแต่ง agent ก่อน deploy
 
-## Accessing the Playground
+## การเข้าถึง Playground
 
-1. Navigate to **Agents** in the sidebar
-2. Click **Test** on your agent card (or **Test Agent** when editing an agent)
-3. The Playground slides open as a side panel — start a conversation
+1. ไปที่ **Agents** ใน sidebar
+2. คลิก **Test** บน agent card (หรือ **Test Agent** เมื่อแก้ไข agent)
+3. Playground จะเลื่อนเปิดเป็น side panel — เริ่มการสนทนาได้เลย
 
 <Callout type="info">
-  The Test button is disabled when the agent status is **Archived** or **Inactive**. Change the status to **Active** or **Testing** to enable testing.
+  ปุ่ม Test จะถูกปิดใช้งานเมื่อ agent อยู่ในสถานะ **Archived** หรือ **Inactive** เปลี่ยนสถานะเป็น **Active** หรือ **Testing** เพื่อเปิดใช้งานการทดสอบ
 </Callout>
 
-## What to Test
+## สิ่งที่ควรทดสอบ
 
-### Basic Functionality
+### ฟังก์ชันพื้นฐาน
 
-- Can the agent answer questions from your documents?
-- Are responses accurate and relevant?
-- Does the tone match your expectations?
+- Agent สามารถตอบคำถามจาก document ของคุณได้หรือไม่?
+- คำตอบถูกต้องและเกี่ยวข้องหรือไม่?
+- Tone ตรงกับที่คุณคาดหวังหรือไม่?
 
-### Edge Cases
+### กรณีพิเศษ
 
-Test scenarios that might trip up your agent:
+ทดสอบสถานการณ์ที่อาจทำให้ agent ตอบผิดพลาด:
 
-- Questions not covered by your documents
-- Ambiguous or unclear questions
-- Multi-part questions
-- Follow-up questions requiring context
+- คำถามที่ไม่ครอบคลุมโดย document ของคุณ
+- คำถามที่คลุมเครือหรือไม่ชัดเจน
+- คำถามหลายส่วน
+- คำถามติดตามที่ต้องการ context
 
-### Conversation Flow
+### การไหลของการสนทนา
 
-Test multi-turn conversations:
+ทดสอบการสนทนาหลายรอบ:
 
-- Does the agent remember context from earlier messages?
-- Can it handle topic changes gracefully?
-- Does it ask for clarification when needed?
+- Agent จำ context จาก message ก่อนหน้าได้หรือไม่?
+- จัดการการเปลี่ยนหัวข้อได้อย่างราบรื่นหรือไม่?
+- ขอคำชี้แจงเมื่อจำเป็นหรือไม่?
 
-## Evaluating Responses
+## การประเมินคำตอบ
 
-For each response, consider:
+สำหรับแต่ละคำตอบ ให้พิจารณา:
 
-| Aspect | Questions to Ask |
-|--------|-----------------|
-| **Accuracy** | Is the information correct? |
-| **Relevance** | Does it answer the actual question? |
-| **Completeness** | Is anything important missing? |
-| **Tone** | Does it match your brand voice? |
-| **Length** | Is it appropriately concise or detailed? |
+| ด้าน | คำถามที่ควรถาม |
+|------|--------------|
+| **Accuracy** | ข้อมูลถูกต้องหรือไม่? |
+| **Relevance** | ตอบคำถามจริงหรือไม่? |
+| **Completeness** | มีข้อมูลสำคัญที่ขาดหายไปหรือไม่? |
+| **Tone** | ตรงกับเสียงของแบรนด์ของคุณหรือไม่? |
+| **Length** | กระชับหรือละเอียดอย่างเหมาะสมหรือไม่? |
 
-## Iterative Improvement
+## การปรับปรุงอย่างต่อเนื่อง
 
-### Identify Issues
+### ระบุปัญหา
 
-Common problems and solutions:
+ปัญหาทั่วไปและวิธีแก้:
 
-| Issue | Solution |
-|-------|----------|
-| Wrong information | Check document content, improve retrieval |
-| Too verbose | Add "be concise" to agent persona |
-| Too formal/casual | Adjust tone in agent persona |
-| Doesn't know answer | Add relevant documents |
-| Makes up facts | Strengthen boundaries in prompt |
+| ปัญหา | วิธีแก้ |
+|-------|--------|
+| ข้อมูลผิด | ตรวจสอบเนื้อหา document, ปรับปรุงการ retrieval |
+| ยาวเกินไป | เพิ่ม "be concise" ใน agent persona |
+| เป็นทางการ/สบายๆ เกินไป | ปรับ tone ใน agent persona |
+| ตอบไม่ได้ | เพิ่ม document ที่เกี่ยวข้อง |
+| สร้างข้อมูลขึ้นมาเอง | เสริม boundary ใน prompt |
 
-### Make Changes
+### ทำการเปลี่ยนแปลง
 
-1. Identify the issue in Playground testing
-2. Adjust relevant settings (prompt, documents, configuration)
-3. Test again with the same questions
-4. Verify the fix doesn't break other behaviors
+1. ระบุปัญหาจากการทดสอบใน Playground
+2. ปรับการตั้งค่าที่เกี่ยวข้อง (prompt, document, configuration)
+3. ทดสอบอีกครั้งด้วยคำถามเดิม
+4. ตรวจสอบว่าการแก้ไขไม่ทำให้พฤติกรรมอื่นเสียหาย
 
-## Test Scenarios Checklist
+## Checklist สถานการณ์ทดสอบ
 
-Create a set of standard test questions:
+สร้างชุดคำถามทดสอบมาตรฐาน:
 
 ```markdown
 ## Test Scenarios for [Agent Name]
@@ -95,17 +92,17 @@ Create a set of standard test questions:
 ```
 
 <Callout type="important">
-  Save your test scenarios and re-run them after making changes to catch regressions.
+  บันทึกสถานการณ์ทดสอบของคุณและรันอีกครั้งหลังทำการเปลี่ยนแปลงเพื่อตรวจจับ regression
 </Callout>
 
-## Ready for Deployment
+## พร้อมสำหรับ Deployment
 
-Your agent is ready when:
+Agent ของคุณพร้อมเมื่อ:
 
-- ✅ Answers common questions accurately
-- ✅ Handles edge cases gracefully
-- ✅ Maintains appropriate tone
-- ✅ Respects defined boundaries
-- ✅ Multi-turn conversations work well
+- ✅ ตอบคำถามทั่วไปได้อย่างถูกต้อง
+- ✅ จัดการกรณีพิเศษได้อย่างราบรื่น
+- ✅ รักษา tone ที่เหมาะสม
+- ✅ เคารพขอบเขตที่กำหนด
+- ✅ การสนทนาหลายรอบทำงานได้ดี
 
-Next, deploy your agent to [channels](/integrations) where users will interact with it.
+ขั้นตอนถัดไป deploy agent ของคุณไปยัง [channel](/integrations) ที่ผู้ใช้จะโต้ตอบ

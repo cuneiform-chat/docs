@@ -1,57 +1,54 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
-# Creating Agents
+# การสร้าง Agent
 
 import { Callout } from 'nextra/components'
 
-Learn how to create new agents in Cuneiform Chat.
+เรียนรู้วิธีสร้าง agent ใหม่ใน Cuneiform Chat
 
-## Getting Started
+## เริ่มต้นใช้งาน
 
-1. Navigate to **Agents** in the sidebar
-2. Click the **Create Agent** button in the top right
-3. Fill in the form sections below
+1. ไปที่ **Agents** ใน sidebar
+2. คลิกปุ่ม **Create Agent** ที่มุมขวาบน
+3. กรอกข้อมูลในแต่ละส่วนของ form ด้านล่าง
 
-## Basic Information
+## ข้อมูลพื้นฐาน
 
-This section captures essential details about your agent.
+ส่วนนี้เก็บรายละเอียดสำคัญเกี่ยวกับ agent ของคุณ
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| **Name** | Yes | A name for your agent (e.g., "Customer Support Agent"). Maximum 100 characters. |
-| **Description** | No | A brief description of what this agent does. Maximum 500 characters. |
+| ฟิลด์ | จำเป็น | คำอธิบาย |
+|-------|--------|----------|
+| **Name** | ใช่ | ชื่อสำหรับ agent ของคุณ (เช่น "Customer Support Agent") สูงสุด 100 ตัวอักษร |
+| **Description** | ไม่ | คำอธิบายสั้นๆ เกี่ยวกับสิ่งที่ agent นี้ทำ สูงสุด 500 ตัวอักษร |
 
-**Tips:**
-- Choose a descriptive name that indicates the agent's purpose
-- The description helps you and your team understand the agent's role
+**เคล็ดลับ:**
+- เลือกชื่อที่สื่อความหมายและบ่งบอกจุดประสงค์ของ agent
+- Description ช่วยให้คุณและทีมเข้าใจบทบาทของ agent
 
 ## Agent Persona
 
-The agent persona defines how your agent behaves and responds through a system prompt.
+Agent persona กำหนดพฤติกรรมและการตอบสนองของ agent ผ่าน system prompt
 
-**Key Elements:**
+**องค์ประกอบหลัก:**
 
-- **Platform Rules Box** — Shows built-in safety rules that are automatically applied (click to view details)
-- **Generate Button** — Opens the [Agent Persona Builder](/agents/persona-builder) to help create your persona
-- **Edit Button** — Opens a panel to manually write or edit the persona
+- **Platform Rules Box** — แสดง safety rule ในตัวที่ถูกนำไปใช้โดยอัตโนมัติ (คลิกเพื่อดูรายละเอียด)
+- **Generate Button** — เปิด [Agent Persona Builder](/agents/persona-builder) เพื่อช่วยสร้าง persona ของคุณ
+- **Edit Button** — เปิด panel เพื่อเขียนหรือแก้ไข persona ด้วยตนเอง
 
 ### Platform Rules
 
-These safety guardrails are automatically applied to all agents:
+Safety guardrail เหล่านี้ถูกนำไปใช้กับทุก agent โดยอัตโนมัติ:
 
-- **No fabrication** — Won't invent facts not in your content
-- **Acknowledges gaps** — Says "I don't know" when appropriate
-- **Resists speculation** — Won't guess at missing information
-- **No professional impersonation** — Won't act as lawyers, doctors, etc.
-- **Corrects false premises** — Points out incorrect assumptions
-- **Blocks harmful content** — Refuses inappropriate requests
+- **No fabrication** — ไม่สร้างข้อเท็จจริงที่ไม่มีในเนื้อหาของคุณ
+- **Acknowledges gaps** — บอก "ไม่ทราบ" เมื่อเหมาะสม
+- **Resists speculation** — ไม่เดาข้อมูลที่ขาดหายไป
+- **No professional impersonation** — ไม่แสดงตัวเป็นทนายความ แพทย์ ฯลฯ
+- **Corrects false premises** — ชี้ให้เห็นสมมติฐานที่ไม่ถูกต้อง
+- **Blocks harmful content** — ปฏิเสธคำขอที่ไม่เหมาะสม
 
 <Callout type="info">
-  Platform rules ensure all agents behave reliably and safely. They cannot be disabled. See [Agent Persona Builder](/agents/persona-builder#platform-rules) for details.
+  Platform rule ทำให้ทุก agent ทำงานได้อย่างน่าเชื่อถือและปลอดภัย ไม่สามารถปิดใช้งานได้ ดูรายละเอียดที่ [Agent Persona Builder](/agents/persona-builder#platform-rules)
 </Callout>
 
-### Quick Persona Example
+### ตัวอย่าง Persona แบบรวดเร็ว
 
 ```
 You are a helpful assistant for [Your Company].
@@ -59,89 +56,89 @@ Answer questions based on the provided documentation.
 Be concise and friendly.
 ```
 
-See [Agent Personas](/agents/agent-personas) for detailed guidance on writing effective personas.
+ดูคำแนะนำโดยละเอียดเกี่ยวกับการเขียน persona ที่มีประสิทธิภาพได้ที่ [Agent Personas](/agents/agent-personas)
 
-## Language Support
+## การรองรับภาษา
 
-Your agent automatically detects the language of each user message and responds in the same language — no configuration needed. 176 languages are supported out of the box. See [Agent Personas — Language Detection](/agents/agent-personas#4-automatic-language-detection) for details.
+Agent ของคุณตรวจจับภาษาของแต่ละ user message โดยอัตโนมัติ และตอบกลับในภาษาเดียวกัน — ไม่ต้องตั้งค่าใดๆ รองรับ 176 ภาษาตั้งแต่เริ่มต้น ดูรายละเอียดที่ [Agent Personas — Language Detection](/agents/agent-personas#4-automatic-language-detection)
 
 ## LLM Configuration
 
-This section controls the AI model settings.
+ส่วนนี้ควบคุมการตั้งค่า AI model
 
 **Default Mode:**
 
-By default, LLM settings use your organization's tier defaults. You'll see an info box showing "Using tier defaults". This is recommended for most use cases.
+โดยค่าเริ่มต้น การตั้งค่า LLM ใช้ค่า default ของ tier ขององค์กรของคุณ คุณจะเห็น info box แสดง "Using tier defaults" ซึ่งแนะนำสำหรับการใช้งานส่วนใหญ่
 
 **Advanced Mode:**
 
-Toggle on **Advanced** to customize:
+เปิด **Advanced** toggle เพื่อปรับแต่ง:
 
-| Setting | Description |
-|---------|-------------|
-| **Model** | Choose from available AI models based on your plan |
-| **Temperature** | Controls response creativity (lower = more consistent, higher = more creative) |
+| การตั้งค่า | คำอธิบาย |
+|-----------|----------|
+| **Model** | เลือก AI model ที่มีให้ตาม plan ของคุณ |
+| **Temperature** | ควบคุมความ creative ของการตอบ (ต่ำ = consistent มากขึ้น, สูง = creative มากขึ้น) |
 
 **Show Document References:**
 
-This toggle (always visible) controls whether the agent includes source citations in responses:
-- **Off** (default) — Responses don't mention source documents
-- **On** — Responses include references to source documents (useful for legal/compliance)
+Toggle นี้ (แสดงเสมอ) ควบคุมว่า agent จะรวม source citation ในคำตอบหรือไม่:
+- **Off** (ค่าเริ่มต้น) — คำตอบไม่อ้างอิง source document
+- **On** — คำตอบรวม reference ไปยัง source document (มีประโยชน์สำหรับ legal/compliance)
 
 ## Knowledge Access Control
 
-Control what documents your agent can access when answering questions.
+ควบคุมว่า agent ของคุณสามารถเข้าถึง document ใดบ้างเมื่อตอบคำถาม
 
-| Mode | Behavior | When to Use |
-|------|----------|-------------|
-| **Exclude Mode** | Agent accesses ALL documents EXCEPT those selected | Hide sensitive documents from the agent |
-| **Include Mode** | Agent accesses ONLY selected items | Restrict agent to a specific set of knowledge |
+| Mode | พฤติกรรม | เมื่อใดควรใช้ |
+|------|---------|--------------|
+| **Exclude Mode** | Agent เข้าถึง document ทั้งหมดยกเว้นที่เลือก | ซ่อน document ที่เป็นความลับจาก agent |
+| **Include Mode** | Agent เข้าถึงเฉพาะรายการที่เลือกเท่านั้น | จำกัด agent ให้ใช้เฉพาะ knowledge ที่กำหนด |
 
-**When using Include Mode:**
-- Select specific folders the agent can access
-- Select specific tags the agent can access
-- Select individual documents the agent can access
+**เมื่อใช้ Include Mode:**
+- เลือก folder เฉพาะที่ agent สามารถเข้าถึงได้
+- เลือก tag เฉพาะที่ agent สามารถเข้าถึงได้
+- เลือก document แต่ละรายการที่ agent สามารถเข้าถึงได้
 
-The agent will only use information from the selected sources when responding.
+Agent จะใช้ข้อมูลจาก source ที่เลือกเท่านั้นในการตอบ
 
 <Callout type="important">
-  Start with Exclude Mode (full knowledge access) unless you need to hide specific documents. You can always restrict access later.
+  เริ่มด้วย Exclude Mode (เข้าถึง knowledge ทั้งหมด) เว้นแต่คุณต้องการซ่อน document เฉพาะ คุณสามารถจำกัดการเข้าถึงได้ในภายหลัง
 </Callout>
 
 ## Form Actions
 
-At the bottom of the form:
+ที่ด้านล่างของ form:
 
-| Button | Action |
-|--------|--------|
-| **Cancel** | Discard changes and go back |
-| **Reset** | Clear all fields and start over (shows confirmation dialog) |
-| **Create Agent** | Save the agent and open its edit page |
-
-<Callout type="info">
-  Your draft is automatically saved as you work. If you leave and come back, your progress will be restored.
-</Callout>
-
-## After Creating
-
-When you click **Create Agent**:
-
-1. The agent is created with **Testing** status
-2. You're taken to the agent's edit page
-3. Test the agent using the Playground
-4. Connect integrations when ready to go live
-5. Change status to **Active** when ready
+| ปุ่ม | การทำงาน |
+|------|---------|
+| **Cancel** | ยกเลิกการเปลี่ยนแปลงและย้อนกลับ |
+| **Reset** | ล้างทุกฟิลด์และเริ่มใหม่ (แสดง confirmation dialog) |
+| **Create Agent** | บันทึก agent และเปิดหน้าแก้ไข |
 
 <Callout type="info">
-  New agents start in **Testing** status. You can test in the Playground, but channel integrations are disabled until you activate the agent.
+  Draft ของคุณจะถูกบันทึกอัตโนมัติขณะทำงาน ถ้าคุณออกไปและกลับมา ความคืบหน้าจะถูกกู้คืน
 </Callout>
 
-## Managing Agents
+## หลังจากสร้าง
 
-From the Agents page, you can:
+เมื่อคุณคลิก **Create Agent**:
 
-- **Edit** — Click on any agent to modify its settings
-- **Test** — Click **Test** on an agent card to open the Playground
-- **Change Status** — Set to Testing, Active, Inactive, or Archived
+1. Agent จะถูกสร้างด้วยสถานะ **Testing**
+2. คุณจะถูกนำไปยังหน้าแก้ไขของ agent
+3. ทดสอบ agent โดยใช้ Playground
+4. เชื่อมต่อ integration เมื่อพร้อมใช้งานจริง
+5. เปลี่ยนสถานะเป็น **Active** เมื่อพร้อม
 
-See [Configuration Options](/agents/configuring) for details on all agent settings.
+<Callout type="info">
+  Agent ใหม่เริ่มต้นด้วยสถานะ **Testing** คุณสามารถทดสอบใน Playground ได้ แต่ channel integration จะถูกปิดจนกว่าคุณจะ activate agent
+</Callout>
+
+## การจัดการ Agent
+
+จากหน้า Agents คุณสามารถ:
+
+- **Edit** — คลิกที่ agent ใดก็ได้เพื่อแก้ไขการตั้งค่า
+- **Test** — คลิก **Test** บน agent card เพื่อเปิด Playground
+- **Change Status** — ตั้งค่าเป็น Testing, Active, Inactive หรือ Archived
+
+ดูรายละเอียดการตั้งค่า agent ทั้งหมดได้ที่ [Configuration Options](/agents/configuring)

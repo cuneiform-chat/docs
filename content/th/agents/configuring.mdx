@@ -1,199 +1,196 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
-# Configuration Options
+# ตัวเลือกการตั้งค่า
 
 import { Callout } from 'nextra/components'
 
-Detailed guide to all agent configuration options.
+คู่มือฉบับสมบูรณ์สำหรับตัวเลือกการตั้งค่า agent ทั้งหมด
 
-## Page Structure
+## โครงสร้างหน้า
 
-The agent edit page has three tabs:
+หน้าแก้ไข agent มีสาม tab:
 
-| Tab | Purpose |
-|-----|---------|
-| **Configuration** | Core settings (status, name, persona, LLM, messages) |
-| **Knowledge Access** | Control which documents the agent can use |
-| **Integrations** | Connect to external channels (Telegram, Discord, etc.) |
+| Tab | จุดประสงค์ |
+|-----|-----------|
+| **Configuration** | การตั้งค่าหลัก (status, ชื่อ, persona, LLM, ข้อความ) |
+| **Knowledge Access** | ควบคุม document ที่ agent สามารถใช้ได้ |
+| **Integrations** | เชื่อมต่อกับ channel ภายนอก (Telegram, Discord ฯลฯ) |
 
 ## Configuration Tab
 
 ### Status
 
-Control your agent's availability:
+ควบคุมความพร้อมใช้งานของ agent:
 
-| Status | Playground | Integrations | Notes |
-|--------|------------|--------------|-------|
-| **Testing** | ✅ Enabled | ❌ Disabled | Default for new agents. Test before going live. |
-| **Active** | ✅ Enabled | ✅ Enabled | Ready for production use. |
-| **Inactive** | ❌ Disabled | ❌ Disabled | Temporarily disabled. |
-| **Archived** | ❌ Disabled | ❌ Disabled | Hidden from main list. |
+| Status | Playground | Integrations | หมายเหตุ |
+|--------|------------|--------------|---------|
+| **Testing** | ✅ Enabled | ❌ Disabled | ค่าเริ่มต้นสำหรับ agent ใหม่ ทดสอบก่อนใช้งานจริง |
+| **Active** | ✅ Enabled | ✅ Enabled | พร้อมใช้งานจริง |
+| **Inactive** | ❌ Disabled | ❌ Disabled | ปิดใช้งานชั่วคราว |
+| **Archived** | ❌ Disabled | ❌ Disabled | ซ่อนจากรายการหลัก |
 
 <Callout type="warning">
-  If your agent has connected integrations and you change from Active to another status, you'll see a confirmation dialog warning that the agent will stop responding on connected channels.
+  หาก agent ของคุณมี integration ที่เชื่อมต่ออยู่ และคุณเปลี่ยนจาก Active เป็นสถานะอื่น คุณจะเห็น confirmation dialog แจ้งเตือนว่า agent จะหยุดตอบบน channel ที่เชื่อมต่อ
 </Callout>
 
 ### Basic Settings
 
-- **Name** — Identifies the agent in your dashboard
-- **Description** — Internal notes about the agent's purpose
+- **Name** — ระบุ agent ใน dashboard ของคุณ
+- **Description** — บันทึกภายในเกี่ยวกับจุดประสงค์ของ agent
 
 ### LLM Configuration
 
-Control the AI model powering your agent.
+ควบคุม AI model ที่ขับเคลื่อน agent ของคุณ
 
-**Default Mode (Advanced toggle off):**
-- Uses your organization's tier defaults
-- Displays an info box explaining tier defaults are in use
-- Recommended for most use cases
+**Default Mode (Advanced toggle ปิด):**
+- ใช้ค่า default ของ tier ขององค์กรของคุณ
+- แสดง info box อธิบายว่ากำลังใช้ tier default
+- แนะนำสำหรับการใช้งานส่วนใหญ่
 
-**Advanced Mode (Advanced toggle on):**
+**Advanced Mode (Advanced toggle เปิด):**
 
-| Setting | Description |
-|---------|-------------|
-| **Model** | Select from available AI models based on your plan |
-| **Temperature** | Controls response creativity (0.0-1.0) |
+| การตั้งค่า | คำอธิบาย |
+|-----------|----------|
+| **Model** | เลือก AI model ที่มีให้ตาม plan ของคุณ |
+| **Temperature** | ควบคุมความ creative ของการตอบ (0.0-1.0) |
 
 #### Temperature Guide
 
-| Value | Behavior |
-|-------|----------|
-| 0.0 - 0.3 | Focused, deterministic responses |
-| 0.4 - 0.7 | Balanced creativity and consistency |
-| 0.8 - 1.0 | More creative, varied responses |
+| ค่า | พฤติกรรม |
+|-----|---------|
+| 0.0 - 0.3 | การตอบที่มุ่งเน้นและแน่นอน |
+| 0.4 - 0.7 | สมดุลระหว่างความ creative และ consistency |
+| 0.8 - 1.0 | การตอบที่ creative และหลากหลายมากขึ้น |
 
-**Recommendation:** Start with 0.3-0.5 for factual Q&A based on documents.
+**คำแนะนำ:** เริ่มด้วย 0.3-0.5 สำหรับ Q&A ที่อิงข้อเท็จจริงจาก document
 
 #### Show Document References
 
-This toggle (always visible regardless of Advanced mode) controls whether the agent includes source citations in responses:
+Toggle นี้ (แสดงเสมอไม่ว่า Advanced mode จะเปิดหรือไม่) ควบคุมว่า agent จะรวม source citation ในคำตอบหรือไม่:
 
-- **Off** (default) — Responses don't mention source documents
-- **On** — Responses include references to source documents
+- **Off** (ค่าเริ่มต้น) — คำตอบไม่อ้างอิง source document
+- **On** — คำตอบรวม reference ไปยัง source document
 
 <Callout type="important">
-  Enable document references for use cases requiring transparency, such as legal, compliance, or internal content where users need to verify sources.
+  เปิดใช้งาน document reference สำหรับกรณีที่ต้องการความโปร่งใส เช่น legal, compliance หรือเนื้อหาภายในที่ผู้ใช้ต้องการตรวจสอบแหล่งที่มา
 </Callout>
 
-### Language Support
+### การรองรับภาษา
 
-Your agent automatically detects the language of each user message and responds in kind — no manual configuration needed. 176 languages are supported out of the box, including Arabic, French, German, Spanish, Turkish, Chinese, Japanese, and more.
+Agent ของคุณตรวจจับภาษาของแต่ละ user message โดยอัตโนมัติ และตอบกลับในภาษาเดียวกัน — ไม่ต้องตั้งค่าด้วยตนเอง รองรับ 176 ภาษาตั้งแต่เริ่มต้น รวมถึงอาหรับ, ฝรั่งเศส, เยอรมัน, สเปน, ตุรกี, จีน, ญี่ปุ่น และอื่นๆ อีกมาก
 
 ### Agent Persona
 
-The instructions that control agent behavior. See [Agent Personas](/agents/agent-personas) for best practices.
+คำสั่งที่ควบคุมพฤติกรรมของ agent ดู [Agent Personas](/agents/agent-personas) สำหรับแนวทางปฏิบัติที่ดี
 
-**Actions available:**
-- **Generate** — Opens the [Agent Persona Builder](/agents/persona-builder)
-- **Edit** — Opens a slide-out panel to write or modify the persona directly
+**การดำเนินการที่มี:**
+- **Generate** — เปิด [Agent Persona Builder](/agents/persona-builder)
+- **Edit** — เปิด slide-out panel เพื่อเขียนหรือแก้ไข persona โดยตรง
 
-Click on the persona text area to open the edit panel.
+คลิกที่พื้นที่ข้อความ persona เพื่อเปิด edit panel
 
 **Platform Rules Box:**
-Click to view the platform reliability rules that are automatically applied to all agents:
-- No fabrication — won't invent facts
-- Acknowledges gaps — says "I don't know" when appropriate
-- Resists speculation — won't guess at missing information
-- No professional impersonation — won't act as lawyers, doctors, etc.
-- Corrects false premises — points out incorrect assumptions
-- Blocks harmful content — refuses inappropriate requests
+คลิกเพื่อดู platform reliability rule ที่ถูกนำไปใช้กับทุก agent โดยอัตโนมัติ:
+- No fabrication — ไม่สร้างข้อเท็จจริงขึ้นมา
+- Acknowledges gaps — บอก "ไม่ทราบ" เมื่อเหมาะสม
+- Resists speculation — ไม่เดาข้อมูลที่ขาดหายไป
+- No professional impersonation — ไม่แสดงตัวเป็นทนายความ แพทย์ ฯลฯ
+- Corrects false premises — ชี้ให้เห็นสมมติฐานที่ไม่ถูกต้อง
+- Blocks harmful content — ปฏิเสธคำขอที่ไม่เหมาะสม
 
 <Callout type="info">
-  Platform rules ensure all agents behave reliably and safely. They cannot be disabled or modified.
+  Platform rule ทำให้ทุก agent ทำงานได้อย่างน่าเชื่อถือและปลอดภัย ไม่สามารถปิดใช้งานหรือแก้ไขได้
 </Callout>
 
 ## Knowledge Access Tab
 
-Control which documents your agent can access when responding to queries.
+ควบคุม document ที่ agent ของคุณสามารถเข้าถึงได้เมื่อตอบคำถาม
 
 ### Access Modes
 
-| Mode | Behavior | When to Use |
-|------|----------|-------------|
-| **Exclude Mode** | Agent accesses ALL documents EXCEPT those selected | Hide sensitive documents while allowing access to everything else |
-| **Include Mode** | Agent accesses ONLY selected items | Restrict agent to a specific set of documents |
+| Mode | พฤติกรรม | เมื่อใดควรใช้ |
+|------|---------|--------------|
+| **Exclude Mode** | Agent เข้าถึง document ทั้งหมดยกเว้นที่เลือก | ซ่อน document ที่เป็นความลับโดยอนุญาตให้เข้าถึงอย่างอื่นทั้งหมด |
+| **Include Mode** | Agent เข้าถึงเฉพาะรายการที่เลือกเท่านั้น | จำกัด agent ให้ใช้เฉพาะ document ที่กำหนด |
 
-### Selection Options
+### ตัวเลือกการเลือก
 
-Fine-tune access using multiple selection types:
+ปรับแต่งการเข้าถึงโดยใช้ตัวเลือกการเลือกหลายประเภท:
 
-- **Folders** — Select entire folders and all documents within them
-- **Tags** — Filter documents by their assigned tags
-- **Individual Documents** — Include or exclude specific documents within selected folders
+- **Folders** — เลือกทั้ง folder และ document ทั้งหมดภายใน
+- **Tags** — กรอง document ตาม tag ที่กำหนด
+- **Individual Documents** — รวมหรือยกเว้น document เฉพาะภายใน folder ที่เลือก
 
 ### Access Preview
 
-The preview panel shows the effective document access based on your current selections. Use this to verify your configuration before saving.
+Preview panel แสดงการเข้าถึง document ที่มีผลตามการเลือกปัจจุบันของคุณ ใช้สิ่งนี้เพื่อตรวจสอบ configuration ก่อนบันทึก
 
 <Callout type="info">
-  Start with **Exclude Mode** if you want broad access with specific restrictions. Use **Include Mode** when you need tight control over exactly which documents the agent can reference.
+  เริ่มด้วย **Exclude Mode** ถ้าคุณต้องการการเข้าถึงแบบกว้างพร้อมข้อจำกัดเฉพาะ ใช้ **Include Mode** เมื่อคุณต้องการควบคุมอย่างเข้มงวดว่า agent จะอ้างอิง document ใดบ้าง
 </Callout>
 
 ## Integrations Tab
 
-Connect your agent to communication channels.
+เชื่อมต่อ agent ของคุณกับ channel สื่อสาร
 
-This tab shows available integration options for your agent. You can connect channels like:
+Tab นี้แสดงตัวเลือก integration ที่มีให้สำหรับ agent ของคุณ คุณสามารถเชื่อมต่อ channel เช่น:
 - Telegram
 - Discord
 - Slack
 - WhatsApp
 - Meta (Facebook Messenger)
-- And more (based on your plan)
+- และอื่นๆ อีก (ตาม plan ของคุณ)
 
-See the [Integrations documentation](/integrations) for detailed setup guides for each channel.
+ดู [เอกสาร Integrations](/integrations) สำหรับคู่มือการตั้งค่าแต่ละ channel โดยละเอียด
 
 ## Human Handoff
 
-Enable live chat handoff so your AI agent can transfer conversations to a real human when users request it.
+เปิดใช้งาน live chat handoff เพื่อให้ AI agent ของคุณสามารถส่งต่อการสนทนาให้คนจริงเมื่อผู้ใช้ร้องขอ
 
-**How to enable:**
+**วิธีเปิดใช้งาน:**
 
-1. In the **Configuration** tab, scroll to the **Human Handoff** section
-2. Toggle **Enable Human Handoff** on
-3. Configure the messages:
-   - **Handoff Message** — Shown to the user when the transfer starts
-   - **Resolve Message** — Shown when the human agent ends the conversation
-   - **Max Wait Time** — Auto-expire if no agent accepts (default: 30 minutes)
-4. Click **Save Changes**
+1. ใน **Configuration** tab เลื่อนไปที่ส่วน **Human Handoff**
+2. เปิด toggle **Enable Human Handoff**
+3. ตั้งค่าข้อความ:
+   - **Handoff Message** — แสดงให้ผู้ใช้เห็นเมื่อเริ่มการส่งต่อ
+   - **Resolve Message** — แสดงเมื่อ human agent จบการสนทนา
+   - **Max Wait Time** — หมดอายุอัตโนมัติถ้าไม่มี agent รับ (ค่าเริ่มต้น: 30 นาที)
+4. คลิก **Save Changes**
 
-When a user asks to speak with a human, the AI creates a handoff request visible on the **Inbox** page. A team member accepts, chats with the user on their channel, and resolves when done.
+เมื่อผู้ใช้ขอพูดคุยกับคน AI จะสร้างคำขอ handoff ที่มองเห็นได้ในหน้า **Inbox** สมาชิกในทีมจะรับ, แชทกับผู้ใช้บน channel ของพวกเขา และ resolve เมื่อเสร็จ
 
 <Callout type="info">
-  Human Handoff is available on all plans. Enable it per agent in the Configuration tab.
+  Human Handoff มีให้ในทุก plan เปิดใช้งานต่อ agent ใน Configuration tab
 </Callout>
 
-## Testing Your Agent
+## การทดสอบ Agent ของคุณ
 
-Before saving changes, you can test your agent:
+ก่อนบันทึกการเปลี่ยนแปลง คุณสามารถทดสอบ agent ของคุณ:
 
-1. Click the **Test Agent** button at the bottom of the form
-2. The Playground panel slides open
-3. Have a test conversation with your agent
-4. Close the Playground when done
+1. คลิกปุ่ม **Test Agent** ที่ด้านล่างของ form
+2. Playground panel จะเลื่อนเปิดขึ้น
+3. ทดสอบการสนทนากับ agent ของคุณ
+4. ปิด Playground เมื่อเสร็จ
 
 <Callout type="info">
-  The Test Agent button is disabled when the agent status is Archived or Inactive. Change the status to Active or Testing to enable testing.
+  ปุ่ม Test Agent จะถูกปิดใช้งานเมื่อ agent อยู่ในสถานะ Archived หรือ Inactive เปลี่ยนสถานะเป็น Active หรือ Testing เพื่อเปิดใช้งานการทดสอบ
 </Callout>
 
-## Saving Changes
+## การบันทึกการเปลี่ยนแปลง
 
-| Button | Action |
-|--------|--------|
-| **Save Changes** | Save all modifications |
-| **Test Agent** | Open the Playground to test |
+| ปุ่ม | การทำงาน |
+|------|---------|
+| **Save Changes** | บันทึกการแก้ไขทั้งหมด |
+| **Test Agent** | เปิด Playground เพื่อทดสอบ |
 
-To discard changes, navigate away using the back button or sidebar navigation.
+หากต้องการยกเลิกการเปลี่ยนแปลง ให้นำทางออกโดยใช้ปุ่มย้อนกลับหรือ sidebar navigation
 
-**What gets saved:**
-- Only changed fields are updated
-- You'll see "No changes to save" if nothing was modified
-- Success or error messages appear after save
+**สิ่งที่ถูกบันทึก:**
+- เฉพาะฟิลด์ที่เปลี่ยนแปลงเท่านั้นที่จะถูกอัปเดต
+- คุณจะเห็น "No changes to save" ถ้าไม่มีการแก้ไข
+- ข้อความ success หรือ error จะปรากฏหลังบันทึก
 
-**Partial Save Handling:**
-If some changes save but others fail, you'll be notified which sections failed and the page will refresh to show the current state.
+**การจัดการ Partial Save:**
+ถ้าบางการเปลี่ยนแปลงบันทึกสำเร็จแต่บางส่วนล้มเหลว คุณจะได้รับแจ้งว่าส่วนใดล้มเหลว และหน้าจะ refresh เพื่อแสดงสถานะปัจจุบัน
 
 <Callout type="info">
-  Changes to agent settings take effect immediately after saving. Test in the Playground after making changes.
+  การเปลี่ยนแปลงการตั้งค่า agent จะมีผลทันทีหลังบันทึก ทดสอบใน Playground หลังจากทำการเปลี่ยนแปลง
 </Callout>

@@ -1,27 +1,24 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Agent Personas
 
-The agent persona is the most important configuration for your agent. It defines personality, behavior, and boundaries.
+Agent persona คือการตั้งค่าที่สำคัญที่สุดสำหรับ agent ของคุณ กำหนด personality, พฤติกรรม และขอบเขต
 
-## What is an Agent Persona?
+## Agent Persona คืออะไร?
 
-The agent persona is a set of instructions given to the AI before any user conversation. It shapes every response your agent gives.
+Agent persona คือชุดคำสั่งที่ให้กับ AI ก่อนการสนทนาใดๆ กับผู้ใช้ มันหล่อหลอมทุกคำตอบที่ agent ของคุณให้
 
-## Structure of a Good Agent Persona
+## โครงสร้างของ Agent Persona ที่ดี
 
-### 1. Role Definition
+### 1. การกำหนดบทบาท
 
-Start by defining who the agent is:
+เริ่มต้นด้วยการกำหนดว่า agent เป็นใคร:
 
 ```
 You are a customer support assistant for TechCorp, a software company.
 ```
 
-### 2. Core Responsibilities
+### 2. ความรับผิดชอบหลัก
 
-Describe what the agent should do:
+อธิบายสิ่งที่ agent ควรทำ:
 
 ```
 Your role is to:
@@ -30,9 +27,9 @@ Your role is to:
 - Guide users to relevant documentation
 ```
 
-### 3. Behavior Guidelines
+### 3. แนวทางพฤติกรรม
 
-Set the tone and style:
+กำหนด tone และ style:
 
 ```
 Communication style:
@@ -41,15 +38,15 @@ Communication style:
 - Keep responses concise unless detail is requested
 ```
 
-### 4. Automatic Language Detection
+### 4. การตรวจจับภาษาอัตโนมัติ
 
-Your agent automatically detects the language of each user message and responds in kind — no manual configuration needed. 176 languages are supported out of the box.
+Agent ของคุณตรวจจับภาษาของแต่ละ user message โดยอัตโนมัติ และตอบกลับในภาษาเดียวกัน — ไม่ต้องตั้งค่าด้วยตนเอง รองรับ 176 ภาษาตั้งแต่เริ่มต้น
 
-The agent adapts per-message, so it can handle multilingual conversations naturally. Safety and accuracy rules remain in English internally.
+Agent ปรับตัวในแต่ละ message จึงสามารถจัดการการสนทนาหลายภาษาได้อย่างเป็นธรรมชาติ กฎด้านความปลอดภัยและความถูกต้องยังคงเป็นภาษาอังกฤษภายใน
 
-### 4. Boundaries
+### 4. ขอบเขต
 
-Define what the agent should NOT do:
+กำหนดสิ่งที่ agent ไม่ควรทำ:
 
 ```
 Important boundaries:
@@ -59,7 +56,7 @@ Important boundaries:
 - If unsure, acknowledge uncertainty and suggest contacting support
 ```
 
-## Example Agent Personas
+## ตัวอย่าง Agent Persona
 
 ### Customer Support
 
@@ -116,52 +113,52 @@ If a question isn't covered in the documentation:
 Tone: Friendly and helpful, but concise.
 ```
 
-## Tips for Better Personas
+## เคล็ดลับสำหรับ Persona ที่ดีขึ้น
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-**Start simple.** Begin with a basic prompt and add complexity based on testing results.
+**เริ่มง่ายๆ** เริ่มด้วย prompt พื้นฐานและเพิ่มความซับซ้อนตามผลการทดสอบ
 </Callout>
 
-1. **Be specific** — Vague instructions lead to inconsistent behavior
-2. **Use examples** — Show the agent what good responses look like
-3. **Set clear boundaries** — Define what the agent should NOT do
-4. **Iterate** — Test and refine based on actual conversations
-5. **Keep it focused** — Long, complex prompts can confuse the model
-6. **Language is automatic** — Your agent detects the user's language and responds accordingly. No need to add language instructions to the persona text
+1. **ระบุให้ชัดเจน** — คำสั่งที่คลุมเครือนำไปสู่พฤติกรรมที่ไม่สม่ำเสมอ
+2. **ใช้ตัวอย่าง** — แสดงให้ agent เห็นว่าคำตอบที่ดีเป็นอย่างไร
+3. **กำหนดขอบเขตที่ชัดเจน** — กำหนดสิ่งที่ agent ไม่ควรทำ
+4. **ปรับปรุงอย่างต่อเนื่อง** — ทดสอบและปรับแต่งตามการสนทนาจริง
+5. **ทำให้มุ่งเน้น** — prompt ที่ยาวและซับซ้อนอาจทำให้ model สับสน
+6. **ภาษาเป็นแบบอัตโนมัติ** — Agent ของคุณตรวจจับภาษาของผู้ใช้และตอบกลับตามนั้น ไม่ต้องเพิ่มคำสั่งภาษาใน persona
 
-## Testing Your Persona
+## การทดสอบ Persona ของคุณ
 
-After writing or updating your agent persona:
+หลังจากเขียนหรืออัปเดต agent persona ของคุณ:
 
-1. Test in the [Playground](/agents/testing)
-2. Try edge cases and tricky questions
-3. Refine based on results
-4. Re-test to ensure improvements
+1. ทดสอบใน [Playground](/agents/testing)
+2. ลองกรณีพิเศษและคำถามยากๆ
+3. ปรับแต่งตามผลลัพธ์
+4. ทดสอบอีกครั้งเพื่อให้แน่ใจว่าได้ผลดีขึ้น
 
 ## Template Variables
 
-Personalize your agent's system prompt with dynamic variables.
+ปรับแต่ง system prompt ของ agent ด้วย dynamic variable
 
-### Available Variables
+### Variable ที่มีให้
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `{{organization_name}}` | Your organization name | "Acme Corp" |
-| `{{current_date}}` | Today's date | "2026-02-03" |
-| `{{current_year}}` | Current year | "2026" |
+| Variable | คำอธิบาย | ตัวอย่าง |
+|----------|----------|---------|
+| `{{organization_name}}` | ชื่อองค์กรของคุณ | "Acme Corp" |
+| `{{current_date}}` | วันที่วันนี้ | "2026-02-03" |
+| `{{current_year}}` | ปีปัจจุบัน | "2026" |
 
-### Using Variables
+### การใช้ Variables
 
-In your system prompt:
+ใน system prompt ของคุณ:
 
 ```
 Welcome to {{organization_name}}! I'm here to help you today.
 ```
 
-**Result:** "Welcome to Acme Corp! I'm here to help you today."
+**ผลลัพธ์:** "Welcome to Acme Corp! I'm here to help you today."
 
 <Callout type="important">
-  Click **Preview** when editing to see how variables will appear with your organization's actual values.
+  คลิก **Preview** เมื่อแก้ไข เพื่อดูว่า variable จะแสดงอย่างไรกับค่าจริงขององค์กรของคุณ
 </Callout>

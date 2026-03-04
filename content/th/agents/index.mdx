@@ -1,61 +1,57 @@
 ---
-description: Configure AI agents with custom personas, knowledge access, and multi-channel deployment.
+description: ตั้งค่า AI agent ด้วย custom persona, knowledge access และ multi-channel deployment
 ---
-
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 
 # Agents
 
-Agents are the AI chatbots that interact with your users. Each agent has its own configuration, knowledge access, and personality.
+Agent คือ AI chatbot ที่โต้ตอบกับผู้ใช้ของคุณ แต่ละ agent มี configuration, knowledge access และ personality เป็นของตัวเอง
 
-## What is an Agent?
+## Agent คืออะไร?
 
-An agent is a configured chatbot that:
+Agent คือ chatbot ที่ถูกตั้งค่าแล้ว ซึ่ง:
 
-- Answers questions using your content
-- Follows instructions defined in its agent persona
-- Maintains conversation context within sessions
-- Can be deployed to multiple channels
+- ตอบคำถามโดยใช้เนื้อหาของคุณ
+- ปฏิบัติตามคำสั่งที่กำหนดไว้ใน agent persona
+- รักษา context ของการสนทนาภายใน session
+- สามารถ deploy ไปยังหลาย channel ได้
 
-## Agent Concepts
+## แนวคิดของ Agent
 
 ### Agent Persona
 
-The agent persona is the set of instructions that defines how your agent behaves. It controls:
+Agent persona คือชุดคำสั่งที่กำหนดพฤติกรรมของ agent โดยควบคุม:
 
-- **Personality** — Friendly, professional, casual, etc.
-- **Scope** — What topics the agent should and shouldn't address
-- **Response style** — Length, format, and tone of answers
-- **Guardrails** — Boundaries and limitations
-- **Language** — Automatic per-message detection (176 languages supported)
+- **Personality** — เป็นมิตร, มืออาชีพ, สบายๆ เป็นต้น
+- **Scope** — หัวข้อที่ agent ควรและไม่ควรพูดถึง
+- **Response style** — ความยาว, รูปแบบ และ tone ของคำตอบ
+- **Guardrails** — ขอบเขตและข้อจำกัด
+- **Language** — ตรวจจับภาษาอัตโนมัติในแต่ละ message (รองรับ 176 ภาษา)
 
 ### Knowledge Access
 
-Each agent accesses your content to find relevant information. You can configure:
+แต่ละ agent เข้าถึงเนื้อหาของคุณเพื่อค้นหาข้อมูลที่เกี่ยวข้อง คุณสามารถตั้งค่า:
 
-- Which documents the agent can search
-- How many sources to retrieve
-- Whether to show source citations
+- document ใดที่ agent สามารถค้นหาได้
+- จำนวน source ที่จะดึงมา
+- จะแสดง source citation หรือไม่
 
 ### Channels
 
-Agents can be deployed to multiple channels simultaneously:
+Agent สามารถ deploy ไปยังหลาย channel พร้อมกันได้:
 
-- Messaging platforms (Telegram, Discord, Slack, WhatsApp, Google Chat)
-- Facebook Messenger via Meta integration
-- Human Handoff — seamlessly transfer conversations to a human team member
+- Messaging platform (Telegram, Discord, Slack, WhatsApp, Google Chat)
+- Facebook Messenger ผ่าน Meta integration
+- Human Handoff — ส่งต่อการสนทนาให้สมาชิกในทีมได้อย่างราบรื่น
 
-## In This Section
+## ในส่วนนี้
 
 import { Cards } from 'nextra/components'
 
 <Cards>
-  <Cards.Card title="Creating Agents" href="/agents/creating" />
-  <Cards.Card title="Configuration Options" href="/agents/configuring" />
+  <Cards.Card title="การสร้าง Agents" href="/agents/creating" />
+  <Cards.Card title="ตัวเลือกการตั้งค่า" href="/agents/configuring" />
   <Cards.Card title="Agent Personas" href="/agents/agent-personas" />
   <Cards.Card title="Agent Persona Builder" href="/agents/persona-builder" />
-  <Cards.Card title="Testing in Playground" href="/agents/testing" />
-  <Cards.Card title="Inbox & Human Handoff" href="/agents/inbox" />
+  <Cards.Card title="การทดสอบใน Playground" href="/agents/testing" />
+  <Cards.Card title="Inbox และ Human Handoff" href="/agents/inbox" />
 </Cards>

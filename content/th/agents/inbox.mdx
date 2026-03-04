@@ -1,52 +1,49 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Inbox และ Human Handoff
 
-# Inbox & Human Handoff
-
-When your AI agent can't fully resolve a conversation, it can transfer the user to a human team member. This is called Human Handoff — it connects your AI-powered support with real people when they're needed most.
+เมื่อ AI agent ของคุณไม่สามารถแก้ไขการสนทนาได้อย่างสมบูรณ์ มันสามารถส่งต่อผู้ใช้ให้กับสมาชิกในทีม สิ่งนี้เรียกว่า Human Handoff — เชื่อมต่อ AI support กับคนจริงเมื่อจำเป็นที่สุด
 
 import { Callout } from 'nextra/components'
 
-## Overview
+## ภาพรวม
 
-Human Handoff provides:
-- Seamless transfer from AI agent to a human team member
-- Real-time chat with end users on any connected channel
-- Queue management with status tracking
-- In-app and email notifications when users request help
-- Automatic expiry if no agent is available within the configured time
+Human Handoff มีให้:
+- การส่งต่อที่ราบรื่นจาก AI agent ไปยังสมาชิกในทีม
+- แชท real-time กับผู้ใช้บน channel ที่เชื่อมต่อ
+- การจัดการ queue พร้อมการติดตามสถานะ
+- การแจ้งเตือน in-app และ email เมื่อผู้ใช้ขอความช่วยเหลือ
+- หมดอายุอัตโนมัติถ้าไม่มี agent ว่างภายในเวลาที่ตั้งค่า
 
-## Prerequisites
+## ข้อกำหนดเบื้องต้น
 
-- An active AI agent with Human Handoff enabled
-- At least one connected channel (or the Website Widget)
-- A team member available to respond in the admin panel
+- AI agent ที่ Active พร้อมเปิดใช้งาน Human Handoff
+- อย่างน้อยหนึ่ง channel ที่เชื่อมต่อ (หรือ Website Widget)
+- สมาชิกในทีมที่พร้อมตอบใน admin panel
 
-## Enabling Human Handoff
+## การเปิดใช้งาน Human Handoff
 
-Human Handoff is configured per agent.
+Human Handoff ตั้งค่าต่อ agent
 
-1. Go to **Agents** and click your agent to edit
-2. In the **Configuration** tab, scroll to the **Human Handoff** section
-3. Toggle **Enable Human Handoff** on
-4. Configure the settings:
+1. ไปที่ **Agents** แล้วคลิก agent ของคุณเพื่อแก้ไข
+2. ใน **Configuration** tab เลื่อนไปที่ส่วน **Human Handoff**
+3. เปิด toggle **Enable Human Handoff**
+4. ตั้งค่าการตั้งค่า:
 
-| Setting | Description | Default |
-|---------|-------------|---------|
-| **Handoff Message** | Shown to the user when the transfer starts | "I'm connecting you with a human agent. Please hold on." |
-| **Accept Message** | Auto-sent when a team member accepts the chat | "Hi! I'm {'{agent_name}'} from {'{org_name}'}. How can I help you?" |
-| **Resolve Message** | Shown to the user when the chat ends | "You're now back with the AI assistant. How can I help?" |
-| **Max Wait Time** | Auto-expire if no one accepts (5, 10, 15, 30, or 60 minutes) | 30 minutes |
+| การตั้งค่า | คำอธิบาย | ค่าเริ่มต้น |
+|-----------|----------|-----------|
+| **Handoff Message** | แสดงให้ผู้ใช้เห็นเมื่อเริ่มการส่งต่อ | "I'm connecting you with a human agent. Please hold on." |
+| **Accept Message** | ส่งอัตโนมัติเมื่อสมาชิกในทีมรับแชท | "Hi! I'm {'{agent_name}'} from {'{org_name}'}. How can I help you?" |
+| **Resolve Message** | แสดงให้ผู้ใช้เห็นเมื่อแชทจบ | "You're now back with the AI assistant. How can I help?" |
+| **Max Wait Time** | หมดอายุอัตโนมัติถ้าไม่มีใครรับ (5, 10, 15, 30 หรือ 60 นาที) | 30 นาที |
 
-5. Click **Save Changes**
+5. คลิก **Save Changes**
 
 <Callout type="info">
-  Messages support `{'{agent_name}'}` and `{'{org_name}'}` placeholders that are automatically replaced with real values.
+  ข้อความรองรับ placeholder `{'{agent_name}'}` และ `{'{org_name}'}` ที่จะถูกแทนที่ด้วยค่าจริงโดยอัตโนมัติ
 </Callout>
 
-For more details on agent settings, see [Configuration Options](/agents/configuring#human-handoff).
+ดูรายละเอียดเพิ่มเติมเกี่ยวกับการตั้งค่า agent ได้ที่ [Configuration Options](/agents/configuring#human-handoff)
 
-## How It Works
+## วิธีการทำงาน
 
 ```
 User asks to speak with a human
@@ -63,157 +60,157 @@ User asks to speak with a human
   → AI agent resumes the conversation
 ```
 
-During a handoff, the AI agent pauses. All messages from the user are routed directly to the human team member. When resolved, the AI agent automatically resumes handling the conversation.
+ระหว่าง handoff AI agent จะหยุดพัก ข้อความทั้งหมดจากผู้ใช้จะถูกส่งตรงไปยังสมาชิกในทีม เมื่อ resolve แล้ว AI agent จะกลับมาจัดการการสนทนาโดยอัตโนมัติ
 
-## Using the Inbox Page
+## การใช้งานหน้า Inbox
 
-Navigate to **Inbox** in the sidebar to see the handoff queue.
+ไปที่ **Inbox** ใน sidebar เพื่อดู handoff queue
 
-### Queue Stats
+### สถิติ Queue
 
-At the top of the page you'll see:
+ที่ด้านบนของหน้า คุณจะเห็น:
 
-- **Queued** — Number of users waiting for a team member
-- **Active** — Number of chats currently being handled
-- **Agents online** — How many team members have the Inbox page open
+- **Queued** — จำนวนผู้ใช้ที่รอสมาชิกในทีม
+- **Active** — จำนวนแชทที่กำลังดำเนินการ
+- **Agents online** — จำนวนสมาชิกในทีมที่เปิดหน้า Inbox อยู่
 
 <Callout type="info">
-  Your online status is tracked automatically while you have the Inbox page open. No manual "go online" action is needed.
+  สถานะ online ของคุณจะถูกติดตามอัตโนมัติขณะที่คุณเปิดหน้า Inbox ไม่ต้องกด "go online" ด้วยตนเอง
 </Callout>
 
-### Filtering
+### การกรอง
 
-Use the status filter dropdown to view specific sessions:
+ใช้ dropdown กรองสถานะเพื่อดู session เฉพาะ:
 
-| Filter | Shows |
-|--------|-------|
-| Queued & Active | Conversations that need attention (default) |
-| Queued Only | Users waiting for someone to accept |
-| Active Only | Conversations currently being handled |
-| Resolved | Completed conversations |
-| Expired | Sessions that timed out |
-| All | Everything |
+| ตัวกรอง | แสดง |
+|---------|------|
+| Queued & Active | การสนทนาที่ต้องการความสนใจ (ค่าเริ่มต้น) |
+| Queued Only | ผู้ใช้ที่รอคนรับ |
+| Active Only | การสนทนาที่กำลังดำเนินการ |
+| Resolved | การสนทนาที่เสร็จแล้ว |
+| Expired | Session ที่หมดเวลา |
+| All | ทั้งหมด |
 
 ### Queue Table
 
-Each row shows the AI agent that escalated, the user's channel, session status, escalation reason, wait time, and which team member is assigned (if any).
+แต่ละแถวแสดง AI agent ที่ escalate, channel ของผู้ใช้, สถานะ session, เหตุผลการ escalation, เวลารอ และสมาชิกในทีมที่ได้รับมอบหมาย (ถ้ามี)
 
-Click any row to open the chat detail page.
+คลิกแถวใดก็ได้เพื่อเปิดหน้ารายละเอียดแชท
 
-## Accepting and Chatting
+## การรับและแชท
 
-When you click a queued session, the chat detail page opens.
+เมื่อคุณคลิก session ที่ queued หน้ารายละเอียดแชทจะเปิดขึ้น
 
-### Accepting a Session
+### การรับ Session
 
-Click the green **Accept** button in the header. This:
+คลิกปุ่ม **Accept** สีเขียวใน header สิ่งนี้จะ:
 
-1. Changes the session status from Queued to Active
-2. Sends the accept message to the user on their channel
-3. Opens the message input so you can start chatting
+1. เปลี่ยนสถานะ session จาก Queued เป็น Active
+2. ส่ง accept message ให้ผู้ใช้บน channel ของพวกเขา
+3. เปิด message input เพื่อให้คุณเริ่มแชทได้
 
 <Callout type="warning">
-  Only one team member can accept a session. Once accepted, it's assigned to you.
+  สมาชิกในทีมเพียงคนเดียวเท่านั้นที่สามารถรับ session ได้ เมื่อรับแล้ว session จะถูกมอบหมายให้คุณ
 </Callout>
 
 ### Chat Interface
 
-The chat detail page has two sections:
+หน้ารายละเอียดแชทมีสองส่วน:
 
-**Chat Panel (left):**
-- Messages are grouped by sender with distinct styling:
-  - **User messages** (dark) — on the left
-  - **AI bot messages** (light) — on the right
-  - **Human agent messages** (blue) — on the right, labeled with your name
-- Type in the text area at the bottom and press Enter to send
-- Messages are delivered in real-time to the user's channel
+**Chat Panel (ซ้าย):**
+- ข้อความถูกจัดกลุ่มตามผู้ส่งพร้อม styling ที่แตกต่างกัน:
+  - **User messages** (เข้ม) — ด้านซ้าย
+  - **AI bot messages** (อ่อน) — ด้านขวา
+  - **Human agent messages** (น้ำเงิน) — ด้านขวา, แสดงชื่อของคุณ
+- พิมพ์ในช่องข้อความด้านล่างแล้วกด Enter เพื่อส่ง
+- ข้อความจะถูกส่ง real-time ไปยัง channel ของผู้ใช้
 
-**Context Sidebar (right, desktop only):**
-- **Timeline** — Created, Accepted, Resolved timestamps with live wait timer
-- **Session** — Status, channel, message count, assigned agent
-- **Participants** — End user, AI agent, and human agent
-- **Escalation Reason** — Why the AI decided to hand off (if provided)
+**Context Sidebar (ขวา, เฉพาะ desktop):**
+- **Timeline** — เวลาที่สร้าง, รับ, Resolve พร้อม live wait timer
+- **Session** — สถานะ, channel, จำนวนข้อความ, agent ที่ได้รับมอบหมาย
+- **Participants** — End user, AI agent และ human agent
+- **Escalation Reason** — เหตุผลที่ AI ตัดสินใจส่งต่อ (ถ้ามี)
 
-## Resolving Sessions
+## การ Resolve Session
 
-When you've addressed the user's issue:
+เมื่อคุณแก้ไขปัญหาของผู้ใช้แล้ว:
 
-1. Click the **Resolve** button in the header
-2. A confirmation dialog appears
-3. Optionally add an **internal note** (not shown to the user — for your team's records)
-4. Click **Resolve** to confirm
+1. คลิกปุ่ม **Resolve** ใน header
+2. Confirmation dialog จะปรากฏ
+3. เพิ่ม **internal note** ได้ตามต้องการ (ไม่แสดงให้ผู้ใช้เห็น — สำหรับบันทึกของทีมคุณ)
+4. คลิก **Resolve** เพื่อยืนยัน
 
-After resolving:
-- The resolve message is sent to the user
-- The conversation returns to the AI agent
-- The session moves to Resolved status
+หลังจาก resolve:
+- Resolve message จะถูกส่งให้ผู้ใช้
+- การสนทนากลับไปที่ AI agent
+- Session เปลี่ยนเป็นสถานะ Resolved
 
-## What Happens When No One Is Available
+## เมื่อไม่มีใครว่าง
 
-If no team member accepts within the configured **Max Wait Time**:
+ถ้าไม่มีสมาชิกในทีมรับภายใน **Max Wait Time** ที่ตั้งค่า:
 
-1. The session status changes to **Expired**
-2. The user receives a message that no agent is available
-3. The conversation returns to the AI agent automatically
+1. สถานะ session เปลี่ยนเป็น **Expired**
+2. ผู้ใช้ได้รับข้อความว่าไม่มี agent ว่าง
+3. การสนทนากลับไปที่ AI agent โดยอัตโนมัติ
 
 <Callout type="important">
-  Set the Max Wait Time based on your team's availability. If you have limited staff, a shorter time (5–10 minutes) is better than leaving users waiting.
+  ตั้ง Max Wait Time ตามความพร้อมของทีม ถ้าคุณมีพนักงานจำกัด เวลาที่สั้นกว่า (5–10 นาที) ดีกว่าการปล่อยให้ผู้ใช้รอนาน
 </Callout>
 
-## Notifications
+## การแจ้งเตือน
 
-### In-App Notifications
+### การแจ้งเตือน In-App
 
-When a user requests a human agent, all team members in your organization receive an in-app notification via the notification bell in the admin panel header.
+เมื่อผู้ใช้ขอ human agent สมาชิกทุกคนในองค์กรของคุณจะได้รับการแจ้งเตือน in-app ผ่านกระดิ่งแจ้งเตือนใน header ของ admin panel
 
 ### Email Reminders
 
-If a handoff session remains queued for **3 minutes** without being accepted, an email reminder is sent to all team members in your organization. This ensures someone is notified even if they're not currently in the admin panel.
+ถ้า handoff session อยู่ใน queue นาน **3 นาที** โดยไม่มีใครรับ email reminder จะถูกส่งให้สมาชิกทุกคนในองค์กรของคุณ สิ่งนี้ทำให้มั่นใจว่ามีคนได้รับแจ้งแม้ไม่ได้อยู่ใน admin panel
 
-## Supported Channels
+## Channel ที่รองรับ
 
-Human Handoff works with all connected channels:
+Human Handoff ทำงานกับทุก channel ที่เชื่อมต่อ:
 
-| Channel | Delivery Method |
-|---------|----------------|
-| Telegram | Messages sent via bot |
-| Discord | Messages sent to channel |
-| Slack | Messages sent to channel |
-| WhatsApp | Messages sent via API |
-| Meta (Facebook Messenger) | Messages sent via page |
-| Google Chat | Messages sent to space |
-| Website Widget | Messages appear in chat widget |
+| Channel | วิธีการส่ง |
+|---------|----------|
+| Telegram | ส่งข้อความผ่าน bot |
+| Discord | ส่งข้อความไปยัง channel |
+| Slack | ส่งข้อความไปยัง channel |
+| WhatsApp | ส่งข้อความผ่าน API |
+| Meta (Facebook Messenger) | ส่งข้อความผ่าน page |
+| Google Chat | ส่งข้อความไปยัง space |
+| Website Widget | ข้อความปรากฏใน chat widget |
 
 <Callout type="info">
-  On the Website Widget, messages are delivered via real-time streaming. On all other channels, messages are pushed directly through the channel's API.
+  บน Website Widget ข้อความจะถูกส่งผ่าน real-time streaming บน channel อื่นๆ ทั้งหมด ข้อความจะถูก push ผ่าน API ของ channel โดยตรง
 </Callout>
 
 ## FAQ
 
-### Which plans include Human Handoff?
+### Human Handoff มีใน plan ใดบ้าง?
 
-Human Handoff is available on all plans, including Trial. Enable it per agent in the Configuration tab.
+Human Handoff มีให้ในทุก plan รวมถึง Trial เปิดใช้งานต่อ agent ใน Configuration tab
 
-### Can multiple team members handle handoffs?
+### สมาชิกหลายคนสามารถจัดการ handoff ได้หรือไม่?
 
-Yes. Any team member in your organization can accept queued sessions. The "Agents online" counter shows how many team members currently have the Inbox page open.
+ได้ สมาชิกทุกคนในองค์กรของคุณสามารถรับ session ที่ queued ได้ ตัวนับ "Agents online" แสดงจำนวนสมาชิกที่เปิดหน้า Inbox อยู่
 
-### What if I close my browser during an active chat?
+### ถ้าฉันปิด browser ระหว่างแชทที่ active อยู่?
 
-The session remains Active. When you return to the Inbox page, you can continue the conversation where you left off.
+Session ยังคงอยู่ในสถานะ Active เมื่อคุณกลับมาที่หน้า Inbox คุณสามารถสนทนาต่อจากจุดที่ค้างไว้ได้
 
-### Can the user tell they're talking to a human?
+### ผู้ใช้รู้ได้อย่างไรว่ากำลังคุยกับคน?
 
-The user receives the configured accept message when you join. Beyond that, the experience depends on how you write the handoff messages and your conversation style.
+ผู้ใช้จะได้รับ accept message ที่ตั้งค่าไว้เมื่อคุณเข้าร่วม นอกเหนือจากนั้น ประสบการณ์ขึ้นอยู่กับวิธีที่คุณเขียน handoff message และสไตล์การสนทนาของคุณ
 
-### Does the AI see the human agent's messages?
+### AI เห็นข้อความของ human agent หรือไม่?
 
-Human agent messages are stored in the conversation history. When the AI resumes after resolution, it has context from the handoff exchange.
+ข้อความของ human agent จะถูกเก็บไว้ใน conversation history เมื่อ AI กลับมาหลัง resolve มันจะมี context จากการสนทนา handoff
 
-### Can I review past handoff sessions?
+### ฉันสามารถดู handoff session ที่ผ่านมาได้หรือไม่?
 
-Yes. Use the status filter on the Inbox page to view **Resolved** or **Expired** sessions. Click any session to review the full conversation.
+ได้ ใช้ตัวกรองสถานะในหน้า Inbox เพื่อดู session ที่ **Resolved** หรือ **Expired** คลิกที่ session ใดก็ได้เพื่อดูการสนทนาทั้งหมด
 
-### What triggers the AI to hand off?
+### อะไรกระตุ้นให้ AI ส่งต่อ?
 
-The AI agent decides to escalate when a user explicitly asks to speak with a human (e.g., "Can I talk to a real person?"). The AI uses a classification check to verify the user genuinely wants a human before creating the handoff.
+AI agent ตัดสินใจ escalate เมื่อผู้ใช้ขอพูดคุยกับคนอย่างชัดเจน (เช่น "ขอคุยกับคนจริงได้ไหม?") AI ใช้การตรวจสอบแบบ classification เพื่อยืนยันว่าผู้ใช้ต้องการคนจริงก่อนสร้าง handoff
