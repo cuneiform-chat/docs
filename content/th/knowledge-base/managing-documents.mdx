@@ -1,145 +1,142 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# การจัดการเอกสาร
 
-# Managing Documents
+เรียนรู้วิธีจัดระเบียบ อัปเดต และดูแลเอกสารในเนื้อหาของคุณ รวมถึงการดูเอกสาร การจัดระเบียบด้วยโฟลเดอร์ การอัปเดตเนื้อหา และการดำเนินการแบบ bulk
 
-Learn how to organize, update, and maintain your content documents. This includes viewing documents, organizing with folders, updating content, and performing bulk operations.
+## การเข้าถึง
 
-## Getting There
+1. คลิก **Content** ในเมนู sidebar
+2. ดูเอกสารทั้งหมดในรายการ
 
-1. Click **Content** in the sidebar
-2. View all your documents in the list
+## การดูเอกสาร
 
-## Viewing Documents
+เข้าถึงเอกสารจากส่วน Content:
 
-Access your documents from the Content section:
+- ดูเอกสารทั้งหมดในรายการ
+- ดูสถานะการประมวลผลของแต่ละเอกสาร
+- ตรวจสอบว่าเอกสารถูกเพิ่มหรืออัปเดตเมื่อไร
 
-- View all documents in a list
-- See processing status for each document
-- Check when documents were added or updated
+### รายละเอียดเอกสาร
 
-### Document Details
+คลิกที่เอกสารใดก็ได้เพื่อดู:
 
-Click on any document to view:
+| ข้อมูล | คำอธิบาย |
+|--------|----------|
+| **ข้อมูลไฟล์** | ชื่อ ขนาด รูปแบบ วันที่อัปโหลด |
+| **สถานะการประมวลผล** | สถานะปัจจุบันใน pipeline |
+| **จำนวน chunk** | จำนวน segment ที่ค้นหาได้ที่สร้างขึ้น |
 
-| Information | Description |
-|-------------|-------------|
-| **File information** | Name, size, format, upload date |
-| **Processing status** | Current state in the pipeline |
-| **Chunk count** | Number of searchable segments created |
+## การจัดระเบียบเอกสาร
 
-## Organizing Documents
+### ใช้โฟลเดอร์
 
-### Using Folders
+สร้างโฟลเดอร์เพื่อจัดระเบียบเอกสารที่เกี่ยวข้อง:
 
-Create folders to organize related documents:
+1. คลิกปุ่ม **New Folder** (ไอคอนโฟลเดอร์พร้อม +)
+2. ใส่ชื่อโฟลเดอร์
+3. คลิก **Create**
 
-1. Click the **New Folder** button (folder icon with plus)
-2. Enter a folder name
-3. Click **Create**
+แนะนำการจัดระเบียบ:
+- ตามหัวข้อ (Products, Policies, FAQs)
+- ตามแผนก (Sales, Support, HR)
+- ตามประเภทเอกสาร (Guides, References, Tutorials)
 
-Suggested organization:
-- By topic (Products, Policies, FAQs)
-- By department (Sales, Support, HR)
-- By document type (Guides, References, Tutorials)
+### ย้ายเอกสาร
 
-### Moving Documents
+ย้ายเอกสารระหว่างโฟลเดอร์:
 
-Move documents between folders:
+1. คลิกเมนูเอกสาร (⋮)
+2. เลือก **Move to Folder**
+3. เลือกโฟลเดอร์ปลายทาง
 
-1. Click the document menu (⋮)
-2. Select **Move to Folder**
-3. Choose the destination folder
+### ใช้แท็ก
 
-### Using Tags
+เพิ่มแท็กให้เอกสารเพื่อการจัดหมวดหมู่ที่ยืดหยุ่น:
 
-Add tags to documents for flexible categorization:
+1. คลิกเมนูเอกสาร (⋮)
+2. เลือก **Manage Tags**
+3. เพิ่มหรือลบแท็กตามต้องการ
 
-1. Click the document menu (⋮)
-2. Select **Manage Tags**
-3. Add or remove tags as needed
+แท็กทำงานร่วมกับโฟลเดอร์ — ใช้โฟลเดอร์สำหรับการจัดระเบียบหลักและแท็กสำหรับหมวดหมู่ข้ามกัน
 
-Tags work alongside folders — use folders for primary organization and tags for cross-cutting categories.
+## การอัปเดตเอกสาร
 
-## Updating Documents
+### ประมวลผลเอกสารที่ล้มเหลวอีกครั้ง
 
-### Re-process a Failed Document
+หากเอกสารประมวลผลล้มเหลว คุณสามารถลองใหม่ได้:
 
-If a document fails to process, you can retry:
-
-1. Click the document menu (⋮)
-2. Select **Reprocess**
+1. คลิกเมนูเอกสาร (⋮)
+2. เลือก **Reprocess**
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  The Reprocess option only appears for documents with a "Failed" status.
+  ตัวเลือก Reprocess จะปรากฏเฉพาะเอกสารที่มีสถานะ "Failed" เท่านั้น
 </Callout>
 
-### Replacing Content
+### การเปลี่ยนเนื้อหา
 
-To update a document's content, delete the old version and upload the new file. The document will be processed automatically.
+หากต้องการอัปเดตเนื้อหาเอกสาร ให้ลบเวอร์ชันเก่าและอัปโหลดไฟล์ใหม่ เอกสารจะถูกประมวลผลโดยอัตโนมัติ
 
-## Deleting Documents
+## การลบเอกสาร
 
-Remove documents you no longer need:
+ลบเอกสารที่ไม่ต้องการอีกต่อไป:
 
-1. Click the document menu (⋮)
-2. Select **Delete**
-3. Confirm deletion
+1. คลิกเมนูเอกสาร (⋮)
+2. เลือก **Delete**
+3. ยืนยันการลบ
 
 <Callout type="warning">
-  Deleted documents are permanently removed and cannot be recovered. The content will no longer be searchable by your agents.
+  เอกสารที่ลบจะถูกลบถาวรและไม่สามารถกู้คืนได้ เนื้อหาจะไม่สามารถค้นหาได้โดย agent ของคุณอีกต่อไป
 </Callout>
 
-## Bulk Operations
+## การดำเนินการแบบ Bulk
 
-Manage multiple documents at once:
+จัดการหลายเอกสารพร้อมกัน:
 
-1. Select multiple documents using checkboxes
-2. Use the bulk action menu:
-   - **Move to Folder** — Move selected documents to a folder
-   - **Reprocess Failed** — Retry processing for failed documents in selection
+1. เลือกหลายเอกสารโดยใช้ checkbox
+2. ใช้เมนู bulk action:
+   - **Move to Folder** — ย้ายเอกสารที่เลือกไปยังโฟลเดอร์
+   - **Reprocess Failed** — ลองประมวลผลเอกสารที่ล้มเหลวในการเลือกอีกครั้ง
 
-## Search and Filter
+## การค้นหาและกรอง
 
-Find specific documents:
+ค้นหาเอกสารเฉพาะ:
 
-| Feature | Description |
-|---------|-------------|
-| **Search** | Search by document name |
-| **Filter by folder** | Click a folder in the document browser to view its contents |
-| **Filter by tag** | Use the tag filter to show documents with specific tags |
+| ฟีเจอร์ | คำอธิบาย |
+|---------|----------|
+| **Search** | ค้นหาตามชื่อเอกสาร |
+| **กรองตามโฟลเดอร์** | คลิกโฟลเดอร์ใน document browser เพื่อดูเนื้อหา |
+| **กรองตามแท็ก** | ใช้ตัวกรองแท็กเพื่อแสดงเอกสารที่มีแท็กเฉพาะ |
 
-Documents are sorted by upload date (newest first).
+เอกสารเรียงตามวันที่อัปโหลด (ใหม่สุดก่อน)
 
-## Storage Management
+## การจัดการพื้นที่จัดเก็บ
 
-Track your storage usage:
+ติดตามการใช้พื้นที่จัดเก็บ:
 
-1. Go to the **Dashboard**
-2. View the "Storage Used" card showing current usage and limit
-3. Delete unnecessary documents to free space
+1. ไปที่ **Dashboard**
+2. ดูการ์ด "Storage Used" ที่แสดงการใช้งานปัจจุบันและขีดจำกัด
+3. ลบเอกสารที่ไม่จำเป็นเพื่อเพิ่มพื้นที่
 
-## Tips
+## เคล็ดลับ
 
-- Remove outdated documents regularly to keep your content clean
-- Use folders and tags to organize documents for easy retrieval
-- Check for failed documents and reprocess them when needed
-- To update content, delete the old document and upload the new version
-- Use bulk operations to move multiple documents to folders at once
-- Delete duplicates to avoid confusing your agents
+- ลบเอกสารที่ล้าสมัยเป็นประจำเพื่อรักษาเนื้อหาให้สะอาด
+- ใช้โฟลเดอร์และแท็กจัดระเบียบเอกสารเพื่อการค้นหาที่ง่าย
+- ตรวจสอบเอกสารที่ล้มเหลวและประมวลผลใหม่เมื่อจำเป็น
+- หากต้องการอัปเดตเนื้อหา ลบเอกสารเก่าและอัปโหลดเวอร์ชันใหม่
+- ใช้การดำเนินการแบบ bulk เพื่อย้ายหลายเอกสารไปยังโฟลเดอร์พร้อมกัน
+- ลบรายการซ้ำเพื่อไม่ให้ agent สับสน
 
-## Common Questions
+## คำถามที่พบบ่อย
 
-**Q: How do I update a document's content?**
-A: Delete the old document and upload the new version. The new document will be processed automatically.
+**ถาม: จะอัปเดตเนื้อหาเอกสารได้อย่างไร?**
+ตอบ: ลบเอกสารเก่าและอัปโหลดเวอร์ชันใหม่ เอกสารใหม่จะถูกประมวลผลโดยอัตโนมัติ
 
-**Q: Can I recover a deleted document?**
-A: No, deleted documents are permanently removed and cannot be recovered. Make sure you have a backup before deleting.
+**ถาม: สามารถกู้คืนเอกสารที่ลบแล้วได้หรือไม่?**
+ตอบ: ไม่ได้ เอกสารที่ลบจะถูกลบถาวรและไม่สามารถกู้คืนได้ ตรวจสอบให้แน่ใจว่ามีสำรองก่อนลบ
 
-**Q: How do I know if a document processed successfully?**
-A: Check the processing status column. Documents show **Ready** when complete, or **Failed** if there was an error.
+**ถาม: จะรู้ได้อย่างไรว่าเอกสารประมวลผลสำเร็จ?**
+ตอบ: ตรวจสอบคอลัมน์สถานะการประมวลผล เอกสารจะแสดง **Ready** เมื่อเสร็จสิ้น หรือ **Failed** หากมีข้อผิดพลาด
 
-**Q: What should I do if a document fails to process?**
-A: Click the document menu (⋮) and select **Reprocess**. This option only appears for failed documents. If it continues to fail, check the file format and size.
+**ถาม: ควรทำอย่างไรหากเอกสารประมวลผลล้มเหลว?**
+ตอบ: คลิกเมนูเอกสาร (⋮) และเลือก **Reprocess** ตัวเลือกนี้จะปรากฏเฉพาะเอกสารที่ล้มเหลว หากยังคงล้มเหลว ตรวจสอบรูปแบบและขนาดไฟล์

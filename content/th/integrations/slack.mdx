@@ -1,155 +1,152 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# การเชื่อมต่อ Slack
 
-# Slack Integration
+เพิ่ม agent ของคุณใน Slack workspace เพื่อให้ทั้งทีมเข้าถึงได้
 
-Add your agent to Slack workspaces for team-wide access.
+## ภาพรวม
 
-## Overview
+Slack integration มีความสามารถ:
+- รองรับ slash command (`/ask`)
+- การสนทนาผ่าน direct message
+- Channel mention
+- ใช้งานได้ทั้ง workspace
 
-Slack integration provides:
-- Slash command support (`/ask`)
-- Direct message conversations
-- Channel mentions
-- Workspace-wide availability
+## ข้อกำหนดเบื้องต้น
 
-## Prerequisites
+- สิทธิ์ admin หรือสิทธิ์ติดตั้ง app ใน Slack workspace
+- บัญชี Cuneiform Chat พร้อม agent ที่ active
 
-- Slack workspace admin or app installation permissions
-- Cuneiform Chat account with an active agent
+## ขั้นตอนการตั้งค่า
 
-## Setup Steps
+### 1. เริ่มตั้งค่า Integration
 
-### 1. Start Integration Setup
+1. ไปที่ **Agents** → เลือก agent ของคุณ
+2. ไปที่แท็บ **Integrations**
+3. คลิก **Slack**
+4. คลิก **Add to Slack**
 
-1. Go to **Agents** → Select your agent
-2. Navigate to **Integrations** tab
-3. Click **Slack**
-4. Click **Add to Slack**
+### 2. อนุญาต App
 
-### 2. Authorize the App
+1. เลือก workspace ที่ต้องการติดตั้ง
+2. ตรวจสอบ permission
+3. คลิก **Allow**
 
-1. Select the workspace to install
-2. Review the permissions
-3. Click **Allow**
+### 3. ตรวจสอบการติดตั้ง
 
-### 3. Verify Installation
+1. เปิด Slack
+2. ลอง slash command: `/ask Hello`
+3. ตรวจสอบว่าได้รับการตอบกลับ
 
-1. Open Slack
-2. Try the slash command: `/ask Hello`
-3. Verify you receive a response
+## การใช้งาน Bot
 
-## Using the Bot
+### Slash Command
 
-### Slash Commands
-
-Use the `/ask` command in any channel:
+ใช้ command `/ask` ในทุก channel:
 
 ```
 /ask What is our refund policy?
 ```
 
-The response appears in the channel (or as an ephemeral message, depending on settings).
+คำตอบจะแสดงใน channel (หรือเป็น ephemeral message ขึ้นอยู่กับการตั้งค่า)
 
-### Direct Messages
+### Direct Message
 
-Message the bot directly for private conversations:
+ส่งข้อความตรงถึง bot สำหรับการสนทนาส่วนตัว:
 
-1. Find the app in your Slack sidebar
-2. Open a direct message
-3. Chat naturally
+1. หา app ใน Slack sidebar
+2. เปิด direct message
+3. แชทได้ตามปกติ
 
-### Channel Mentions
+### Channel Mention
 
-Mention the bot in channels to ask questions:
+Mention bot ใน channel เพื่อถามคำถาม:
 
 ```
 @YourBot What are the shipping options?
 ```
 
-## Features
+## ฟีเจอร์
 
-### Workspace-Wide Access
+### การเข้าถึงทั้ง Workspace
 
-Once installed, the bot is available to all workspace members.
+เมื่อติดตั้งแล้ว bot จะใช้งานได้สำหรับสมาชิกทุกคนใน workspace
 
-### Thread Replies
+### Thread Reply
 
-Responses can be posted in threads to keep channels organized.
+คำตอบสามารถโพสต์ใน thread เพื่อจัดระเบียบ channel
 
 ### Rich Formatting
 
-Responses support Slack's formatting:
-- Bold and italic text
-- Links
-- Code blocks
-- Lists
+คำตอบรองรับ formatting ของ Slack:
+- Bold และ italic text
+- Link
+- Code block
+- List
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  The bot only responds when explicitly invoked (slash command or mention) to avoid noise.
+  Bot จะตอบเฉพาะเมื่อถูกเรียกใช้โดยตรง (slash command หรือ mention) เพื่อหลีกเลี่ยงการรบกวน
 </Callout>
 
-## Configuration Options
+## ตัวเลือกการตั้งค่า
 
-### Response Settings
+### การตั้งค่าการตอบกลับ
 
-| Setting | Description |
-|---------|-------------|
-| Response type | In-channel or ephemeral |
-| Thread behavior | Reply in thread or main channel |
+| การตั้งค่า | คำอธิบาย |
+|-----------|----------|
+| Response type | In-channel หรือ ephemeral |
+| Thread behavior | ตอบใน thread หรือ main channel |
 
-### Channel Restrictions
+### การจำกัด Channel
 
-Optionally restrict the bot to specific channels for focused use.
+สามารถจำกัด bot ให้ทำงานเฉพาะบาง channel เพื่อการใช้งานที่ตรงจุด
 
 ## Multi-Workspace Support
 
-You can install the same agent to multiple Slack workspaces:
+คุณสามารถติดตั้ง agent เดียวกันในหลาย Slack workspace:
 
-1. Each workspace requires separate authorization
-2. All workspaces share the same agent and content
-3. Conversations are tracked separately per workspace
+1. แต่ละ workspace ต้อง authorize แยกกัน
+2. ทุก workspace ใช้ agent และ content เดียวกัน
+3. การสนทนาถูกติดตามแยกกันตาม workspace
 
-## Troubleshooting
+## การแก้ไขปัญหา
 
-### Command Not Found
+### ไม่พบ Command
 
-If `/ask` doesn't work:
-1. Verify the app is installed in your workspace
-2. Check the app has proper permissions
-3. Try reinstalling the integration
+หาก `/ask` ไม่ทำงาน:
+1. ตรวจสอบว่า app ถูกติดตั้งใน workspace แล้ว
+2. ตรวจสอบว่า app มี permission ที่ถูกต้อง
+3. ลองติดตั้ง integration ใหม่
 
-### No Response
+### ไม่มีการตอบกลับ
 
-If the bot doesn't respond:
-1. Verify your agent is configured and working (test in Playground)
-2. Check the Slack integration is connected
-3. Ensure the bot has channel access
+หาก bot ไม่ตอบ:
+1. ตรวจสอบว่า agent ตั้งค่าถูกต้องและทำงานได้ (ทดสอบใน Playground)
+2. ตรวจสอบว่า Slack integration เชื่อมต่อแล้ว
+3. ตรวจสอบว่า bot มีสิทธิ์เข้าถึง channel
 
-### Permission Issues
+### ปัญหา Permission
 
-Required permissions:
-- `commands` — For slash commands
-- `chat:write` — To send messages
-- `app_mentions:read` — For @ mentions
+Permission ที่จำเป็น:
+- `commands` — สำหรับ slash command
+- `chat:write` — สำหรับส่งข้อความ
+- `app_mentions:read` — สำหรับ @ mention
 
-## Security
+## ความปลอดภัย
 
-- OAuth tokens are encrypted
-- No access to messages except explicit commands/mentions
-- Workspace data remains private
+- OAuth token ถูกเข้ารหัส
+- ไม่มีการเข้าถึงข้อความนอกเหนือจาก command/mention โดยตรง
+- ข้อมูล workspace ยังคงเป็นส่วนตัว
 
-## Disconnecting
+## การยกเลิกการเชื่อมต่อ
 
-To remove the Slack integration:
+วิธีลบ Slack integration:
 
-1. **From Cuneiform Chat:**
-   - Agents → Select agent → Integrations → Slack → Disconnect
+1. **จาก Cuneiform Chat:**
+   - Agents → เลือก agent → Integrations → Slack → Disconnect
 
-2. **From Slack:**
-   - Go to workspace settings
-   - Apps → Find the app → Remove
+2. **จาก Slack:**
+   - ไปที่การตั้งค่า workspace
+   - Apps → หา app → Remove
 
-Both steps ensure complete removal.
+ทั้งสองขั้นตอนช่วยให้การลบสมบูรณ์

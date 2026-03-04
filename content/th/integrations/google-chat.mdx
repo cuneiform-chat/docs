@@ -1,243 +1,240 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# การเชื่อมต่อ Google Chat
 
-# Google Chat Integration
+เชื่อมต่อ agent ของคุณกับ Google Chat สำหรับการสื่อสารภายใน Google Workspace
 
-Connect your agent to Google Chat for seamless communication within Google Workspace.
+## ภาพรวม
 
-## Overview
+Google Chat integration มีความสามารถ:
+- ส่งข้อความตรงกับ bot ของคุณ
+- รองรับ Google Workspace Spaces พร้อม @mention triggers
+- Space-level agent routing — กำหนด agent ต่างกันให้แต่ละ Space
+- การตอบกลับแบบข้อความพร้อม conversation memory
+- ประมวลผลแบบ async พร้อม acknowledgment ทันที
+- ความปลอดภัยระดับองค์กรด้วย domain-based isolation
 
-Google Chat integration provides:
-- Direct messaging with your bot
-- Google Workspace Spaces support with @mention triggers
-- Space-level agent routing — assign different agents to different Spaces
-- Text-based responses with conversation memory
-- Async processing with instant acknowledgment
-- Enterprise-ready security with domain-based isolation
+## ข้อกำหนดเบื้องต้น
 
-## Prerequisites
-
-- An active AI agent (created in the Agents section)
-- A Google Workspace account (personal Gmail accounts are not supported)
-- A **verified domain** — verify your domain ownership in **Settings > Domains** before connecting
+- AI agent ที่ active (สร้างในส่วน Agents)
+- บัญชี Google Workspace (ไม่รองรับ Gmail ส่วนตัว)
+- **Domain ที่ verified** — ยืนยันความเป็นเจ้าของ domain ใน **Settings > Domains** ก่อนเชื่อมต่อ
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Google Chat integration requires a Google Workspace account and a verified domain. Personal Gmail accounts cannot install custom Chat apps. If your organization doesn't use Google Workspace, the Google Chat section won't appear on the Integrations page.
+  Google Chat integration ต้องใช้บัญชี Google Workspace และ domain ที่ verified บัญชี Gmail ส่วนตัวไม่สามารถติดตั้ง Chat app ได้ หากองค์กรของคุณไม่ใช้ Google Workspace ส่วน Google Chat จะไม่แสดงในหน้า Integrations
 </Callout>
 
-## Setup Steps
+## ขั้นตอนการตั้งค่า
 
-### 1. Verify Your Domain (One-Time Setup)
+### 1. ยืนยัน Domain ของคุณ (ตั้งค่าครั้งเดียว)
 
-Before connecting Google Chat, verify your domain ownership:
+ก่อนเชื่อมต่อ Google Chat ให้ยืนยันความเป็นเจ้าของ domain:
 
-1. Go to **Settings** from the sidebar
-2. Click the **Domains** tab
-3. Your domain is auto-detected from your account email
-4. Add a **TXT record** in your DNS provider with the values shown:
+1. ไปที่ **Settings** จาก sidebar
+2. คลิกแท็บ **Domains**
+3. Domain ของคุณจะถูกตรวจจับอัตโนมัติจากอีเมลบัญชี
+4. เพิ่ม **TXT record** ใน DNS provider ด้วยค่าที่แสดง:
    - **Type:** TXT
-   - **Name:** `_cuneiform-verify` (or the full value shown)
-   - **Content:** The verification string displayed (e.g., `cuneiform-verify=abc123...`)
-5. Click **Verify Now** — DNS changes can take up to 48 hours to propagate
-6. Once the status changes to **Verified**, proceed to create the integration
+   - **Name:** `_cuneiform-verify` (หรือค่าเต็มที่แสดง)
+   - **Content:** ข้อความยืนยันที่แสดง (เช่น `cuneiform-verify=abc123...`)
+5. คลิก **Verify Now** — การเปลี่ยนแปลง DNS อาจใช้เวลาถึง 48 ชั่วโมงในการ propagate
+6. เมื่อสถานะเปลี่ยนเป็น **Verified** ให้ดำเนินการสร้าง integration
 
-Quick links to common DNS providers (Cloudflare, GoDaddy, Namecheap, Route 53, DigitalOcean, Hostinger) are shown on the verification card.
+ลิงก์ด่วนไปยัง DNS provider ทั่วไป (Cloudflare, GoDaddy, Namecheap, Route 53, DigitalOcean, Hostinger) จะแสดงบน verification card
 
-### 2. Create Google Chat Integration
+### 2. สร้าง Google Chat Integration
 
-1. Go to **Integrations** from the sidebar
-2. Under "Google Chat Bots", click **Connect Bot**
-3. Select the **Agent** that will be the default for DMs and unlinked Spaces
-4. Enter a **Bot Name** (for your reference in the admin panel)
-5. Click **Connect Bot**
-6. Copy the **Verification Code** displayed (format: `VERIFY-XXXXXX`)
+1. ไปที่ **Integrations** จาก sidebar
+2. ใต้ "Google Chat Bots" คลิก **Connect Bot**
+3. เลือก **Agent** ที่จะเป็น default สำหรับ DM และ Space ที่ไม่ได้เชื่อมต่อ
+4. กรอก **Bot Name** (สำหรับอ้างอิงใน admin panel)
+5. คลิก **Connect Bot**
+6. คัดลอก **Verification Code** ที่แสดง (รูปแบบ: `VERIFY-XXXXXX`)
 
-### 3. Complete Bot Verification
+### 3. ยืนยัน Bot ให้เสร็จสิ้น
 
-After creating the integration, you'll receive a verification code:
+หลังสร้าง integration คุณจะได้รับ verification code:
 
-1. Open Google Chat
-2. Click **Start a chat** → **Find apps**
-3. Search for the platform bot
-4. Start a direct message with the bot
-5. Send the verification code (e.g., `VERIFY-ABC123`)
-6. The bot will confirm: "Setup complete! Your workspace (yourdomain.com) is now connected. Send a message to start chatting!"
+1. เปิด Google Chat
+2. คลิก **Start a chat** → **Find apps**
+3. ค้นหา platform bot
+4. เริ่ม direct message กับ bot
+5. ส่ง verification code (เช่น `VERIFY-ABC123`)
+6. Bot จะยืนยัน: "Setup complete! Your workspace (yourdomain.com) is now connected. Send a message to start chatting!"
 
-Your integration status will change from "Pending Verification" to "Active".
+สถานะ integration จะเปลี่ยนจาก "Pending Verification" เป็น "Active"
 
 <Callout type="warning">
-  Only users from your Google Workspace domain can complete verification. Users from other domains or personal Gmail accounts will see an error.
+  เฉพาะผู้ใช้จาก Google Workspace domain ของคุณเท่านั้นที่สามารถยืนยันได้ ผู้ใช้จาก domain อื่นหรือ Gmail ส่วนตัวจะเห็นข้อผิดพลาด
 </Callout>
 
-## Using the Bot
+## การใช้งาน Bot
 
-### Direct Messages
+### Direct Message
 
-Users can start a conversation:
+ผู้ใช้สามารถเริ่มการสนทนา:
 
-1. Open Google Chat
-2. Click **Start a chat** → **Find apps**
-3. Search for your bot name
-4. Start chatting naturally — the bot responds to all messages in DMs
+1. เปิด Google Chat
+2. คลิก **Start a chat** → **Find apps**
+3. ค้นหาชื่อ bot ของคุณ
+4. เริ่มแชทได้ตามปกติ — bot ตอบทุกข้อความใน DM
 
-DMs are always handled by the **default agent**.
+DM จะถูกจัดการโดย **default agent** เสมอ
 
-### In Spaces
+### ใน Spaces
 
-Add the bot to a Space:
+เพิ่ม bot ใน Space:
 
-1. Open the Space
-2. Click the Space name → **Manage apps**
-3. Add your bot
-4. Mention the bot with `@Cuneiform Chat` to interact — the bot only responds to @mentions in Spaces
+1. เปิด Space
+2. คลิกชื่อ Space → **Manage apps**
+3. เพิ่ม bot ของคุณ
+4. Mention bot ด้วย `@Cuneiform Chat` เพื่อโต้ตอบ — bot จะตอบเฉพาะ @mention ใน Space
 
 <Callout type="info">
-  When the bot is first added to a Space, it sends a welcome message with available bot commands. In DMs, it sends a simple introduction.
+  เมื่อ bot ถูกเพิ่มใน Space ครั้งแรก จะส่งข้อความต้อนรับพร้อม bot command ที่ใช้ได้ ใน DM จะส่งข้อความแนะนำตัวสั้นๆ
 </Callout>
 
 ## Space-Level Agent Routing
 
-Each Space can optionally use a different agent than the default. Use these bot commands in a Space (requires @mention):
+แต่ละ Space สามารถใช้ agent ที่แตกต่างจาก default ได้ ใช้ bot command เหล่านี้ใน Space (ต้อง @mention):
 
-| Command | Description |
-|---------|-------------|
-| `@Cuneiform Chat /set-agent <name>` | Link this Space to a specific agent |
-| `@Cuneiform Chat /current-agent` | Show which agent handles this Space |
-| `@Cuneiform Chat /reset-agent` | Revert Space to the default agent |
+| Command | คำอธิบาย |
+|---------|----------|
+| `@Cuneiform Chat /set-agent <name>` | เชื่อม Space นี้กับ agent เฉพาะ |
+| `@Cuneiform Chat /current-agent` | แสดงว่า agent ใดจัดการ Space นี้ |
+| `@Cuneiform Chat /reset-agent` | กลับไปใช้ default agent |
 
-**How routing works:**
-- **DMs** → always use the default agent
-- **Space with custom agent** → uses the assigned agent
-- **Space without custom agent** → falls back to the default agent
+**การทำงานของ routing:**
+- **DM** → ใช้ default agent เสมอ
+- **Space ที่มี custom agent** → ใช้ agent ที่กำหนด
+- **Space ที่ไม่มี custom agent** → fallback ไปใช้ default agent
 
 <Callout type="info">
-  You can view Space-agent mappings in the admin panel under the integration card's "Space mappings" section.
+  คุณสามารถดู Space-agent mapping ใน admin panel ใต้ส่วน "Space mappings" ของ integration card
 </Callout>
 
-## Features
+## ฟีเจอร์
 
-### Async Responses
+### Async Response
 
-When you send a message, the bot immediately replies with a brief acknowledgment (e.g., "Working on it...") and then delivers the full answer once processing is complete. This typically takes 3–8 seconds depending on the complexity of your question.
+เมื่อคุณส่งข้อความ bot จะตอบกลับทันทีด้วย acknowledgment สั้นๆ (เช่น "Working on it...") จากนั้นส่งคำตอบเต็มเมื่อประมวลผลเสร็จ โดยปกติใช้เวลา 3–8 วินาทีขึ้นอยู่กับความซับซ้อนของคำถาม
 
 ### Conversation Memory
 
-The bot remembers context within a session, so you can ask follow-up questions without repeating yourself.
+Bot จดจำ context ภายใน session ดังนั้นคุณสามารถถามคำถามต่อเนื่องได้โดยไม่ต้องทวนซ้ำ
 
 ### Message Queuing
 
-If you send additional messages while the bot is still processing, they are queued and included in the next response. You'll see a message like "I'm still working on your previous question. I'll include this in my next response."
+หากคุณส่งข้อความเพิ่มเติมขณะที่ bot ยังประมวลผลอยู่ ข้อความจะถูกเข้าคิวและรวมในคำตอบถัดไป คุณจะเห็นข้อความเช่น "I'm still working on your previous question. I'll include this in my next response."
 
 ### `/help` Command
 
-Type `/help` or `help` to see usage instructions, including available space commands.
+พิมพ์ `/help` หรือ `help` เพื่อดูคำแนะนำการใช้งาน รวมถึง space command ที่ใช้ได้
 
 ### Domain-Based Access
 
-Only users from your Google Workspace domain can interact with your bot, ensuring enterprise-level security.
+เฉพาะผู้ใช้จาก Google Workspace domain ของคุณเท่านั้นที่สามารถโต้ตอบกับ bot เพื่อความปลอดภัยระดับองค์กร
 
-### Text-Based Responses
+### การตอบกลับแบบข้อความ
 
-The bot responds with text messages only. Images, files, interactive buttons, and card attachments are not supported. Responses are limited to approximately 30,000 characters.
+Bot ตอบด้วยข้อความเท่านั้น ไม่รองรับรูปภาพ, ไฟล์, interactive button และ card attachment คำตอบจำกัดที่ประมาณ 30,000 ตัวอักษร
 
-## Managing Your Integration
+## การจัดการ Integration
 
-Each integration card displays:
-- **Bot name** - The display name you configured
-- **Status badge** - Active, Pending Verification, or Error
-- **Domain name** - Your Google Workspace domain (after verification)
-- **Default agent** - Dropdown to change the default agent (used for DMs + unlinked Spaces)
-- **Space mappings** - Collapsible section showing which Spaces have custom agent assignments
-- **Space commands** - Collapsible section showing available bot commands
+แต่ละ integration card จะแสดง:
+- **Bot name** - ชื่อที่คุณตั้ง
+- **Status badge** - Active, Pending Verification หรือ Error
+- **Domain name** - Google Workspace domain ของคุณ (หลัง verification)
+- **Default agent** - Dropdown เพื่อเปลี่ยน default agent (ใช้สำหรับ DM + Space ที่ไม่ได้เชื่อมต่อ)
+- **Space mappings** - ส่วนที่ยุบได้แสดงว่า Space ใดมี custom agent
+- **Space commands** - ส่วนที่ยุบได้แสดง bot command ที่ใช้ได้
 - **Last activity** timestamp
 
-### Available Actions
+### การดำเนินการที่ใช้ได้
 
-| Action | Description |
-|--------|-------------|
-| **Change default agent** | Use the dropdown to switch which agent handles DMs and unlinked Spaces |
-| **Test Connection** | Verifies the integration is working (three-dot menu) |
-| **Disconnect** | Removes this integration (three-dot menu) |
+| การดำเนินการ | คำอธิบาย |
+|-------------|----------|
+| **Change default agent** | ใช้ dropdown เพื่อเปลี่ยน agent ที่จัดการ DM และ Space ที่ไม่ได้เชื่อมต่อ |
+| **Test Connection** | ตรวจสอบว่า integration ทำงานอยู่ (เมนูสามจุด) |
+| **Disconnect** | ลบ integration นี้ (เมนูสามจุด) |
 
-## Troubleshooting
+## การแก้ไขปัญหา
 
-### Bot Not Appearing in Google Chat
+### Bot ไม่แสดงใน Google Chat
 
-1. Ensure you're using a Google Workspace account (not personal Gmail)
-2. Search for the bot name in "Find apps"
-3. Wait a few minutes for the app to propagate
+1. ตรวจสอบว่าคุณใช้บัญชี Google Workspace (ไม่ใช่ Gmail ส่วนตัว)
+2. ค้นหาชื่อ bot ใน "Find apps"
+3. รอสักครู่เพื่อให้ app propagate
 
-### Google Chat Section Not Visible
+### ส่วน Google Chat ไม่แสดง
 
-1. Google Chat only appears for organizations using Google Workspace
-2. If your organization uses a different email provider (e.g., Microsoft 365), the section is hidden
-3. The system automatically detects your email provider via MX records
+1. Google Chat แสดงเฉพาะสำหรับองค์กรที่ใช้ Google Workspace
+2. หากองค์กรของคุณใช้ email provider อื่น (เช่น Microsoft 365) ส่วนนี้จะถูกซ่อน
+3. ระบบตรวจจับ email provider โดยอัตโนมัติผ่าน MX record
 
-### Domain Verification Issues
+### ปัญหา Domain Verification
 
-1. DNS changes can take up to 48 hours to propagate — wait and try **Verify Now** again
-2. Check that you added the TXT record with the exact values shown in Settings > Domains
-3. Verify the record is on the correct domain (e.g., `_cuneiform-verify.yourdomain.com`)
-4. Use the DNS provider quick links on the verification card for easy access
+1. การเปลี่ยนแปลง DNS อาจใช้เวลาถึง 48 ชั่วโมงในการ propagate — รอแล้วลอง **Verify Now** อีกครั้ง
+2. ตรวจสอบว่าเพิ่ม TXT record ด้วยค่าที่ถูกต้องตามที่แสดงใน Settings > Domains
+3. ตรวจสอบว่า record อยู่บน domain ที่ถูกต้อง (เช่น `_cuneiform-verify.yourdomain.com`)
+4. ใช้ลิงก์ด่วน DNS provider บน verification card เพื่อเข้าถึงง่าย
 
-### Verification Code Not Working
+### Verification Code ไม่ทำงาน
 
-1. Ensure you're sending the code from your Google Workspace email
-2. Check that the code is entered exactly as shown (including the `VERIFY-` prefix)
-3. Verify the integration is still in "Pending Verification" status
-4. Try creating a new integration if the code has expired
+1. ตรวจสอบว่าคุณส่ง code จากอีเมล Google Workspace ของคุณ
+2. ตรวจสอบว่ากรอก code ตรงตามที่แสดง (รวมถึง prefix `VERIFY-`)
+3. ตรวจสอบว่า integration ยังอยู่ในสถานะ "Pending Verification"
+4. ลองสร้าง integration ใหม่หาก code หมดอายุ
 
-### Bot Says "Working on it..." But No Response Follows
+### Bot บอก "Working on it..." แต่ไม่มีคำตอบตามมา
 
-1. The bot processes messages asynchronously — wait up to 25 seconds for the full response
-2. If no response arrives, try sending your message again
-3. Check that the associated agent is properly configured
+1. Bot ประมวลผลข้อความแบบ async — รอถึง 25 วินาทีสำหรับคำตอบเต็ม
+2. หากไม่มีคำตอบ ลองส่งข้อความอีกครั้ง
+3. ตรวจสอบว่า agent ที่เชื่อมต่อตั้งค่าถูกต้อง
 
-### Messages Not Being Processed
+### ข้อความไม่ถูกประมวลผล
 
-1. Confirm your workspace has been verified (status should be "Active")
-2. For Spaces, ensure you're @mentioning the bot
-3. Check that the associated agent is properly configured
+1. ยืนยันว่า workspace ถูก verify แล้ว (สถานะควรเป็น "Active")
+2. สำหรับ Space ตรวจสอบว่าคุณ @mention bot
+3. ตรวจสอบว่า agent ที่เชื่อมต่อตั้งค่าถูกต้อง
 
-### "Organization hasn't connected" Message
+### ข้อความ "Organization hasn't connected"
 
-This means the bot doesn't recognize your Google Workspace domain:
-1. Your admin hasn't created the integration yet
-2. The domain hasn't been verified with a verification code
-3. You're messaging from a personal Gmail account (not supported)
+หมายความว่า bot ไม่รู้จัก Google Workspace domain ของคุณ:
+1. Admin ยังไม่ได้สร้าง integration
+2. Domain ยังไม่ได้ verify ด้วย verification code
+3. คุณส่งข้อความจาก Gmail ส่วนตัว (ไม่รองรับ)
 
-### `/set-agent` Says Agent Not Found
+### `/set-agent` บอกว่าไม่พบ Agent
 
-1. Check the exact agent name in the admin panel (case-sensitive)
-2. Ensure the agent is in "Active" status
-3. Agent names with spaces are supported — type the full name after `/set-agent`
+1. ตรวจสอบชื่อ agent ให้ตรงกับใน admin panel (case-sensitive)
+2. ตรวจสอบว่า agent อยู่ในสถานะ "Active"
+3. ชื่อ agent ที่มีช่องว่างรองรับได้ — พิมพ์ชื่อเต็มหลัง `/set-agent`
 
-## Security
+## ความปลอดภัย
 
-- **Domain ownership verification** — DNS TXT record proves your organization owns the domain before connecting
-- **Google Workspace detection** — MX record check confirms your domain uses Google Workspace
-- **Domain-based isolation** — only your organization's Google Workspace users can interact with your bot
-- **Webhook verification** — every incoming request is validated against your platform's Google Cloud project
-- **Verification codes** are single-use and tied to your domain
-- Messages processed over secure, encrypted connections
+- **Domain ownership verification** — DNS TXT record พิสูจน์ว่าองค์กรของคุณเป็นเจ้าของ domain ก่อนเชื่อมต่อ
+- **Google Workspace detection** — ตรวจสอบ MX record เพื่อยืนยันว่า domain ใช้ Google Workspace
+- **Domain-based isolation** — เฉพาะผู้ใช้ Google Workspace ขององค์กรคุณเท่านั้นที่โต้ตอบกับ bot ได้
+- **Webhook verification** — ทุก request ที่เข้ามาจะถูกตรวจสอบกับ Google Cloud project ของ platform
+- **Verification code** ใช้ได้ครั้งเดียวและผูกกับ domain ของคุณ
+- ข้อความถูกประมวลผลผ่านการเชื่อมต่อที่ปลอดภัยและเข้ารหัส
 
-## Disconnecting
+## การยกเลิกการเชื่อมต่อ
 
-To remove the Google Chat integration:
+วิธีลบ Google Chat integration:
 
-1. Go to **Integrations** from the sidebar
-2. Find your Google Chat integration card
-3. Click the three-dot menu
-4. Select **Disconnect**
+1. ไปที่ **Integrations** จาก sidebar
+2. หา Google Chat integration card
+3. คลิกเมนูสามจุด
+4. เลือก **Disconnect**
 
-## Important Notes
+## หมายเหตุสำคัญ
 
-- **Google Workspace required**: Personal Gmail accounts cannot use this integration. If your org doesn't use Google Workspace, the Google Chat section won't appear.
-- **Domain verification required**: Verify your domain in Settings > Domains before connecting Google Chat.
-- **One integration per organization**: Each organization can have one Google Chat integration
-- **Text only**: The bot does not support images, files, or interactive buttons
-- **Managed at org level**: Google Chat is configured on the Integrations page, not per-agent
-- **Space routing**: Use `/set-agent` in Spaces to assign specialized agents to different teams
-- **Default agent**: Change the default agent anytime using the dropdown — no disconnect needed
+- **ต้องใช้ Google Workspace**: Gmail ส่วนตัวไม่สามารถใช้ integration นี้ได้ หากองค์กรไม่ใช้ Google Workspace ส่วน Google Chat จะไม่แสดง
+- **ต้อง verify domain**: ยืนยัน domain ใน Settings > Domains ก่อนเชื่อมต่อ Google Chat
+- **หนึ่ง integration ต่อองค์กร**: แต่ละองค์กรมี Google Chat integration ได้หนึ่งตัว
+- **ข้อความเท่านั้น**: Bot ไม่รองรับรูปภาพ, ไฟล์ หรือ interactive button
+- **จัดการระดับองค์กร**: Google Chat ตั้งค่าในหน้า Integrations ไม่ใช่ต่อ agent
+- **Space routing**: ใช้ `/set-agent` ใน Space เพื่อกำหนด agent เฉพาะทางให้ทีมต่างๆ
+- **Default agent**: เปลี่ยน default agent ได้ตลอดเวลาด้วย dropdown — ไม่ต้อง disconnect

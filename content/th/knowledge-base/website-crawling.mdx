@@ -1,129 +1,126 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Website Crawling
 
 import { Callout } from 'nextra/components'
 
-Crawl public websites and add the content to your Content. The crawler visits pages, extracts content as Markdown, and lets you review and edit before processing.
+Crawl เว็บไซต์สาธารณะและเพิ่มเนื้อหาเข้าสู่ Content ของคุณ Crawler จะเยี่ยมชมหน้าเว็บ ดึงเนื้อหาเป็น Markdown และให้คุณตรวจสอบและแก้ไขก่อนประมวลผล
 
-## Getting There
+## การเข้าถึง
 
-Navigate to **Content** in the sidebar, then click the **Website** tab.
+ไปที่ **Content** ในเมนู sidebar จากนั้นคลิกแท็บ **Website**
 
-## How to Crawl a Website
+## วิธี Crawl เว็บไซต์
 
-### Step 1: Enter the URL
+### ขั้นตอนที่ 1: ใส่ URL
 
-Paste the website URL in the input field (e.g., `https://docs.example.com`). The crawler will start from this page and follow links to discover more pages.
+วาง URL เว็บไซต์ในช่องกรอก (เช่น `https://docs.example.com`) Crawler จะเริ่มจากหน้านี้และติดตาม link เพื่อค้นพบหน้าเพิ่มเติม
 
-### Step 2: Configure Options
+### ขั้นตอนที่ 2: ตั้งค่าตัวเลือก
 
-| Option | Default | Description |
-|--------|---------|-------------|
-| Target Folder | No folder (root) | Select a destination folder for crawled documents |
-| Single page only | Off | Only crawl the entered URL, don't follow links |
-| Respect robots.txt | On | Honor the site's robots.txt crawling rules |
+| ตัวเลือก | ค่าเริ่มต้น | คำอธิบาย |
+|----------|------------|----------|
+| Target Folder | ไม่มีโฟลเดอร์ (root) | เลือกโฟลเดอร์ปลายทางสำหรับเอกสารที่ crawl |
+| Single page only | ปิด | Crawl เฉพาะ URL ที่ใส่ ไม่ติดตาม link |
+| Respect robots.txt | เปิด | ปฏิบัติตามกฎ robots.txt ของเว็บไซต์ |
 
-### Step 3: Start Crawling
+### ขั้นตอนที่ 3: เริ่ม Crawl
 
-Click **Crawl** to begin. The crawler visits pages starting from your URL and extracts their content.
+คลิก **Crawl** เพื่อเริ่มต้น Crawler จะเยี่ยมชมหน้าเว็บเริ่มจาก URL ของคุณและดึงเนื้อหา
 
-### Step 4: Monitor Progress
+### ขั้นตอนที่ 4: ดูความคืบหน้า
 
-- A progress bar shows pages crawled vs. your plan's maximum
-- Pages appear in a live list as they are discovered
-- Click any page to preview its content immediately
-- Use the **Cancel** button to stop the crawl at any time
-
-<Callout type="info">
-  Only one crawl can run at a time per organization. Wait for the current crawl to complete or cancel it before starting another.
-</Callout>
-
-## Reviewing Crawled Pages
-
-After crawling completes, you can review and edit pages before adding them to your Content.
-
-### Edit Page Content
-
-1. Click any page in the list to open the editor
-2. Edit the **title** and **markdown content**
-3. Remove irrelevant sections (navigation menus, footers, sidebars)
-4. Click **Save** to update
+- แถบความคืบหน้าแสดงจำนวนหน้าที่ crawl เทียบกับจำนวนสูงสุดของ plan
+- หน้าเว็บจะปรากฏในรายการแบบสดขณะถูกค้นพบ
+- คลิกหน้าใดก็ได้เพื่อดูตัวอย่างเนื้อหาทันที
+- ใช้ปุ่ม **Cancel** เพื่อหยุด crawl ได้ตลอดเวลา
 
 <Callout type="info">
-  Only pages with "Pending" status can be edited. Once processing starts, pages cannot be changed.
+  สามารถ crawl ได้ทีละครั้งต่อองค์กร รอให้ crawl ปัจจุบันเสร็จสิ้นหรือยกเลิกก่อนเริ่มใหม่
 </Callout>
 
-### Select and Process Pages
+## การตรวจสอบหน้าที่ Crawl
 
-1. Use checkboxes to select pages you want to keep
-2. Use **Select All** to select all pending pages at once
-3. Optionally choose a target folder
-4. Click **Process Selected**
+หลังจาก crawl เสร็จสิ้น คุณสามารถตรวจสอบและแก้ไขหน้าก่อนเพิ่มเข้าสู่ Content
 
-After processing starts, you're automatically switched to the **Documents** tab where the new documents will appear.
+### แก้ไขเนื้อหาหน้า
 
-## Crawl Status Reference
+1. คลิกหน้าใดก็ได้ในรายการเพื่อเปิด editor
+2. แก้ไข **title** และ **markdown content**
+3. ลบส่วนที่ไม่เกี่ยวข้อง (เมนูนำทาง, footer, sidebar)
+4. คลิก **Save** เพื่ออัปเดต
 
-| Status | Meaning |
-|--------|---------|
-| Pending | Crawl is queued to start |
-| Crawling | Actively visiting pages |
-| Completed | All reachable pages crawled |
-| Partial | Some pages crawled, some failed |
-| Failed | Crawl could not complete |
-| Cancelled | Stopped by you |
+<Callout type="info">
+  แก้ไขได้เฉพาะหน้าที่มีสถานะ "Pending" เท่านั้น เมื่อเริ่มประมวลผลแล้ว หน้าจะไม่สามารถเปลี่ยนแปลงได้
+</Callout>
 
-## Session Persistence
+### เลือกและประมวลผลหน้า
 
-Your crawl session survives navigation and page refresh:
-- Active crawls automatically restore when you return to the Website tab
-- Completed crawls are available for review for up to 1 hour
+1. ใช้ checkbox เพื่อเลือกหน้าที่ต้องการเก็บ
+2. ใช้ **Select All** เพื่อเลือกหน้า pending ทั้งหมดพร้อมกัน
+3. เลือกโฟลเดอร์ปลายทางหากต้องการ
+4. คลิก **Process Selected**
 
-## Tips
+หลังจากเริ่มประมวลผล คุณจะถูกสลับไปที่แท็บ **Documents** โดยอัตโนมัติ ซึ่งเอกสารใหม่จะปรากฏ
 
-- Review and edit crawled content before processing to improve quality
-- Use "Single page only" for individual pages you want to add quickly
-- Keep "Respect robots.txt" enabled to follow site owner preferences
-- Crawled documents appear in the Documents tab as Markdown (.md) files
+## สถานะ Crawl
 
-## Common Questions
+| สถานะ | ความหมาย |
+|-------|----------|
+| Pending | Crawl อยู่ในคิวรอเริ่ม |
+| Crawling | กำลังเยี่ยมชมหน้าเว็บ |
+| Completed | Crawl หน้าที่เข้าถึงได้ทั้งหมดแล้ว |
+| Partial | Crawl บางหน้าสำเร็จ บางหน้าล้มเหลว |
+| Failed | Crawl ไม่สามารถทำให้เสร็จสิ้นได้ |
+| Cancelled | หยุดโดยคุณ |
 
-**Q: How many pages can I crawl?**
-A: The maximum number of pages depends on your plan. The crawler follows links up to 2 levels deep from your starting URL.
+## การคงอยู่ของ Session
 
-**Q: Can I crawl pages behind a login?**
-A: No. The crawler can only access publicly available pages. Pages behind authentication will be skipped.
+Session การ crawl จะคงอยู่แม้เปลี่ยนหน้าหรือ refresh:
+- Crawl ที่กำลังทำงานจะกู้คืนโดยอัตโนมัติเมื่อกลับมาที่แท็บ Website
+- Crawl ที่เสร็จแล้วจะพร้อมให้ตรวจสอบได้สูงสุด 1 ชั่วโมง
 
-**Q: What format are crawled pages?**
-A: Content is extracted as Markdown (.md) documents and processed through the standard pipeline (chunking, embedding, and search indexing).
+## เคล็ดลับ
 
-**Q: Why did some pages fail?**
-A: Pages can fail due to bot protection (firewalls like Cloudflare), server errors, or empty content. The crawl will show "Partial" status.
+- ตรวจสอบและแก้ไขเนื้อหาที่ crawl ก่อนประมวลผลเพื่อปรับปรุงคุณภาพ
+- ใช้ "Single page only" สำหรับหน้าเดียวที่ต้องการเพิ่มอย่างรวดเร็ว
+- เปิด "Respect robots.txt" ไว้เพื่อเคารพการตั้งค่าของเจ้าของเว็บไซต์
+- เอกสารที่ crawl จะปรากฏในแท็บ Documents เป็นไฟล์ Markdown (.md)
 
-**Q: Can I re-crawl the same site?**
-A: Yes. Start a new crawl with the same URL. Previous crawled pages are replaced when a new crawl begins.
+## คำถามที่พบบ่อย
 
-**Q: Where do processed pages appear?**
-A: In the **Documents** tab of the Content page. They appear as Markdown (.md) files.
+**ถาม: Crawl ได้กี่หน้า?**
+ตอบ: จำนวนหน้าสูงสุดขึ้นอยู่กับ plan ของคุณ Crawler จะติดตาม link ลึกสูงสุด 2 ระดับจาก URL เริ่มต้น
 
-## Troubleshooting
+**ถาม: สามารถ crawl หน้าที่ต้อง login ได้หรือไม่?**
+ตอบ: ไม่ได้ Crawler สามารถเข้าถึงเฉพาะหน้าสาธารณะเท่านั้น หน้าที่อยู่หลัง authentication จะถูกข้าม
 
-### Pages Return 403 or 503 Errors
+**ถาม: หน้าที่ crawl เป็นรูปแบบอะไร?**
+ตอบ: เนื้อหาจะถูกดึงเป็นเอกสาร Markdown (.md) และประมวลผลผ่าน pipeline มาตรฐาน (chunking, embedding และ search indexing)
 
-The site may be blocking automated crawlers. Options:
-- Ask the site owner to whitelist `CuneiformBot/1.0`
-- Try crawling a specific page with "Single page only" enabled
+**ถาม: ทำไมบางหน้าล้มเหลว?**
+ตอบ: หน้าอาจล้มเหลวเนื่องจากการป้องกัน bot (firewall เช่น Cloudflare), server error หรือเนื้อหาว่าง Crawl จะแสดงสถานะ "Partial"
 
-### Empty or Garbled Content
+**ถาม: สามารถ crawl เว็บไซต์เดิมอีกครั้งได้หรือไม่?**
+ตอบ: ได้ เริ่ม crawl ใหม่ด้วย URL เดิม หน้าที่ crawl ก่อนหน้าจะถูกแทนที่เมื่อเริ่ม crawl ใหม่
 
-Some sites use heavy JavaScript rendering. The crawler supports most modern frameworks, but:
-- Single-page apps that require authentication won't work
-- Content loaded via infinite scroll may be partially captured
+**ถาม: หน้าที่ประมวลผลแล้วปรากฏที่ไหน?**
+ตอบ: ในแท็บ **Documents** ของหน้า Content จะปรากฏเป็นไฟล์ Markdown (.md)
 
-### Crawl Seems Slow
+## การแก้ไขปัญหา
 
-- Each page takes a few seconds to crawl (includes rendering and rate limiting)
-- Larger sites with many pages will take several minutes
-- You can cancel and retry if a crawl appears stuck
+### หน้าส่งคืน error 403 หรือ 503
+
+เว็บไซต์อาจบล็อก crawler อัตโนมัติ ตัวเลือก:
+- ขอให้เจ้าของเว็บไซต์ whitelist `CuneiformBot/1.0`
+- ลอง crawl หน้าเฉพาะด้วย "Single page only"
+
+### เนื้อหาว่างหรืออ่านไม่ออก
+
+บางเว็บไซต์ใช้ JavaScript rendering จำนวนมาก Crawler รองรับ framework สมัยใหม่ส่วนใหญ่ แต่:
+- Single-page app ที่ต้อง authentication จะไม่ทำงาน
+- เนื้อหาที่โหลดผ่าน infinite scroll อาจถูกจับเพียงบางส่วน
+
+### Crawl ช้า
+
+- แต่ละหน้าใช้เวลาสักครู่ในการ crawl (รวม rendering และ rate limiting)
+- เว็บไซต์ขนาดใหญ่ที่มีหลายหน้าจะใช้เวลาหลายนาที
+- สามารถยกเลิกและลองใหม่ได้หาก crawl ดูเหมือนค้าง

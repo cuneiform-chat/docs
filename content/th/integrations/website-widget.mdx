@@ -1,68 +1,65 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Website Chat Widget
 
-Embed an AI-powered chat widget directly on your website. Visitors get instant answers from your AI agent without leaving your site.
+ฝัง AI chat widget ลงในเว็บไซต์ของคุณโดยตรง ผู้เข้าชมจะได้คำตอบทันทีจาก AI agent โดยไม่ต้องออกจากเว็บไซต์
 
-## Overview
+## ภาพรวม
 
-The Website Widget provides:
-- Floating chat bubble on your website
-- Real-time streaming AI responses
-- Customizable appearance (colors, position, messages)
-- Less than 11KB gzipped — near-zero performance impact
-- Domain allowlisting for security
+Website Widget มีความสามารถ:
+- Chat bubble แบบลอยบนเว็บไซต์ของคุณ
+- คำตอบ AI แบบ streaming real-time
+- ปรับแต่งหน้าตาได้ (สี, ตำแหน่ง, ข้อความ)
+- น้อยกว่า 11KB gzipped — แทบไม่กระทบ performance
+- Domain allowlisting เพื่อความปลอดภัย
 
-## Prerequisites
+## ข้อกำหนดเบื้องต้น
 
-- An active AI agent in your admin panel
-- Access to your website's HTML (to paste a script tag)
+- AI agent ที่ active ใน admin panel
+- เข้าถึง HTML ของเว็บไซต์ (เพื่อวาง script tag)
 
-## Setup Steps
+## ขั้นตอนการตั้งค่า
 
-### 1. Create a Widget
+### 1. สร้าง Widget
 
-1. Go to **Integrations** from the sidebar
-2. Scroll to the **Website Widget** section
-3. Click **Create Widget**
-4. Enter a name and select the AI agent
-5. Click **Create**
+1. ไปที่ **Integrations** จาก sidebar
+2. เลื่อนไปที่ส่วน **Website Widget**
+3. คลิก **Create Widget**
+4. กรอกชื่อและเลือก AI agent
+5. คลิก **Create**
 
-### 2. Customize Appearance
+### 2. ปรับแต่งหน้าตา
 
-Click the widget card to open the edit sheet:
+คลิก widget card เพื่อเปิด edit sheet:
 
-- **Primary Color** — Chat bubble and header color
-- **Text Color** — Text on the bubble and header
-- **Position** — Bottom-right or bottom-left
-- **Welcome Message** — First message visitors see
-- **Suggested Questions** — Up to 4 clickable starters
-- **Avatar URL** — Custom image in the chat header
-- **Border Radius** — Corner roundness
+- **Primary Color** — สีของ chat bubble และ header
+- **Text Color** — สีข้อความบน bubble และ header
+- **Position** — ขวาล่างหรือซ้ายล่าง
+- **Welcome Message** — ข้อความแรกที่ผู้เข้าชมเห็น
+- **Suggested Questions** — คำถามแนะนำสูงสุด 4 ข้อที่คลิกได้
+- **Avatar URL** — รูปภาพใน chat header
+- **Border Radius** — ความโค้งมน
 
-A live preview updates as you make changes.
+Live preview จะอัปเดตตามที่คุณเปลี่ยนแปลง
 
-### 3. Set Allowed Domains (Recommended)
+### 3. ตั้งค่า Allowed Domain (แนะนำ)
 
-Restrict which websites can embed your widget:
+จำกัดเว็บไซต์ที่สามารถฝัง widget:
 
-- Leave empty to allow all domains (default)
-- Add specific domains: `example.com`, `*.example.com`
-- Use port entries for development: `localhost:3000`
+- เว้นว่างเพื่ออนุญาตทุก domain (ค่าเริ่มต้น)
+- เพิ่ม domain เฉพาะ: `example.com`, `*.example.com`
+- ใช้ port สำหรับ development: `localhost:3000`
 
-### 4. Embed on Your Website
+### 4. ฝังบนเว็บไซต์ของคุณ
 
-Click the embed icon on your widget card and copy the code:
+คลิก embed icon บน widget card และคัดลอก code:
 
 ```html
 <script src="https://core-api.cuneiform.chat/api/widget/widget.js"
   data-widget-id="your-widget-id" async></script>
 ```
 
-Paste before the closing `</body>` tag on your website.
+วางก่อน closing `</body>` tag บนเว็บไซต์ของคุณ
 
-## How It Works
+## การทำงาน
 
 ```
 Visitor opens your website
@@ -74,91 +71,91 @@ Visitor opens your website
   → Response streams in real-time
 ```
 
-Messages are processed in real-time. The agent searches your content and generates responses using the same AI pipeline as all other channels.
+ข้อความถูกประมวลผลแบบ real-time agent ค้นหา content ของคุณและสร้างคำตอบด้วย AI pipeline เดียวกับทุก channel
 
-## Features
+## ฟีเจอร์
 
-### Streaming Responses
+### Streaming Response
 
-Responses stream in real-time using Server-Sent Events (SSE). Visitors see the answer appear progressively, similar to ChatGPT.
+คำตอบ stream แบบ real-time ด้วย Server-Sent Events (SSE) ผู้เข้าชมจะเห็นคำตอบปรากฏขึ้นเรื่อยๆ คล้ายกับ ChatGPT
 
 ### Session Persistence
 
-Returning visitors on the same browser resume their previous conversation within a 24-hour window. Sessions are stored in the browser's localStorage.
+ผู้เข้าชมที่กลับมาบน browser เดิมจะกลับเข้าสู่การสนทนาก่อนหน้าภายใน 24 ชั่วโมง Session ถูกเก็บใน localStorage ของ browser
 
-### Suggested Questions
+### Suggested Question
 
-Configure up to 4 clickable questions that appear when the chat opens. Great for guiding visitors toward common topics.
+ตั้งค่าคำถามแนะนำสูงสุด 4 ข้อที่คลิกได้เมื่อเปิด chat เหมาะสำหรับนำผู้เข้าชมไปยังหัวข้อที่พบบ่อย
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  The widget runs inside a Shadow DOM, so it won't interfere with your website's styles or JavaScript.
+  Widget ทำงานภายใน Shadow DOM จึงไม่กระทบ style หรือ JavaScript ของเว็บไซต์คุณ
 </Callout>
 
 ### Markdown Rendering
 
-Agent responses support markdown formatting including bold, italic, lists, code blocks, and links.
+คำตอบของ agent รองรับ markdown formatting รวมถึง bold, italic, list, code block และ link
 
-## Managing Widgets
+## การจัดการ Widget
 
-On the Integrations page, each widget card shows:
+ในหน้า Integrations แต่ละ widget card จะแสดง:
 
-- Widget name and status
-- Assigned agent
-- Edit, embed code, and delete actions
+- ชื่อ widget และสถานะ
+- Agent ที่เชื่อมต่อ
+- การแก้ไข, embed code และการลบ
 
-| Action | How |
-|--------|-----|
-| Edit settings | Click the widget card |
-| Get embed code | Click the embed icon |
-| Delete | Three-dot menu → Delete |
+| การดำเนินการ | วิธีการ |
+|-------------|---------|
+| แก้ไขการตั้งค่า | คลิก widget card |
+| รับ embed code | คลิก embed icon |
+| ลบ | เมนูสามจุด → Delete |
 
-## Security
+## ความปลอดภัย
 
-- **Shadow DOM isolation** — Widget is sandboxed from your page
-- **HMAC session tokens** — Signed tokens with 24-hour expiry
-- **Domain allowlisting** — Restrict which sites can embed your widget
-- **Rate limiting** — 30 messages/minute per session
-- **No data access** — Widget cannot read or modify your page content
+- **Shadow DOM isolation** — Widget ถูก sandbox จากหน้าเว็บของคุณ
+- **HMAC session token** — Signed token พร้อมหมดอายุ 24 ชั่วโมง
+- **Domain allowlisting** — จำกัดเว็บไซต์ที่สามารถฝัง widget
+- **Rate limiting** — 30 ข้อความ/นาทีต่อ session
+- **ไม่มีการเข้าถึงข้อมูล** — Widget ไม่สามารถอ่านหรือแก้ไข content ของหน้าเว็บ
 
-## Troubleshooting
+## การแก้ไขปัญหา
 
-### Widget doesn't appear
+### Widget ไม่แสดง
 
-1. Verify the script tag is before `</body>`, not in `<head>`
-2. Check `data-widget-id` matches your admin panel
-3. If domain allowlisting is set, verify your domain is listed
-4. Check the browser console for errors
+1. ตรวจสอบว่า script tag อยู่ก่อน `</body>` ไม่ใช่ใน `<head>`
+2. ตรวจสอบว่า `data-widget-id` ตรงกับ admin panel
+3. หากตั้งค่า domain allowlisting ตรวจสอบว่า domain ของคุณอยู่ในรายการ
+4. ตรวจสอบ browser console สำหรับ error
 
-### Widget doesn't respond
+### Widget ไม่ตอบ
 
-1. Ensure the assigned agent is in **Active** status
-2. Verify the agent has documents in its content
-3. Check the browser Network tab for failed API requests
+1. ตรวจสอบว่า agent ที่เชื่อมต่ออยู่ในสถานะ **Active**
+2. ตรวจสอบว่า agent มีเอกสารใน content
+3. ตรวจสอบ browser Network tab สำหรับ API request ที่ล้มเหลว
 
-### Appearance issues
+### ปัญหาหน้าตา
 
-The widget uses Shadow DOM isolation. Your page's CSS will not affect the widget. Use the edit sheet's live preview to customize appearance.
+Widget ใช้ Shadow DOM isolation CSS ของหน้าเว็บจะไม่กระทบ widget ใช้ live preview ของ edit sheet เพื่อปรับแต่งหน้าตา
 
 ## FAQ
 
-### Can I embed the widget on multiple pages?
+### ฝัง widget บนหลายหน้าได้ไหม?
 
-Yes. Use the same embed code on every page. The widget shares session state across pages on the same domain.
+ได้ ใช้ embed code เดียวกันในทุกหน้า Widget จะแชร์ session state ข้ามหน้าบน domain เดียวกัน
 
-### Does it work on mobile?
+### ใช้งานบนมือถือได้ไหม?
 
-Yes. The widget is fully responsive and optimized for mobile browsers.
+ได้ Widget responsive เต็มรูปแบบและปรับให้เหมาะกับ mobile browser
 
-### Can I remove the "Powered by" badge?
+### ลบป้าย "Powered by" ได้ไหม?
 
-The badge is required on Trial and Starter plans. Upgrade to Professional or higher to remove it.
+ป้ายนี้จำเป็นสำหรับ plan Trial และ Starter อัปเกรดเป็น Professional ขึ้นไปเพื่อลบ
 
-### Does it work with React/Next.js/Vue?
+### ใช้งานกับ React/Next.js/Vue ได้ไหม?
 
-Yes. The widget loads as a standalone script and works with any framework, including single-page applications.
+ได้ Widget โหลดเป็น standalone script และทำงานกับทุก framework รวมถึง single-page application
 
-### What's the message length limit?
+### ข้อจำกัดความยาวข้อความ?
 
-4,000 characters per message.
+4,000 ตัวอักษรต่อข้อความ

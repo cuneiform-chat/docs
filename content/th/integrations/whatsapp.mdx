@@ -1,202 +1,199 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# การเชื่อมต่อ WhatsApp
 
-# WhatsApp Integration
+เชื่อมต่อ agent ของคุณกับ WhatsApp Business สำหรับการสื่อสารกับลูกค้า
 
-Connect your agent to WhatsApp Business for customer communication.
+## ภาพรวม
 
-## Overview
+WhatsApp integration มีความสามารถ:
+- Business messaging
+- รองรับ rich media
+- ตอบกลับอัตโนมัติ
+- เข้าถึงได้ทั่วโลก
+- เป็นไปตามกฎ 24-hour messaging window
 
-WhatsApp integration provides:
-- Business messaging capabilities
-- Rich media support
-- Automated responses
-- Global reach
-- 24-hour messaging window compliance
+## ข้อกำหนดเบื้องต้น
 
-## Prerequisites
+- AI agent ที่ active (สร้างในส่วน Agents)
+- WhatsApp Business Account (WABA)
+- หมายเลขโทรศัพท์ที่ verified ใน WhatsApp Business
+- เข้าถึง Meta Developer Portal
 
-- An active AI agent (created in the Agents section)
-- A WhatsApp Business Account (WABA)
-- A verified phone number in WhatsApp Business
-- Access to the Meta Developer Portal
+## ขั้นตอนการตั้งค่า
 
-## Setup Steps
+### 1. เชื่อมต่อด้วย Embedded Signup (แนะนำ)
 
-### 1. Connect with Embedded Signup (Recommended)
+วิธีที่ง่ายที่สุดในการเชื่อมต่อ WhatsApp คือผ่าน embedded Meta signup flow:
 
-The easiest way to connect WhatsApp is through the embedded Meta signup flow:
-
-1. Go to **Agents** → Select your agent
-2. Navigate to **Integrations** tab
-3. Click **WhatsApp**
-4. Click **Connect with Facebook** to open the Meta signup popup
-5. Log in with your Facebook/Meta account
-6. Select or create a WhatsApp Business Account
-7. Choose the phone number to connect
-8. The popup closes and your connection is established
+1. ไปที่ **Agents** → เลือก agent ของคุณ
+2. ไปที่แท็บ **Integrations**
+3. คลิก **WhatsApp**
+4. คลิก **Connect with Facebook** เพื่อเปิด Meta signup popup
+5. เข้าสู่ระบบด้วยบัญชี Facebook/Meta ของคุณ
+6. เลือกหรือสร้าง WhatsApp Business Account
+7. เลือกหมายเลขโทรศัพท์ที่ต้องการเชื่อมต่อ
+8. Popup จะปิดและการเชื่อมต่อสำเร็จ
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  The embedded signup flow handles most of the configuration automatically. It's the recommended method for most users.
+  Embedded signup flow จัดการการตั้งค่าส่วนใหญ่โดยอัตโนมัติ เป็นวิธีที่แนะนำสำหรับผู้ใช้ส่วนใหญ่
 </Callout>
 
-### 2. Phone Verification (If Required)
+### 2. การยืนยันหมายเลขโทรศัพท์ (หากจำเป็น)
 
-After completing the Meta signup, you may need to verify your phone number:
+หลังจาก Meta signup เสร็จ คุณอาจต้องยืนยันหมายเลขโทรศัพท์:
 
-1. Choose how to receive your verification code: **SMS** or **Voice Call**
-2. Click **Send Code**
-3. Enter the 6-digit code you receive
-4. Click **Verify**
+1. เลือกวิธีรับรหัสยืนยัน: **SMS** หรือ **Voice Call**
+2. คลิก **Send Code**
+3. กรอกรหัส 6 หลักที่ได้รับ
+4. คลิก **Verify**
 
-If you didn't receive the code, click "Didn't receive the code? Send again" to retry.
+หากไม่ได้รับรหัส คลิก "Didn't receive the code? Send again" เพื่อส่งใหม่
 
-### 3. Two-Step Verification (If Enabled)
+### 3. Two-Step Verification (หากเปิดใช้งาน)
 
-If your WhatsApp Business account has Two-Step Verification enabled:
+หาก WhatsApp Business account ของคุณเปิด Two-Step Verification:
 
-1. Enter your 6-digit PIN when prompted
-2. Click **Complete Registration**
+1. กรอก PIN 6 หลักเมื่อได้รับแจ้ง
+2. คลิก **Complete Registration**
 
 <Callout type="info">
-  This PIN was set up in WhatsApp Business Manager → Security Center. It's different from the SMS verification code.
+  PIN นี้ถูกตั้งค่าใน WhatsApp Business Manager → Security Center ซึ่งแตกต่างจากรหัสยืนยัน SMS
 </Callout>
 
-### 4. Configure Webhook (If Required)
+### 4. ตั้งค่า Webhook (หากจำเป็น)
 
-After setup, you may need to configure your webhook in Meta Business Suite:
+หลังตั้งค่าเสร็จ คุณอาจต้องตั้งค่า webhook ใน Meta Business Suite:
 
-1. Copy the webhook URL provided after connection
-2. In Meta Developer Portal, go to **WhatsApp** → **Configuration**
-3. Add the webhook URL
-4. Subscribe to the `messages` webhook field
+1. คัดลอก webhook URL ที่ได้หลังเชื่อมต่อ
+2. ใน Meta Developer Portal ไปที่ **WhatsApp** → **Configuration**
+3. เพิ่ม webhook URL
+4. Subscribe webhook field `messages`
 
-## Using the Bot
+## การใช้งาน Bot
 
-### Customer Messages
+### ข้อความจากลูกค้า
 
-When customers message your WhatsApp number:
+เมื่อลูกค้าส่งข้อความถึงหมายเลข WhatsApp ของคุณ:
 
-1. Message arrives via WhatsApp
-2. Cuneiform Chat processes the request
-3. Agent generates response from content
-4. Response sent back to customer
+1. ข้อความเข้ามาผ่าน WhatsApp
+2. Cuneiform Chat ประมวลผลคำขอ
+3. Agent สร้างคำตอบจาก content
+4. ส่งคำตอบกลับไปยังลูกค้า
 
-### Conversation Flow
+### ขั้นตอนการสนทนา
 
 ```
 Customer → WhatsApp → Cuneiform Chat → Agent → Response → Customer
 ```
 
-## Features
+## ฟีเจอร์
 
 ### 24-Hour Messaging Window
 
-WhatsApp Business API rules:
-- You can respond to customer-initiated messages for 24 hours
-- After 24 hours, the window closes until the customer messages again
-- Each new customer message reopens the window
+กฎของ WhatsApp Business API:
+- คุณสามารถตอบข้อความที่ลูกค้าเริ่มได้ภายใน 24 ชั่วโมง
+- หลัง 24 ชั่วโมง window จะปิดจนกว่าลูกค้าจะส่งข้อความอีกครั้ง
+- ข้อความใหม่จากลูกค้าจะเปิด window อีกครั้ง
 
 <Callout type="info">
-  Your agent responds within the 24-hour window automatically. Template messages for re-engagement are not currently supported.
+  Agent ของคุณตอบภายใน 24-hour window โดยอัตโนมัติ Template message สำหรับ re-engagement ยังไม่รองรับในขณะนี้
 </Callout>
 
 ### Rich Media
 
-Responses can include:
-- Text messages
-- Links
+คำตอบสามารถรวม:
+- ข้อความตัวอักษร
+- Link
 - Formatted text
 
 ### Multi-Language
 
-Your agent automatically detects the customer's language and responds in kind — 176 languages supported, no configuration needed.
+Agent ของคุณตรวจจับภาษาของลูกค้าโดยอัตโนมัติและตอบในภาษาเดียวกัน — รองรับ 176 ภาษา ไม่ต้องตั้งค่า
 
-## Managing Connected Numbers
+## การจัดการหมายเลขที่เชื่อมต่อ
 
-Each connected WhatsApp number displays:
-- **Business name** or display phone number
-- **Status badge** - Active, Inactive, or Error
+แต่ละหมายเลข WhatsApp ที่เชื่อมต่อจะแสดง:
+- **Business name** หรือหมายเลขโทรศัพท์ที่แสดง
+- **Status badge** - Active, Inactive หรือ Error
 - **Phone number**
 - **Last activity** timestamp
 
-### Available Actions
+### การดำเนินการที่ใช้ได้
 
-| Action | Description |
-|--------|-------------|
-| **Test Connection** | Verifies the integration is working |
-| **Disconnect** | Removes this integration |
+| การดำเนินการ | คำอธิบาย |
+|-------------|----------|
+| **Test Connection** | ตรวจสอบว่า integration ทำงานอยู่ |
+| **Disconnect** | ลบ integration นี้ |
 
-Access these via the three-dot menu on the integration card.
+เข้าถึงการดำเนินการเหล่านี้ผ่านเมนูสามจุดบน integration card
 
-## Troubleshooting
+## การแก้ไขปัญหา
 
-### Connection Failed
+### เชื่อมต่อไม่สำเร็จ
 
-1. Ensure you have a valid WhatsApp Business Account
-2. Check that your phone number is verified
-3. Try the embedded signup flow again
+1. ตรวจสอบว่าคุณมี WhatsApp Business Account ที่ valid
+2. ตรวจสอบว่าหมายเลขโทรศัพท์ถูก verify แล้ว
+3. ลอง embedded signup flow อีกครั้ง
 
-### Phone Verification Not Working
+### การยืนยันหมายเลขโทรศัพท์ไม่ทำงาน
 
-1. Ensure you have access to the phone number for SMS/Voice
-2. Wait a few minutes before requesting a new code
-3. Check that the phone number isn't already connected elsewhere
+1. ตรวจสอบว่าคุณเข้าถึงหมายเลขโทรศัพท์สำหรับ SMS/Voice ได้
+2. รอสักครู่ก่อนขอรหัสใหม่
+3. ตรวจสอบว่าหมายเลขโทรศัพท์ไม่ได้เชื่อมต่อที่อื่นแล้ว
 
 ### Two-Step Verification Error
 
-1. Enter the PIN set up in WhatsApp Business Manager → Security Center
-2. This is different from the SMS verification code
-3. Contact your WhatsApp Business admin if you don't know the PIN
+1. กรอก PIN ที่ตั้งค่าใน WhatsApp Business Manager → Security Center
+2. PIN นี้แตกต่างจากรหัสยืนยัน SMS
+3. ติดต่อ WhatsApp Business admin หากไม่ทราบ PIN
 
-### Messages Not Arriving
+### ข้อความไม่เข้า
 
-1. Verify webhook is configured correctly in Meta Business Suite
-2. Check webhook subscription includes `messages`
-3. Confirm the integration status is "Active"
+1. ตรวจสอบว่า webhook ตั้งค่าถูกต้องใน Meta Business Suite
+2. ตรวจสอบว่า webhook subscription รวม `messages`
+3. ยืนยันว่าสถานะ integration เป็น "Active"
 
-### Response Failures
+### ตอบกลับไม่สำเร็จ
 
-1. Check your agent works in Playground
-2. Verify the 24-hour window is active (customer messaged recently)
-3. Check the integration status in the admin panel
+1. ตรวจสอบว่า agent ทำงานได้ใน Playground
+2. ตรวจสอบว่า 24-hour window ยัง active อยู่ (ลูกค้าส่งข้อความเมื่อเร็วๆ นี้)
+3. ตรวจสอบสถานะ integration ใน admin panel
 
-## Security
+## ความปลอดภัย
 
-- Access tokens are encrypted and stored securely
-- Messages processed over secure connections
+- Access token ถูกเข้ารหัสและจัดเก็บอย่างปลอดภัย
+- ข้อความถูกประมวลผลผ่านการเชื่อมต่อที่ปลอดภัย
 
-## Compliance
+## ข้อกำหนดการใช้งาน
 
-WhatsApp Business has usage policies:
-- Respond only to customer-initiated conversations
-- Provide opt-out options
-- Follow Meta's Commerce and Business policies
+WhatsApp Business มีนโยบายการใช้งาน:
+- ตอบเฉพาะการสนทนาที่ลูกค้าเริ่มต้น
+- มีตัวเลือก opt-out
+- ปฏิบัติตาม Commerce and Business policies ของ Meta
 
-## Disconnecting
+## การยกเลิกการเชื่อมต่อ
 
-To remove the WhatsApp integration:
+วิธีลบ WhatsApp integration:
 
-1. Go to **Agents** → Select agent → **Integrations**
-2. Click the three-dot menu on your WhatsApp integration
-3. Select **Disconnect**
+1. ไปที่ **Agents** → เลือก agent → **Integrations**
+2. คลิกเมนูสามจุดบน WhatsApp integration ของคุณ
+3. เลือก **Disconnect**
 
-This stops the agent from responding. To fully remove:
-- Delete the webhook in Meta Developer Portal
-- Optionally remove the WhatsApp product from your Meta app
+การดำเนินการนี้จะหยุด agent จากการตอบสนอง วิธีลบอย่างสมบูรณ์:
+- ลบ webhook ใน Meta Developer Portal
+- ลบ WhatsApp product ออกจาก Meta app (ไม่จำเป็น)
 
-## Common Questions
+## คำถามที่พบบ่อย
 
-**Q: How do I connect WhatsApp?**
-A: Use the embedded signup by clicking "WhatsApp" in the Integrations tab, then "Connect with Facebook". This guides you through the Meta signup process automatically.
+**Q: ฉันเชื่อมต่อ WhatsApp ได้อย่างไร?**
+A: ใช้ embedded signup โดยคลิก "WhatsApp" ในแท็บ Integrations จากนั้นคลิก "Connect with Facebook" ระบบจะนำคุณผ่านขั้นตอน Meta signup โดยอัตโนมัติ
 
-**Q: Why am I asked for a verification code?**
-A: WhatsApp requires phone verification for new connections. Choose SMS or Voice Call to receive a 6-digit code, then enter it to complete setup.
+**Q: ทำไมถูกขอรหัสยืนยัน?**
+A: WhatsApp ต้องการการยืนยันหมายเลขโทรศัพท์สำหรับการเชื่อมต่อใหม่ เลือก SMS หรือ Voice Call เพื่อรับรหัส 6 หลัก จากนั้นกรอกเพื่อตั้งค่าให้เสร็จ
 
-**Q: What is the Two-Step Verification PIN?**
-A: If you enabled Two-Step Verification in WhatsApp Business Manager, you'll need to enter that 6-digit PIN during setup. This is different from the SMS verification code.
+**Q: Two-Step Verification PIN คืออะไร?**
+A: หากคุณเปิด Two-Step Verification ใน WhatsApp Business Manager คุณต้องกรอก PIN 6 หลักระหว่างตั้งค่า ซึ่งแตกต่างจากรหัสยืนยัน SMS
 
-**Q: Can I connect multiple WhatsApp numbers?**
-A: Yes, you can connect multiple WhatsApp Business numbers. Each number can be connected to a different (or the same) AI agent.
+**Q: เชื่อมต่อหลายหมายเลข WhatsApp ได้ไหม?**
+A: ได้ คุณสามารถเชื่อมต่อหลายหมายเลข WhatsApp Business แต่ละหมายเลขสามารถเชื่อมต่อกับ AI agent ที่แตกต่างกัน (หรือเดียวกัน) ได้

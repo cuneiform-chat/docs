@@ -1,129 +1,126 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# การอัปโหลดเอกสาร
 
-# Uploading Documents
+อัปโหลดเอกสารไปยังเนื้อหาของคุณเพื่อให้ AI agent ใช้ในการตอบคำถาม เอกสารจะถูกประมวลผลและทำให้ค้นหาได้โดยอัตโนมัติ
 
-Upload documents to your content so your AI agents can use them to answer questions. Documents are automatically processed and made searchable.
+## การเข้าถึง
 
-## Getting There
+1. เข้าสู่ระบบ Admin Panel
+2. ไปที่ **Content** ในเมนู sidebar
+3. พื้นที่อัปโหลดจะแสดงที่ด้านบนของหน้า
 
-1. Log in to the Admin Panel
-2. Navigate to **Content** in the sidebar menu
-3. The upload area is displayed at the top of the page
+## วิธีการอัปโหลด
 
-## Upload Methods
+### อัปโหลดไฟล์จากเครื่อง
 
-### Local File Upload
+1. **ลากและวาง** ไฟล์โดยตรงไปยังพื้นที่อัปโหลด หรือ
+2. **คลิก** พื้นที่อัปโหลดเพื่อเปิดตัวเลือกไฟล์
+3. เลือกไฟล์หนึ่งไฟล์หรือมากกว่า
+4. ไฟล์จะเริ่มอัปโหลดโดยอัตโนมัติพร้อมแสดงความคืบหน้า
 
-1. **Drag and drop** files directly onto the upload area, OR
-2. **Click** the upload area to open a file browser
-3. Select one or more files to upload
-4. Files begin uploading automatically with progress tracking
+### Import จาก Cloud Storage
 
-### Cloud Storage Import
+Import ไฟล์โดยตรงจาก Cloud Storage ของคุณ:
 
-Import files directly from your cloud storage providers:
+| ผู้ให้บริการ | ไอคอน | วิธีใช้ |
+|-------------|-------|---------|
+| Google Drive | ไอคอน Google Drive | คลิกเพื่อเปิด Google Drive picker เลือกไฟล์ |
+| Dropbox | ไอคอน Dropbox | คลิกเพื่อเปิด Dropbox chooser เลือกไฟล์ |
+| OneDrive | ไอคอน OneDrive | คลิกเพื่อเปิด OneDrive picker เลือกไฟล์ |
+| Box | ไอคอน Box | คลิกเพื่อเปิด Box picker เลือกไฟล์ |
 
-| Provider | Icon | How to Use |
-|----------|------|------------|
-| Google Drive | Google Drive icon | Click to open Google Drive picker, select files |
-| Dropbox | Dropbox icon | Click to open Dropbox chooser, select files |
-| OneDrive | OneDrive icon | Click to open OneDrive picker, select files |
-| Box | Box icon | Click to open Box picker, select files |
+หลังจากเลือกไฟล์จากผู้ให้บริการใดก็ตาม ไฟล์จะถูก import เข้าสู่เนื้อหาของคุณโดยอัตโนมัติ
 
-After selecting files from any provider, they are automatically imported to your content.
+## ตัวเลือกการอัปโหลด
 
-## Upload Options
+### การเพิ่มแท็ก
 
-### Adding Tags
+คุณสามารถกำหนดแท็กให้กับเอกสารระหว่างอัปโหลดได้:
 
-Optionally assign tags to documents during upload:
+1. คลิก **+ Add Tags** ก่อนอัปโหลด
+2. เลือกแท็กจาก dropdown
+3. แท็กที่เลือกจะถูกนำไปใช้กับเอกสารที่อัปโหลดทั้งหมด
 
-1. Click **+ Add Tags** before uploading
-2. Select tags from the dropdown
-3. Selected tags will be applied to all uploaded documents
+## ประเภทไฟล์ที่รองรับ
 
-## Supported File Types
+ประเภทไฟล์ที่คุณอัปโหลดได้ขึ้นอยู่กับ plan ของคุณ รูปแบบทั่วไปได้แก่:
 
-The file types you can upload depend on your plan. Common formats include:
+- **เอกสาร:** PDF, DOCX, DOC, TXT, MD, RTF
+- **งานนำเสนอ:** PPTX, PPT
+- **เว็บ/ข้อมูล:** HTML, HTM, JSON, XML
 
-- **Documents:** PDF, DOCX, DOC, TXT, MD, RTF
-- **Presentations:** PPTX, PPT
-- **Web/Data:** HTML, HTM, JSON, XML
+ขนาดไฟล์สูงสุดก็แตกต่างกันตาม plan (แสดงในพื้นที่อัปโหลด)
 
-File size limits also vary by plan (shown in the upload area).
+ดู [รูปแบบที่รองรับ](/knowledge-base/supported-formats) สำหรับรายการทั้งหมด
 
-See [Supported Formats](/knowledge-base/supported-formats) for the complete list.
+## ระหว่างอัปโหลด
 
-## During Upload
+### การติดตามความคืบหน้า
 
-### Progress Tracking
+- แต่ละไฟล์แสดงความคืบหน้าด้วยแถบเปอร์เซ็นต์
+- แสดงความเร็วการอัปโหลดและเวลาที่เหลือโดยประมาณ
+- ไฟล์จะถูกประมวลผลทีละไฟล์
 
-- Each file shows upload progress with a percentage bar
-- Upload speed and estimated time remaining are displayed
-- Files are processed one at a time
+### ตัวเลือกการยกเลิก
 
-### Cancel Options
+- **ยกเลิกไฟล์เดียว:** คลิก X ข้างไฟล์
+- **ยกเลิกทั้งหมด:** คลิก "Cancel All Pending" เพื่อหยุดทั้ง batch
+- จะมีคำเตือนปรากฏหากคุณพยายามออกจากหน้าระหว่างอัปโหลด
 
-- **Cancel individual file:** Click the X next to a file
-- **Cancel all:** Click "Cancel All Pending" to stop the entire batch
-- A warning appears if you try to leave the page during upload
+## สถานะการประมวลผล
 
-## Processing Status
+ติดตามสถานะเอกสารใน Content:
 
-Track document status in Content:
-
-| Status | Meaning |
-|--------|---------|
-| Uploading | Document is being uploaded to the system |
-| Ready | Document is processed and available for your agents |
-| Processing | Document is being analyzed |
-| Queued | Waiting to be processed |
-| Retrying | Processing is being retried |
-| Failed | Processing encountered an error (can be retried) |
+| สถานะ | ความหมาย |
+|-------|----------|
+| Uploading | กำลังอัปโหลดเอกสารเข้าสู่ระบบ |
+| Ready | เอกสารถูกประมวลผลแล้วและพร้อมใช้งานสำหรับ agent |
+| Processing | กำลังวิเคราะห์เอกสาร |
+| Queued | รอการประมวลผล |
+| Retrying | กำลังลองประมวลผลอีกครั้ง |
+| Failed | การประมวลผลพบข้อผิดพลาด (สามารถลองใหม่ได้) |
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Processing time depends on document size and complexity. Most documents complete within a few minutes.
+  เวลาในการประมวลผลขึ้นอยู่กับขนาดและความซับซ้อนของเอกสาร เอกสารส่วนใหญ่จะเสร็จสิ้นภายในไม่กี่นาที
 </Callout>
 
-## After Upload
+## หลังอัปโหลด
 
-### Success
+### สำเร็จ
 
-- Successfully uploaded files appear in your document browser
-- Documents are automatically processed for search
-- You can organize them into folders or add tags
+- ไฟล์ที่อัปโหลดสำเร็จจะปรากฏใน document browser ของคุณ
+- เอกสารจะถูกประมวลผลสำหรับการค้นหาโดยอัตโนมัติ
+- คุณสามารถจัดระเบียบเป็นโฟลเดอร์หรือเพิ่มแท็กได้
 
-### Handling Duplicates
+### การจัดการรายการซ้ำ
 
-- The system detects duplicate content automatically
-- If a file with identical content already exists, you'll see a warning
-- The existing file location is shown in the error message
+- ระบบตรวจจับเนื้อหาที่ซ้ำกันโดยอัตโนมัติ
+- หากมีไฟล์ที่มีเนื้อหาเหมือนกันอยู่แล้ว คุณจะเห็นคำเตือน
+- ตำแหน่งของไฟล์ที่มีอยู่จะแสดงในข้อความแจ้งข้อผิดพลาด
 
-### Handling Errors
+### การจัดการข้อผิดพลาด
 
-- If a file fails to upload, an error message explains why
-- Common issues include file too large or unsupported format
-- You can retry individual files or upload them again
+- หากไฟล์อัปโหลดล้มเหลว ข้อความแจ้งข้อผิดพลาดจะอธิบายสาเหตุ
+- ปัญหาที่พบบ่อย ได้แก่ ไฟล์ขนาดใหญ่เกินไป หรือรูปแบบไม่รองรับ
+- คุณสามารถลองอัปโหลดไฟล์เดิมอีกครั้งหรืออัปโหลดใหม่
 
-## Tips
+## เคล็ดลับ
 
-- Upload multiple files at once to save time
-- Apply tags during upload to keep documents organized
-- Check the supported file types shown in the upload area
+- อัปโหลดหลายไฟล์พร้อมกันเพื่อประหยัดเวลา
+- ใส่แท็กระหว่างอัปโหลดเพื่อจัดระเบียบเอกสาร
+- ตรวจสอบประเภทไฟล์ที่รองรับที่แสดงในพื้นที่อัปโหลด
 
-## Common Questions
+## คำถามที่พบบ่อย
 
-**Q: How many files can I upload at once?**
-A: You can select multiple files for batch upload. They process one at a time with progress tracking.
+**ถาม: อัปโหลดไฟล์ได้ครั้งละกี่ไฟล์?**
+ตอบ: คุณสามารถเลือกหลายไฟล์สำหรับ batch upload ไฟล์จะถูกประมวลผลทีละไฟล์พร้อมแสดงความคืบหน้า
 
-**Q: Why was my file rejected?**
-A: Check if the file type is supported and the file size is within limits (shown in the upload area). Some files may be blocked for security reasons.
+**ถาม: ทำไมไฟล์ของฉันถูกปฏิเสธ?**
+ตอบ: ตรวจสอบว่าประเภทไฟล์รองรับหรือไม่ และขนาดไฟล์อยู่ในขีดจำกัด (แสดงในพื้นที่อัปโหลด) บางไฟล์อาจถูกบล็อกด้วยเหตุผลด้านความปลอดภัย
 
-**Q: How long does processing take?**
-A: Upload time depends on file size and your connection. After upload, documents are processed in the background and become searchable automatically.
+**ถาม: การประมวลผลใช้เวลานานแค่ไหน?**
+ตอบ: เวลาอัปโหลดขึ้นอยู่กับขนาดไฟล์และความเร็วเครือข่าย หลังอัปโหลด เอกสารจะถูกประมวลผลในพื้นหลังและสามารถค้นหาได้โดยอัตโนมัติ
 
-**Q: Can I upload to a specific folder?**
-A: Yes, you can upload directly to folders using the folder menu or organize documents after upload.
+**ถาม: สามารถอัปโหลดไปยังโฟลเดอร์ที่ระบุได้หรือไม่?**
+ตอบ: ได้ คุณสามารถอัปโหลดโดยตรงไปยังโฟลเดอร์โดยใช้เมนูโฟลเดอร์ หรือจัดระเบียบเอกสารหลังอัปโหลด

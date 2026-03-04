@@ -1,109 +1,106 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# โฟลเดอร์และแท็ก
 
-# Folders and Tags
+จัดระเบียบเอกสารในเนื้อหาของคุณโดยใช้โฟลเดอร์และแท็ก โฟลเดอร์ให้การจัดระเบียบแบบลำดับชั้น ในขณะที่แท็กให้จัดหมวดหมู่ข้ามโฟลเดอร์ได้
 
-Organize your Content documents using folders and tags. Folders provide hierarchical organization, while tags allow cross-cutting categorization across folders.
+## การเข้าถึง
 
-## Getting There
+ไปที่ **Content** ในเมนู sidebar โฟลเดอร์จะปรากฏใน document browser และตัวควบคุมแท็กอยู่ใน toolbar
 
-Navigate to **Content** in the sidebar. Folders appear in the document browser, and tag controls are in the toolbar.
+## การทำงานกับโฟลเดอร์
 
-## Working with Folders
+### สร้างโฟลเดอร์
 
-### Create a Folder
+1. คลิกปุ่ม **New Folder** (ไอคอนโฟลเดอร์พร้อม +) ใน toolbar
+2. ใส่ชื่อโฟลเดอร์ (จำเป็น)
+3. เพิ่มคำอธิบายหากต้องการ
+4. เลือกสีโดยใช้ color picker
+5. คลิก **Create**
 
-1. Click the **New Folder** button (folder icon with +) in the toolbar
-2. Enter a folder name (required)
-3. Optionally add a description
-4. Choose a color using the color picker
-5. Click **Create**
+### แก้ไขโฟลเดอร์
 
-### Edit a Folder
+1. คลิกเมนูสามจุด (...) บนแถวโฟลเดอร์
+2. เลือก **Rename**
+3. อัปเดตชื่อ คำอธิบาย หรือสี
+4. คลิก **Save Changes**
 
-1. Click the three-dot menu (...) on a folder row
-2. Select **Rename**
-3. Update the name, description, or color
-4. Click **Save Changes**
+### ลบโฟลเดอร์
 
-### Delete a Folder
-
-1. Click the three-dot menu (...) on a folder row
-2. Select **Delete**
-3. Confirm deletion
+1. คลิกเมนูสามจุด (...) บนแถวโฟลเดอร์
+2. เลือก **Delete**
+3. ยืนยันการลบ
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Folders can only be deleted when empty. Move or delete documents first.
+  โฟลเดอร์สามารถลบได้เฉพาะเมื่อว่างเท่านั้น ย้ายหรือลบเอกสารก่อน
 </Callout>
 
-### Upload to a Folder
+### อัปโหลดไปยังโฟลเดอร์
 
-- Drag files directly onto a folder row
-- Hover over a folder to reveal upload icons (cloud storage + local files)
-- Click to expand a folder and see its documents
+- ลากไฟล์โดยตรงไปบนแถวโฟลเดอร์
+- เลื่อนเมาส์ไปบนโฟลเดอร์เพื่อแสดงไอคอนอัปโหลด (Cloud Storage + ไฟล์จากเครื่อง)
+- คลิกเพื่อขยายโฟลเดอร์และดูเอกสารภายใน
 
-## Working with Tags
+## การทำงานกับแท็ก
 
-### Manage Tags (Create, Edit, Delete)
+### จัดการแท็ก (สร้าง, แก้ไข, ลบ)
 
-1. Click the **Tag Filter** dropdown in the toolbar
-2. Click **Manage Tags** at the bottom
-3. In the modal:
-   - Click **Create Tag** to add a new tag
-   - Use suggested tags for quick creation
-   - Edit existing tags (name, color)
-   - Delete unused tags
+1. คลิก dropdown **Tag Filter** ใน toolbar
+2. คลิก **Manage Tags** ที่ด้านล่าง
+3. ใน modal:
+   - คลิก **Create Tag** เพื่อเพิ่มแท็กใหม่
+   - ใช้แท็กที่แนะนำสำหรับการสร้างอย่างรวดเร็ว
+   - แก้ไขแท็กที่มีอยู่ (ชื่อ, สี)
+   - ลบแท็กที่ไม่ได้ใช้
 
-### Add Tags to a Document
+### เพิ่มแท็กให้เอกสาร
 
-1. Hover over a document row
-2. Click the **Tag** button (tag icon)
-3. In the Manage Tags dialog:
-   - See current tags at the top
-   - Search available tags
-   - Check tags to add
-   - Click **Add X tags** button
+1. เลื่อนเมาส์ไปบนแถวเอกสาร
+2. คลิกปุ่ม **Tag** (ไอคอนแท็ก)
+3. ในหน้าต่าง Manage Tags:
+   - ดูแท็กปัจจุบันที่ด้านบน
+   - ค้นหาแท็กที่มี
+   - เลือกแท็กเพื่อเพิ่ม
+   - คลิกปุ่ม **Add X tags**
 
-### Remove Tags from a Document
+### ลบแท็กจากเอกสาร
 
-1. Open the Manage Tags dialog for a document
-2. In the "Current Tags" section, click the X on tags to select for removal
-3. Click **Remove X tags** button
+1. เปิดหน้าต่าง Manage Tags สำหรับเอกสาร
+2. ในส่วน "Current Tags" คลิก X บนแท็กเพื่อเลือกลบ
+3. คลิกปุ่ม **Remove X tags**
 
-### Filter Documents by Tags
+### กรองเอกสารตามแท็ก
 
-1. Click the **Tag Filter** dropdown in the toolbar
-2. Select one or more tags
-3. Only documents with those tags are shown
-4. Selected tags appear in a filter bar below the toolbar
-5. Click X on a tag chip to remove that filter, or **Clear all**
+1. คลิก dropdown **Tag Filter** ใน toolbar
+2. เลือกแท็กหนึ่งรายการหรือมากกว่า
+3. แสดงเฉพาะเอกสารที่มีแท็กเหล่านั้น
+4. แท็กที่เลือกจะปรากฏในแถบกรองด้านล่าง toolbar
+5. คลิก X บนชิปแท็กเพื่อลบตัวกรอง หรือ **Clear all**
 
-## Folders vs Tags
+## โฟลเดอร์ vs แท็ก
 
-| Feature | Folders | Tags |
-|---------|---------|------|
-| Structure | Hierarchical (one folder per document) | Flat (multiple tags per document) |
-| Best for | Broad categories, projects, departments | Topics, themes, status, cross-cutting concerns |
-| Filtering | Click folder to see contents | Use tag filter to find across folders |
-| Document limit | One folder per document | Unlimited tags per document |
+| คุณสมบัติ | โฟลเดอร์ | แท็ก |
+|-----------|----------|------|
+| โครงสร้าง | ลำดับชั้น (หนึ่งโฟลเดอร์ต่อเอกสาร) | แบน (หลายแท็กต่อเอกสาร) |
+| เหมาะสำหรับ | หมวดหมู่ใหญ่ โปรเจกต์ แผนก | หัวข้อ ธีม สถานะ หมวดหมู่ข้ามกัน |
+| การกรอง | คลิกโฟลเดอร์เพื่อดูเนื้อหา | ใช้ตัวกรองแท็กเพื่อค้นหาข้ามโฟลเดอร์ |
+| จำกัดเอกสาร | หนึ่งโฟลเดอร์ต่อเอกสาร | ไม่จำกัดแท็กต่อเอกสาร |
 
-## Tips
+## เคล็ดลับ
 
-- Use folders for major categories (e.g., "Product Docs", "HR Policies")
-- Use tags for cross-cutting themes (e.g., "Q1-2024", "Compliance", "Draft")
-- Color-code folders and tags for visual organization
-- Tags show usage count so you can see how many documents use each tag
-- Combine folder and tag filtering for precise document discovery
+- ใช้โฟลเดอร์สำหรับหมวดหมู่หลัก (เช่น "Product Docs", "HR Policies")
+- ใช้แท็กสำหรับธีมข้ามหมวดหมู่ (เช่น "Q1-2024", "Compliance", "Draft")
+- ใช้สีเพื่อจัดระเบียบโฟลเดอร์และแท็กให้เห็นภาพชัดเจน
+- แท็กแสดงจำนวนการใช้งานเพื่อให้เห็นว่าเอกสารกี่รายการใช้แท็กแต่ละตัว
+- รวมการกรองโฟลเดอร์และแท็กเพื่อค้นหาเอกสารอย่างแม่นยำ
 
-## Common Questions
+## คำถามที่พบบ่อย
 
-**Q: Can a document be in multiple folders?**
-A: No, each document belongs to one folder (or "Unfiled"). Use tags for cross-cutting categorization.
+**ถาม: เอกสารสามารถอยู่ในหลายโฟลเดอร์ได้หรือไม่?**
+ตอบ: ไม่ได้ แต่ละเอกสารอยู่ในโฟลเดอร์เดียว (หรือ "Unfiled") ใช้แท็กสำหรับการจัดหมวดหมู่ข้ามกัน
 
-**Q: What happens to documents when I delete a folder?**
-A: Folders with documents cannot be deleted. Move or delete documents first.
+**ถาม: เกิดอะไรขึ้นกับเอกสารเมื่อลบโฟลเดอร์?**
+ตอบ: โฟลเดอร์ที่มีเอกสารไม่สามารถลบได้ ย้ายหรือลบเอกสารก่อน
 
-**Q: How do I see all documents with a specific tag?**
-A: Use the Tag Filter dropdown in the toolbar and select the tag.
+**ถาม: จะดูเอกสารทั้งหมดที่มีแท็กเฉพาะได้อย่างไร?**
+ตอบ: ใช้ dropdown Tag Filter ใน toolbar และเลือกแท็กที่ต้องการ

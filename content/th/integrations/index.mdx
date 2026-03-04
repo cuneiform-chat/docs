@@ -1,56 +1,52 @@
 ---
-description: Deploy AI chatbots to Telegram, Discord, Slack, WhatsApp, Google Chat, Facebook Messenger, and your own website.
+description: Deploy AI chatbot ไปยัง Telegram, Discord, Slack, WhatsApp, Google Chat, Facebook Messenger และเว็บไซต์ของคุณ
 ---
 
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# การเชื่อมต่อ
 
+Deploy agent ของคุณไปยังหลาย channel และเข้าถึงผู้ใช้ได้ทุกที่
 
-# Integrations
+## Channel ที่พร้อมใช้งาน
 
-Deploy your agents to multiple channels and reach users wherever they are.
+| Channel | คำอธิบาย | เหมาะสำหรับ |
+|---------|----------|-------------|
+| [Telegram](/integrations/telegram) | Telegram bot | ผู้ใช้มือถือ, ชุมชน |
+| [Discord](/integrations/discord) | Discord bot พร้อม slash command | Gaming, ชุมชนนักพัฒนา |
+| [Slack](/integrations/slack) | Slack app | Team workspace |
+| [WhatsApp](/integrations/whatsapp) | WhatsApp Business | การสื่อสารกับลูกค้า |
+| [Google Chat](/integrations/google-chat) | Google Workspace app | ทีมในองค์กร |
+| [Meta (Facebook)](/integrations/facebook) | Facebook Messenger | กลุ่มผู้บริโภค |
+| [Website Widget](/integrations/website-widget) | Chat widget แบบฝังได้ | Customer support, เว็บไซต์ทั่วไป |
 
-## Available Channels
+## การเชื่อมต่อทำงานอย่างไร
 
-| Channel | Description | Best For |
-|---------|-------------|----------|
-| [Telegram](/integrations/telegram) | Telegram bot | Mobile users, communities |
-| [Discord](/integrations/discord) | Discord bot with slash commands | Gaming, developer communities |
-| [Slack](/integrations/slack) | Slack app | Team workspaces |
-| [WhatsApp](/integrations/whatsapp) | WhatsApp Business | Customer communication |
-| [Google Chat](/integrations/google-chat) | Google Workspace app | Enterprise teams |
-| [Meta (Facebook)](/integrations/facebook) | Facebook Messenger | Consumer audience |
-| [Website Widget](/integrations/website-widget) | Embeddable chat widget | Customer support, any website |
+1. **ตั้งค่า** — กำหนดค่า integration สำหรับ channel ที่เลือก
+2. **เชื่อมต่อ** — เชื่อม agent ของคุณกับ channel
+3. **Deploy** — Agent ของคุณพร้อมให้ผู้ใช้งาน
+4. **ติดตาม** — ตรวจสอบการสนทนาและการใช้งาน
 
-## How Integrations Work
+## การ Deploy แบบ Multi-Channel
 
-1. **Configure** — Set up the integration for your chosen channel
-2. **Connect** — Link your agent to the channel
-3. **Deploy** — Your agent becomes available to users
-4. **Monitor** — Track conversations and usage
+Agent เดียวสามารถ deploy ไปยังหลาย channel พร้อมกัน:
 
-## Multi-Channel Deployment
+- เนื้อหาเดียวกันทุก channel
+- การตอบสนองที่สอดคล้องกันทุกที่
+- ประวัติการสนทนาแบบรวมศูนย์
+- Analytics แบบรวม
 
-A single agent can be deployed to multiple channels simultaneously:
+## ฟีเจอร์เฉพาะของแต่ละ Channel
 
-- Same content across all channels
-- Consistent responses everywhere
-- Centralized conversation history
-- Unified analytics
+แต่ละ channel มีความสามารถเฉพาะ:
 
-## Channel-Specific Features
-
-Each channel has unique capabilities:
-
-- **Telegram** — Rich messages, inline keyboards
-- **Discord** — Slash commands, server integration
-- **Slack** — Workspace apps, channel responses
+- **Telegram** — Rich message, inline keyboard
+- **Discord** — Slash command, server integration
+- **Slack** — Workspace app, channel response
 - **WhatsApp** — Business messaging, rich media
-- **Google Chat** — Google Workspace integration, spaces support
-- **Meta (Facebook)** — Messenger integration, page messaging
-- **Website Widget** — Embeddable chat, customizable appearance, domain allowlisting
+- **Google Chat** — Google Workspace integration, Spaces support
+- **Meta (Facebook)** — Messenger integration, Page messaging
+- **Website Widget** — Chat แบบฝังได้, ปรับแต่งหน้าตา, domain allowlisting
 
-## Getting Started
+## เริ่มต้นใช้งาน
 
 import { Cards } from 'nextra/components'
 
@@ -64,12 +60,12 @@ import { Cards } from 'nextra/components'
   <Cards.Card title="Website Widget" href="/integrations/website-widget" />
 </Cards>
 
-## Requirements
+## ข้อกำหนดเบื้องต้น
 
-Before setting up integrations:
+ก่อนตั้งค่า integration:
 
-1. ✅ Create at least one agent
-2. ✅ Upload documents to your content
-3. ✅ Test your agent in the Playground
+1. ✅ สร้าง agent อย่างน้อยหนึ่งตัว
+2. ✅ อัปโหลดเอกสารไปยัง content ของคุณ
+3. ✅ ทดสอบ agent ใน Playground
 
-Each channel may have additional requirements (bot tokens, app credentials, etc.) detailed in their respective guides.
+แต่ละ channel อาจมีข้อกำหนดเพิ่มเติม (bot token, app credential เป็นต้น) ดูรายละเอียดในคู่มือแต่ละ channel

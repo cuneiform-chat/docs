@@ -1,133 +1,130 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# การเชื่อมต่อ Telegram
 
-# Telegram Integration
+เชื่อมต่อ agent ของคุณกับ Telegram และให้ผู้ใช้แชทกับ bot โดยตรงในแอป Telegram
 
-Connect your agent to Telegram and let users chat with it directly in the Telegram app.
+## ภาพรวม
 
-## Overview
-
-Telegram integration provides:
-- Direct messaging with your bot
-- Group chat support
+Telegram integration มีความสามารถ:
+- ส่งข้อความตรงกับ bot ของคุณ
+- รองรับ group chat
 - Rich message formatting
-- Inline keyboards for interactions
+- Inline keyboard สำหรับการโต้ตอบ
 
-## Prerequisites
+## ข้อกำหนดเบื้องต้น
 
-- A Telegram account
-- BotFather access (Telegram's bot creation tool)
+- บัญชี Telegram
+- เข้าถึง BotFather (เครื่องมือสร้าง bot ของ Telegram)
 
-## Setup Steps
+## ขั้นตอนการตั้งค่า
 
-### 1. Create a Telegram Bot
+### 1. สร้าง Telegram Bot
 
-1. Open Telegram and search for **@BotFather**
-2. Start a chat and send `/newbot`
-3. Follow the prompts:
-   - Enter a name for your bot (e.g., "My Support Bot")
-   - Enter a username (must end in "bot", e.g., "mysupportbot")
-4. BotFather will give you a **Bot Token** — save this securely
+1. เปิด Telegram และค้นหา **@BotFather**
+2. เริ่มแชทและส่ง `/newbot`
+3. ทำตามขั้นตอน:
+   - ตั้งชื่อ bot ของคุณ (เช่น "My Support Bot")
+   - ตั้ง username (ต้องลงท้ายด้วย "bot" เช่น "mysupportbot")
+4. BotFather จะให้ **Bot Token** — เก็บรักษาไว้อย่างปลอดภัย
 
-### 2. Connect to Cuneiform Chat
+### 2. เชื่อมต่อกับ Cuneiform Chat
 
-1. Go to **Agents** → Select your agent
-2. Navigate to **Integrations** tab
-3. Click **Telegram**
-4. Paste your Bot Token
-5. Click **Connect**
+1. ไปที่ **Agents** → เลือก agent ของคุณ
+2. ไปที่แท็บ **Integrations**
+3. คลิก **Telegram**
+4. วาง Bot Token ของคุณ
+5. คลิก **Connect**
 
-### 3. Configure Your Bot
+### 3. ตั้งค่า Bot ของคุณ
 
-Optional bot settings via BotFather:
+การตั้งค่า bot เพิ่มเติมผ่าน BotFather (ไม่จำเป็น):
 
-- `/setdescription` — What the bot does
-- `/setabouttext` — Information in the bot profile
-- `/setuserpic` — Profile picture for your bot
+- `/setdescription` — คำอธิบายการทำงานของ bot
+- `/setabouttext` — ข้อมูลในโปรไฟล์ bot
+- `/setuserpic` — รูปโปรไฟล์สำหรับ bot
 
-### 4. Test Your Bot
+### 4. ทดสอบ Bot ของคุณ
 
-1. Find your bot in Telegram by searching its username
-2. Start a conversation with `/start`
-3. Send a message and verify you get a response
+1. ค้นหา bot ใน Telegram โดยใช้ username
+2. เริ่มการสนทนาด้วย `/start`
+3. ส่งข้อความและตรวจสอบว่าได้รับการตอบกลับ
 
-## How It Works
+## การทำงาน
 
 ```
 User sends message → Telegram → Cuneiform Chat → Agent processes → Response sent back
 ```
 
-Messages are processed in real-time. The agent searches your content and generates responses based on your configuration.
+ข้อความถูกประมวลผลแบบ real-time agent ค้นหา content ของคุณและสร้างคำตอบตามการตั้งค่า
 
-## Features
+## ฟีเจอร์
 
-### Direct Messages
+### Direct Message
 
-Users can chat with your bot one-on-one for private support conversations.
+ผู้ใช้สามารถแชทกับ bot แบบตัวต่อตัวสำหรับการสนทนาส่วนตัว
 
-### Group Chats
+### Group Chat
 
-Add your bot to group chats:
+เพิ่ม bot ของคุณใน group chat:
 
-1. Add the bot to a group
-2. Make it an admin (for message access)
-3. Users can mention the bot or use commands
+1. เพิ่ม bot เข้า group
+2. ตั้งให้เป็น admin (เพื่อเข้าถึงข้อความ)
+3. ผู้ใช้สามารถ mention bot หรือใช้ command
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  In groups, the bot only responds when mentioned or when using commands, to avoid spam.
+  ใน group bot จะตอบเฉพาะเมื่อถูก mention หรือเมื่อใช้ command เท่านั้น เพื่อหลีกเลี่ยง spam
 </Callout>
 
 ### Rich Formatting
 
-Your agent's responses support:
-- **Bold** and *italic* text
-- Links
-- Code blocks
-- Lists
+คำตอบของ agent รองรับ:
+- **Bold** และ *italic* text
+- Link
+- Code block
+- List
 
-## Bot Commands
+## Bot Command
 
-You can configure custom commands via BotFather:
+คุณสามารถตั้งค่า command ผ่าน BotFather:
 
-| Command | Description |
-|---------|-------------|
-| `/start` | Begin conversation |
-| `/help` | Show help message |
-| `/ask [question]` | Ask a specific question |
+| Command | คำอธิบาย |
+|---------|----------|
+| `/start` | เริ่มการสนทนา |
+| `/help` | แสดงข้อความช่วยเหลือ |
+| `/ask [question]` | ถามคำถามเฉพาะ |
 
-## Troubleshooting
+## การแก้ไขปัญหา
 
-### Bot Not Responding
+### Bot ไม่ตอบสนอง
 
-1. Verify the bot token is correct
-2. Check the integration is connected in Cuneiform Chat
-3. Ensure your agent is properly configured
-4. Test the agent in Playground first
+1. ตรวจสอบว่า bot token ถูกต้อง
+2. ตรวจสอบว่า integration เชื่อมต่อแล้วใน Cuneiform Chat
+3. ตรวจสอบว่า agent ตั้งค่าถูกต้อง
+4. ทดสอบ agent ใน Playground ก่อน
 
-### Token Issues
+### ปัญหาเรื่อง Token
 
-If you need a new token:
-1. Go to BotFather
-2. Send `/mybots` → Select your bot → **API Token** → **Revoke**
-3. Update the new token in Cuneiform Chat
+หากต้องการ token ใหม่:
+1. ไปที่ BotFather
+2. ส่ง `/mybots` → เลือก bot ของคุณ → **API Token** → **Revoke**
+3. อัปเดต token ใหม่ใน Cuneiform Chat
 
-### Group Chat Issues
+### ปัญหา Group Chat
 
-- Ensure the bot has admin permissions
-- Check privacy mode settings via BotFather (`/setprivacy`)
+- ตรวจสอบว่า bot มีสิทธิ์ admin
+- ตรวจสอบการตั้งค่า privacy mode ผ่าน BotFather (`/setprivacy`)
 
-## Security
+## ความปลอดภัย
 
-- Bot tokens are encrypted and stored securely
-- Conversations are processed through secure connections
+- Bot token ถูกเข้ารหัสและจัดเก็บอย่างปลอดภัย
+- การสนทนาถูกประมวลผลผ่านการเชื่อมต่อที่ปลอดภัย
 
-## Disconnecting
+## การยกเลิกการเชื่อมต่อ
 
-To remove the Telegram integration:
+วิธีลบ Telegram integration:
 
-1. Go to **Agents** → Select agent → **Integrations**
-2. Click **Telegram** → **Disconnect**
+1. ไปที่ **Agents** → เลือก agent → **Integrations**
+2. คลิก **Telegram** → **Disconnect**
 
-This stops the bot from responding but doesn't delete the Telegram bot itself. Delete via BotFather if needed.
+การดำเนินการนี้จะหยุด bot จากการตอบสนอง แต่ไม่ได้ลบ Telegram bot ลบผ่าน BotFather หากต้องการ

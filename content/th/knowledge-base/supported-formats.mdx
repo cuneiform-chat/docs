@@ -1,88 +1,85 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# รูปแบบที่รองรับ
 
-# Supported Formats
+Cuneiform Chat รองรับรูปแบบเอกสารหลากหลายประเภท
 
-Cuneiform Chat supports a wide range of document formats.
+## ประเภทเอกสาร
 
-## Document Types
+### เอกสารข้อความ
 
-### Text Documents
+| รูปแบบ | นามสกุลไฟล์ | หมายเหตุ |
+|--------|-------------|----------|
+| PDF | `.pdf` | แบบข้อความและสแกน (พร้อม OCR) |
+| Microsoft Word | `.docx`, `.doc` | รองรับการจัดรูปแบบเต็มรูปแบบ |
+| Plain Text | `.txt` | ไฟล์ข้อความธรรมดา |
+| Markdown | `.md` | คงรูปแบบ Markdown ไว้ |
+| Rich Text | `.rtf` | รองรับการจัดรูปแบบพื้นฐาน |
 
-| Format | Extensions | Notes |
-|--------|-----------|-------|
-| PDF | `.pdf` | Text-based and scanned (with OCR) |
-| Microsoft Word | `.docx`, `.doc` | Full formatting support |
-| Plain Text | `.txt` | Simple text files |
-| Markdown | `.md` | Markdown formatting preserved |
-| Rich Text | `.rtf` | Basic formatting support |
+### งานนำเสนอ
 
-### Presentations
+| รูปแบบ | นามสกุลไฟล์ | หมายเหตุ |
+|--------|-------------|----------|
+| PowerPoint | `.pptx`, `.ppt` | ดึงเนื้อหาจากสไลด์ |
 
-| Format | Extensions | Notes |
-|--------|-----------|-------|
-| PowerPoint | `.pptx`, `.ppt` | Slide content extracted |
+### เนื้อหาเว็บ
 
-### Web Content
+| รูปแบบ | นามสกุลไฟล์ | หมายเหตุ |
+|--------|-------------|----------|
+| HTML | `.html`, `.htm` | เนื้อหาหน้าเว็บ |
 
-| Format | Extensions | Notes |
-|--------|-----------|-------|
-| HTML | `.html`, `.htm` | Web page content |
+### รูปแบบข้อมูล
 
-### Data Formats
+| รูปแบบ | นามสกุลไฟล์ | หมายเหตุ |
+|--------|-------------|----------|
+| JSON | `.json` | ไฟล์ข้อมูลแบบโครงสร้าง |
+| XML | `.xml` | เอกสาร XML |
 
-| Format | Extensions | Notes |
-|--------|-----------|-------|
-| JSON | `.json` | Structured data files |
-| XML | `.xml` | XML documents |
+## หมายเหตุเฉพาะรูปแบบ
 
-## Format-Specific Notes
+### PDF
 
-### PDFs
+PDF ทำงานได้ดีที่สุดเมื่อ:
+- **เป็นแบบข้อความ** — สร้างจากเอกสารดิจิทัล
+- **สามารถค้นหาได้** — ข้อความสามารถเลือก/คัดลอกได้
 
-PDFs work best when they are:
-- **Text-based** — Created from digital documents
-- **Searchable** — Text can be selected/copied
+PDF ที่สแกนรองรับแต่อาจมีคุณภาพการดึงข้อความต่ำกว่าเนื่องจากข้อจำกัดของ OCR
 
-Scanned PDFs are supported but may have lower quality extraction due to OCR limitations.
+### เอกสาร Word
 
-### Word Documents
+`.docx` (รูปแบบสมัยใหม่) แนะนำเหนือ `.doc` (รูปแบบเก่า) เพื่อผลลัพธ์ที่ดีที่สุด
 
-`.docx` (modern format) is recommended over `.doc` (legacy format) for best results.
-
-Supported elements:
-- Text and paragraphs
-- Headings and styles
-- Tables
-- Lists
+องค์ประกอบที่รองรับ:
+- ข้อความและย่อหน้า
+- หัวข้อและสไตล์
+- ตาราง
+- รายการ
 
 ### Markdown
 
-Markdown formatting is preserved during processing:
-- Headings become section markers
-- Lists maintain structure
-- Code blocks are recognized
+รูปแบบ Markdown คงไว้ระหว่างการประมวลผล:
+- หัวข้อกลายเป็นตัวแบ่งส่วน
+- รายการคงโครงสร้าง
+- code block ถูกจดจำ
 
-## Unsupported Formats
+## รูปแบบที่ไม่รองรับ
 
-The following are not currently supported:
-- Images (`.jpg`, `.png`, `.gif`)
-- Audio files (`.mp3`, `.wav`)
-- Video files (`.mp4`, `.mov`)
-- Compressed archives (`.zip`, `.rar`)
-- Executable files (`.exe`, `.app`)
+รูปแบบต่อไปนี้ยังไม่รองรับในขณะนี้:
+- ภาพ (`.jpg`, `.png`, `.gif`)
+- ไฟล์เสียง (`.mp3`, `.wav`)
+- ไฟล์วิดีโอ (`.mp4`, `.mov`)
+- ไฟล์บีบอัด (`.zip`, `.rar`)
+- ไฟล์ปฏิบัติการ (`.exe`, `.app`)
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  If you have content in an unsupported format, try converting it to PDF or a text-based format before uploading.
+  หากคุณมีเนื้อหาในรูปแบบที่ไม่รองรับ ลองแปลงเป็น PDF หรือรูปแบบข้อความก่อนอัปโหลด
 </Callout>
 
-## File Size Limits
+## ขนาดไฟล์สูงสุด
 
-Maximum file sizes depend on your plan. Very large documents may take longer to process.
+ขนาดไฟล์สูงสุดขึ้นอยู่กับ plan ของคุณ เอกสารขนาดใหญ่มากอาจใช้เวลาประมวลผลนานขึ้น
 
-For best performance:
-- Split very large documents into smaller files
-- Remove unnecessary images from PDFs if they're not needed
-- Use text-based formats when possible
+เพื่อประสิทธิภาพที่ดีที่สุด:
+- แบ่งเอกสารขนาดใหญ่มากออกเป็นไฟล์เล็กๆ
+- ลบภาพที่ไม่จำเป็นออกจาก PDF หากไม่ต้องการ
+- ใช้รูปแบบข้อความเมื่อเป็นไปได้

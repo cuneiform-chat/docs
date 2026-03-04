@@ -1,88 +1,85 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# การเข้าถึงความรู้ของ Agent
 
-# Agent Knowledge Access
+ควบคุมว่า agent แต่ละตัวสามารถเข้าถึงเอกสารใดเมื่อตอบคำถาม จำกัด agent ให้เข้าถึงเฉพาะโฟลเดอร์หรือแท็กที่ระบุ หรือยกเว้นเนื้อหาบางอย่างออก
 
-Control which documents each agent can access when answering questions. Restrict agents to specific folders or tags, or exclude certain content from their reach.
+## การเข้าถึง
 
-## Getting There
+1. ไปที่ **Agents** ในเมนู sidebar
+2. คลิกที่ agent เพื่อแก้ไข หรือสร้าง agent ใหม่
+3. เลื่อนไปที่ส่วน **Knowledge Access Control**
 
-1. Navigate to **Agents** in the sidebar
-2. Click on an agent to edit it, or create a new agent
-3. Scroll to the **Knowledge Access Control** section
+## โหมดการเข้าถึง
 
-## Access Modes
+โหมดการเข้าถึงกำหนดว่าการเลือกของคุณส่งผลต่อการเข้าถึงเอกสารของ agent อย่างไร
 
-The access mode determines how your selections affect the agent's document access.
+| โหมด | ไอคอน | คำอธิบาย | ใช้เมื่อ |
+|------|-------|----------|---------|
+| **Exclude Mode** | X สีแดง | Agent เข้าถึงเอกสารทั้งหมด ยกเว้นที่เลือก | ต้องการซ่อนเอกสารที่ละเอียดอ่อนแต่อนุญาตเอกสารอื่นทั้งหมด |
+| **Include Mode** | เครื่องหมายถูกสีเขียว | Agent เข้าถึง เฉพาะ เอกสารที่เลือก | ต้องการจำกัด agent ให้เข้าถึงเนื้อหาเฉพาะ |
 
-| Mode | Icon | Description | Use When |
-|------|------|-------------|----------|
-| **Exclude Mode** | Red X | Agent accesses ALL documents EXCEPT selected | You want to hide sensitive documents but allow everything else |
-| **Include Mode** | Green Check | Agent accesses ONLY selected documents | You want to restrict the agent to specific content |
+### การเลือกโหมดที่เหมาะสม
 
-### Choosing the Right Mode
-
-**Exclude Mode** (default):
-- Starts with full access to all documents
-- Select folders/tags to block from the agent
-- Good for: Hiding HR documents, financial data, or drafts
+**Exclude Mode** (ค่าเริ่มต้น):
+- เริ่มต้นด้วยการเข้าถึงเอกสารทั้งหมด
+- เลือกโฟลเดอร์/แท็กเพื่อบล็อกจาก agent
+- เหมาะสำหรับ: ซ่อนเอกสาร HR ข้อมูลการเงิน หรือฉบับร่าง
 
 **Include Mode**:
-- Starts with no access
-- Select folders/tags to grant access
-- Good for: Creating specialized agents for specific topics
+- เริ่มต้นโดยไม่มีสิทธิ์เข้าถึง
+- เลือกโฟลเดอร์/แท็กเพื่อให้สิทธิ์เข้าถึง
+- เหมาะสำหรับ: สร้าง agent เฉพาะทางสำหรับหัวข้อเฉพาะ
 
-## Selecting Content
+## การเลือกเนื้อหา
 
-### By Folders
+### ตามโฟลเดอร์
 
-1. Click the **Folders** tab
-2. Use the search box to find folders
-3. Check folders to include/exclude
-4. Expand folders (click arrow) to select individual documents
-5. A checkmark shows selected items; partial selection shows a dash
+1. คลิกแท็บ **Folders**
+2. ใช้ช่องค้นหาเพื่อหาโฟลเดอร์
+3. เลือกโฟลเดอร์เพื่อ include/exclude
+4. ขยายโฟลเดอร์ (คลิกลูกศร) เพื่อเลือกเอกสารแต่ละรายการ
+5. เครื่องหมายถูกแสดงรายการที่เลือก การเลือกบางส่วนแสดงเป็นขีด
 
-### By Tags
+### ตามแท็ก
 
-1. Click the **Tags** tab
-2. Use the search box to find tags
-3. Check tags to include/exclude
-4. Each tag shows how many documents use it
+1. คลิกแท็บ **Tags**
+2. ใช้ช่องค้นหาเพื่อหาแท็ก
+3. เลือกแท็กเพื่อ include/exclude
+4. แต่ละแท็กแสดงจำนวนเอกสารที่ใช้
 
-## Preview Panel
+## แผงตัวอย่าง
 
-The preview panel on the right shows:
-- Total accessible documents based on current selection
-- Updates in real-time as you make changes
+แผงตัวอย่างทางขวาแสดง:
+- จำนวนเอกสารที่เข้าถึงได้ทั้งหมดตามการเลือกปัจจุบัน
+- อัปเดตแบบ real-time เมื่อคุณทำการเปลี่ยนแปลง
 
-## Saving Changes
+## การบันทึกการเปลี่ยนแปลง
 
-When editing an existing agent:
-1. Make your selections
-2. Click **Save Changes** (green button)
-3. Or click **Reset Changes** to undo unsaved changes
+เมื่อแก้ไข agent ที่มีอยู่:
+1. ทำการเลือก
+2. คลิก **Save Changes** (ปุ่มสีเขียว)
+3. หรือคลิก **Reset Changes** เพื่อยกเลิกการเปลี่ยนแปลงที่ยังไม่ได้บันทึก
 
-When creating a new agent:
-- Knowledge access settings save automatically when you submit the agent form
+เมื่อสร้าง agent ใหม่:
+- การตั้งค่าการเข้าถึงความรู้จะบันทึกโดยอัตโนมัติเมื่อ submit แบบฟอร์ม agent
 
-## Tips
+## เคล็ดลับ
 
-- Use **Exclude Mode** when you want broad access with a few exceptions
-- Use **Include Mode** for focused, topic-specific agents
-- Combine folders AND tags for precise control
-- Check the preview panel to verify your selection before saving
-- For Include Mode, you must select at least one folder or tag
+- ใช้ **Exclude Mode** เมื่อต้องการให้เข้าถึงกว้างๆ พร้อมข้อยกเว้นไม่กี่รายการ
+- ใช้ **Include Mode** สำหรับ agent ที่เน้นหัวข้อเฉพาะ
+- รวมโฟลเดอร์ และ แท็กเพื่อการควบคุมที่แม่นยำ
+- ตรวจสอบแผงตัวอย่างเพื่อยืนยันการเลือกก่อนบันทึก
+- สำหรับ Include Mode ต้องเลือกอย่างน้อยหนึ่งโฟลเดอร์หรือแท็ก
 
-## Common Questions
+## คำถามที่พบบ่อย
 
-**Q: What happens if I select both folders and tags?**
-A: The agent can access documents that match ANY of your selections. Folders and tags combine inclusively.
+**ถาม: เกิดอะไรขึ้นถ้าเลือกทั้งโฟลเดอร์และแท็ก?**
+ตอบ: Agent สามารถเข้าถึงเอกสารที่ตรงกับการเลือกใดก็ได้ โฟลเดอร์และแท็กรวมกันแบบ inclusive
 
-**Q: Can I give an agent access to everything?**
-A: Yes. Use Exclude Mode and don't select anything to exclude. The agent will have full access.
+**ถาม: สามารถให้ agent เข้าถึงทุกอย่างได้หรือไม่?**
+ตอบ: ได้ ใช้ Exclude Mode และไม่เลือกสิ่งใดเพื่อยกเว้น Agent จะมีสิทธิ์เข้าถึงทั้งหมด
 
-**Q: What if a document is in a selected folder but has an excluded tag?**
-A: In Exclude Mode, any match to excluded content blocks access. In Include Mode, any match to included content grants access.
+**ถาม: ถ้าเอกสารอยู่ในโฟลเดอร์ที่เลือกแต่มีแท็กที่ถูกยกเว้น?**
+ตอบ: ใน Exclude Mode การตรงกับเนื้อหาที่ถูกยกเว้นจะบล็อกการเข้าถึง ใน Include Mode การตรงกับเนื้อหาที่ include จะให้สิทธิ์เข้าถึง
 
-**Q: Does this affect existing conversations?**
-A: Yes. Changes take effect immediately for new messages. The agent will use the updated access rules.
+**ถาม: สิ่งนี้ส่งผลต่อการสนทนาที่มีอยู่หรือไม่?**
+ตอบ: ใช่ การเปลี่ยนแปลงมีผลทันทีสำหรับข้อความใหม่ Agent จะใช้กฎการเข้าถึงที่อัปเดตแล้ว

@@ -1,156 +1,153 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# การเชื่อมต่อ Meta (Facebook)
 
-# Meta (Facebook) Integration
+เชื่อมต่อ agent ของคุณกับ Facebook Messenger ผ่าน Facebook Page
 
-Connect your agent to Facebook Messenger through your Facebook Page.
+## ภาพรวม
 
-## Overview
+Meta integration มีความสามารถ:
+- การสนทนา Facebook Messenger ผ่าน Page ของคุณ
+- ประมวลผลเบื้องหลังพร้อม typing indicator
+- แบ่งข้อความยาวอัตโนมัติ
+- เป็นไปตามกฎ 24-hour messaging window
+- Conversation memory ภายใน session
 
-Meta integration provides:
-- Facebook Messenger conversations via your Page
-- Background processing with typing indicators
-- Automatic message splitting for long responses
-- 24-hour messaging window compliance
-- Conversation memory within sessions
+## ข้อกำหนดเบื้องต้น
 
-## Prerequisites
+- Facebook Page ที่คุณจัดการ
+- สิทธิ์ Admin หรือ Editor บน Page
+- บัญชี Cuneiform Chat พร้อม agent ที่ active
 
-- A Facebook Page you manage
-- Admin or Editor role on the Page
-- Cuneiform Chat account with an active agent
+## ขั้นตอนการตั้งค่า
 
-## Setup Steps
+### 1. เริ่มตั้งค่า Integration
 
-### 1. Start Integration Setup
+1. ไปที่ **Agents** → เลือก agent ของคุณ
+2. ไปที่แท็บ **Integrations**
+3. คลิก **Meta (Facebook)**
+4. คลิก **Connect Page**
 
-1. Go to **Agents** → Select your agent
-2. Navigate to **Integrations** tab
-3. Click **Meta (Facebook)**
-4. Click **Connect Page**
+### 2. Authorize กับ Facebook
 
-### 2. Authorize with Facebook
+1. เลือก **Agent** ที่จะตอบ
+2. คลิก **Connect with Facebook**
+3. เข้าสู่ระบบ Facebook (หากจำเป็น)
+4. เลือก Page ที่ต้องการเชื่อมต่อ
+5. ให้สิทธิ์ Messenger
+6. คุณจะถูกนำกลับพร้อมข้อความสำเร็จ
 
-1. Select which **Agent** should respond
-2. Click **Connect with Facebook**
-3. Log in to Facebook (if needed)
-4. Select the Page you want to connect
-5. Grant Messenger permissions
-6. You'll be redirected back with a success message
+### 3. ตรวจสอบการเชื่อมต่อ
 
-### 3. Verify Connection
-
-Once connected, your Page will appear in the integrations list showing:
-- Page name and status
+เมื่อเชื่อมต่อแล้ว Page ของคุณจะแสดงในรายการ integration พร้อม:
+- ชื่อ Page และสถานะ
 - Page ID
 - Last activity timestamp
 
-## How It Works
+## การทำงาน
 
-When users message your Facebook Page through Messenger:
+เมื่อผู้ใช้ส่งข้อความถึง Facebook Page ผ่าน Messenger:
 
-1. Message arrives via Facebook Messenger
-2. The bot shows a typing indicator while processing
-3. Your agent processes the question
-4. Response is sent back through Messenger
+1. ข้อความเข้ามาผ่าน Facebook Messenger
+2. Bot แสดง typing indicator ขณะประมวลผล
+3. Agent ประมวลผลคำถาม
+4. ส่งคำตอบกลับผ่าน Messenger
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Messages are processed in the background. The bot shows a typing indicator while your agent generates a response.
+  ข้อความถูกประมวลผลเบื้องหลัง Bot แสดง typing indicator ขณะที่ agent สร้างคำตอบ
 </Callout>
 
-## Features
+## ฟีเจอร์
 
-### Automatic Responses
+### การตอบกลับอัตโนมัติ
 
-Your agent automatically responds to incoming Messenger conversations based on your content. All text messages trigger a response — no commands or prefixes needed.
+Agent ของคุณตอบข้อความ Messenger ที่เข้ามาโดยอัตโนมัติตาม content ข้อความข้อความทั้งหมดจะถูกตอบ — ไม่ต้องใช้ command หรือ prefix
 
-### Typing Indicators
+### Typing Indicator
 
-While your agent processes a message, users see a typing indicator ("...") in Messenger, providing a natural conversation feel.
+ขณะที่ agent ประมวลผลข้อความ ผู้ใช้จะเห็น typing indicator ("...") ใน Messenger ให้ความรู้สึกเหมือนการสนทนาธรรมชาติ
 
 ### Message Splitting
 
-Responses longer than 2,000 characters are automatically split into multiple messages, preserving paragraph breaks and sentence boundaries for readability.
+คำตอบที่ยาวกว่า 2,000 ตัวอักษรจะถูกแบ่งเป็นหลายข้อความโดยอัตโนมัติ โดยรักษา paragraph break และขอบเขตประโยคเพื่อความอ่านง่าย
 
 ### Conversation Memory
 
-The bot remembers context within a session, so users can ask follow-up questions without repeating themselves.
+Bot จดจำ context ภายใน session ผู้ใช้สามารถถามคำถามต่อเนื่องได้โดยไม่ต้องทวนซ้ำ
 
 ### Message Queuing
 
-If a user sends additional messages while the bot is still processing, they are queued and included in the next response.
+หากผู้ใช้ส่งข้อความเพิ่มเติมขณะที่ bot ยังประมวลผลอยู่ ข้อความจะถูกเข้าคิวและรวมในคำตอบถัดไป
 
 ### 24-Hour Messaging Window
 
-Facebook's policy allows responses within 24 hours of the last user message. Your agent responds in real-time, well within this window. After 24 hours of inactivity, the user must send a new message to restart the conversation.
+นโยบายของ Facebook อนุญาตให้ตอบภายใน 24 ชั่วโมงหลังข้อความล่าสุดจากผู้ใช้ Agent ตอบแบบ real-time ภายใน window นี้ หลังจาก 24 ชั่วโมงที่ไม่มีการใช้งาน ผู้ใช้ต้องส่งข้อความใหม่เพื่อเริ่มการสนทนาอีกครั้ง
 
 <Callout type="warning">
-  Users must message your Page first — you cannot send unsolicited messages. If more than 24 hours pass since their last message, the bot cannot reply until the user messages again.
+  ผู้ใช้ต้องส่งข้อความถึง Page ของคุณก่อน — คุณไม่สามารถส่งข้อความที่ไม่ได้ร้องขอได้ หาก 24 ชั่วโมงผ่านไปตั้งแต่ข้อความล่าสุด bot จะไม่สามารถตอบได้จนกว่าผู้ใช้จะส่งข้อความอีกครั้ง
 </Callout>
 
-## Managing Pages
+## การจัดการ Page
 
-### View Connected Pages
+### ดู Page ที่เชื่อมต่อ
 
-Each connected Page displays:
-- Page name and connection status
-- Associated agent
-- Activity information
+แต่ละ Page ที่เชื่อมต่อจะแสดง:
+- ชื่อ Page และสถานะการเชื่อมต่อ
+- Agent ที่เชื่อมต่อ
+- ข้อมูลกิจกรรม
 
-### Available Actions
+### การดำเนินการที่ใช้ได้
 
-| Action | Description |
-|--------|-------------|
-| **Test Connection** | Verify the integration is working |
-| **Disconnect** | Remove the Page connection |
+| การดำเนินการ | คำอธิบาย |
+|-------------|----------|
+| **Test Connection** | ตรวจสอบว่า integration ทำงานอยู่ |
+| **Disconnect** | ลบการเชื่อมต่อ Page |
 
-Access these via the three-dot menu on each connected Page.
+เข้าถึงการดำเนินการเหล่านี้ผ่านเมนูสามจุดบนแต่ละ Page ที่เชื่อมต่อ
 
-## Troubleshooting
+## การแก้ไขปัญหา
 
-### Page Not Appearing
+### Page ไม่แสดง
 
-1. Verify you have Admin or Editor role on the Page
-2. Check you granted all requested permissions
-3. Try disconnecting and reconnecting
+1. ตรวจสอบว่าคุณมีสิทธิ์ Admin หรือ Editor บน Page
+2. ตรวจสอบว่าคุณให้สิทธิ์ทั้งหมดที่ร้องขอ
+3. ลอง disconnect แล้วเชื่อมต่อใหม่
 
-### Messages Not Receiving Responses
+### ข้อความไม่ได้รับการตอบกลับ
 
-1. Use "Test Connection" to verify the integration
-2. Check your agent is configured and working (test in Playground)
-3. Ensure Messenger permissions are granted
-4. Verify the user messaged within the last 24 hours (messaging window policy)
+1. ใช้ "Test Connection" เพื่อตรวจสอบ integration
+2. ตรวจสอบว่า agent ตั้งค่าถูกต้องและทำงานได้ (ทดสอบใน Playground)
+3. ตรวจสอบว่าได้ให้สิทธิ์ Messenger แล้ว
+4. ตรวจสอบว่าผู้ใช้ส่งข้อความภายใน 24 ชั่วโมงล่าสุด (นโยบาย messaging window)
 
-### Authorization Errors
+### Authorization Error
 
-1. Clear Facebook login session and try again
-2. Verify your Facebook account has Page access
-3. Check Page isn't restricted by Facebook
+1. ล้าง Facebook login session แล้วลองใหม่
+2. ตรวจสอบว่าบัญชี Facebook ของคุณมีสิทธิ์เข้าถึง Page
+3. ตรวจสอบว่า Page ไม่ถูกจำกัดโดย Facebook
 
-## Security
+## ความปลอดภัย
 
-- **OAuth tokens** are encrypted and stored securely
-- **Webhook signatures** are verified using HMAC-SHA256 on every incoming request
-- No access to Page content beyond Messenger conversations
-- Compliant with Facebook Platform policies
+- **OAuth token** ถูกเข้ารหัสและจัดเก็บอย่างปลอดภัย
+- **Webhook signature** ถูกตรวจสอบด้วย HMAC-SHA256 ทุก request ที่เข้ามา
+- ไม่มีการเข้าถึง content ของ Page นอกเหนือจากการสนทนา Messenger
+- เป็นไปตาม Facebook Platform policies
 
-## Disconnecting
+## การยกเลิกการเชื่อมต่อ
 
-To remove the Meta integration:
+วิธีลบ Meta integration:
 
-1. Go to **Agents** → Select agent → **Integrations**
-2. Click the three-dot menu on your Page
-3. Select **Disconnect**
+1. ไปที่ **Agents** → เลือก agent → **Integrations**
+2. คลิกเมนูสามจุดบน Page ของคุณ
+3. เลือก **Disconnect**
 
-To fully revoke access:
-1. Go to Facebook Settings → Business Integrations
-2. Remove the Cuneiform Chat app
+วิธีเพิกถอนสิทธิ์ทั้งหมด:
+1. ไปที่ Facebook Settings → Business Integrations
+2. ลบ Cuneiform Chat app
 
-## Important Notes
+## หมายเหตุสำคัญ
 
-- **One agent per Page**: Each Facebook Page can only connect to one AI agent at a time
-- **Messenger only**: This integration works through Facebook Messenger, not Page comments or posts
-- **Message limit**: Individual messages are limited to 2,000 characters; longer responses are automatically split
-- **To change agents**: Disconnect the existing integration first, then reconnect with a different agent
+- **หนึ่ง agent ต่อ Page**: แต่ละ Facebook Page สามารถเชื่อมต่อกับ AI agent ได้ครั้งละหนึ่งตัวเท่านั้น
+- **Messenger เท่านั้น**: Integration นี้ทำงานผ่าน Facebook Messenger ไม่ใช่ Page comment หรือ post
+- **ข้อจำกัดข้อความ**: ข้อความแต่ละรายการจำกัดที่ 2,000 ตัวอักษร คำตอบที่ยาวกว่าจะถูกแบ่งอัตโนมัติ
+- **เปลี่ยน agent**: Disconnect integration ที่มีอยู่ก่อน จากนั้นเชื่อมต่อใหม่กับ agent อื่น
