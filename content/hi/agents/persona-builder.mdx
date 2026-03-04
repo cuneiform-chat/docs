@@ -1,47 +1,44 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Agent Persona Builder
 
 import { Callout } from 'nextra/components'
 
-Generate professional agent personas in seconds using characteristics selection.
+Characteristics selection का उपयोग करके seconds में professional agent personas generate करें।
 
 <Callout type="info">
-  The Agent Persona Builder helps you create effective agent personas without writing prompts from scratch.
+  Agent Persona Builder आपको scratch से prompts लिखे बिना effective agent personas बनाने में मदद करता है।
 </Callout>
 
-## Getting Started
+## शुरू करें
 
-1. Navigate to **Agents** and create or edit an agent
-2. Click **Generate** next to the Agent Persona field
-3. The Agent Persona Builder panel slides open with three tabs
+1. **Agents** पर navigate करें और एक agent create या edit करें
+2. Agent Persona field के पास **Generate** click करें
+3. Agent Persona Builder panel तीन tabs के साथ slide होकर खुलता है
 
 ## Builder Tabs
 
 ### Custom Build
 
-Create a unique persona by selecting characteristics across 5 categories:
+5 categories में characteristics select करके एक unique persona बनाएं:
 
-| Category | What It Controls |
+| Category | यह क्या control करती है |
 |----------|------------------|
-| **Role & Identity** | Agent's primary function (customer support, sales, tech support, HR, etc.) |
-| **Communication Style** | Formality, tone, verbosity, and technical level |
+| **Role & Identity** | Agent का primary function (customer support, sales, tech support, HR, आदि) |
+| **Communication Style** | Formality, tone, verbosity, और technical level |
 | **Response Behavior** | Format (conversational vs bullet points), proactivity, question handling |
-| **Operational Boundaries** | How strictly agent stays on topic, escalation tendency |
-| **Knowledge Integration** | Citation style, how agent handles uncertainty |
+| **Operational Boundaries** | Agent topic पर कितनी strictly रहती है, escalation tendency |
+| **Knowledge Integration** | Citation style, agent uncertainty में कैसे respond करता है |
 
 **Category Navigation:**
-- Click any category header to expand or collapse it
-- Each category contains multiple fields with dropdown options
-- Selected options are highlighted
+- Expand या collapse करने के लिए किसी भी category header पर click करें
+- हर category में dropdown options के साथ multiple fields हैं
+- Selected options highlighted होते हैं
 
 **Reset Button:**
-Click **Reset** in the Custom Build section to restore all defaults.
+सभी defaults restore करने के लिए Custom Build section में **Reset** click करें।
 
 #### Role & Identity Options
 
-Choose your agent's primary function:
+अपने agent का primary function चुनें:
 - Customer Support Representative
 - Sales Consultant
 - Technical Support Specialist
@@ -51,7 +48,7 @@ Choose your agent's primary function:
 
 #### Communication Style
 
-Fine-tune how your agent communicates:
+अपने agent के communicate करने के तरीके को fine-tune करें:
 
 | Setting | Options |
 |---------|---------|
@@ -71,123 +68,123 @@ Available tone presets:
 
 #### Detail Levels
 
-- **Concise** — Brief, to-the-point responses
-- **Balanced** — Moderate detail with clear explanations
+- **Concise** — संक्षिप्त, to-the-point responses
+- **Balanced** — Clear explanations के साथ moderate detail
 - **Comprehensive** — Thorough, detailed responses
 
 #### Response Behavior
 
-Control how responses are structured:
-- **Format** — Conversational paragraphs or structured bullet points
-- **Proactivity** — Whether agent suggests related topics
-- **Question Handling** — How agent asks for clarification
+Responses कैसे structured हों यह control करें:
+- **Format** — Conversational paragraphs या structured bullet points
+- **Proactivity** — Agent related topics suggest करे या नहीं
+- **Question Handling** — Agent clarification कैसे माँगता है
 
 #### Operational Boundaries
 
-Set guardrails for your agent:
-- **Scope Strictness** — How strictly agent stays within documented topics
-- **Escalation** — When to suggest contacting human support
-- **Out-of-scope Handling** — How to respond to off-topic questions
+अपने agent के लिए guardrails set करें:
+- **Scope Strictness** — Agent documented topics के भीतर कितनी strictly रहती है
+- **Escalation** — Human support से contact करने का suggest कब करें
+- **Out-of-scope Handling** — Off-topic सवालों का जवाब कैसे दें
 
 #### Knowledge Integration
 
-Configure how agent uses your documents:
-- **Citation Style** — Whether to reference specific documents
-- **Uncertainty Handling** — How to respond when unsure
+Agent आपके documents का उपयोग कैसे करे यह configure करें:
+- **Citation Style** — Specific documents reference करें या नहीं
+- **Uncertainty Handling** — Unsure होने पर कैसे respond करें
 
 ### Use Preset
 
-Load pre-configured personas for common use cases:
+Common use cases के लिए pre-configured personas load करें:
 
-- **System Templates** — Platform-provided presets optimized for specific roles
-- **My Templates** — Presets saved by your organization's admins
+- **System Templates** — Platform द्वारा provided presets specific roles के लिए optimized
+- **My Templates** — आपके organization के admins द्वारा saved presets
 
-**Using a Preset:**
-1. Click the **Use Preset** tab
-2. Browse available presets
-3. Click on a preset to select it
-4. The preset loads into Custom Build tab
-5. Adjust any characteristics if needed
-6. Click **Generate Persona**
+**Preset का उपयोग करना:**
+1. **Use Preset** tab click करें
+2. Available presets browse करें
+3. Select करने के लिए preset पर click करें
+4. Preset Custom Build tab में load होती है
+5. ज़रूरत पड़ने पर कोई भी characteristics adjust करें
+6. **Generate Persona** click करें
 
 ### Platform Rules
 
-View the read-only guardrails automatically applied to all agents:
+सभी agents पर automatically apply होने वाले read-only guardrails देखें:
 
-- **No fabrication** — Won't invent facts, numbers, or dates not in your content
-- **Acknowledges gaps** — Says "I don't have that information" rather than guessing
-- **Resists speculation** — Won't estimate missing values even when asked
-- **No professional impersonation** — Won't role-play as attorneys, doctors, CPAs, or financial advisors
-- **Corrects false premises** — Points out incorrect assumptions before answering
-- **Blocks harmful content** — Refuses self-harm, explicit, or fraudulent content
+- **No fabrication** — आपके content में नहीं होने वाले facts, numbers, या dates नहीं बनाएगा
+- **Acknowledges gaps** — Guess करने के बजाय "I don't have that information" कहता है
+- **Resists speculation** — माँगने पर भी missing values estimate नहीं करेगा
+- **No professional impersonation** — Attorneys, doctors, CPAs, या financial advisors का role-play नहीं करेगा
+- **Corrects false premises** — जवाब देने से पहले गलत assumptions indicate करता है
+- **Blocks harmful content** — Self-harm, explicit, या fraudulent content refuse करता है
 
 <Callout type="info">
-  Platform rules ensure all agents behave reliably and safely, regardless of persona configuration. They cannot be disabled.
+  Platform rules सुनिश्चित करती हैं कि सभी agents persona configuration की परवाह किए बिना reliably और safely behave करें। इन्हें disable नहीं किया जा सकता।
 </Callout>
 
-## Generating a Persona
+## Persona Generate करना
 
-**Before Generation:**
-The panel shows your configuration options at full width.
+**Generation से पहले:**
+Panel आपके configuration options full width पर दिखाता है।
 
 **Generate Button:**
-When on the Custom Build tab:
-1. Click **Generate Persona** at the bottom
-2. A loading state shows while generating
-3. Takes a few seconds
+Custom Build tab पर होने पर:
+1. नीचे **Generate Persona** click करें
+2. Generate होते समय एक loading state दिखाई देती है
+3. कुछ seconds लगते हैं
 
-**After Generation:**
-The panel layout changes to a split view:
-- **Left side:** Your configuration options
-- **Right side:** Generated prompt preview
+**Generation के बाद:**
+Panel layout split view में बदल जाती है:
+- **बाईं ओर:** आपके configuration options
+- **दाईं ओर:** Generated prompt preview
 
 **Preview Panel Features:**
-- Full text of the generated system prompt
-- Editable — you can modify the text directly
-- Character count displayed at the bottom
+- Generated system prompt का full text
+- Editable — आप text directly modify कर सकते हैं
+- नीचे character count displayed
 
-## After Generating
+## Generate करने के बाद
 
-Once you have a generated persona, you have several options:
+एक generated persona होने पर, आपके पास कई options हैं:
 
 ### Regenerate
 
-Click **Regenerate** to create a new version with the same settings. Each generation produces slightly different results.
+Same settings के साथ एक नया version बनाने के लिए **Regenerate** click करें। हर generation slightly different results produce करती है।
 
-### Edit the Prompt
+### Prompt Edit करें
 
-Click in the preview panel to edit the generated text directly. Make any adjustments needed for your specific use case.
+Generated text directly edit करने के लिए preview panel में click करें। अपने specific use case के लिए ज़रूरी कोई भी adjustments करें।
 
 ### Save as Preset
 
-Click **Save as Preset** to save your configuration for reuse:
-1. Dialog opens asking for preset name
-2. Enter a descriptive name
-3. The preset saves to your organization under **My Templates**
+Reuse के लिए अपनी configuration save करने के लिए **Save as Preset** click करें:
+1. Dialog preset name माँगता है
+2. एक descriptive नाम enter करें
+3. Preset **My Templates** के अंतर्गत आपके organization में save हो जाती है
 
 <Callout type="important">
-  Saved presets are available to all admins in your organization. Use them to maintain consistent agent personalities across multiple agents.
+  Saved presets आपके organization के सभी admins के लिए available हैं। Multiple agents में consistent agent personalities maintain करने के लिए इनका उपयोग करें।
 </Callout>
 
-### Apply to Agent
+### Agent पर Apply करें
 
-Click **Apply to Agent** to use this persona:
-1. The prompt is inserted into your agent's system prompt field
-2. The builder closes
-3. Continue configuring other agent settings
+इस persona का उपयोग करने के लिए **Apply to Agent** click करें:
+1. Prompt आपके agent के system prompt field में insert हो जाता है
+2. Builder बंद हो जाता है
+3. अन्य agent settings configure करना जारी रखें
 
 ## Best Practices
 
-- **Start with a preset** — Use system templates as a starting point, then customize
-- **Match role to purpose** — Choose a role that aligns with your agent's actual function
-- **Balance verbosity** — Concise works better for quick Q&A, detailed for complex topics
-- **Test after generating** — Always test your agent in the Playground after applying a new persona
-- **Iterate** — Regenerate with different settings if results aren't quite right
-- **Keep it focused** — Overly complex prompts can confuse the agent
+- **Preset से शुरू करें** — Starting point के रूप में system templates का उपयोग करें, फिर customize करें
+- **Role को purpose से match करें** — एक ऐसा role चुनें जो आपके agent के actual function से align हो
+- **Verbosity balance करें** — Quick Q&A के लिए Concise बेहतर काम करता है, complex topics के लिए detailed
+- **Generate करने के बाद test करें** — New persona apply करने के बाद हमेशा Playground में agent test करें
+- **Iterate करें** — अगर results ठीक नहीं हैं तो different settings के साथ regenerate करें
+- **Focused रखें** — अत्यधिक complex prompts agent को confuse कर सकते हैं
 
-## Next Steps
+## अगले कदम
 
-After generating your agent persona:
+अपनी agent persona generate करने के बाद:
 
-- [Test in the Playground](/agents/testing) — Verify the persona works as expected
-- [Learn about Agent Personas](/agents/agent-personas) — Understand persona structure and best practices
+- [Playground में test करें](/agents/testing) — Verify करें कि persona expected तरह से काम करती है
+- [Agent Personas के बारे में जानें](/agents/agent-personas) — Persona structure और best practices समझें

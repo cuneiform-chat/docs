@@ -1,61 +1,57 @@
 ---
-description: Configure AI agents with custom personas, knowledge access, and multi-channel deployment.
+description: AI agents को custom personas, knowledge access, और multi-channel deployment के साथ configure करें।
 ---
-
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 
 # Agents
 
-Agents are the AI chatbots that interact with your users. Each agent has its own configuration, knowledge access, and personality.
+Agents वे AI chatbots हैं जो आपके users के साथ interact करते हैं। हर agent का अपना configuration, knowledge access, और personality होती है।
 
-## What is an Agent?
+## Agent क्या है?
 
-An agent is a configured chatbot that:
+Agent एक configured chatbot है जो:
 
-- Answers questions using your content
-- Follows instructions defined in its agent persona
-- Maintains conversation context within sessions
-- Can be deployed to multiple channels
+- आपके content का उपयोग करके सवालों के जवाब देता है
+- Agent persona में defined instructions का पालन करता है
+- Sessions के भीतर conversation context बनाए रखता है
+- Multiple channels पर deploy किया जा सकता है
 
 ## Agent Concepts
 
 ### Agent Persona
 
-The agent persona is the set of instructions that defines how your agent behaves. It controls:
+Agent persona instructions का वह set है जो define करता है कि आपका agent कैसे behave करता है। यह control करता है:
 
-- **Personality** — Friendly, professional, casual, etc.
-- **Scope** — What topics the agent should and shouldn't address
-- **Response style** — Length, format, and tone of answers
-- **Guardrails** — Boundaries and limitations
-- **Language** — Automatic per-message detection (176 languages supported)
+- **Personality** — Friendly, professional, casual, आदि
+- **Scope** — Agent को कौन से topics address करने चाहिए और कौन से नहीं
+- **Response style** — जवाबों की length, format, और tone
+- **Guardrails** — Boundaries और limitations
+- **Language** — प्रति message automatic detection (176 languages supported)
 
 ### Knowledge Access
 
-Each agent accesses your content to find relevant information. You can configure:
+हर agent relevant information खोजने के लिए आपके content को access करता है। आप configure कर सकते हैं:
 
-- Which documents the agent can search
-- How many sources to retrieve
-- Whether to show source citations
+- Agent कौन से documents search कर सकता है
+- कितने sources retrieve करने हैं
+- Source citations दिखानी हैं या नहीं
 
 ### Channels
 
-Agents can be deployed to multiple channels simultaneously:
+Agents को simultaneously multiple channels पर deploy किया जा सकता है:
 
 - Messaging platforms (Telegram, Discord, Slack, WhatsApp, Google Chat)
-- Facebook Messenger via Meta integration
-- Human Handoff — seamlessly transfer conversations to a human team member
+- Meta integration के माध्यम से Facebook Messenger
+- Human Handoff — conversations को seamlessly एक human team member को transfer करें
 
-## In This Section
+## इस Section में
 
 import { Cards } from 'nextra/components'
 
 <Cards>
-  <Cards.Card title="Creating Agents" href="/agents/creating" />
-  <Cards.Card title="Configuration Options" href="/agents/configuring" />
+  <Cards.Card title="Agent बनाना" href="/agents/creating" />
+  <Cards.Card title="Configuration विकल्प" href="/agents/configuring" />
   <Cards.Card title="Agent Personas" href="/agents/agent-personas" />
   <Cards.Card title="Agent Persona Builder" href="/agents/persona-builder" />
-  <Cards.Card title="Testing in Playground" href="/agents/testing" />
-  <Cards.Card title="Inbox & Human Handoff" href="/agents/inbox" />
+  <Cards.Card title="Playground में Testing" href="/agents/testing" />
+  <Cards.Card title="Inbox और Human Handoff" href="/agents/inbox" />
 </Cards>

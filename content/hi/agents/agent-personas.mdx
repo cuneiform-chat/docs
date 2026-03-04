@@ -1,19 +1,16 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Agent Personas
 
-The agent persona is the most important configuration for your agent. It defines personality, behavior, and boundaries.
+Agent persona आपके agent के लिए सबसे महत्वपूर्ण configuration है। यह personality, behavior, और boundaries define करती है।
 
-## What is an Agent Persona?
+## Agent Persona क्या है?
 
-The agent persona is a set of instructions given to the AI before any user conversation. It shapes every response your agent gives.
+Agent persona किसी भी user conversation से पहले AI को दिए जाने वाले instructions का एक set है। यह आपके agent द्वारा दिए जाने वाले हर response को shape करती है।
 
-## Structure of a Good Agent Persona
+## एक अच्छी Agent Persona की संरचना
 
 ### 1. Role Definition
 
-Start by defining who the agent is:
+Agent कौन है यह define करके शुरू करें:
 
 ```
 You are a customer support assistant for TechCorp, a software company.
@@ -21,7 +18,7 @@ You are a customer support assistant for TechCorp, a software company.
 
 ### 2. Core Responsibilities
 
-Describe what the agent should do:
+Agent को क्या करना चाहिए यह describe करें:
 
 ```
 Your role is to:
@@ -32,7 +29,7 @@ Your role is to:
 
 ### 3. Behavior Guidelines
 
-Set the tone and style:
+Tone और style set करें:
 
 ```
 Communication style:
@@ -43,13 +40,13 @@ Communication style:
 
 ### 4. Automatic Language Detection
 
-Your agent automatically detects the language of each user message and responds in kind — no manual configuration needed. 176 languages are supported out of the box.
+आपका agent हर user message की भाषा automatically detect करता है और उसी भाषा में respond करता है — कोई manual configuration की ज़रूरत नहीं। 176 languages out of the box supported हैं।
 
-The agent adapts per-message, so it can handle multilingual conversations naturally. Safety and accuracy rules remain in English internally.
+Agent per-message adapt करता है, इसलिए यह multilingual conversations को naturally handle कर सकता है। Safety और accuracy rules internally English में रहती हैं।
 
 ### 4. Boundaries
 
-Define what the agent should NOT do:
+Agent को क्या नहीं करना चाहिए यह define करें:
 
 ```
 Important boundaries:
@@ -116,45 +113,45 @@ If a question isn't covered in the documentation:
 Tone: Friendly and helpful, but concise.
 ```
 
-## Tips for Better Personas
+## बेहतर Personas के लिए Tips
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-**Start simple.** Begin with a basic prompt and add complexity based on testing results.
+**Simple से शुरू करें।** एक basic prompt से शुरू करें और testing results के आधार पर complexity add करें।
 </Callout>
 
-1. **Be specific** — Vague instructions lead to inconsistent behavior
-2. **Use examples** — Show the agent what good responses look like
-3. **Set clear boundaries** — Define what the agent should NOT do
-4. **Iterate** — Test and refine based on actual conversations
-5. **Keep it focused** — Long, complex prompts can confuse the model
-6. **Language is automatic** — Your agent detects the user's language and responds accordingly. No need to add language instructions to the persona text
+1. **Specific रहें** — Vague instructions inconsistent behavior की ओर ले जाती हैं
+2. **Examples का उपयोग करें** — Agent को दिखाएं कि अच्छे responses कैसे दिखते हैं
+3. **Clear boundaries set करें** — Define करें कि agent को क्या नहीं करना चाहिए
+4. **Iterate करें** — Actual conversations के आधार पर test और refine करें
+5. **Focused रखें** — Long, complex prompts model को confuse कर सकते हैं
+6. **Language automatic है** — आपका agent user की भाषा detect करता है और accordingly respond करता है। Persona text में language instructions add करने की ज़रूरत नहीं
 
-## Testing Your Persona
+## Persona Test करना
 
-After writing or updating your agent persona:
+अपनी agent persona लिखने या update करने के बाद:
 
-1. Test in the [Playground](/agents/testing)
-2. Try edge cases and tricky questions
-3. Refine based on results
-4. Re-test to ensure improvements
+1. [Playground](/agents/testing) में test करें
+2. Edge cases और tricky सवाल try करें
+3. Results के आधार पर refine करें
+4. Improvements ensure करने के लिए फिर से test करें
 
 ## Template Variables
 
-Personalize your agent's system prompt with dynamic variables.
+Dynamic variables के साथ अपने agent के system prompt को personalize करें।
 
 ### Available Variables
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `{{organization_name}}` | Your organization name | "Acme Corp" |
-| `{{current_date}}` | Today's date | "2026-02-03" |
+| `{{organization_name}}` | आपके organization का नाम | "Acme Corp" |
+| `{{current_date}}` | आज की तारीख | "2026-02-03" |
 | `{{current_year}}` | Current year | "2026" |
 
-### Using Variables
+### Variables का उपयोग
 
-In your system prompt:
+अपने system prompt में:
 
 ```
 Welcome to {{organization_name}}! I'm here to help you today.
@@ -163,5 +160,5 @@ Welcome to {{organization_name}}! I'm here to help you today.
 **Result:** "Welcome to Acme Corp! I'm here to help you today."
 
 <Callout type="important">
-  Click **Preview** when editing to see how variables will appear with your organization's actual values.
+  Variables को आपके organization के actual values के साथ कैसे दिखेंगे यह देखने के लिए editing करते समय **Preview** click करें।
 </Callout>
