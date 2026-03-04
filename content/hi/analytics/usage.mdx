@@ -1,85 +1,82 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# उपयोग मेट्रिक्स
 
-# Usage Metrics
-
-Track your resource consumption and credit utilization.
+अपने resource consumption और credit utilization track करें।
 
 ## Credit Usage Overview
 
-The analytics dashboard shows your current billing cycle usage:
+Analytics dashboard आपका current billing cycle usage दिखाता है:
 
-- **Credits Used** — Platform credits consumed this period
-- **Credits Remaining** — Available credits until period end
-- **Usage Percentage** — Visual progress bar of consumption
+- **Credits Used** — इस period में consume किए गए platform credits
+- **Credits Remaining** — Period end तक available credits
+- **Usage Percentage** — Consumption का visual progress bar
 
-## Key Metrics
+## मुख्य Metrics
 
 ### Query Volume
 
-| Metric | Description |
-|--------|-------------|
-| Total Queries | AI agent executions in the period |
+| Metric | विवरण |
+|--------|-------|
+| Total Queries | Period में AI agent executions |
 | Conversations | Total chat sessions |
-| Unique Users | Individual users who interacted |
+| Unique Users | Interact करने वाले individual users |
 
 ### Distribution Breakdown
 
-View how usage is distributed:
+Usage कैसे distributed है देखें:
 
-- **By Agent** — Which agents handle the most queries
-- **By Channel** — Usage across Telegram, Discord, Slack, WhatsApp, etc.
+- **By Agent** — कौन से agents सबसे अधिक queries handle करते हैं
+- **By Channel** — Telegram, Discord, Slack, WhatsApp, आदि पर usage
 
 ## Usage Trends
 
 ### Query Volume Chart
 
-The main analytics dashboard displays a query volume chart showing:
-- Queries over time
+Main analytics dashboard एक query volume chart display करता है जिसमें दिखाई देता है:
+- समय के साथ queries
 - Configurable granularity (hourly, daily, weekly, monthly)
 - Date range selection
 
 ### Distribution Charts
 
-Pie charts showing:
-- Channel distribution — Percentage of queries per platform
-- Agent distribution — Percentage of queries per agent
+Pie charts जो दिखाते हैं:
+- Channel distribution — प्रति platform queries का percentage
+- Agent distribution — प्रति agent queries का percentage
 
 ## Credit Monitoring
 
 ### Current Period
 
-View your billing cycle status:
-- Period start and end dates
-- Credits used vs. allocated
+अपना billing cycle status देखें:
+- Period start और end dates
+- Credits used बनाम allocated
 - Percentage consumed
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Credits reset at the start of each billing period. Check the **Billing** section for your cycle dates.
+  Credits हर billing period की शुरुआत में reset होते हैं। अपने cycle dates के लिए **Billing** section check करें।
 </Callout>
 
 ## Usage Warnings
 
-The **Billing** page displays automatic warning banners when:
+**Billing** page automatic warning banners display करता है जब:
 
-- **Approaching limit** — You've used most of your monthly quota
-- **Limit reached** — Monthly quota is depleted
-- **Blocked** — Extra usage balance also depleted
+- **Approaching limit** — आपने अपना अधिकांश monthly quota use कर लिया है
+- **Limit reached** — Monthly quota depleted हो गया है
+- **Blocked** — Extra usage balance भी depleted हो गया है
 
-These warnings appear in **Billing & Plans** to help you take action before service is affected.
+ये warnings **Billing & Plans** में appear होते हैं ताकि service affect होने से पहले आप action ले सकें।
 
 ## Optimization Tips
 
-### Reduce Query Usage
+### Query Usage कम करें
 
-- Improve agent personas for better first-response accuracy
-- Add FAQ content to reduce follow-up questions
-- Optimize content for faster retrieval
+- Better first-response accuracy के लिए agent personas improve करें
+- Follow-up questions कम करने के लिए FAQ content जोड़ें
+- Faster retrieval के लिए content optimize करें
 
-### Monitor High-Usage Areas
+### High-Usage Areas Monitor करें
 
-- Check which agents consume the most credits
-- Identify channels with highest volume
-- Review conversations that use more tokens
+- Check करें कि कौन से agents सबसे अधिक credits consume करते हैं
+- सबसे अधिक volume वाले channels identify करें
+- ऐसी conversations review करें जो अधिक tokens use करती हैं

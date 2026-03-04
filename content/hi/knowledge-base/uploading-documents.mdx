@@ -1,129 +1,126 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Documents अपलोड करें
 
-# Uploading Documents
+अपने content में documents अपलोड करें ताकि आपके AI agents उनका उपयोग प्रश्नों के उत्तर देने के लिए कर सकें। Documents automatically process होकर searchable बन जाते हैं।
 
-Upload documents to your content so your AI agents can use them to answer questions. Documents are automatically processed and made searchable.
+## यहाँ कैसे जाएं
 
-## Getting There
+1. Admin Panel में log in करें
+2. Sidebar menu में **Content** पर navigate करें
+3. Page के शीर्ष पर upload area दिखाई देता है
 
-1. Log in to the Admin Panel
-2. Navigate to **Content** in the sidebar menu
-3. The upload area is displayed at the top of the page
-
-## Upload Methods
+## Upload के तरीके
 
 ### Local File Upload
 
-1. **Drag and drop** files directly onto the upload area, OR
-2. **Click** the upload area to open a file browser
-3. Select one or more files to upload
-4. Files begin uploading automatically with progress tracking
+1. Upload area पर सीधे files **drag and drop** करें, या
+2. File browser खोलने के लिए upload area पर **click** करें
+3. Upload करने के लिए एक या अधिक files select करें
+4. Progress tracking के साथ files automatically upload होना शुरू हो जाती हैं
 
 ### Cloud Storage Import
 
-Import files directly from your cloud storage providers:
+अपने cloud storage providers से सीधे files import करें:
 
-| Provider | Icon | How to Use |
-|----------|------|------------|
-| Google Drive | Google Drive icon | Click to open Google Drive picker, select files |
-| Dropbox | Dropbox icon | Click to open Dropbox chooser, select files |
-| OneDrive | OneDrive icon | Click to open OneDrive picker, select files |
-| Box | Box icon | Click to open Box picker, select files |
+| Provider | Icon | कैसे उपयोग करें |
+|----------|------|----------------|
+| Google Drive | Google Drive icon | Google Drive picker खोलने के लिए click करें, files select करें |
+| Dropbox | Dropbox icon | Dropbox chooser खोलने के लिए click करें, files select करें |
+| OneDrive | OneDrive icon | OneDrive picker खोलने के लिए click करें, files select करें |
+| Box | Box icon | Box picker खोलने के लिए click करें, files select करें |
 
-After selecting files from any provider, they are automatically imported to your content.
+किसी भी provider से files select करने के बाद, वे automatically आपके content में import हो जाती हैं।
 
 ## Upload Options
 
-### Adding Tags
+### Tags जोड़ना
 
-Optionally assign tags to documents during upload:
+Upload के दौरान optional रूप से documents को tags assign करें:
 
-1. Click **+ Add Tags** before uploading
-2. Select tags from the dropdown
-3. Selected tags will be applied to all uploaded documents
+1. Upload करने से पहले **+ Add Tags** पर click करें
+2. Dropdown से tags select करें
+3. Selected tags सभी uploaded documents पर apply होंगे
 
-## Supported File Types
+## समर्थित File Types
 
-The file types you can upload depend on your plan. Common formats include:
+आप जो file types upload कर सकते हैं वे आपके plan पर निर्भर करती हैं। सामान्य formats में शामिल हैं:
 
 - **Documents:** PDF, DOCX, DOC, TXT, MD, RTF
 - **Presentations:** PPTX, PPT
 - **Web/Data:** HTML, HTM, JSON, XML
 
-File size limits also vary by plan (shown in the upload area).
+File size limits भी plan के अनुसार अलग होती हैं (upload area में दिखाई जाती हैं)।
 
-See [Supported Formats](/knowledge-base/supported-formats) for the complete list.
+पूरी सूची के लिए [समर्थित प्रारूप](/knowledge-base/supported-formats) देखें।
 
-## During Upload
+## Upload के दौरान
 
 ### Progress Tracking
 
-- Each file shows upload progress with a percentage bar
-- Upload speed and estimated time remaining are displayed
-- Files are processed one at a time
+- प्रत्येक file percentage bar के साथ upload progress दिखाती है
+- Upload speed और अनुमानित remaining time दिखाया जाता है
+- Files एक-एक करके process होती हैं
 
 ### Cancel Options
 
-- **Cancel individual file:** Click the X next to a file
-- **Cancel all:** Click "Cancel All Pending" to stop the entire batch
-- A warning appears if you try to leave the page during upload
+- **Individual file cancel:** किसी file के पास X पर click करें
+- **सब cancel:** पूरा batch बंद करने के लिए "Cancel All Pending" पर click करें
+- Upload के दौरान page छोड़ने की कोशिश करने पर warning दिखाई देती है
 
 ## Processing Status
 
-Track document status in Content:
+Content में document status track करें:
 
-| Status | Meaning |
-|--------|---------|
-| Uploading | Document is being uploaded to the system |
-| Ready | Document is processed and available for your agents |
-| Processing | Document is being analyzed |
-| Queued | Waiting to be processed |
-| Retrying | Processing is being retried |
-| Failed | Processing encountered an error (can be retried) |
+| Status | अर्थ |
+|--------|------|
+| Uploading | Document system में upload हो रहा है |
+| Ready | Document process हो गया है और आपके agents के लिए उपलब्ध है |
+| Processing | Document analyze हो रहा है |
+| Queued | Process होने की प्रतीक्षा में है |
+| Retrying | Processing दोबारा try की जा रही है |
+| Failed | Processing में error आई (retry किया जा सकता है) |
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Processing time depends on document size and complexity. Most documents complete within a few minutes.
+  Processing time document के size और complexity पर निर्भर करता है। अधिकतर documents कुछ ही मिनटों में complete हो जाते हैं।
 </Callout>
 
-## After Upload
+## Upload के बाद
 
-### Success
+### सफल Upload
 
-- Successfully uploaded files appear in your document browser
-- Documents are automatically processed for search
-- You can organize them into folders or add tags
+- Successfully upload हुई files आपके document browser में दिखाई देती हैं
+- Documents automatically search के लिए process होते हैं
+- आप उन्हें folders में व्यवस्थित कर सकते हैं या tags जोड़ सकते हैं
 
-### Handling Duplicates
+### Duplicates का पता लगाना
 
-- The system detects duplicate content automatically
-- If a file with identical content already exists, you'll see a warning
-- The existing file location is shown in the error message
+- System automatically duplicate content का पता लगाता है
+- यदि identical content वाली कोई file पहले से मौजूद है, तो आपको warning दिखेगी
+- Error message में existing file की location दिखाई जाती है
 
-### Handling Errors
+### Errors से निपटना
 
-- If a file fails to upload, an error message explains why
-- Common issues include file too large or unsupported format
-- You can retry individual files or upload them again
+- यदि कोई file upload fail होती है, तो error message कारण बताता है
+- सामान्य समस्याओं में बहुत बड़ी file या unsupported format शामिल हैं
+- आप individual files retry कर सकते हैं या उन्हें दोबारा upload कर सकते हैं
 
 ## Tips
 
-- Upload multiple files at once to save time
-- Apply tags during upload to keep documents organized
-- Check the supported file types shown in the upload area
+- समय बचाने के लिए एक साथ कई files upload करें
+- Documents को organized रखने के लिए upload के दौरान tags apply करें
+- Upload area में दिखाए गए supported file types check करें
 
-## Common Questions
+## सामान्य प्रश्न
 
-**Q: How many files can I upload at once?**
-A: You can select multiple files for batch upload. They process one at a time with progress tracking.
+**प्र: एक साथ कितनी files upload की जा सकती हैं?**
+उ: आप batch upload के लिए कई files select कर सकते हैं। वे progress tracking के साथ एक-एक करके process होती हैं।
 
-**Q: Why was my file rejected?**
-A: Check if the file type is supported and the file size is within limits (shown in the upload area). Some files may be blocked for security reasons.
+**प्र: मेरी file क्यों reject हुई?**
+उ: Check करें कि file type supported है और file size limits के अंदर है (upload area में दिखाई जाती है)। कुछ files security कारणों से block हो सकती हैं।
 
-**Q: How long does processing take?**
-A: Upload time depends on file size and your connection. After upload, documents are processed in the background and become searchable automatically.
+**प्र: Processing में कितना समय लगता है?**
+उ: Upload time file size और आपके connection पर निर्भर करता है। Upload के बाद, documents background में process होते हैं और automatically searchable बन जाते हैं।
 
-**Q: Can I upload to a specific folder?**
-A: Yes, you can upload directly to folders using the folder menu or organize documents after upload.
+**प्र: क्या मैं specific folder में upload कर सकता हूँ?**
+उ: हाँ, आप folder menu का उपयोग करके सीधे folders में upload कर सकते हैं या upload के बाद documents व्यवस्थित कर सकते हैं।

@@ -1,81 +1,78 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Conversation Analytics
 
-Track conversation metrics and view detailed transcripts across your agents and channels.
+अपने agents और channels में conversation metrics track करें और detailed transcripts देखें।
 
-## Overview
+## अवलोकन
 
-Conversation analytics provides:
+Conversation analytics प्रदान करता है:
 
 - Total conversation volume
-- Conversations per agent
-- Conversations per channel
+- Agent के अनुसार conversations
+- Channel के अनुसार conversations
 - Full message transcripts
 - AI-powered conversation insights
 
-## Accessing Conversations
+## Conversations Access करना
 
-### From the Dashboard
+### Dashboard से
 
-1. Go to **Analytics** in the sidebar
-2. Click **View All** on the Top Agents or Top Channels cards
-3. Or navigate directly to Conversations from the analytics menu
+1. Sidebar में **Analytics** पर जाएं
+2. Top Agents या Top Channels cards पर **View All** पर क्लिक करें
+3. या analytics menu से सीधे Conversations पर navigate करें
 
 ### Conversation List
 
-View all conversations with:
+सभी conversations देखें:
 
-| Column | Description |
-|--------|-------------|
-| Title | Conversation title or session ID |
-| Agent | Which agent handled the conversation |
-| Channel | Platform (Telegram, Discord, Slack, etc.) |
+| Column | विवरण |
+|--------|-------|
+| Title | Conversation title या session ID |
+| Agent | किस agent ने conversation handle किया |
+| Channel | Platform (Telegram, Discord, Slack, आदि) |
 | Messages | Total message count |
-| Last Active | When the conversation was last updated |
-| Status | Active, archived, or deleted |
+| Last Active | Conversation आखिरी बार कब update हुई |
+| Status | Active, archived, या deleted |
 
-## Filtering Conversations
+## Conversations Filter करना
 
-Filter the conversation list by:
+Conversation list filter करें:
 
-- **Agent** — Select a specific agent or all agents
-- **Channel** — Filter by platform (WhatsApp, Telegram, Meta, Slack, Discord, Google Chat, Playground)
-- **Date range** — Last 7, 14, 30, or 90 days
+- **Agent** — Specific agent या सभी agents चुनें
+- **Channel** — Platform के अनुसार filter करें (WhatsApp, Telegram, Meta, Slack, Discord, Google Chat, Playground)
+- **Date range** — Last 7, 14, 30, या 90 days
 
 ## Conversation Details
 
-Click any conversation to view its full details:
+किसी भी conversation पर click करके पूरी details देखें:
 
 ### Overview Tab
 
-- **Total Messages** — Message count in the conversation
+- **Total Messages** — Conversation में message count
 - **Credits Spent** — Platform credits used
-- **Agent** — Which agent handled the conversation
-- **Channel** — Platform where it occurred
-- **Created** — When the conversation started
-- **Last Active** — Most recent activity
+- **Agent** — किस agent ने conversation handle किया
+- **Channel** — Platform जहाँ यह हुई
+- **Created** — Conversation कब शुरू हुई
+- **Last Active** — सबसे हालिया activity
 
 ### Message Activity Chart
 
-Visualize message patterns over time:
-- Toggle between hourly and daily granularity
-- Show/hide user messages and assistant messages
-- See conversation activity patterns
+समय के साथ message patterns visualize करें:
+- Hourly और daily granularity के बीच toggle करें
+- User messages और assistant messages show/hide करें
+- Conversation activity patterns देखें
 
 ### Messages Tab
 
-View the complete conversation transcript:
+Complete conversation transcript देखें:
 
-- **Full message history** — See every message in the conversation
-- **Role indicators** — User, Assistant, System, and Tool messages are color-coded
-- **Timestamps** — When each message was sent
-- **Token usage** — Input/output tokens per message (when available)
+- **Full message history** — Conversation का हर message देखें
+- **Role indicators** — User, Assistant, System, और Tool messages color-coded हैं
+- **Timestamps** — हर message कब भेजा गया
+- **Token usage** — प्रति message input/output tokens (जब available हो)
 
 #### Message Filtering
 
-Filter messages by time period:
+Time period के अनुसार messages filter करें:
 - Last 24 hours
 - Last 7 days
 - Last 30 days
@@ -83,63 +80,63 @@ Filter messages by time period:
 
 #### Export
 
-Click **Export** to download the conversation as a JSON file containing:
+Conversation को JSON file के रूप में download करने के लिए **Export** पर click करें जिसमें शामिल है:
 - Conversation metadata
-- All messages with timestamps
+- Timestamps के साथ सभी messages
 - Token information
 
 ## AI-Powered Insights
 
-Generate intelligent summaries of conversations:
+Conversations के intelligent summaries generate करें:
 
-1. Navigate to a conversation's **Messages** tab
-2. Click **Generate Insights**
-3. View AI-analyzed insights including:
-   - **Key Points** — Main topics discussed
-   - **User Intents** — What the user was trying to accomplish
-   - **Key Info Shared** — Important information exchanged
-   - **Suggested Actions** — Recommendations based on the conversation
+1. किसी conversation के **Messages** tab पर navigate करें
+2. **Generate Insights** पर click करें
+3. AI-analyzed insights देखें जिनमें शामिल हैं:
+   - **Key Points** — चर्चा किए गए main topics
+   - **User Intents** — User क्या accomplish करना चाहता था
+   - **Key Info Shared** — साझा की गई महत्वपूर्ण जानकारी
+   - **Suggested Actions** — Conversation के आधार पर recommendations
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Generating insights consumes credits from your account. Results are cached for faster access on subsequent views.
+  Insights generate करने से आपके account से credits consume होते हैं। Results बाद में देखने पर faster access के लिए cached होते हैं।
 </Callout>
 
 ## Privacy Considerations
 
-Conversation data is handled according to:
+Conversation data को इनके अनुसार handle किया जाता है:
 
 - Privacy policy requirements
-- User consent where applicable
+- जहाँ applicable हो वहाँ user consent
 
 ## Tips
 
-- Use filters to find conversations from specific agents or channels
-- Export important conversations for record-keeping or analysis
-- Generate AI insights to quickly understand long conversations
-- Check the Message Activity chart to identify peak usage times
-- Review conversation transcripts to improve your agent's persona
-- Monitor credits spent to track usage patterns
+- Specific agents या channels से conversations ढूंढने के लिए filters use करें
+- Record-keeping या analysis के लिए important conversations export करें
+- Long conversations को जल्दी समझने के लिए AI insights generate करें
+- Peak usage times identify करने के लिए Message Activity chart check करें
+- अपने agent की persona बेहतर करने के लिए conversation transcripts review करें
+- Usage patterns track करने के लिए credits spent monitor करें
 
-## Common Questions
+## सामान्य प्रश्न
 
-**Q: How do I find conversations from a specific channel?**
+**Q: किसी specific channel से conversations कैसे ढूंढें?**
 
-Use the Channel filter at the top of the conversation list to select a specific platform like Telegram, Discord, or Slack.
+Conversation list के top पर Channel filter use करके Telegram, Discord, या Slack जैसा specific platform चुनें।
 
-**Q: Can I export multiple conversations at once?**
+**Q: क्या मैं एक साथ कई conversations export कर सकता हूँ?**
 
-Currently, export works one conversation at a time. Export each conversation individually from the Messages tab.
+Currently, export एक बार में एक conversation के लिए काम करता है। Messages tab से हर conversation को individually export करें।
 
-**Q: What does "Generate Insights" do?**
+**Q: "Generate Insights" क्या करता है?**
 
-It uses AI to analyze the conversation and provide a summary including key points, user intents, important information shared, and suggested actions.
+यह conversation analyze करने के लिए AI use करता है और एक summary provide करता है जिसमें key points, user intents, साझा की गई महत्वपूर्ण जानकारी, और suggested actions शामिल हैं।
 
-**Q: Do AI insights cost credits?**
+**Q: क्या AI insights में credits लगते हैं?**
 
-Yes, generating insights consumes credits from your account. However, results are cached so viewing the same insights again is free.
+हाँ, insights generate करने से आपके account से credits consume होते हैं। हालाँकि, results cached होते हैं इसलिए वही insights दोबारा देखना free है।
 
-**Q: How long are conversations stored?**
+**Q: Conversations कितने समय तक stored रहती हैं?**
 
-Conversations are stored securely and available for analytics. Contact support if you have questions about data storage.
+Conversations securely stored हैं और analytics के लिए available हैं। Data storage के बारे में प्रश्न होने पर support से contact करें।

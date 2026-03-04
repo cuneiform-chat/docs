@@ -1,98 +1,95 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Agent Analytics
 
-View detailed performance metrics for all your agents. Compare query volumes, conversations, and credit usage across your entire agent portfolio.
+अपने सभी agents के लिए detailed performance metrics देखें। अपने पूरे agent portfolio में query volumes, conversations, और credit usage compare करें।
 
-## Accessing Agent Analytics
+## Agent Analytics Access करना
 
-1. Navigate to **Analytics** in the sidebar
-2. Click **View All** next to "Top Agents", or
-3. Go directly to **Analytics > Agents**
+1. Sidebar में **Analytics** पर navigate करें
+2. "Top Agents" के बगल में **View All** पर क्लिक करें, या
+3. सीधे **Analytics > Agents** पर जाएं
 
 ## Navigation
 
-The breadcrumb shows your location: **Dashboard / Agents**. Click "Dashboard" to return to the main analytics page.
+Breadcrumb आपकी location दिखाता है: **Dashboard / Agents**। Main analytics page पर वापस जाने के लिए "Dashboard" पर क्लिक करें।
 
 ## Date Range Controls
 
-| Control | Description |
-|---------|-------------|
-| **Last 7 days** | View metrics for the past week |
-| **Last 14 days** | View metrics for two weeks |
-| **Last 30 days** | View metrics for the past month |
-| **Last 90 days** | View metrics for the past quarter |
-| **Refresh** | Reload data with latest values |
+| Control | विवरण |
+|---------|-------|
+| **Last 7 days** | पिछले हफ्ते के metrics देखें |
+| **Last 14 days** | दो हफ्तों के metrics देखें |
+| **Last 30 days** | पिछले महीने के metrics देखें |
+| **Last 90 days** | पिछले quarter के metrics देखें |
+| **Refresh** | Latest values के साथ data reload करें |
 
 ## Agents Table
 
-All your agents listed with performance metrics:
+सभी agents performance metrics के साथ listed हैं:
 
-| Column | Description | Sortable |
-|--------|-------------|----------|
-| Agent | Agent name | No |
-| Status | active, inactive, testing, or archived | No |
-| Queries | Total questions answered | Yes |
-| Conversations | Chat sessions | Yes |
-| Credits | Resources consumed | Yes |
-| Channels | Which channels the agent is used on | No |
-| (Arrow) | Link to detailed view | No |
+| Column | विवरण | Sortable |
+|--------|-------|----------|
+| Agent | Agent का नाम | नहीं |
+| Status | active, inactive, testing, या archived | नहीं |
+| Queries | कुल सवालों के जवाब | हाँ |
+| Conversations | Chat sessions | हाँ |
+| Credits | उपयोग किए गए resources | हाँ |
+| Channels | Agent किन channels पर use होता है | नहीं |
+| (Arrow) | Detailed view का link | नहीं |
 
 ### Sorting
 
-Click any sortable column header to sort by that metric:
-- **First click**: Sort descending (highest first)
-- **Second click**: Sort ascending (lowest first)
-- Active sort column is highlighted
+किसी भी sortable column header पर क्लिक करके उस metric के अनुसार sort करें:
+- **पहली click**: Descending sort (सबसे अधिक पहले)
+- **दूसरी click**: Ascending sort (सबसे कम पहले)
+- Active sort column highlighted होता है
 
 ### Pagination
 
-For large agent lists:
-- Shows "Showing X - Y of Z"
-- Use **Previous/Next** buttons to navigate pages
+बड़े agent lists के लिए:
+- "Showing X - Y of Z" दिखाता है
+- Pages navigate करने के लिए **Previous/Next** buttons use करें
 
 ## Agent Status Badges
 
-| Badge | Color | Meaning |
-|-------|-------|---------|
-| active | Green | Agent is deployed and receiving queries |
-| inactive | Gray | Agent is paused |
-| testing | Yellow | Agent is being tested before deployment |
-| archived | Yellow | Agent is archived |
+| Badge | Color | अर्थ |
+|-------|-------|------|
+| active | Green | Agent deploy है और queries receive कर रहा है |
+| inactive | Gray | Agent paused है |
+| testing | Yellow | Agent deployment से पहले test हो रहा है |
+| archived | Yellow | Agent archived है |
 
 ## Channel Badges
 
-The Channels column shows which platforms each agent is used on:
-- Up to 3 channel badges shown (e.g., "web", "telegram", "discord")
-- If more than 3, shows "+X" to indicate additional channels
+Channels column दिखाता है कि हर agent किन platforms पर use होता है:
+- अधिकतम 3 channel badges दिखाई देते हैं (जैसे "web", "telegram", "discord")
+- 3 से अधिक होने पर "+X" दिखाता है अतिरिक्त channels indicate करने के लिए
 
-## Viewing Agent Details
+## Agent Details देखना
 
-Click the arrow on any agent row to see:
-- Detailed metrics for that specific agent
+किसी भी agent row पर arrow पर click करके देखें:
+- उस specific agent के detailed metrics
 - Time-series charts
 - Channel breakdown
-- More granular data
+- अधिक granular data
 
 ## Tips
 
-- Sort by **Credits** to find your most resource-intensive agents
-- Sort by **Queries** to identify your most popular agents
-- Use **90 days** for long-term trend analysis
-- Check inactive agents to see if they should be reactivated
-- Click through to individual agents for deeper insights
+- अपने सबसे resource-intensive agents ढूंढने के लिए **Credits** के अनुसार sort करें
+- अपने सबसे popular agents identify करने के लिए **Queries** के अनुसार sort करें
+- Long-term trend analysis के लिए **90 days** use करें
+- Inactive agents check करें कि क्या उन्हें reactivate करना चाहिए
+- Deeper insights के लिए individual agents पर click करें
 
-## Common Questions
+## सामान्य प्रश्न
 
-**Q: How do I find my most used agent?**
+**Q: अपना सबसे ज्यादा use होने वाला agent कैसे ढूंढें?**
 
-Click the "Queries" column header to sort by query count. The top row is your most active agent.
+Query count के अनुसार sort करने के लिए "Queries" column header पर click करें। Top row आपका सबसे active agent है।
 
-**Q: What do the channel badges mean?**
+**Q: Channel badges का क्या मतलब है?**
 
-They show which platforms (Web, Telegram, Discord, Slack, etc.) each agent receives queries from.
+वे दिखाते हैं कि किन platforms (Web, Telegram, Discord, Slack, आदि) से हर agent queries receive करता है।
 
-**Q: Why is an agent showing zero queries?**
+**Q: किसी agent पर zero queries क्यों दिख रहे हैं?**
 
-The agent may be new, inactive, or not yet deployed to any channel.
+Agent नया हो सकता है, inactive हो सकता है, या अभी तक किसी channel पर deploy नहीं किया गया हो।

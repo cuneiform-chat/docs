@@ -1,17 +1,14 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# समर्थित प्रारूप
 
-# Supported Formats
-
-Cuneiform Chat supports a wide range of document formats.
+Cuneiform Chat document formats की एक wide range को support करता है।
 
 ## Document Types
 
 ### Text Documents
 
-| Format | Extensions | Notes |
+| Format | Extensions | नोट्स |
 |--------|-----------|-------|
-| PDF | `.pdf` | Text-based and scanned (with OCR) |
+| PDF | `.pdf` | Text-based और scanned (OCR के साथ) |
 | Microsoft Word | `.docx`, `.doc` | Full formatting support |
 | Plain Text | `.txt` | Simple text files |
 | Markdown | `.md` | Markdown formatting preserved |
@@ -19,53 +16,53 @@ Cuneiform Chat supports a wide range of document formats.
 
 ### Presentations
 
-| Format | Extensions | Notes |
+| Format | Extensions | नोट्स |
 |--------|-----------|-------|
 | PowerPoint | `.pptx`, `.ppt` | Slide content extracted |
 
 ### Web Content
 
-| Format | Extensions | Notes |
+| Format | Extensions | नोट्स |
 |--------|-----------|-------|
 | HTML | `.html`, `.htm` | Web page content |
 
 ### Data Formats
 
-| Format | Extensions | Notes |
+| Format | Extensions | नोट्स |
 |--------|-----------|-------|
 | JSON | `.json` | Structured data files |
 | XML | `.xml` | XML documents |
 
-## Format-Specific Notes
+## Format-Specific नोट्स
 
 ### PDFs
 
-PDFs work best when they are:
-- **Text-based** — Created from digital documents
-- **Searchable** — Text can be selected/copied
+PDFs तब सबसे अच्छे काम करते हैं जब वे:
+- **Text-based** हों — Digital documents से बने हों
+- **Searchable** हों — Text select/copy किया जा सके
 
-Scanned PDFs are supported but may have lower quality extraction due to OCR limitations.
+Scanned PDFs support किए जाते हैं, लेकिन OCR limitations के कारण extraction quality कम हो सकती है।
 
 ### Word Documents
 
-`.docx` (modern format) is recommended over `.doc` (legacy format) for best results.
+Best results के लिए `.doc` (legacy format) की बजाय `.docx` (modern format) recommended है।
 
 Supported elements:
-- Text and paragraphs
-- Headings and styles
+- Text और paragraphs
+- Headings और styles
 - Tables
 - Lists
 
 ### Markdown
 
-Markdown formatting is preserved during processing:
-- Headings become section markers
-- Lists maintain structure
-- Code blocks are recognized
+Processing के दौरान Markdown formatting preserved रहती है:
+- Headings section markers बन जाते हैं
+- Lists structure बनाए रखती हैं
+- Code blocks पहचाने जाते हैं
 
-## Unsupported Formats
+## असमर्थित Formats
 
-The following are not currently supported:
+निम्नलिखित currently support नहीं किए जाते:
 - Images (`.jpg`, `.png`, `.gif`)
 - Audio files (`.mp3`, `.wav`)
 - Video files (`.mp4`, `.mov`)
@@ -75,14 +72,14 @@ The following are not currently supported:
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  If you have content in an unsupported format, try converting it to PDF or a text-based format before uploading.
+  यदि आपके पास unsupported format में content है, तो upload करने से पहले उसे PDF या text-based format में convert करने की कोशिश करें।
 </Callout>
 
 ## File Size Limits
 
-Maximum file sizes depend on your plan. Very large documents may take longer to process.
+Maximum file sizes आपके plan पर निर्भर करती हैं। बहुत बड़े documents को process होने में अधिक समय लग सकता है।
 
-For best performance:
-- Split very large documents into smaller files
-- Remove unnecessary images from PDFs if they're not needed
-- Use text-based formats when possible
+Best performance के लिए:
+- बहुत बड़े documents को छोटी files में split करें
+- यदि जरूरी न हो तो PDFs से unnecessary images हटाएं
+- जब संभव हो text-based formats उपयोग करें
