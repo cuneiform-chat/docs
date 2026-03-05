@@ -36,10 +36,14 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Generate search indexes (per locale)
+      - name: Generate search indexes
         run: |
+          npx pagefind --site out --output-path out/_pagefind
           npx pagefind --site out/en --output-path out/en/_pagefind
           npx pagefind --site out/bn --output-path out/bn/_pagefind
+          npx pagefind --site out/es --output-path out/es/_pagefind
+          npx pagefind --site out/hi --output-path out/hi/_pagefind
+          npx pagefind --site out/th --output-path out/th/_pagefind
 
       - name: Generate sitemap
         run: npx next-sitemap
