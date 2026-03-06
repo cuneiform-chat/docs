@@ -8,7 +8,7 @@ Google Chat integration provides:
 - Direct messaging with your bot
 - Google Workspace Spaces support with @mention triggers
 - Space-level agent routing — assign different agents to different Spaces
-- Text-based responses with conversation memory and thread context awareness
+- Text-based responses with conversation memory and opt-in space context awareness
 - Async processing with instant acknowledgment
 - Enterprise-ready security with domain-based isolation
 
@@ -103,6 +103,7 @@ Each Space can optionally use a different agent than the default. Use these bot 
 | `@Cuneiform Chat /set-agent <name>` | Link this Space to a specific agent |
 | `@Cuneiform Chat /current-agent` | Show which agent handles this Space |
 | `@Cuneiform Chat /reset-agent` | Revert Space to the default agent |
+| `@Cuneiform Chat /connect` | (Space managers only) Enable thread history awareness |
 
 **How routing works:**
 - **DMs** → always use the default agent
@@ -112,6 +113,37 @@ Each Space can optionally use a different agent than the default. Use these bot 
 <Callout type="info">
   You can view Space-agent mappings in the admin panel under the integration card's "Space mappings" section.
 </Callout>
+
+## Thread History Awareness
+
+By default, the bot only sees the message that directly @mentioned it. If team members send context messages first (in other threads or earlier in the Space) and then @mention the bot, it won't have that context — unless a Space manager runs `/connect`.
+
+### How It Works
+
+1. A Space manager sends `@Cuneiform Chat /connect` in the Space
+2. The bot sends a one-time authorization link (expires in 10 minutes)
+3. The manager clicks the link and signs in with their Google Workspace account
+4. The bot can now read messages sent in the Space within the last 15 minutes before each @mention
+
+Once connected, on every @mention the bot automatically reads recent Space messages as context — understanding what the team was discussing before it was @mentioned.
+
+**Example:** Team members post "what are the pricing plans?" and "what's included in starter?" then @mention the bot with "can you help?" — the bot sees all three messages and responds with full context.
+
+### Requirements and Privacy
+
+- Only **Space managers** (not regular members) can run `/connect`
+- Authorization is per-Space — each Space needs its own `/connect`
+- The space manager's Google OAuth token is encrypted and stored securely
+- Only messages visible to that manager's account are readable
+- Removing the bot from a Space automatically deletes the stored token
+
+### Re-authorization
+
+If the bot loses access (e.g., token revoked in your Google account), it will notify the Space:
+
+> ⚠️ Thread history access has expired. A space manager should run /connect to restore it.
+
+Run `/connect` again to restore access.
 
 ## Features
 
@@ -123,7 +155,7 @@ When you send a message, the bot immediately replies with a brief acknowledgment
 
 The bot remembers context within a session, so you can ask follow-up questions without repeating yourself.
 
-**Thread context awareness (Spaces):** When you @mention the bot in a Space thread, it reads the full thread history first — understanding what your team was already discussing — before responding. Follow-up @mentions in the same thread maintain that conversational continuity, so the bot stays in sync with the thread without you needing to repeat context.
+**Space context awareness (opt-in):** After a Space manager runs `/connect`, the bot reads messages sent in the Space within the last 15 minutes before each @mention — so it understands what the team was already discussing without you needing to repeat context. See [Thread History Awareness](#thread-history-awareness) below for setup steps.
 
 ### Message Queuing
 
@@ -212,6 +244,18 @@ This means the bot doesn't recognize your Google Workspace domain:
 1. Check the exact agent name in the admin panel (case-sensitive)
 2. Ensure the agent is in "Active" status
 3. Agent names with spaces are supported — type the full name after `/set-agent`
+
+### `/connect` Says "Only space managers can run /connect"
+
+You must be a Space manager to run `/connect`. Ask a Space manager in your Space to run the command.
+
+### `/connect` Authorization Link Expired
+
+The link is valid for 10 minutes. Run `@Cuneiform Chat /connect` again to get a fresh link.
+
+### Bot Says "Thread history access has expired"
+
+A Space manager needs to run `@Cuneiform Chat /connect` again to re-authorize. This happens when the Google OAuth token is revoked (e.g., in Google account settings).
 
 ## Security
 
