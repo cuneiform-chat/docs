@@ -8,7 +8,7 @@ La integración con Google Chat proporciona:
 - Mensajería directa con tu bot
 - Soporte de Spaces de Google Workspace con triggers de @mención
 - Enrutamiento de agents a nivel de Space — asigna diferentes agents a diferentes Spaces
-- Respuestas basadas en texto con memoria de conversación
+- Respuestas basadas en texto con memoria de conversación y conciencia del contexto del hilo
 - Procesamiento asíncrono con confirmación instantánea
 - Seguridad de nivel empresarial con aislamiento basado en dominio
 
@@ -122,6 +122,8 @@ Cuando envías un mensaje, el bot responde inmediatamente con una breve confirma
 ### Memoria de Conversación
 
 El bot recuerda el contexto dentro de una sesión, permitiéndote hacer preguntas de seguimiento sin repetirte.
+
+**Conciencia del contexto del hilo (Spaces):** Cuando se @menciona al bot en un hilo de Space, este lee el historial completo del hilo antes de responder — entendiendo lo que el equipo ya estaba discutiendo. Las @menciones posteriores en el mismo hilo mantienen esa continuidad conversacional automáticamente.
 
 ### Cola de Mensajes
 

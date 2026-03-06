@@ -8,7 +8,7 @@ Google Chat integration provides:
 - Direct messaging with your bot
 - Google Workspace Spaces support with @mention triggers
 - Space-level agent routing — assign different agents to different Spaces
-- Text-based responses with conversation memory
+- Text-based responses with conversation memory and thread context awareness
 - Async processing with instant acknowledgment
 - Enterprise-ready security with domain-based isolation
 
@@ -122,6 +122,8 @@ When you send a message, the bot immediately replies with a brief acknowledgment
 ### Conversation Memory
 
 The bot remembers context within a session, so you can ask follow-up questions without repeating yourself.
+
+**Thread context awareness (Spaces):** When you @mention the bot in a Space thread, it reads the full thread history first — understanding what your team was already discussing — before responding. Follow-up @mentions in the same thread maintain that conversational continuity, so the bot stays in sync with the thread without you needing to repeat context.
 
 ### Message Queuing
 

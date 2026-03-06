@@ -8,7 +8,7 @@ Google Chat integration มีความสามารถ:
 - ส่งข้อความตรงกับ bot ของคุณ
 - รองรับ Google Workspace Spaces พร้อม @mention triggers
 - Space-level agent routing — กำหนด agent ต่างกันให้แต่ละ Space
-- การตอบกลับแบบข้อความพร้อม conversation memory
+- การตอบกลับแบบข้อความพร้อม conversation memory และการรับรู้บริบทของ thread
 - ประมวลผลแบบ async พร้อม acknowledgment ทันที
 - ความปลอดภัยระดับองค์กรด้วย domain-based isolation
 
@@ -122,6 +122,8 @@ DM จะถูกจัดการโดย **default agent** เสมอ
 ### Conversation Memory
 
 Bot จดจำ context ภายใน session ดังนั้นคุณสามารถถามคำถามต่อเนื่องได้โดยไม่ต้องทวนซ้ำ
+
+**การรับรู้บริบทของ thread (Spaces):** เมื่อ @mention bot ใน thread ของ Space bot จะอ่านประวัติ thread ทั้งหมดก่อนตอบ — เพื่อเข้าใจว่าทีมกำลังพูดถึงอะไร การ @mention ต่อๆ ไปในช่อง thread เดียวกันจะรักษาความต่อเนื่องของการสนทนาโดยอัตโนมัติ
 
 ### Message Queuing
 
