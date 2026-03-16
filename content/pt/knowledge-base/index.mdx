@@ -1,0 +1,101 @@
+---
+description: Gerencie seu conteúdo de AI. Envie documentos, conecte cloud storage e faça crawl de websites.
+---
+
+# Conteúdo
+
+Conteúdo é onde você gerencia todos os documentos que seus agents de AI usam para responder perguntas. Envie documentos, organize-os em pastas, adicione tags e controle quais agents podem acessar qual conteúdo.
+
+## Como Funciona
+
+1. **Adicionar Conteúdo** — Envie documentos, importe do cloud storage ou faça crawl de websites
+2. **Processar** — Documentos são automaticamente processados e indexados
+3. **Pesquisar** — Agents pesquisam conteúdo relevante ao responder perguntas
+4. **Responder** — Respostas são geradas com base no seu conteúdo real
+
+## Como Chegar
+
+Navegue até **Content** no menu lateral. Este é seu hub central para gerenciamento de documentos.
+
+## O Que Você Vê
+
+### Área de Upload
+
+No topo da página:
+- **Ícones de Cloud Storage** — Clique em Google Drive, Dropbox, OneDrive ou Box para importar arquivos diretamente
+- **Zona de Arrastar** — Arraste e solte arquivos ou clique para navegar pelos arquivos locais
+- **Aba Website** — Mude para a aba Website para fazer crawl e importar conteúdo de websites públicos
+
+### Navegador de Documentos
+
+Abaixo da área de upload, uma tabela exibe todos os seus documentos:
+
+| Coluna | Descrição |
+|--------|-----------|
+| Name | Nome do arquivo com ícone de tipo e indicador de origem |
+| Tags | Rótulos atribuídos ao documento |
+| Status | Estado de processamento (veja Status do Documento abaixo) |
+| Size | Tamanho do arquivo em MB |
+| Type | Extensão do arquivo (PDF, DOCX, etc.) |
+| Uploaded | Data e hora do upload |
+| Actions | Menu para operações com o documento |
+
+### Barra de Ferramentas
+
+- **Search** — Encontre documentos por nome
+- **Tag Filter** — Mostre apenas documentos com tags específicas
+- **Refresh** — Atualize a lista de documentos
+- **New Folder** — Crie uma pasta para organização
+- **Fullscreen** — Expanda o navegador para mais espaço
+
+## Status do Documento
+
+| Status | Significado |
+|--------|-------------|
+| Uploading | Documento está sendo enviado ao sistema |
+| Ready | Documento está processado e disponível para seus agents |
+| Processing | Documento está sendo analisado |
+| Queued | Aguardando para ser processado |
+| Retrying | Processamento está sendo refeito |
+| Failed | Processamento encontrou um erro (pode ser refeito) |
+
+## Trabalhando com Documentos
+
+### Visualizar um Documento
+
+Clique em qualquer linha de documento para abrir o visualizador de documentos, que exibe o conteúdo e os metadados.
+
+### Ações do Documento
+
+Passe o mouse sobre um documento para ver botões de ação rápida:
+- **Tag** — Adicionar ou remover tags
+- **Premium Processing** — Melhorar a qualidade do processamento (se elegível)
+- **Retry** — Reprocessar documentos com falha
+- **Chat** — Ter uma conversa sobre este documento específico
+
+No menu Actions (...):
+- **Move to Folder** — Mover o documento
+- **Reprocess** — Retentar processamento para documentos com falha
+- **Delete** — Remover o documento permanentemente
+
+## Nesta Seção
+
+import { Cards } from 'nextra/components'
+
+<Cards>
+  <Cards.Card title="Enviar Documentos" href="/pt/knowledge-base/uploading-documents" />
+  <Cards.Card title="Formatos Suportados" href="/pt/knowledge-base/supported-formats" />
+  <Cards.Card title="Pastas e Tags" href="/pt/knowledge-base/folders-and-tags" />
+  <Cards.Card title="Armazenamento em Nuvem" href="/pt/knowledge-base/cloud-storage" />
+  <Cards.Card title="Rastreamento de Sites" href="/pt/knowledge-base/website-crawling" />
+  <Cards.Card title="Gerenciar Documentos" href="/pt/knowledge-base/managing-documents" />
+  <Cards.Card title="Acesso ao Conhecimento do Agent" href="/pt/knowledge-base/agent-knowledge-access" />
+</Cards>
+
+## Boas Práticas
+
+- **Mantenha o conteúdo atualizado** — Atualize documentos regularmente para manter a precisão
+- **Organize com pastas** — Agrupe documentos relacionados para facilitar o gerenciamento
+- **Use tags para temas transversais** — Tags ajudam a encontrar documentos entre pastas
+- **Qualidade importa** — Documentos bem estruturados produzem respostas de AI melhores
+- **Remova duplicatas** — Evite enviar o mesmo conteúdo múltiplas vezes

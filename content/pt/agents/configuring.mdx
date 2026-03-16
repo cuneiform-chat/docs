@@ -1,0 +1,196 @@
+# Opções de Configuração
+
+import { Callout } from 'nextra/components'
+
+Guia detalhado de todas as opções de configuração de agents.
+
+## Estrutura da Página
+
+A página de edição do agent tem três abas:
+
+| Aba | Finalidade |
+|-----|-----------|
+| **Configuration** | Configurações principais (status, nome, persona, LLM, mensagens) |
+| **Knowledge Access** | Controle quais documentos o agent pode usar |
+| **Integrations** | Conecte a canais externos (Telegram, Discord, etc.) |
+
+## Aba Configuration
+
+### Status
+
+Controle a disponibilidade do seu agent:
+
+| Status | Playground | Integrações | Notas |
+|--------|------------|-------------|-------|
+| **Testing** | ✅ Ativado | ❌ Desativado | Padrão para novos agents. Teste antes de ativar. |
+| **Active** | ✅ Ativado | ✅ Ativado | Pronto para uso em produção. |
+| **Inactive** | ❌ Desativado | ❌ Desativado | Temporariamente desativado. |
+| **Archived** | ❌ Desativado | ❌ Desativado | Oculto da lista principal. |
+
+<Callout type="warning">
+  Se seu agent tem integrações conectadas e você muda de Active para outro status, verá um diálogo de confirmação avisando que o agent parará de responder nos canais conectados.
+</Callout>
+
+### Configurações Básicas
+
+- **Name** — Identifica o agent no seu dashboard
+- **Description** — Notas internas sobre a finalidade do agent
+
+### Configuração de LLM
+
+Controle o modelo de AI que alimenta seu agent.
+
+**Modo Padrão (toggle Advanced desligado):**
+- Usa os valores padrão do tier da sua organization
+- Exibe uma caixa informativa explicando que os padrões do tier estão em uso
+- Recomendado para a maioria dos casos
+
+**Modo Avançado (toggle Advanced ligado):**
+
+| Configuração | Descrição |
+|--------------|-----------|
+| **Model** | Selecione entre os modelos de AI disponíveis com base no seu plano |
+| **Temperature** | Controla a criatividade das respostas (0.0-1.0) |
+
+#### Guia de Temperature
+
+| Valor | Comportamento |
+|-------|---------------|
+| 0.0 - 0.3 | Respostas focadas e determinísticas |
+| 0.4 - 0.7 | Equilíbrio entre criatividade e consistência |
+| 0.8 - 1.0 | Respostas mais criativas e variadas |
+
+**Recomendação:** Comece com 0.3-0.5 para Q&A factual baseado em documentos.
+
+#### Show Document References
+
+Este toggle (sempre visível independente do modo Advanced) controla se o agent inclui citações de fontes nas respostas:
+
+- **Off** (padrão) — Respostas não mencionam documentos fonte
+- **On** — Respostas incluem referências aos documentos fonte
+
+<Callout type="important">
+  Ative as referências de documentos para casos que exigem transparência, como jurídico, compliance ou conteúdo interno onde os usuários precisam verificar as fontes.
+</Callout>
+
+### Suporte a Idiomas
+
+Seu agent detecta automaticamente o idioma de cada mensagem do usuário e responde no mesmo idioma — nenhuma configuração manual necessária. 176 idiomas são suportados nativamente, incluindo árabe, francês, alemão, espanhol, turco, chinês, japonês e mais.
+
+### Agent Persona
+
+As instruções que controlam o comportamento do agent. Veja [Agent Personas](/pt/agents/agent-personas) para boas práticas.
+
+**Ações disponíveis:**
+- **Generate** — Abre o [Agent Persona Builder](/pt/agents/persona-builder)
+- **Edit** — Abre um painel deslizante para escrever ou modificar a persona diretamente
+
+Clique na área de texto da persona para abrir o painel de edição.
+
+**Caixa de Platform Rules:**
+Clique para ver as regras de confiabilidade da plataforma que são aplicadas automaticamente a todos os agents:
+- Sem fabricação — não inventa fatos
+- Reconhece lacunas — diz "Não sei" quando apropriado
+- Resiste à especulação — não adivinha informações ausentes
+- Sem impersonação profissional — não se faz passar por advogados, médicos, etc.
+- Corrige premissas falsas — aponta suposições incorretas
+- Bloqueia conteúdo prejudicial — recusa solicitações inadequadas
+
+<Callout type="info">
+  As Platform Rules garantem que todos os agents se comportem de forma confiável e segura. Elas não podem ser desativadas ou modificadas.
+</Callout>
+
+## Aba Knowledge Access
+
+Controle quais documentos seu agent pode acessar ao responder consultas.
+
+### Modos de Acesso
+
+| Modo | Comportamento | Quando Usar |
+|------|---------------|-------------|
+| **Exclude Mode** | O agent acessa TODOS os documentos EXCETO os selecionados | Ocultar documentos sensíveis permitindo acesso a todo o resto |
+| **Include Mode** | O agent acessa APENAS os itens selecionados | Restringir o agent a um conjunto específico de documentos |
+
+### Opções de Seleção
+
+Ajuste o acesso usando múltiplos tipos de seleção:
+
+- **Folders** — Selecione pastas inteiras e todos os documentos dentro delas
+- **Tags** — Filtre documentos por tags atribuídas
+- **Individual Documents** — Inclua ou exclua documentos específicos dentro das pastas selecionadas
+
+### Pré-visualização de Acesso
+
+O painel de pré-visualização mostra o acesso efetivo aos documentos com base nas suas seleções atuais. Use isso para verificar sua configuração antes de salvar.
+
+<Callout type="info">
+  Comece com **Exclude Mode** se quiser acesso amplo com restrições específicas. Use **Include Mode** quando precisar de controle rigoroso sobre exatamente quais documentos o agent pode referenciar.
+</Callout>
+
+## Aba Integrations
+
+Conecte seu agent a canais de comunicação.
+
+Esta aba mostra as opções de integração disponíveis para seu agent. Você pode conectar canais como:
+- Telegram
+- Discord
+- Slack
+- WhatsApp
+- Meta (Facebook Messenger)
+- E mais (com base no seu plano)
+
+Veja a [documentação de Integrações](/integrations) para guias detalhados de configuração de cada canal.
+
+## Human Handoff
+
+Ative o chat ao vivo para que seu agent de AI possa transferir conversas para um humano real quando os usuários solicitarem.
+
+**Como ativar:**
+
+1. Na aba **Configuration**, role até a seção **Human Handoff**
+2. Ative **Enable Human Handoff**
+3. Configure as mensagens:
+   - **Handoff Message** — Exibida ao usuário quando a transferência começa
+   - **Resolve Message** — Exibida quando o agente humano encerra a conversa
+   - **Max Wait Time** — Expira automaticamente se nenhum agente aceitar (padrão: 30 minutos)
+4. Clique em **Save Changes**
+
+Quando um usuário pede para falar com um humano, a AI cria uma solicitação de handoff visível na página **Inbox**. Um membro da equipe aceita, conversa com o usuário no canal dele, e resolve quando terminar.
+
+<Callout type="info">
+  Human Handoff está disponível em todos os planos. Ative por agent na aba Configuration.
+</Callout>
+
+## Testando Seu Agent
+
+Antes de salvar alterações, você pode testar seu agent:
+
+1. Clique no botão **Test Agent** na parte inferior do formulário
+2. O painel do Playground abre deslizando
+3. Tenha uma conversa de teste com seu agent
+4. Feche o Playground quando terminar
+
+<Callout type="info">
+  O botão Test Agent fica desativado quando o status do agent é Archived ou Inactive. Mude o status para Active ou Testing para ativar os testes.
+</Callout>
+
+## Salvando Alterações
+
+| Botão | Ação |
+|-------|------|
+| **Save Changes** | Salvar todas as modificações |
+| **Test Agent** | Abrir o Playground para testar |
+
+Para descartar alterações, navegue para fora usando o botão voltar ou a barra lateral.
+
+**O que é salvo:**
+- Apenas os campos alterados são atualizados
+- Você verá "No changes to save" se nada foi modificado
+- Mensagens de sucesso ou erro aparecem após salvar
+
+**Tratamento de Salvamento Parcial:**
+Se algumas alterações são salvas mas outras falham, você será notificado sobre quais seções falharam e a página será atualizada para mostrar o estado atual.
+
+<Callout type="info">
+  Alterações nas configurações do agent entram em vigor imediatamente após salvar. Teste no Playground após fazer alterações.
+</Callout>

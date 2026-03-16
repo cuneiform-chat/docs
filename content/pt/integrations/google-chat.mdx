@@ -1,0 +1,286 @@
+# Integração com Google Chat
+
+Conecte seu agent ao Google Chat para comunicação integrada no Google Workspace.
+
+## Visão Geral
+
+A integração com Google Chat oferece:
+- Mensagens diretas com seu bot
+- Suporte a Spaces do Google Workspace com triggers de @menção
+- Roteamento de agent por Space — atribua agents diferentes a Spaces diferentes
+- Respostas em texto com memória de conversa e awareness de contexto do Space opt-in
+- Processamento assíncrono com confirmação instantânea
+- Segurança enterprise com isolamento baseado em domínio
+
+## Pré-requisitos
+
+- Um agent de AI ativo (criado na seção Agents)
+- Uma conta Google Workspace (contas pessoais do Gmail não são suportadas)
+- Um **domínio verificado** — verifique a propriedade do seu domínio em **Settings > Domains** antes de conectar
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  A integração com Google Chat requer uma conta Google Workspace e um domínio verificado. Contas pessoais do Gmail não podem instalar apps customizados de Chat. Se sua organização não usa Google Workspace, a seção Google Chat não aparecerá na página Integrations.
+</Callout>
+
+## Passos de Configuração
+
+### 1. Verifique Seu Domínio (Configuração Única)
+
+Antes de conectar o Google Chat, verifique a propriedade do domínio:
+
+1. Vá até **Settings** na barra lateral
+2. Clique na aba **Domains**
+3. Seu domínio é detectado automaticamente pelo email da sua conta
+4. Adicione um **registro TXT** no seu provedor DNS com os valores mostrados:
+   - **Type:** TXT
+   - **Name:** `_cuneiform-verify` (ou o valor completo mostrado)
+   - **Content:** A string de verificação exibida (ex.: `cuneiform-verify=abc123...`)
+5. Clique em **Verify Now** — mudanças de DNS podem levar até 48 horas para propagar
+6. Quando o status mudar para **Verified**, prossiga para criar a integração
+
+Links rápidos para provedores DNS comuns (Cloudflare, GoDaddy, Namecheap, Route 53, DigitalOcean, Hostinger) são mostrados no card de verificação.
+
+### 2. Crie a Integração Google Chat
+
+1. Vá até **Integrations** na barra lateral
+2. Em "Google Chat Bots", clique em **Connect Bot**
+3. Selecione o **Agent** que será o padrão para DMs e Spaces não vinculados
+4. Digite um **Bot Name** (para sua referência no painel de administração)
+5. Clique em **Connect Bot**
+6. Copie o **Verification Code** exibido (formato: `VERIFY-XXXXXX`)
+
+### 3. Complete a Verificação do Bot
+
+Após criar a integração, você receberá um código de verificação:
+
+1. Abra o Google Chat
+2. Clique em **Start a chat** → **Find apps**
+3. Pesquise pelo bot da plataforma
+4. Inicie uma mensagem direta com o bot
+5. Envie o código de verificação (ex.: `VERIFY-ABC123`)
+6. O bot confirmará: "Setup complete! Your workspace (yourdomain.com) is now connected. Send a message to start chatting!"
+
+O status da sua integração mudará de "Pending Verification" para "Active".
+
+<Callout type="warning">
+  Apenas usuários do seu domínio Google Workspace podem completar a verificação. Usuários de outros domínios ou contas pessoais do Gmail verão um erro.
+</Callout>
+
+## Usando o Bot
+
+### Mensagens Diretas
+
+Usuários podem iniciar uma conversa:
+
+1. Abra o Google Chat
+2. Clique em **Start a chat** → **Find apps**
+3. Pesquise pelo nome do seu bot
+4. Comece a conversar naturalmente — o bot responde a todas as mensagens em DMs
+
+DMs são sempre atendidas pelo **agent padrão**.
+
+### Em Spaces
+
+Adicione o bot a um Space:
+
+1. Abra o Space
+2. Clique no nome do Space → **Manage apps**
+3. Adicione seu bot
+4. Mencione o bot com `@Cuneiform Chat` para interagir — o bot só responde a @menções em Spaces
+
+<Callout type="info">
+  Quando o bot é adicionado a um Space pela primeira vez, ele envia uma mensagem de boas-vindas com os comandos disponíveis. Em DMs, ele envia uma introdução simples.
+</Callout>
+
+## Roteamento de Agent por Space
+
+Cada Space pode opcionalmente usar um agent diferente do padrão. Use estes comandos do bot em um Space (requer @menção):
+
+| Comando | Descrição |
+|---------|-----------|
+| `@Cuneiform Chat /set-agent <nome>` | Vincular este Space a um agent específico |
+| `@Cuneiform Chat /current-agent` | Mostrar qual agent atende este Space |
+| `@Cuneiform Chat /reset-agent` | Reverter o Space para o agent padrão |
+| `@Cuneiform Chat /connect` | (Apenas gerentes do Space) Ativar awareness do histórico de threads |
+
+**Como funciona o roteamento:**
+- **DMs** → sempre usam o agent padrão
+- **Space com agent customizado** → usa o agent atribuído
+- **Space sem agent customizado** → usa o agent padrão como fallback
+
+<Callout type="info">
+  Você pode ver os mapeamentos de Space-agent no painel de administração na seção "Space mappings" do card da integração.
+</Callout>
+
+## Awareness do Histórico de Threads
+
+Por padrão, o bot só vê a mensagem que fez @menção diretamente. Se membros da equipe enviam mensagens de contexto antes (em outras threads ou mais cedo no Space) e depois fazem @menção ao bot, ele não terá esse contexto — a menos que um gerente do Space execute `/connect`.
+
+### Como Funciona
+
+1. Um gerente do Space envia `@Cuneiform Chat /connect` no Space
+2. O bot envia um link de autorização único (expira em 10 minutos)
+3. O gerente clica no link e faz login com sua conta Google Workspace
+4. O bot agora pode ler mensagens enviadas no Space nos últimos 15 minutos antes de cada @menção
+
+Uma vez conectado, a cada @menção o bot automaticamente lê mensagens recentes do Space como contexto — entendendo o que a equipe estava discutindo antes de ser @mencionado.
+
+**Exemplo:** Membros da equipe postam "what are the pricing plans?" e "what's included in starter?" e depois fazem @menção ao bot com "can you help?" — o bot vê todas as três mensagens e responde com contexto completo.
+
+### Requisitos e Privacidade
+
+- Apenas **gerentes do Space** (não membros regulares) podem executar `/connect`
+- A autorização é por Space — cada Space precisa de seu próprio `/connect`
+- O token OAuth do Google do gerente do Space é criptografado e armazenado com segurança
+- Apenas mensagens visíveis para a conta daquele gerente são legíveis
+- Remover o bot de um Space automaticamente exclui o token armazenado
+
+### Reautorização
+
+Se o bot perder acesso (ex.: token revogado na sua conta Google), ele notificará o Space:
+
+> ⚠️ Thread history access has expired. A space manager should run /connect to restore it.
+
+Execute `/connect` novamente para restaurar o acesso.
+
+## Recursos
+
+### Respostas Assíncronas
+
+Quando você envia uma mensagem, o bot responde imediatamente com uma breve confirmação (ex.: "Working on it...") e então entrega a resposta completa quando o processamento é concluído. Isso tipicamente leva 3–8 segundos dependendo da complexidade da sua pergunta.
+
+### Memória de Conversa
+
+O bot lembra do contexto dentro de uma sessão, então você pode fazer perguntas de acompanhamento sem se repetir.
+
+**Awareness de contexto do Space (opt-in):** Após um gerente do Space executar `/connect`, o bot lê mensagens enviadas no Space nos últimos 15 minutos antes de cada @menção — então ele entende o que a equipe já estava discutindo sem você precisar repetir o contexto. Veja [Awareness do Histórico de Threads](#awareness-do-histrico-de-threads) para passos de configuração.
+
+### Fila de Mensagens
+
+Se você enviar mensagens adicionais enquanto o bot ainda está processando, elas são enfileiradas e incluídas na próxima resposta. Você verá uma mensagem como "I'm still working on your previous question. I'll include this in my next response."
+
+### Comando `/help`
+
+Digite `/help` ou `help` para ver instruções de uso, incluindo comandos de Space disponíveis.
+
+### Acesso Baseado em Domínio
+
+Apenas usuários do seu domínio Google Workspace podem interagir com seu bot, garantindo segurança de nível enterprise.
+
+### Respostas em Texto
+
+O bot responde apenas com mensagens de texto. Imagens, arquivos, botões interativos e anexos de cards não são suportados. Respostas são limitadas a aproximadamente 30.000 caracteres.
+
+## Gerenciando Sua Integração
+
+Cada card de integração exibe:
+- **Nome do bot** - O nome de exibição que você configurou
+- **Badge de status** - Active, Pending Verification ou Error
+- **Nome do domínio** - Seu domínio Google Workspace (após verificação)
+- **Agent padrão** - Dropdown para mudar o agent padrão (usado para DMs + Spaces não vinculados)
+- **Mapeamentos de Space** - Seção recolhível mostrando quais Spaces têm atribuições customizadas de agent
+- **Comandos de Space** - Seção recolhível mostrando comandos disponíveis do bot
+- **Última atividade** timestamp
+
+### Ações Disponíveis
+
+| Ação | Descrição |
+|------|-----------|
+| **Mudar agent padrão** | Use o dropdown para trocar qual agent atende DMs e Spaces não vinculados |
+| **Test Connection** | Verifica se a integração está funcionando (menu de três pontos) |
+| **Disconnect** | Remove esta integração (menu de três pontos) |
+
+## Solução de Problemas
+
+### Bot Não Aparece no Google Chat
+
+1. Certifique-se de que está usando uma conta Google Workspace (não Gmail pessoal)
+2. Pesquise pelo nome do bot em "Find apps"
+3. Aguarde alguns minutos para o app propagar
+
+### Seção Google Chat Não Visível
+
+1. Google Chat só aparece para organizações usando Google Workspace
+2. Se sua organização usa um provedor de email diferente (ex.: Microsoft 365), a seção é oculta
+3. O sistema detecta automaticamente seu provedor de email via registros MX
+
+### Problemas de Verificação de Domínio
+
+1. Mudanças de DNS podem levar até 48 horas para propagar — aguarde e tente **Verify Now** novamente
+2. Verifique se adicionou o registro TXT com os valores exatos mostrados em Settings > Domains
+3. Confirme que o registro está no domínio correto (ex.: `_cuneiform-verify.yourdomain.com`)
+4. Use os links rápidos de provedor DNS no card de verificação para fácil acesso
+
+### Código de Verificação Não Funciona
+
+1. Certifique-se de que está enviando o código do seu email Google Workspace
+2. Verifique se o código foi digitado exatamente como mostrado (incluindo o prefixo `VERIFY-`)
+3. Confirme que a integração ainda está em status "Pending Verification"
+4. Tente criar uma nova integração se o código expirou
+
+### Bot Diz "Working on it..." Mas Nenhuma Resposta Segue
+
+1. O bot processa mensagens de forma assíncrona — aguarde até 25 segundos para a resposta completa
+2. Se nenhuma resposta chegar, tente enviar sua mensagem novamente
+3. Verifique se o agent associado está configurado corretamente
+
+### Mensagens Não Sendo Processadas
+
+1. Confirme que seu workspace foi verificado (status deve ser "Active")
+2. Para Spaces, certifique-se de que está fazendo @menção ao bot
+3. Verifique se o agent associado está configurado corretamente
+
+### Mensagem "Organization hasn't connected"
+
+Isso significa que o bot não reconhece seu domínio Google Workspace:
+1. Seu admin ainda não criou a integração
+2. O domínio não foi verificado com um código de verificação
+3. Você está enviando mensagem de uma conta Gmail pessoal (não suportada)
+
+### `/set-agent` Diz Agent Não Encontrado
+
+1. Verifique o nome exato do agent no painel de administração (diferencia maiúsculas/minúsculas)
+2. Certifique-se de que o agent está em status "Active"
+3. Nomes de agents com espaços são suportados — digite o nome completo após `/set-agent`
+
+### `/connect` Diz "Only space managers can run /connect"
+
+Você deve ser um gerente do Space para executar `/connect`. Peça a um gerente do Space para executar o comando.
+
+### Link de Autorização `/connect` Expirou
+
+O link é válido por 10 minutos. Execute `@Cuneiform Chat /connect` novamente para obter um link novo.
+
+### Bot Diz "Thread history access has expired"
+
+Um gerente do Space precisa executar `@Cuneiform Chat /connect` novamente para reautorizar. Isso acontece quando o token OAuth do Google é revogado (ex.: nas configurações da conta Google).
+
+## Segurança
+
+- **Verificação de propriedade do domínio** — Registro TXT no DNS comprova que sua organização é dona do domínio antes de conectar
+- **Detecção de Google Workspace** — Verificação de registros MX confirma que seu domínio usa Google Workspace
+- **Isolamento baseado em domínio** — apenas usuários do Google Workspace da sua organização podem interagir com seu bot
+- **Verificação de webhook** — cada requisição recebida é validada contra o projeto Google Cloud da sua plataforma
+- **Códigos de verificação** são de uso único e vinculados ao seu domínio
+- Mensagens processadas por conexões seguras e criptografadas
+
+## Desconectando
+
+Para remover a integração com Google Chat:
+
+1. Vá até **Integrations** na barra lateral
+2. Encontre seu card de integração Google Chat
+3. Clique no menu de três pontos
+4. Selecione **Disconnect**
+
+## Notas Importantes
+
+- **Google Workspace obrigatório**: Contas pessoais do Gmail não podem usar esta integração. Se sua organização não usa Google Workspace, a seção Google Chat não aparecerá.
+- **Verificação de domínio obrigatória**: Verifique seu domínio em Settings > Domains antes de conectar o Google Chat.
+- **Uma integração por organização**: Cada organização pode ter uma integração Google Chat
+- **Apenas texto**: O bot não suporta imagens, arquivos ou botões interativos
+- **Gerenciado a nível de organização**: Google Chat é configurado na página Integrations, não por agent
+- **Roteamento de Space**: Use `/set-agent` em Spaces para atribuir agents especializados a equipes diferentes
+- **Agent padrão**: Mude o agent padrão a qualquer momento usando o dropdown — sem necessidade de desconectar

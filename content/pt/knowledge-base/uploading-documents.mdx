@@ -1,0 +1,126 @@
+# Enviar Documentos
+
+Envie documentos para seu conteúdo para que seus agents de AI possam usá-los para responder perguntas. Documentos são automaticamente processados e tornados pesquisáveis.
+
+## Como Chegar
+
+1. Faça login no Admin Panel
+2. Navegue até **Content** no menu lateral
+3. A área de upload é exibida no topo da página
+
+## Métodos de Upload
+
+### Upload de Arquivo Local
+
+1. **Arraste e solte** arquivos diretamente na área de upload, OU
+2. **Clique** na área de upload para abrir o navegador de arquivos
+3. Selecione um ou mais arquivos para enviar
+4. Os arquivos começam a ser enviados automaticamente com acompanhamento de progresso
+
+### Importação de Cloud Storage
+
+Importe arquivos diretamente dos seus provedores de cloud storage:
+
+| Provedor | Ícone | Como Usar |
+|----------|-------|-----------|
+| Google Drive | Ícone do Google Drive | Clique para abrir o seletor do Google Drive, selecione arquivos |
+| Dropbox | Ícone do Dropbox | Clique para abrir o seletor do Dropbox, selecione arquivos |
+| OneDrive | Ícone do OneDrive | Clique para abrir o seletor do OneDrive, selecione arquivos |
+| Box | Ícone do Box | Clique para abrir o seletor do Box, selecione arquivos |
+
+Após selecionar arquivos de qualquer provedor, eles são automaticamente importados para seu conteúdo.
+
+## Opções de Upload
+
+### Adicionando Tags
+
+Opcionalmente atribua tags aos documentos durante o upload:
+
+1. Clique em **+ Add Tags** antes de enviar
+2. Selecione tags no dropdown
+3. As tags selecionadas serão aplicadas a todos os documentos enviados
+
+## Tipos de Arquivo Suportados
+
+Os tipos de arquivo que você pode enviar dependem do seu plano. Formatos comuns incluem:
+
+- **Documentos:** PDF, DOCX, DOC, TXT, MD, RTF
+- **Apresentações:** PPTX, PPT
+- **Web/Dados:** HTML, HTM, JSON, XML
+
+Limites de tamanho de arquivo também variam por plano (mostrados na área de upload).
+
+Veja [Formatos Suportados](/pt/knowledge-base/supported-formats) para a lista completa.
+
+## Durante o Upload
+
+### Acompanhamento de Progresso
+
+- Cada arquivo mostra o progresso do upload com uma barra percentual
+- Velocidade de upload e tempo estimado restante são exibidos
+- Arquivos são processados um de cada vez
+
+### Opções de Cancelamento
+
+- **Cancelar arquivo individual:** Clique no X ao lado do arquivo
+- **Cancelar todos:** Clique em "Cancel All Pending" para parar o lote inteiro
+- Um aviso aparece se você tentar sair da página durante o upload
+
+## Status de Processamento
+
+Acompanhe o status dos documentos no Content:
+
+| Status | Significado |
+|--------|-------------|
+| Uploading | Documento está sendo enviado ao sistema |
+| Ready | Documento está processado e disponível para seus agents |
+| Processing | Documento está sendo analisado |
+| Queued | Aguardando para ser processado |
+| Retrying | Processamento está sendo refeito |
+| Failed | Processamento encontrou um erro (pode ser refeito) |
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  O tempo de processamento depende do tamanho e complexidade do documento. A maioria dos documentos é processada em poucos minutos.
+</Callout>
+
+## Após o Upload
+
+### Sucesso
+
+- Arquivos enviados com sucesso aparecem no seu navegador de documentos
+- Documentos são automaticamente processados para pesquisa
+- Você pode organizá-los em pastas ou adicionar tags
+
+### Tratamento de Duplicatas
+
+- O sistema detecta conteúdo duplicado automaticamente
+- Se um arquivo com conteúdo idêntico já existe, você verá um aviso
+- A localização do arquivo existente é mostrada na mensagem de erro
+
+### Tratamento de Erros
+
+- Se um arquivo falha ao ser enviado, uma mensagem de erro explica o motivo
+- Problemas comuns incluem arquivo muito grande ou formato não suportado
+- Você pode retentar arquivos individuais ou enviá-los novamente
+
+## Dicas
+
+- Envie múltiplos arquivos de uma vez para economizar tempo
+- Aplique tags durante o upload para manter os documentos organizados
+- Verifique os tipos de arquivo suportados mostrados na área de upload
+
+## Perguntas Comuns
+
+**P: Quantos arquivos posso enviar de uma vez?**
+R: Você pode selecionar múltiplos arquivos para upload em lote. Eles são processados um de cada vez com acompanhamento de progresso.
+
+**P: Por que meu arquivo foi rejeitado?**
+R: Verifique se o tipo de arquivo é suportado e se o tamanho está dentro dos limites (mostrados na área de upload). Alguns arquivos podem ser bloqueados por razões de segurança.
+
+**P: Quanto tempo leva o processamento?**
+R: O tempo de upload depende do tamanho do arquivo e da sua conexão. Após o upload, documentos são processados em segundo plano e se tornam pesquisáveis automaticamente.
+
+**P: Posso enviar para uma pasta específica?**
+R: Sim, você pode enviar diretamente para pastas usando o menu da pasta ou organizar documentos após o upload.

@@ -1,0 +1,82 @@
+# Métricas de Uso
+
+Acompanhe seu consumo de recursos e utilização de credits.
+
+## Visão Geral do Uso de Credits
+
+O dashboard de analíticas mostra o uso do seu ciclo de billing atual:
+
+- **Credits Used** — Credits da plataforma consumidos neste período
+- **Credits Remaining** — Credits disponíveis até o final do período
+- **Usage Percentage** — Barra de progresso visual do consumo
+
+## Métricas Principais
+
+### Volume de Consultas
+
+| Métrica | Descrição |
+|---------|-----------|
+| Total Queries | Execuções do agent de AI no período |
+| Conversations | Total de sessões de chat |
+| Unique Users | Usuários individuais que interagiram |
+
+### Distribuição
+
+Veja como o uso é distribuído:
+
+- **Por Agent** — Quais agents atendem mais consultas
+- **Por Channel** — Uso entre Telegram, Discord, Slack, WhatsApp, etc.
+
+## Tendências de Uso
+
+### Gráfico de Volume de Consultas
+
+O dashboard principal de analíticas exibe um gráfico de volume de consultas mostrando:
+- Consultas ao longo do tempo
+- Granularidade configurável (por hora, diário, semanal, mensal)
+- Seleção de período
+
+### Gráficos de Distribuição
+
+Gráficos de pizza mostrando:
+- Distribuição por canal — Percentual de consultas por plataforma
+- Distribuição por agent — Percentual de consultas por agent
+
+## Monitoramento de Credits
+
+### Período Atual
+
+Veja o status do seu ciclo de billing:
+- Datas de início e fim do período
+- Credits usados vs. alocados
+- Percentual consumido
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Credits são resetados no início de cada período de billing. Verifique a seção **Billing** para as datas do seu ciclo.
+</Callout>
+
+## Avisos de Uso
+
+A página **Billing** exibe banners de aviso automáticos quando:
+
+- **Aproximando do limite** — Você usou a maior parte da sua cota mensal
+- **Limite atingido** — Cota mensal esgotada
+- **Bloqueado** — Saldo de uso extra também esgotado
+
+Estes avisos aparecem em **Billing & Plans** para ajudá-lo a agir antes que o serviço seja afetado.
+
+## Dicas de Otimização
+
+### Reduzir Uso de Consultas
+
+- Melhore as personas dos agents para maior precisão na primeira resposta
+- Adicione conteúdo de FAQ para reduzir perguntas de acompanhamento
+- Otimize o conteúdo para recuperação mais rápida
+
+### Monitorar Áreas de Alto Uso
+
+- Verifique quais agents consomem mais credits
+- Identifique canais com maior volume
+- Revise conversas que usam mais tokens

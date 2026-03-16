@@ -1,0 +1,94 @@
+# Teste Seu Agent
+
+Antes de implantar seu agent, use o Playground para testar suas respostas e ajustar seu comportamento.
+
+## Acessando o Playground
+
+1. Navegue até **Agents** na barra lateral
+2. Clique em **Test** no card do seu agent
+3. O Playground abre como um painel lateral — comece a conversar!
+
+Use o botão de alternar na barra lateral para ocultar a lista de conversas e ter mais espaço. Pressione **Shift+Enter** para adicionar novas linhas sem enviar.
+
+## Testando Seu Agent
+
+### Faça Perguntas de Exemplo
+
+Tente perguntas que seus usuários fariam:
+
+- Perguntas diretamente respondidas pelos seus documentos
+- Perguntas de acompanhamento que requerem contexto
+- Casos extremos e consultas ambíguas
+- Perguntas fora do seu conteúdo (para testar limites)
+
+### Avalie as Respostas
+
+Para cada resposta, considere:
+
+- **Precisão** — A informação está correta?
+- **Relevância** — Responde a pergunta real?
+- **Tom** — Corresponde ao estilo esperado?
+- **Fontes** — As referências de documentos são úteis?
+
+## Refinando Seu Agent
+
+Com base nos testes, você pode querer ajustar:
+
+### Persona do Agent
+
+Se as respostas não estiverem adequadas, refine a persona do agent:
+
+- Adicione instruções específicas para cenários comuns
+- Clarifique o tom e a personalidade
+- Defina limites para o que o agent deve e não deve fazer
+
+### Conteúdo
+
+Se o agent não consegue encontrar informações:
+
+- Verifique se os documentos relevantes foram enviados
+- Confirme que os documentos foram processados com sucesso
+- Considere adicionar conteúdo mais detalhado
+
+import { Callout } from 'nextra/components'
+
+<Callout type="important">
+  Mantenha uma lista de perguntas de teste e respostas esperadas. Execute esses testes novamente após fazer alterações para garantir que melhorias não quebrem outros comportamentos.
+</Callout>
+
+## Histórico de Conversas
+
+O Playground mantém o histórico de conversas dentro de uma sessão. Use isso para testar:
+
+- Conversas com múltiplas interações
+- Retenção de contexto
+- Perguntas de acompanhamento
+
+Enquanto o agent responde, você verá indicadores de ferramentas mostrando o que ele está fazendo (pesquisando documentos, processando sua consulta, etc.). Clique em **Stop** se precisar cancelar uma resposta.
+
+## Ativando Seu Agent
+
+Novos agents começam com status **Testing** — você pode testar no Playground, mas as integrações com canais ficam desativadas.
+
+Para ativar integrações:
+
+1. Abra a página de edição do seu agent
+2. Altere o dropdown **Status** de "Testing" para "Active"
+3. Clique em **Save**
+
+Uma vez ativo, você pode implantar em vários canais:
+
+- [Telegram](/integrations/telegram) — Conecte ao Telegram
+- [Discord](/integrations/discord) — Adicione ao seu servidor Discord
+- [Slack](/integrations/slack) — Integre com workspaces do Slack
+- [WhatsApp](/integrations/whatsapp) — Conecte ao WhatsApp Business
+- [Messenger](/integrations/facebook) — Conecte ao Facebook Messenger
+- [Google Chat](/integrations/google-chat) — Integre com o Google Workspace
+
+## Próximos Passos
+
+Parabéns! Você criou e testou seu primeiro agent do Cuneiform Chat. Explore as seguintes seções para saber mais:
+
+- [Configuração de Agents](/agents/configuring) — Configurações avançadas de agents
+- [Gerenciamento de Conteúdo](/knowledge-base) — Dicas de organização de documentos
+- [Integrações](/integrations) — Implante em múltiplos canais

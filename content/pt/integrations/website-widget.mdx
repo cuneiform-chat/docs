@@ -1,0 +1,161 @@
+# Widget para Sites
+
+Incorpore um widget de chat com AI diretamente no seu website. Visitantes obtêm respostas instantâneas do seu agent de AI sem sair do seu site.
+
+## Visão Geral
+
+O Website Widget oferece:
+- Bolha de chat flutuante no seu website
+- Respostas de AI em streaming em tempo real
+- Aparência personalizável (cores, posição, mensagens)
+- Menos de 11KB gzipped — impacto quase zero no desempenho
+- Allowlisting de domínios para segurança
+
+## Pré-requisitos
+
+- Um agent de AI ativo no seu painel de administração
+- Acesso ao HTML do seu website (para colar uma tag script)
+
+## Passos de Configuração
+
+### 1. Crie um Widget
+
+1. Vá até **Integrations** na barra lateral
+2. Role até a seção **Website Widget**
+3. Clique em **Create Widget**
+4. Digite um nome e selecione o agent de AI
+5. Clique em **Create**
+
+### 2. Personalize a Aparência
+
+Clique no card do widget para abrir o painel de edição:
+
+- **Primary Color** — Cor da bolha de chat e do cabeçalho
+- **Text Color** — Texto na bolha e no cabeçalho
+- **Position** — Inferior direito ou inferior esquerdo
+- **Welcome Message** — Primeira mensagem que os visitantes veem
+- **Suggested Questions** — Até 4 perguntas clicáveis iniciais
+- **Avatar URL** — Imagem personalizada no cabeçalho do chat
+- **Border Radius** — Arredondamento dos cantos
+
+Uma pré-visualização ao vivo atualiza conforme você faz alterações.
+
+### 3. Defina Domínios Permitidos (Recomendado)
+
+Restrinja quais websites podem incorporar seu widget:
+
+- Deixe vazio para permitir todos os domínios (padrão)
+- Adicione domínios específicos: `example.com`, `*.example.com`
+- Use entradas de porta para desenvolvimento: `localhost:3000`
+
+### 4. Incorpore no Seu Website
+
+Clique no ícone de incorporação no card do widget e copie o código:
+
+```html
+<script src="https://core-api.cuneiform.chat/api/widget/widget.js"
+  data-widget-id="your-widget-id" async></script>
+```
+
+Cole antes da tag de fechamento `</body>` no seu website.
+
+## Como Funciona
+
+```
+Visitante abre seu website
+  → Bolha de chat aparece no canto
+  → Visitante clica → Painel de chat abre
+  → Welcome message + suggested questions exibidas
+  → Visitante digita uma pergunta
+  → Agent de AI pesquisa seu conteúdo
+  → Resposta chega em streaming em tempo real
+```
+
+Mensagens são processadas em tempo real. O agent pesquisa seu conteúdo e gera respostas usando o mesmo pipeline de AI de todos os outros canais.
+
+## Recursos
+
+### Respostas em Streaming
+
+Respostas chegam em streaming em tempo real usando Server-Sent Events (SSE). Visitantes veem a resposta aparecer progressivamente, similar ao ChatGPT.
+
+### Persistência de Sessão
+
+Visitantes que retornam no mesmo navegador retomam sua conversa anterior dentro de uma janela de 24 horas. Sessões são armazenadas no localStorage do navegador.
+
+### Perguntas Sugeridas
+
+Configure até 4 perguntas clicáveis que aparecem quando o chat abre. Ótimo para guiar visitantes em direção a tópicos comuns.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  O widget roda dentro de um Shadow DOM, então não interferirá com os estilos ou JavaScript do seu website.
+</Callout>
+
+### Renderização Markdown
+
+Respostas do agent suportam formatação markdown incluindo negrito, itálico, listas, blocos de código e links.
+
+## Gerenciando Widgets
+
+Na página Integrations, cada card de widget mostra:
+
+- Nome do widget e status
+- Agent atribuído
+- Ações de edição, código de incorporação e exclusão
+
+| Ação | Como |
+|------|------|
+| Editar configurações | Clique no card do widget |
+| Obter código de incorporação | Clique no ícone de incorporação |
+| Excluir | Menu de três pontos → Delete |
+
+## Segurança
+
+- **Isolamento Shadow DOM** — Widget é isolado da sua página
+- **Tokens de sessão HMAC** — Tokens assinados com expiração de 24 horas
+- **Allowlisting de domínios** — Restrinja quais sites podem incorporar seu widget
+- **Rate limiting** — 30 mensagens/minuto por sessão
+- **Sem acesso a dados** — Widget não pode ler ou modificar o conteúdo da sua página
+
+## Solução de Problemas
+
+### Widget não aparece
+
+1. Verifique se a tag script está antes de `</body>`, não em `<head>`
+2. Confirme que `data-widget-id` corresponde ao seu painel de administração
+3. Se o allowlisting de domínios está configurado, verifique se seu domínio está listado
+4. Verifique o console do navegador para erros
+
+### Widget não responde
+
+1. Certifique-se de que o agent atribuído está em status **Active**
+2. Verifique se o agent tem documentos no seu conteúdo
+3. Verifique a aba Network do navegador para requisições de API com falha
+
+### Problemas de aparência
+
+O widget usa isolamento Shadow DOM. O CSS da sua página não afetará o widget. Use a pré-visualização ao vivo do painel de edição para personalizar a aparência.
+
+## FAQ
+
+### Posso incorporar o widget em múltiplas páginas?
+
+Sim. Use o mesmo código de incorporação em cada página. O widget compartilha o estado da sessão entre páginas no mesmo domínio.
+
+### Funciona em mobile?
+
+Sim. O widget é totalmente responsivo e otimizado para navegadores mobile.
+
+### Posso remover o badge "Powered by"?
+
+O badge é obrigatório nos planos Trial e Starter. Faça upgrade para Professional ou superior para removê-lo.
+
+### Funciona com React/Next.js/Vue?
+
+Sim. O widget carrega como um script standalone e funciona com qualquer framework, incluindo single-page applications.
+
+### Qual é o limite de tamanho de mensagem?
+
+4.000 caracteres por mensagem.

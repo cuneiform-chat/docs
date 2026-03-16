@@ -1,0 +1,216 @@
+# Inbox e Human Handoff
+
+Quando seu agent de AI não consegue resolver completamente uma conversa, ele pode transferir o usuário para um membro da equipe humano. Isso se chama Human Handoff — conecta seu suporte com AI a pessoas reais quando elas são mais necessárias.
+
+import { Callout } from 'nextra/components'
+
+## Visão Geral
+
+Human Handoff oferece:
+- Transferência transparente do agent de AI para um membro da equipe humano
+- Chat em tempo real com usuários finais em qualquer canal conectado
+- Gerenciamento de fila com rastreamento de status
+- Notificações no app e por email quando usuários solicitam ajuda
+- Expiração automática se nenhum agente estiver disponível dentro do tempo configurado
+
+## Pré-requisitos
+
+- Um agent de AI ativo com Human Handoff ativado
+- Pelo menos um canal conectado (ou o Website Widget)
+- Um membro da equipe disponível para responder no painel de administração
+
+## Ativando Human Handoff
+
+Human Handoff é configurado por agent.
+
+1. Vá até **Agents** e clique no seu agent para editar
+2. Na aba **Configuration**, role até a seção **Human Handoff**
+3. Ative **Enable Human Handoff**
+4. Configure as definições:
+
+| Configuração | Descrição | Padrão |
+|--------------|-----------|--------|
+| **Handoff Message** | Exibida ao usuário quando a transferência começa | "I'm connecting you with a human agent. Please hold on." |
+| **Accept Message** | Enviada automaticamente quando um membro da equipe aceita o chat | "Hi! I'm {'{agent_name}'} from {'{org_name}'}. How can I help you?" |
+| **Resolve Message** | Exibida ao usuário quando o chat termina | "You're now back with the AI assistant. How can I help?" |
+| **Max Wait Time** | Expira automaticamente se ninguém aceitar (5, 10, 15, 30 ou 60 minutos) | 30 minutos |
+
+5. Clique em **Save Changes**
+
+<Callout type="info">
+  As mensagens suportam placeholders `{'{agent_name}'}` e `{'{org_name}'}` que são automaticamente substituídos pelos valores reais.
+</Callout>
+
+Para mais detalhes sobre configurações do agent, veja [Opções de Configuração](/pt/agents/configuring#human-handoff).
+
+## Como Funciona
+
+```
+Usuário pede para falar com um humano
+  → Agent de AI detecta a solicitação
+  → Handoff message exibida ao usuário
+  → Sessão aparece na fila do Inbox (status: Queued)
+  → Membros da equipe recebem notificação no app
+  → Se sem resposta em 3 min, email de lembrete enviado
+  → Membro da equipe abre o Inbox e clica em Accept
+  → Accept message enviada ao usuário
+  → Chat em tempo real entre usuário e membro da equipe
+  → Membro da equipe clica em Resolve quando terminar
+  → Resolve message enviada ao usuário
+  → Agent de AI retoma a conversa
+```
+
+Durante um handoff, o agent de AI pausa. Todas as mensagens do usuário são direcionadas diretamente ao membro da equipe humano. Quando resolvido, o agent de AI retoma automaticamente o atendimento da conversa.
+
+## Usando a Página Inbox
+
+Navegue até **Inbox** na barra lateral para ver a fila de handoff.
+
+### Estatísticas da Fila
+
+No topo da página você verá:
+
+- **Queued** — Número de usuários aguardando um membro da equipe
+- **Active** — Número de chats sendo atendidos no momento
+- **Agents online** — Quantos membros da equipe estão com a página Inbox aberta
+
+<Callout type="info">
+  Seu status online é rastreado automaticamente enquanto você tem a página Inbox aberta. Nenhuma ação manual de "ficar online" é necessária.
+</Callout>
+
+### Filtros
+
+Use o dropdown de filtro de status para visualizar sessões específicas:
+
+| Filtro | Mostra |
+|--------|--------|
+| Queued & Active | Conversas que precisam de atenção (padrão) |
+| Queued Only | Usuários aguardando alguém aceitar |
+| Active Only | Conversas sendo atendidas no momento |
+| Resolved | Conversas concluídas |
+| Expired | Sessões que expiraram |
+| All | Tudo |
+
+### Tabela da Fila
+
+Cada linha mostra o agent de AI que escalonou, o canal do usuário, status da sessão, motivo do escalonamento, tempo de espera e qual membro da equipe está atribuído (se houver).
+
+Clique em qualquer linha para abrir a página de detalhe do chat.
+
+## Aceitando e Conversando
+
+Quando você clica em uma sessão em fila, a página de detalhe do chat abre.
+
+### Aceitando uma Sessão
+
+Clique no botão verde **Accept** no cabeçalho. Isso:
+
+1. Muda o status da sessão de Queued para Active
+2. Envia a accept message ao usuário no canal dele
+3. Abre a entrada de mensagem para você começar a conversar
+
+<Callout type="warning">
+  Apenas um membro da equipe pode aceitar uma sessão. Uma vez aceita, ela é atribuída a você.
+</Callout>
+
+### Interface de Chat
+
+A página de detalhe do chat tem duas seções:
+
+**Painel de Chat (esquerda):**
+- Mensagens são agrupadas por remetente com estilos distintos:
+  - **Mensagens do usuário** (escuro) — à esquerda
+  - **Mensagens do bot de AI** (claro) — à direita
+  - **Mensagens do agente humano** (azul) — à direita, identificadas com seu nome
+- Digite na área de texto na parte inferior e pressione Enter para enviar
+- Mensagens são entregues em tempo real no canal do usuário
+
+**Barra Lateral de Contexto (direita, apenas desktop):**
+- **Timeline** — Timestamps de criação, aceitação e resolução com timer de espera ao vivo
+- **Session** — Status, canal, contagem de mensagens, agente atribuído
+- **Participants** — Usuário final, agent de AI e agente humano
+- **Escalation Reason** — Por que a AI decidiu fazer o handoff (se fornecido)
+
+## Resolvendo Sessões
+
+Quando você resolveu o problema do usuário:
+
+1. Clique no botão **Resolve** no cabeçalho
+2. Um diálogo de confirmação aparece
+3. Opcionalmente adicione uma **nota interna** (não exibida ao usuário — para registros da sua equipe)
+4. Clique em **Resolve** para confirmar
+
+Após resolver:
+- A resolve message é enviada ao usuário
+- A conversa retorna ao agent de AI
+- A sessão muda para status Resolved
+
+## O Que Acontece Quando Ninguém Está Disponível
+
+Se nenhum membro da equipe aceitar dentro do **Max Wait Time** configurado:
+
+1. O status da sessão muda para **Expired**
+2. O usuário recebe uma mensagem de que nenhum agente está disponível
+3. A conversa retorna automaticamente ao agent de AI
+
+<Callout type="important">
+  Defina o Max Wait Time com base na disponibilidade da sua equipe. Se você tem equipe limitada, um tempo menor (5–10 minutos) é melhor do que deixar os usuários esperando.
+</Callout>
+
+## Notificações
+
+### Notificações no App
+
+Quando um usuário solicita um agente humano, todos os membros da equipe na sua organization recebem uma notificação no app pelo sino de notificações no cabeçalho do painel de administração.
+
+### Lembretes por Email
+
+Se uma sessão de handoff permanece em fila por **3 minutos** sem ser aceita, um lembrete por email é enviado a todos os membros da equipe na sua organization. Isso garante que alguém seja notificado mesmo que não esteja no painel de administração no momento.
+
+## Canais Suportados
+
+Human Handoff funciona com todos os canais conectados:
+
+| Canal | Método de Entrega |
+|-------|-------------------|
+| Telegram | Mensagens enviadas via bot |
+| Discord | Mensagens enviadas no canal |
+| Slack | Mensagens enviadas no canal |
+| WhatsApp | Mensagens enviadas via API |
+| Meta (Facebook Messenger) | Mensagens enviadas via página |
+| Google Chat | Mensagens enviadas no space |
+| Website Widget | Mensagens aparecem no widget de chat |
+
+<Callout type="info">
+  No Website Widget, mensagens são entregues via streaming em tempo real. Em todos os outros canais, mensagens são enviadas diretamente pela API do canal.
+</Callout>
+
+## FAQ
+
+### Quais planos incluem Human Handoff?
+
+Human Handoff está disponível em todos os planos, incluindo Trial. Ative por agent na aba Configuration.
+
+### Múltiplos membros da equipe podem atender handoffs?
+
+Sim. Qualquer membro da equipe na sua organization pode aceitar sessões em fila. O contador "Agents online" mostra quantos membros da equipe estão com a página Inbox aberta no momento.
+
+### E se eu fechar o navegador durante um chat ativo?
+
+A sessão permanece Active. Quando você retornar à página Inbox, pode continuar a conversa de onde parou.
+
+### O usuário sabe que está falando com um humano?
+
+O usuário recebe a accept message configurada quando você entra. Além disso, a experiência depende de como você escreveu as mensagens de handoff e do seu estilo de conversa.
+
+### A AI vê as mensagens do agente humano?
+
+As mensagens do agente humano são armazenadas no histórico da conversa. Quando a AI retoma após a resolução, ela tem contexto da troca durante o handoff.
+
+### Posso revisar sessões de handoff anteriores?
+
+Sim. Use o filtro de status na página Inbox para ver sessões **Resolved** ou **Expired**. Clique em qualquer sessão para revisar a conversa completa.
+
+### O que faz a AI iniciar um handoff?
+
+O agent de AI decide escalonar quando um usuário pede explicitamente para falar com um humano (ex.: "Posso falar com uma pessoa real?"). A AI usa uma verificação de classificação para confirmar que o usuário genuinamente quer um humano antes de criar o handoff.

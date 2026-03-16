@@ -1,0 +1,78 @@
+# Adicionar Conteúdo
+
+O conhecimento do seu chatbot vem do conteúdo que você fornece. Este guia mostra como fazer upload de documentos e crawl de websites para construir seu conteúdo.
+
+## Acessando o Conteúdo
+
+1. Faça login no dashboard do Cuneiform Chat
+2. Navegue até **Content** na barra lateral
+3. Clique em **Upload Documents** ou arraste e solte arquivos
+
+## Tipos de Arquivo Suportados
+
+O Cuneiform Chat suporta uma ampla variedade de formatos de documentos:
+
+| Formato | Extensões | Notas |
+|---------|-----------|-------|
+| PDF | `.pdf` | Baseado em texto e digitalizado (OCR) |
+| Word | `.docx`, `.doc` | Documentos Microsoft Word |
+| Texto | `.txt`, `.md`, `.rtf` | Texto simples, Markdown, Rich Text |
+| PowerPoint | `.pptx`, `.ppt` | Slides de apresentação |
+| Web/Dados | `.html`, `.htm`, `.json`, `.xml` | Páginas web e dados estruturados |
+
+## Métodos de Upload
+
+### Upload Direto
+
+1. Clique em **Upload Documents**
+2. Selecione arquivos do seu computador
+3. Aguarde o processamento ser concluído
+
+### Arrastar e Soltar
+
+Simplesmente arraste arquivos do seu computador e solte na área de Content.
+
+### Cloud Storage
+
+Conecte seu cloud storage para importações integradas:
+
+- **Google Drive** — Importe diretamente do seu Drive
+- **Dropbox** — Conecte sua conta Dropbox
+- **OneDrive** — Importe do Microsoft OneDrive
+- **Box** — Conecte sua conta Box
+
+Veja [Integração com Cloud Storage](/knowledge-base/cloud-storage) para instruções de configuração.
+
+### Website Crawling
+
+Faça crawl de websites públicos e importe o conteúdo como documentos:
+
+1. Navegue até **Content** e clique na aba **Website**
+2. Digite uma URL e clique em **Crawl**
+3. Revise e edite as páginas coletadas
+4. Selecione as páginas e clique em **Process Selected**
+
+O crawler segue links até 2 níveis de profundidade. O número de páginas que você pode coletar depende do seu [plano](/billing/plans).
+
+Veja [Website Crawling](/knowledge-base/website-crawling) para o guia completo.
+
+## Processamento de Documentos
+
+Após o upload ou crawl, seu conteúdo é automaticamente processado e tornado pesquisável pelos seus agents.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  O tempo de processamento depende do tamanho e complexidade do documento. A maioria dos documentos é processada em poucos minutos. O sistema detecta automaticamente conteúdo duplicado para evitar uploads redundantes.
+</Callout>
+
+## Boas Práticas
+
+- **Qualidade acima de quantidade** — Documentos bem estruturados produzem respostas melhores
+- **Mantenha o conteúdo atualizado** — Remova documentos desatualizados para evitar confusão
+- **Organize com pastas** — Use a estrutura de pastas para manter os documentos organizados
+- **Colete seletivamente** — Revise e edite páginas coletadas antes de processar para remover navegação e conteúdo repetitivo
+
+## Próximo Passo
+
+Com os documentos enviados, você está pronto para [criar seu primeiro agent](/pt/getting-started/first-agent).

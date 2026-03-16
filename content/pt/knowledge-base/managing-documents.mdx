@@ -1,0 +1,142 @@
+# Gerenciar Documentos
+
+Aprenda como organizar, atualizar e manter os documentos do seu conteúdo. Isso inclui visualizar documentos, organizar com pastas, atualizar conteúdo e realizar operações em lote.
+
+## Como Chegar
+
+1. Clique em **Content** na barra lateral
+2. Veja todos os seus documentos na lista
+
+## Visualizando Documentos
+
+Acesse seus documentos na seção Content:
+
+- Veja todos os documentos em uma lista
+- Acompanhe o status de processamento de cada documento
+- Verifique quando os documentos foram adicionados ou atualizados
+
+### Detalhes do Documento
+
+Clique em qualquer documento para ver:
+
+| Informação | Descrição |
+|------------|-----------|
+| **Informações do arquivo** | Nome, tamanho, formato, data de upload |
+| **Status de processamento** | Estado atual no pipeline |
+| **Contagem de chunks** | Número de segmentos pesquisáveis criados |
+
+## Organizando Documentos
+
+### Usando Pastas
+
+Crie pastas para organizar documentos relacionados:
+
+1. Clique no botão **New Folder** (ícone de pasta com sinal de mais)
+2. Digite um nome para a pasta
+3. Clique em **Create**
+
+Organização sugerida:
+- Por tópico (Products, Policies, FAQs)
+- Por departamento (Sales, Support, HR)
+- Por tipo de documento (Guides, References, Tutorials)
+
+### Movendo Documentos
+
+Mova documentos entre pastas:
+
+1. Clique no menu do documento (⋮)
+2. Selecione **Move to Folder**
+3. Escolha a pasta de destino
+
+### Usando Tags
+
+Adicione tags aos documentos para categorização flexível:
+
+1. Clique no menu do documento (⋮)
+2. Selecione **Manage Tags**
+3. Adicione ou remova tags conforme necessário
+
+Tags funcionam junto com pastas — use pastas para organização principal e tags para categorias transversais.
+
+## Atualizando Documentos
+
+### Reprocessar um Documento com Falha
+
+Se um documento falha ao processar, você pode retentar:
+
+1. Clique no menu do documento (⋮)
+2. Selecione **Reprocess**
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  A opção Reprocess só aparece para documentos com status "Failed".
+</Callout>
+
+### Substituindo Conteúdo
+
+Para atualizar o conteúdo de um documento, exclua a versão antiga e envie o novo arquivo. O documento será processado automaticamente.
+
+## Excluindo Documentos
+
+Remova documentos que você não precisa mais:
+
+1. Clique no menu do documento (⋮)
+2. Selecione **Delete**
+3. Confirme a exclusão
+
+<Callout type="warning">
+  Documentos excluídos são permanentemente removidos e não podem ser recuperados. O conteúdo não será mais pesquisável pelos seus agents.
+</Callout>
+
+## Operações em Lote
+
+Gerencie múltiplos documentos de uma vez:
+
+1. Selecione múltiplos documentos usando checkboxes
+2. Use o menu de ação em lote:
+   - **Move to Folder** — Mova documentos selecionados para uma pasta
+   - **Reprocess Failed** — Retente o processamento de documentos com falha na seleção
+
+## Pesquisa e Filtro
+
+Encontre documentos específicos:
+
+| Recurso | Descrição |
+|---------|-----------|
+| **Search** | Pesquise por nome do documento |
+| **Filtrar por pasta** | Clique em uma pasta no navegador de documentos para ver seu conteúdo |
+| **Filtrar por tag** | Use o filtro de tags para mostrar documentos com tags específicas |
+
+Documentos são ordenados por data de upload (mais recentes primeiro).
+
+## Gerenciamento de Armazenamento
+
+Acompanhe o uso do seu armazenamento:
+
+1. Vá ao **Dashboard**
+2. Veja o card "Storage Used" mostrando uso atual e limite
+3. Exclua documentos desnecessários para liberar espaço
+
+## Dicas
+
+- Remova documentos desatualizados regularmente para manter seu conteúdo limpo
+- Use pastas e tags para organizar documentos para fácil recuperação
+- Verifique documentos com falha e reprocesse-os quando necessário
+- Para atualizar conteúdo, exclua o documento antigo e envie a nova versão
+- Use operações em lote para mover múltiplos documentos para pastas de uma vez
+- Exclua duplicatas para evitar confundir seus agents
+
+## Perguntas Comuns
+
+**P: Como atualizo o conteúdo de um documento?**
+R: Exclua o documento antigo e envie a nova versão. O novo documento será processado automaticamente.
+
+**P: Posso recuperar um documento excluído?**
+R: Não, documentos excluídos são permanentemente removidos e não podem ser recuperados. Certifique-se de ter um backup antes de excluir.
+
+**P: Como sei se um documento foi processado com sucesso?**
+R: Verifique a coluna de status de processamento. Documentos mostram **Ready** quando concluídos, ou **Failed** se houve um erro.
+
+**P: O que devo fazer se um documento falha ao processar?**
+R: Clique no menu do documento (⋮) e selecione **Reprocess**. Esta opção só aparece para documentos com falha. Se continuar falhando, verifique o formato e o tamanho do arquivo.

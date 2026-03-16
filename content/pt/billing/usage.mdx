@@ -1,0 +1,141 @@
+# Uso e Créditos
+
+Entenda como os credits funcionam e monitore seu consumo.
+
+## Sistema de Credits
+
+Cuneiform Chat usa credits (chamados Platform Credits) para medir o uso:
+- **AI queries** — Quando seus agents respondem perguntas
+- **Processamento de documentos** — Quando documentos são enviados e indexados
+- **Embeddings** — Geração de vetores para pesquisa
+
+## Como os Credits São Usados
+
+### AI Queries
+
+Cada vez que seu agent responde uma pergunta:
+- Credits são consumidos com base no modelo de AI usado
+- Respostas mais longas podem usar um pouco mais de credits
+- Consultas com falha não consomem credits
+
+### Processamento de Documentos
+
+Quando você envia documentos:
+- Credits são usados para extrair e processar conteúdo
+- Documentos maiores usam mais credits
+- Reprocessamento usa credits adicionais
+
+## Visualizando o Uso
+
+Acesse seu uso em **Billing & Plans** na barra lateral:
+
+- **Uso do período atual** — Credits usados neste ciclo de billing
+- **Credits restantes** — Credits disponíveis
+- **Percentual de uso** — Barra de progresso visual mostrando o consumo
+
+## Monitorando o Uso
+
+### Exibição de Uso
+
+A página de billing mostra:
+- Credits usados vs. alocados
+- Percentual de uso com barra de progresso visual
+- Indicador de status (normal, aviso, excedido, bloqueado)
+
+### Avisos de Uso
+
+A plataforma exibe avisos automaticamente conforme você se aproxima dos seus limites:
+
+| Limite | O Que Acontece |
+|--------|----------------|
+| ~80% usado | Banner de aviso aparece na página Billing |
+| 100% usado | Banner "Limit Reached" com prompt de upgrade |
+| Bloqueado | Serviço pausado até o próximo período ou upgrade |
+
+Estes avisos aparecem automaticamente — nenhuma configuração necessária.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="important">
+  Revise seu uso semanalmente para detectar picos inesperados cedo e otimizar conforme necessário.
+</Callout>
+
+## Otimizando o Uso de Credits
+
+### Agents Eficientes
+
+- Escreva personas claras para agents para respostas precisas na primeira tentativa
+
+### Gerenciamento Inteligente de Documentos
+
+- Envie apenas documentos necessários
+- Remova conteúdo desatualizado
+- Evite documentos duplicados
+
+### Padrões de Uso
+
+- Monitore quais agents usam mais credits
+- Identifique períodos de alto volume
+- Otimize com base nos padrões
+
+## O Que Acontece nos Limites
+
+### Aproximando dos Limites
+
+Conforme você se aproxima do seu limite de credits, banners de aviso aparecem na página Billing sugerindo upgrade ou habilitação de uso extra.
+
+### Excedendo os Limites
+
+Quando você excede sua cota mensal:
+- Um banner de aviso indica "Limit Reached"
+- Habilite **Extra Usage** para continuar sem esperar
+- Ou faça upgrade do seu plano para mais credits mensais
+
+### Estado Bloqueado
+
+Se o saldo de uso extra também for esgotado:
+- O serviço pausa até o próximo período de billing
+- Ou adicione fundos ao seu saldo de uso extra
+
+## Uso Extra
+
+Uso extra permite que você continue usando o serviço quando sua cota mensal acabar.
+
+### Habilitando Uso Extra
+
+1. Vá até **Billing & Plans**
+2. Encontre a seção **Extra Usage**
+3. Ative o toggle
+4. Complete a recarga inicial (mínimo $10)
+
+### Gerenciando Uso Extra
+
+Uma vez habilitado, você pode:
+
+- **Ver saldo** — Veja seus fundos de uso extra disponíveis
+- **Adicionar fundos** — Recarregue seu saldo ($10-$500 por transação)
+- **Definir limite de gasto** — Limite o gasto mensal de uso extra ($10-$500)
+
+### Como o Uso Extra Funciona
+
+- Cobranças são deduzidas do seu saldo de uso extra
+- O uso para quando você atinge seu limite de gasto
+- O saldo é mantido entre períodos de billing
+- Não pode ser desabilitado uma vez ativado (use o limite de gasto para controlar)
+
+<Callout type="info">
+  Uso extra está disponível apenas para planos pagos (Starter, Plus e Enterprise).
+</Callout>
+
+## Período de Billing
+
+- Credits são resetados no início de cada período de billing
+- Sua data de billing é mostrada nas configurações da conta
+- Credits não usados podem não acumular (verifique seu plano)
+
+## Dúvidas?
+
+Para perguntas sobre uso:
+- Revise a página [Planos e Preços](/pt/billing/plans)
+- Verifique [Gerenciar Assinatura](/pt/billing/manage-subscription) para upgrades
+- Contate o suporte para consultas de billing

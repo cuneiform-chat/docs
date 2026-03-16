@@ -1,0 +1,71 @@
+# Crie Seu Primeiro Agent
+
+Agents são os chatbots que interagem com seus usuários. Cada agent pode ser configurado com conhecimento, comportamento e personalidade específicos.
+
+## Criando um Agent
+
+1. Navegue até **Agents** na barra lateral
+2. Clique em **Create Agent**
+3. Preencha as informações básicas:
+   - **Name** — Um nome descritivo para seu agent (ex.: "Bot de Suporte ao Cliente")
+   - **Description** — O que este agent faz (para sua referência)
+
+## Configuração do Agent
+
+### Persona do Agent
+
+A persona do agent define a personalidade e o comportamento do seu agent. Esta é a instrução que guia como seu agent responde.
+
+Você pode escrever sua própria persona ou clicar em **Generate** para usar o Persona Builder com AI que cria uma baseada nos seus requisitos.
+
+**Exemplo:**
+```
+You are a helpful customer support assistant for Acme Corp.
+You answer questions about our products and services based on the provided documentation.
+Be friendly, professional, and concise.
+If you don't know the answer, say so rather than making something up.
+```
+
+### Regras da Plataforma
+
+Todos os agents incluem automaticamente proteções de segurança integradas:
+
+- Não inventa fatos, números ou datas
+- Diz "Não sei" quando a informação não está disponível
+- Não adivinha informações ausentes
+- Corrige suposições incorretas nas perguntas
+- Não se faz passar por profissionais (advogados, médicos, etc.)
+- Recusa conteúdo prejudicial ou inadequado
+
+Estas regras estão sempre ativas e não podem ser desativadas.
+
+### Controle de Acesso ao Conhecimento
+
+Controle quais documentos seu agent pode acessar:
+
+- **Exclude Mode** (padrão) — O agent acessa todos os documentos exceto os que você selecionar para ocultar
+- **Include Mode** — O agent acessa apenas as pastas, tags ou documentos específicos que você selecionar
+
+Use o Include Mode quando quiser restringir um agent a um conjunto específico de conhecimento.
+
+### Configuração de LLM
+
+Para a maioria dos usuários, as configurações padrão do modelo de AI funcionam bem. Usuários avançados podem personalizar:
+
+- **Model** — Escolha entre os modelos de AI disponíveis
+- **Temperature** — Menor = mais consistente, maior = mais criativo
+- **Show Document References** — Ative para incluir citações de fontes nas respostas
+
+## Salve Seu Agent
+
+Clique em **Create Agent** para salvar. Seu agent começa com status **Testing**, o que significa que você pode testá-lo no Playground, mas as integrações com canais ficam desativadas até que você o ative.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="important">
+  Seu rascunho é salvo automaticamente enquanto você trabalha. Se você sair e voltar, seu progresso será restaurado.
+</Callout>
+
+## Próximo Passo
+
+Seu agent foi criado! Agora vamos [testá-lo no Playground](/pt/getting-started/test-your-agent).

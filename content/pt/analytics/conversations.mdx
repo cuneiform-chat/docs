@@ -1,0 +1,142 @@
+# Analíticas de Conversas
+
+Acompanhe métricas de conversas e veja transcrições detalhadas dos seus agents e canais.
+
+## Visão Geral
+
+As analíticas de conversas fornecem:
+
+- Volume total de conversas
+- Conversas por agent
+- Conversas por canal
+- Transcrições completas de mensagens
+- Insights de conversas gerados por AI
+
+## Acessando Conversas
+
+### Pelo Dashboard
+
+1. Vá até **Analytics** na barra lateral
+2. Clique em **View All** nos cards Top Agents ou Top Channels
+3. Ou navegue diretamente até Conversations pelo menu de analíticas
+
+### Lista de Conversas
+
+Veja todas as conversas com:
+
+| Coluna | Descrição |
+|--------|-----------|
+| Title | Título da conversa ou ID da sessão |
+| Agent | Qual agent atendeu a conversa |
+| Channel | Plataforma (Telegram, Discord, Slack, etc.) |
+| Messages | Total de mensagens |
+| Last Active | Quando a conversa foi atualizada pela última vez |
+| Status | Active, archived ou deleted |
+
+## Filtrando Conversas
+
+Filtre a lista de conversas por:
+
+- **Agent** — Selecione um agent específico ou todos
+- **Channel** — Filtre por plataforma (WhatsApp, Telegram, Meta, Slack, Discord, Google Chat, Playground)
+- **Período** — Últimos 7, 14, 30 ou 90 dias
+
+## Detalhes da Conversa
+
+Clique em qualquer conversa para ver os detalhes completos:
+
+### Aba Overview
+
+- **Total Messages** — Contagem de mensagens na conversa
+- **Credits Spent** — Credits da plataforma usados
+- **Agent** — Qual agent atendeu a conversa
+- **Channel** — Plataforma onde ocorreu
+- **Created** — Quando a conversa começou
+- **Last Active** — Atividade mais recente
+
+### Gráfico de Atividade de Mensagens
+
+Visualize padrões de mensagens ao longo do tempo:
+- Alterne entre granularidade por hora e diária
+- Mostre/oculte mensagens do usuário e do assistente
+- Veja padrões de atividade da conversa
+
+### Aba Messages
+
+Veja a transcrição completa da conversa:
+
+- **Histórico completo de mensagens** — Veja cada mensagem da conversa
+- **Indicadores de papel** — Mensagens de User, Assistant, System e Tool são codificadas por cor
+- **Timestamps** — Quando cada mensagem foi enviada
+- **Uso de tokens** — Tokens de entrada/saída por mensagem (quando disponível)
+
+#### Filtragem de Mensagens
+
+Filtre mensagens por período:
+- Últimas 24 horas
+- Últimos 7 dias
+- Últimos 30 dias
+- Todas as mensagens
+
+#### Exportar
+
+Clique em **Export** para baixar a conversa como um arquivo JSON contendo:
+- Metadados da conversa
+- Todas as mensagens com timestamps
+- Informações de tokens
+
+## Insights Gerados por AI
+
+Gere resumos inteligentes de conversas:
+
+1. Navegue até a aba **Messages** de uma conversa
+2. Clique em **Generate Insights**
+3. Veja insights analisados por AI incluindo:
+   - **Key Points** — Principais tópicos discutidos
+   - **User Intents** — O que o usuário estava tentando alcançar
+   - **Key Info Shared** — Informações importantes trocadas
+   - **Suggested Actions** — Recomendações baseadas na conversa
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Gerar insights consome credits da sua conta. Os resultados são armazenados em cache para acesso mais rápido em visualizações subsequentes.
+</Callout>
+
+## Considerações de Privacidade
+
+Os dados de conversas são tratados de acordo com:
+
+- Requisitos da política de privacidade
+- Consentimento do usuário quando aplicável
+
+## Dicas
+
+- Use filtros para encontrar conversas de agents ou canais específicos
+- Exporte conversas importantes para registro ou análise
+- Gere insights de AI para entender rapidamente conversas longas
+- Verifique o gráfico de Atividade de Mensagens para identificar horários de pico
+- Revise transcrições de conversas para melhorar a persona do seu agent
+- Monitore credits gastos para acompanhar padrões de uso
+
+## Perguntas Comuns
+
+**P: Como encontro conversas de um canal específico?**
+
+Use o filtro Channel no topo da lista de conversas para selecionar uma plataforma específica como Telegram, Discord ou Slack.
+
+**P: Posso exportar múltiplas conversas de uma vez?**
+
+Atualmente, a exportação funciona uma conversa por vez. Exporte cada conversa individualmente pela aba Messages.
+
+**P: O que o "Generate Insights" faz?**
+
+Ele usa AI para analisar a conversa e fornecer um resumo incluindo pontos-chave, intenções do usuário, informações importantes compartilhadas e ações sugeridas.
+
+**P: Os insights de AI custam credits?**
+
+Sim, gerar insights consome credits da sua conta. No entanto, os resultados são armazenados em cache então visualizar os mesmos insights novamente é gratuito.
+
+**P: Por quanto tempo as conversas são armazenadas?**
+
+As conversas são armazenadas com segurança e ficam disponíveis para analíticas. Contate o suporte se tiver dúvidas sobre armazenamento de dados.

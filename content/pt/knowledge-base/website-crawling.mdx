@@ -1,0 +1,126 @@
+# Rastreamento de Sites
+
+import { Callout } from 'nextra/components'
+
+Faça crawl de websites públicos e adicione o conteúdo ao seu Content. O crawler visita páginas, extrai conteúdo como Markdown e permite que você revise e edite antes de processar.
+
+## Como Chegar
+
+Navegue até **Content** na barra lateral, depois clique na aba **Website**.
+
+## Como Fazer Crawl de um Website
+
+### Passo 1: Digite a URL
+
+Cole a URL do website no campo de entrada (ex.: `https://docs.example.com`). O crawler começará a partir desta página e seguirá links para descobrir mais páginas.
+
+### Passo 2: Configure as Opções
+
+| Opção | Padrão | Descrição |
+|-------|--------|-----------|
+| Target Folder | Sem pasta (raiz) | Selecione uma pasta de destino para documentos coletados |
+| Single page only | Desligado | Faça crawl apenas da URL digitada, não siga links |
+| Respect robots.txt | Ligado | Respeite as regras de crawling do robots.txt do site |
+
+### Passo 3: Iniciar o Crawl
+
+Clique em **Crawl** para começar. O crawler visita páginas a partir da sua URL e extrai o conteúdo.
+
+### Passo 4: Acompanhar o Progresso
+
+- Uma barra de progresso mostra páginas coletadas vs. o máximo do seu plano
+- Páginas aparecem em uma lista ao vivo conforme são descobertas
+- Clique em qualquer página para pré-visualizar seu conteúdo imediatamente
+- Use o botão **Cancel** para parar o crawl a qualquer momento
+
+<Callout type="info">
+  Apenas um crawl pode ser executado por vez por organization. Aguarde o crawl atual ser concluído ou cancele-o antes de iniciar outro.
+</Callout>
+
+## Revisando Páginas Coletadas
+
+Após o crawl ser concluído, você pode revisar e editar as páginas antes de adicioná-las ao seu Content.
+
+### Editar Conteúdo da Página
+
+1. Clique em qualquer página na lista para abrir o editor
+2. Edite o **título** e o **conteúdo markdown**
+3. Remova seções irrelevantes (menus de navegação, rodapés, barras laterais)
+4. Clique em **Save** para atualizar
+
+<Callout type="info">
+  Apenas páginas com status "Pending" podem ser editadas. Uma vez que o processamento começa, as páginas não podem ser alteradas.
+</Callout>
+
+### Selecionar e Processar Páginas
+
+1. Use checkboxes para selecionar páginas que deseja manter
+2. Use **Select All** para selecionar todas as páginas pendentes de uma vez
+3. Opcionalmente escolha uma pasta de destino
+4. Clique em **Process Selected**
+
+Após o processamento iniciar, você é automaticamente direcionado para a aba **Documents** onde os novos documentos aparecerão.
+
+## Referência de Status de Crawl
+
+| Status | Significado |
+|--------|-------------|
+| Pending | Crawl está na fila para iniciar |
+| Crawling | Visitando páginas ativamente |
+| Completed | Todas as páginas alcançáveis foram coletadas |
+| Partial | Algumas páginas foram coletadas, outras falharam |
+| Failed | Crawl não pôde ser concluído |
+| Cancelled | Parado por você |
+
+## Persistência de Sessão
+
+Sua sessão de crawl sobrevive à navegação e atualização da página:
+- Crawls ativos são restaurados automaticamente quando você retorna à aba Website
+- Crawls concluídos ficam disponíveis para revisão por até 1 hora
+
+## Dicas
+
+- Revise e edite conteúdo coletado antes de processar para melhorar a qualidade
+- Use "Single page only" para páginas individuais que deseja adicionar rapidamente
+- Mantenha "Respect robots.txt" ativado para respeitar as preferências do proprietário do site
+- Documentos coletados aparecem na aba Documents como arquivos Markdown (.md)
+
+## Perguntas Comuns
+
+**P: Quantas páginas posso coletar?**
+R: O número máximo de páginas depende do seu plano. O crawler segue links até 2 níveis de profundidade a partir da sua URL inicial.
+
+**P: Posso fazer crawl de páginas atrás de um login?**
+R: Não. O crawler só pode acessar páginas publicamente disponíveis. Páginas atrás de autenticação serão ignoradas.
+
+**P: Qual formato das páginas coletadas?**
+R: O conteúdo é extraído como documentos Markdown (.md) e processado pelo pipeline padrão (chunking, embedding e indexação de pesquisa).
+
+**P: Por que algumas páginas falharam?**
+R: Páginas podem falhar devido a proteção contra bots (firewalls como Cloudflare), erros do servidor ou conteúdo vazio. O crawl mostrará status "Partial".
+
+**P: Posso refazer o crawl do mesmo site?**
+R: Sim. Inicie um novo crawl com a mesma URL. Páginas coletadas anteriormente são substituídas quando um novo crawl começa.
+
+**P: Onde aparecem as páginas processadas?**
+R: Na aba **Documents** da página Content. Elas aparecem como arquivos Markdown (.md).
+
+## Solução de Problemas
+
+### Páginas Retornam Erros 403 ou 503
+
+O site pode estar bloqueando crawlers automatizados. Opções:
+- Peça ao proprietário do site para adicionar `CuneiformBot/1.0` à lista de permissões
+- Tente coletar uma página específica com "Single page only" ativado
+
+### Conteúdo Vazio ou Ilegível
+
+Alguns sites usam renderização pesada com JavaScript. O crawler suporta a maioria dos frameworks modernos, mas:
+- Single-page apps que requerem autenticação não funcionarão
+- Conteúdo carregado via scroll infinito pode ser parcialmente capturado
+
+### Crawl Parece Lento
+
+- Cada página leva alguns segundos para ser coletada (inclui renderização e rate limiting)
+- Sites maiores com muitas páginas levarão vários minutos
+- Você pode cancelar e retentar se um crawl parecer travado

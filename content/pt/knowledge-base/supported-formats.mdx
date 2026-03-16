@@ -1,0 +1,85 @@
+# Formatos Suportados
+
+Cuneiform Chat suporta uma ampla variedade de formatos de documentos.
+
+## Tipos de Documento
+
+### Documentos de Texto
+
+| Formato | Extensões | Notas |
+|---------|-----------|-------|
+| PDF | `.pdf` | Baseado em texto e digitalizado (com OCR) |
+| Microsoft Word | `.docx`, `.doc` | Suporte completo de formatação |
+| Texto Simples | `.txt` | Arquivos de texto simples |
+| Markdown | `.md` | Formatação Markdown preservada |
+| Rich Text | `.rtf` | Suporte básico de formatação |
+
+### Apresentações
+
+| Formato | Extensões | Notas |
+|---------|-----------|-------|
+| PowerPoint | `.pptx`, `.ppt` | Conteúdo dos slides extraído |
+
+### Conteúdo Web
+
+| Formato | Extensões | Notas |
+|---------|-----------|-------|
+| HTML | `.html`, `.htm` | Conteúdo de página web |
+
+### Formatos de Dados
+
+| Formato | Extensões | Notas |
+|---------|-----------|-------|
+| JSON | `.json` | Arquivos de dados estruturados |
+| XML | `.xml` | Documentos XML |
+
+## Notas por Formato
+
+### PDFs
+
+PDFs funcionam melhor quando são:
+- **Baseados em texto** — Criados a partir de documentos digitais
+- **Pesquisáveis** — O texto pode ser selecionado/copiado
+
+PDFs digitalizados são suportados mas podem ter extração de menor qualidade devido a limitações do OCR.
+
+### Documentos Word
+
+`.docx` (formato moderno) é recomendado sobre `.doc` (formato legado) para melhores resultados.
+
+Elementos suportados:
+- Texto e parágrafos
+- Títulos e estilos
+- Tabelas
+- Listas
+
+### Markdown
+
+A formatação Markdown é preservada durante o processamento:
+- Títulos se tornam marcadores de seção
+- Listas mantêm a estrutura
+- Blocos de código são reconhecidos
+
+## Formatos Não Suportados
+
+Os seguintes formatos não são suportados atualmente:
+- Imagens (`.jpg`, `.png`, `.gif`)
+- Arquivos de áudio (`.mp3`, `.wav`)
+- Arquivos de vídeo (`.mp4`, `.mov`)
+- Arquivos compactados (`.zip`, `.rar`)
+- Arquivos executáveis (`.exe`, `.app`)
+
+import { Callout } from 'nextra/components'
+
+<Callout type="important">
+  Se você tem conteúdo em um formato não suportado, tente convertê-lo para PDF ou um formato baseado em texto antes de enviar.
+</Callout>
+
+## Limites de Tamanho de Arquivo
+
+Tamanhos máximos de arquivo dependem do seu plano. Documentos muito grandes podem levar mais tempo para processar.
+
+Para melhor desempenho:
+- Divida documentos muito grandes em arquivos menores
+- Remova imagens desnecessárias de PDFs se não forem necessárias
+- Use formatos baseados em texto quando possível

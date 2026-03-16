@@ -1,0 +1,108 @@
+# Testar no Playground
+
+import { Callout } from 'nextra/components'
+
+O Playground é seu ambiente para testar e refinar agents antes da implantação.
+
+## Acessando o Playground
+
+1. Navegue até **Agents** na barra lateral
+2. Clique em **Test** no card do seu agent (ou **Test Agent** ao editar um agent)
+3. O Playground abre deslizando como um painel lateral — comece uma conversa
+
+<Callout type="info">
+  O botão Test fica desativado quando o status do agent é **Archived** ou **Inactive**. Mude o status para **Active** ou **Testing** para ativar os testes.
+</Callout>
+
+## O Que Testar
+
+### Funcionalidade Básica
+
+- O agent consegue responder perguntas dos seus documentos?
+- As respostas são precisas e relevantes?
+- O tom corresponde às suas expectativas?
+
+### Casos Extremos
+
+Teste cenários que podem confundir seu agent:
+
+- Perguntas não cobertas pelos seus documentos
+- Perguntas ambíguas ou pouco claras
+- Perguntas com múltiplas partes
+- Perguntas de acompanhamento que requerem contexto
+
+### Fluxo de Conversa
+
+Teste conversas com múltiplas interações:
+
+- O agent lembra do contexto de mensagens anteriores?
+- Ele consegue lidar com mudanças de tópico com naturalidade?
+- Ele pede esclarecimentos quando necessário?
+
+## Avaliando Respostas
+
+Para cada resposta, considere:
+
+| Aspecto | Perguntas a Fazer |
+|---------|-------------------|
+| **Precisão** | A informação está correta? |
+| **Relevância** | Responde a pergunta real? |
+| **Completude** | Falta algo importante? |
+| **Tom** | Corresponde à voz da sua marca? |
+| **Tamanho** | É apropriadamente conciso ou detalhado? |
+
+## Melhoria Iterativa
+
+### Identificar Problemas
+
+Problemas comuns e soluções:
+
+| Problema | Solução |
+|----------|---------|
+| Informação errada | Verifique o conteúdo dos documentos, melhore a recuperação |
+| Muito prolixo | Adicione "be concise" à agent persona |
+| Muito formal/casual | Ajuste o tom na agent persona |
+| Não sabe a resposta | Adicione documentos relevantes |
+| Inventa fatos | Reforce os limites no prompt |
+
+### Fazer Alterações
+
+1. Identifique o problema nos testes do Playground
+2. Ajuste as configurações relevantes (prompt, documentos, configuração)
+3. Teste novamente com as mesmas perguntas
+4. Verifique se a correção não quebrou outros comportamentos
+
+## Checklist de Cenários de Teste
+
+Crie um conjunto de perguntas de teste padrão:
+
+```markdown
+## Test Scenarios for [Agent Name]
+
+### Basic Questions
+- [ ] Q: "What is [product]?" — Expected: Clear description
+- [ ] Q: "How much does it cost?" — Expected: Pricing info
+
+### Edge Cases
+- [ ] Q: Random unrelated question — Expected: Polite redirect
+- [ ] Q: Competitor comparison — Expected: Stays on topic
+
+### Follow-ups
+- [ ] Q: Initial question, then "Tell me more" — Expected: Expands on previous answer
+```
+
+<Callout type="important">
+  Salve seus cenários de teste e execute-os novamente após fazer alterações para detectar regressões.
+</Callout>
+
+## Pronto para Implantação
+
+Seu agent está pronto quando:
+
+- ✅ Responde perguntas comuns com precisão
+- ✅ Lida com casos extremos com naturalidade
+- ✅ Mantém o tom apropriado
+- ✅ Respeita os limites definidos
+- ✅ Conversas com múltiplas interações funcionam bem
+
+Em seguida, implante seu agent nos [canais](/integrations) onde os usuários interagirão com ele.

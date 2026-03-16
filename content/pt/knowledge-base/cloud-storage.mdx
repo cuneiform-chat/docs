@@ -1,0 +1,131 @@
+# Integração com Cloud Storage
+
+import { Callout } from 'nextra/components'
+
+Importe documentos diretamente das suas contas de cloud storage. Conecte-se ao Google Drive, Dropbox, OneDrive ou Box para adicionar arquivos ao seu Content sem precisar baixá-los primeiro.
+
+## Como Chegar
+
+Navegue até **Content** na barra lateral. Os ícones de cloud storage aparecem no topo da página, ao lado da zona de upload.
+
+## Provedores Suportados
+
+| Provedor | Localização do Ícone | O Que Você Pode Importar |
+|----------|---------------------|--------------------------|
+| Google Drive | Linha de ícones de nuvem | Arquivos, Google Docs, Slides |
+| Dropbox | Linha de ícones de nuvem | Arquivos do seu Dropbox |
+| OneDrive | Linha de ícones de nuvem | Arquivos do seu OneDrive |
+| Box | Linha de ícones de nuvem | Arquivos da sua conta Box |
+
+## Como Importar Arquivos
+
+### Passo 1: Clique no Ícone do Provedor
+
+Clique no ícone do seu provedor de cloud storage. Você verá uma tooltip mostrando o nome do provedor ao passar o mouse.
+
+### Passo 2: Faça Login
+
+Você será solicitado a fazer login e autorizar o acesso. Essa autorização é mantida para sua sessão do navegador.
+
+### Passo 3: Selecione Arquivos
+
+Um seletor de arquivos abre mostrando o conteúdo do seu cloud storage:
+- Navegue pelas pastas para encontrar arquivos
+- Selecione múltiplos arquivos de uma vez
+- Apenas tipos de arquivo suportados são exibidos (com base no seu plano)
+
+### Passo 4: Importe
+
+Clique para confirmar sua seleção. Arquivos são colocados na fila para importação e o processamento começa automaticamente.
+
+## Opções de Importação
+
+Antes de importar, você pode configurar:
+
+| Opção | Descrição |
+|-------|-----------|
+| Premium Processing | Ative para melhor compreensão da AI (checkbox abaixo da área de upload) |
+| Target Folder | Envie diretamente para uma pasta clicando no ícone do provedor na linha da pasta |
+
+## Importando para uma Pasta Específica
+
+Você pode importar arquivos da nuvem diretamente em uma pasta:
+
+1. Encontre a pasta no seu navegador de documentos
+2. Passe o mouse sobre a linha da pasta
+3. Clique no ícone de cloud storage que aparece
+4. Selecione arquivos do seu cloud storage
+5. Arquivos são importados diretamente nessa pasta
+
+## Durante a Importação
+
+- Um indicador de progresso mostra o status da importação
+- Arquivos aparecem na sua lista de documentos conforme são processados
+- Você pode continuar trabalhando enquanto os arquivos são importados
+- Se duplicatas forem detectadas, você será notificado após a importação ser concluída
+
+## Arquivos do Google Workspace
+
+Google Drive suporta documentos nativos do Google Workspace:
+- **Google Docs** — Automaticamente convertidos para texto
+- **Google Slides** — Automaticamente convertidos para formato de apresentação
+
+<Callout type="info">
+  Formatação e gráficos não são preservados — apenas o conteúdo de texto é extraído.
+</Callout>
+
+## Permissões
+
+Cuneiform Chat solicita permissões mínimas:
+- Acesso somente leitura aos arquivos que você selecionar
+- Sem acesso de escrita ao seu cloud storage
+- Sem acesso a arquivos que você não selecionou explicitamente
+
+<Callout type="info">
+  Você pode revogar o acesso a qualquer momento através das configurações do seu provedor de nuvem.
+</Callout>
+
+## Comportamento de Sincronização
+
+Atualmente, importações de nuvem são **importações únicas**:
+- Arquivos são copiados no momento da importação
+- Alterações no cloud storage não são sincronizadas automaticamente
+- Para atualizar o conteúdo, reimporte os arquivos modificados
+
+## Dicas
+
+- Selecione múltiplos arquivos de uma vez para economizar tempo
+- Apenas tipos de arquivo suportados aparecem no seletor (com base no seu plano)
+- Use importação por pasta para melhor organização
+- Arquivos grandes podem levar mais tempo para processar após a importação
+
+## Perguntas Comuns
+
+**P: Preciso reautorizar cada vez?**
+R: Normalmente não. Se sua sessão está ativa, clicar no ícone abre o seletor de arquivos diretamente. Você pode ocasionalmente precisar reautorizar após limpar dados do navegador ou usar um novo navegador.
+
+**P: Posso importar pastas inteiras?**
+R: Atualmente, você seleciona arquivos individuais. Navegue pelas pastas no seletor para selecionar arquivos dentro delas.
+
+**P: O que acontece com meus arquivos originais?**
+R: Seus arquivos na nuvem permanecem inalterados. Nós criamos uma cópia no seu Content.
+
+**P: Por que não vejo alguns arquivos no seletor?**
+R: Apenas tipos de arquivo suportados são exibidos. Verifique os [formatos suportados](/pt/knowledge-base/supported-formats) para os formatos disponíveis.
+
+## Solução de Problemas
+
+### Problemas de Autorização
+
+Se você não consegue conectar:
+- Verifique se está logado na conta correta
+- Tente revogar e reautorizar o acesso
+- Certifique-se de que o acesso a aplicativos de terceiros está habilitado nas configurações do provedor
+
+### Falhas na Importação
+
+Se arquivos falham ao importar:
+- Verifique se os arquivos estão em formatos suportados
+- Confirme que os arquivos não estão corrompidos
+- Certifique-se de que você tem permissão para acessar os arquivos
+- Tente importar menos arquivos de uma vez

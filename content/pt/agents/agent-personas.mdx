@@ -1,0 +1,164 @@
+# Agent Personas
+
+A agent persona é a configuração mais importante do seu agent. Ela define personalidade, comportamento e limites.
+
+## O Que é uma Agent Persona?
+
+A agent persona é um conjunto de instruções dadas à AI antes de qualquer conversa com o usuário. Ela molda cada resposta que seu agent dá.
+
+## Estrutura de uma Boa Agent Persona
+
+### 1. Definição de Papel
+
+Comece definindo quem é o agent:
+
+```
+You are a customer support assistant for TechCorp, a software company.
+```
+
+### 2. Responsabilidades Principais
+
+Descreva o que o agent deve fazer:
+
+```
+Your role is to:
+- Answer questions about our products and pricing
+- Help users troubleshoot common issues
+- Guide users to relevant documentation
+```
+
+### 3. Diretrizes de Comportamento
+
+Defina o tom e o estilo:
+
+```
+Communication style:
+- Be friendly and professional
+- Use clear, simple language
+- Keep responses concise unless detail is requested
+```
+
+### 4. Detecção Automática de Idioma
+
+Seu agent detecta automaticamente o idioma de cada mensagem do usuário e responde no mesmo idioma — nenhuma configuração manual necessária. 176 idiomas são suportados nativamente.
+
+O agent se adapta por mensagem, então ele pode lidar com conversas multilíngues naturalmente. As regras de segurança e precisão permanecem internamente em inglês.
+
+### 4. Limites
+
+Defina o que o agent NÃO deve fazer:
+
+```
+Important boundaries:
+- Do not make up information not found in the documentation
+- Do not discuss competitor products
+- Do not make promises about future features
+- If unsure, acknowledge uncertainty and suggest contacting support
+```
+
+## Exemplos de Agent Personas
+
+### Suporte ao Cliente
+
+```
+You are a helpful customer support assistant for Acme Corp.
+
+Your responsibilities:
+- Answer questions about our products and services
+- Help troubleshoot common issues
+- Guide users to relevant resources
+
+Guidelines:
+- Be friendly, professional, and empathetic
+- Keep responses concise and actionable
+- Always base answers on the provided documentation
+- If you don't know something, say so and suggest contacting human support
+
+Do not:
+- Make up information
+- Promise refunds or special treatment
+- Discuss internal company matters
+```
+
+### Documentação Técnica
+
+```
+You are a technical documentation assistant.
+
+Your role is to help developers understand and implement our API.
+
+Guidelines:
+- Provide accurate, code-focused answers
+- Include relevant code examples when helpful
+- Reference specific documentation sections
+- Use technical terminology appropriately
+
+When answering:
+- Be precise and thorough
+- Format code blocks properly
+- Explain complex concepts step by step
+```
+
+### FAQ Bot
+
+```
+You are a FAQ assistant for [Company Name].
+
+Answer common questions based on our documentation. Keep responses brief and direct.
+
+If a question isn't covered in the documentation:
+- Acknowledge you don't have that specific information
+- Suggest the user contact support for help
+
+Tone: Friendly and helpful, but concise.
+```
+
+## Dicas para Personas Melhores
+
+import { Callout } from 'nextra/components'
+
+<Callout type="important">
+**Comece simples.** Comece com um prompt básico e adicione complexidade com base nos resultados dos testes.
+</Callout>
+
+1. **Seja específico** — Instruções vagas levam a comportamento inconsistente
+2. **Use exemplos** — Mostre ao agent como são boas respostas
+3. **Defina limites claros** — Determine o que o agent NÃO deve fazer
+4. **Itere** — Teste e refine com base em conversas reais
+5. **Mantenha o foco** — Prompts longos e complexos podem confundir o modelo
+6. **O idioma é automático** — Seu agent detecta o idioma do usuário e responde no mesmo idioma. Não é necessário adicionar instruções de idioma ao texto da persona
+
+## Testando Sua Persona
+
+Após escrever ou atualizar sua agent persona:
+
+1. Teste no [Playground](/pt/agents/testing)
+2. Tente casos extremos e perguntas difíceis
+3. Refine com base nos resultados
+4. Teste novamente para garantir as melhorias
+
+## Variáveis de Template
+
+Personalize o system prompt do seu agent com variáveis dinâmicas.
+
+### Variáveis Disponíveis
+
+| Variável | Descrição | Exemplo |
+|----------|-----------|---------|
+| `{{organization_name}}` | Nome da sua organization | "Acme Corp" |
+| `{{current_date}}` | Data de hoje | "2026-02-03" |
+| `{{current_year}}` | Ano atual | "2026" |
+
+### Usando Variáveis
+
+No seu system prompt:
+
+```
+Welcome to {{organization_name}}! I'm here to help you today.
+```
+
+**Resultado:** "Welcome to Acme Corp! I'm here to help you today."
+
+<Callout type="important">
+  Clique em **Preview** ao editar para ver como as variáveis aparecerão com os valores reais da sua organization.
+</Callout>

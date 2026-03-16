@@ -1,0 +1,57 @@
+---
+description: Configure agents de AI com personas personalizadas, acesso ao conhecimento e implantação em múltiplos canais.
+---
+
+# Agents
+
+Agents são os chatbots de AI que interagem com seus usuários. Cada agent tem sua própria configuração, acesso ao conhecimento e personalidade.
+
+## O Que é um Agent?
+
+Um agent é um chatbot configurado que:
+
+- Responde perguntas usando seu conteúdo
+- Segue instruções definidas na sua agent persona
+- Mantém o contexto da conversa dentro das sessões
+- Pode ser implantado em múltiplos canais
+
+## Conceitos de Agents
+
+### Agent Persona
+
+A agent persona é o conjunto de instruções que define como seu agent se comporta. Ela controla:
+
+- **Personalidade** — Amigável, profissional, casual, etc.
+- **Escopo** — Quais tópicos o agent deve ou não abordar
+- **Estilo de resposta** — Tamanho, formato e tom das respostas
+- **Proteções** — Limites e restrições
+- **Idioma** — Detecção automática por mensagem (176 idiomas suportados)
+
+### Acesso ao Conhecimento
+
+Cada agent acessa seu conteúdo para encontrar informações relevantes. Você pode configurar:
+
+- Quais documentos o agent pode pesquisar
+- Quantas fontes recuperar
+- Se deve mostrar citações de fontes
+
+### Canais
+
+Agents podem ser implantados em múltiplos canais simultaneamente:
+
+- Plataformas de mensagens (Telegram, Discord, Slack, WhatsApp, Google Chat)
+- Facebook Messenger via integração Meta
+- Human Handoff — transfira conversas para um membro da equipe humano
+
+## Nesta Seção
+
+import { Cards } from 'nextra/components'
+
+<Cards>
+  <Cards.Card title="Criar Agents" href="/pt/agents/creating" />
+  <Cards.Card title="Opções de Configuração" href="/pt/agents/configuring" />
+  <Cards.Card title="Agent Personas" href="/pt/agents/agent-personas" />
+  <Cards.Card title="Agent Persona Builder" href="/pt/agents/persona-builder" />
+  <Cards.Card title="Testar no Playground" href="/pt/agents/testing" />
+  <Cards.Card title="Inbox e Human Handoff" href="/pt/agents/inbox" />
+</Cards>

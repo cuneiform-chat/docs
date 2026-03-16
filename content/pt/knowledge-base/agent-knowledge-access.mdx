@@ -1,0 +1,85 @@
+# Acesso ao Conhecimento do Agent
+
+Controle quais documentos cada agent pode acessar ao responder perguntas. Restrinja agents a pastas ou tags específicas, ou exclua determinado conteúdo do alcance deles.
+
+## Como Chegar
+
+1. Navegue até **Agents** na barra lateral
+2. Clique em um agent para editá-lo, ou crie um novo agent
+3. Role até a seção **Knowledge Access Control**
+
+## Modos de Acesso
+
+O modo de acesso determina como suas seleções afetam o acesso do agent aos documentos.
+
+| Modo | Ícone | Descrição | Quando Usar |
+|------|-------|-----------|-------------|
+| **Exclude Mode** | X vermelho | O agent acessa TODOS os documentos EXCETO os selecionados | Você quer ocultar documentos sensíveis mas permitir tudo mais |
+| **Include Mode** | Check verde | O agent acessa APENAS os documentos selecionados | Você quer restringir o agent a conteúdo específico |
+
+### Escolhendo o Modo Certo
+
+**Exclude Mode** (padrão):
+- Começa com acesso total a todos os documentos
+- Selecione pastas/tags para bloquear do agent
+- Bom para: Ocultar documentos de RH, dados financeiros ou rascunhos
+
+**Include Mode**:
+- Começa sem acesso
+- Selecione pastas/tags para conceder acesso
+- Bom para: Criar agents especializados para tópicos específicos
+
+## Selecionando Conteúdo
+
+### Por Pastas
+
+1. Clique na aba **Folders**
+2. Use a caixa de pesquisa para encontrar pastas
+3. Marque pastas para incluir/excluir
+4. Expanda pastas (clique na seta) para selecionar documentos individuais
+5. Uma marca de seleção mostra itens selecionados; seleção parcial mostra um traço
+
+### Por Tags
+
+1. Clique na aba **Tags**
+2. Use a caixa de pesquisa para encontrar tags
+3. Marque tags para incluir/excluir
+4. Cada tag mostra quantos documentos a utilizam
+
+## Painel de Pré-visualização
+
+O painel de pré-visualização à direita mostra:
+- Total de documentos acessíveis com base na seleção atual
+- Atualiza em tempo real conforme você faz alterações
+
+## Salvando Alterações
+
+Ao editar um agent existente:
+1. Faça suas seleções
+2. Clique em **Save Changes** (botão verde)
+3. Ou clique em **Reset Changes** para desfazer alterações não salvas
+
+Ao criar um novo agent:
+- As configurações de acesso ao conhecimento são salvas automaticamente quando você submete o formulário do agent
+
+## Dicas
+
+- Use **Exclude Mode** quando quiser acesso amplo com poucas exceções
+- Use **Include Mode** para agents focados e específicos por tópico
+- Combine pastas E tags para controle preciso
+- Verifique o painel de pré-visualização para confirmar sua seleção antes de salvar
+- Para Include Mode, você deve selecionar pelo menos uma pasta ou tag
+
+## Perguntas Comuns
+
+**P: O que acontece se eu selecionar pastas e tags?**
+R: O agent pode acessar documentos que correspondam a QUALQUER uma das suas seleções. Pastas e tags se combinam inclusivamente.
+
+**P: Posso dar a um agent acesso a tudo?**
+R: Sim. Use Exclude Mode e não selecione nada para excluir. O agent terá acesso total.
+
+**P: E se um documento está em uma pasta selecionada mas tem uma tag excluída?**
+R: No Exclude Mode, qualquer correspondência com conteúdo excluído bloqueia o acesso. No Include Mode, qualquer correspondência com conteúdo incluído concede acesso.
+
+**P: Isso afeta conversas existentes?**
+R: Sim. As alterações entram em vigor imediatamente para novas mensagens. O agent usará as regras de acesso atualizadas.
