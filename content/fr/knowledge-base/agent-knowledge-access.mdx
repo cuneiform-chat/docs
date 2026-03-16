@@ -1,0 +1,85 @@
+# Accès aux connaissances de l'Agent
+
+Contrôlez quels documents chaque agent peut consulter pour répondre aux questions. Restreignez les agents à des dossiers ou étiquettes spécifiques, ou excluez certains contenus de leur portée.
+
+## Y accéder
+
+1. Naviguez vers **Agents** dans la barre latérale
+2. Cliquez sur un agent pour le modifier, ou créez un nouvel agent
+3. Faites défiler jusqu'à la section **Knowledge Access Control**
+
+## Modes d'accès
+
+Le mode d'accès détermine comment vos sélections affectent l'accès aux documents de l'agent.
+
+| Mode | Icône | Description | Quand utiliser |
+|------|-------|-------------|----------------|
+| **Exclude Mode** | X rouge | L'agent accède à TOUS les documents SAUF ceux sélectionnés | Vous voulez masquer des documents sensibles mais autoriser tout le reste |
+| **Include Mode** | Coche verte | L'agent accède UNIQUEMENT aux documents sélectionnés | Vous voulez restreindre l'agent à un contenu spécifique |
+
+### Choisir le bon mode
+
+**Exclude Mode** (par défaut) :
+- Commence avec un accès complet à tous les documents
+- Sélectionnez les dossiers/étiquettes à bloquer pour l'agent
+- Idéal pour : Masquer les documents RH, les données financières ou les brouillons
+
+**Include Mode** :
+- Commence sans aucun accès
+- Sélectionnez les dossiers/étiquettes pour accorder l'accès
+- Idéal pour : Créer des agents spécialisés sur des sujets spécifiques
+
+## Sélectionner le contenu
+
+### Par dossiers
+
+1. Cliquez sur l'onglet **Folders**
+2. Utilisez la boîte de recherche pour trouver des dossiers
+3. Cochez les dossiers à inclure/exclure
+4. Développez les dossiers (cliquez sur la flèche) pour sélectionner des documents individuels
+5. Une coche indique les éléments sélectionnés ; une sélection partielle affiche un tiret
+
+### Par étiquettes
+
+1. Cliquez sur l'onglet **Tags**
+2. Utilisez la boîte de recherche pour trouver des étiquettes
+3. Cochez les étiquettes à inclure/exclure
+4. Chaque étiquette affiche combien de documents l'utilisent
+
+## Panneau d'aperçu
+
+Le panneau d'aperçu à droite affiche :
+- Le total des documents accessibles en fonction de la sélection actuelle
+- Se met à jour en temps réel au fur et à mesure de vos modifications
+
+## Enregistrer les modifications
+
+Lors de la modification d'un agent existant :
+1. Effectuez vos sélections
+2. Cliquez sur **Save Changes** (bouton vert)
+3. Ou cliquez sur **Reset Changes** pour annuler les modifications non enregistrées
+
+Lors de la création d'un nouvel agent :
+- Les paramètres d'accès aux connaissances sont enregistrés automatiquement quand vous soumettez le formulaire de l'agent
+
+## Conseils
+
+- Utilisez **Exclude Mode** quand vous voulez un accès large avec quelques exceptions
+- Utilisez **Include Mode** pour des agents focalisés sur un sujet spécifique
+- Combinez dossiers ET étiquettes pour un contrôle précis
+- Vérifiez le panneau d'aperçu pour confirmer votre sélection avant d'enregistrer
+- Pour Include Mode, vous devez sélectionner au moins un dossier ou une étiquette
+
+## Questions fréquentes
+
+**Q : Que se passe-t-il si je sélectionne à la fois des dossiers et des étiquettes ?**
+R : L'agent peut accéder aux documents qui correspondent à N'IMPORTE laquelle de vos sélections. Les dossiers et étiquettes se combinent de manière inclusive.
+
+**Q : Puis-je donner à un agent l'accès à tout ?**
+R : Oui. Utilisez Exclude Mode et ne sélectionnez rien à exclure. L'agent aura un accès complet.
+
+**Q : Que se passe-t-il si un document est dans un dossier sélectionné mais a une étiquette exclue ?**
+R : En Exclude Mode, toute correspondance avec le contenu exclu bloque l'accès. En Include Mode, toute correspondance avec le contenu inclus accorde l'accès.
+
+**Q : Cela affecte-t-il les conversations existantes ?**
+R : Oui. Les modifications prennent effet immédiatement pour les nouveaux messages. L'agent utilisera les règles d'accès mises à jour.

@@ -1,0 +1,82 @@
+# Métriques d'utilisation
+
+Suivez votre consommation de ressources et l'utilisation des crédits.
+
+## Aperçu de l'utilisation des crédits
+
+Le tableau de bord analytique affiche l'utilisation de votre cycle de facturation en cours :
+
+- **Credits Used** — Crédits de la plateforme consommés cette période
+- **Credits Remaining** — Crédits disponibles jusqu'à la fin de la période
+- **Usage Percentage** — Barre de progression visuelle de la consommation
+
+## Métriques clés
+
+### Volume de requêtes
+
+| Métrique | Description |
+|----------|-------------|
+| Total Queries | Exécutions d'agents IA sur la période |
+| Conversations | Total des sessions de chat |
+| Unique Users | Utilisateurs individuels ayant interagi |
+
+### Répartition de la distribution
+
+Consultez la distribution de l'utilisation :
+
+- **Par Agent** — Quels agents traitent le plus de requêtes
+- **Par Canal** — Utilisation sur Telegram, Discord, Slack, WhatsApp, etc.
+
+## Tendances d'utilisation
+
+### Graphique du volume de requêtes
+
+Le tableau de bord analytique principal affiche un graphique de volume de requêtes montrant :
+- Requêtes dans le temps
+- Granularité configurable (par heure, jour, semaine, mois)
+- Sélection de plage de dates
+
+### Graphiques de distribution
+
+Graphiques circulaires montrant :
+- Distribution par canal — Pourcentage de requêtes par plateforme
+- Distribution par agent — Pourcentage de requêtes par agent
+
+## Surveillance des crédits
+
+### Période en cours
+
+Consultez le statut de votre cycle de facturation :
+- Dates de début et fin de période
+- Crédits utilisés vs. alloués
+- Pourcentage consommé
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Les crédits se réinitialisent au début de chaque période de facturation. Consultez la section **Billing** pour les dates de votre cycle.
+</Callout>
+
+## Avertissements d'utilisation
+
+La page **Billing** affiche des bannières d'avertissement automatiques quand :
+
+- **Approche de la limite** — Vous avez utilisé la majeure partie de votre quota mensuel
+- **Limite atteinte** — Le quota mensuel est épuisé
+- **Bloqué** — Le solde d'utilisation supplémentaire est également épuisé
+
+Ces avertissements apparaissent dans **Billing & Plans** pour vous aider à agir avant que le service ne soit affecté.
+
+## Conseils d'optimisation
+
+### Réduire l'utilisation des requêtes
+
+- Améliorez les personas des agents pour une meilleure précision dès la première réponse
+- Ajoutez du contenu FAQ pour réduire les questions de suivi
+- Optimisez le contenu pour une récupération plus rapide
+
+### Surveiller les zones à forte utilisation
+
+- Vérifiez quels agents consomment le plus de crédits
+- Identifiez les canaux avec le volume le plus élevé
+- Révisez les conversations qui utilisent plus de tokens

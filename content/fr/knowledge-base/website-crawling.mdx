@@ -1,0 +1,126 @@
+# Exploration de sites web
+
+import { Callout } from 'nextra/components'
+
+Explorez des sites web publics et ajoutez le contenu à votre Content. L'explorateur visite les pages, extrait le contenu en Markdown et vous permet de réviser et modifier avant le traitement.
+
+## Y accéder
+
+Naviguez vers **Content** dans la barre latérale, puis cliquez sur l'onglet **Website**.
+
+## Comment explorer un site web
+
+### Étape 1 : Entrer l'URL
+
+Collez l'URL du site web dans le champ de saisie (ex. : `https://docs.example.com`). L'explorateur commencera à partir de cette page et suivra les liens pour découvrir d'autres pages.
+
+### Étape 2 : Configurer les options
+
+| Option | Par défaut | Description |
+|--------|-----------|-------------|
+| Dossier cible | Aucun dossier (racine) | Sélectionnez un dossier de destination pour les documents explorés |
+| Page unique seulement | Désactivé | Explorez uniquement l'URL entrée, sans suivre les liens |
+| Respecter robots.txt | Activé | Respecter les règles d'exploration robots.txt du site |
+
+### Étape 3 : Lancer l'exploration
+
+Cliquez sur **Crawl** pour commencer. L'explorateur visite les pages à partir de votre URL et extrait leur contenu.
+
+### Étape 4 : Suivre la progression
+
+- Une barre de progression montre les pages explorées vs. le maximum de votre plan
+- Les pages apparaissent dans une liste en direct au fur et à mesure de leur découverte
+- Cliquez sur n'importe quelle page pour prévisualiser son contenu immédiatement
+- Utilisez le bouton **Cancel** pour arrêter l'exploration à tout moment
+
+<Callout type="info">
+  Une seule exploration peut s'exécuter à la fois par organisation. Attendez que l'exploration en cours se termine ou annulez-la avant d'en lancer une autre.
+</Callout>
+
+## Réviser les pages explorées
+
+Après la fin de l'exploration, vous pouvez réviser et modifier les pages avant de les ajouter à votre Content.
+
+### Modifier le contenu d'une page
+
+1. Cliquez sur n'importe quelle page dans la liste pour ouvrir l'éditeur
+2. Modifiez le **titre** et le **contenu markdown**
+3. Supprimez les sections non pertinentes (menus de navigation, pieds de page, barres latérales)
+4. Cliquez sur **Save** pour mettre à jour
+
+<Callout type="info">
+  Seules les pages avec le statut "Pending" peuvent être modifiées. Une fois le traitement lancé, les pages ne peuvent plus être changées.
+</Callout>
+
+### Sélectionner et traiter les pages
+
+1. Utilisez les cases à cocher pour sélectionner les pages que vous souhaitez garder
+2. Utilisez **Select All** pour sélectionner toutes les pages en attente
+3. Choisissez éventuellement un dossier cible
+4. Cliquez sur **Process Selected**
+
+Après le début du traitement, vous êtes automatiquement redirigé vers l'onglet **Documents** où les nouveaux documents apparaîtront.
+
+## Référence des statuts d'exploration
+
+| Statut | Signification |
+|--------|---------------|
+| Pending | L'exploration est en file d'attente |
+| In Progress | Visite active des pages |
+| Completed | Toutes les pages accessibles ont été explorées |
+| Partial Success | Certaines pages explorées, d'autres ont échoué |
+| Failed | L'exploration n'a pas pu se terminer |
+| Cancelled | Arrêtée par vous |
+
+## Persistance de session
+
+Votre session d'exploration survit à la navigation et au rafraîchissement de page :
+- Les explorations actives se restaurent automatiquement quand vous revenez à l'onglet Website
+- Les explorations terminées sont disponibles pour révision pendant 1 heure
+
+## Conseils
+
+- Révisez et modifiez le contenu exploré avant le traitement pour améliorer la qualité
+- Utilisez "Single page only" pour les pages individuelles que vous souhaitez ajouter rapidement
+- Gardez "Respect robots.txt" activé pour respecter les préférences du propriétaire du site
+- Les documents explorés apparaissent dans l'onglet Documents sous forme de fichiers Markdown (.md)
+
+## Questions fréquentes
+
+**Q : Combien de pages puis-je explorer ?**
+R : Le nombre maximum de pages dépend de votre plan. L'explorateur suit les liens depuis votre URL de départ jusqu'à la limite de profondeur configurée.
+
+**Q : Puis-je explorer des pages derrière une connexion ?**
+R : Non. L'explorateur ne peut accéder qu'aux pages publiquement disponibles. Les pages derrière une authentification seront ignorées.
+
+**Q : Quel format ont les pages explorées ?**
+R : Le contenu est extrait sous forme de documents Markdown (.md) et traité via le pipeline standard (découpage, embedding et indexation de recherche).
+
+**Q : Pourquoi certaines pages ont-elles échoué ?**
+R : Les pages peuvent échouer en raison de la protection anti-bot (pare-feu comme Cloudflare), d'erreurs serveur ou de contenu vide. L'exploration affichera le statut "Partial Success".
+
+**Q : Puis-je ré-explorer le même site ?**
+R : Oui. Lancez une nouvelle exploration avec la même URL. Les pages précédemment explorées sont remplacées quand une nouvelle exploration commence.
+
+**Q : Où apparaissent les pages traitées ?**
+R : Dans l'onglet **Documents** de la page Content. Elles apparaissent sous forme de fichiers Markdown (.md).
+
+## Dépannage
+
+### Les pages retournent des erreurs 403 ou 503
+
+Le site bloque peut-être les explorateurs automatisés. Options :
+- Demandez au propriétaire du site d'autoriser `CuneiformBot/1.0`
+- Essayez d'explorer une page spécifique avec "Single page only" activé
+
+### Contenu vide ou illisible
+
+Certains sites utilisent un rendu JavaScript intensif. L'explorateur prend en charge la plupart des frameworks modernes, mais :
+- Les applications mono-page nécessitant une authentification ne fonctionneront pas
+- Le contenu chargé par défilement infini peut être partiellement capturé
+
+### L'exploration semble lente
+
+- Chaque page prend quelques secondes à explorer (inclut le rendu et la limitation de débit)
+- Les sites plus grands avec de nombreuses pages prendront plusieurs minutes
+- Vous pouvez annuler et réessayer si une exploration semble bloquée

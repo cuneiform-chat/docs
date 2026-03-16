@@ -1,0 +1,128 @@
+# Téléverser des documents
+
+Téléversez des documents dans votre contenu pour que vos agents IA puissent les utiliser pour répondre aux questions. Les documents sont automatiquement traités et rendus interrogeables.
+
+## Y accéder
+
+1. Connectez-vous au panneau d'administration
+2. Naviguez vers **Content** dans le menu latéral
+3. La zone de téléversement est affichée en haut de la page
+
+## Méthodes de téléversement
+
+### Téléversement de fichiers locaux
+
+1. **Glissez-déposez** des fichiers directement sur la zone de téléversement, OU
+2. **Cliquez** sur la zone de téléversement pour ouvrir un explorateur de fichiers
+3. Sélectionnez un ou plusieurs fichiers à téléverser
+4. Les fichiers commencent à se téléverser automatiquement avec suivi de la progression
+
+### Import depuis le stockage cloud
+
+Importez des fichiers directement depuis vos fournisseurs de stockage cloud :
+
+| Fournisseur | Icône | Comment utiliser |
+|-------------|-------|-----------------|
+| Google Drive | Icône Google Drive | Cliquez pour ouvrir le sélecteur Google Drive, sélectionnez les fichiers |
+| Dropbox | Icône Dropbox | Cliquez pour ouvrir le sélecteur Dropbox, sélectionnez les fichiers |
+| OneDrive | Icône OneDrive | Cliquez pour ouvrir le sélecteur OneDrive, sélectionnez les fichiers |
+| Box | Icône Box | Cliquez pour ouvrir le sélecteur Box, sélectionnez les fichiers |
+
+Après avoir sélectionné des fichiers depuis n'importe quel fournisseur, ils sont automatiquement importés dans votre contenu.
+
+## Options de téléversement
+
+### Ajout d'étiquettes
+
+Assignez éventuellement des étiquettes aux documents pendant le téléversement :
+
+1. Cliquez sur **+ Add Tags** avant de téléverser
+2. Sélectionnez des étiquettes dans le menu déroulant
+3. Les étiquettes sélectionnées seront appliquées à tous les documents téléversés
+
+## Types de fichiers pris en charge
+
+Les types de fichiers que vous pouvez téléverser dépendent de votre plan. Les formats courants incluent :
+
+- **Documents :** PDF, DOCX, DOC, TXT, MD, RTF
+- **Présentations :** PPTX, PPT
+- **Web/Données :** HTML, HTM, JSON, XML
+
+Les limites de taille de fichier varient également selon le plan (affichées dans la zone de téléversement).
+
+Voir [Formats pris en charge](/knowledge-base/supported-formats) pour la liste complète.
+
+## Pendant le téléversement
+
+### Suivi de la progression
+
+- Chaque fichier affiche la progression du téléversement avec une barre de pourcentage
+- La vitesse de téléversement et le temps restant estimé sont affichés
+- Les fichiers sont traités un à la fois
+
+### Options d'annulation
+
+- **Annuler un fichier individuel :** Cliquez sur le X à côté d'un fichier
+- **Annuler tout :** Cliquez sur "Cancel All Pending" pour arrêter le lot entier
+- Un avertissement apparaît si vous essayez de quitter la page pendant le téléversement
+
+## Statut du traitement
+
+Suivez le statut des documents dans Content :
+
+| Statut | Signification |
+|--------|---------------|
+| Pending | Le document est en file d'attente pour le traitement |
+| Uploaded | Le document a été téléversé |
+| Validating | Le document est en cours de validation |
+| Stored | Le document a été stocké et est en attente de traitement |
+| Processing | Le document est en cours d'analyse et d'indexation |
+| Ready | Le document est traité et disponible pour vos agents |
+| Completed | Le traitement du document est entièrement terminé |
+| Failed | Le traitement a rencontré une erreur (peut être réessayé) |
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Le temps de traitement dépend de la taille et de la complexité du document. La plupart des documents sont traités en quelques minutes.
+</Callout>
+
+## Après le téléversement
+
+### Succès
+
+- Les fichiers téléversés avec succès apparaissent dans votre navigateur de documents
+- Les documents sont automatiquement traités pour la recherche
+- Vous pouvez les organiser dans des dossiers ou ajouter des étiquettes
+
+### Gestion des doublons
+
+- Le système détecte automatiquement le contenu dupliqué
+- Si un fichier avec un contenu identique existe déjà, vous verrez un avertissement
+- L'emplacement du fichier existant est indiqué dans le message d'erreur
+
+### Gestion des erreurs
+
+- Si un fichier ne se téléverse pas, un message d'erreur explique pourquoi
+- Les problèmes courants incluent un fichier trop volumineux ou un format non pris en charge
+- Vous pouvez réessayer des fichiers individuels ou les téléverser à nouveau
+
+## Conseils
+
+- Téléversez plusieurs fichiers à la fois pour gagner du temps
+- Appliquez des étiquettes pendant le téléversement pour garder les documents organisés
+- Vérifiez les types de fichiers pris en charge affichés dans la zone de téléversement
+
+## Questions fréquentes
+
+**Q : Combien de fichiers puis-je téléverser à la fois ?**
+R : Vous pouvez sélectionner plusieurs fichiers pour un téléversement par lot. Ils sont traités un à la fois avec suivi de la progression.
+
+**Q : Pourquoi mon fichier a-t-il été rejeté ?**
+R : Vérifiez si le type de fichier est pris en charge et si la taille du fichier est dans les limites (affichées dans la zone de téléversement). Certains fichiers peuvent être bloqués pour des raisons de sécurité.
+
+**Q : Combien de temps dure le traitement ?**
+R : Le temps de téléversement dépend de la taille du fichier et de votre connexion. Après le téléversement, les documents sont traités en arrière-plan et deviennent interrogeables automatiquement.
+
+**Q : Puis-je téléverser dans un dossier spécifique ?**
+R : Oui, vous pouvez téléverser directement dans des dossiers en utilisant le menu du dossier ou organiser les documents après le téléversement.

@@ -1,0 +1,142 @@
+# Analytique des conversations
+
+Suivez les métriques de conversation et consultez les transcriptions détaillées de vos agents et canaux.
+
+## Aperçu
+
+L'analytique des conversations fournit :
+
+- Volume total des conversations
+- Conversations par agent
+- Conversations par canal
+- Transcriptions complètes des messages
+- Insights de conversation propulsés par l'IA
+
+## Accéder aux conversations
+
+### Depuis le tableau de bord
+
+1. Allez dans **Analytics** dans la barre latérale
+2. Cliquez sur **View All** sur les cartes Top Agents ou Top Channels
+3. Ou naviguez directement vers Conversations depuis le menu analytique
+
+### Liste des conversations
+
+Consultez toutes les conversations avec :
+
+| Colonne | Description |
+|---------|-------------|
+| Title | Titre de la conversation ou ID de session |
+| Agent | Quel agent a traité la conversation |
+| Channel | Plateforme (Telegram, Discord, Slack, etc.) |
+| Messages | Nombre total de messages |
+| Last Active | Quand la conversation a été mise à jour pour la dernière fois |
+| Status | Active, archivée ou supprimée |
+
+## Filtrer les conversations
+
+Filtrez la liste des conversations par :
+
+- **Agent** — Sélectionnez un agent spécifique ou tous les agents
+- **Channel** — Filtrer par plateforme (WhatsApp, Telegram, Meta, Slack, Discord, Google Chat, Playground)
+- **Plage de dates** — 7, 14, 30 ou 90 derniers jours
+
+## Détails de la conversation
+
+Cliquez sur n'importe quelle conversation pour voir ses détails complets :
+
+### Onglet Overview
+
+- **Total Messages** — Nombre de messages dans la conversation
+- **Credits Spent** — Crédits de la plateforme utilisés
+- **Agent** — Quel agent a traité la conversation
+- **Channel** — Plateforme où elle s'est déroulée
+- **Created** — Quand la conversation a commencé
+- **Last Active** — Activité la plus récente
+
+### Graphique d'activité des messages
+
+Visualisez les tendances de messages dans le temps :
+- Basculez entre la granularité par heure et par jour
+- Affichez/masquez les messages utilisateur et les messages de l'assistant
+- Voyez les schémas d'activité des conversations
+
+### Onglet Messages
+
+Consultez la transcription complète de la conversation :
+
+- **Historique complet des messages** — Voir chaque message de la conversation
+- **Indicateurs de rôle** — Les messages User, Assistant, System et Tool sont codés par couleur
+- **Horodatages** — Quand chaque message a été envoyé
+- **Utilisation des tokens** — Tokens d'entrée/sortie par message (quand disponible)
+
+#### Filtrage des messages
+
+Filtrez les messages par période :
+- Dernières 24 heures
+- 7 derniers jours
+- 30 derniers jours
+- Tous les messages
+
+#### Export
+
+Cliquez sur **Export** pour télécharger la conversation en fichier JSON contenant :
+- Métadonnées de la conversation
+- Tous les messages avec horodatages
+- Informations sur les tokens
+
+## Insights propulsés par l'IA
+
+Générez des résumés intelligents des conversations :
+
+1. Naviguez vers l'onglet **Messages** d'une conversation
+2. Cliquez sur **Generate Insights**
+3. Consultez les insights analysés par l'IA incluant :
+   - **Key Points** — Principaux sujets abordés
+   - **User Intents** — Ce que l'utilisateur essayait d'accomplir
+   - **Key Info Shared** — Informations importantes échangées
+   - **Suggested Actions** — Recommandations basées sur la conversation
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Générer des insights consomme des crédits de votre compte. Les résultats sont mis en cache pour un accès plus rapide lors des consultations suivantes.
+</Callout>
+
+## Considérations de confidentialité
+
+Les données de conversation sont gérées conformément aux :
+
+- Exigences de la politique de confidentialité
+- Consentement des utilisateurs le cas échéant
+
+## Conseils
+
+- Utilisez les filtres pour trouver les conversations d'agents ou canaux spécifiques
+- Exportez les conversations importantes pour l'archivage ou l'analyse
+- Générez des insights IA pour comprendre rapidement les longues conversations
+- Consultez le graphique d'activité des messages pour identifier les heures de pointe
+- Révisez les transcriptions pour améliorer la persona de votre agent
+- Surveillez les crédits dépensés pour suivre les tendances d'utilisation
+
+## Questions fréquentes
+
+**Q : Comment trouver les conversations d'un canal spécifique ?**
+
+Utilisez le filtre Channel en haut de la liste des conversations pour sélectionner une plateforme spécifique comme Telegram, Discord ou Slack.
+
+**Q : Puis-je exporter plusieurs conversations à la fois ?**
+
+Actuellement, l'export fonctionne une conversation à la fois. Exportez chaque conversation individuellement depuis l'onglet Messages.
+
+**Q : Que fait "Generate Insights" ?**
+
+Il utilise l'IA pour analyser la conversation et fournir un résumé incluant les points clés, les intentions de l'utilisateur, les informations importantes partagées et les actions suggérées.
+
+**Q : Les insights IA coûtent-ils des crédits ?**
+
+Oui, générer des insights consomme des crédits de votre compte. Cependant, les résultats sont mis en cache, donc consulter les mêmes insights à nouveau est gratuit.
+
+**Q : Combien de temps les conversations sont-elles stockées ?**
+
+Les conversations sont stockées en toute sécurité et disponibles pour l'analytique. Contactez le support si vous avez des questions sur le stockage des données.

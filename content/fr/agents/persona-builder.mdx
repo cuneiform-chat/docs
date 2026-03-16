@@ -1,0 +1,194 @@
+# Agent Persona Builder
+
+import { Callout } from 'nextra/components'
+
+Générez des Agent Personas professionnelles en quelques secondes grâce à la sélection de caractéristiques.
+
+<Callout type="info">
+  L'Agent Persona Builder vous aide à créer des personas efficaces sans écrire de prompts à partir de zéro.
+</Callout>
+
+## Pour commencer
+
+1. Naviguez vers **Agents** et créez ou modifiez un agent
+2. Cliquez sur **Generate** à côté du champ Agent Persona
+3. Le panneau Agent Persona Builder s'ouvre avec trois onglets
+
+## Onglets du Builder
+
+### Custom Build
+
+Créez une persona unique en sélectionnant des caractéristiques dans 5 catégories :
+
+| Catégorie | Ce qu'elle contrôle |
+|-----------|---------------------|
+| **Role & Identity** | Fonction principale de l'agent (support client, vente, support technique, RH, etc.) |
+| **Communication Style** | Formalité, ton, verbosité et niveau technique |
+| **Response Behavior** | Format (conversationnel vs points), proactivité, gestion des questions |
+| **Operational Boundaries** | Rigueur du respect du sujet, tendance à l'escalade |
+| **Knowledge Integration** | Style de citation, gestion de l'incertitude |
+
+**Navigation par catégorie :**
+- Cliquez sur l'en-tête d'une catégorie pour la développer ou la réduire
+- Chaque catégorie contient plusieurs champs avec des options déroulantes
+- Les options sélectionnées sont mises en surbrillance
+
+**Bouton Reset :**
+Cliquez sur **Reset** dans la section Custom Build pour restaurer tous les paramètres par défaut.
+
+#### Options Role & Identity
+
+Choisissez la fonction principale de votre agent :
+- Customer Support Representative
+- Sales Consultant
+- Technical Support Specialist
+- HR/People Operations
+- Education
+- Healthcare Information
+- Legal Information
+- Finance/Accounting
+- General Assistant
+- Custom role
+
+#### Communication Style
+
+Affinez la façon dont votre agent communique :
+
+| Paramètre | Options |
+|-----------|---------|
+| **Formality** | Formal, Professional, Casual |
+| **Tone** | Warm & Friendly, Neutral, Direct |
+| **Verbosity** | Concise, Balanced, Detailed |
+| **Technical Level** | Non-technical, Mixed, Technical |
+
+#### Options de ton
+
+Préréglages de ton disponibles :
+- Empathetic & Supportive
+- Confident & Authoritative
+- Calm & Reassuring
+- Enthusiastic & Engaging
+- Neutral & Objective
+
+#### Niveaux de détail
+
+- **Concise** — Réponses brèves et directes
+- **Balanced** — Détail modéré avec des explications claires
+- **Comprehensive** — Réponses complètes et détaillées
+
+#### Response Behavior
+
+Contrôlez la structure des réponses :
+- **Format** — Paragraphes conversationnels ou points structurés
+- **Proactivity** — Si l'agent suggère des sujets connexes
+- **Question Handling** — Comment l'agent demande des clarifications
+
+#### Operational Boundaries
+
+Définissez les garde-fous de votre agent :
+- **Scope Strictness** — Rigueur du respect des sujets documentés
+- **Escalation** — Quand suggérer de contacter le support humain
+- **Out-of-scope Handling** — Comment répondre aux questions hors sujet
+
+#### Knowledge Integration
+
+Configurez comment l'agent utilise vos documents :
+- **Citation Style** — S'il faut référencer des documents spécifiques
+- **Uncertainty Handling** — Comment répondre en cas d'incertitude
+
+### Use Preset
+
+Chargez des personas pré-configurées pour les cas d'utilisation courants :
+
+- **System Templates** — Préréglages fournis par la plateforme, optimisés pour des rôles spécifiques
+- **My Templates** — Préréglages sauvegardés par les administrateurs de votre organisation
+
+**Utiliser un preset :**
+1. Cliquez sur l'onglet **Use Preset**
+2. Parcourez les presets disponibles
+3. Cliquez sur un preset pour le sélectionner
+4. Le preset se charge dans l'onglet Custom Build
+5. Ajustez les caractéristiques si nécessaire
+6. Cliquez sur **Generate Persona**
+
+### Platform Rules
+
+Consultez les garde-fous en lecture seule automatiquement appliqués à tous les agents :
+
+- **Pas de fabrication** — N'invente pas de faits, chiffres ou dates absents de votre contenu
+- **Reconnaît les lacunes** — Dit "Je n'ai pas cette information" plutôt que de deviner
+- **Résiste à la spéculation** — N'estime pas les valeurs manquantes même si on le demande
+- **Pas d'usurpation professionnelle** — Ne joue pas le rôle d'avocats, médecins, comptables ou conseillers financiers
+- **Corrige les fausses prémisses** — Signale les suppositions incorrectes avant de répondre
+- **Bloque le contenu nuisible** — Refuse le contenu d'automutilation, explicite ou frauduleux
+
+<Callout type="info">
+  Les règles de la plateforme garantissent que tous les agents se comportent de manière fiable et sûre, quelle que soit la configuration de la persona. Elles ne peuvent pas être désactivées.
+</Callout>
+
+## Générer une Persona
+
+**Avant la génération :**
+Le panneau affiche vos options de configuration en pleine largeur.
+
+**Bouton Generate :**
+Dans l'onglet Custom Build :
+1. Cliquez sur **Generate Persona** en bas
+2. Un état de chargement s'affiche pendant la génération
+3. Cela prend quelques secondes
+
+**Après la génération :**
+La disposition du panneau change en vue partagée :
+- **Côté gauche :** Vos options de configuration
+- **Côté droit :** Aperçu du prompt généré
+
+**Fonctionnalités du panneau d'aperçu :**
+- Texte complet du system prompt généré
+- Modifiable — vous pouvez modifier le texte directement
+- Compteur de caractères affiché en bas
+
+## Après la génération
+
+Une fois que vous avez une persona générée, vous avez plusieurs options :
+
+### Regénérer
+
+Cliquez sur **Regenerate** pour créer une nouvelle version avec les mêmes paramètres. Chaque génération produit des résultats légèrement différents.
+
+### Modifier le prompt
+
+Cliquez dans le panneau d'aperçu pour modifier le texte généré directement. Effectuez les ajustements nécessaires pour votre cas d'utilisation spécifique.
+
+### Sauvegarder comme preset
+
+Cliquez sur **Save as Preset** pour sauvegarder votre configuration pour réutilisation :
+1. Une boîte de dialogue s'ouvre demandant le nom du preset
+2. Entrez un nom descriptif
+3. Le preset est sauvegardé dans votre organisation sous **My Templates**
+
+<Callout type="important">
+  Les presets sauvegardés sont disponibles pour tous les administrateurs de votre organisation. Utilisez-les pour maintenir des personnalités d'agents cohérentes à travers plusieurs agents.
+</Callout>
+
+### Appliquer à l'Agent
+
+Cliquez sur **Apply to Agent** pour utiliser cette persona :
+1. Le prompt est inséré dans le champ system prompt de votre agent
+2. Le builder se ferme
+3. Continuez à configurer les autres paramètres de l'agent
+
+## Bonnes pratiques
+
+- **Commencez avec un preset** — Utilisez les templates système comme point de départ, puis personnalisez
+- **Adaptez le rôle à l'objectif** — Choisissez un rôle qui correspond à la fonction réelle de votre agent
+- **Équilibrez la verbosité** — Concis fonctionne mieux pour les Q&R rapides, détaillé pour les sujets complexes
+- **Testez après la génération** — Testez toujours votre agent dans le Playground après avoir appliqué une nouvelle persona
+- **Itérez** — Regénérez avec différents paramètres si les résultats ne sont pas tout à fait corrects
+- **Restez focalisé** — Des prompts trop complexes peuvent confondre l'agent
+
+## Prochaines étapes
+
+Après avoir généré votre Agent Persona :
+
+- [Tester dans le Playground](/agents/testing) — Vérifier que la persona fonctionne comme prévu
+- [En savoir plus sur les Agent Personas](/agents/agent-personas) — Comprendre la structure et les bonnes pratiques

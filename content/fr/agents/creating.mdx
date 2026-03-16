@@ -1,0 +1,144 @@
+# Créer des Agents
+
+import { Callout } from 'nextra/components'
+
+Apprenez à créer de nouveaux agents dans Cuneiform Chat.
+
+## Pour commencer
+
+1. Naviguez vers **Agents** dans la barre latérale
+2. Cliquez sur le bouton **Create Agent** en haut à droite
+3. Remplissez les sections du formulaire ci-dessous
+
+## Informations de base
+
+Cette section recueille les détails essentiels sur votre agent.
+
+| Champ | Requis | Description |
+|-------|--------|-------------|
+| **Name** | Oui | Un nom pour votre agent (ex. : "Agent Support Client"). Maximum 100 caractères. |
+| **Description** | Non | Une brève description de ce que fait cet agent. Maximum 500 caractères. |
+
+**Conseils :**
+- Choisissez un nom descriptif qui indique la fonction de l'agent
+- La description aide vous et votre équipe à comprendre le rôle de l'agent
+
+## Agent Persona
+
+L'Agent Persona définit le comportement et les réponses de votre agent via un system prompt.
+
+**Éléments clés :**
+
+- **Platform Rules Box** — Affiche les règles de sécurité intégrées appliquées automatiquement (cliquez pour voir les détails)
+- **Generate Button** — Ouvre l'[Agent Persona Builder](/agents/persona-builder) pour vous aider à créer votre persona
+- **Edit Button** — Ouvre un panneau pour écrire ou modifier manuellement la persona
+
+### Règles de la plateforme
+
+Ces garde-fous de sécurité sont automatiquement appliqués à tous les agents :
+
+- **Pas de fabrication** — N'invente pas de faits absents de votre contenu
+- **Reconnaît les lacunes** — Dit "Je ne sais pas" quand c'est approprié
+- **Résiste à la spéculation** — Ne devine pas les informations manquantes
+- **Pas d'usurpation professionnelle** — N'agit pas comme avocat, médecin, etc.
+- **Corrige les fausses prémisses** — Signale les suppositions incorrectes
+- **Bloque le contenu nuisible** — Refuse les demandes inappropriées
+
+<Callout type="info">
+  Les règles de la plateforme garantissent que tous les agents se comportent de manière fiable et sûre. Elles ne peuvent pas être désactivées. Voir [Agent Persona Builder](/agents/persona-builder#platform-rules) pour les détails.
+</Callout>
+
+### Exemple rapide de Persona
+
+```
+You are a helpful assistant for [Your Company].
+Answer questions based on the provided documentation.
+Be concise and friendly.
+```
+
+Voir [Agent Personas](/agents/agent-personas) pour des conseils détaillés sur la rédaction de personas efficaces.
+
+## Prise en charge des langues
+
+Votre agent détecte automatiquement la langue de chaque message utilisateur et répond dans la même langue — aucune configuration nécessaire. 176 langues sont prises en charge nativement. Voir [Agent Personas — Détection de langue](/agents/agent-personas#4-automatic-language-detection) pour les détails.
+
+## Configuration LLM
+
+Cette section contrôle les paramètres du modèle IA.
+
+**Mode par défaut :**
+
+Par défaut, les paramètres LLM utilisent les valeurs par défaut du tier de votre organisation. Vous verrez une info-bulle indiquant "Using tier defaults". C'est recommandé pour la plupart des cas d'utilisation.
+
+**Mode avancé :**
+
+Activez **Advanced** pour personnaliser :
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Model** | Choisissez parmi les modèles IA disponibles selon votre plan |
+| **Temperature** | Contrôle la créativité des réponses (plus bas = plus cohérent, plus haut = plus créatif) |
+
+**Show Document References :**
+
+Ce toggle (toujours visible) contrôle si l'agent inclut les citations de sources dans les réponses :
+- **Off** (par défaut) — Les réponses ne mentionnent pas les documents sources
+- **On** — Les réponses incluent des références aux documents sources (utile pour le juridique/conformité)
+
+## Contrôle d'accès aux connaissances
+
+Contrôlez quels documents votre agent peut consulter pour répondre aux questions.
+
+| Mode | Comportement | Quand utiliser |
+|------|-------------|----------------|
+| **Exclude Mode** | L'agent accède à TOUS les documents SAUF ceux sélectionnés | Masquer des documents sensibles de l'agent |
+| **Include Mode** | L'agent accède UNIQUEMENT aux éléments sélectionnés | Restreindre l'agent à un ensemble spécifique de connaissances |
+
+**En utilisant Include Mode :**
+- Sélectionnez les dossiers spécifiques auxquels l'agent peut accéder
+- Sélectionnez les tags spécifiques auxquels l'agent peut accéder
+- Sélectionnez les documents individuels auxquels l'agent peut accéder
+
+L'agent n'utilisera que les informations des sources sélectionnées pour répondre.
+
+<Callout type="important">
+  Commencez avec Exclude Mode (accès complet aux connaissances) sauf si vous devez masquer des documents spécifiques. Vous pouvez toujours restreindre l'accès ultérieurement.
+</Callout>
+
+## Actions du formulaire
+
+En bas du formulaire :
+
+| Bouton | Action |
+|--------|--------|
+| **Cancel** | Annuler les modifications et revenir en arrière |
+| **Reset** | Effacer tous les champs et recommencer (affiche une boîte de confirmation) |
+| **Create Agent** | Enregistrer l'agent et ouvrir sa page d'édition |
+
+<Callout type="info">
+  Votre brouillon est automatiquement sauvegardé pendant que vous travaillez. Si vous partez et revenez, votre progression sera restaurée.
+</Callout>
+
+## Après la création
+
+Lorsque vous cliquez sur **Create Agent** :
+
+1. L'agent est créé avec le statut **Testing**
+2. Vous êtes redirigé vers la page d'édition de l'agent
+3. Testez l'agent dans le Playground
+4. Connectez les intégrations quand vous êtes prêt à passer en production
+5. Changez le statut en **Active** quand vous êtes prêt
+
+<Callout type="info">
+  Les nouveaux agents démarrent en statut **Testing**. Vous pouvez tester dans le Playground, mais les intégrations de canaux sont désactivées jusqu'à l'activation de l'agent.
+</Callout>
+
+## Gestion des Agents
+
+Depuis la page Agents, vous pouvez :
+
+- **Edit** — Cliquez sur n'importe quel agent pour modifier ses paramètres
+- **Test** — Cliquez sur **Test** sur une carte d'agent pour ouvrir le Playground
+- **Change Status** — Définir sur Testing, Active, Inactive ou Archived
+
+Voir [Options de configuration](/agents/configuring) pour les détails sur tous les paramètres des agents.

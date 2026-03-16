@@ -1,0 +1,71 @@
+# Créer votre premier Agent
+
+Les agents sont les chatbots qui interagissent avec vos utilisateurs. Chaque agent peut être configuré avec des connaissances, un comportement et une personnalité spécifiques.
+
+## Créer un Agent
+
+1. Naviguez vers **Agents** dans la barre latérale
+2. Cliquez sur **Create Agent**
+3. Remplissez les informations de base :
+   - **Name** — Un nom descriptif pour votre agent (ex. : "Bot Support Client")
+   - **Description** — Ce que fait cet agent (pour votre référence)
+
+## Configuration de l'Agent
+
+### Agent Persona
+
+L'Agent Persona définit la personnalité et le comportement de votre agent. C'est l'instruction qui guide la façon dont votre agent répond.
+
+Vous pouvez rédiger votre propre persona ou cliquer sur **Generate** pour utiliser le Persona Builder alimenté par l'IA qui en crée un basé sur vos exigences.
+
+**Exemple :**
+```
+You are a helpful customer support assistant for Acme Corp.
+You answer questions about our products and services based on the provided documentation.
+Be friendly, professional, and concise.
+If you don't know the answer, say so rather than making something up.
+```
+
+### Règles de la plateforme
+
+Tous les agents incluent automatiquement des garde-fous de sécurité intégrés :
+
+- Ne fabrique pas de faits, chiffres ou dates
+- Dit "Je ne sais pas" quand l'information n'est pas disponible
+- Ne devine pas les informations manquantes
+- Corrige les suppositions incorrectes dans les questions
+- N'usurpe pas l'identité de professionnels (avocats, médecins, etc.)
+- Refuse le contenu nuisible ou inapproprié
+
+Ces règles sont toujours actives et ne peuvent pas être désactivées.
+
+### Contrôle d'accès aux connaissances
+
+Contrôlez quels documents votre agent peut consulter :
+
+- **Exclude Mode** (par défaut) — L'agent accède à tous les documents sauf ceux que vous choisissez de masquer
+- **Include Mode** — L'agent accède uniquement aux dossiers, tags ou documents spécifiques que vous sélectionnez
+
+Utilisez Include Mode lorsque vous souhaitez restreindre un agent à un ensemble de connaissances spécifique.
+
+### Configuration LLM
+
+Pour la plupart des utilisateurs, les paramètres par défaut du modèle IA fonctionnent bien. Les utilisateurs avancés peuvent personnaliser :
+
+- **Model** — Choisissez parmi les modèles IA disponibles
+- **Temperature** — Plus bas = plus cohérent, plus haut = plus créatif
+- **Show Document References** — Activez pour inclure les citations de sources dans les réponses
+
+## Enregistrer votre Agent
+
+Cliquez sur **Create Agent** pour enregistrer. Votre agent démarre en statut **Testing**, ce qui signifie que vous pouvez le tester dans le Playground mais les intégrations de canaux sont désactivées jusqu'à son activation.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="important">
+  Votre brouillon est automatiquement sauvegardé pendant que vous travaillez. Si vous partez et revenez, votre progression sera restaurée.
+</Callout>
+
+## Étape suivante
+
+Votre agent est créé ! Maintenant, [testez-le dans le Playground](/getting-started/test-your-agent).

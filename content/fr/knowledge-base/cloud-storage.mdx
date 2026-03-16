@@ -1,0 +1,131 @@
+# Stockage cloud
+
+import { Callout } from 'nextra/components'
+
+Importez des documents directement depuis vos comptes de stockage cloud. Connectez Google Drive, Dropbox, OneDrive ou Box pour ajouter des fichiers à votre Content sans les télécharger au préalable.
+
+## Y accéder
+
+Naviguez vers **Content** dans la barre latérale. Les icônes de stockage cloud apparaissent en haut de la page, à côté de la zone de dépôt.
+
+## Fournisseurs pris en charge
+
+| Fournisseur | Emplacement de l'icône | Ce que vous pouvez importer |
+|-------------|----------------------|---------------------------|
+| Google Drive | Rangée d'icônes cloud | Fichiers, Google Docs, Slides |
+| Dropbox | Rangée d'icônes cloud | Fichiers depuis votre Dropbox |
+| OneDrive | Rangée d'icônes cloud | Fichiers depuis votre OneDrive |
+| Box | Rangée d'icônes cloud | Fichiers depuis votre compte Box |
+
+## Comment importer des fichiers
+
+### Étape 1 : Cliquer sur l'icône du fournisseur
+
+Cliquez sur l'icône de votre fournisseur de stockage cloud. Une info-bulle affiche le nom du fournisseur au survol.
+
+### Étape 2 : Se connecter
+
+Vous serez invité à vous connecter et à autoriser l'accès. Cette autorisation est mémorisée pour votre session de navigateur.
+
+### Étape 3 : Sélectionner les fichiers
+
+Un sélecteur de fichiers s'ouvre montrant le contenu de votre stockage cloud :
+- Naviguez dans les dossiers pour trouver les fichiers
+- Sélectionnez plusieurs fichiers à la fois
+- Seuls les types de fichiers pris en charge sont affichés (selon votre plan)
+
+### Étape 4 : Importer
+
+Cliquez pour confirmer votre sélection. Les fichiers sont mis en file d'attente pour l'import et le traitement commence automatiquement.
+
+## Options d'import
+
+Avant d'importer, vous pouvez configurer :
+
+| Option | Description |
+|--------|-------------|
+| Premium Processing | Activer pour une meilleure compréhension IA (case à cocher sous la zone de téléversement) |
+| Dossier cible | Téléversez directement dans un dossier en cliquant sur l'icône du fournisseur sur une ligne de dossier |
+
+## Importer dans un dossier spécifique
+
+Vous pouvez importer des fichiers cloud directement dans un dossier :
+
+1. Trouvez le dossier dans votre navigateur de documents
+2. Survolez la ligne du dossier
+3. Cliquez sur l'icône de stockage cloud qui apparaît
+4. Sélectionnez les fichiers depuis votre stockage cloud
+5. Les fichiers sont importés directement dans ce dossier
+
+## Pendant l'import
+
+- Un indicateur de progression affiche le statut de l'import
+- Les fichiers apparaissent dans votre liste de documents au fur et à mesure du traitement
+- Vous pouvez continuer à travailler pendant l'import des fichiers
+- Si des doublons sont détectés, vous serez notifié après la fin de l'import
+
+## Fichiers Google Workspace
+
+Google Drive prend en charge les documents natifs Google Workspace :
+- **Google Docs** — Automatiquement convertis en texte
+- **Google Slides** — Automatiquement convertis en format présentation
+
+<Callout type="info">
+  Le formatage et les graphiques ne sont pas préservés — seul le contenu textuel est extrait.
+</Callout>
+
+## Permissions
+
+Cuneiform Chat demande des permissions minimales :
+- Accès en lecture seule aux fichiers que vous sélectionnez
+- Aucun accès en écriture à votre stockage cloud
+- Aucun accès aux fichiers que vous ne choisissez pas explicitement
+
+<Callout type="info">
+  Vous pouvez révoquer l'accès à tout moment via les paramètres de votre fournisseur cloud.
+</Callout>
+
+## Comportement de synchronisation
+
+Actuellement, les imports cloud sont des **imports ponctuels** :
+- Les fichiers sont copiés au moment de l'import
+- Les modifications dans le stockage cloud ne sont pas automatiquement synchronisées
+- Pour mettre à jour le contenu, réimportez les fichiers modifiés
+
+## Conseils
+
+- Sélectionnez plusieurs fichiers à la fois pour gagner du temps
+- Seuls les types de fichiers pris en charge apparaissent dans le sélecteur (selon votre plan)
+- Utilisez l'import au niveau des dossiers pour une meilleure organisation
+- Les fichiers volumineux peuvent prendre plus de temps à traiter après l'import
+
+## Questions fréquentes
+
+**Q : Dois-je me réautoriser à chaque fois ?**
+R : Généralement non. Si votre session est active, cliquer sur l'icône ouvre directement le sélecteur de fichiers. Vous devrez peut-être occasionnellement vous réautoriser après avoir effacé les données du navigateur ou en utilisant un nouveau navigateur.
+
+**Q : Puis-je importer des dossiers entiers ?**
+R : Actuellement, vous sélectionnez des fichiers individuels. Naviguez dans les dossiers du sélecteur pour sélectionner les fichiers qu'ils contiennent.
+
+**Q : Que se passe-t-il pour mes fichiers originaux ?**
+R : Vos fichiers cloud restent inchangés. Nous créons une copie dans votre Content.
+
+**Q : Pourquoi certains fichiers n'apparaissent-ils pas dans le sélecteur ?**
+R : Seuls les types de fichiers pris en charge sont affichés. Consultez les [formats pris en charge](/knowledge-base/supported-formats) pour les formats disponibles.
+
+## Dépannage
+
+### Problèmes d'autorisation
+
+Si vous ne pouvez pas vous connecter :
+- Vérifiez que vous êtes connecté au bon compte
+- Essayez de révoquer et de réautoriser l'accès
+- Assurez-vous que l'accès aux applications tierces est activé dans les paramètres de votre fournisseur
+
+### Échecs d'import
+
+Si les fichiers ne s'importent pas :
+- Vérifiez que les fichiers sont dans des formats pris en charge
+- Vérifiez que les fichiers ne sont pas corrompus
+- Assurez-vous que vous avez la permission d'accéder aux fichiers
+- Essayez d'importer moins de fichiers à la fois

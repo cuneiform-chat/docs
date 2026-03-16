@@ -1,0 +1,153 @@
+# Meta (Facebook)
+
+Connectez votre agent à Facebook Messenger via votre Page Facebook.
+
+## Aperçu
+
+L'intégration Meta fournit :
+- Conversations Facebook Messenger via votre Page
+- Traitement en arrière-plan avec indicateurs de frappe
+- Découpage automatique des messages longs
+- Conformité à la fenêtre de messagerie de 24 heures
+- Mémoire de conversation au sein des sessions
+
+## Prérequis
+
+- Une Page Facebook que vous gérez
+- Rôle d'Administrateur ou d'Éditeur sur la Page
+- Un compte Cuneiform Chat avec un agent actif
+
+## Étapes de configuration
+
+### 1. Démarrer la configuration de l'intégration
+
+1. Allez dans **Agents** → Sélectionnez votre agent
+2. Naviguez vers l'onglet **Integrations**
+3. Cliquez sur **Meta (Facebook)**
+4. Cliquez sur **Connect Page**
+
+### 2. Autoriser avec Facebook
+
+1. Sélectionnez quel **Agent** doit répondre
+2. Cliquez sur **Connect with Facebook**
+3. Connectez-vous à Facebook (si nécessaire)
+4. Sélectionnez la Page que vous souhaitez connecter
+5. Accordez les permissions Messenger
+6. Vous serez redirigé avec un message de succès
+
+### 3. Vérifier la connexion
+
+Une fois connectée, votre Page apparaîtra dans la liste des intégrations montrant :
+- Nom de la Page et statut
+- ID de la Page
+- Dernière activité
+
+## Comment ça fonctionne
+
+Quand les utilisateurs envoient un message à votre Page Facebook via Messenger :
+
+1. Le message arrive via Facebook Messenger
+2. Le bot affiche un indicateur de frappe pendant le traitement
+3. Votre agent traite la question
+4. La réponse est renvoyée via Messenger
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Les messages sont traités en arrière-plan. Le bot affiche un indicateur de frappe pendant que votre agent génère une réponse.
+</Callout>
+
+## Fonctionnalités
+
+### Réponses automatiques
+
+Votre agent répond automatiquement aux conversations Messenger entrantes en se basant sur votre contenu. Tous les messages texte déclenchent une réponse — aucune commande ou préfixe nécessaire.
+
+### Indicateurs de frappe
+
+Pendant que votre agent traite un message, les utilisateurs voient un indicateur de frappe ("...") dans Messenger, procurant une sensation de conversation naturelle.
+
+### Découpage des messages
+
+Les réponses de plus de 2 000 caractères sont automatiquement découpées en plusieurs messages, préservant les sauts de paragraphe et les limites de phrases pour la lisibilité.
+
+### Mémoire de conversation
+
+Le bot se souvient du contexte au sein d'une session, les utilisateurs peuvent donc poser des questions de suivi sans se répéter.
+
+### File d'attente de messages
+
+Si un utilisateur envoie des messages supplémentaires pendant que le bot traite encore, ils sont mis en file d'attente et inclus dans la prochaine réponse.
+
+### Fenêtre de messagerie de 24 heures
+
+La politique Facebook autorise les réponses dans les 24 heures suivant le dernier message de l'utilisateur. Votre agent répond en temps réel, bien dans cette fenêtre. Après 24 heures d'inactivité, l'utilisateur doit envoyer un nouveau message pour redémarrer la conversation.
+
+<Callout type="warning">
+  Les utilisateurs doivent envoyer un message à votre Page en premier — vous ne pouvez pas envoyer de messages non sollicités. Si plus de 24 heures passent depuis leur dernier message, le bot ne peut pas répondre tant que l'utilisateur n'envoie pas un nouveau message.
+</Callout>
+
+## Gérer les Pages
+
+### Voir les Pages connectées
+
+Chaque Page connectée affiche :
+- Nom de la Page et statut de connexion
+- Agent associé
+- Informations d'activité
+
+### Actions disponibles
+
+| Action | Description |
+|--------|-------------|
+| **Test Connection** | Vérifier que l'intégration fonctionne |
+| **Disconnect** | Supprimer la connexion de la Page |
+
+Accédez à ces actions via le menu à trois points sur chaque Page connectée.
+
+## Dépannage
+
+### La Page n'apparaît pas
+
+1. Vérifiez que vous avez le rôle d'Administrateur ou d'Éditeur sur la Page
+2. Vérifiez que vous avez accordé toutes les permissions demandées
+3. Essayez de déconnecter et reconnecter
+
+### Les messages ne reçoivent pas de réponse
+
+1. Utilisez "Test Connection" pour vérifier l'intégration
+2. Vérifiez que votre agent est configuré et fonctionne (testez dans le Playground)
+3. Assurez-vous que les permissions Messenger sont accordées
+4. Vérifiez que l'utilisateur a envoyé un message dans les dernières 24 heures (politique de fenêtre de messagerie)
+
+### Erreurs d'autorisation
+
+1. Effacez la session de connexion Facebook et réessayez
+2. Vérifiez que votre compte Facebook a accès à la Page
+3. Vérifiez que la Page n'est pas restreinte par Facebook
+
+## Sécurité
+
+- Les **tokens OAuth** sont chiffrés et stockés en toute sécurité
+- Les **signatures de webhook** sont vérifiées par HMAC-SHA256 sur chaque requête entrante
+- Aucun accès au contenu de la Page au-delà des conversations Messenger
+- Conforme aux politiques de la plateforme Facebook
+
+## Déconnexion
+
+Pour supprimer l'intégration Meta :
+
+1. Allez dans **Agents** → Sélectionnez l'agent → **Integrations**
+2. Cliquez sur le menu à trois points sur votre Page
+3. Sélectionnez **Disconnect**
+
+Pour révoquer complètement l'accès :
+1. Allez dans Facebook Settings → Business Integrations
+2. Supprimez l'application Cuneiform Chat
+
+## Notes importantes
+
+- **Un agent par Page** : Chaque Page Facebook ne peut être connectée qu'à un seul agent IA à la fois
+- **Messenger uniquement** : Cette intégration fonctionne via Facebook Messenger, pas les commentaires ou publications de la Page
+- **Limite de messages** : Les messages individuels sont limités à 2 000 caractères ; les réponses plus longues sont automatiquement découpées
+- **Pour changer d'agent** : Déconnectez d'abord l'intégration existante, puis reconnectez avec un agent différent

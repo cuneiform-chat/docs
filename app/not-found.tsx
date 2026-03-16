@@ -7,7 +7,7 @@ export default function NotFound() {
           dangerouslySetInnerHTML={{
             __html: `(function(){
   var p = window.location.pathname;
-  if (!/^\\/(en|bn|es|hi|pt|th)(\\/|$)/.test(p)) {
+  if (!/^\\/(en|bn|es|fr|hi|pt|th)(\\/|$)/.test(p)) {
     window.location.replace('/en' + p + window.location.search + window.location.hash);
   }
 })();`,

@@ -1,0 +1,85 @@
+# Formats pris en charge
+
+Cuneiform Chat prend en charge une large gamme de formats de documents.
+
+## Types de documents
+
+### Documents texte
+
+| Format | Extensions | Notes |
+|--------|-----------|-------|
+| PDF | `.pdf` | Texte et numérisé (avec OCR) |
+| Microsoft Word | `.docx`, `.doc` | Support complet du formatage |
+| Texte brut | `.txt` | Fichiers texte simples |
+| Markdown | `.md` | Formatage Markdown préservé |
+| Rich Text | `.rtf` | Support basique du formatage |
+
+### Présentations
+
+| Format | Extensions | Notes |
+|--------|-----------|-------|
+| PowerPoint | `.pptx`, `.ppt` | Contenu des diapositives extrait |
+
+### Contenu web
+
+| Format | Extensions | Notes |
+|--------|-----------|-------|
+| HTML | `.html`, `.htm` | Contenu de pages web |
+
+### Formats de données
+
+| Format | Extensions | Notes |
+|--------|-----------|-------|
+| JSON | `.json` | Fichiers de données structurées |
+| XML | `.xml` | Documents XML |
+
+## Notes spécifiques par format
+
+### PDF
+
+Les PDF fonctionnent mieux quand ils sont :
+- **Basés sur du texte** — Créés à partir de documents numériques
+- **Recherchables** — Le texte peut être sélectionné/copié
+
+Les PDF numérisés sont pris en charge mais peuvent avoir une qualité d'extraction inférieure en raison des limitations de l'OCR.
+
+### Documents Word
+
+`.docx` (format moderne) est recommandé plutôt que `.doc` (format hérité) pour de meilleurs résultats.
+
+Éléments pris en charge :
+- Texte et paragraphes
+- Titres et styles
+- Tableaux
+- Listes
+
+### Markdown
+
+Le formatage Markdown est préservé pendant le traitement :
+- Les titres deviennent des marqueurs de section
+- Les listes conservent leur structure
+- Les blocs de code sont reconnus
+
+## Formats non pris en charge
+
+Les formats suivants ne sont actuellement pas pris en charge :
+- Images (`.jpg`, `.png`, `.gif`)
+- Fichiers audio (`.mp3`, `.wav`)
+- Fichiers vidéo (`.mp4`, `.mov`)
+- Archives compressées (`.zip`, `.rar`)
+- Fichiers exécutables (`.exe`, `.app`)
+
+import { Callout } from 'nextra/components'
+
+<Callout type="important">
+  Si vous avez du contenu dans un format non pris en charge, essayez de le convertir en PDF ou dans un format textuel avant de le téléverser.
+</Callout>
+
+## Limites de taille de fichier
+
+Les tailles maximales de fichier dépendent de votre plan. Les documents très volumineux peuvent prendre plus de temps à traiter.
+
+Pour de meilleures performances :
+- Divisez les très gros documents en fichiers plus petits
+- Supprimez les images inutiles des PDF si elles ne sont pas nécessaires
+- Utilisez des formats textuels quand c'est possible

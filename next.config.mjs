@@ -12,7 +12,7 @@ export default withNextra({
     unoptimized: true,
   },
   i18n: {
-    locales: ['en', 'bn', 'es', 'hi', 'pt', 'th'],
+    locales: ['en', 'bn', 'es', 'fr', 'hi', 'pt', 'th'],
     defaultLocale: 'en',
   },
 })

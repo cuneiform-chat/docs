@@ -1,0 +1,57 @@
+---
+description: Configurez des agents IA avec des personas personnalisées, un contrôle d'accès aux connaissances et un déploiement multicanal.
+---
+
+# Agents
+
+Les agents sont les chatbots IA qui interagissent avec vos utilisateurs. Chaque agent possède sa propre configuration, son accès aux connaissances et sa personnalité.
+
+## Qu'est-ce qu'un Agent ?
+
+Un agent est un chatbot configuré qui :
+
+- Répond aux questions en utilisant votre contenu
+- Suit les instructions définies dans son Agent Persona
+- Maintient le contexte de conversation au sein des sessions
+- Peut être déployé sur plusieurs canaux
+
+## Concepts des Agents
+
+### Agent Persona
+
+L'Agent Persona est l'ensemble d'instructions qui définit le comportement de votre agent. Il contrôle :
+
+- **Personnalité** — Amical, professionnel, décontracté, etc.
+- **Portée** — Les sujets que l'agent devrait et ne devrait pas aborder
+- **Style de réponse** — Longueur, format et ton des réponses
+- **Garde-fous** — Limites et restrictions
+- **Langue** — Détection automatique par message (176 langues prises en charge)
+
+### Accès aux connaissances
+
+Chaque agent accède à votre contenu pour trouver les informations pertinentes. Vous pouvez configurer :
+
+- Quels documents l'agent peut consulter
+- Combien de sources récupérer
+- S'il faut afficher les citations des sources
+
+### Canaux
+
+Les agents peuvent être déployés sur plusieurs canaux simultanément :
+
+- Plateformes de messagerie (Telegram, Discord, Slack, WhatsApp, Google Chat)
+- Facebook Messenger via l'intégration Meta
+- Human Handoff — transférer les conversations à un membre de l'équipe de manière transparente
+
+## Dans cette section
+
+import { Cards } from 'nextra/components'
+
+<Cards>
+  <Cards.Card title="Créer des Agents" href="/agents/creating" />
+  <Cards.Card title="Options de configuration" href="/agents/configuring" />
+  <Cards.Card title="Agent Personas" href="/agents/agent-personas" />
+  <Cards.Card title="Agent Persona Builder" href="/agents/persona-builder" />
+  <Cards.Card title="Tester dans le Playground" href="/agents/testing" />
+  <Cards.Card title="Inbox et Human Handoff" href="/agents/inbox" />
+</Cards>

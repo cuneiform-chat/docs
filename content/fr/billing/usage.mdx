@@ -1,0 +1,141 @@
+# Utilisation et crédits
+
+Comprenez le fonctionnement des crédits et surveillez votre consommation.
+
+## Système de crédits
+
+Cuneiform Chat utilise des crédits (appelés Platform Credits) pour mesurer l'utilisation :
+- **Requêtes IA** — Quand vos agents répondent aux questions
+- **Traitement de documents** — Quand les documents sont téléversés et indexés
+- **Embeddings** — Génération de vecteurs pour la recherche
+
+## Comment les crédits sont utilisés
+
+### Requêtes IA
+
+Chaque fois que votre agent répond à une question :
+- Les crédits sont consommés selon le modèle IA utilisé
+- Les réponses plus longues peuvent utiliser légèrement plus de crédits
+- Les requêtes échouées ne consomment pas de crédits
+
+### Traitement de documents
+
+Quand vous téléversez des documents :
+- Les crédits sont utilisés pour extraire et traiter le contenu
+- Les documents plus volumineux utilisent plus de crédits
+- Le retraitement utilise des crédits supplémentaires
+
+## Consulter l'utilisation
+
+Accédez à votre utilisation depuis **Billing & Plans** dans la barre latérale :
+
+- **Utilisation de la période en cours** — Crédits utilisés ce cycle de facturation
+- **Crédits restants** — Crédits disponibles
+- **Pourcentage d'utilisation** — Barre de progression visuelle montrant la consommation
+
+## Surveiller l'utilisation
+
+### Affichage de l'utilisation
+
+La page de facturation affiche :
+- Crédits utilisés vs. alloués
+- Pourcentage d'utilisation avec barre de progression visuelle
+- Indicateur de statut (normal, avertissement, dépassé, bloqué)
+
+### Avertissements d'utilisation
+
+La plateforme affiche automatiquement des avertissements à l'approche de vos limites :
+
+| Seuil | Ce qui se passe |
+|-------|-----------------|
+| ~80% utilisés | Bannière d'avertissement dans la page Billing |
+| 100% utilisés | Bannière "Limit Reached" avec invitation à passer au plan supérieur |
+| Bloqué | Service suspendu jusqu'à la prochaine période ou mise à niveau |
+
+Ces avertissements apparaissent automatiquement — aucune configuration nécessaire.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="important">
+  Consultez votre utilisation chaque semaine pour détecter les pics inattendus tôt et optimiser si nécessaire.
+</Callout>
+
+## Optimiser l'utilisation des crédits
+
+### Agents efficaces
+
+- Rédigez des personas d'agents claires pour des réponses précises dès la première fois
+
+### Gestion intelligente des documents
+
+- Téléversez uniquement les documents nécessaires
+- Supprimez le contenu obsolète
+- Évitez les documents en double
+
+### Tendances d'utilisation
+
+- Surveillez quels agents utilisent le plus de crédits
+- Identifiez les périodes de fort volume
+- Optimisez en fonction des tendances
+
+## Ce qui se passe aux limites
+
+### Approche des limites
+
+À l'approche de votre limite de crédits, des bannières d'avertissement apparaissent dans la page Billing vous invitant à passer au plan supérieur ou à activer l'utilisation supplémentaire.
+
+### Dépassement des limites
+
+Quand vous dépassez votre quota mensuel :
+- Une bannière d'avertissement indique "Limit Reached"
+- Activez **Extra Usage** pour continuer sans attendre
+- Ou passez à un plan supérieur pour plus de crédits mensuels
+
+### État bloqué
+
+Si le solde d'utilisation supplémentaire est également épuisé :
+- Le service est suspendu jusqu'à la prochaine période de facturation
+- Ou ajoutez des fonds à votre solde d'utilisation supplémentaire
+
+## Utilisation supplémentaire
+
+L'utilisation supplémentaire vous permet de continuer à utiliser le service quand votre quota mensuel est épuisé.
+
+### Activer l'utilisation supplémentaire
+
+1. Allez dans **Billing & Plans**
+2. Trouvez la section **Extra Usage**
+3. Activez le toggle
+4. Complétez le rechargement initial (minimum 10 $)
+
+### Gérer l'utilisation supplémentaire
+
+Une fois activée, vous pouvez :
+
+- **Voir le solde** — Voir vos fonds d'utilisation supplémentaire disponibles
+- **Ajouter des fonds** — Recharger votre solde (10 $-500 $ par transaction)
+- **Définir un plafond de dépenses** — Limiter les dépenses mensuelles d'utilisation supplémentaire (10 $-500 $)
+
+### Comment fonctionne l'utilisation supplémentaire
+
+- Les frais sont déduits de votre solde d'utilisation supplémentaire
+- L'utilisation s'arrête quand vous atteignez votre plafond de dépenses
+- Le solde est reporté entre les périodes de facturation
+- Ne peut pas être désactivée une fois activée (utilisez le plafond de dépenses pour limiter)
+
+<Callout type="info">
+  L'utilisation supplémentaire n'est disponible que pour les plans payants (Starter, Plus et Enterprise).
+</Callout>
+
+## Période de facturation
+
+- Les crédits se réinitialisent au début de chaque période de facturation
+- Votre date de facturation est indiquée dans les paramètres du compte
+- Les crédits non utilisés peuvent ne pas être reportés (vérifiez votre plan)
+
+## Des questions ?
+
+Pour les questions d'utilisation :
+- Consultez la page [Plans et tarification](/billing/plans)
+- Vérifiez [Gérer l'abonnement](/billing/manage-subscription) pour les mises à niveau
+- Contactez le support pour les demandes de facturation

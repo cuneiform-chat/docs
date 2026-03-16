@@ -2,11 +2,12 @@
 
 import { usePathname } from 'next/navigation'
 
-const LOCALES = ['en', 'bn', 'es', 'hi', 'pt', 'th'] as const
+const LOCALES = ['en', 'bn', 'es', 'fr', 'hi', 'pt', 'th'] as const
 const LOCALE_LABELS: Record<string, string> = {
   en: 'English',
   bn: 'বাংলা',
   es: 'Español',
+  fr: 'Français',
   hi: 'हिन्दी',
   pt: 'Português',
   th: 'ไทย',
@@ -19,7 +20,7 @@ export function LocaleSwitcher() {
 
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const newLocale = e.target.value
-    const newPath = pathname.replace(/^\/(en|bn|es|hi|pt|th)/, `/${newLocale}`)
+    const newPath = pathname.replace(/^\/(en|bn|es|fr|hi|pt|th)/, `/${newLocale}`)
     window.location.href = newPath
   }
 

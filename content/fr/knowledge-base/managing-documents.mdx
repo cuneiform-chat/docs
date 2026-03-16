@@ -1,0 +1,142 @@
+# Gestion des documents
+
+Apprenez à organiser, mettre à jour et maintenir vos documents de contenu. Cela inclut la consultation des documents, l'organisation avec des dossiers, la mise à jour du contenu et les opérations en masse.
+
+## Y accéder
+
+1. Cliquez sur **Content** dans la barre latérale
+2. Consultez tous vos documents dans la liste
+
+## Consulter les documents
+
+Accédez à vos documents depuis la section Content :
+
+- Consultez tous les documents dans une liste
+- Voyez le statut de traitement de chaque document
+- Vérifiez quand les documents ont été ajoutés ou mis à jour
+
+### Détails du document
+
+Cliquez sur n'importe quel document pour voir :
+
+| Information | Description |
+|-------------|-------------|
+| **Informations du fichier** | Nom, taille, format, date de téléversement |
+| **Statut de traitement** | État actuel dans le pipeline |
+| **Nombre de chunks** | Nombre de segments interrogeables créés |
+
+## Organiser les documents
+
+### Utiliser les dossiers
+
+Créez des dossiers pour organiser les documents connexes :
+
+1. Cliquez sur le bouton **New Folder** (icône dossier avec plus)
+2. Entrez un nom de dossier
+3. Cliquez sur **Create**
+
+Organisation suggérée :
+- Par sujet (Produits, Politiques, FAQ)
+- Par département (Ventes, Support, RH)
+- Par type de document (Guides, Références, Tutoriels)
+
+### Déplacer des documents
+
+Déplacez des documents entre les dossiers :
+
+1. Cliquez sur le menu du document (⋮)
+2. Sélectionnez **Move to Folder**
+3. Choisissez le dossier de destination
+
+### Utiliser les étiquettes
+
+Ajoutez des étiquettes aux documents pour une catégorisation flexible :
+
+1. Cliquez sur le menu du document (⋮)
+2. Sélectionnez **Manage Tags**
+3. Ajoutez ou supprimez des étiquettes selon les besoins
+
+Les étiquettes fonctionnent en complément des dossiers — utilisez les dossiers pour l'organisation principale et les étiquettes pour les catégories transversales.
+
+## Mettre à jour les documents
+
+### Retraiter un document échoué
+
+Si un document échoue au traitement, vous pouvez réessayer :
+
+1. Cliquez sur le menu du document (⋮)
+2. Sélectionnez **Reprocess**
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  L'option Reprocess n'apparaît que pour les documents avec un statut "Failed".
+</Callout>
+
+### Remplacer du contenu
+
+Pour mettre à jour le contenu d'un document, supprimez l'ancienne version et téléversez le nouveau fichier. Le document sera traité automatiquement.
+
+## Supprimer des documents
+
+Supprimez les documents dont vous n'avez plus besoin :
+
+1. Cliquez sur le menu du document (⋮)
+2. Sélectionnez **Delete**
+3. Confirmez la suppression
+
+<Callout type="warning">
+  Les documents supprimés sont définitivement retirés et ne peuvent pas être récupérés. Le contenu ne sera plus interrogeable par vos agents.
+</Callout>
+
+## Opérations en masse
+
+Gérez plusieurs documents à la fois :
+
+1. Sélectionnez plusieurs documents avec les cases à cocher
+2. Utilisez le menu d'action en masse :
+   - **Move to Folder** — Déplacer les documents sélectionnés dans un dossier
+   - **Reprocess Failed** — Réessayer le traitement pour les documents échoués dans la sélection
+
+## Recherche et filtre
+
+Trouvez des documents spécifiques :
+
+| Fonctionnalité | Description |
+|----------------|-------------|
+| **Search** | Rechercher par nom de document |
+| **Filtrer par dossier** | Cliquez sur un dossier dans le navigateur de documents pour voir son contenu |
+| **Filtrer par étiquette** | Utilisez le filtre d'étiquettes pour afficher les documents avec des étiquettes spécifiques |
+
+Les documents sont triés par date de téléversement (les plus récents en premier).
+
+## Gestion du stockage
+
+Suivez votre utilisation du stockage :
+
+1. Allez sur le **Dashboard**
+2. Consultez la carte "Storage Used" montrant l'utilisation actuelle et la limite
+3. Supprimez les documents inutiles pour libérer de l'espace
+
+## Conseils
+
+- Supprimez régulièrement les documents obsolètes pour garder votre contenu propre
+- Utilisez les dossiers et les étiquettes pour organiser les documents et faciliter la recherche
+- Vérifiez les documents échoués et retraitez-les si nécessaire
+- Pour mettre à jour du contenu, supprimez l'ancien document et téléversez la nouvelle version
+- Utilisez les opérations en masse pour déplacer plusieurs documents dans des dossiers à la fois
+- Supprimez les doublons pour éviter de confondre vos agents
+
+## Questions fréquentes
+
+**Q : Comment mettre à jour le contenu d'un document ?**
+R : Supprimez l'ancien document et téléversez la nouvelle version. Le nouveau document sera traité automatiquement.
+
+**Q : Puis-je récupérer un document supprimé ?**
+R : Non, les documents supprimés sont définitivement retirés et ne peuvent pas être récupérés. Assurez-vous d'avoir une sauvegarde avant de supprimer.
+
+**Q : Comment savoir si un document a été traité avec succès ?**
+R : Vérifiez la colonne de statut de traitement. Les documents affichent **Ready** quand c'est terminé, ou **Failed** en cas d'erreur.
+
+**Q : Que faire si un document échoue au traitement ?**
+R : Cliquez sur le menu du document (⋮) et sélectionnez **Reprocess**. Cette option n'apparaît que pour les documents échoués. Si l'échec persiste, vérifiez le format et la taille du fichier.

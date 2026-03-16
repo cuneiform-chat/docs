@@ -1,0 +1,103 @@
+---
+description: Gérez votre contenu IA. Téléversez des documents, connectez le stockage cloud et explorez des sites web.
+---
+
+# Contenu
+
+Le Contenu est l'endroit où vous gérez tous les documents que vos agents IA utilisent pour répondre aux questions. Téléversez des documents, organisez-les dans des dossiers, ajoutez des étiquettes et contrôlez quels agents peuvent accéder à quel contenu.
+
+## Comment ça fonctionne
+
+1. **Ajouter du contenu** — Téléversez des documents, importez depuis le stockage cloud ou explorez des sites web
+2. **Traitement** — Les documents sont automatiquement traités et indexés
+3. **Recherche** — Les agents recherchent le contenu pertinent pour répondre aux questions
+4. **Réponse** — Les réponses sont générées à partir de votre contenu réel
+
+## Y accéder
+
+Naviguez vers **Content** dans le menu latéral. C'est votre hub central pour la gestion des documents.
+
+## Ce que vous voyez
+
+### Zone de téléversement
+
+En haut de la page :
+- **Icônes de stockage cloud** — Cliquez sur Google Drive, Dropbox, OneDrive ou Box pour importer des fichiers directement
+- **Zone de dépôt** — Glissez-déposez des fichiers ou cliquez pour parcourir les fichiers locaux
+- **Onglet Website** — Passez à l'onglet Website pour explorer et importer du contenu de sites web publics
+
+### Navigateur de documents
+
+Sous la zone de téléversement, un tableau affiche tous vos documents :
+
+| Colonne | Description |
+|---------|-------------|
+| Name | Nom du fichier avec icône de type et indicateur de source |
+| Tags | Étiquettes assignées au document |
+| Status | État du traitement (voir Statut du document ci-dessous) |
+| Size | Taille du fichier en Mo |
+| Type | Extension du fichier (PDF, DOCX, etc.) |
+| Uploaded | Date et heure du téléversement |
+| Actions | Menu pour les opérations sur le document |
+
+### Barre d'outils
+
+- **Search** — Trouver des documents par nom
+- **Tag Filter** — Afficher uniquement les documents avec des étiquettes spécifiques
+- **Refresh** — Mettre à jour la liste des documents
+- **New Folder** — Créer un dossier pour l'organisation
+- **Fullscreen** — Étendre le navigateur pour plus d'espace
+
+## Statut du document
+
+| Statut | Signification |
+|--------|---------------|
+| Pending | Le document est en file d'attente pour le traitement |
+| Uploaded | Le document a été téléversé |
+| Validating | Le document est en cours de validation |
+| Stored | Le document a été stocké et est en attente de traitement |
+| Processing | Le document est en cours d'analyse et d'indexation |
+| Ready | Le document est traité et disponible pour vos agents |
+| Completed | Le traitement du document est entièrement terminé |
+| Failed | Le traitement a rencontré une erreur (peut être réessayé) |
+
+## Travailler avec les documents
+
+### Voir un document
+
+Cliquez sur n'importe quelle ligne de document pour ouvrir le visualiseur de document, qui affiche le contenu et les métadonnées.
+
+### Actions sur les documents
+
+Survolez un document pour voir les boutons d'action rapide :
+- **Tag** — Ajouter ou supprimer des étiquettes
+- **Premium Processing** — Améliorer la qualité du traitement (si éligible)
+- **Retry** — Retraiter les documents échoués
+- **Chat** — Avoir une conversation sur ce document spécifique
+
+Depuis le menu Actions (...) :
+- **Move to Folder** — Déplacer le document
+- **Reprocess** — Réessayer le traitement pour les documents échoués
+- **Delete** — Supprimer le document définitivement
+
+## Dans cette section
+
+import { Cards } from 'nextra/components'
+
+<Cards>
+  <Cards.Card title="Téléverser des documents" href="/knowledge-base/uploading-documents" />
+  <Cards.Card title="Formats pris en charge" href="/knowledge-base/supported-formats" />
+  <Cards.Card title="Dossiers et étiquettes" href="/knowledge-base/folders-and-tags" />
+  <Cards.Card title="Stockage cloud" href="/knowledge-base/cloud-storage" />
+  <Cards.Card title="Exploration de sites web" href="/knowledge-base/website-crawling" />
+  <Cards.Card title="Gestion des documents" href="/knowledge-base/managing-documents" />
+  <Cards.Card title="Accès aux connaissances de l'Agent" href="/knowledge-base/agent-knowledge-access" />
+</Cards>
+
+## Bonnes pratiques
+
+- **Gardez le contenu à jour** — Mettez régulièrement à jour les documents pour maintenir la précision
+- **Organisez avec des dossiers** — Regroupez les documents connexes pour une gestion plus facile
+- **Utilisez les étiquettes pour les thèmes transversaux** — Les étiquettes aident à trouver des documents à travers les dossiers
+- **La qualité compte** — Des documents bien structurés produisent de meilleures réponses IA
+- **Supprimez les doublons** — Évitez de téléverser le même contenu plusieurs fois

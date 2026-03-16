@@ -1,0 +1,196 @@
+# Options de configuration
+
+import { Callout } from 'nextra/components'
+
+Guide détaillé de toutes les options de configuration des agents.
+
+## Structure de la page
+
+La page d'édition de l'agent comporte trois onglets :
+
+| Onglet | Objectif |
+|--------|----------|
+| **Configuration** | Paramètres principaux (statut, nom, persona, LLM, messages) |
+| **Knowledge Access** | Contrôler quels documents l'agent peut utiliser |
+| **Integrations** | Connecter aux canaux externes (Telegram, Discord, etc.) |
+
+## Onglet Configuration
+
+### Statut
+
+Contrôlez la disponibilité de votre agent :
+
+| Statut | Playground | Intégrations | Notes |
+|--------|------------|--------------|-------|
+| **Testing** | ✅ Activé | ❌ Désactivé | Par défaut pour les nouveaux agents. Testez avant la mise en production. |
+| **Active** | ✅ Activé | ✅ Activé | Prêt pour l'utilisation en production. |
+| **Inactive** | ❌ Désactivé | ❌ Désactivé | Temporairement désactivé. |
+| **Archived** | ❌ Désactivé | ❌ Désactivé | Masqué de la liste principale. |
+
+<Callout type="warning">
+  Si votre agent a des intégrations connectées et que vous changez de Active à un autre statut, vous verrez une boîte de confirmation avertissant que l'agent cessera de répondre sur les canaux connectés.
+</Callout>
+
+### Paramètres de base
+
+- **Name** — Identifie l'agent dans votre tableau de bord
+- **Description** — Notes internes sur la fonction de l'agent
+
+### Configuration LLM
+
+Contrôlez le modèle IA alimentant votre agent.
+
+**Mode par défaut (toggle Advanced désactivé) :**
+- Utilise les valeurs par défaut du tier de votre organisation
+- Affiche une info-bulle expliquant que les valeurs par défaut du tier sont utilisées
+- Recommandé pour la plupart des cas d'utilisation
+
+**Mode avancé (toggle Advanced activé) :**
+
+| Paramètre | Description |
+|-----------|-------------|
+| **Model** | Sélectionnez parmi les modèles IA disponibles selon votre plan |
+| **Temperature** | Contrôle la créativité des réponses (0.0-1.0) |
+
+#### Guide de Temperature
+
+| Valeur | Comportement |
+|--------|-------------|
+| 0.0 - 0.3 | Réponses ciblées et déterministes |
+| 0.4 - 0.7 | Équilibre entre créativité et cohérence |
+| 0.8 - 1.0 | Réponses plus créatives et variées |
+
+**Recommandation :** Commencez avec 0.3-0.5 pour des Q&R factuelles basées sur des documents.
+
+#### Show Document References
+
+Ce toggle (toujours visible quel que soit le mode Advanced) contrôle si l'agent inclut les citations de sources dans les réponses :
+
+- **Off** (par défaut) — Les réponses ne mentionnent pas les documents sources
+- **On** — Les réponses incluent des références aux documents sources
+
+<Callout type="important">
+  Activez les références de documents pour les cas d'utilisation nécessitant de la transparence, comme le juridique, la conformité ou le contenu interne où les utilisateurs doivent vérifier les sources.
+</Callout>
+
+### Prise en charge des langues
+
+Votre agent détecte automatiquement la langue de chaque message utilisateur et répond en conséquence — aucune configuration manuelle nécessaire. 176 langues sont prises en charge nativement, dont l'arabe, le français, l'allemand, l'espagnol, le turc, le chinois, le japonais et plus encore.
+
+### Agent Persona
+
+Les instructions qui contrôlent le comportement de l'agent. Voir [Agent Personas](/agents/agent-personas) pour les bonnes pratiques.
+
+**Actions disponibles :**
+- **Generate** — Ouvre l'[Agent Persona Builder](/agents/persona-builder)
+- **Edit** — Ouvre un panneau coulissant pour écrire ou modifier la persona directement
+
+Cliquez sur la zone de texte de la persona pour ouvrir le panneau d'édition.
+
+**Platform Rules Box :**
+Cliquez pour voir les règles de fiabilité de la plateforme automatiquement appliquées à tous les agents :
+- Pas de fabrication — n'invente pas de faits
+- Reconnaît les lacunes — dit "Je ne sais pas" quand c'est approprié
+- Résiste à la spéculation — ne devine pas les informations manquantes
+- Pas d'usurpation professionnelle — n'agit pas comme avocat, médecin, etc.
+- Corrige les fausses prémisses — signale les suppositions incorrectes
+- Bloque le contenu nuisible — refuse les demandes inappropriées
+
+<Callout type="info">
+  Les règles de la plateforme garantissent que tous les agents se comportent de manière fiable et sûre. Elles ne peuvent pas être désactivées ni modifiées.
+</Callout>
+
+## Onglet Knowledge Access
+
+Contrôlez quels documents votre agent peut consulter pour répondre aux requêtes.
+
+### Modes d'accès
+
+| Mode | Comportement | Quand utiliser |
+|------|-------------|----------------|
+| **Exclude Mode** | L'agent accède à TOUS les documents SAUF ceux sélectionnés | Masquer des documents sensibles tout en autorisant l'accès à tout le reste |
+| **Include Mode** | L'agent accède UNIQUEMENT aux éléments sélectionnés | Restreindre l'agent à un ensemble spécifique de documents |
+
+### Options de sélection
+
+Affinez l'accès en utilisant plusieurs types de sélection :
+
+- **Folders** — Sélectionnez des dossiers entiers et tous les documents qu'ils contiennent
+- **Tags** — Filtrez les documents par leurs tags assignés
+- **Individual Documents** — Incluez ou excluez des documents spécifiques dans les dossiers sélectionnés
+
+### Aperçu de l'accès
+
+Le panneau d'aperçu montre l'accès effectif aux documents en fonction de vos sélections actuelles. Utilisez-le pour vérifier votre configuration avant d'enregistrer.
+
+<Callout type="info">
+  Commencez avec **Exclude Mode** si vous voulez un accès large avec des restrictions spécifiques. Utilisez **Include Mode** quand vous avez besoin d'un contrôle strict sur les documents que l'agent peut référencer.
+</Callout>
+
+## Onglet Integrations
+
+Connectez votre agent aux canaux de communication.
+
+Cet onglet affiche les options d'intégration disponibles pour votre agent. Vous pouvez connecter des canaux comme :
+- Telegram
+- Discord
+- Slack
+- WhatsApp
+- Meta (Facebook Messenger)
+- Et plus encore (selon votre plan)
+
+Voir la [documentation des Intégrations](/integrations) pour les guides de configuration détaillés de chaque canal.
+
+## Human Handoff
+
+Activez le transfert en direct pour que votre agent IA puisse transférer les conversations à un humain lorsque les utilisateurs le demandent.
+
+**Comment activer :**
+
+1. Dans l'onglet **Configuration**, faites défiler jusqu'à la section **Human Handoff**
+2. Activez **Enable Human Handoff**
+3. Configurez les messages :
+   - **Handoff Message** — Affiché à l'utilisateur quand le transfert commence
+   - **Resolve Message** — Affiché quand l'agent humain termine la conversation
+   - **Max Wait Time** — Expiration automatique si aucun agent n'accepte (5, 15, 30, 60 ou 120 minutes ; par défaut : 30 minutes)
+4. Cliquez sur **Save Changes**
+
+Quand un utilisateur demande à parler à un humain, l'IA crée une demande de transfert visible sur la page **Inbox**. Un membre de l'équipe accepte, discute avec l'utilisateur sur son canal et résout quand c'est terminé.
+
+<Callout type="info">
+  Human Handoff est disponible sur tous les plans. Activez-le par agent dans l'onglet Configuration.
+</Callout>
+
+## Tester votre Agent
+
+Avant d'enregistrer les modifications, vous pouvez tester votre agent :
+
+1. Cliquez sur le bouton **Test Agent** en bas du formulaire
+2. Le panneau Playground s'ouvre
+3. Ayez une conversation de test avec votre agent
+4. Fermez le Playground quand vous avez terminé
+
+<Callout type="info">
+  Le bouton Test Agent est désactivé quand le statut de l'agent est Archived ou Inactive. Changez le statut en Active ou Testing pour activer les tests.
+</Callout>
+
+## Enregistrer les modifications
+
+| Bouton | Action |
+|--------|--------|
+| **Save Changes** | Enregistrer toutes les modifications |
+| **Test Agent** | Ouvrir le Playground pour tester |
+
+Pour annuler les modifications, naviguez ailleurs en utilisant le bouton retour ou la navigation latérale.
+
+**Ce qui est enregistré :**
+- Seuls les champs modifiés sont mis à jour
+- Vous verrez "No changes to save" si rien n'a été modifié
+- Des messages de succès ou d'erreur apparaissent après l'enregistrement
+
+**Gestion de l'enregistrement partiel :**
+Si certaines modifications sont enregistrées mais d'autres échouent, vous serez notifié des sections ayant échoué et la page se rafraîchira pour afficher l'état actuel.
+
+<Callout type="info">
+  Les modifications des paramètres de l'agent prennent effet immédiatement après l'enregistrement. Testez dans le Playground après avoir effectué des modifications.
+</Callout>

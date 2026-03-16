@@ -1,0 +1,130 @@
+# Telegram
+
+Connectez votre agent à Telegram et laissez les utilisateurs discuter avec lui directement dans l'application Telegram.
+
+## Aperçu
+
+L'intégration Telegram fournit :
+- Messagerie directe avec votre bot
+- Support des discussions de groupe
+- Formatage enrichi des messages
+- Claviers inline pour les interactions
+
+## Prérequis
+
+- Un compte Telegram
+- Accès à BotFather (l'outil de création de bots de Telegram)
+
+## Étapes de configuration
+
+### 1. Créer un bot Telegram
+
+1. Ouvrez Telegram et recherchez **@BotFather**
+2. Démarrez une conversation et envoyez `/newbot`
+3. Suivez les instructions :
+   - Entrez un nom pour votre bot (ex. : "Mon Bot Support")
+   - Entrez un nom d'utilisateur (doit se terminer par "bot", ex. : "monsupportbot")
+4. BotFather vous donnera un **Bot Token** — conservez-le en lieu sûr
+
+### 2. Connecter à Cuneiform Chat
+
+1. Allez dans **Agents** → Sélectionnez votre agent
+2. Naviguez vers l'onglet **Integrations**
+3. Cliquez sur **Telegram**
+4. Collez votre Bot Token
+5. Cliquez sur **Connect**
+
+### 3. Configurer votre bot
+
+Paramètres optionnels du bot via BotFather :
+
+- `/setdescription` — Ce que fait le bot
+- `/setabouttext` — Informations dans le profil du bot
+- `/setuserpic` — Photo de profil pour votre bot
+
+### 4. Tester votre bot
+
+1. Trouvez votre bot dans Telegram en recherchant son nom d'utilisateur
+2. Démarrez une conversation avec `/start`
+3. Envoyez un message et vérifiez que vous recevez une réponse
+
+## Comment ça fonctionne
+
+```
+L'utilisateur envoie un message → Telegram → Cuneiform Chat → L'agent traite → Réponse renvoyée
+```
+
+Les messages sont traités en temps réel. L'agent recherche dans votre contenu et génère des réponses selon votre configuration.
+
+## Fonctionnalités
+
+### Messages directs
+
+Les utilisateurs peuvent discuter avec votre bot en privé pour des conversations de support.
+
+### Discussions de groupe
+
+Ajoutez votre bot aux discussions de groupe :
+
+1. Ajoutez le bot à un groupe
+2. Faites-le administrateur (pour l'accès aux messages)
+3. Les utilisateurs peuvent mentionner le bot ou utiliser des commandes
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Dans les groupes, le bot ne répond que lorsqu'il est mentionné ou lors de l'utilisation de commandes, pour éviter le spam.
+</Callout>
+
+### Formatage enrichi
+
+Les réponses de votre agent supportent :
+- Texte **gras** et *italique*
+- Liens
+- Blocs de code
+- Listes
+
+## Commandes du bot
+
+Vous pouvez configurer des commandes personnalisées via BotFather :
+
+| Commande | Description |
+|----------|-------------|
+| `/start` | Démarrer la conversation |
+| `/help` | Afficher le message d'aide |
+| `/ask [question]` | Poser une question spécifique |
+
+## Dépannage
+
+### Le bot ne répond pas
+
+1. Vérifiez que le bot token est correct
+2. Vérifiez que l'intégration est connectée dans Cuneiform Chat
+3. Assurez-vous que votre agent est correctement configuré
+4. Testez d'abord l'agent dans le Playground
+
+### Problèmes de token
+
+Si vous avez besoin d'un nouveau token :
+1. Allez sur BotFather
+2. Envoyez `/mybots` → Sélectionnez votre bot → **API Token** → **Revoke**
+3. Mettez à jour le nouveau token dans Cuneiform Chat
+
+### Problèmes de discussion de groupe
+
+- Assurez-vous que le bot a les permissions d'administrateur
+- Vérifiez les paramètres du mode de confidentialité via BotFather (`/setprivacy`)
+
+## Sécurité
+
+- Les tokens de bot sont chiffrés et stockés en toute sécurité
+- Les conversations sont traitées via des connexions sécurisées
+
+## Déconnexion
+
+Pour supprimer l'intégration Telegram :
+
+1. Allez dans **Agents** → Sélectionnez l'agent → **Integrations**
+2. Cliquez sur **Telegram** → **Disconnect**
+
+Cela empêche le bot de répondre mais ne supprime pas le bot Telegram lui-même. Supprimez via BotFather si nécessaire.

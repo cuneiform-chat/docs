@@ -1,0 +1,152 @@
+# Slack
+
+Ajoutez votre agent aux espaces de travail Slack pour un accès à toute l'équipe.
+
+## Aperçu
+
+L'intégration Slack fournit :
+- Support des commandes slash (`/ask`)
+- Conversations en messages directs
+- Mentions dans les canaux
+- Disponibilité dans tout l'espace de travail
+
+## Prérequis
+
+- Permissions d'administrateur ou d'installation d'applications dans l'espace de travail Slack
+- Un compte Cuneiform Chat avec un agent actif
+
+## Étapes de configuration
+
+### 1. Démarrer la configuration de l'intégration
+
+1. Allez dans **Agents** → Sélectionnez votre agent
+2. Naviguez vers l'onglet **Integrations**
+3. Cliquez sur **Slack**
+4. Cliquez sur **Add to Slack**
+
+### 2. Autoriser l'application
+
+1. Sélectionnez l'espace de travail pour l'installation
+2. Examinez les permissions
+3. Cliquez sur **Allow**
+
+### 3. Vérifier l'installation
+
+1. Ouvrez Slack
+2. Essayez la commande slash : `/ask Hello`
+3. Vérifiez que vous recevez une réponse
+
+## Utiliser le bot
+
+### Commandes slash
+
+Utilisez la commande `/ask` dans n'importe quel canal :
+
+```
+/ask Quelle est notre politique de remboursement ?
+```
+
+La réponse apparaît dans le canal (ou comme message éphémère, selon les paramètres).
+
+### Messages directs
+
+Envoyez un message au bot directement pour des conversations privées :
+
+1. Trouvez l'application dans votre barre latérale Slack
+2. Ouvrez un message direct
+3. Discutez naturellement
+
+### Mentions dans les canaux
+
+Mentionnez le bot dans les canaux pour poser des questions :
+
+```
+@VotreBot Quelles sont les options de livraison ?
+```
+
+## Fonctionnalités
+
+### Accès à tout l'espace de travail
+
+Une fois installé, le bot est disponible pour tous les membres de l'espace de travail.
+
+### Réponses en fil de discussion
+
+Les réponses peuvent être publiées dans des fils pour garder les canaux organisés.
+
+### Formatage enrichi
+
+Les réponses supportent le formatage Slack :
+- Texte gras et italique
+- Liens
+- Blocs de code
+- Listes
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Le bot ne répond que lorsqu'il est explicitement invoqué (commande slash ou mention) pour éviter le bruit.
+</Callout>
+
+## Options de configuration
+
+### Paramètres de réponse
+
+| Paramètre | Description |
+|-----------|-------------|
+| Type de réponse | Dans le canal ou éphémère |
+| Comportement des fils | Répondre dans le fil ou dans le canal principal |
+
+### Restrictions de canal
+
+Restreignez optionnellement le bot à des canaux spécifiques pour une utilisation ciblée.
+
+## Support multi-espaces de travail
+
+Vous pouvez installer le même agent dans plusieurs espaces de travail Slack :
+
+1. Chaque espace de travail nécessite une autorisation séparée
+2. Tous les espaces de travail partagent le même agent et contenu
+3. Les conversations sont suivies séparément par espace de travail
+
+## Dépannage
+
+### Commande introuvable
+
+Si `/ask` ne fonctionne pas :
+1. Vérifiez que l'application est installée dans votre espace de travail
+2. Vérifiez que l'application a les bonnes permissions
+3. Essayez de réinstaller l'intégration
+
+### Pas de réponse
+
+Si le bot ne répond pas :
+1. Vérifiez que votre agent est configuré et fonctionnel (testez dans le Playground)
+2. Vérifiez que l'intégration Slack est connectée
+3. Assurez-vous que le bot a accès au canal
+
+### Problèmes de permissions
+
+Permissions requises :
+- `commands` — Pour les commandes slash
+- `chat:write` — Pour envoyer des messages
+- `app_mentions:read` — Pour les @mentions
+
+## Sécurité
+
+- Les tokens OAuth sont chiffrés
+- Aucun accès aux messages sauf les commandes/mentions explicites
+- Les données de l'espace de travail restent privées
+
+## Déconnexion
+
+Pour supprimer l'intégration Slack :
+
+1. **Depuis Cuneiform Chat :**
+   - Agents → Sélectionnez l'agent → Integrations → Slack → Disconnect
+
+2. **Depuis Slack :**
+   - Allez dans les paramètres de l'espace de travail
+   - Apps → Trouvez l'application → Remove
+
+Les deux étapes assurent une suppression complète.
