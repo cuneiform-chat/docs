@@ -72,11 +72,13 @@ Rastree el estado de los documentos en Content:
 
 | Status | Significado |
 |--------|-------------|
-| Uploading | El documento se está subiendo al sistema |
+| Pending | El documento está en cola para ser procesado |
+| Uploaded | El documento ha sido subido al sistema |
+| Validating | El documento está siendo validado |
+| Stored | El documento ha sido almacenado y está en espera de procesamiento |
+| Processing | El documento se está analizando e indexando |
 | Ready | El documento está procesado y disponible para sus agents |
-| Processing | El documento se está analizando |
-| Queued | En espera de ser procesado |
-| Retrying | El procesamiento se está reintentando |
+| Completed | El procesamiento del documento está completamente terminado |
 | Failed | El procesamiento encontró un error (se puede reintentar) |
 
 import { Callout } from 'nextra/components'

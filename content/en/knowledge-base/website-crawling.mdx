@@ -66,9 +66,9 @@ After processing starts, you're automatically switched to the **Documents** tab 
 | Status | Meaning |
 |--------|---------|
 | Pending | Crawl is queued to start |
-| Crawling | Actively visiting pages |
+| In Progress | Actively visiting pages |
 | Completed | All reachable pages crawled |
-| Partial | Some pages crawled, some failed |
+| Partial Success | Some pages crawled, some failed |
 | Failed | Crawl could not complete |
 | Cancelled | Stopped by you |
 
@@ -88,7 +88,7 @@ Your crawl session survives navigation and page refresh:
 ## Common Questions
 
 **Q: How many pages can I crawl?**
-A: The maximum number of pages depends on your plan. The crawler follows links up to 2 levels deep from your starting URL.
+A: The maximum number of pages depends on your plan. The crawler follows links from your starting URL up to the configured depth limit.
 
 **Q: Can I crawl pages behind a login?**
 A: No. The crawler can only access publicly available pages. Pages behind authentication will be skipped.
@@ -97,7 +97,7 @@ A: No. The crawler can only access publicly available pages. Pages behind authen
 A: Content is extracted as Markdown (.md) documents and processed through the standard pipeline (chunking, embedding, and search indexing).
 
 **Q: Why did some pages fail?**
-A: Pages can fail due to bot protection (firewalls like Cloudflare), server errors, or empty content. The crawl will show "Partial" status.
+A: Pages can fail due to bot protection (firewalls like Cloudflare), server errors, or empty content. The crawl will show "Partial Success" status.
 
 **Q: Can I re-crawl the same site?**
 A: Yes. Start a new crawl with the same URL. Previous crawled pages are replaced when a new crawl begins.

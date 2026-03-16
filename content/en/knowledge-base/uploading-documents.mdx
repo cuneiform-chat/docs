@@ -72,11 +72,13 @@ Track document status in Content:
 
 | Status | Meaning |
 |--------|---------|
-| Uploading | Document is being uploaded to the system |
+| Pending | Document is queued for processing |
+| Uploaded | Document has been uploaded to the system |
+| Validating | Document is being validated |
+| Stored | Document has been stored and is awaiting processing |
+| Processing | Document is being analyzed and indexed |
 | Ready | Document is processed and available for your agents |
-| Processing | Document is being analyzed |
-| Queued | Waiting to be processed |
-| Retrying | Processing is being retried |
+| Completed | Document processing is fully complete |
 | Failed | Processing encountered an error (can be retried) |
 
 import { Callout } from 'nextra/components'

@@ -52,11 +52,13 @@ Upload area के नीचे, एक table आपके सभी documents �
 
 | Status | अर्थ |
 |--------|------|
-| Uploading | Document system में upload हो रहा है |
+| Pending | Document processing के लिए queue में है |
+| Uploaded | Document system में upload हो गया है |
+| Validating | Document validate किया जा रहा है |
+| Stored | Document store हो गया है और processing की प्रतीक्षा में है |
+| Processing | Document analyze और index हो रहा है |
 | Ready | Document process हो गया है और आपके agents के लिए उपलब्ध है |
-| Processing | Document analyze हो रहा है |
-| Queued | Process होने की प्रतीक्षा में है |
-| Retrying | Processing दोबारा try की जा रही है |
+| Completed | Document processing पूरी तरह complete है |
 | Failed | Processing में error आई (retry किया जा सकता है) |
 
 ## Documents के साथ काम करना

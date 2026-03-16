@@ -66,9 +66,9 @@ Después de iniciar el procesamiento, se le redirige automáticamente a la pesta
 | Status | Significado |
 |--------|-------------|
 | Pending | El rastreo está en cola para iniciar |
-| Crawling | Visitando páginas activamente |
+| In Progress | Visitando páginas activamente |
 | Completed | Todas las páginas accesibles rastreadas |
-| Partial | Algunas páginas rastreadas, algunas fallaron |
+| Partial Success | Algunas páginas rastreadas, algunas fallaron |
 | Failed | El rastreo no pudo completarse |
 | Cancelled | Detenido por usted |
 
@@ -88,7 +88,7 @@ Su sesión de rastreo sobrevive la navegación y la recarga de página:
 ## Preguntas Frecuentes
 
 **P: ¿Cuántas páginas puedo rastrear?**
-R: El número máximo de páginas depende de su plan. El crawler sigue enlaces hasta 2 niveles de profundidad desde su URL inicial.
+R: El número máximo de páginas depende de su plan. El crawler sigue enlaces desde su URL inicial hasta el límite de profundidad configurado.
 
 **P: ¿Puedo rastrear páginas detrás de un login?**
 R: No. El crawler solo puede acceder a páginas disponibles públicamente. Las páginas detrás de autenticación se omitirán.
@@ -97,7 +97,7 @@ R: No. El crawler solo puede acceder a páginas disponibles públicamente. Las p
 R: El contenido se extrae como documentos Markdown (.md) y se procesa a través del pipeline estándar (chunking, embedding e indexación de búsqueda).
 
 **P: ¿Por qué fallaron algunas páginas?**
-R: Las páginas pueden fallar por protección contra bots (firewalls como Cloudflare), errores del servidor o contenido vacío. El rastreo mostrará el estado "Partial".
+R: Las páginas pueden fallar por protección contra bots (firewalls como Cloudflare), errores del servidor o contenido vacío. El rastreo mostrará el estado "Partial Success".
 
 **P: ¿Puedo volver a rastrear el mismo sitio?**
 R: Sí. Inicie un nuevo rastreo con la misma URL. Las páginas rastreadas anteriormente se reemplazan cuando comienza un nuevo rastreo.

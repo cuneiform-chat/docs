@@ -52,11 +52,13 @@ Abaixo da área de upload, uma tabela exibe todos os seus documentos:
 
 | Status | Significado |
 |--------|-------------|
-| Uploading | Documento está sendo enviado ao sistema |
+| Pending | Documento está na fila para processamento |
+| Uploaded | Documento foi enviado ao sistema |
+| Validating | Documento está sendo validado |
+| Stored | Documento foi armazenado e aguarda processamento |
+| Processing | Documento está sendo analisado e indexado |
 | Ready | Documento está processado e disponível para seus agents |
-| Processing | Documento está sendo analisado |
-| Queued | Aguardando para ser processado |
-| Retrying | Processamento está sendo refeito |
+| Completed | Processamento do documento está totalmente concluído |
 | Failed | Processamento encontrou um erro (pode ser refeito) |
 
 ## Trabalhando com Documentos

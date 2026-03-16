@@ -66,9 +66,9 @@ Após o processamento iniciar, você é automaticamente direcionado para a aba *
 | Status | Significado |
 |--------|-------------|
 | Pending | Crawl está na fila para iniciar |
-| Crawling | Visitando páginas ativamente |
+| In Progress | Visitando páginas ativamente |
 | Completed | Todas as páginas alcançáveis foram coletadas |
-| Partial | Algumas páginas foram coletadas, outras falharam |
+| Partial Success | Algumas páginas foram coletadas, outras falharam |
 | Failed | Crawl não pôde ser concluído |
 | Cancelled | Parado por você |
 
@@ -88,7 +88,7 @@ Sua sessão de crawl sobrevive à navegação e atualização da página:
 ## Perguntas Comuns
 
 **P: Quantas páginas posso coletar?**
-R: O número máximo de páginas depende do seu plano. O crawler segue links até 2 níveis de profundidade a partir da sua URL inicial.
+R: O número máximo de páginas depende do seu plano. O crawler segue links a partir da sua URL inicial até o limite de profundidade configurado.
 
 **P: Posso fazer crawl de páginas atrás de um login?**
 R: Não. O crawler só pode acessar páginas publicamente disponíveis. Páginas atrás de autenticação serão ignoradas.
@@ -97,7 +97,7 @@ R: Não. O crawler só pode acessar páginas publicamente disponíveis. Páginas
 R: O conteúdo é extraído como documentos Markdown (.md) e processado pelo pipeline padrão (chunking, embedding e indexação de pesquisa).
 
 **P: Por que algumas páginas falharam?**
-R: Páginas podem falhar devido a proteção contra bots (firewalls como Cloudflare), erros do servidor ou conteúdo vazio. O crawl mostrará status "Partial".
+R: Páginas podem falhar devido a proteção contra bots (firewalls como Cloudflare), erros do servidor ou conteúdo vazio. O crawl mostrará status "Partial Success".
 
 **P: Posso refazer o crawl do mesmo site?**
 R: Sim. Inicie um novo crawl com a mesma URL. Páginas coletadas anteriormente são substituídas quando um novo crawl começa.

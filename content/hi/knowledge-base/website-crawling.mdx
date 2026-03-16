@@ -66,9 +66,9 @@ Processing शुरू होने के बाद, आप automatically **Do
 | Status | अर्थ |
 |--------|------|
 | Pending | Crawl शुरू होने की queue में है |
-| Crawling | Actively pages visit हो रहे हैं |
+| In Progress | Actively pages visit हो रहे हैं |
 | Completed | सभी reachable pages crawl हो गए |
-| Partial | कुछ pages crawl हुए, कुछ fail हुए |
+| Partial Success | कुछ pages crawl हुए, कुछ fail हुए |
 | Failed | Crawl complete नहीं हो सका |
 | Cancelled | आपने रोक दिया |
 
@@ -88,7 +88,7 @@ Processing शुरू होने के बाद, आप automatically **Do
 ## सामान्य प्रश्न
 
 **प्र: मैं कितने pages crawl कर सकता हूँ?**
-उ: Maximum pages की संख्या आपके plan पर निर्भर करती है। Crawler आपके starting URL से 2 levels deep तक links follow करता है।
+उ: Maximum pages की संख्या आपके plan पर निर्भर करती है। Crawler आपके starting URL से configured depth limit तक links follow करता है।
 
 **प्र: क्या मैं login के पीछे वाले pages crawl कर सकता हूँ?**
 उ: नहीं। Crawler केवल publicly available pages access कर सकता है। Authentication के पीछे के pages skip हो जाएंगे।
@@ -97,7 +97,7 @@ Processing शुरू होने के बाद, आप automatically **Do
 उ: Content Markdown (.md) documents के रूप में extract होता है और standard pipeline (chunking, embedding, और search indexing) से process होता है।
 
 **प्र: कुछ pages क्यों fail हुए?**
-उ: Pages bot protection (Cloudflare जैसे firewalls), server errors, या empty content के कारण fail हो सकते हैं। Crawl "Partial" status दिखाएगा।
+उ: Pages bot protection (Cloudflare जैसे firewalls), server errors, या empty content के कारण fail हो सकते हैं। Crawl "Partial Success" status दिखाएगा।
 
 **प्र: क्या मैं same site दोबारा crawl कर सकता हूँ?**
 उ: हाँ। Same URL के साथ नया crawl शुरू करें। नया crawl शुरू होने पर पिछले crawled pages replace हो जाते हैं।

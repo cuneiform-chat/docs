@@ -66,9 +66,9 @@ Processing শুরু হলে আপনি স্বয়ংক্রিয
 | Status | অর্থ |
 |--------|------|
 | Pending | Crawl শুরু হওয়ার জন্য queue-তে আছে |
-| Crawling | সক্রিয়ভাবে page visit হচ্ছে |
+| In Progress | সক্রিয়ভাবে page visit হচ্ছে |
 | Completed | সব reachable page crawl সম্পন্ন |
-| Partial | কিছু page crawl হয়েছে, কিছু ব্যর্থ |
+| Partial Success | কিছু page crawl হয়েছে, কিছু ব্যর্থ |
 | Failed | Crawl সম্পন্ন হতে পারেনি |
 | Cancelled | আপনি বন্ধ করেছেন |
 
@@ -88,7 +88,7 @@ Processing শুরু হলে আপনি স্বয়ংক্রিয
 ## সাধারণ প্রশ্ন
 
 **প্রশ্ন: কতটি page crawl করা যায়?**
-উত্তর: সর্বোচ্চ page সংখ্যা আপনার plan-এর উপর নির্ভর করে। Crawler আপনার starting URL থেকে ২ level গভীরতা পর্যন্ত link follow করে।
+উত্তর: সর্বোচ্চ page সংখ্যা আপনার plan-এর উপর নির্ভর করে। Crawler আপনার starting URL থেকে configured depth limit পর্যন্ত link follow করে।
 
 **প্রশ্ন: Login-এর পেছনের page crawl করা যায়?**
 উত্তর: না। Crawler শুধুমাত্র publicly available page access করতে পারে। Authentication-এর পেছনের page skip করা হবে।
@@ -97,7 +97,7 @@ Processing শুরু হলে আপনি স্বয়ংক্রিয
 উত্তর: Content Markdown (.md) document হিসেবে extract করা হয় এবং standard pipeline-এ (chunking, embedding, ও search indexing) process হয়।
 
 **প্রশ্ন: কিছু page কেন ব্যর্থ হলো?**
-উত্তর: Bot protection (Cloudflare-এর মতো firewall), server error, বা খালি content-এর কারণে page ব্যর্থ হতে পারে। Crawl "Partial" status দেখাবে।
+উত্তর: Bot protection (Cloudflare-এর মতো firewall), server error, বা খালি content-এর কারণে page ব্যর্থ হতে পারে। Crawl "Partial Success" status দেখাবে।
 
 **প্রশ্ন: একই site পুনরায় crawl করা যায়?**
 উত্তর: হ্যাঁ। একই URL দিয়ে নতুন crawl শুরু করুন। নতুন crawl শুরু হলে আগের crawl করা page replace হয়।
