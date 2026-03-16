@@ -9,8 +9,8 @@ module.exports = {
     // Skip root / page (just a redirect)
     if (path === '/' || path === '') return null
 
-    const isLocaleRoot = /^\/(en|bn|es|fr|hi|pt|th)\/?$/.test(path)
-    const isSectionIndex = /^\/(en|bn|es|fr|hi|pt|th)\/[^/]+$/.test(path)
+    const isLocaleRoot = /^\/(en|bn|es|fr|hi|pt|ru|th)\/?$/.test(path)
+    const isSectionIndex = /^\/(en|bn|es|fr|hi|pt|ru|th)\/[^/]+$/.test(path)
 
     return {
       loc: path,
