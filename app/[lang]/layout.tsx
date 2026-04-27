@@ -6,9 +6,13 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { LocaleSwitcher } from '../../components/locale-switcher'
 
-const LOCALES = ['en', 'bn', 'es', 'fr', 'hi', 'pt', 'ru', 'th'] as const
+// Active locales: en (source), es, pt, fr.
+// Disabled: bn, hi, ru, th — content/{code}/ retained on disk, not built.
+// Mirrors the admin panel locale policy. See
+// `.claude/references/features/admin-panel-i18n.md` for rationale.
+const LOCALES = ['en', 'es', 'pt', 'fr'] as const
 type Locale = (typeof LOCALES)[number]
-const RTL_LOCALES: Locale[] = [] // Add 'ar' when ready
+const RTL_LOCALES: Locale[] = []
 
 const UI_STRINGS: Record<
   Locale,
@@ -28,14 +32,6 @@ const UI_STRINGS: Record<
       'Learn how to create document-trained AI chatbots with Cuneiform Chat',
     tagline: 'Clay tablets to chatbot. Remembering the beginning.',
   },
-  bn: {
-    editLink: 'GitHub-এ এই page edit করুন →',
-    feedbackContent: 'প্রশ্ন? আমাদের feedback দিন →',
-    title: 'Cuneiform Chat Documentation',
-    description:
-      'Cuneiform Chat দিয়ে document-trained AI chatbot তৈরি করতে শিখুন',
-    tagline: 'Clay tablets to chatbot. Remembering the beginning.',
-  },
   es: {
     editLink: 'Editar esta página en GitHub →',
     feedbackContent: '¿Preguntas? Envíanos tu opinión →',
@@ -43,22 +39,6 @@ const UI_STRINGS: Record<
     description:
       'Aprende a crear chatbots de IA entrenados con documentos usando Cuneiform Chat',
     tagline: 'De tablillas de arcilla al chatbot. Recordando el origen.',
-  },
-  fr: {
-    editLink: 'Modifier cette page sur GitHub →',
-    feedbackContent: 'Des questions ? Donnez-nous votre avis →',
-    title: 'Documentation Cuneiform Chat',
-    description:
-      'Apprenez à créer des chatbots IA entraînés sur vos documents avec Cuneiform Chat',
-    tagline: "Des tablettes d'argile au chatbot. Se souvenir du commencement.",
-  },
-  hi: {
-    editLink: 'GitHub पर इस page को edit करें →',
-    feedbackContent: 'प्रश्न? हमें feedback दें →',
-    title: 'Cuneiform Chat Documentation',
-    description:
-      'Cuneiform Chat के साथ document-trained AI chatbot बनाना सीखें',
-    tagline: 'Clay tablets to chatbot. Remembering the beginning.',
   },
   pt: {
     editLink: 'Editar esta página no GitHub →',
@@ -68,21 +48,13 @@ const UI_STRINGS: Record<
       'Aprenda a criar chatbots de IA treinados com documentos usando o Cuneiform Chat',
     tagline: 'De tabuletas de argila ao chatbot. Lembrando o começo.',
   },
-  ru: {
-    editLink: 'Редактировать эту страницу на GitHub →',
-    feedbackContent: 'Вопросы? Оставьте отзыв →',
-    title: 'Документация Cuneiform Chat',
+  fr: {
+    editLink: 'Modifier cette page sur GitHub →',
+    feedbackContent: 'Des questions ? Donnez-nous votre avis →',
+    title: 'Documentation Cuneiform Chat',
     description:
-      'Узнайте, как создавать AI-чатботы, обученные на документах, с помощью Cuneiform Chat',
-    tagline: 'От глиняных табличек к чатботу. Помня о начале.',
-  },
-  th: {
-    editLink: 'แก้ไขหน้านี้บน GitHub →',
-    feedbackContent: 'มีคำถาม? ให้คำติชมแก่เรา →',
-    title: 'Cuneiform Chat Documentation',
-    description:
-      'เรียนรู้วิธีสร้าง AI chatbot ที่ฝึกด้วยเอกสารด้วย Cuneiform Chat',
-    tagline: 'Clay tablets to chatbot. Remembering the beginning.',
+      'Apprenez à créer des chatbots IA entraînés sur vos documents avec Cuneiform Chat',
+    tagline: "Des tablettes d'argile au chatbot. Se souvenir du commencement.",
   },
 }
 
