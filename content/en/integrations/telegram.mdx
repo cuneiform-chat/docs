@@ -84,6 +84,37 @@ Your agent's responses support:
 - Code blocks
 - Lists
 
+## Help Center Mini App
+
+Every Telegram bot you connect comes with a built-in **Help Center** — a small Mini App that opens inside Telegram when end users tap the menu button next to the message composer.
+
+### What end users see
+
+A sortable list of FAQ entries you've authored from the admin panel. Two modes per entry:
+
+- **Curated** — tap to read the answer inline. Rendered markdown, no chat traffic, no LLM cost.
+- **Ask the bot** — tap to fire a pre-written question to your agent in the chat.
+
+### Auto-wired, no setup
+
+When you connect a Telegram bot, the chat-menu button is auto-set to open the Help Center. Available on every plan including the free trial. No BotFather configuration required for this path.
+
+### Authoring entries
+
+1. Go to **Integrations** → your Telegram bot card
+2. Open the three-dot menu → **Help Center**
+3. Add up to ~50 entries; drag to reorder; pick mode (curated or ask-the-bot)
+
+Changes propagate to the Mini App within ~5 minutes (server cache).
+
+### Optional: direct-launch link
+
+If you also want a `t.me/<your_bot>/<your_app>` link for marketing or QR codes, open **Mini App settings** on the same card and follow the BotFather playbook (5 steps). The chat-menu button keeps working without this — the playbook only adds the marketing-friendly link shape.
+
+### Locale support
+
+The Mini App UI follows each end user's Telegram language — currently English, Spanish, Portuguese, and French, with English as the fallback. Help Center *content* you author is monolingual per entry today; per-locale content variants are on the roadmap.
+
 ## Bot Commands
 
 You can configure custom commands via BotFather:

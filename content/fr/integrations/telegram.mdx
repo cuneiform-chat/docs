@@ -84,6 +84,37 @@ Les réponses de votre agent supportent :
 - Blocs de code
 - Listes
 
+## Help Center Mini App
+
+Chaque bot Telegram que vous connectez est livré avec un **Help Center** intégré — un Mini App qui s'ouvre dans Telegram lorsque les utilisateurs finaux appuient sur le bouton de menu à côté du compositeur de messages.
+
+### Ce que voient les utilisateurs finaux
+
+Une liste triable d'entrées FAQ que vous avez créées depuis le admin panel. Deux modes par entrée :
+
+- **Curated** — appuyez pour lire la réponse inline. Markdown rendu, sans trafic de chat, sans coût de LLM.
+- **Ask the bot** — appuyez pour envoyer dans le chat une question prédéfinie à votre agent.
+
+### Configuration automatique, sans setup
+
+Lorsque vous connectez un bot Telegram, le chat-menu button est automatiquement configuré pour ouvrir le Help Center. Disponible sur tous les plans, y compris le trial gratuit. Ce chemin ne nécessite pas de configuration dans BotFather.
+
+### Créer des entrées
+
+1. Allez dans **Integrations** → votre carte de bot Telegram
+2. Ouvrez le menu à trois points → **Help Center**
+3. Ajoutez jusqu'à ~50 entrées ; glissez pour réordonner ; choisissez le mode (curated ou ask-the-bot)
+
+Les changements se propagent au Mini App en ~5 minutes (cache serveur).
+
+### Optionnel : lien de lancement direct
+
+Si vous voulez aussi un lien `t.me/<your_bot>/<your_app>` pour le marketing ou des QR codes, ouvrez **Mini App settings** sur la même carte et suivez le playbook BotFather (5 étapes). Le chat-menu button continue de fonctionner sans cela — le playbook ne fait qu'ajouter la forme de lien orientée marketing.
+
+### Support des langues
+
+L'interface du Mini App suit la langue Telegram de chaque utilisateur final — actuellement anglais, espagnol, portugais et français, avec l'anglais en fallback. Le *contenu* du Help Center que vous rédigez est monolingue par entrée aujourd'hui ; les variantes de contenu par langue sont sur la feuille de route.
+
 ## Commandes du bot
 
 Vous pouvez configurer des commandes personnalisées via BotFather :

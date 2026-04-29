@@ -84,6 +84,37 @@ As respostas do seu agent suportam:
 - Blocos de código
 - Listas
 
+## Help Center Mini App
+
+Cada bot do Telegram que você conecta vem com um **Help Center** integrado — um Mini App que abre dentro do Telegram quando os usuários finais tocam no botão de menu ao lado do compositor de mensagens.
+
+### O Que os Usuários Finais Veem
+
+Uma lista ordenável de entradas de FAQ que você criou no admin panel. Dois modos por entrada:
+
+- **Curated** — toque para ler a resposta inline. Markdown renderizado, sem tráfego no chat, sem custo de LLM.
+- **Ask the bot** — toque para enviar ao chat uma pergunta predefinida ao seu agent.
+
+### Configuração Automática, Sem Setup
+
+Quando você conecta um bot do Telegram, o chat-menu button é configurado automaticamente para abrir o Help Center. Disponível em qualquer plano, incluindo o trial gratuito. Este caminho não requer configuração no BotFather.
+
+### Criar Entradas
+
+1. Vá em **Integrations** → seu card de bot do Telegram
+2. Abra o menu de três pontos → **Help Center**
+3. Adicione até ~50 entradas; arraste para reordenar; escolha o modo (curated ou ask-the-bot)
+
+As mudanças se propagam para o Mini App em ~5 minutos (cache do servidor).
+
+### Opcional: Link de Lançamento Direto
+
+Se você também quer um link `t.me/<your_bot>/<your_app>` para marketing ou QR codes, abra **Mini App settings** no mesmo card e siga o playbook do BotFather (5 passos). O chat-menu button continua funcionando sem isso — o playbook só adiciona o formato de link voltado a marketing.
+
+### Suporte a Idiomas
+
+A interface do Mini App segue o idioma do Telegram de cada usuário final — atualmente inglês, espanhol, português e francês, com inglês como fallback. O *conteúdo* do Help Center que você escreve é monolíngue por entrada hoje; variantes de conteúdo por idioma estão no roadmap.
+
 ## Comandos do Bot
 
 Você pode configurar comandos personalizados via BotFather:
