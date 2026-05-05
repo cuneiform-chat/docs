@@ -12,29 +12,29 @@ A integração com Slack oferece:
 
 ## Pré-requisitos
 
-- Permissões de admin ou instalação de apps no workspace Slack
-- Conta no Cuneiform Chat com um agent ativo
+- Permissões de admin do workspace do Slack ou de instalação de apps
+- Conta do Cuneiform Chat com um agent ativo
 
 ## Passos de Configuração
 
-### 1. Inicie a Configuração da Integração
+### 1. Iniciar a Configuração da Integração
 
-1. Vá até **Agents** → Selecione seu agent
+1. Vá para **Agents** → Selecione seu agent
 2. Navegue até a aba **Integrations**
 3. Clique em **Slack**
 4. Clique em **Add to Slack**
 
-### 2. Autorize o App
+### 2. Autorizar o App
 
 1. Selecione o workspace para instalar
 2. Revise as permissões
 3. Clique em **Allow**
 
-### 3. Verifique a Instalação
+### 3. Verificar a Instalação
 
 1. Abra o Slack
-2. Tente o slash command: `/ask Hello`
-3. Verifique se recebe uma resposta
+2. Teste o slash command: `/ask Hello`
+3. Confirme que você recebeu uma resposta
 
 ## Usando o Bot
 
@@ -43,14 +43,14 @@ A integração com Slack oferece:
 Use o comando `/ask` em qualquer canal:
 
 ```
-/ask What is our refund policy?
+/ask Qual é a nossa política de reembolso?
 ```
 
-A resposta aparece no canal (ou como uma mensagem efêmera, dependendo das configurações).
+A resposta aparece no canal (ou como mensagem efêmera, dependendo das configurações).
 
 ### Mensagens Diretas
 
-Envie mensagens ao bot diretamente para conversas privadas:
+Envie uma mensagem ao bot diretamente para conversas privadas:
 
 1. Encontre o app na barra lateral do Slack
 2. Abra uma mensagem direta
@@ -61,7 +61,7 @@ Envie mensagens ao bot diretamente para conversas privadas:
 Mencione o bot em canais para fazer perguntas:
 
 ```
-@YourBot What are the shipping options?
+@YourBot Quais são as opções de envio?
 ```
 
 ## Recursos
@@ -72,11 +72,11 @@ Uma vez instalado, o bot fica disponível para todos os membros do workspace.
 
 ### Respostas em Threads
 
-Respostas podem ser postadas em threads para manter os canais organizados.
+As respostas podem ser publicadas em threads para manter os canais organizados.
 
 ### Formatação Rica
 
-Respostas suportam a formatação do Slack:
+As respostas suportam a formatação do Slack:
 - Texto em negrito e itálico
 - Links
 - Blocos de código
@@ -85,7 +85,7 @@ Respostas suportam a formatação do Slack:
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  O bot só responde quando invocado explicitamente (slash command ou menção) para evitar ruído.
+  O bot só responde quando é invocado explicitamente (slash command ou menção) para evitar ruído.
 </Callout>
 
 ## Opções de Configuração
@@ -93,60 +93,60 @@ import { Callout } from 'nextra/components'
 ### Configurações de Resposta
 
 | Configuração | Descrição |
-|--------------|-----------|
-| Tipo de resposta | No canal ou efêmera |
-| Comportamento de thread | Responder em thread ou no canal principal |
+|---------|-------------|
+| Tipo de resposta | In-channel ou ephemeral |
+| Comportamento de thread | Responder no thread ou no canal principal |
 
-### Restrições de Canal
+### Restrições por Canal
 
-Opcionalmente restrinja o bot a canais específicos para uso focado.
+Opcionalmente, restrinja o bot a canais específicos para um uso mais focado.
 
 ## Suporte Multi-Workspace
 
-Você pode instalar o mesmo agent em múltiplos workspaces do Slack:
+Você pode instalar o mesmo agent em vários workspaces do Slack:
 
-1. Cada workspace requer autorização separada
+1. Cada workspace exige autorização separada
 2. Todos os workspaces compartilham o mesmo agent e conteúdo
-3. Conversas são rastreadas separadamente por workspace
+3. As conversas são rastreadas separadamente por workspace
 
 ## Solução de Problemas
 
 ### Comando Não Encontrado
 
-Se `/ask` não funciona:
+Se `/ask` não funcionar:
 1. Verifique se o app está instalado no seu workspace
-2. Confirme que o app tem as permissões adequadas
+2. Confira se o app tem as permissões corretas
 3. Tente reinstalar a integração
 
 ### Sem Resposta
 
-Se o bot não responde:
-1. Verifique se seu agent está configurado e funcionando (teste no Playground)
-2. Confirme que a integração Slack está conectada
-3. Certifique-se de que o bot tem acesso ao canal
+Se o bot não responder:
+1. Confira se seu agent está configurado e funcionando (teste-o no Playground)
+2. Verifique se a integração com Slack está conectada
+3. Garanta que o bot tenha acesso ao canal
 
 ### Problemas de Permissão
 
 Permissões necessárias:
 - `commands` — Para slash commands
 - `chat:write` — Para enviar mensagens
-- `app_mentions:read` — Para menções @
+- `app_mentions:read` — Para @ menções
 
 ## Segurança
 
-- Tokens OAuth são criptografados
-- Sem acesso a mensagens exceto comandos/menções explícitos
-- Dados do workspace permanecem privados
+- Os OAuth tokens são criptografados
+- Sem acesso às mensagens, exceto por comandos/menções explícitos
+- Os dados do workspace permanecem privados
 
 ## Desconectando
 
 Para remover a integração com Slack:
 
-1. **Do Cuneiform Chat:**
-   - Agents → Selecione agent → Integrations → Slack → Disconnect
+1. **No Cuneiform Chat:**
+   - Agents → Selecione o agent → Integrations → Slack → Disconnect
 
-2. **Do Slack:**
-   - Vá às configurações do workspace
+2. **No Slack:**
+   - Vá para as configurações do workspace
    - Apps → Encontre o app → Remove
 
-Ambos os passos garantem remoção completa.
+Os dois passos garantem a remoção completa.

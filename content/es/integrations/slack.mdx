@@ -1,10 +1,10 @@
 # Integración con Slack
 
-Agrega tu agent a workspaces de Slack para acceso de todo el equipo.
+Agrega tu agent a los workspaces de Slack para acceso de todo el equipo.
 
 ## Descripción General
 
-La integración con Slack proporciona:
+La integración con Slack ofrece:
 - Soporte de slash commands (`/ask`)
 - Conversaciones por mensaje directo
 - Menciones en canales
@@ -12,7 +12,7 @@ La integración con Slack proporciona:
 
 ## Requisitos Previos
 
-- Permisos de admin o de instalación de apps en el workspace de Slack
+- Permisos de admin del workspace de Slack o de instalación de apps
 - Cuenta de Cuneiform Chat con un agent activo
 
 ## Pasos de Configuración
@@ -34,50 +34,50 @@ La integración con Slack proporciona:
 
 1. Abre Slack
 2. Prueba el slash command: `/ask Hello`
-3. Verifica que recibes una respuesta
+3. Verifica que recibas una respuesta
 
-## Uso del Bot
+## Usar el Bot
 
 ### Slash Commands
 
 Usa el comando `/ask` en cualquier canal:
 
 ```
-/ask What is our refund policy?
+/ask ¿Cuál es nuestra política de reembolso?
 ```
 
 La respuesta aparece en el canal (o como mensaje efímero, según la configuración).
 
 ### Mensajes Directos
 
-Envía un mensaje directo al bot para conversaciones privadas:
+Envía un mensaje al bot directamente para conversaciones privadas:
 
-1. Busca la app en la barra lateral de Slack
+1. Encuentra la app en la barra lateral de Slack
 2. Abre un mensaje directo
-3. Chatea de forma natural
+3. Conversa con naturalidad
 
 ### Menciones en Canales
 
-Menciona al bot en canales para hacer preguntas:
+Menciona al bot en los canales para hacer preguntas:
 
 ```
-@YourBot What are the shipping options?
+@YourBot ¿Cuáles son las opciones de envío?
 ```
 
-## Características
+## Funcionalidades
 
 ### Acceso en Todo el Workspace
 
 Una vez instalado, el bot está disponible para todos los miembros del workspace.
 
-### Respuestas en Hilos
+### Respuestas en Threads
 
-Las respuestas pueden publicarse en hilos para mantener los canales organizados.
+Las respuestas pueden publicarse en threads para mantener los canales organizados.
 
 ### Formato Enriquecido
 
-Las respuestas soportan el formato de Slack:
-- Texto en negritas y cursiva
+Las respuestas admiten el formato de Slack:
+- Texto en negrita y cursiva
 - Enlaces
 - Bloques de código
 - Listas
@@ -90,20 +90,20 @@ import { Callout } from 'nextra/components'
 
 ## Opciones de Configuración
 
-### Ajustes de Respuesta
+### Configuración de Respuestas
 
-| Ajuste | Descripción |
-|--------|-------------|
-| Tipo de respuesta | En el canal o efímera |
-| Comportamiento de hilos | Responder en hilo o en el canal principal |
+| Configuración | Descripción |
+|---------|-------------|
+| Tipo de respuesta | In-channel o ephemeral |
+| Comportamiento de thread | Responder en thread o en el canal principal |
 
-### Restricciones de Canal
+### Restricciones por Canal
 
-Opcionalmente restringe el bot a canales específicos para uso enfocado.
+Opcionalmente restringe el bot a canales específicos para un uso enfocado.
 
 ## Soporte Multi-Workspace
 
-Puedes instalar el mismo agent en múltiples workspaces de Slack:
+Puedes instalar el mismo agent en varios workspaces de Slack:
 
 1. Cada workspace requiere autorización por separado
 2. Todos los workspaces comparten el mismo agent y contenido
@@ -121,8 +121,8 @@ Si `/ask` no funciona:
 ### Sin Respuesta
 
 Si el bot no responde:
-1. Verifica que tu agent esté configurado y funcionando (prueba en el Playground)
-2. Comprueba que la integración de Slack esté conectada
+1. Verifica que tu agent esté configurado y funcionando (pruébalo en el Playground)
+2. Comprueba que la integración con Slack esté conectada
 3. Asegúrate de que el bot tenga acceso al canal
 
 ### Problemas de Permisos
@@ -130,15 +130,15 @@ Si el bot no responde:
 Permisos requeridos:
 - `commands` — Para slash commands
 - `chat:write` — Para enviar mensajes
-- `app_mentions:read` — Para menciones con @
+- `app_mentions:read` — Para @ menciones
 
 ## Seguridad
 
-- Los tokens OAuth se encriptan
-- Sin acceso a mensajes excepto comandos/menciones explícitas
+- Los OAuth tokens están cifrados
+- Sin acceso a los mensajes salvo por comandos/menciones explícitos
 - Los datos del workspace permanecen privados
 
-## Desconexión
+## Desconectar
 
 Para eliminar la integración con Slack:
 
@@ -147,6 +147,6 @@ Para eliminar la integración con Slack:
 
 2. **Desde Slack:**
    - Ve a la configuración del workspace
-   - Apps → Busca la app → Remove
+   - Apps → Encuentra la app → Remove
 
-Ambos pasos aseguran una eliminación completa.
+Ambos pasos garantizan la eliminación completa.

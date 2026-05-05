@@ -1,91 +1,91 @@
-# Widget de site web
+# Website Chat Widget
 
-Intégrez un widget de chat propulsé par l'IA directement sur votre site web. Les visiteurs obtiennent des réponses instantanées de votre agent IA sans quitter votre site.
+Intégrez un chat widget propulsé par AI directement sur votre site web. Les visiteurs obtiennent des réponses instantanées de votre AI agent sans quitter votre site.
 
 ## Aperçu
 
-Le Widget de site web fournit :
+Le Website Widget offre :
 - Bulle de chat flottante sur votre site web
-- Réponses IA en streaming en temps réel
+- Réponses AI en streaming en temps réel
 - Apparence personnalisable (couleurs, position, messages)
-- Moins de 11 Ko compressé — impact quasi nul sur les performances
-- Liste de domaines autorisés pour la sécurité
+- Moins de 11KB en gzip — impact quasi nul sur les performances
+- Liste blanche de domaines pour la sécurité
 
 ## Prérequis
 
-- Un agent IA actif dans votre panneau d'administration
+- Un AI agent actif dans votre panneau d'administration
 - Accès au HTML de votre site web (pour coller une balise script)
 
-## Étapes de configuration
+## Étapes de Configuration
 
 ### 1. Créer un Widget
 
-1. Allez dans **Integrations** depuis la barre latérale
+1. Rendez-vous dans **Integrations** depuis la barre latérale
 2. Faites défiler jusqu'à la section **Website Widget**
 3. Cliquez sur **Create Widget**
-4. Entrez un nom et sélectionnez l'agent IA
+4. Saisissez un nom et sélectionnez l'AI agent
 5. Cliquez sur **Create**
 
-### 2. Personnaliser l'apparence
+### 2. Personnaliser l'Apparence
 
 Cliquez sur la carte du widget pour ouvrir le panneau d'édition :
 
-- **Primary Color** — Couleur de la bulle et de l'en-tête du chat
-- **Text Color** — Texte sur la bulle et l'en-tête
-- **Position** — En bas à droite ou en bas à gauche
+- **Primary Color** — Couleur de la bulle de chat et du header
+- **Text Color** — Couleur du texte sur la bulle et le header
+- **Position** — Bottom-right ou bottom-left
 - **Welcome Message** — Premier message que voient les visiteurs
-- **Suggested Questions** — Jusqu'à 4 questions cliquables pour démarrer
-- **Avatar URL** — Image personnalisée dans l'en-tête du chat
+- **Suggested Questions** — Jusqu'à 4 amorces cliquables
+- **Avatar URL** — Image personnalisée dans le header du chat
 - **Border Radius** — Arrondi des coins
 
-Un aperçu en direct se met à jour au fur et à mesure de vos modifications.
+Un aperçu en direct se met à jour à mesure que vous faites des changements.
 
-### 3. Définir les domaines autorisés (Recommandé)
+### 3. Définir les Domaines Autorisés (Recommandé)
 
-Restreignez quels sites web peuvent intégrer votre widget :
+Restreignez les sites web pouvant intégrer votre widget :
 
 - Laissez vide pour autoriser tous les domaines (par défaut)
 - Ajoutez des domaines spécifiques : `example.com`, `*.example.com`
 - Utilisez des entrées avec port pour le développement : `localhost:3000`
 
-### 4. Intégrer sur votre site web
+### 4. Intégrer sur votre Site Web
 
-Cliquez sur l'icône d'intégration sur votre carte de widget et copiez le code :
+Cliquez sur l'icône d'embed sur la carte de votre widget et copiez le code :
 
 ```html
 <script src="https://core-api.cuneiform.chat/api/widget/widget.js"
   data-widget-id="your-widget-id" async></script>
 ```
 
-Collez avant la balise fermante `</body>` sur votre site web.
+Collez-le avant la balise `</body>` sur votre site web.
 
-## Comment ça fonctionne
+## Comment Cela Fonctionne
 
 ```
 Le visiteur ouvre votre site web
   → La bulle de chat apparaît dans le coin
   → Le visiteur clique → Le panneau de chat s'ouvre
-  → Message de bienvenue + questions suggérées affichés
+  → Le welcome message et les suggested questions s'affichent
   → Le visiteur tape une question
-  → L'agent IA recherche dans votre contenu
-  → La réponse apparaît en streaming en temps réel
+  → L'AI agent recherche dans votre contenu
+  → La réponse arrive en streaming en temps réel
 ```
 
-Les messages sont traités en temps réel. L'agent recherche dans votre contenu et génère des réponses en utilisant le même pipeline IA que tous les autres canaux.
+Les messages sont traités en temps réel. L'agent recherche dans votre contenu et génère des réponses en utilisant le même pipeline AI que tous les autres canaux.
 
 ## Fonctionnalités
 
-### Réponses en streaming
+### Réponses en Streaming
 
-Les réponses sont diffusées en temps réel via Server-Sent Events (SSE). Les visiteurs voient la réponse apparaître progressivement, similaire à ChatGPT.
+Les réponses arrivent en streaming en temps réel via Server-Sent Events (SSE). Les visiteurs voient la réponse apparaître progressivement, comme avec ChatGPT.
 
-### Persistance de session
+### Persistance de Session
 
-Les visiteurs qui reviennent sur le même navigateur reprennent leur conversation précédente dans une fenêtre de 24 heures. Les sessions sont stockées dans le localStorage du navigateur.
+Les visiteurs récurrents sur le même navigateur reprennent leur conversation précédente dans une fenêtre de 24 heures. Les sessions sont stockées dans le localStorage du navigateur.
 
-### Questions suggérées
+### Suggested Questions
 
-Configurez jusqu'à 4 questions cliquables qui apparaissent à l'ouverture du chat. Idéal pour guider les visiteurs vers les sujets courants.
+Configurez jusqu'à 4 questions cliquables qui apparaissent à l'ouverture du chat. Idéal pour orienter les visiteurs vers les sujets courants.
 
 import { Callout } from 'nextra/components'
 
@@ -95,66 +95,66 @@ import { Callout } from 'nextra/components'
 
 ### Rendu Markdown
 
-Les réponses de l'agent supportent le formatage markdown incluant le gras, l'italique, les listes, les blocs de code et les liens.
+Les réponses de l'agent prennent en charge la mise en forme markdown, y compris le gras, l'italique, les listes, les blocs de code et les liens.
 
-## Gérer les widgets
+## Gérer les Widgets
 
 Sur la page Integrations, chaque carte de widget affiche :
 
-- Nom du widget et statut
+- Nom et statut du widget
 - Agent assigné
-- Actions d'édition, code d'intégration et suppression
+- Actions d'édition, code d'embed et suppression
 
 | Action | Comment |
-|--------|---------|
+|--------|-----|
 | Modifier les paramètres | Cliquez sur la carte du widget |
-| Obtenir le code d'intégration | Cliquez sur l'icône d'intégration |
+| Obtenir le code d'embed | Cliquez sur l'icône d'embed |
 | Supprimer | Menu à trois points → Delete |
 
 ## Sécurité
 
-- **Isolation Shadow DOM** — Le widget est isolé de votre page
-- **Tokens de session HMAC** — Tokens signés avec expiration de 24 heures
-- **Liste de domaines autorisés** — Restreignez quels sites peuvent intégrer votre widget
-- **Limitation de débit** — 30 messages/minute par session
-- **Aucun accès aux données** — Le widget ne peut pas lire ni modifier le contenu de votre page
+- **Isolation par Shadow DOM** — Le widget est en sandbox par rapport à votre page
+- **HMAC session tokens** — Tokens signés avec expiration de 24 heures
+- **Liste blanche de domaines** — Restreignez les sites pouvant intégrer votre widget
+- **Rate limiting** — 30 messages/minute par session
+- **Aucun accès aux données** — Le widget ne peut ni lire ni modifier le contenu de votre page
 
 ## Dépannage
 
 ### Le widget n'apparaît pas
 
-1. Vérifiez que la balise script est avant `</body>`, pas dans `<head>`
+1. Vérifiez que la balise script est avant `</body>`, et non dans `<head>`
 2. Vérifiez que `data-widget-id` correspond à votre panneau d'administration
-3. Si la liste de domaines autorisés est définie, vérifiez que votre domaine y figure
-4. Vérifiez la console du navigateur pour les erreurs
+3. Si la liste blanche de domaines est définie, vérifiez que votre domaine y figure
+4. Consultez la console du navigateur à la recherche d'erreurs
 
 ### Le widget ne répond pas
 
-1. Assurez-vous que l'agent assigné est en statut **Active**
-2. Vérifiez que l'agent a des documents dans son contenu
-3. Vérifiez l'onglet Network du navigateur pour les requêtes API échouées
+1. Assurez-vous que l'agent assigné est au statut **Active**
+2. Vérifiez que l'agent contient des documents dans son contenu
+3. Consultez l'onglet Network du navigateur à la recherche de requêtes API en échec
 
 ### Problèmes d'apparence
 
-Le widget utilise l'isolation Shadow DOM. Le CSS de votre page n'affectera pas le widget. Utilisez l'aperçu en direct du panneau d'édition pour personnaliser l'apparence.
+Le widget utilise l'isolation par Shadow DOM. Le CSS de votre page n'affectera pas le widget. Utilisez l'aperçu en direct du panneau d'édition pour personnaliser l'apparence.
 
 ## FAQ
 
 ### Puis-je intégrer le widget sur plusieurs pages ?
 
-Oui. Utilisez le même code d'intégration sur chaque page. Le widget partage l'état de session entre les pages du même domaine.
+Oui. Utilisez le même code d'embed sur chaque page. Le widget partage l'état de session entre les pages d'un même domaine.
 
 ### Fonctionne-t-il sur mobile ?
 
 Oui. Le widget est entièrement responsive et optimisé pour les navigateurs mobiles.
 
-### Puis-je supprimer le badge "Powered by" ?
+### Puis-je retirer le badge « Powered by » ?
 
-Le badge est requis sur les plans Trial et Starter. Passez à Professional ou supérieur pour le supprimer.
+Le badge est obligatoire sur les plans Trial et Starter. Passez à Plus ou supérieur pour le retirer.
 
 ### Fonctionne-t-il avec React/Next.js/Vue ?
 
-Oui. Le widget se charge comme un script autonome et fonctionne avec n'importe quel framework, y compris les applications mono-page.
+Oui. Le widget se charge en tant que script autonome et fonctionne avec n'importe quel framework, y compris les single-page applications.
 
 ### Quelle est la limite de longueur des messages ?
 
