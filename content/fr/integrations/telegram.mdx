@@ -5,10 +5,16 @@ Connectez votre agent à Telegram et laissez les utilisateurs discuter avec lui 
 ## Aperçu
 
 L'intégration Telegram fournit :
-- Messagerie directe avec votre bot
-- Support des discussions de groupe
-- Formatage enrichi des messages
-- Claviers inline pour les interactions
+- Réponses en streaming en direct (Bot API 9.5 `sendMessageDraft` avec repli en édition de message)
+- Notes vocales transcrites automatiquement avec Whisper
+- Formatage MarkdownV2 qui s'affiche proprement à chaque fois
+- Campagnes deep-link avec accueil personnalisé et réponses suggérées
+- Réactions emoji en un tap avec classification de sentiment
+- Commandes slash intégrées (`/start`, `/help`, `/reset`, `/new`)
+- Messages directs et discussions de groupe (sessions par utilisateur dans les groupes)
+- Help Center Mini App intégré pour la FAQ utilisateur final
+- Copilote optionnel Telegram Business pour les utilisateurs Premium (intégration séparée)
+- Saba sur Telegram pour les administrateurs (intégration séparée)
 
 ## Prérequis
 
@@ -58,31 +64,49 @@ Les messages sont traités en temps réel. L'agent recherche dans votre contenu 
 
 ## Fonctionnalités
 
+### Réponses en streaming en direct
+
+La réponse du bot arrive en quelques millisecondes et grandit sur place pendant que votre agent réfléchit — en utilisant le `sendMessageDraft` natif de Telegram (Bot API 9.5) là où c'est supporté, avec un repli en édition de message bridé ailleurs. Fini les 5 à 15 secondes de silence entre la question et la réponse.
+
+### Notes vocales
+
+Les notes vocales envoyées au bot sont transcrites avec Whisper et traitées comme si elles avaient été tapées. La langue est détectée automatiquement à partir de la conversation, donc des clips courts dans n'importe quelle langue restent précis. Plafond de 2 minutes par note. Disponible sur tous les forfaits, y compris le trial gratuit.
+
+### Formatage MarkdownV2
+
+Gras, italique, blocs de code, listes et liens s'affichent exactement comme votre agent l'entend — pas de markdown cassé ni d'astérisques perdus. L'échappement est centralisé dans la plateforme pour que chaque réponse reste propre. MarkdownV2 est la valeur par défaut ; le mode HTML est disponible par intégration si besoin.
+
+### Deep links et campagnes de parrainage
+
+Générez des liens `t.me/your-bot?start=your-code` depuis la carte de l'intégration. Chaque code peut porter un message d'accueil personnalisé et jusqu'à trois réponses suggérées. Click-through, utilisateurs uniques et conversion vers conversation sont suivis par code — utile pour les campagnes publicitaires, QR codes et attribution multicanal.
+
+### Réactions emoji en un tap
+
+Les utilisateurs réagissent aux messages du bot avec 👍, ❤, 😡 ou n'importe quel emoji. Le bot accuse réception avec le bon ton via de courtes réponses de réaction. Un classifieur intégré associe n'importe quel emoji à un signal positif, négatif ou neutre que vous pouvez analyser plus tard. Actif en DM.
+
+### Commandes slash
+
+L'intégration enregistre une liste de commandes par défaut auprès de Telegram à la connexion, donc les utilisateurs voient `/start`, `/help`, `/reset` et les commandes personnalisées que vous créez dans le menu d'autocomplétion natif de Telegram. `/start`, `/help`, `/reset` et `/new` sont gérés inline avec un coût d'IA nul. Glissez pour réordonner ; jusqu'à 32 entrées.
+
 ### Messages directs
 
-Les utilisateurs peuvent discuter avec votre bot en privé pour des conversations de support.
+Les utilisateurs discutent avec votre bot en tête-à-tête pour des conversations de support privées. Chaque utilisateur a sa propre session.
 
 ### Discussions de groupe
 
 Ajoutez votre bot aux discussions de groupe :
 
 1. Ajoutez le bot à un groupe
-2. Faites-le administrateur (pour l'accès aux messages)
-3. Les utilisateurs peuvent mentionner le bot ou utiliser des commandes
+2. Faites-le administrateur (pour l'accès complet aux messages — voir Group Privacy ci-dessous)
+3. Les utilisateurs mentionnent le bot (`@your_bot`) ou répondent à ses messages
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Dans les groupes, le bot ne répond que lorsqu'il est mentionné ou lors de l'utilisation de commandes, pour éviter le spam.
+  Par défaut, les bots Telegram ont le mode **Group Privacy** activé — le bot ne voit que les messages qui le mentionnent directement ou qui répondent à ses propres messages. Désactivez-le dans BotFather (My bots → votre bot → Bot Settings → Group Privacy → Off) si vous voulez que le bot voie chaque message.
 </Callout>
 
-### Formatage enrichi
-
-Les réponses de votre agent supportent :
-- Texte **gras** et *italique*
-- Liens
-- Blocs de code
-- Listes
+Chaque utilisateur dans un groupe a son propre fil de conversation — le bot ne mélange pas les sessions entre membres. Les groupes à forum sont supportés ; les fils restent cantonnés à leur sujet.
 
 ## Help Center Mini App
 
@@ -114,6 +138,34 @@ Si vous voulez aussi un lien `t.me/<your_bot>/<your_app>` pour le marketing ou d
 ### Support des langues
 
 L'interface du Mini App suit la langue Telegram de chaque utilisateur final — actuellement anglais, espagnol, portugais et français, avec l'anglais en fallback. Le *contenu* du Help Center que vous rédigez est monolingue par entrée aujourd'hui ; les variantes de contenu par langue sont sur la feuille de route.
+
+## Copilote Telegram Business
+
+Les utilisateurs Telegram Premium peuvent faire en sorte que votre bot réponde aux DMs **sur leur compte personnel** via le mode Business de Telegram. Le bot répond à travers le `business_connection_id` de l'utilisateur Premium, donc les contacts voient ce qui ressemble à une réponse de l'utilisateur Premium lui-même — utile pour les fondateurs, créateurs et petites équipes qui reçoivent des DMs sur leurs comptes personnels toute la journée.
+
+La configuration est une intégration séparée dans le admin panel (« Telegram Business co-pilot »). Invariants clés :
+
+- **1 bot = 1 customer agent.** Un bot Telegram ne peut pointer que vers un seul webhook à la fois — vous ne pouvez pas le partager avec l'intégration Telegram standard ni avec Saba sur Telegram. Créez un nouveau bot dans BotFather pour le mode Business.
+- **Le toggle Business Mode dans BotFather est requis.** Sans lui, les utilisateurs Premium voient *« ce bot ne supporte pas encore Telegram Business »* en l'ajoutant. Activez-le dans Bot Settings → Business Mode.
+- **N utilisateurs Premium par intégration.** Chacun se lie une fois avec `/start <code>` dans un DM normal avec le bot.
+- **DMs uniquement.** Les connexions Business ne couvrent pas les discussions de groupe.
+- **La reprise manuelle est automatique.** Quand l'utilisateur Premium répond manuellement, le bot fait pause sur ce chat pendant une fenêtre glissante pour ne pas parler par-dessus une conversation en cours.
+- **Coupe-circuit au niveau de la connexion.** Activez « Disable auto-reply » sur la carte de l'intégration pour mettre le bot en pause sur tous les utilisateurs Premium liés sans déconnecter.
+
+Voyez **Connect Business bot** dans la section Telegram Business co-pilot de la page Integrations du admin panel pour le playbook complet.
+
+## Saba sur Telegram
+
+Les administrateurs peuvent aussi discuter avec **Saba** (l'assistant de la plateforme) depuis un bot Telegram dédié. Mêmes permissions et même accès aux données que le admin panel — utile quand vous êtes loin de votre ordinateur portable et avez besoin de vérifier les statistiques d'agents, la facturation ou l'activité récente.
+
+Deux surfaces sur le même canal :
+
+- **Bot DM** — réponses texte dans un DM Telegram normal, avec des boutons d'action inline qui renvoient vers la bonne page du admin panel (`?from=saba_telegram` pour l'attribution).
+- **Saba Mini App** — une expérience de chat plus riche dans Telegram à `saba-mini.cuneiform.chat` avec historique des conversations, détail des appels d'outils, saisie vocale dans le navigateur et export Markdown. Chaque réponse du bot DM est livrée avec un bouton « Open in Mini App » pour basculer de surface en cours de conversation.
+
+La configuration est côté administrateur : connectez un nouveau bot BotFather sous « Saba on Telegram » dans Integrations. Chaque membre de l'organisation lie ensuite son compte personnel avec un code de 10 minutes.
+
+Voyez [Assistant de la plateforme → Depuis Telegram](/getting-started/platform-assistant#depuis-telegram) pour l'expérience utilisateur.
 
 ## Commandes du bot
 
