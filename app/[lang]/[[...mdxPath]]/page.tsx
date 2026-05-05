@@ -3,12 +3,30 @@ import { useMDXComponents as getMDXComponents } from '../../../mdx-components'
 
 export const generateStaticParams = generateStaticParamsFor('mdxPath', 'lang')
 
+const LOCALES = ['en', 'es', 'pt', 'fr'] as const
+const SITE_URL = 'https://docs.cuneiform.chat'
+
 export async function generateMetadata(props: {
   params: Promise<{ mdxPath?: string[]; lang: string }>
 }) {
   const params = await props.params
   const { metadata } = await importPage(params.mdxPath, params.lang)
-  return metadata
+
+  const subPath = params.mdxPath?.length ? `/${params.mdxPath.join('/')}` : ''
+  const canonical = `${SITE_URL}/${params.lang}${subPath}`
+
+  return {
+    ...metadata,
+    alternates: {
+      canonical,
+      languages: {
+        ...Object.fromEntries(
+          LOCALES.map((l) => [l, `${SITE_URL}/${l}${subPath}`])
+        ),
+        'x-default': `${SITE_URL}/en${subPath}`,
+      },
+    },
+  }
 }
 
 const Wrapper = getMDXComponents().wrapper

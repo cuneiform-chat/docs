@@ -88,12 +88,6 @@ export async function generateMetadata({
       description: strings.description,
       images: 'https://cuneiform.chat/logo.png',
     },
-    alternates: {
-      canonical: `https://docs.cuneiform.chat/${lang}`,
-      languages: Object.fromEntries(
-        LOCALES.map((l) => [l, `https://docs.cuneiform.chat/${l}`])
-      ),
-    },
   }
 }
 
@@ -125,7 +119,7 @@ export default async function LocaleLayout({
     >
       <LocaleSwitcher />
       <a
-        href="https://cuneiform.chat/request-demo"
+        href="https://cuneiform.chat/demo"
         target="_blank"
         rel="noopener noreferrer"
         style={{
@@ -153,25 +147,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
-      <Head color={{ hue: 220, saturation: 100 }}>
-        <link
-          rel="canonical"
-          href={`https://docs.cuneiform.chat/${locale}`}
-        />
-        {LOCALES.map((l) => (
-          <link
-            key={l}
-            rel="alternate"
-            hrefLang={l}
-            href={`https://docs.cuneiform.chat/${l}`}
-          />
-        ))}
-        <link
-          rel="alternate"
-          hrefLang="x-default"
-          href="https://docs.cuneiform.chat/en"
-        />
-      </Head>
+      <Head color={{ hue: 220, saturation: 100 }} />
       <body>
         <Layout
           navbar={navbar}

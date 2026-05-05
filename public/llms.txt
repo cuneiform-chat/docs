@@ -7,26 +7,26 @@ Documentation site: https://docs.cuneiform.chat
 
 ## Sections
 
-- [Getting Started](https://docs.cuneiform.chat/getting-started): Create your first AI chatbot in minutes
-- [Agents](https://docs.cuneiform.chat/agents): Configure chatbot personas, knowledge access, and behavior
-- [Content](https://docs.cuneiform.chat/knowledge-base): Upload documents, connect cloud storage, crawl websites
-- [Integrations](https://docs.cuneiform.chat/integrations): Deploy to 6 messaging platforms
-- [Analytics](https://docs.cuneiform.chat/analytics): Monitor performance and usage
-- [Billing](https://docs.cuneiform.chat/billing): Plans, pricing, and subscription management
+- [Getting Started](https://docs.cuneiform.chat/en/getting-started): Create your first AI chatbot in minutes
+- [Agents](https://docs.cuneiform.chat/en/agents): Configure chatbot personas, knowledge access, and behavior
+- [Content](https://docs.cuneiform.chat/en/knowledge-base): Upload documents, connect cloud storage, crawl websites
+- [Integrations](https://docs.cuneiform.chat/en/integrations): Deploy to 6 messaging platforms
+- [Analytics](https://docs.cuneiform.chat/en/analytics): Monitor performance and usage
+- [Billing](https://docs.cuneiform.chat/en/billing): Plans, pricing, and subscription management
 
 ## Key Topics
 
-- [Creating Agents](https://docs.cuneiform.chat/agents/creating): Step-by-step agent creation
-- [Agent Personas](https://docs.cuneiform.chat/agents/agent-personas): AI-powered persona builder
-- [Supported Formats](https://docs.cuneiform.chat/knowledge-base/supported-formats): 15+ file formats (PDF, DOCX, PPTX, TXT, MD, JSON, XML, etc.)
-- [Website Crawling](https://docs.cuneiform.chat/knowledge-base/website-crawling): Crawl public websites to extract content
-- [Cloud Storage](https://docs.cuneiform.chat/knowledge-base/cloud-storage): Import from Google Drive, Dropbox, OneDrive, Box
-- [Telegram Integration](https://docs.cuneiform.chat/integrations/telegram): Deploy chatbot to Telegram
-- [Discord Integration](https://docs.cuneiform.chat/integrations/discord): Deploy chatbot to Discord
-- [Slack Integration](https://docs.cuneiform.chat/integrations/slack): Deploy chatbot to Slack
-- [WhatsApp Integration](https://docs.cuneiform.chat/integrations/whatsapp): Deploy chatbot to WhatsApp
-- [Google Chat Integration](https://docs.cuneiform.chat/integrations/google-chat): Deploy chatbot to Google Chat
-- [Meta Integration](https://docs.cuneiform.chat/integrations/meta): Deploy chatbot to Facebook Messenger
+- [Creating Agents](https://docs.cuneiform.chat/en/agents/creating): Step-by-step agent creation
+- [Agent Personas](https://docs.cuneiform.chat/en/agents/agent-personas): AI-powered persona builder
+- [Supported Formats](https://docs.cuneiform.chat/en/knowledge-base/supported-formats): 15+ file formats (PDF, DOCX, PPTX, TXT, MD, JSON, XML, etc.)
+- [Website Crawling](https://docs.cuneiform.chat/en/knowledge-base/website-crawling): Crawl public websites to extract content
+- [Cloud Storage](https://docs.cuneiform.chat/en/knowledge-base/cloud-storage): Import from Google Drive, Dropbox, OneDrive, Box
+- [Telegram Integration](https://docs.cuneiform.chat/en/integrations/telegram): Deploy chatbot to Telegram
+- [Discord Integration](https://docs.cuneiform.chat/en/integrations/discord): Deploy chatbot to Discord
+- [Slack Integration](https://docs.cuneiform.chat/en/integrations/slack): Deploy chatbot to Slack
+- [WhatsApp Integration](https://docs.cuneiform.chat/en/integrations/whatsapp): Deploy chatbot to WhatsApp
+- [Google Chat Integration](https://docs.cuneiform.chat/en/integrations/google-chat): Deploy chatbot to Google Chat
+- [Meta Integration](https://docs.cuneiform.chat/en/integrations/facebook): Deploy chatbot to Facebook Messenger
 
 ## Key Capabilities
 

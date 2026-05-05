@@ -1,25 +1,63 @@
 # Cuneiform Chat Documentation
 # https://docs.cuneiform.chat
+#
+# Disabled locales (bn, hi, ru, th, ar) are not built; their /<locale>/* paths
+# 404 with a JS redirect to /en. Disallow keeps crawlers from reporting them.
 
 User-agent: *
 Allow: /
+Disallow: /bn/
+Disallow: /hi/
+Disallow: /ru/
+Disallow: /th/
+Disallow: /ar/
 
 User-agent: GPTBot
 Allow: /
+Disallow: /bn/
+Disallow: /hi/
+Disallow: /ru/
+Disallow: /th/
+Disallow: /ar/
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /bn/
+Disallow: /hi/
+Disallow: /ru/
+Disallow: /th/
+Disallow: /ar/
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /bn/
+Disallow: /hi/
+Disallow: /ru/
+Disallow: /th/
+Disallow: /ar/
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /bn/
+Disallow: /hi/
+Disallow: /ru/
+Disallow: /th/
+Disallow: /ar/
 
 User-agent: Applebot-Extended
 Allow: /
+Disallow: /bn/
+Disallow: /hi/
+Disallow: /ru/
+Disallow: /th/
+Disallow: /ar/
 
 User-agent: CCBot
 Allow: /
+Disallow: /bn/
+Disallow: /hi/
+Disallow: /ru/
+Disallow: /th/
+Disallow: /ar/
 
 Sitemap: https://docs.cuneiform.chat/sitemap.xml
