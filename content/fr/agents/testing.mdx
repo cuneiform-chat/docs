@@ -6,75 +6,75 @@ Le Playground est votre environnement pour tester et affiner les agents avant le
 
 ## Accéder au Playground
 
-1. Naviguez vers **Agents** dans la barre latérale
-2. Cliquez sur **Test** sur la carte de votre agent (ou **Test Agent** lors de l'édition d'un agent)
-3. Le Playground s'ouvre dans un panneau latéral — commencez une conversation
+1. Accédez à **Agents** dans la barre latérale
+2. Cliquez sur **Test** sur la carte de votre agent (ou sur **Test Agent** lors de l'édition d'un agent)
+3. Le Playground s'ouvre en panneau latéral — démarrez une conversation
 
 <Callout type="info">
-  Le bouton Test est désactivé quand le statut de l'agent est **Archived** ou **Inactive**. Changez le statut en **Active** ou **Testing** pour activer les tests.
+  Le bouton Test est désactivé lorsque le statut de l'agent est **Archived** ou **Inactive**. Changez le statut en **Active** ou **Testing** pour activer les tests.
 </Callout>
 
-## Quoi tester
+## Que Tester
 
-### Fonctionnalités de base
+### Fonctionnalités de Base
 
 - L'agent peut-il répondre aux questions à partir de vos documents ?
-- Les réponses sont-elles précises et pertinentes ?
+- Les réponses sont-elles exactes et pertinentes ?
 - Le ton correspond-il à vos attentes ?
 
-### Cas limites
+### Cas Limites
 
-Testez des scénarios qui pourraient mettre votre agent en difficulté :
+Testez les scénarios susceptibles de mettre votre agent en difficulté :
 
 - Questions non couvertes par vos documents
 - Questions ambiguës ou peu claires
-- Questions en plusieurs parties
+- Questions à plusieurs parties
 - Questions de suivi nécessitant du contexte
 
-### Flux de conversation
+### Flux de Conversation
 
-Testez les conversations à plusieurs tours :
+Testez des conversations multi-tours :
 
 - L'agent se souvient-il du contexte des messages précédents ?
-- Peut-il gérer les changements de sujet avec aisance ?
+- Gère-t-il les changements de sujet avec aisance ?
 - Demande-t-il des clarifications quand c'est nécessaire ?
 
-## Évaluer les réponses
+## Évaluer les Réponses
 
 Pour chaque réponse, considérez :
 
-| Aspect | Questions à se poser |
-|--------|---------------------|
-| **Précision** | L'information est-elle correcte ? |
-| **Pertinence** | Répond-elle à la question posée ? |
-| **Complétude** | Manque-t-il quelque chose d'important ? |
-| **Ton** | Correspond-il à la voix de votre marque ? |
-| **Longueur** | Est-elle suffisamment concise ou détaillée ? |
+| Aspect | Questions à Se Poser |
+|--------|-----------------|
+| **Accuracy** | L'information est-elle correcte ? |
+| **Relevance** | Répond-elle réellement à la question posée ? |
+| **Completeness** | Manque-t-il quelque chose d'important ? |
+| **Tone** | Correspond-il à la voix de votre marque ? |
+| **Length** | Est-elle suffisamment concise ou détaillée ? |
 
-## Amélioration itérative
+## Amélioration Itérative
 
-### Identifier les problèmes
+### Identifier les Problèmes
 
 Problèmes courants et solutions :
 
 | Problème | Solution |
-|----------|----------|
-| Information incorrecte | Vérifier le contenu des documents, améliorer la récupération |
-| Trop verbeux | Ajouter "be concise" à l'Agent Persona |
-| Trop formel/décontracté | Ajuster le ton dans l'Agent Persona |
-| Ne connaît pas la réponse | Ajouter des documents pertinents |
-| Invente des faits | Renforcer les limites dans le prompt |
+|-------|----------|
+| Information incorrecte | Vérifiez le contenu du document, améliorez la récupération |
+| Trop verbeux | Ajoutez « be concise » à l'agent persona |
+| Trop formel/décontracté | Ajustez le ton dans l'agent persona |
+| Ne connaît pas la réponse | Ajoutez des documents pertinents |
+| Invente des faits | Renforcez les limites dans le prompt |
 
-### Effectuer des modifications
+### Apporter des Modifications
 
 1. Identifiez le problème lors des tests dans le Playground
-2. Ajustez les paramètres pertinents (prompt, documents, configuration)
-3. Retestez avec les mêmes questions
+2. Ajustez les paramètres concernés (prompt, documents, configuration)
+3. Testez à nouveau avec les mêmes questions
 4. Vérifiez que la correction ne casse pas d'autres comportements
 
-## Checklist de scénarios de test
+## Liste de Scénarios de Test
 
-Créez un ensemble de questions de test standard :
+Créez un ensemble standard de questions de test :
 
 ```markdown
 ## Test Scenarios for [Agent Name]
@@ -92,17 +92,17 @@ Créez un ensemble de questions de test standard :
 ```
 
 <Callout type="important">
-  Sauvegardez vos scénarios de test et rejouez-les après chaque modification pour détecter les régressions.
+  Enregistrez vos scénarios de test et exécutez-les à nouveau après chaque modification pour détecter les régressions.
 </Callout>
 
-## Prêt pour le déploiement
+## Prêt pour le Déploiement
 
-Votre agent est prêt quand :
+Votre agent est prêt lorsqu'il :
 
-- ✅ Répond aux questions courantes avec précision
-- ✅ Gère les cas limites avec aisance
-- ✅ Maintient un ton approprié
-- ✅ Respecte les limites définies
-- ✅ Les conversations à plusieurs tours fonctionnent bien
+- ✓ Répond avec précision aux questions courantes
+- ✓ Gère les cas limites avec aisance
+- ✓ Maintient un ton approprié
+- ✓ Respecte les limites définies
+- ✓ Les conversations multi-tours fonctionnent bien
 
 Ensuite, déployez votre agent sur les [canaux](/integrations) où les utilisateurs interagiront avec lui.

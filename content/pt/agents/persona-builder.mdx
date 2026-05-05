@@ -2,7 +2,7 @@
 
 import { Callout } from 'nextra/components'
 
-Gere agent personas profissionais em segundos usando seleção de características.
+Gere agent personas profissionais em segundos selecionando características.
 
 <Callout type="info">
   O Agent Persona Builder ajuda você a criar agent personas eficazes sem precisar escrever prompts do zero.
@@ -10,9 +10,9 @@ Gere agent personas profissionais em segundos usando seleção de característic
 
 ## Primeiros Passos
 
-1. Navegue até **Agents** e crie ou edite um agent
+1. Acesse **Agents** e crie ou edite um agent
 2. Clique em **Generate** ao lado do campo Agent Persona
-3. O painel do Agent Persona Builder abre deslizando com três abas
+3. O painel do Agent Persona Builder se abre com três abas
 
 ## Abas do Builder
 
@@ -21,20 +21,20 @@ Gere agent personas profissionais em segundos usando seleção de característic
 Crie uma persona única selecionando características em 5 categorias:
 
 | Categoria | O Que Controla |
-|-----------|----------------|
-| **Role & Identity** | Função principal do agent (suporte ao cliente, vendas, suporte técnico, RH, etc.) |
+|----------|------------------|
+| **Role & Identity** | Função principal do agent (customer support, vendas, suporte técnico, RH, etc.) |
 | **Communication Style** | Formalidade, tom, verbosidade e nível técnico |
-| **Response Behavior** | Formato (conversacional vs bullet points), proatividade, tratamento de perguntas |
-| **Operational Boundaries** | Quão rigorosamente o agent permanece no tema, tendência de escalonamento |
-| **Knowledge Integration** | Estilo de citação, como o agent lida com incerteza |
+| **Response Behavior** | Formato (conversacional vs. tópicos), proatividade, tratamento de perguntas |
+| **Operational Boundaries** | O quanto o agent se mantém no tema, tendência a escalonar |
+| **Knowledge Integration** | Estilo de citação, como o agent lida com incertezas |
 
-**Navegação por Categoria:**
-- Clique em qualquer cabeçalho de categoria para expandir ou recolher
-- Cada categoria contém múltiplos campos com opções dropdown
-- Opções selecionadas ficam destacadas
+**Navegação de Categorias:**
+- Clique no cabeçalho de qualquer categoria para expandir ou recolher
+- Cada categoria contém vários campos com opções suspensas
+- As opções selecionadas ficam destacadas
 
 **Botão Reset:**
-Clique em **Reset** na seção Custom Build para restaurar todos os padrões.
+Clique em **Reset** dentro da seção Custom Build para restaurar todos os padrões.
 
 #### Opções de Role & Identity
 
@@ -55,13 +55,13 @@ Escolha a função principal do seu agent:
 Ajuste como seu agent se comunica:
 
 | Configuração | Opções |
-|--------------|--------|
+|---------|---------|
 | **Formality** | Formal, Professional, Casual |
 | **Tone** | Warm & Friendly, Neutral, Direct |
-| **Verbosity** | Concise, Balanced, Detailed |
-| **Technical Level** | Non-technical, Mixed, Technical |
+| **Verbosity** | Concise, Balanced, Comprehensive |
+| **Technical Level** | Layperson, Mixed, Technical |
 
-#### Opções de Tom
+#### Opções de Tone
 
 Presets de tom disponíveis:
 - Empathetic & Supportive
@@ -72,55 +72,55 @@ Presets de tom disponíveis:
 
 #### Níveis de Detalhe
 
-- **Concise** — Respostas breves e diretas
+- **Concise** — Respostas curtas e diretas
 - **Balanced** — Detalhe moderado com explicações claras
 - **Comprehensive** — Respostas completas e detalhadas
 
 #### Response Behavior
 
 Controle como as respostas são estruturadas:
-- **Format** — Parágrafos conversacionais ou bullet points estruturados
+- **Format** — Parágrafos conversacionais ou tópicos estruturados
 - **Proactivity** — Se o agent sugere tópicos relacionados
 - **Question Handling** — Como o agent pede esclarecimentos
 
 #### Operational Boundaries
 
-Defina proteções para seu agent:
-- **Scope Strictness** — Quão rigorosamente o agent permanece dentro dos tópicos documentados
-- **Escalation** — Quando sugerir contato com suporte humano
+Defina as guardrails do seu agent:
+- **Scope Strictness** — O quanto o agent se mantém dentro dos tópicos documentados
+- **Escalation** — Quando sugerir contatar o suporte humano
 - **Out-of-scope Handling** — Como responder a perguntas fora do tema
 
 #### Knowledge Integration
 
 Configure como o agent usa seus documentos:
 - **Citation Style** — Se deve referenciar documentos específicos
-- **Uncertainty Handling** — Como responder quando não tem certeza
+- **Uncertainty Handling** — Como responder em caso de dúvida
 
 ### Use Preset
 
 Carregue personas pré-configuradas para casos de uso comuns:
 
-- **System Templates** — Presets fornecidos pela plataforma otimizados para funções específicas
-- **My Templates** — Presets salvos pelos administradores da sua organization
+- **System Templates** — Presets fornecidos pela plataforma, otimizados para funções específicas
+- **My Templates** — Presets salvos pelos administradores da sua organização
 
 **Usando um Preset:**
 1. Clique na aba **Use Preset**
 2. Navegue pelos presets disponíveis
 3. Clique em um preset para selecioná-lo
 4. O preset é carregado na aba Custom Build
-5. Ajuste quaisquer características se necessário
+5. Ajuste as características se necessário
 6. Clique em **Generate Persona**
 
 ### Platform Rules
 
-Veja as proteções somente leitura aplicadas automaticamente a todos os agents:
+Veja as guardrails somente leitura aplicadas automaticamente a todos os agents:
 
-- **Sem fabricação** — Não inventa fatos, números ou datas que não estão no seu conteúdo
-- **Reconhece lacunas** — Diz "Não tenho essa informação" em vez de adivinhar
-- **Resiste à especulação** — Não estima valores ausentes mesmo quando solicitado
-- **Sem impersonação profissional** — Não se faz passar por advogados, médicos, contadores ou consultores financeiros
-- **Corrige premissas falsas** — Aponta suposições incorretas antes de responder
-- **Bloqueia conteúdo prejudicial** — Recusa conteúdo de autolesão, explícito ou fraudulento
+- **No fabrication** — Não inventa fatos, números ou datas que não estejam no seu conteúdo
+- **Acknowledges gaps** — Diz "não tenho essa informação" em vez de chutar
+- **Resists speculation** — Não estima valores faltantes mesmo quando solicitado
+- **No professional impersonation** — Não interpreta o papel de advogado, médico, contador ou consultor financeiro
+- **Corrects false premises** — Aponta suposições incorretas antes de responder
+- **Blocks harmful content** — Recusa conteúdo de automutilação, explícito ou fraudulento
 
 <Callout type="info">
   As Platform Rules garantem que todos os agents se comportem de forma confiável e segura, independentemente da configuração da persona. Elas não podem ser desativadas.
@@ -132,7 +132,7 @@ Veja as proteções somente leitura aplicadas automaticamente a todos os agents:
 O painel mostra suas opções de configuração em largura total.
 
 **Botão Generate:**
-Quando na aba Custom Build:
+Quando estiver na aba Custom Build:
 1. Clique em **Generate Persona** na parte inferior
 2. Um estado de carregamento é exibido durante a geração
 3. Leva alguns segundos
@@ -149,39 +149,39 @@ O layout do painel muda para uma visualização dividida:
 
 ## Após Gerar
 
-Uma vez que você tem uma persona gerada, há várias opções:
+Depois de ter uma persona gerada, você tem várias opções:
 
-### Regenerar
+### Regenerate
 
 Clique em **Regenerate** para criar uma nova versão com as mesmas configurações. Cada geração produz resultados ligeiramente diferentes.
 
 ### Editar o Prompt
 
-Clique no painel de pré-visualização para editar o texto gerado diretamente. Faça os ajustes necessários para seu caso de uso específico.
+Clique no painel de pré-visualização para editar o texto gerado diretamente. Faça os ajustes necessários para o seu caso de uso específico.
 
-### Salvar como Preset
+### Save as Preset
 
-Clique em **Save as Preset** para salvar sua configuração para reutilização:
-1. Um diálogo abre pedindo o nome do preset
+Clique em **Save as Preset** para salvar sua configuração e reutilizá-la:
+1. Um diálogo se abre pedindo o nome do preset
 2. Digite um nome descritivo
-3. O preset é salvo na sua organization em **My Templates**
+3. O preset é salvo na sua organização em **My Templates**
 
 <Callout type="important">
-  Presets salvos ficam disponíveis para todos os administradores da sua organization. Use-os para manter personalidades consistentes de agents em múltiplos agents.
+  Os presets salvos ficam disponíveis para todos os administradores da sua organização. Use-os para manter personalidades consistentes em vários agents.
 </Callout>
 
-### Aplicar ao Agent
+### Apply to Agent
 
-Clique em **Apply to Agent** para usar esta persona:
+Clique em **Apply to Agent** para usar essa persona:
 1. O prompt é inserido no campo de system prompt do seu agent
 2. O builder fecha
-3. Continue configurando outras configurações do agent
+3. Continue configurando as outras configurações do agent
 
 ## Boas Práticas
 
-- **Comece com um preset** — Use templates do sistema como ponto de partida, depois personalize
-- **Combine o papel com a finalidade** — Escolha um papel que se alinhe com a função real do seu agent
-- **Equilibre a verbosidade** — Conciso funciona melhor para Q&A rápido, detalhado para tópicos complexos
+- **Comece com um preset** — Use os system templates como ponto de partida e depois personalize
+- **Adapte a função ao propósito** — Escolha uma função alinhada com a função real do seu agent
+- **Equilibre a verbosidade** — Concise funciona melhor para Q&A rápido; detalhado para tópicos complexos
 - **Teste após gerar** — Sempre teste seu agent no Playground após aplicar uma nova persona
 - **Itere** — Regenere com configurações diferentes se os resultados não estiverem adequados
 - **Mantenha o foco** — Prompts excessivamente complexos podem confundir o agent
@@ -190,5 +190,5 @@ Clique em **Apply to Agent** para usar esta persona:
 
 Após gerar sua agent persona:
 
-- [Teste no Playground](/pt/agents/testing) — Verifique se a persona funciona como esperado
-- [Saiba mais sobre Agent Personas](/pt/agents/agent-personas) — Entenda a estrutura e boas práticas de personas
+- [Testar no Playground](/agents/testing) — Verifique se a persona funciona como esperado
+- [Saiba mais sobre Agent Personas](/agents/agent-personas) — Entenda a estrutura da persona e as boas práticas

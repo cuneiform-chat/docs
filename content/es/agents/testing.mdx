@@ -6,75 +6,75 @@ El Playground es tu entorno para probar y refinar agents antes del despliegue.
 
 ## Acceder al Playground
 
-1. Navega a **Agents** en la barra lateral
-2. Haz clic en **Test** en la tarjeta de tu agent (o **Test Agent** al editar un agent)
-3. El Playground se abre deslizándose como un panel lateral — inicia una conversación
+1. Ve a **Agents** en la barra lateral
+2. Haz clic en **Test** en la tarjeta de tu agent (o en **Test Agent** al editar un agent)
+3. El Playground se abre como un panel lateral — inicia una conversación
 
 <Callout type="info">
-  El botón Test se desactiva cuando el estado del agent es **Archived** o **Inactive**. Cambia el estado a **Active** o **Testing** para habilitar las pruebas.
+  El botón Test está desactivado cuando el estado del agent es **Archived** o **Inactive**. Cambia el estado a **Active** o **Testing** para activar las pruebas.
 </Callout>
 
-## Qué probar
+## Qué Probar
 
-### Funcionalidad básica
+### Funcionalidad Básica
 
-- ¿Puede el agent responder preguntas de tus documentos?
-- ¿Son las respuestas precisas y relevantes?
+- ¿Puede el agent responder preguntas a partir de tus documentos?
+- ¿Las respuestas son precisas y relevantes?
 - ¿El tono coincide con tus expectativas?
 
-### Casos extremos
+### Casos Límite
 
-Prueba escenarios que podrían complicar a tu agent:
+Prueba escenarios que podrían poner en aprietos a tu agent:
 
-- Preguntas no cubiertas por tus documentos
+- Preguntas que no cubren tus documentos
 - Preguntas ambiguas o poco claras
-- Preguntas de múltiples partes
+- Preguntas con varias partes
 - Preguntas de seguimiento que requieren contexto
 
-### Flujo de conversación
+### Flujo de Conversación
 
-Prueba conversaciones de múltiples turnos:
+Prueba conversaciones de varios turnos:
 
 - ¿Recuerda el agent el contexto de mensajes anteriores?
-- ¿Puede manejar cambios de tema con naturalidad?
+- ¿Maneja con elegancia los cambios de tema?
 - ¿Pide aclaraciones cuando es necesario?
 
-## Evaluar respuestas
+## Evaluar las Respuestas
 
 Para cada respuesta, considera:
 
-| Aspecto | Preguntas a hacer |
-|---------|-------------------|
+| Aspecto | Preguntas a Hacerse |
+|--------|-----------------|
 | **Accuracy** | ¿Es correcta la información? |
-| **Relevance** | ¿Responde la pregunta real? |
+| **Relevance** | ¿Responde realmente a la pregunta? |
 | **Completeness** | ¿Falta algo importante? |
 | **Tone** | ¿Coincide con la voz de tu marca? |
-| **Length** | ¿Es apropiadamente concisa o detallada? |
+| **Length** | ¿Es adecuadamente concisa o detallada? |
 
-## Mejora iterativa
+## Mejora Iterativa
 
-### Identificar problemas
+### Identificar Problemas
 
-Problemas comunes y soluciones:
+Problemas habituales y soluciones:
 
 | Problema | Solución |
-|----------|----------|
-| Información incorrecta | Revisa el contenido de los documentos, mejora la recuperación |
+|-------|----------|
+| Información incorrecta | Revisa el contenido del documento, mejora la recuperación |
 | Demasiado verboso | Añade "be concise" al agent persona |
 | Demasiado formal/casual | Ajusta el tono en el agent persona |
-| No sabe la respuesta | Añade documentos relevantes |
-| Inventa hechos | Fortalece los límites en el prompt |
+| No conoce la respuesta | Añade documentos relevantes |
+| Inventa hechos | Refuerza los límites en el prompt |
 
-### Hacer cambios
+### Hacer Cambios
 
-1. Identifica el problema en las pruebas del Playground
-2. Ajusta las configuraciones relevantes (prompt, documentos, configuración)
-3. Prueba de nuevo con las mismas preguntas
-4. Verifica que la corrección no rompa otros comportamientos
+1. Identifica el problema durante las pruebas en el Playground
+2. Ajusta los ajustes pertinentes (prompt, documentos, configuración)
+3. Vuelve a probar con las mismas preguntas
+4. Verifica que la corrección no rompe otros comportamientos
 
-## Checklist de escenarios de prueba
+## Lista de Escenarios de Prueba
 
-Crea un conjunto de preguntas de prueba estándar:
+Crea un conjunto estándar de preguntas de prueba:
 
 ```markdown
 ## Test Scenarios for [Agent Name]
@@ -92,17 +92,17 @@ Crea un conjunto de preguntas de prueba estándar:
 ```
 
 <Callout type="important">
-  Guarda tus escenarios de prueba y vuelve a ejecutarlos después de hacer cambios para detectar regresiones.
+  Guarda tus escenarios de prueba y vuelve a ejecutarlos tras hacer cambios para detectar regresiones.
 </Callout>
 
-## Listo para desplegar
+## Listo para el Despliegue
 
 Tu agent está listo cuando:
 
-- ✅ Responde preguntas comunes con precisión
-- ✅ Maneja casos extremos con naturalidad
-- ✅ Mantiene un tono apropiado
-- ✅ Respeta los límites definidos
-- ✅ Las conversaciones de múltiples turnos funcionan bien
+- ✓ Responde preguntas comunes con precisión
+- ✓ Gestiona los casos límite con elegancia
+- ✓ Mantiene un tono adecuado
+- ✓ Respeta los límites definidos
+- ✓ Las conversaciones de varios turnos funcionan bien
 
 A continuación, despliega tu agent en los [canales](/integrations) donde los usuarios interactuarán con él.

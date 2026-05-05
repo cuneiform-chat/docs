@@ -1,14 +1,14 @@
 # Agent Personas
 
-L'Agent Persona est la configuration la plus importante pour votre agent. Il définit la personnalité, le comportement et les limites.
+L'agent persona est la configuration la plus importante de votre agent. Elle définit la personnalité, le comportement et les limites.
 
 ## Qu'est-ce qu'un Agent Persona ?
 
-L'Agent Persona est un ensemble d'instructions données à l'IA avant toute conversation avec un utilisateur. Il façonne chaque réponse de votre agent.
+L'agent persona est un ensemble d'instructions transmises à l'AI avant toute conversation utilisateur. Il façonne chaque réponse de votre agent.
 
-## Structure d'un bon Agent Persona
+## Structure d'un Bon Agent Persona
 
-### 1. Définition du rôle
+### 1. Définition du Rôle
 
 Commencez par définir qui est l'agent :
 
@@ -16,7 +16,7 @@ Commencez par définir qui est l'agent :
 You are a customer support assistant for TechCorp, a software company.
 ```
 
-### 2. Responsabilités principales
+### 2. Responsabilités Principales
 
 Décrivez ce que l'agent doit faire :
 
@@ -27,7 +27,7 @@ Your role is to:
 - Guide users to relevant documentation
 ```
 
-### 3. Directives de comportement
+### 3. Lignes Directrices de Comportement
 
 Définissez le ton et le style :
 
@@ -38,15 +38,15 @@ Communication style:
 - Keep responses concise unless detail is requested
 ```
 
-### 4. Détection automatique de la langue
+### 4. Détection Automatique de la Langue
 
 Votre agent détecte automatiquement la langue de chaque message utilisateur et répond en conséquence — aucune configuration manuelle nécessaire. 176 langues sont prises en charge nativement.
 
-L'agent s'adapte par message, ce qui lui permet de gérer naturellement les conversations multilingues. Les règles de sécurité et de précision restent en anglais en interne.
+L'agent s'adapte message par message, ce qui lui permet de gérer naturellement les conversations multilingues. Les règles de sécurité et de précision restent en anglais en interne.
 
 ### 5. Limites
 
-Définissez ce que l'agent ne doit PAS faire :
+Définissez ce que l'agent NE doit PAS faire :
 
 ```
 Important boundaries:
@@ -58,7 +58,7 @@ Important boundaries:
 
 ## Exemples d'Agent Personas
 
-### Support client
+### Customer Support
 
 ```
 You are a helpful customer support assistant for Acme Corp.
@@ -80,7 +80,7 @@ Do not:
 - Discuss internal company matters
 ```
 
-### Documentation technique
+### Documentation Technique
 
 ```
 You are a technical documentation assistant.
@@ -113,43 +113,43 @@ If a question isn't covered in the documentation:
 Tone: Friendly and helpful, but concise.
 ```
 
-## Conseils pour de meilleurs Personas
+## Conseils pour de Meilleures Personas
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-**Commencez simplement.** Débutez avec un prompt basique et ajoutez de la complexité en fonction des résultats des tests.
+**Commencez simplement.** Démarrez avec un prompt basique et ajoutez de la complexité en fonction des résultats des tests.
 </Callout>
 
-1. **Soyez précis** — Des instructions vagues mènent à un comportement incohérent
+1. **Soyez précis** — Les instructions vagues entraînent un comportement incohérent
 2. **Utilisez des exemples** — Montrez à l'agent à quoi ressemblent de bonnes réponses
-3. **Définissez des limites claires** — Précisez ce que l'agent ne doit PAS faire
-4. **Itérez** — Testez et affinez en fonction des conversations réelles
-5. **Restez focalisé** — Des prompts longs et complexes peuvent confondre le modèle
-6. **La langue est automatique** — Votre agent détecte la langue de l'utilisateur et répond en conséquence. Pas besoin d'ajouter des instructions de langue au texte de la persona
+3. **Définissez des limites claires** — Précisez ce que l'agent NE doit PAS faire
+4. **Itérez** — Testez et affinez en vous basant sur des conversations réelles
+5. **Restez concentré** — Les prompts longs et complexes peuvent perturber le modèle
+6. **La langue est automatique** — Votre agent détecte la langue de l'utilisateur et répond en conséquence. Inutile d'ajouter des instructions de langue dans le texte de la persona
 
 ## Tester votre Persona
 
-Après avoir écrit ou mis à jour votre Agent Persona :
+Après avoir rédigé ou mis à jour votre agent persona :
 
 1. Testez dans le [Playground](/agents/testing)
-2. Essayez des cas limites et des questions difficiles
+2. Essayez des cas limites et des questions délicates
 3. Affinez en fonction des résultats
-4. Retestez pour vérifier les améliorations
+4. Testez à nouveau pour confirmer les améliorations
 
-## Variables de template
+## Variables de Modèle
 
 Personnalisez le system prompt de votre agent avec des variables dynamiques.
 
-### Variables disponibles
+### Variables Disponibles
 
 | Variable | Description | Exemple |
 |----------|-------------|---------|
-| `{{organization_name}}` | Le nom de votre organisation | "Acme Corp" |
-| `{{current_date}}` | La date du jour | "2026-02-03" |
-| `{{current_year}}` | L'année en cours | "2026" |
+| `{{organization_name}}` | Nom de votre organisation | « Acme Corp » |
+| `{{current_date}}` | Date du jour | « 2026-02-03 » |
+| `{{current_year}}` | Année en cours | « 2026 » |
 
-### Utiliser les variables
+### Utiliser des Variables
 
 Dans votre system prompt :
 
@@ -157,7 +157,7 @@ Dans votre system prompt :
 Welcome to {{organization_name}}! I'm here to help you today.
 ```
 
-**Résultat :** "Welcome to Acme Corp! I'm here to help you today."
+**Résultat :** « Welcome to Acme Corp! I'm here to help you today. »
 
 <Callout type="important">
   Cliquez sur **Preview** lors de l'édition pour voir comment les variables apparaîtront avec les valeurs réelles de votre organisation.

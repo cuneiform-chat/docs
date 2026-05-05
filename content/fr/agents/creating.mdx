@@ -4,51 +4,51 @@ import { Callout } from 'nextra/components'
 
 Apprenez à créer de nouveaux agents dans Cuneiform Chat.
 
-## Pour commencer
+## Premiers Pas
 
-1. Naviguez vers **Agents** dans la barre latérale
+1. Accédez à **Agents** dans la barre latérale
 2. Cliquez sur le bouton **Create Agent** en haut à droite
 3. Remplissez les sections du formulaire ci-dessous
 
-## Informations de base
+## Informations de Base
 
-Cette section recueille les détails essentiels sur votre agent.
+Cette section recueille les informations essentielles concernant votre agent.
 
-| Champ | Requis | Description |
-|-------|--------|-------------|
-| **Name** | Oui | Un nom pour votre agent (ex. : "Agent Support Client"). Maximum 100 caractères. |
+| Champ | Obligatoire | Description |
+|-------|----------|-------------|
+| **Name** | Oui | Un nom pour votre agent (par exemple, « Customer Support Agent »). Maximum 100 caractères. |
 | **Description** | Non | Une brève description de ce que fait cet agent. Maximum 500 caractères. |
 
 **Conseils :**
-- Choisissez un nom descriptif qui indique la fonction de l'agent
-- La description aide vous et votre équipe à comprendre le rôle de l'agent
+- Choisissez un nom descriptif qui indique l'objectif de l'agent
+- La description vous aide, vous et votre équipe, à comprendre le rôle de l'agent
 
 ## Agent Persona
 
-L'Agent Persona définit le comportement et les réponses de votre agent via un system prompt.
+L'agent persona définit le comportement et les réponses de votre agent à travers un system prompt.
 
 **Éléments clés :**
 
-- **Platform Rules Box** — Affiche les règles de sécurité intégrées appliquées automatiquement (cliquez pour voir les détails)
-- **Generate Button** — Ouvre l'[Agent Persona Builder](/agents/persona-builder) pour vous aider à créer votre persona
-- **Edit Button** — Ouvre un panneau pour écrire ou modifier manuellement la persona
+- **Encadré Platform Rules** — Affiche les règles de sécurité intégrées appliquées automatiquement (cliquez pour voir les détails)
+- **Bouton Generate** — Ouvre l'[Agent Persona Builder](/agents/persona-builder) pour vous aider à créer votre persona
+- **Bouton Edit** — Ouvre un panneau pour rédiger ou modifier la persona manuellement
 
-### Règles de la plateforme
+### Platform Rules
 
-Ces garde-fous de sécurité sont automatiquement appliqués à tous les agents :
+Ces guardrails de sécurité s'appliquent automatiquement à tous les agents :
 
-- **Pas de fabrication** — N'invente pas de faits absents de votre contenu
-- **Reconnaît les lacunes** — Dit "Je ne sais pas" quand c'est approprié
-- **Résiste à la spéculation** — Ne devine pas les informations manquantes
-- **Pas d'usurpation professionnelle** — N'agit pas comme avocat, médecin, etc.
-- **Corrige les fausses prémisses** — Signale les suppositions incorrectes
-- **Bloque le contenu nuisible** — Refuse les demandes inappropriées
+- **No fabrication** — N'invente pas de faits absents de votre contenu
+- **Acknowledges gaps** — Dit « je ne sais pas » lorsque c'est approprié
+- **Resists speculation** — Ne devine pas les informations manquantes
+- **No professional impersonation** — Ne se fait pas passer pour un avocat, un médecin, etc.
+- **Corrects false premises** — Signale les hypothèses incorrectes
+- **Blocks harmful content** — Refuse les demandes inappropriées
 
 <Callout type="info">
-  Les règles de la plateforme garantissent que tous les agents se comportent de manière fiable et sûre. Elles ne peuvent pas être désactivées. Voir [Agent Persona Builder](/agents/persona-builder#platform-rules) pour les détails.
+  Les Platform Rules garantissent que tous les agents se comportent de manière fiable et sûre. Elles ne peuvent pas être désactivées. Voir [Agent Persona Builder](/agents/persona-builder#platform-rules) pour plus de détails.
 </Callout>
 
-### Exemple rapide de Persona
+### Exemple Rapide de Persona
 
 ```
 You are a helpful assistant for [Your Company].
@@ -58,87 +58,87 @@ Be concise and friendly.
 
 Voir [Agent Personas](/agents/agent-personas) pour des conseils détaillés sur la rédaction de personas efficaces.
 
-## Prise en charge des langues
+## Prise en Charge des Langues
 
-Votre agent détecte automatiquement la langue de chaque message utilisateur et répond dans la même langue — aucune configuration nécessaire. 176 langues sont prises en charge nativement. Voir [Agent Personas — Détection de langue](/agents/agent-personas#4-automatic-language-detection) pour les détails.
+Votre agent détecte automatiquement la langue de chaque message utilisateur et répond dans la même langue — aucune configuration nécessaire. 176 langues sont prises en charge nativement. Voir [Agent Personas — Détection de la langue](/agents/agent-personas#4-automatic-language-detection) pour plus de détails.
 
-## Configuration LLM
+## Configuration du LLM
 
-Cette section contrôle les paramètres du modèle IA.
+Cette section contrôle les paramètres du modèle AI.
 
 **Mode par défaut :**
 
-Par défaut, les paramètres LLM utilisent les valeurs par défaut du tier de votre organisation. Vous verrez une info-bulle indiquant "Using tier defaults". C'est recommandé pour la plupart des cas d'utilisation.
+Par défaut, les paramètres LLM utilisent les valeurs par défaut du tier de votre organisation. Vous verrez un encadré indiquant « Using tier defaults ». C'est recommandé pour la plupart des cas d'usage.
 
-**Mode avancé :**
+**Mode Avancé :**
 
 Activez **Advanced** pour personnaliser :
 
 | Paramètre | Description |
-|-----------|-------------|
-| **Model** | Choisissez parmi les modèles IA disponibles selon votre plan |
+|---------|-------------|
+| **Model** | Choisissez parmi les modèles AI disponibles selon votre plan |
 | **Temperature** | Contrôle la créativité des réponses (plus bas = plus cohérent, plus haut = plus créatif) |
 
 **Show Document References :**
 
-Ce toggle (toujours visible) contrôle si l'agent inclut les citations de sources dans les réponses :
+Ce toggle (toujours visible) contrôle si l'agent inclut des citations de sources dans ses réponses :
 - **Off** (par défaut) — Les réponses ne mentionnent pas les documents sources
-- **On** — Les réponses incluent des références aux documents sources (utile pour le juridique/conformité)
+- **On** — Les réponses incluent les références aux documents sources (utile pour les usages juridiques ou de conformité)
 
-## Contrôle d'accès aux connaissances
+## Contrôle d'Accès aux Connaissances
 
-Contrôlez quels documents votre agent peut consulter pour répondre aux questions.
+Contrôlez les documents auxquels votre agent peut accéder pour répondre aux questions.
 
-| Mode | Comportement | Quand utiliser |
-|------|-------------|----------------|
-| **Exclude Mode** | L'agent accède à TOUS les documents SAUF ceux sélectionnés | Masquer des documents sensibles de l'agent |
+| Mode | Comportement | Quand l'utiliser |
+|------|----------|-------------|
+| **Exclude Mode** | L'agent accède à TOUS les documents SAUF ceux sélectionnés | Masquer des documents sensibles à l'agent |
 | **Include Mode** | L'agent accède UNIQUEMENT aux éléments sélectionnés | Restreindre l'agent à un ensemble spécifique de connaissances |
 
 **En utilisant Include Mode :**
-- Sélectionnez les dossiers spécifiques auxquels l'agent peut accéder
-- Sélectionnez les tags spécifiques auxquels l'agent peut accéder
-- Sélectionnez les documents individuels auxquels l'agent peut accéder
+- Sélectionnez les dossiers spécifiques accessibles à l'agent
+- Sélectionnez les tags spécifiques accessibles à l'agent
+- Sélectionnez les documents individuels accessibles à l'agent
 
 L'agent n'utilisera que les informations des sources sélectionnées pour répondre.
 
 <Callout type="important">
-  Commencez avec Exclude Mode (accès complet aux connaissances) sauf si vous devez masquer des documents spécifiques. Vous pouvez toujours restreindre l'accès ultérieurement.
+  Commencez avec Exclude Mode (accès complet aux connaissances), sauf si vous devez masquer des documents spécifiques. Vous pouvez toujours restreindre l'accès plus tard.
 </Callout>
 
-## Actions du formulaire
+## Actions du Formulaire
 
 En bas du formulaire :
 
 | Bouton | Action |
 |--------|--------|
-| **Cancel** | Annuler les modifications et revenir en arrière |
-| **Reset** | Effacer tous les champs et recommencer (affiche une boîte de confirmation) |
+| **Cancel** | Abandonner les modifications et revenir |
+| **Reset** | Vider tous les champs et recommencer (affiche une boîte de dialogue de confirmation) |
 | **Create Agent** | Enregistrer l'agent et ouvrir sa page d'édition |
 
 <Callout type="info">
-  Votre brouillon est automatiquement sauvegardé pendant que vous travaillez. Si vous partez et revenez, votre progression sera restaurée.
+  Votre brouillon est enregistré automatiquement pendant que vous travaillez. Si vous quittez puis revenez, votre progression sera restaurée.
 </Callout>
 
-## Après la création
+## Après la Création
 
 Lorsque vous cliquez sur **Create Agent** :
 
 1. L'agent est créé avec le statut **Testing**
-2. Vous êtes redirigé vers la page d'édition de l'agent
-3. Testez l'agent dans le Playground
-4. Connectez les intégrations quand vous êtes prêt à passer en production
-5. Changez le statut en **Active** quand vous êtes prêt
+2. Vous êtes dirigé vers la page d'édition de l'agent
+3. Testez l'agent à l'aide du Playground
+4. Connectez les intégrations lorsque vous êtes prêt à passer en production
+5. Changez le statut en **Active** quand c'est prêt
 
 <Callout type="info">
-  Les nouveaux agents démarrent en statut **Testing**. Vous pouvez tester dans le Playground, mais les intégrations de canaux sont désactivées jusqu'à l'activation de l'agent.
+  Les nouveaux agents démarrent avec le statut **Testing**. Vous pouvez les tester dans le Playground, mais les intégrations de canaux sont désactivées tant que l'agent n'est pas activé.
 </Callout>
 
-## Gestion des Agents
+## Gérer les Agents
 
 Depuis la page Agents, vous pouvez :
 
 - **Edit** — Cliquez sur n'importe quel agent pour modifier ses paramètres
-- **Test** — Cliquez sur **Test** sur une carte d'agent pour ouvrir le Playground
+- **Test** — Cliquez sur **Test** sur la carte d'un agent pour ouvrir le Playground
 - **Change Status** — Définir sur Testing, Active, Inactive ou Archived
 
-Voir [Options de configuration](/agents/configuring) pour les détails sur tous les paramètres des agents.
+Voir [Options de configuration](/agents/configuring) pour le détail de tous les paramètres de l'agent.

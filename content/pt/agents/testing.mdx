@@ -6,9 +6,9 @@ O Playground é seu ambiente para testar e refinar agents antes da implantação
 
 ## Acessando o Playground
 
-1. Navegue até **Agents** na barra lateral
-2. Clique em **Test** no card do seu agent (ou **Test Agent** ao editar um agent)
-3. O Playground abre deslizando como um painel lateral — comece uma conversa
+1. Acesse **Agents** na barra lateral
+2. Clique em **Test** no card do seu agent (ou em **Test Agent** ao editar um agent)
+3. O Playground se abre como um painel lateral — inicie uma conversa
 
 <Callout type="info">
   O botão Test fica desativado quando o status do agent é **Archived** ou **Inactive**. Mude o status para **Active** ou **Testing** para ativar os testes.
@@ -18,38 +18,38 @@ O Playground é seu ambiente para testar e refinar agents antes da implantação
 
 ### Funcionalidade Básica
 
-- O agent consegue responder perguntas dos seus documentos?
+- O agent consegue responder perguntas a partir dos seus documentos?
 - As respostas são precisas e relevantes?
 - O tom corresponde às suas expectativas?
 
-### Casos Extremos
+### Casos de Borda
 
-Teste cenários que podem confundir seu agent:
+Teste cenários que possam confundir seu agent:
 
 - Perguntas não cobertas pelos seus documentos
 - Perguntas ambíguas ou pouco claras
-- Perguntas com múltiplas partes
-- Perguntas de acompanhamento que requerem contexto
+- Perguntas com várias partes
+- Perguntas de acompanhamento que exigem contexto
 
 ### Fluxo de Conversa
 
-Teste conversas com múltiplas interações:
+Teste conversas com vários turnos:
 
-- O agent lembra do contexto de mensagens anteriores?
-- Ele consegue lidar com mudanças de tópico com naturalidade?
-- Ele pede esclarecimentos quando necessário?
+- O agent lembra o contexto de mensagens anteriores?
+- Lida bem com mudanças de tópico?
+- Pede esclarecimentos quando necessário?
 
 ## Avaliando Respostas
 
 Para cada resposta, considere:
 
 | Aspecto | Perguntas a Fazer |
-|---------|-------------------|
-| **Precisão** | A informação está correta? |
-| **Relevância** | Responde a pergunta real? |
-| **Completude** | Falta algo importante? |
-| **Tom** | Corresponde à voz da sua marca? |
-| **Tamanho** | É apropriadamente conciso ou detalhado? |
+|--------|-----------------|
+| **Accuracy** | A informação está correta? |
+| **Relevance** | Responde realmente à pergunta? |
+| **Completeness** | Está faltando algo importante? |
+| **Tone** | Combina com a voz da sua marca? |
+| **Length** | Está adequadamente conciso ou detalhado? |
 
 ## Melhoria Iterativa
 
@@ -58,23 +58,23 @@ Para cada resposta, considere:
 Problemas comuns e soluções:
 
 | Problema | Solução |
-|----------|---------|
-| Informação errada | Verifique o conteúdo dos documentos, melhore a recuperação |
-| Muito prolixo | Adicione "be concise" à agent persona |
-| Muito formal/casual | Ajuste o tom na agent persona |
+|-------|----------|
+| Informação errada | Verifique o conteúdo do documento, melhore a recuperação |
+| Muito verboso | Adicione "be concise" ao agent persona |
+| Muito formal/casual | Ajuste o tom no agent persona |
 | Não sabe a resposta | Adicione documentos relevantes |
 | Inventa fatos | Reforce os limites no prompt |
 
 ### Fazer Alterações
 
-1. Identifique o problema nos testes do Playground
+1. Identifique o problema durante os testes no Playground
 2. Ajuste as configurações relevantes (prompt, documentos, configuração)
 3. Teste novamente com as mesmas perguntas
-4. Verifique se a correção não quebrou outros comportamentos
+4. Verifique se a correção não quebra outros comportamentos
 
-## Checklist de Cenários de Teste
+## Lista de Cenários de Teste
 
-Crie um conjunto de perguntas de teste padrão:
+Crie um conjunto padrão de perguntas de teste:
 
 ```markdown
 ## Test Scenarios for [Agent Name]
@@ -99,10 +99,10 @@ Crie um conjunto de perguntas de teste padrão:
 
 Seu agent está pronto quando:
 
-- ✅ Responde perguntas comuns com precisão
-- ✅ Lida com casos extremos com naturalidade
-- ✅ Mantém o tom apropriado
-- ✅ Respeita os limites definidos
-- ✅ Conversas com múltiplas interações funcionam bem
+- ✓ Responde perguntas comuns com precisão
+- ✓ Lida bem com casos de borda
+- ✓ Mantém o tom adequado
+- ✓ Respeita os limites definidos
+- ✓ As conversas com vários turnos funcionam bem
 
 Em seguida, implante seu agent nos [canais](/integrations) onde os usuários interagirão com ele.

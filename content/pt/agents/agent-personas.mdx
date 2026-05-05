@@ -2,13 +2,13 @@
 
 A agent persona é a configuração mais importante do seu agent. Ela define personalidade, comportamento e limites.
 
-## O Que é uma Agent Persona?
+## O que é uma Agent Persona?
 
 A agent persona é um conjunto de instruções dadas à AI antes de qualquer conversa com o usuário. Ela molda cada resposta que seu agent dá.
 
 ## Estrutura de uma Boa Agent Persona
 
-### 1. Definição de Papel
+### 1. Definição do Papel
 
 Comece definindo quem é o agent:
 
@@ -40,9 +40,9 @@ Communication style:
 
 ### 4. Detecção Automática de Idioma
 
-Seu agent detecta automaticamente o idioma de cada mensagem do usuário e responde no mesmo idioma — nenhuma configuração manual necessária. 176 idiomas são suportados nativamente.
+Seu agent detecta automaticamente o idioma de cada mensagem do usuário e responde de acordo — sem precisar de configuração manual. 176 idiomas são suportados nativamente.
 
-O agent se adapta por mensagem, então ele pode lidar com conversas multilíngues naturalmente. As regras de segurança e precisão permanecem internamente em inglês.
+O agent se adapta a cada mensagem, então consegue lidar naturalmente com conversas multilíngues. As regras de segurança e precisão permanecem em inglês internamente.
 
 ### 5. Limites
 
@@ -58,7 +58,7 @@ Important boundaries:
 
 ## Exemplos de Agent Personas
 
-### Suporte ao Cliente
+### Customer Support
 
 ```
 You are a helpful customer support assistant for Acme Corp.
@@ -99,7 +99,7 @@ When answering:
 - Explain complex concepts step by step
 ```
 
-### FAQ Bot
+### Bot de FAQ
 
 ```
 You are a FAQ assistant for [Company Name].
@@ -118,22 +118,22 @@ Tone: Friendly and helpful, but concise.
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-**Comece simples.** Comece com um prompt básico e adicione complexidade com base nos resultados dos testes.
+**Comece simples.** Comece com um prompt básico e adicione complexidade conforme os resultados dos testes.
 </Callout>
 
 1. **Seja específico** — Instruções vagas levam a comportamento inconsistente
 2. **Use exemplos** — Mostre ao agent como são boas respostas
-3. **Defina limites claros** — Determine o que o agent NÃO deve fazer
+3. **Defina limites claros** — Especifique o que o agent NÃO deve fazer
 4. **Itere** — Teste e refine com base em conversas reais
 5. **Mantenha o foco** — Prompts longos e complexos podem confundir o modelo
-6. **O idioma é automático** — Seu agent detecta o idioma do usuário e responde no mesmo idioma. Não é necessário adicionar instruções de idioma ao texto da persona
+6. **O idioma é automático** — Seu agent detecta o idioma do usuário e responde de acordo. Não é preciso adicionar instruções de idioma no texto da persona
 
-## Testando Sua Persona
+## Testar Sua Persona
 
-Após escrever ou atualizar sua agent persona:
+Depois de escrever ou atualizar sua agent persona:
 
-1. Teste no [Playground](/pt/agents/testing)
-2. Tente casos extremos e perguntas difíceis
+1. Teste no [Playground](/agents/testing)
+2. Tente casos de borda e perguntas complicadas
 3. Refine com base nos resultados
 4. Teste novamente para garantir as melhorias
 
@@ -144,8 +144,8 @@ Personalize o system prompt do seu agent com variáveis dinâmicas.
 ### Variáveis Disponíveis
 
 | Variável | Descrição | Exemplo |
-|----------|-----------|---------|
-| `{{organization_name}}` | Nome da sua organization | "Acme Corp" |
+|----------|-------------|---------|
+| `{{organization_name}}` | Nome da sua organização | "Acme Corp" |
 | `{{current_date}}` | Data de hoje | "2026-02-03" |
 | `{{current_year}}` | Ano atual | "2026" |
 
@@ -160,5 +160,5 @@ Welcome to {{organization_name}}! I'm here to help you today.
 **Resultado:** "Welcome to Acme Corp! I'm here to help you today."
 
 <Callout type="important">
-  Clique em **Preview** ao editar para ver como as variáveis aparecerão com os valores reais da sua organization.
+  Clique em **Preview** ao editar para ver como as variáveis vão aparecer com os valores reais da sua organização.
 </Callout>
