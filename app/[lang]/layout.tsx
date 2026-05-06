@@ -1,16 +1,16 @@
 import { Footer, Layout, Navbar } from 'nextra-theme-docs'
-import { Head } from 'nextra/components'
+import { Head, Search } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import { LocaleSwitcher } from '../../components/locale-switcher'
 
-// Active locales: en (source), es, pt, fr.
-// Disabled: bn, hi, ru, th — content/{code}/ retained on disk, not built.
+// Active locales: en (source), es, pt, fr, ru.
+// Disabled: bn, hi, th — content/{code}/ retained on disk, not built.
 // Mirrors the admin panel locale policy. See
 // `.claude/references/features/admin-panel-i18n.md` for rationale.
-const LOCALES = ['en', 'es', 'pt', 'fr'] as const
+const LOCALES = ['en', 'es', 'pt', 'fr', 'ru'] as const
 type Locale = (typeof LOCALES)[number]
 const RTL_LOCALES: Locale[] = []
 
@@ -22,6 +22,11 @@ const UI_STRINGS: Record<
     title: string
     description: string
     tagline: string
+    tryIt: string
+    requestDemo: string
+    tocTitle: string
+    backToTop: string
+    searchPlaceholder: string
   }
 > = {
   en: {
@@ -31,6 +36,11 @@ const UI_STRINGS: Record<
     description:
       'Learn how to create document-trained AI chatbots with Cuneiform Chat',
     tagline: 'Clay tablets to chatbot. Remembering the beginning.',
+    tryIt: 'Try It',
+    requestDemo: 'Request Demo',
+    tocTitle: 'On This Page',
+    backToTop: 'Scroll to top',
+    searchPlaceholder: 'Search documentation…',
   },
   es: {
     editLink: 'Editar esta página en GitHub →',
@@ -39,6 +49,11 @@ const UI_STRINGS: Record<
     description:
       'Aprende a crear chatbots de IA entrenados con documentos usando Cuneiform Chat',
     tagline: 'De tablillas de arcilla al chatbot. Recordando el origen.',
+    tryIt: 'Pruébalo',
+    requestDemo: 'Solicitar demo',
+    tocTitle: 'En esta página',
+    backToTop: 'Volver arriba',
+    searchPlaceholder: 'Buscar documentación…',
   },
   pt: {
     editLink: 'Editar esta página no GitHub →',
@@ -47,6 +62,11 @@ const UI_STRINGS: Record<
     description:
       'Aprenda a criar chatbots de IA treinados com documentos usando o Cuneiform Chat',
     tagline: 'De tabuletas de argila ao chatbot. Lembrando o começo.',
+    tryIt: 'Experimente',
+    requestDemo: 'Solicitar demo',
+    tocTitle: 'Nesta página',
+    backToTop: 'Voltar ao topo',
+    searchPlaceholder: 'Buscar na documentação…',
   },
   fr: {
     editLink: 'Modifier cette page sur GitHub →',
@@ -55,6 +75,24 @@ const UI_STRINGS: Record<
     description:
       'Apprenez à créer des chatbots IA entraînés sur vos documents avec Cuneiform Chat',
     tagline: "Des tablettes d'argile au chatbot. Se souvenir du commencement.",
+    tryIt: 'Essayer',
+    requestDemo: 'Demander une démo',
+    tocTitle: 'Sur cette page',
+    backToTop: 'Retour en haut',
+    searchPlaceholder: 'Rechercher dans la documentation…',
+  },
+  ru: {
+    editLink: 'Редактировать эту страницу на GitHub →',
+    feedbackContent: 'Есть вопрос? Поделитесь отзывом →',
+    title: 'Документация Cuneiform Chat',
+    description:
+      'Научитесь создавать AI-чат-ботов, обученных на ваших документах, с Cuneiform Chat',
+    tagline: 'От глиняных табличек до чат-бота. Помним начало.',
+    tryIt: 'Попробовать',
+    requestDemo: 'Запросить демо',
+    tocTitle: 'На этой странице',
+    backToTop: 'Наверх',
+    searchPlaceholder: 'Поиск по документации…',
   },
 }
 
@@ -115,7 +153,7 @@ export default async function LocaleLayout({
       logo={logo}
       projectLink="https://github.com/cuneiform-chat"
       chatLink="https://cuneiform.chat"
-      chatIcon={<span style={{ fontSize: '14px' }}>Try It</span>}
+      chatIcon={<span style={{ fontSize: '14px' }}>{strings.tryIt}</span>}
     >
       <LocaleSwitcher />
       <a
@@ -133,7 +171,7 @@ export default async function LocaleLayout({
           whiteSpace: 'nowrap',
         }}
       >
-        Request Demo
+        {strings.requestDemo}
       </a>
     </Navbar>
   )
@@ -159,8 +197,9 @@ export default async function LocaleLayout({
             labels: 'feedback',
           }}
           footer={footer}
+          search={<Search placeholder={strings.searchPlaceholder} />}
           sidebar={{ defaultMenuCollapseLevel: 1, toggleButton: true }}
-          toc={{ backToTop: true }}
+          toc={{ title: strings.tocTitle, backToTop: strings.backToTop }}
           navigation={{ prev: true, next: true }}
           darkMode
         >
