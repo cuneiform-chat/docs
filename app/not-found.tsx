@@ -9,13 +9,13 @@ export default function NotFound() {
   var p = window.location.pathname;
   var s = window.location.search + window.location.hash;
   // Disabled locales: strip the prefix so /bn/agents -> /en/agents.
-  var disabled = p.match(/^\\/(bn|hi|ru|th|ar)(\\/.*)?$/);
+  var disabled = p.match(/^\\/(bn|hi|th|ar)(\\/.*)?$/);
   if (disabled) {
     window.location.replace('/en' + (disabled[2] || '') + s);
     return;
   }
   // Non-locale paths: prepend /en so /agents -> /en/agents.
-  if (!/^\\/(en|es|pt|fr)(\\/|$)/.test(p)) {
+  if (!/^\\/(en|es|pt|fr|ru)(\\/|$)/.test(p)) {
     window.location.replace('/en' + p + s);
   }
 })();`,

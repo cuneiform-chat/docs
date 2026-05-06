@@ -3,7 +3,7 @@ import { useMDXComponents as getMDXComponents } from '../../../mdx-components'
 
 export const generateStaticParams = generateStaticParamsFor('mdxPath', 'lang')
 
-const LOCALES = ['en', 'es', 'pt', 'fr'] as const
+const LOCALES = ['en', 'es', 'pt', 'fr', 'ru'] as const
 const SITE_URL = 'https://docs.cuneiform.chat'
 
 export async function generateMetadata(props: {

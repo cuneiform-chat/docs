@@ -39,7 +39,7 @@ jobs:
       # Note: pagefind + next-sitemap already run via package.json `postbuild`
       # hook during `npm run build` above. The separate steps below are kept
       # idempotent for safety but must not reference disabled locales.
-      # Active locales: en, es, pt, fr. Disabled: bn, hi, ru, th. See
+      # Active locales: en, es, pt, fr, ru. Disabled: bn, hi, th. See
       # .claude/references/features/admin-panel-i18n.md.
       - name: Generate search indexes (redundant with postbuild, kept for safety)
         run: |
@@ -48,6 +48,7 @@ jobs:
           npx pagefind --site out/es --output-path out/es/_pagefind
           npx pagefind --site out/pt --output-path out/pt/_pagefind
           npx pagefind --site out/fr --output-path out/fr/_pagefind
+          npx pagefind --site out/ru --output-path out/ru/_pagefind
 
       - name: Generate sitemap
         run: npx next-sitemap
