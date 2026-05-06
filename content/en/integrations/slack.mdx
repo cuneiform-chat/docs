@@ -19,10 +19,9 @@ Slack integration provides:
 
 ### 1. Start Integration Setup
 
-1. Go to **Agents** → Select your agent
-2. Navigate to **Integrations** tab
-3. Click **Slack**
-4. Click **Add to Slack**
+1. Go to **Integrations** in the sidebar
+2. Open the **Slack** card
+3. Click **Add to Slack**
 
 ### 2. Authorize the App
 
@@ -127,10 +126,17 @@ If the bot doesn't respond:
 
 ### Permission Issues
 
-Required permissions:
+The Slack app requests these OAuth scopes (pre-configured — you grant them all when you click **Allow** during install):
 - `commands` — For slash commands
 - `chat:write` — To send messages
+- `chat:write.customize` — Send messages with custom username/icon
 - `app_mentions:read` — For @ mentions
+- `im:history` — Read direct-message history for context
+- `channels:history` — Read public-channel history for context
+- `channels:read` — List public channels
+- `groups:history` — Read private-channel history for context
+- `mpim:history` — Read group-DM history for context
+- `users:read` — Resolve user names
 
 ## Security
 
@@ -143,7 +149,7 @@ Required permissions:
 To remove the Slack integration:
 
 1. **From Cuneiform Chat:**
-   - Agents → Select agent → Integrations → Slack → Disconnect
+   - Integrations (sidebar) → Slack → Disconnect
 
 2. **From Slack:**
    - Go to workspace settings

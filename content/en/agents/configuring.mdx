@@ -50,7 +50,7 @@ Control the AI model powering your agent.
 | Setting | Description |
 |---------|-------------|
 | **Model** | Select from available AI models based on your plan |
-| **Temperature** | Controls response creativity (0.0-1.0) |
+| **Temperature** | Controls response creativity (0.0-2.0) |
 
 #### Temperature Guide
 
@@ -58,7 +58,7 @@ Control the AI model powering your agent.
 |-------|----------|
 | 0.0 - 0.3 | Focused, deterministic responses |
 | 0.4 - 0.7 | Balanced creativity and consistency |
-| 0.8 - 1.0 | More creative, varied responses |
+| 0.8 - 2.0 | More creative, varied responses |
 
 **Recommendation:** Start with 0.3-0.5 for factual Q&A based on documents.
 
@@ -151,6 +151,7 @@ Enable live chat handoff so your AI agent can transfer conversations to a real h
 2. Toggle **Enable Human Handoff** on
 3. Configure the messages:
    - **Handoff Message** — Shown to the user when the transfer starts
+   - **Accept Message** — Auto-sent when a human agent accepts the conversation
    - **Resolve Message** — Shown when the human agent ends the conversation
    - **Max Wait Time** — Auto-expire if no agent accepts (5, 15, 30, 60, or 120 minutes; default: 30 minutes)
 4. Click **Save Changes**

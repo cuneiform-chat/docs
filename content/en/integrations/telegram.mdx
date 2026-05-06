@@ -34,11 +34,10 @@ Telegram integration provides:
 
 ### 2. Connect to Cuneiform Chat
 
-1. Go to **Agents** → Select your agent
-2. Navigate to **Integrations** tab
-3. Click **Telegram**
-4. Paste your Bot Token
-5. Click **Connect**
+1. Go to **Integrations** in the sidebar
+2. Open the **Telegram** card
+3. Paste your Bot Token
+4. Click **Connect**
 
 ### 3. Configure Your Bot
 
@@ -175,7 +174,8 @@ You can configure custom commands via BotFather:
 |---------|-------------|
 | `/start` | Begin conversation |
 | `/help` | Show help message |
-| `/ask [question]` | Ask a specific question |
+| `/reset` | Reset the current conversation |
+| `/new` | Start a new conversation (alias of `/reset`, handled inline) |
 
 ## Troubleshooting
 
@@ -207,7 +207,7 @@ If you need a new token:
 
 To remove the Telegram integration:
 
-1. Go to **Agents** → Select agent → **Integrations**
-2. Click **Telegram** → **Disconnect**
+1. Go to **Integrations** in the sidebar
+2. Open the **Telegram** card and click **Disconnect**
 
 This stops the bot from responding but doesn't delete the Telegram bot itself. Delete via BotFather if needed.
