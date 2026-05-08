@@ -1,0 +1,170 @@
+# Telegram Mini App (Help Center)
+
+Chaque bot Telegram que vous connectez est livré avec un **Help Center** intégré — une petite Mini App qui s'ouvre dans Telegram lorsque les utilisateurs finaux touchent le bouton de menu à côté du compositeur de message. Utilisez-le pour publier des entrées de FAQ qui répondent aux questions courantes sans dépenser un appel LLM, ainsi que des tuiles raccourcis qui envoient des questions pré-écrites à votre agent.
+
+## Aperçu
+
+Le Telegram Mini App Help Center offre :
+
+- Une liste triable de FAQ que les utilisateurs finaux ouvrent en un seul tap dans Telegram
+- Deux modes d'entrée — **curated** (réponse markdown rendue, zéro coût AI) et **agent** (question pré-écrite envoyée dans le pipeline normal du bot)
+- Bouton de chat-menu câblé automatiquement — pas de configuration BotFather requise pour le flow de base
+- Disponible sur tous les plans, y compris le trial gratuit
+- UI consciente de la locale (anglais, espagnol, portugais, français — fallback à l'anglais)
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Cette page concerne le Help Center Mini App qui accompagne le canal **Telegram** destiné aux clients. C'est une fonctionnalité différente de la Saba Mini App, qui est une surface destinée aux opérateurs Cuneiform Chat. Voir [Saba sur Telegram](/integrations/saba-on-telegram) pour le côté opérateur.
+</Callout>
+
+## Fonctionnement pour les utilisateurs finaux
+
+Lorsque quelqu'un ouvre votre bot Telegram, il voit un petit bouton **menu** à côté du compositeur (Telegram l'affiche soit comme une icône à quatre points, soit comme le nom du bot). Le toucher ouvre le Help Center Mini App en plein écran dans Telegram.
+
+L'utilisateur voit :
+
+- Une liste triable d'entrées de FAQ que vous avez rédigées
+- Une barre de recherche pour filtrer les entrées
+- Deux modes visuels par entrée :
+  - **Entrées curated** — touchez pour lire la réponse inline (markdown rendu, pas de trafic chat)
+  - **Entrées agent** — touchez pour envoyer une question pré-écrite à votre agent dans le chat (la Mini App se ferme et la question apparaît comme un message utilisateur normal)
+
+Les utilisateurs finaux ne quittent jamais Telegram. Toute l'expérience s'exécute dans la WebView intégrée de Telegram.
+
+## Prérequis
+
+- Une [intégration Telegram](/integrations/telegram) connectée (le Help Center s'appuie dessus — il n'y a pas d'intégration « Mini App » distincte à ajouter)
+- Au moins une entrée d'aide pour rendre le Help Center utile
+
+## Étapes de Configuration
+
+### 1. Connecter un bot Telegram (si vous ne l'avez pas déjà fait)
+
+Suivez le [guide de configuration Telegram](/integrations/telegram). La Mini App s'active automatiquement une fois le bot connecté — la plateforme appelle l'API `setChatMenuButton` de Telegram en votre nom pour câbler le bouton de menu.
+
+### 2. Rédiger les entrées du Help Center
+
+1. Dans Cuneiform Chat, allez dans **Integrations** dans la sidebar
+2. Trouvez la carte de votre bot Telegram et ouvrez le menu à trois points
+3. Choisissez **Help Center**
+4. Cliquez sur **Add entry** et choisissez un mode :
+   - **Curated** — rédigez une question (le label de la tuile) et une réponse markdown
+   - **Agent** — rédigez une question (le label de la tuile) et le texte de la question qui doit être envoyé au bot
+5. Sauvegardez
+
+Vous pouvez rédiger jusqu'à 50 entrées par bot. Glissez les entrées pour les réorganiser — l'ordre sur la carte correspond à ce que voient les utilisateurs finaux dans la Mini App.
+
+<Callout type="info">
+  Les modifications se propagent à la Mini App en ~5 minutes (cache serveur). Pour la plupart des sessions de rédaction, vous ne remarquerez pas le délai — les entrées que vous sauvegardez sont visibles aux utilisateurs finaux le temps que vous terminiez la suivante.
+</Callout>
+
+### 3. Tester
+
+1. Ouvrez votre bot dans Telegram (DM)
+2. Touchez le bouton **menu** à côté du compositeur
+3. Le Help Center s'ouvre — vous devriez voir vos entrées dans l'ordre où vous les avez rédigées
+4. Touchez une entrée curated — la réponse se rend inline
+5. Touchez une entrée agent — la Mini App se ferme et la question apparaît dans votre chat avec le bot
+
+## Fonctionnalités
+
+### Mode curated (zéro coût AI)
+
+La réponse d'une entrée curated n'est que du markdown que vous avez rédigé dans le panneau d'administration. Toucher l'entrée rend ce markdown dans la Mini App — pas d'appel LLM, pas de tokens, pas de frais. Utilisez les entrées curated pour les FAQs evergreen (politique de retour, horaires, pages de tarifs, etc.) où la réponse ne change pas souvent.
+
+### Mode agent (raccourcis pré-écrits)
+
+Une entrée agent n'a pas de réponse inline. La toucher ferme la Mini App et envoie la question pré-écrite dans le chat du bot comme si l'utilisateur l'avait tapée. La question passe par le pipeline normal de votre agent — même contenu, mêmes tools, même voix.
+
+Utilisez les entrées agent pour les questions que vous aimeriez que les utilisateurs posent mais qu'ils ne peuvent pas facilement formuler (« Aide-moi à choisir un plan », « Compare vos produits », etc.).
+
+### Recherche
+
+Les utilisateurs peuvent filtrer la liste des entrées en tapant dans la barre de recherche. La correspondance se fait sur la question de l'entrée (le label de la tuile).
+
+### UI consciente de la locale
+
+Le chrome de la Mini App (placeholder de la barre de recherche, navigation) suit le paramètre de langue Telegram de chaque utilisateur final. Actuellement localisée en :
+
+- Anglais
+- Espagnol (es)
+- Portugais (Brésilien)
+- Français
+
+Les autres langues Telegram font fallback sur l'anglais.
+
+<Callout type="info">
+  Le *contenu* du Help Center (vos questions et réponses d'entrées) est monolingue par entrée — ce que vous écrivez est ce que chaque utilisateur voit. Les variantes de contenu par locale sont sur la roadmap.
+</Callout>
+
+### Lien de lancement direct optionnel
+
+Si vous souhaitez un lien `t.me/<your_bot>/<your_app>` pour les campagnes marketing ou les codes QR, la carte d'intégration fait apparaître un playbook BotFather en 5 étapes (ouvrez le menu à trois points et choisissez **Mini App settings**). Le bouton de menu Help Center continue de fonctionner sans cela — le playbook ne fait qu'ajouter la forme de lien adaptée au marketing.
+
+## Configuration
+
+### Paramètres par entrée
+
+| Paramètre | Description |
+|---------|-------------|
+| Mode | Curated (réponse markdown inline) ou Agent (envoie une question pré-écrite) |
+| Question | Le label de la tuile que voient les utilisateurs |
+| Answer (curated uniquement) | Markdown rendu lorsque touché |
+| Question text (agent uniquement) | La question pré-écrite envoyée au bot |
+| Order | Position dans la liste (glisser pour réorganiser) |
+
+### Paramètres par bot
+
+| Paramètre | Description |
+|---------|-------------|
+| Plafond d'entrées | 50 par bot |
+| Cache TTL | ~5 minutes (défini côté plateforme ; non configurable par l'utilisateur) |
+
+## Conseils
+
+<Callout type="tip">
+  **Privilégiez les entrées curated.** Elles sont gratuites à servir, instantanées pour les utilisateurs, et elles réduisent le volume de questions « faciles » qui atteignent votre agent — laissant le quota de l'agent pour les plus difficiles.
+</Callout>
+
+<Callout type="info">
+  **Le contenu curated est du markdown, pas du HTML.** Le gras, l'italique, les listes, les liens et les blocs de code sont rendus. Les `<iframe>` embarqués ou le HTML arbitraire ne le sont pas.
+</Callout>
+
+<Callout type="warning">
+  Les entrées en mode agent envoient la question pré-écrite via le pipeline normal du bot — cela signifie qu'elles consomment le même quota de conversation qu'un message utilisateur réel. Pour les boutons de raccourcis à fort trafic, préférez le mode curated.
+</Callout>
+
+## Dépannage
+
+### Le bouton de menu n'ouvre pas le Help Center
+
+1. Déconnectez et reconnectez l'intégration Telegram — le bouton de chat-menu est défini lors de l'étape de connexion, et un bot obsolète peut l'avoir perdu
+2. Vérifiez que votre bot est bien celui auquel les utilisateurs envoient des messages (`t.me/<bot-username>`)
+3. Si vous avez défini un bouton de menu personnalisé via BotFather, cela écrase l'auto-config de la plateforme — effacez-le via `/setmenubutton` de BotFather
+
+### Les entrées que j'ai rédigées n'apparaissent pas
+
+La Mini App utilise un cache serveur de 5 minutes. Attendez quelques minutes, puis demandez à l'utilisateur de rouvrir le bouton de menu (Telegram met aussi en cache la WebView — tirer pour rafraîchir la Mini App ou redémarrer Telegram l'efface).
+
+### La réponse curated se rend bizarrement
+
+La Mini App rend le markdown via la même boîte à outils que le panneau d'administration — prévisualisez votre entrée dans le dialogue **Help Center** avant de sauvegarder. Si une liste ou un bloc de code semble faux, le markdown source manque généralement d'une ligne vide.
+
+### « This bot doesn't have a Mini App »
+
+C'est une fonctionnalité différente — Telegram fait apparaître l'absence d'un lien de lancement direct `t.me/<bot>/<app>`. Votre bouton de menu Help Center fonctionne toujours sans ce lien. Pour ajouter le lien de lancement direct, ouvrez le dialogue Mini App settings sur la carte du bot et suivez le playbook BotFather.
+
+## Déconnecter
+
+Le Help Center fait partie de l'intégration Telegram, il disparaît donc lorsque vous déconnectez le bot Telegram :
+
+1. **Depuis Cuneiform Chat :** Integrations → carte Telegram → menu à trois points → **Delete**
+
+Les entrées d'aide que vous avez rédigées sont supprimées avec l'intégration. Pour effacer uniquement le bouton de menu sans supprimer l'intégration, vous devriez définir un bouton de menu personnalisé via BotFather (`/setmenubutton`) — mais la plupart des utilisateurs veulent le bouton de menu activé, donc c'est rare.
+
+## Articles liés
+
+- [Telegram](/integrations/telegram) — l'intégration parente ; la Mini App s'appuie dessus
+- [Saba sur Telegram](/integrations/saba-on-telegram) — bot Saba destiné aux opérateurs (fonctionnalité différente, également basée sur Telegram)
+- [Telegram Business](/integrations/telegram-business) — réponses AI sur le compte personnel d'un utilisateur Premium (fonctionnalité différente)

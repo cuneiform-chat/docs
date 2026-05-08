@@ -1,0 +1,156 @@
+# Saba sur Telegram
+
+Connectez un bot Telegram dédié pour que les membres de votre organisation puissent discuter avec **Saba** — l'assistant de la plateforme Cuneiform Chat — directement depuis Telegram. Mêmes réponses et même accès aux données que Saba dans le panneau d'administration, simplement sur votre téléphone.
+
+## Aperçu
+
+Saba sur Telegram permet à votre équipe de :
+
+- Poser des questions à Saba sur les agents, les conversations, le billing, l'usage et les intégrations depuis un DM Telegram
+- Envoyer des notes vocales — Saba les transcrit et y répond comme à des questions tapées
+- Toucher les suggestions de follow-up que Saba fait apparaître sous chaque réponse
+- Basculer en cours de discussion vers la **Saba Mini App** (une surface de chat plus riche dans Telegram) via un bouton inline sous chaque réponse
+- Utiliser des slash commands (`/agents`, `/analytics`, `/usage`, `/billing`, `/integrations`, `/conversations`, `/health`, `/help`, `/new`, `/clear`, `/reset`)
+
+Ce n'est **pas** un canal destiné aux clients — c'est purement pour les membres de l'organisation. Les utilisateurs finaux n'interagissent jamais avec ce bot.
+
+## Différences avec l'intégration Telegram régulière
+
+| | Telegram | Saba sur Telegram |
+|---|----------|------------------|
+| Qui discute avec le bot ? | Vos utilisateurs finaux | Les membres de votre organisation (admins, opérateurs) |
+| Que fait-il ? | Exécute votre AI agent | Exécute Saba (l'assistant de la plateforme) |
+| Où ? | DMs et chats de groupe | DMs privés uniquement |
+| Lien par utilisateur requis ? | Non — n'importe qui peut discuter | Oui — chaque membre lie son compte une fois |
+
+Si vous souhaitez déployer votre agent auprès des utilisateurs finaux, voir [Intégration Telegram](/integrations/telegram). Cette page concerne le bot destiné aux opérateurs.
+
+## Prérequis
+
+- Un compte Telegram
+- Une organisation avec au moins un membre admin
+- Un nouveau bot BotFather dédié à Saba (vous ne pouvez pas réutiliser un bot déjà connecté à l'intégration Telegram régulière — un seul webhook par bot)
+
+## Étapes de Configuration
+
+### 1. Créer un bot dédié dans BotFather
+
+1. Ouvrez Telegram et recherchez **@BotFather**
+2. Envoyez `/newbot`
+3. Choisissez un nom et un nom d'utilisateur — quelque chose comme `acme-saba-bot` rend son objectif évident
+4. Copiez le **Bot Token** que BotFather vous renvoie
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  Utilisez un bot tout neuf. Un bot Telegram ne peut pointer que vers un seul webhook à la fois, vous ne pouvez donc pas le partager avec votre intégration Telegram destinée aux clients ni avec le mode Telegram Business.
+</Callout>
+
+### 2. Connecter le bot
+
+1. Dans Cuneiform Chat, ouvrez **Integrations** dans la sidebar
+2. Trouvez la carte **Saba on Telegram**
+3. Cliquez sur **Connect Saba Bot**
+4. Collez le bot token et soumettez
+
+La plateforme valide le token, enregistre le webhook et active la carte.
+
+### 3. Lier votre compte
+
+Chaque membre de votre organisation doit lier son compte Telegram personnel une fois.
+
+1. Sur la carte Saba on Telegram, cliquez sur **Link my account**
+2. Copiez le code de 10 minutes qui apparaît (ou scannez le code QR)
+3. Ouvrez le bot dans Telegram
+4. Envoyez `/start <votre-code>` — Saba confirme le lien
+
+Les codes sont à usage unique et expirent après 10 minutes. Si le vôtre expire, cliquez à nouveau sur **Link my account** pour en générer un nouveau.
+
+### 4. Demander aux autres admins de se lier
+
+Envoyez à vos coéquipiers le lien `t.me/<bot-username>` du bot et demandez-leur de :
+
+1. Visiter la même carte Saba on Telegram dans leur propre session du panneau d'administration
+2. Générer leur propre code de liaison
+3. DM le bot avec `/start <code>`
+
+Le compte Telegram de chaque membre lié est rattaché à son appartenance à l'organisation — Saba applique les mêmes permissions basées sur les rôles que dans le panneau d'administration.
+
+## Utilisation du bot
+
+### Posez tout ce à quoi Saba peut répondre dans le panneau
+
+```
+Combien d'agents ai-je ?
+Combien avons-nous dépensé sur Telegram la semaine dernière ?
+Montre-moi les intégrations en échec.
+```
+
+Saba lit les données de votre organisation et répond inline.
+
+### Notes vocales
+
+Envoyez une note vocale jusqu'à 2 minutes. Whisper la transcrit et Saba répond comme si vous aviez tapé la question. Pratique lorsque vous marchez, conduisez ou que vous n'avez simplement pas envie de taper.
+
+### Slash commands
+
+Tapez `/` dans le chat pour voir le menu d'autocomplétion. Saba enregistre un ensemble par défaut de commandes lorsque vous connectez le bot :
+
+| Commande | Ce qu'elle fait |
+|---------|--------------|
+| `/help` | Affiche les capacités et la liste des commandes |
+| `/new`, `/clear`, `/reset` | Démarre une nouvelle conversation (efface la mémoire de la conversation) |
+| `/agents` | Résume vos agents |
+| `/analytics` | Aperçu récent des analytics |
+| `/usage` | Usage et quotas actuels |
+| `/billing` | Subscription et frais récents |
+| `/integrations` | Statut de chaque canal connecté |
+| `/conversations` | Activité récente des conversations |
+| `/health` | Résumé de la santé du workspace |
+
+### Suggestions de follow-up
+
+Chaque réponse de Saba se termine par jusqu'à trois boutons de questions de follow-up. Touchez l'un d'eux pour l'envoyer à Saba sans retaper. Les boutons sont valides pendant 24 heures après l'arrivée de la réponse.
+
+### Open in Mini App
+
+Chaque réponse a également un bouton **Open in Mini App**. Touchez-le pour basculer vers la Saba Mini App — une surface de chat plus riche dans Telegram avec historique de conversation, détail des tool-call et un export markdown. Les deux surfaces partagent la même conversation, vous pouvez donc passer de l'une à l'autre à tout moment.
+
+## Configuration
+
+### Resync des slash commands
+
+Si le menu de slash de Telegram se désynchronise (rare — peut arriver si la liste des commandes a été mise à jour côté serveur après la connexion de votre bot), ouvrez le menu à trois points sur la carte Saba on Telegram et choisissez **Resync slash commands**. La plateforme ré-envoie l'ensemble canonique à BotFather.
+
+### Disconnect
+
+Pour supprimer l'intégration :
+
+1. **Depuis Cuneiform Chat :** Integrations → carte Saba on Telegram → menu à trois points → **Delete**
+2. **Depuis Telegram (facultatif) :** supprimez le bot via BotFather (`/mybots` → sélectionnez le bot → **Delete bot**)
+
+La déconnexion supprime le lien de chaque membre et arrête la réponse du bot. Le bot Telegram lui-même reste dans BotFather sauf si vous l'y supprimez aussi.
+
+## Lecture seule par conception
+
+Saba sur Telegram répond aux questions et fait remonter les informations — il ne **modifie pas** les données de votre organisation. Vous pouvez demander « qu'est-ce qui échoue ? » mais vous ne pouvez pas dire « répare-le » via Telegram. Utilisez le panneau d'administration pour les actions d'écriture comme modifier un agent, changer le billing ou supprimer une conversation.
+
+## Conseils
+
+<Callout type="info">
+  Le lien de chaque membre est par-bot. Si vous connectez un nouveau bot Saba plus tard (par exemple, après avoir changé le nom du bot), les membres devront se relier via le flow `/start <code>` du nouveau bot.
+</Callout>
+
+<Callout type="info">
+  Saba sur Telegram utilise uniquement les DMs privés. Ajouter le bot à un chat de groupe sera simplement ignoré — cela garde chaque message entrant rattaché à un membre identifiable.
+</Callout>
+
+<Callout type="tip">
+  Associez Saba sur Telegram avec la Mini App pour la meilleure expérience : questions rapides en DM, plongées profondes dans la Mini App. Même conversation, surfaces différentes.
+</Callout>
+
+## Articles liés
+
+- [Platform Assistant](/getting-started/platform-assistant) — l'aperçu côté utilisateur de Saba (panneau, DM, Mini App)
+- [Telegram](/integrations/telegram) — le canal Telegram destiné aux clients pour vos agents
+- [Telegram Mini App](/integrations/telegram-mini-app) — le Help Center intégré pour les utilisateurs finaux (fonctionnalité différente)
