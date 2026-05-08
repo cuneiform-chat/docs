@@ -1,0 +1,170 @@
+# Telegram Mini App (Help Center)
+
+Every Telegram bot you connect comes with a built-in **Help Center** — a small Mini App that opens inside Telegram when end users tap the menu button next to the message composer. Use it to publish FAQ entries that answer common questions without spending an LLM call, plus shortcut tiles that fire pre-written questions to your agent.
+
+## Overview
+
+The Telegram Mini App Help Center provides:
+
+- A sortable FAQ list end users open with one tap inside Telegram
+- Two entry modes — **curated** (rendered markdown answer, zero AI cost) and **agent** (pre-written question fired into the bot's normal pipeline)
+- Auto-wired chat-menu button — no BotFather setup needed for the basic flow
+- Available on every plan, including the free trial
+- Locale-aware UI (English, Spanish, Portuguese, French — fallback to English)
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  This page is about the Help Center Mini App that ships with the customer-facing **Telegram** channel. It's a different feature from the Saba Mini App, which is a Cuneiform Chat operator surface. See [Saba on Telegram](/integrations/saba-on-telegram) for the operator side.
+</Callout>
+
+## How it works for end users
+
+When someone opens your Telegram bot, they see a small **menu** button next to the composer (Telegram renders this as either a four-dot icon or the bot's name). Tapping it opens the Help Center Mini App full-screen inside Telegram.
+
+The user sees:
+
+- A sortable list of FAQ entries you've authored
+- A search bar to filter entries
+- Two visual modes per entry:
+  - **Curated entries** — tap to read the answer inline (rendered markdown, no chat traffic)
+  - **Agent entries** — tap to send a pre-written question to your agent in the chat (the Mini App closes and the question shows up as a normal user message)
+
+End users never leave Telegram. The whole experience runs inside Telegram's built-in WebView.
+
+## Prerequisites
+
+- A connected [Telegram integration](/integrations/telegram) (the Help Center rides on top of it — there's no separate "Mini App" integration to add)
+- At least one help entry to make the Help Center useful
+
+## Setup Steps
+
+### 1. Connect a Telegram bot (if you haven't already)
+
+Follow the [Telegram setup guide](/integrations/telegram). The Mini App lights up automatically once the bot is connected — the platform calls Telegram's `setChatMenuButton` API on your behalf to wire up the menu button.
+
+### 2. Author Help Center entries
+
+1. In Cuneiform Chat, go to **Integrations** in the sidebar
+2. Find your Telegram bot card and open the three-dot menu
+3. Pick **Help Center**
+4. Click **Add entry** and choose a mode:
+   - **Curated** — write a question (the tile label) and a markdown answer
+   - **Agent** — write a question (the tile label) and the question text that should be fired into the bot
+5. Save
+
+You can author up to 50 entries per bot. Drag entries to reorder them — the order on the card matches what end users see in the Mini App.
+
+<Callout type="info">
+  Changes propagate to the Mini App within ~5 minutes (server cache). For most authoring sessions you won't notice the lag — entries you save are visible to end users by the time you finish the next one.
+</Callout>
+
+### 3. Test it
+
+1. Open your bot in Telegram (DM)
+2. Tap the **menu** button next to the composer
+3. The Help Center opens — you should see your entries in the order you authored them
+4. Tap a curated entry — the answer renders inline
+5. Tap an agent entry — the Mini App closes and the question appears in your chat with the bot
+
+## Features
+
+### Curated mode (zero AI cost)
+
+A curated entry's answer is just markdown you wrote in the admin panel. Tapping the entry renders that markdown in the Mini App — no LLM call, no tokens, no charges. Use curated entries for evergreen FAQs (return policy, hours, pricing pages, etc.) where the answer doesn't change often.
+
+### Agent mode (pre-written shortcuts)
+
+An agent entry doesn't have an inline answer. Tapping it closes the Mini App and sends the pre-written question into the bot chat as if the user had typed it. The question goes through your agent's normal pipeline — same content, same tools, same voice.
+
+Use agent entries for the questions you wish users would ask but can't easily phrase ("Help me pick a plan", "Compare your products", etc.).
+
+### Search
+
+Users can filter the entry list by typing in the search bar. Match is on the entry's question (the tile label).
+
+### Locale-aware UI
+
+The Mini App's chrome (search bar placeholder, navigation) follows each end user's Telegram language setting. Currently localized into:
+
+- English
+- Spanish (es)
+- Portuguese (Brazilian)
+- French
+
+Other Telegram languages fall back to English.
+
+<Callout type="info">
+  Help Center *content* (your entry questions and answers) is monolingual per entry — what you write is what every user sees. Per-locale content variants are on the roadmap.
+</Callout>
+
+### Optional direct-launch link
+
+If you want a `t.me/<your_bot>/<your_app>` link for marketing campaigns or QR codes, the integration card surfaces a 5-step BotFather playbook (open the three-dot menu and pick **Mini App settings**). The Help Center menu button keeps working without this — the playbook only adds the marketing-friendly link shape.
+
+## Configuration Options
+
+### Per-entry settings
+
+| Setting | Description |
+|---------|-------------|
+| Mode | Curated (inline markdown answer) or Agent (fires a pre-written question) |
+| Question | The tile label users see |
+| Answer (curated only) | Markdown rendered when tapped |
+| Question text (agent only) | The pre-written question fired into the bot |
+| Order | Position in the list (drag to reorder) |
+
+### Per-bot settings
+
+| Setting | Description |
+|---------|-------------|
+| Entry cap | 50 per bot |
+| Cache TTL | ~5 minutes (set platform-side; not user-configurable) |
+
+## Tips
+
+<Callout type="tip">
+  **Lead with curated entries.** They're free to serve, instant for users, and they reduce the volume of "easy" questions hitting your agent — leaving the agent's quota for the harder ones.
+</Callout>
+
+<Callout type="info">
+  **Curated content is markdown, not HTML.** Bold, italics, lists, links, and code blocks render. Embedded `<iframe>` or arbitrary HTML do not.
+</Callout>
+
+<Callout type="warning">
+  Agent-mode entries fire the pre-written question through the bot's normal pipeline — that means they consume the same conversation quota as a real user message. For high-traffic shortcut buttons, prefer curated mode.
+</Callout>
+
+## Troubleshooting
+
+### Menu button doesn't open the Help Center
+
+1. Disconnect and reconnect the Telegram integration — the chat-menu button is set during the connection step, and a stale bot may be missing it
+2. Verify your bot is the one users are messaging (`t.me/<bot-username>`)
+3. If you set a custom menu button via BotFather, that overrides the platform's auto-config — clear it via BotFather's `/setmenubutton`
+
+### Entries I authored don't show up
+
+The Mini App uses a 5-minute server cache. Wait a few minutes, then have the user re-open the menu button (Telegram caches the WebView too — pulling down to refresh the Mini App or restarting Telegram clears it).
+
+### Curated answer renders weirdly
+
+The Mini App renders markdown via the same toolkit as the admin panel — preview your entry in the **Help Center** dialog before saving. If a list or code block looks wrong, the source markdown is usually missing a blank line.
+
+### "This bot doesn't have a Mini App"
+
+That's a different feature — Telegram surfacing the absence of a `t.me/<bot>/<app>` direct-launch link. Your Help Center menu button still works without that link. To add the direct-launch link, open the Mini App settings dialog on the bot card and follow the BotFather playbook.
+
+## Disconnecting
+
+The Help Center is part of the Telegram integration, so it goes away when you disconnect the Telegram bot:
+
+1. **From Cuneiform Chat:** Integrations → Telegram card → three-dot menu → **Delete**
+
+Help entries you authored are deleted with the integration. To clear just the menu button without deleting the integration, you'd need to set a custom menu button via BotFather (`/setmenubutton`) — but most users want the menu button on, so this is rare.
+
+## Related
+
+- [Telegram](/integrations/telegram) — the parent integration; the Mini App rides on top of it
+- [Saba on Telegram](/integrations/saba-on-telegram) — operator-facing Saba bot (different feature, also Telegram-based)
+- [Telegram Business](/integrations/telegram-business) — AI replies on a Premium user's personal account (different feature)
