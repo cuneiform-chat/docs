@@ -1,0 +1,169 @@
+# Telegram Business co-pilot
+
+Permite que tu AI agent responda DMs **en la cuenta personal de Telegram de un usuario Premium**. Los contactos de ese usuario ven lo que parecen ser sus propias respuestas — perfecto para founders, creadores, solopreneurs y equipos pequeños cuyos clientes les escriben directamente por DM en su Telegram personal.
+
+## Descripción General
+
+Telegram Business co-pilot ofrece:
+
+- Respuestas de AI enviadas a través del `business_connection` del usuario Premium, de modo que la respuesta parece venir de él
+- Vinculación por usuario Premium — un bot puede dar soporte a varios usuarios Premium en la misma organización
+- Takeover manual automático — cuando el usuario Premium escribe una respuesta él mismo, el bot se pausa en ese chat por una ventana deslizante para no interrumpir una conversación en vivo
+- Kill switch a nivel de conexión para silenciar el bot en todos los usuarios vinculados sin desconectar
+- Transcripción de notas de voz y respuestas en streaming en vivo, igual que el canal regular de Telegram
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  "Premium" aquí se refiere al tier de la cuenta del usuario de Telegram (suscripción a Telegram Premium, requerida para activar el modo Business). No es tu plan de Cuneiform Chat — la mayoría de los planes de Cuneiform Chat soportan esta integración según tu plan.
+</Callout>
+
+## En qué se diferencia del Telegram regular
+
+La [integración regular con Telegram](/integrations/telegram) conecta un agent a **el inbox del propio bot** — tus usuarios finales le escriben al bot directamente en `t.me/<bot>`. Telegram Business co-pilot es lo opuesto: el bot responde en **la cuenta personal de Telegram de una persona**, interceptando los DMs que llegan a la lista de chats normal de esa persona.
+
+| | Telegram | Telegram Business co-pilot |
+|---|----------|----------------------------|
+| ¿A quién le escriben los contactos? | Al bot (`t.me/<bot>`) | A la cuenta personal del usuario Premium |
+| ¿Qué ven los contactos? | Respuestas del bot | Respuestas que parecen venir del usuario Premium |
+| Un bot soporta… | Usuarios finales ilimitados | N usuarios Premium en tu organización (una fila cada uno) |
+| ¿Chats grupales? | Sí | No — solo DMs |
+| ¿Takeover manual? | N/A | Se pausa automáticamente cuando el usuario Premium escribe |
+
+## Requisitos Previos
+
+- Una cuenta de Telegram con **Telegram Premium** para cada usuario que quiera que el bot responda por él
+- Un bot nuevo de BotFather — **dedicado al modo Business** (no se puede reutilizar en otra integración)
+- Un agent de Cuneiform Chat ya configurado y probado en el Playground
+
+## Pasos de Configuración
+
+### 1. Crea un bot dedicado en BotFather
+
+1. Abre Telegram, busca **@BotFather** y envía `/newbot`
+2. Elige un nombre y un username
+3. Copia el **Bot Token**
+
+### 2. Activa Business Mode en el bot
+
+Este paso es lo que hace que el bot sea elegible para responder en la cuenta de un usuario Premium. Sin él, los usuarios Premium ven *"this bot doesn't support Telegram Business yet"* al agregarlo.
+
+1. En BotFather, envía `/mybots` y selecciona tu nuevo bot
+2. Elige **Bot Settings** → **Business Mode**
+3. Actívalo en **ON**
+
+<Callout type="warning">
+  Business Mode es por bot. Si olvidas activarlo, cada intento de vinculación de usuario Premium falla silenciosamente con el mensaje anterior. Vuelve a activarlo y la vinculación funcionará en el siguiente intento.
+</Callout>
+
+### 3. Conecta el bot en Cuneiform Chat
+
+1. En Cuneiform Chat, abre **Integrations** en la barra lateral
+2. Encuentra la tarjeta **Telegram Business co-pilot**
+3. Haz clic en **Add Telegram Business bot**
+4. Elige el **Agent** que debe responder los DMs (puedes cambiarlo después)
+5. Pega el bot token y envía
+
+### 4. Los usuarios Premium vinculan sus cuentas personales
+
+Cada usuario Premium que quiera que el bot responda por él hace esto una vez:
+
+1. En la tarjeta de Telegram Business, haz clic en **Link a Premium user** — aparece un código de 10 minutos (con un atajo QR)
+2. El usuario Premium abre **Telegram → Settings → Business → Chatbots**
+3. Agrega el username de tu bot y lo activa
+4. Abre un DM regular con el bot y envía `/start <código>`
+5. El bot responde con una confirmación
+
+Una vez que la vinculación está en su lugar, cada contacto que le escriba al usuario Premium recibirá respuestas de AI — excepto cuando el usuario Premium escriba una respuesta él mismo (ver Takeover manual abajo).
+
+## Funcionalidades
+
+### Respuestas en la cuenta del usuario Premium
+
+Cuando un contacto le escribe un DM al usuario Premium, Telegram entrega un evento `business_message` al bot a través del `business_connection` del usuario Premium. El bot llama al agent y luego envía la respuesta de vuelta por la misma conexión — así el contacto ve el mensaje en el thread existente, atribuido al usuario Premium. No se crea una nueva conversación con el bot del lado del contacto.
+
+### Takeover manual automático
+
+En el momento en que el usuario Premium escribe y envía una respuesta él mismo en cualquier chat, el bot se pausa en **ese chat** por una ventana deslizante. La ventana se reinicia cada vez que el usuario Premium escribe de nuevo, así que el bot permanece en silencio mientras la conversación en vivo continúa. Después del período de silencio, el bot reanuda las respuestas automáticas.
+
+Esto significa que el usuario Premium no tiene que activar/desactivar el bot explícitamente cuando entra en una conversación — el bot simplemente se hace a un lado.
+
+### Kill switch a nivel de conexión
+
+Si el usuario Premium quiere desactivar las respuestas de AI en **todos** los chats sin desvincularse:
+
+1. Abre la tarjeta de Telegram Business en Cuneiform Chat
+2. Activa **Disable auto-reply**
+
+La integración permanece conectada (no hace falta volver a vincular) pero el bot no responde a nada. Desactívalo de nuevo para reanudar.
+
+### Notas de voz y formato enriquecido
+
+Las notas de voz de los contactos se transcriben mediante Whisper y se responden como mensajes escritos. Las respuestas se renderizan en MarkdownV2 con negritas, cursivas, bloques de código y enlaces — el mismo toolkit que el canal regular de Telegram.
+
+## Opciones de Configuración
+
+### Configuración por integración
+
+| Configuración | Descripción |
+|---------------|-------------|
+| Agent | Qué agent responde los DMs en todos los usuarios Premium vinculados a este bot |
+| Auto-reply enabled | Kill switch a nivel de conexión (toggle en la tarjeta) |
+
+### Controles por vinculación
+
+Cada fila de usuario Premium en la tarjeta muestra:
+
+- El nombre visible del usuario vinculado
+- Marca de tiempo de última actividad
+- Un control para desvincular a ese usuario (el bot deja de responder por él; sus contactos vuelven a no recibir nada del bot)
+
+## Consejos
+
+<Callout type="info">
+  **Un bot, un agent.** Si quieres agents diferentes para distintos usuarios Premium, crea bots separados — uno por agent. El toggle de Business Mode y el flujo de vinculación tienen que repetirse por bot.
+</Callout>
+
+<Callout type="info">
+  **Los chats grupales quedan fuera de alcance.** Las conexiones Business de Telegram solo cubren DMs privados. El bot ignora los mensajes de grupo incluso cuando se le agrega a uno.
+</Callout>
+
+<Callout type="tip">
+  Prueba el flujo de vinculación tú mismo primero con tu propia cuenta Premium antes de implementarlo con el equipo. El toggle de Business Mode en BotFather es el tropezón más común — confirmar que funciona una vez ahorra una ronda de DMs confusos después.
+</Callout>
+
+## Solución de Problemas
+
+### El usuario Premium ve "this bot doesn't support Telegram Business yet"
+
+Business Mode no está activado en el bot. Ve a BotFather → `/mybots` → tu bot → **Bot Settings** → **Business Mode** → activa **ON**, luego pídele al usuario Premium que reintente el paso de Settings → Business → Chatbots.
+
+### El código de vinculación expiró
+
+Los códigos son válidos por 10 minutos. Haz clic en **Link a Premium user** otra vez para generar uno nuevo.
+
+### El bot permanece en silencio para todos
+
+Revisa el toggle **Disable auto-reply** en la tarjeta de la integración — cuando está apagado, el bot ignora a todos los usuarios vinculados. Vuelve a activarlo.
+
+### El bot permanece en silencio para un contacto específico
+
+El usuario Premium escribió una respuesta en ese chat recientemente y la pausa de takeover manual sigue activa. Espera a que la ventana deslizante se libere, o pídele al usuario Premium que deje de escribir en ese chat.
+
+### Las respuestas del bot se ven mal
+
+Los contactos del usuario Premium ven exactamente lo que el agent genera. Si algo se filtra fuera de marca o fuera de política, arréglalo en el prompt y las tools del agent — es el mismo agent que usa el canal de Telegram, con el mismo Playground para pruebas.
+
+## Desconectar
+
+Para eliminar una integración de Telegram Business:
+
+1. **Desde Cuneiform Chat:** Integrations → tarjeta de Telegram Business co-pilot → menú de tres puntos → **Delete**
+
+Esto elimina la vinculación de cada usuario Premium y detiene las respuestas del bot. El bot en sí permanece en BotFather a menos que lo borres allí.
+
+## Relacionado
+
+- [Telegram](/integrations/telegram) — el canal regular de Telegram orientado al cliente (para el inbox del propio bot de tu agent)
+- [Saba en Telegram](/integrations/saba-on-telegram) — asistente de la plataforma orientado al operador (otra funcionalidad, también basada en Telegram)
+- [Telegram Mini App](/integrations/telegram-mini-app) — Help Center integrado para el canal regular de Telegram

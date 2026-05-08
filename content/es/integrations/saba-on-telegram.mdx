@@ -1,0 +1,156 @@
+# Saba en Telegram
+
+Conecta un bot de Telegram dedicado para que los miembros de tu organización puedan chatear con **Saba** — el asistente de la plataforma Cuneiform Chat — directamente desde Telegram. Las mismas respuestas y el mismo acceso a datos que Saba dentro del panel de administración, pero en tu teléfono.
+
+## Descripción General
+
+Saba en Telegram permite a tu equipo:
+
+- Preguntarle a Saba sobre agents, conversaciones, billing, uso e integraciones desde un DM de Telegram
+- Enviar notas de voz — Saba las transcribe y las responde como si fueran preguntas escritas
+- Tocar las sugerencias de seguimiento que Saba muestra debajo de cada respuesta
+- Cambiar a mitad de conversación a la **Saba Mini App** (una superficie de chat más rica dentro de Telegram) mediante un botón inline debajo de cada respuesta
+- Usar slash commands (`/agents`, `/analytics`, `/usage`, `/billing`, `/integrations`, `/conversations`, `/health`, `/help`, `/new`, `/clear`, `/reset`)
+
+Este **no** es un canal orientado al cliente — es exclusivamente para los miembros de la organización. Los usuarios finales nunca interactúan con este bot.
+
+## En qué se diferencia de la integración regular de Telegram
+
+| | Telegram | Saba en Telegram |
+|---|----------|------------------|
+| ¿Quién chatea con el bot? | Tus usuarios finales | Los miembros de tu organización (admins, operadores) |
+| ¿Qué hace? | Ejecuta tu AI agent | Ejecuta a Saba (asistente de la plataforma) |
+| ¿Dónde? | DMs y chats grupales | Solo DMs privados |
+| ¿Requiere vincular por usuario? | No — cualquiera puede chatear | Sí — cada miembro vincula su cuenta una vez |
+
+Si quieres desplegar tu agent para los usuarios finales, consulta [Integración con Telegram](/integrations/telegram). Esta página trata sobre el bot orientado al operador.
+
+## Requisitos Previos
+
+- Una cuenta de Telegram
+- Una organización con al menos un miembro admin
+- Un bot nuevo de BotFather dedicado a Saba (no puedes reutilizar un bot ya conectado a la integración regular de Telegram — un webhook por bot)
+
+## Pasos de Configuración
+
+### 1. Crea un bot dedicado en BotFather
+
+1. Abre Telegram y busca **@BotFather**
+2. Envía `/newbot`
+3. Elige un nombre y un username — algo como `acme-saba-bot` deja claro su propósito
+4. Copia el **Bot Token** que BotFather te responde
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  Usa un bot completamente nuevo. Un bot de Telegram solo puede apuntar a un webhook a la vez, así que no puedes compartirlo con tu integración de Telegram orientada al cliente ni con el modo Telegram Business.
+</Callout>
+
+### 2. Conecta el bot
+
+1. En Cuneiform Chat, abre **Integrations** en la barra lateral
+2. Encuentra la tarjeta **Saba on Telegram**
+3. Haz clic en **Connect Saba Bot**
+4. Pega el bot token y envía
+
+La plataforma valida el token, registra el webhook y activa la tarjeta.
+
+### 3. Vincula tu cuenta
+
+Cada miembro de tu organización necesita vincular su cuenta personal de Telegram una vez.
+
+1. En la tarjeta de Saba on Telegram, haz clic en **Link my account**
+2. Copia el código de 10 minutos que aparece (o escanea el código QR)
+3. Abre el bot en Telegram
+4. Envía `/start <tu-código>` — Saba confirma la vinculación
+
+Los códigos son de un solo uso y caducan después de 10 minutos. Si el tuyo expira, haz clic en **Link my account** otra vez para generar uno nuevo.
+
+### 4. Pide a otros admins que vinculen sus cuentas
+
+Comparte con tu equipo el enlace `t.me/<bot-username>` del bot y pídeles que:
+
+1. Visiten la misma tarjeta Saba on Telegram desde su propia sesión del panel de administración
+2. Generen su propio código de vinculación
+3. Le envíen al bot un DM con `/start <código>`
+
+La cuenta de Telegram de cada miembro vinculado queda asociada a su membresía en la organización — Saba aplica los mismos permisos basados en roles que dentro del panel de administración.
+
+## Usar el bot
+
+### Pregunta cualquier cosa que Saba pueda responder en el panel
+
+```
+¿Cuántos agents tengo?
+¿Cuánto gastamos en Telegram la semana pasada?
+Muéstrame las integraciones que están fallando.
+```
+
+Saba lee los datos de tu organización y responde inline.
+
+### Notas de voz
+
+Envía una nota de voz de hasta 2 minutos. Whisper la transcribe y Saba responde como si hubieras escrito la pregunta. Útil cuando estás caminando, manejando o simplemente no quieres escribir.
+
+### Slash commands
+
+Escribe `/` en el chat para ver el menú de autocompletar. Saba registra un conjunto predeterminado de comandos cuando conectas el bot:
+
+| Comando | Qué hace |
+|---------|----------|
+| `/help` | Muestra las capacidades y la lista de comandos |
+| `/new`, `/clear`, `/reset` | Inicia una conversación nueva (limpia la memoria de la conversación) |
+| `/agents` | Resume tus agents |
+| `/analytics` | Vista general reciente de analytics |
+| `/usage` | Uso y cuotas actuales |
+| `/billing` | Suscripción y cargos recientes |
+| `/integrations` | Estado de cada canal conectado |
+| `/conversations` | Actividad reciente de conversaciones |
+| `/health` | Resumen de salud del workspace |
+
+### Sugerencias de seguimiento
+
+Cada respuesta de Saba termina con hasta tres botones de preguntas de seguimiento. Toca uno para enviárselo a Saba sin volver a escribir. Los botones son válidos durante 24 horas después de que llega la respuesta.
+
+### Open in Mini App
+
+Cada respuesta también incluye un botón **Open in Mini App**. Tócalo para cambiar a la Saba Mini App — una superficie de chat más rica dentro de Telegram con historial de conversaciones, detalle de tool-call y exportación a markdown. Ambas superficies comparten la misma conversación, así que puedes alternar entre ellas en cualquier momento.
+
+## Opciones de Configuración
+
+### Resincronizar slash commands
+
+Si el menú de slash de Telegram se desincroniza (raro — puede ocurrir si la lista de comandos se actualizó del lado del servidor después de conectar tu bot), abre el menú de tres puntos en la tarjeta de Saba on Telegram y elige **Resync slash commands**. La plataforma vuelve a enviar el conjunto canónico a BotFather.
+
+### Desconectar
+
+Para eliminar la integración:
+
+1. **Desde Cuneiform Chat:** Integrations → tarjeta de Saba on Telegram → menú de tres puntos → **Delete**
+2. **Desde Telegram (opcional):** elimina el bot mediante BotFather (`/mybots` → selecciona el bot → **Delete bot**)
+
+Desconectar elimina la vinculación de cada miembro y detiene las respuestas del bot. El bot de Telegram en sí permanece en BotFather a menos que también lo borres allí.
+
+## Solo lectura por diseño
+
+Saba en Telegram responde preguntas y muestra información — **no** modifica los datos de tu organización. Puedes preguntar "¿qué está fallando?" pero no puedes decir "arréglalo" desde Telegram. Usa el panel de administración para acciones de escritura como editar un agent, cambiar billing o eliminar una conversación.
+
+## Consejos
+
+<Callout type="info">
+  La vinculación de cada miembro es por bot. Si conectas un nuevo bot de Saba más adelante (por ejemplo, después de cambiar el nombre del bot), los miembros tendrán que volver a vincularse mediante el flujo `/start <código>` del nuevo bot.
+</Callout>
+
+<Callout type="info">
+  Saba en Telegram usa solo DMs privados. Agregar el bot a un chat grupal simplemente se ignorará — esto mantiene cada mensaje entrante asociado a un miembro identificable.
+</Callout>
+
+<Callout type="tip">
+  Combina Saba en Telegram con la Mini App para la mejor experiencia: preguntas rápidas en el DM, análisis profundos en la Mini App. Misma conversación, diferentes superficies.
+</Callout>
+
+## Relacionado
+
+- [Platform Assistant](/getting-started/platform-assistant) — vista general de Saba del lado del usuario (panel, DM, Mini App)
+- [Telegram](/integrations/telegram) — el canal de Telegram orientado al cliente para tus agents
+- [Telegram Mini App](/integrations/telegram-mini-app) — el Help Center integrado para usuarios finales (otra funcionalidad)
