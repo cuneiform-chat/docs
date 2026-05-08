@@ -50,7 +50,7 @@ Contrôlez le modèle AI qui anime votre agent.
 | Paramètre | Description |
 |---------|-------------|
 | **Model** | Sélectionnez parmi les modèles AI disponibles selon votre plan |
-| **Temperature** | Contrôle la créativité des réponses (0.0-1.0) |
+| **Temperature** | Contrôle la créativité des réponses (0.0-2.0) |
 
 #### Guide de Temperature
 
@@ -58,7 +58,7 @@ Contrôlez le modèle AI qui anime votre agent.
 |-------|----------|
 | 0.0 - 0.3 | Réponses ciblées et déterministes |
 | 0.4 - 0.7 | Équilibre entre créativité et cohérence |
-| 0.8 - 1.0 | Réponses plus créatives et variées |
+| 0.8 - 2.0 | Réponses plus créatives et variées |
 
 **Recommandation :** Commencez à 0.3-0.5 pour du Q&A factuel basé sur des documents.
 
@@ -151,6 +151,7 @@ Activez le transfert vers un chat en direct afin que votre agent AI puisse trans
 2. Activez **Enable Human Handoff**
 3. Configurez les messages :
    - **Handoff Message** — Affiché à l'utilisateur au début du transfert
+   - **Accept Message** — Envoyé automatiquement quand un agent humain accepte la conversation
    - **Resolve Message** — Affiché lorsque l'agent humain met fin à la conversation
    - **Max Wait Time** — Expiration automatique si aucun agent n'accepte (5, 15, 30, 60 ou 120 minutes ; par défaut : 30 minutes)
 4. Cliquez sur **Save Changes**

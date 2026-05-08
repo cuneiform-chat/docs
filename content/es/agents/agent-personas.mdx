@@ -4,7 +4,7 @@ El agent persona es la configuración más importante de tu agent. Define la per
 
 ## ¿Qué es un Agent Persona?
 
-El agent persona es un conjunto de instrucciones que se da al AI antes de cualquier conversación con el usuario. Da forma a cada respuesta que ofrece tu agent.
+El agent persona es un conjunto de instrucciones que se le da a la AI antes de cualquier conversación con el usuario. Da forma a cada respuesta que produce tu agent.
 
 ## Estructura de un Buen Agent Persona
 
@@ -18,7 +18,7 @@ You are a customer support assistant for TechCorp, a software company.
 
 ### 2. Responsabilidades Principales
 
-Describe qué debe hacer el agent:
+Describe lo que el agent debe hacer:
 
 ```
 Your role is to:
@@ -29,7 +29,7 @@ Your role is to:
 
 ### 3. Pautas de Comportamiento
 
-Establece el tono y el estilo:
+Define el tono y el estilo:
 
 ```
 Communication style:
@@ -40,9 +40,9 @@ Communication style:
 
 ### 4. Detección Automática de Idioma
 
-Tu agent detecta automáticamente el idioma de cada mensaje del usuario y responde en consecuencia — sin necesidad de configuración manual. Se soportan 176 idiomas de forma nativa.
+Tu agent detecta automáticamente el idioma de cada mensaje del usuario y responde en el mismo idioma — sin configuración manual. Se soportan 176 idiomas de fábrica.
 
-El agent se adapta mensaje a mensaje, por lo que puede gestionar conversaciones multilingües con naturalidad. Las reglas de seguridad y precisión permanecen en inglés a nivel interno.
+El agent se adapta mensaje a mensaje, así que puede manejar conversaciones multilingües con naturalidad. Las reglas de seguridad y precisión permanecen en inglés a nivel interno.
 
 ### 5. Límites
 
@@ -58,7 +58,7 @@ Important boundaries:
 
 ## Ejemplos de Agent Personas
 
-### Customer Support
+### Soporte al Cliente
 
 ```
 You are a helpful customer support assistant for Acme Corp.
@@ -118,15 +118,15 @@ Tone: Friendly and helpful, but concise.
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-**Empieza con algo sencillo.** Comienza con un prompt básico y añade complejidad según los resultados de las pruebas.
+**Empieza simple.** Comienza con un prompt básico y añade complejidad según los resultados de las pruebas.
 </Callout>
 
-1. **Sé específico** — Las instrucciones vagas conducen a un comportamiento inconsistente
-2. **Usa ejemplos** — Muestra al agent cómo son las buenas respuestas
-3. **Establece límites claros** — Define lo que el agent NO debe hacer
+1. **Sé específico** — Las instrucciones vagas llevan a un comportamiento inconsistente
+2. **Usa ejemplos** — Muestra al agent cómo se ven las buenas respuestas
+3. **Establece límites claros** — Define qué NO debe hacer el agent
 4. **Itera** — Prueba y refina basándote en conversaciones reales
 5. **Mantenlo enfocado** — Los prompts largos y complejos pueden confundir al modelo
-6. **El idioma es automático** — Tu agent detecta el idioma del usuario y responde en consecuencia. No hace falta añadir instrucciones de idioma al texto de la persona
+6. **El idioma es automático** — Tu agent detecta el idioma del usuario y responde en consecuencia. No es necesario añadir instrucciones de idioma al texto del persona
 
 ## Probar tu Persona
 
@@ -135,11 +135,11 @@ Después de escribir o actualizar tu agent persona:
 1. Pruébalo en el [Playground](/agents/testing)
 2. Prueba casos límite y preguntas complicadas
 3. Refina según los resultados
-4. Vuelve a probar para asegurar las mejoras
+4. Vuelve a probar para confirmar las mejoras
 
 ## Variables de Plantilla
 
-Personaliza el system prompt de tu agent con variables dinámicas.
+Personaliza el prompt de sistema de tu agent con variables dinámicas.
 
 ### Variables Disponibles
 
@@ -149,9 +149,9 @@ Personaliza el system prompt de tu agent con variables dinámicas.
 | `{{current_date}}` | La fecha de hoy | "2026-02-03" |
 | `{{current_year}}` | El año actual | "2026" |
 
-### Usar Variables
+### Uso de Variables
 
-En tu system prompt:
+En tu prompt de sistema:
 
 ```
 Welcome to {{organization_name}}! I'm here to help you today.
@@ -159,6 +159,6 @@ Welcome to {{organization_name}}! I'm here to help you today.
 
 **Resultado:** "Welcome to Acme Corp! I'm here to help you today."
 
-<Callout type="important">
-  Haz clic en **Preview** al editar para ver cómo aparecerán las variables con los valores reales de tu organización.
+<Callout type="info">
+  Las variables se resuelven en el momento de envío del mensaje usando los valores reales de tu organización. No hay vista previa en la UI — pruébalo en el [Playground](/agents/testing) para verificar el prompt renderizado.
 </Callout>

@@ -5,31 +5,31 @@ import { Callout } from 'nextra/components'
 Genera agent personas profesionales en segundos seleccionando características.
 
 <Callout type="info">
-  El Agent Persona Builder te ayuda a crear agent personas eficaces sin tener que escribir prompts desde cero.
+  El Agent Persona Builder te ayuda a crear agent personas eficaces sin escribir prompts desde cero.
 </Callout>
 
-## Primeros Pasos
+## Cómo Empezar
 
-1. Ve a **Agents** y crea o edita un agent
+1. Navega a **Agents** y crea o edita un agent
 2. Haz clic en **Generate** junto al campo Agent Persona
-3. El panel del Agent Persona Builder se desliza con tres pestañas
+3. Se abre el panel del Agent Persona Builder con tres pestañas
 
 ## Pestañas del Builder
 
 ### Custom Build
 
-Crea una persona única seleccionando características en 5 categorías:
+Crea un persona único seleccionando características en 5 categorías:
 
 | Categoría | Qué Controla |
-|----------|------------------|
-| **Role & Identity** | Función principal del agent (customer support, ventas, soporte técnico, RR. HH., etc.) |
+|-----------|--------------|
+| **Role & Identity** | La función principal del agent (soporte al cliente, ventas, soporte técnico, RR. HH., etc.) |
 | **Communication Style** | Formalidad, tono, verbosidad y nivel técnico |
-| **Response Behavior** | Formato (conversacional vs. viñetas), proactividad, gestión de preguntas |
-| **Operational Boundaries** | Qué tan estrictamente se mantiene el agent en el tema, tendencia a escalar |
-| **Knowledge Integration** | Estilo de citas, cómo gestiona el agent la incertidumbre |
+| **Response Behavior** | Formato (conversacional vs. con viñetas), proactividad, manejo de preguntas |
+| **Operational Boundaries** | Cuán estrictamente se mantiene el agent en el tema, tendencia a escalar |
+| **Knowledge Integration** | Estilo de citación, cómo maneja el agent la incertidumbre |
 
-**Navegación de Categorías:**
-- Haz clic en el encabezado de cualquier categoría para expandirla o contraerla
+**Navegación entre Categorías:**
+- Haz clic en cualquier encabezado de categoría para expandirla o contraerla
 - Cada categoría contiene varios campos con opciones desplegables
 - Las opciones seleccionadas aparecen resaltadas
 
@@ -39,29 +39,28 @@ Haz clic en **Reset** dentro de la sección Custom Build para restaurar todos lo
 #### Opciones de Role & Identity
 
 Elige la función principal de tu agent:
-- Customer Support Representative
-- Sales Consultant
-- Technical Support Specialist
-- HR/People Operations
+- Customer Support
+- Sales
+- Technical Support
+- HR / Internal
 - Education
 - Healthcare Information
 - Legal Information
-- Finance/Accounting
+- Finance / Accounting
 - General Assistant
-- Custom role
 
 #### Communication Style
 
-Ajusta cómo se comunica tu agent:
+Ajusta con precisión cómo se comunica tu agent:
 
 | Ajuste | Opciones |
-|---------|---------|
-| **Formality** | Formal, Professional, Casual |
-| **Tone** | Warm & Friendly, Neutral, Direct |
+|--------|----------|
+| **Formality** | Casual, Friendly Professional, Formal Professional, Corporate Formal |
+| **Tone** | Empathetic & Supportive, Confident & Authoritative, Calm & Reassuring, Enthusiastic & Engaging, Neutral & Objective |
 | **Verbosity** | Concise, Balanced, Comprehensive |
 | **Technical Level** | Layperson, Mixed, Technical |
 
-#### Opciones de Tono
+#### Opciones de Tone
 
 Presets de tono disponibles:
 - Empathetic & Supportive
@@ -72,29 +71,29 @@ Presets de tono disponibles:
 
 #### Niveles de Detalle
 
-- **Concise** — Respuestas breves y al grano
+- **Concise** — Respuestas breves y directas
 - **Balanced** — Detalle moderado con explicaciones claras
 - **Comprehensive** — Respuestas exhaustivas y detalladas
 
 #### Response Behavior
 
 Controla cómo se estructuran las respuestas:
-- **Format** — Párrafos conversacionales o viñetas estructuradas
+- **Format** — Conversational, Step-by-Step Guides o Technical Documentation
 - **Proactivity** — Si el agent sugiere temas relacionados
-- **Question Handling** — Cómo pide aclaraciones el agent
+- **Question Handling** — Cómo el agent pide clarificación
 
 #### Operational Boundaries
 
-Define las guardrails de tu agent:
-- **Scope Strictness** — Qué tan estrictamente se ciñe el agent a los temas documentados
+Define los límites de tu agent:
+- **Scope Strictness** — Cuán estrictamente se mantiene el agent dentro de los temas documentados
 - **Escalation** — Cuándo sugerir contactar con soporte humano
 - **Out-of-scope Handling** — Cómo responder a preguntas fuera de tema
 
 #### Knowledge Integration
 
-Configura cómo usa el agent tus documentos:
+Configura cómo el agent usa tus documentos:
 - **Citation Style** — Si referenciar documentos específicos
-- **Uncertainty Handling** — Cómo responder cuando hay dudas
+- **Uncertainty Handling** — Cómo responder cuando no está seguro
 
 ### Use Preset
 
@@ -103,7 +102,7 @@ Carga personas preconfiguradas para casos de uso comunes:
 - **System Templates** — Presets proporcionados por la plataforma, optimizados para roles específicos
 - **My Templates** — Presets guardados por los administradores de tu organización
 
-**Usar un Preset:**
+**Cómo Usar un Preset:**
 1. Haz clic en la pestaña **Use Preset**
 2. Explora los presets disponibles
 3. Haz clic en un preset para seleccionarlo
@@ -113,53 +112,53 @@ Carga personas preconfiguradas para casos de uso comunes:
 
 ### Platform Rules
 
-Visualiza las guardrails de solo lectura que se aplican automáticamente a todos los agents:
+Consulta las medidas de seguridad de solo lectura que se aplican automáticamente a todos los agents:
 
-- **No fabrication** — No inventará hechos, números o fechas que no estén en tu contenido
-- **Acknowledges gaps** — Dice "no tengo esa información" en lugar de adivinar
-- **Resists speculation** — No estimará valores faltantes ni cuando se le pida
-- **No professional impersonation** — No interpretará el papel de abogado, médico, contador o asesor financiero
-- **Corrects false premises** — Señala suposiciones incorrectas antes de responder
-- **Blocks harmful content** — Rechaza contenido autolesivo, explícito o fraudulento
+- **Sin invenciones** — No inventará hechos, números ni fechas que no estén en tu contenido
+- **Reconoce vacíos** — Dice "I don't have that information" en lugar de adivinar
+- **Rechaza la especulación** — No estimará valores faltantes ni siquiera cuando se le pida
+- **Sin suplantación profesional** — No actuará como abogado, médico, contador ni asesor financiero
+- **Corrige premisas falsas** — Señala suposiciones incorrectas antes de responder
+- **Bloquea contenido dañino** — Rechaza contenido autolesivo, explícito o fraudulento
 
 <Callout type="info">
-  Las Platform Rules garantizan que todos los agents se comporten de forma fiable y segura, independientemente de la configuración de la persona. No pueden desactivarse.
+  Las reglas de la plataforma garantizan que todos los agents se comporten de forma fiable y segura, independientemente de la configuración del persona. No pueden desactivarse.
 </Callout>
 
-## Generar una Persona
+## Generar un Persona
 
 **Antes de Generar:**
 El panel muestra tus opciones de configuración a ancho completo.
 
 **Botón Generate:**
 Cuando estés en la pestaña Custom Build:
-1. Haz clic en **Generate Persona** en la parte inferior
+1. Haz clic en **Generate Persona** al final
 2. Se muestra un estado de carga durante la generación
 3. Tarda unos segundos
 
 **Después de Generar:**
-El panel cambia a una vista dividida:
+La disposición del panel cambia a una vista dividida:
 - **Lado izquierdo:** Tus opciones de configuración
 - **Lado derecho:** Vista previa del prompt generado
 
-**Funciones del Panel de Vista Previa:**
-- Texto completo del system prompt generado
+**Características del Panel de Vista Previa:**
+- Texto completo del prompt de sistema generado
 - Editable — puedes modificar el texto directamente
-- Contador de caracteres en la parte inferior
+- Conteo de caracteres mostrado al final
 
 ## Después de Generar
 
-Una vez tengas una persona generada, dispones de varias opciones:
+Una vez que tengas un persona generado, tienes varias opciones:
 
-### Regenerate
+### Regenerar
 
 Haz clic en **Regenerate** para crear una nueva versión con los mismos ajustes. Cada generación produce resultados ligeramente distintos.
 
 ### Editar el Prompt
 
-Haz clic en el panel de vista previa para editar el texto generado directamente. Haz los ajustes necesarios para tu caso de uso específico.
+Haz clic en el panel de vista previa para editar el texto generado directamente. Haz los ajustes que necesites para tu caso de uso específico.
 
-### Save as Preset
+### Guardar como Preset
 
 Haz clic en **Save as Preset** para guardar tu configuración y reutilizarla:
 1. Se abre un diálogo pidiendo el nombre del preset
@@ -167,28 +166,28 @@ Haz clic en **Save as Preset** para guardar tu configuración y reutilizarla:
 3. El preset se guarda en tu organización dentro de **My Templates**
 
 <Callout type="important">
-  Los presets guardados están disponibles para todos los administradores de tu organización. Úsalos para mantener personalidades consistentes en varios agents.
+  Los presets guardados están disponibles para todos los administradores de tu organización. Úsalos para mantener personalidades de agent consistentes en varios agents.
 </Callout>
 
-### Apply to Agent
+### Aplicar al Agent
 
-Haz clic en **Apply to Agent** para usar esta persona:
-1. El prompt se inserta en el campo del system prompt de tu agent
+Haz clic en **Apply to Agent** para usar este persona:
+1. El prompt se inserta en el campo del prompt de sistema de tu agent
 2. El builder se cierra
-3. Continúa configurando otros ajustes del agent
+3. Continúa configurando el resto de ajustes del agent
 
-## Buenas Prácticas
+## Mejores Prácticas
 
 - **Empieza con un preset** — Usa los system templates como punto de partida y luego personaliza
-- **Adapta el rol al propósito** — Elige un rol que se alinee con la función real de tu agent
-- **Equilibra la verbosidad** — Concise funciona mejor para Q&A rápido; detallado para temas complejos
-- **Prueba después de generar** — Prueba siempre tu agent en el Playground tras aplicar una nueva persona
-- **Itera** — Regenera con distintos ajustes si los resultados no son los adecuados
-- **Mantenlo enfocado** — Los prompts demasiado complejos pueden confundir al agent
+- **Haz coincidir el rol con el propósito** — Elige un rol que se alinee con la función real de tu agent
+- **Equilibra la verbosidad** — Concise funciona mejor para preguntas y respuestas rápidas; el detalle, para temas complejos
+- **Prueba después de generar** — Prueba siempre tu agent en el Playground después de aplicar un nuevo persona
+- **Itera** — Regenera con ajustes distintos si los resultados no son del todo correctos
+- **Mantenlo enfocado** — Los prompts excesivamente complejos pueden confundir al agent
 
 ## Próximos Pasos
 
 Después de generar tu agent persona:
 
-- [Pruébalo en el Playground](/agents/testing) — Verifica que la persona funciona como se espera
-- [Aprende sobre Agent Personas](/agents/agent-personas) — Comprende la estructura de la persona y las buenas prácticas
+- [Probar en el Playground](/agents/testing) — Verifica que el persona funciona como se espera
+- [Aprender sobre Agent Personas](/agents/agent-personas) — Comprende la estructura del persona y las mejores prácticas

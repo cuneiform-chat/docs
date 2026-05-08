@@ -9,7 +9,7 @@ Guía detallada de todas las opciones de configuración del agent.
 La página de edición del agent tiene tres pestañas:
 
 | Pestaña | Propósito |
-|-----|---------|
+|---------|-----------|
 | **Configuration** | Ajustes principales (estado, nombre, persona, LLM, mensajes) |
 | **Knowledge Access** | Controla qué documentos puede usar el agent |
 | **Integrations** | Conecta con canales externos (Telegram, Discord, etc.) |
@@ -20,12 +20,12 @@ La página de edición del agent tiene tres pestañas:
 
 Controla la disponibilidad de tu agent:
 
-| Estado | Playground | Integraciones | Notas |
+| Estado | Playground | Integrations | Notas |
 |--------|------------|--------------|-------|
-| **Testing** | ✅ Activado | ❌ Desactivado | Predeterminado para los nuevos agents. Pruébalo antes de ponerlo en producción. |
-| **Active** | ✅ Activado | ✅ Activado | Listo para uso en producción. |
-| **Inactive** | ❌ Desactivado | ❌ Desactivado | Desactivado temporalmente. |
-| **Archived** | ❌ Desactivado | ❌ Desactivado | Oculto de la lista principal. |
+| **Testing** | ✅ Habilitado | ❌ Deshabilitado | Predeterminado para nuevos agents. Prueba antes de salir en producción. |
+| **Active** | ✅ Habilitado | ✅ Habilitado | Listo para uso en producción. |
+| **Inactive** | ❌ Deshabilitado | ❌ Deshabilitado | Deshabilitado temporalmente. |
+| **Archived** | ❌ Deshabilitado | ❌ Deshabilitado | Oculto de la lista principal. |
 
 <Callout type="warning">
   Si tu agent tiene integraciones conectadas y cambias de Active a otro estado, verás un diálogo de confirmación que te avisa de que el agent dejará de responder en los canales conectados.
@@ -40,91 +40,91 @@ Controla la disponibilidad de tu agent:
 
 Controla el modelo de AI que impulsa tu agent.
 
-**Modo por defecto (toggle Advanced desactivado):**
+**Modo Predeterminado (toggle Advanced desactivado):**
 - Usa los valores predeterminados del tier de tu organización
-- Muestra un cuadro informativo que explica que se están usando los valores predeterminados del tier
-- Recomendado para la mayoría de los casos
+- Muestra una caja de información explicando que se están usando los valores predeterminados del tier
+- Recomendado para la mayoría de los casos de uso
 
 **Modo Avanzado (toggle Advanced activado):**
 
 | Ajuste | Descripción |
-|---------|-------------|
+|--------|-------------|
 | **Model** | Selecciona entre los modelos de AI disponibles según tu plan |
-| **Temperature** | Controla la creatividad de las respuestas (0.0-1.0) |
+| **Temperature** | Controla la creatividad de las respuestas (0.0-2.0) |
 
 #### Guía de Temperature
 
 | Valor | Comportamiento |
-|-------|----------|
+|-------|----------------|
 | 0.0 - 0.3 | Respuestas enfocadas y deterministas |
 | 0.4 - 0.7 | Equilibrio entre creatividad y consistencia |
-| 0.8 - 1.0 | Respuestas más creativas y variadas |
+| 0.8 - 2.0 | Respuestas más creativas y variadas |
 
-**Recomendación:** Empieza con 0.3-0.5 para Q&A factual basado en documentos.
+**Recomendación:** Empieza con 0.3-0.5 para preguntas y respuestas factuales basadas en documentos.
 
 #### Show Document References
 
-Este toggle (siempre visible, independientemente del modo Advanced) controla si el agent incluye citas de las fuentes en las respuestas:
+Este toggle (siempre visible, independientemente del modo Advanced) controla si el agent incluye citas de fuentes en sus respuestas:
 
-- **Off** (predeterminado) — Las respuestas no mencionan los documentos fuente
+- **Off** (predeterminado) — Las respuestas no mencionan documentos fuente
 - **On** — Las respuestas incluyen referencias a los documentos fuente
 
 <Callout type="important">
-  Activa las referencias a documentos en casos de uso que requieran transparencia, como contenido legal, de cumplimiento o interno donde los usuarios necesiten verificar las fuentes.
+  Habilita las referencias a documentos para casos de uso que requieran transparencia, como contenido legal, de cumplimiento o interno donde los usuarios necesiten verificar las fuentes.
 </Callout>
 
 ### Soporte de Idiomas
 
-Tu agent detecta automáticamente el idioma de cada mensaje del usuario y responde en consecuencia — sin necesidad de configuración manual. Se soportan 176 idiomas de forma nativa, incluyendo árabe, francés, alemán, español, turco, chino, japonés y muchos más.
+Tu agent detecta automáticamente el idioma de cada mensaje del usuario y responde en el mismo idioma — sin configuración manual. Se soportan 176 idiomas de fábrica, incluidos árabe, francés, alemán, español, turco, chino, japonés y más.
 
 ### Agent Persona
 
-Las instrucciones que controlan el comportamiento del agent. Consulta [Agent Personas](/agents/agent-personas) para ver buenas prácticas.
+Las instrucciones que controlan el comportamiento del agent. Consulta [Agent Personas](/agents/agent-personas) para conocer las mejores prácticas.
 
 **Acciones disponibles:**
 - **Generate** — Abre el [Agent Persona Builder](/agents/persona-builder)
-- **Edit** — Abre un panel deslizable para escribir o modificar la persona directamente
+- **Edit** — Abre un panel deslizante para escribir o modificar el persona directamente
 
-Haz clic en el área de texto de la persona para abrir el panel de edición.
+Haz clic en el área de texto del persona para abrir el panel de edición.
 
-**Cuadro de Platform Rules:**
+**Caja de Reglas de la Plataforma:**
 Haz clic para ver las reglas de fiabilidad de la plataforma que se aplican automáticamente a todos los agents:
-- No fabrication — no inventará hechos
-- Acknowledges gaps — dice "no sé" cuando corresponde
-- Resists speculation — no adivinará información faltante
-- No professional impersonation — no actuará como abogado, médico, etc.
-- Corrects false premises — señala suposiciones incorrectas
-- Blocks harmful content — rechaza solicitudes inapropiadas
+- Sin invenciones — no inventará hechos
+- Reconoce vacíos — dice "No lo sé" cuando corresponde
+- Rechaza la especulación — no adivinará información faltante
+- Sin suplantación profesional — no actuará como abogado, médico, etc.
+- Corrige premisas falsas — señala suposiciones incorrectas
+- Bloquea contenido dañino — rechaza solicitudes inapropiadas
 
 <Callout type="info">
-  Las Platform Rules garantizan que todos los agents se comporten de forma fiable y segura. No pueden desactivarse ni modificarse.
+  Las reglas de la plataforma garantizan que todos los agents se comporten de forma fiable y segura. No pueden desactivarse ni modificarse.
 </Callout>
 
 ## Pestaña Knowledge Access
 
-Controla qué documentos puede consultar tu agent al responder a las consultas.
+Controla qué documentos puede consultar tu agent al responder.
 
 ### Modos de Acceso
 
 | Modo | Comportamiento | Cuándo Usarlo |
-|------|----------|-------------|
-| **Exclude Mode** | El agent accede a TODOS los documentos EXCEPTO los seleccionados | Ocultar documentos sensibles permitiendo el acceso a todo lo demás |
-| **Include Mode** | El agent accede ÚNICAMENTE a los elementos seleccionados | Restringir el agent a un conjunto específico de documentos |
+|------|----------------|---------------|
+| **Exclude Mode** | El agent accede a TODOS los documentos EXCEPTO los seleccionados | Ocultar documentos sensibles permitiendo el acceso al resto |
+| **Include Mode** | El agent accede SOLO a los elementos seleccionados | Restringir el agent a un conjunto específico de documentos |
 
 ### Opciones de Selección
 
-Ajusta el acceso con varios tipos de selección:
+Ajusta el acceso con precisión usando varios tipos de selección:
 
-- **Folders** — Selecciona carpetas completas y todos los documentos que contienen
+- **Folders** — Selecciona carpetas enteras y todos los documentos que contienen
 - **Tags** — Filtra documentos por las etiquetas asignadas
 - **Documentos Individuales** — Incluye o excluye documentos específicos dentro de las carpetas seleccionadas
 
 ### Vista Previa de Acceso
 
-El panel de vista previa muestra el acceso efectivo a los documentos según tus selecciones actuales. Úsalo para verificar tu configuración antes de guardar.
+El panel de vista previa muestra el acceso efectivo a los documentos según las selecciones actuales. Úsalo para verificar tu configuración antes de guardar.
 
 <Callout type="info">
-  Empieza con **Exclude Mode** si quieres un acceso amplio con restricciones específicas. Usa **Include Mode** cuando necesites un control estricto sobre qué documentos puede consultar el agent.
+  Empieza con **Exclude Mode** si quieres acceso amplio con restricciones específicas. Usa **Include Mode** cuando necesites un control estricto sobre exactamente qué documentos puede consultar el agent.
 </Callout>
 
 ## Pestaña Integrations
@@ -139,58 +139,59 @@ Esta pestaña muestra las opciones de integración disponibles para tu agent. Pu
 - Meta (Facebook Messenger)
 - Y más (según tu plan)
 
-Consulta la [documentación de Integrations](/integrations) para ver guías detalladas de configuración para cada canal.
+Consulta la [documentación de Integrations](/integrations) para ver guías detalladas de configuración de cada canal.
 
 ## Human Handoff
 
-Activa la transferencia a chat en vivo para que tu agent de AI pueda derivar conversaciones a una persona real cuando los usuarios lo soliciten.
+Habilita la transferencia a chat en vivo para que tu agent de AI pueda derivar conversaciones a una persona real cuando los usuarios lo pidan.
 
-**Cómo activarlo:**
+**Cómo habilitarlo:**
 
 1. En la pestaña **Configuration**, desplázate hasta la sección **Human Handoff**
 2. Activa **Enable Human Handoff**
 3. Configura los mensajes:
-   - **Handoff Message** — Se muestra al usuario cuando empieza la transferencia
-   - **Resolve Message** — Se muestra cuando el agente humano finaliza la conversación
-   - **Max Wait Time** — Expiración automática si ningún agente acepta (5, 15, 30, 60 o 120 minutos; predeterminado: 30 minutos)
+   - **Handoff Message** — Se muestra al usuario cuando comienza la transferencia
+   - **Accept Message** — Se envía automáticamente cuando un agent humano acepta la conversación
+   - **Resolve Message** — Se muestra cuando el agent humano finaliza la conversación
+   - **Max Wait Time** — Caduca automáticamente si ningún agent acepta (5, 15, 30, 60 o 120 minutos; predeterminado: 30 minutos)
 4. Haz clic en **Save Changes**
 
-Cuando un usuario pide hablar con una persona, el AI crea una solicitud de handoff visible en la página **Inbox**. Un miembro del equipo la acepta, conversa con el usuario en su canal y la resuelve cuando termina.
+Cuando un usuario pide hablar con una persona, la AI crea una solicitud de handoff visible en la página **Inbox**. Un miembro del equipo la acepta, conversa con el usuario en su canal y la marca como resuelta cuando termina.
 
 <Callout type="info">
-  Human Handoff está disponible en todos los planes. Actívalo por agent en la pestaña Configuration.
+  Human Handoff está disponible en todos los planes. Habilítalo por agent en la pestaña Configuration.
 </Callout>
 
 ## Probar tu Agent
 
-Antes de guardar los cambios, puedes probar tu agent:
+Antes de guardar los cambios puedes probar tu agent:
 
-1. Haz clic en el botón **Test Agent** en la parte inferior del formulario
-2. El panel del Playground se desliza
+1. Haz clic en el botón **Test Agent** al final del formulario
+2. Se abre el panel del Playground
 3. Mantén una conversación de prueba con tu agent
 4. Cierra el Playground cuando termines
 
 <Callout type="info">
-  El botón Test Agent está desactivado cuando el estado del agent es Archived o Inactive. Cambia el estado a Active o Testing para activar las pruebas.
+  El botón Test Agent está deshabilitado cuando el estado del agent es Archived o Inactive. Cambia el estado a Active o Testing para habilitar las pruebas.
 </Callout>
 
-## Guardar los Cambios
+## Guardar Cambios
 
 | Botón | Acción |
-|--------|--------|
+|-------|--------|
 | **Save Changes** | Guarda todas las modificaciones |
 | **Test Agent** | Abre el Playground para probar |
 
-Para descartar los cambios, sal de la página usando el botón de retroceso o la navegación de la barra lateral.
+Para descartar cambios, sal de la página usando el botón Atrás o la navegación lateral.
 
 **Qué se guarda:**
 - Solo se actualizan los campos modificados
 - Verás "No changes to save" si no se modificó nada
-- Aparecen mensajes de éxito o error tras guardar
+- Aparecen mensajes de éxito o error después de guardar
 
 **Manejo de Guardado Parcial:**
-Si algunos cambios se guardan pero otros fallan, se te notificará qué secciones fallaron y la página se recargará para mostrar el estado actual.
+Si algunos cambios se guardan pero otros fallan, se te notificará qué secciones fallaron y la página se actualizará para mostrar el estado actual.
 
 <Callout type="info">
-  Los cambios en la configuración del agent surten efecto inmediatamente después de guardar. Pruébalo en el Playground tras hacer cambios.
+  Los cambios en los ajustes del agent surten efecto inmediatamente al guardar. Prueba en el Playground después de hacer cambios.
 </Callout>
