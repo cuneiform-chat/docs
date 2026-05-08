@@ -1,0 +1,170 @@
+# Telegram Mini App (Help Center)
+
+Todo bot do Telegram que você conecta vem com um **Help Center** integrado — uma pequena Mini App que abre dentro do Telegram quando os usuários finais tocam no botão de menu ao lado do compositor de mensagens. Use-a para publicar entradas de FAQ que respondem perguntas comuns sem gastar uma chamada de LLM, além de tiles de atalho que disparam perguntas pré-escritas para o seu agent.
+
+## Visão Geral
+
+O Help Center do Telegram Mini App oferece:
+
+- Uma lista ordenável de FAQ que os usuários finais abrem com um toque dentro do Telegram
+- Dois modos por entrada — **curated** (resposta em markdown renderizada, custo de AI zero) e **agent** (pergunta pré-escrita disparada no pipeline normal do bot)
+- Botão do menu de chat configurado automaticamente — sem necessidade de setup no BotFather para o fluxo básico
+- Disponível em todos os planos, incluindo o trial gratuito
+- UI consciente de locale (inglês, espanhol, português, francês — fallback para inglês)
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Esta página é sobre o Help Center Mini App que vem com o canal **Telegram** voltado para o cliente. É um recurso diferente do Saba Mini App, que é uma superfície do Cuneiform Chat para operadores. Veja [Saba on Telegram](/integrations/saba-on-telegram) para o lado do operador.
+</Callout>
+
+## Como funciona para os usuários finais
+
+Quando alguém abre o seu bot do Telegram, vê um pequeno botão de **menu** ao lado do compositor (o Telegram renderiza isso como um ícone de quatro pontos ou o nome do bot). Tocar nele abre o Help Center Mini App em tela cheia dentro do Telegram.
+
+O usuário vê:
+
+- Uma lista ordenável das entradas de FAQ que você criou
+- Uma barra de busca para filtrar entradas
+- Dois modos visuais por entrada:
+  - **Curated entries** — toque para ler a resposta inline (markdown renderizado, sem tráfego de chat)
+  - **Agent entries** — toque para enviar uma pergunta pré-escrita ao seu agent no chat (a Mini App fecha e a pergunta aparece como uma mensagem normal do usuário)
+
+Os usuários finais nunca saem do Telegram. Toda a experiência roda dentro do WebView nativo do Telegram.
+
+## Pré-requisitos
+
+- Uma [integração com Telegram](/integrations/telegram) conectada (o Help Center roda em cima dela — não há uma integração "Mini App" separada para adicionar)
+- Pelo menos uma entrada de help para o Help Center fazer sentido
+
+## Passos de Configuração
+
+### 1. Conectar um bot do Telegram (se ainda não conectou)
+
+Siga o [guia de configuração do Telegram](/integrations/telegram). A Mini App é ativada automaticamente assim que o bot está conectado — a plataforma chama a API `setChatMenuButton` do Telegram em seu nome para configurar o botão de menu.
+
+### 2. Criar entradas no Help Center
+
+1. No Cuneiform Chat, vá em **Integrations** na barra lateral
+2. Encontre o card do seu bot do Telegram e abra o menu de três pontos
+3. Escolha **Help Center**
+4. Clique em **Add entry** e escolha um modo:
+   - **Curated** — escreva uma pergunta (o rótulo do tile) e uma resposta em markdown
+   - **Agent** — escreva uma pergunta (o rótulo do tile) e o texto da pergunta que deve ser disparada no bot
+5. Salve
+
+Você pode criar até 50 entradas por bot. Arraste as entradas para reordená-las — a ordem no card é a mesma que os usuários finais veem na Mini App.
+
+<Callout type="info">
+  As alterações se propagam para a Mini App em ~5 minutos (cache do servidor). Para a maioria das sessões de criação você não vai notar a latência — as entradas que você salva ficam visíveis para os usuários finais antes de você terminar a próxima.
+</Callout>
+
+### 3. Testar
+
+1. Abra seu bot no Telegram (DM)
+2. Toque no botão de **menu** ao lado do compositor
+3. O Help Center abre — você deveria ver suas entradas na ordem em que as criou
+4. Toque em uma entrada curated — a resposta renderiza inline
+5. Toque em uma entrada agent — a Mini App fecha e a pergunta aparece no seu chat com o bot
+
+## Recursos
+
+### Modo curated (custo de AI zero)
+
+A resposta de uma entrada curated é só o markdown que você escreveu no painel admin. Tocar na entrada renderiza esse markdown na Mini App — sem chamada de LLM, sem tokens, sem cobrança. Use entradas curated para FAQs perenes (política de devolução, horários, páginas de preço, etc.) onde a resposta não muda com frequência.
+
+### Modo agent (atalhos pré-escritos)
+
+Uma entrada agent não tem resposta inline. Tocar nela fecha a Mini App e envia a pergunta pré-escrita para o chat do bot como se o usuário tivesse digitado. A pergunta passa pelo pipeline normal do seu agent — mesmo conteúdo, mesmas tools, mesma voz.
+
+Use entradas agent para as perguntas que você gostaria que os usuários fizessem mas eles têm dificuldade em formular ("Me ajude a escolher um plano", "Compare seus produtos", etc.).
+
+### Busca
+
+Os usuários podem filtrar a lista de entradas digitando na barra de busca. O match é feito sobre a pergunta da entrada (o rótulo do tile).
+
+### UI consciente de locale
+
+A interface da Mini App (placeholder da barra de busca, navegação) segue a configuração de idioma do Telegram de cada usuário final. Atualmente localizada em:
+
+- Inglês
+- Espanhol (es)
+- Português (Brasileiro)
+- Francês
+
+Outros idiomas do Telegram caem em fallback para o inglês.
+
+<Callout type="info">
+  O *conteúdo* do Help Center (suas perguntas e respostas) é monolíngue por entrada — o que você escreve é o que cada usuário vê. Variantes de conteúdo por locale estão no roadmap.
+</Callout>
+
+### Link opcional de lançamento direto
+
+Se você quiser um link `t.me/<your_bot>/<your_app>` para campanhas de marketing ou QR codes, o card da integração mostra um playbook de 5 passos do BotFather (abra o menu de três pontos e escolha **Mini App settings**). O botão do menu do Help Center continua funcionando sem isso — o playbook só adiciona o formato de link mais amigável para marketing.
+
+## Opções de Configuração
+
+### Configurações por entrada
+
+| Configuração | Descrição |
+|---------|-------------|
+| Modo | Curated (resposta inline em markdown) ou Agent (dispara uma pergunta pré-escrita) |
+| Pergunta | O rótulo do tile que os usuários veem |
+| Resposta (somente curated) | Markdown renderizado quando tocado |
+| Texto da pergunta (somente agent) | A pergunta pré-escrita disparada no bot |
+| Ordem | Posição na lista (arraste para reordenar) |
+
+### Configurações por bot
+
+| Configuração | Descrição |
+|---------|-------------|
+| Limite de entradas | 50 por bot |
+| Cache TTL | ~5 minutos (definido pela plataforma; não configurável pelo usuário) |
+
+## Dicas
+
+<Callout type="tip">
+  **Comece com entradas curated.** São gratuitas para servir, instantâneas para os usuários e reduzem o volume de perguntas "fáceis" que chegam ao seu agent — deixando a quota do agent para as mais difíceis.
+</Callout>
+
+<Callout type="info">
+  **O conteúdo curated é markdown, não HTML.** Negrito, itálico, listas, links e blocos de código renderizam. `<iframe>` embedado ou HTML arbitrário não.
+</Callout>
+
+<Callout type="warning">
+  As entradas no modo agent disparam a pergunta pré-escrita pelo pipeline normal do bot — isso significa que elas consomem a mesma quota de conversa que uma mensagem real do usuário. Para botões de atalho de alto tráfego, prefira o modo curated.
+</Callout>
+
+## Solução de Problemas
+
+### O botão de menu não abre o Help Center
+
+1. Desconecte e reconecte a integração do Telegram — o botão do menu de chat é configurado durante a etapa de conexão e um bot desatualizado pode estar sem ele
+2. Confira se o seu bot é o que os usuários estão mandando mensagem (`t.me/<bot-username>`)
+3. Se você definiu um botão de menu personalizado pelo BotFather, isso sobrescreve a configuração automática da plataforma — limpe pelo `/setmenubutton` do BotFather
+
+### As entradas que criei não aparecem
+
+A Mini App usa um cache de servidor de 5 minutos. Espere alguns minutos e peça ao usuário que reabra o botão de menu (o Telegram também faz cache do WebView — puxar para baixo para atualizar a Mini App ou reiniciar o Telegram limpa o cache).
+
+### A resposta curated renderiza estranho
+
+A Mini App renderiza markdown pelo mesmo toolkit do painel admin — pré-visualize sua entrada na janela do **Help Center** antes de salvar. Se uma lista ou bloco de código parece errado, normalmente o markdown de origem está sem uma linha em branco.
+
+### "This bot doesn't have a Mini App"
+
+Esse é um recurso diferente — o Telegram avisando da ausência de um link de lançamento direto `t.me/<bot>/<app>`. O botão de menu do seu Help Center continua funcionando sem esse link. Para adicionar o link de lançamento direto, abra a janela de Mini App settings no card do bot e siga o playbook do BotFather.
+
+## Desconectando
+
+O Help Center faz parte da integração do Telegram, então ele desaparece quando você desconecta o bot do Telegram:
+
+1. **No Cuneiform Chat:** Integrations → card Telegram → menu de três pontos → **Delete**
+
+As entradas de help que você criou são apagadas junto com a integração. Para limpar só o botão de menu sem apagar a integração, você precisaria definir um botão de menu personalizado pelo BotFather (`/setmenubutton`) — mas a maioria dos usuários quer o botão de menu ativo, então isso é raro.
+
+## Relacionados
+
+- [Telegram](/integrations/telegram) — a integração pai; a Mini App roda em cima dela
+- [Saba on Telegram](/integrations/saba-on-telegram) — bot Saba voltado para operadores (recurso diferente, também baseado no Telegram)
+- [Telegram Business](/integrations/telegram-business) — respostas de AI na conta pessoal de um usuário Premium (recurso diferente)
