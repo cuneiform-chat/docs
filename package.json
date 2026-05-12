@@ -8,7 +8,7 @@
     "dev": "next dev",
     "prebuild": "node scripts/fill-missing-translations.mjs",
     "build": "next build",
-    "postbuild": "pagefind --site out --output-path out/_pagefind && pagefind --site out/en --output-path out/en/_pagefind && pagefind --site out/es --output-path out/es/_pagefind && pagefind --site out/pt --output-path out/pt/_pagefind && pagefind --site out/fr --output-path out/fr/_pagefind && pagefind --site out/ru --output-path out/ru/_pagefind && next-sitemap",
+    "postbuild": "pagefind --site out --output-path out/_pagefind && pagefind --site out/en --output-path out/en/_pagefind && pagefind --site out/es --output-path out/es/_pagefind && pagefind --site out/pt --output-path out/pt/_pagefind && pagefind --site out/fr --output-path out/fr/_pagefind && pagefind --site out/ru --output-path out/ru/_pagefind && next-sitemap && node scripts/generate-legacy-redirects.mjs",
     "start": "next start",
     "lint": "next lint"
   },
