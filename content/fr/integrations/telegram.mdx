@@ -12,7 +12,7 @@ L'intégration Telegram offre :
 - Réactions par emoji en un clic avec classification de sentiment
 - Slash commands intégrés (`/start`, `/help`, `/reset`, `/new`)
 - Messages directs et chats de groupe (sessions par utilisateur dans les groupes)
-- Une Mini App de Help Center intégrée pour la FAQ utilisateur final
+- Une [Boutique intégrée](/integrations/telegram-mini-app) — catalogue produits multipage, chat IA par produit et prise de commande légère, le tout dans Telegram (gratuit sur tous les plans)
 - Co-pilot Telegram Business optionnel pour les utilisateurs Premium (intégration distincte)
 - Saba sur Telegram pour les opérateurs (intégration distincte)
 
@@ -108,36 +108,17 @@ import { Callout } from 'nextra/components'
 
 Chaque utilisateur dans un groupe a son propre thread de conversation — le bot ne mélange pas les sessions entre les membres. Les groupes forum-topic sont pris en charge ; les threads restent cantonnés à leur sujet.
 
-## Mini App Help Center
+## Boutique Telegram
 
-Chaque bot Telegram que vous connectez est livré avec un **Help Center** intégré — une petite Mini App qui s'ouvre dans Telegram lorsque les utilisateurs finaux touchent le bouton de menu à côté du compositeur de message.
+Chaque bot Telegram que vous connectez est livré avec une **Boutique** intégrée — un site web in-bot soigné et multipage qui s'ouvre dans Telegram lorsque les utilisateurs finaux touchent le bouton de menu à côté du compositeur de message. Fiches produits, galeries, vidéos, pages thématisées, chat IA par produit et prise de commande légère qui passe le relais à un humain dans votre inbox — le tout sans installer d'app ni passer par un site web séparé.
 
-### Ce que voient les utilisateurs finaux
+Câblage automatique à la connexion : le bouton du menu de chat ouvre la boutique, libellé **« Shop »** si vous publiez un produit ou **« Open »** sinon. Disponible sur tous les plans, y compris le trial gratuit.
 
-Une liste triable d'entrées de FAQ que vous avez rédigées depuis le panneau d'administration. Deux modes par entrée :
+Le guide complet de la fonctionnalité — composeur, blocs, thèmes, chat par produit, CTAs de commande, limites par tier — vit sur une page dédiée :
 
-- **Curated** — touchez pour lire la réponse inline. Markdown rendu, pas de trafic de chat, pas de coût LLM.
-- **Ask the bot** — touchez pour envoyer une question pré-écrite à votre agent dans le chat.
+→ **[Boutique Telegram](/integrations/telegram-mini-app)** pour la configuration complète, la référence des blocs et le parcours client.
 
-### Câblage automatique, sans configuration
-
-Lorsque vous connectez un bot Telegram, le bouton de menu de chat est automatiquement configuré pour ouvrir le Help Center. Disponible sur tous les plans, y compris le trial gratuit. Aucune configuration BotFather requise pour ce chemin.
-
-### Création des entrées
-
-1. Rendez-vous dans **Integrations** → carte de votre bot Telegram
-2. Ouvrez le menu à trois points → **Help Center**
-3. Ajoutez jusqu'à ~50 entrées ; glissez pour réorganiser ; choisissez le mode (curated ou ask-the-bot)
-
-Les modifications se propagent à la Mini App en ~5 minutes (cache serveur).
-
-### Optionnel : lien de lancement direct
-
-Si vous souhaitez aussi un lien `t.me/<your_bot>/<your_app>` pour le marketing ou les codes QR, ouvrez **Mini App settings** sur la même carte et suivez le playbook BotFather (5 étapes). Le bouton de menu de chat continue de fonctionner sans cela — le playbook n'ajoute que la forme de lien adaptée au marketing.
-
-### Prise en charge des langues
-
-L'UI de la Mini App suit la langue Telegram de chaque utilisateur final — actuellement anglais, espagnol, portugais et français, avec l'anglais en fallback. Le *contenu* du Help Center que vous rédigez est aujourd'hui monolingue par entrée ; les variantes de contenu par locale sont sur la roadmap.
+Un petit panneau de support **Help Center** est épinglé à la fin du menu de pages de la boutique pour des raccourcis FAQ + ask-the-bot ponctuels. La plupart des boutiques ne s'appuient pas beaucoup dessus — les produits et les CTAs de commande répondent aux questions du parcours d'achat directement sur la boutique. Rédigez les entrées depuis le menu à trois points de la carte du bot → **Help Center** (jusqu'à ~50 entrées, glisser pour réorganiser, cache serveur ~5 minutes).
 
 ## Co-pilot Telegram Business
 

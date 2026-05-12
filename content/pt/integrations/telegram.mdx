@@ -12,7 +12,7 @@ A integração com Telegram oferece:
 - Reações com emoji em um toque com classificação de sentimento
 - Slash commands integrados (`/start`, `/help`, `/reset`, `/new`)
 - Mensagens diretas e chats em grupo (sessões por usuário em grupos)
-- Uma Mini App de Help Center integrada para a FAQ do usuário final
+- Uma [Loja integrada ao bot](/integrations/telegram-mini-app) — catálogo de produtos com várias páginas, chat de IA por produto e captação leve de pedidos, tudo dentro do Telegram (gratuita em todos os planos)
 - Co-pilot opcional do Telegram Business para usuários Premium (integração separada)
 - Saba no Telegram para operadores (integração separada)
 
@@ -108,36 +108,17 @@ import { Callout } from 'nextra/components'
 
 Cada usuário em um grupo tem o seu próprio thread de conversa — o bot não mistura sessões entre os membros. Grupos com forum-topic são suportados; os threads ficam restritos ao seu tópico.
 
-## Mini App de Help Center
+## Loja no Telegram
 
-Cada bot do Telegram que você conecta vem com um **Help Center** integrado — uma pequena Mini App que abre dentro do Telegram quando os usuários finais tocam no botão de menu ao lado do compositor de mensagens.
+Cada bot do Telegram que você conecta vem com uma **Loja** integrada — um site sofisticado, com várias páginas, dentro do bot, que abre no Telegram quando os usuários finais tocam no botão de menu ao lado do compositor de mensagens. Cards de produto, galerias, vídeos, páginas temáticas, chat de IA por produto e captação leve de pedidos que repassa para uma pessoa real na sua caixa de entrada — tudo sem instalação de aplicativo e sem site separado.
 
-### O que os usuários finais veem
+Configuração automática ao conectar: o botão do menu de chat abre a loja, rotulado como **"Shop"** se você publicar um produto ou **"Open"** caso contrário. Disponível em todos os planos, inclusive no trial gratuito.
 
-Uma lista ordenável de entradas de FAQ que você criou no painel admin. Dois modos por entrada:
+O guia completo do recurso — composer, blocos, temas, chat por produto, CTAs de pedido, limites por plano — vive em uma página dedicada:
 
-- **Curated** — toque para ler a resposta inline. Markdown renderizado, sem tráfego de chat, sem custo de LLM.
-- **Ask the bot** — toque para disparar uma pergunta pré-escrita ao seu agent no chat.
+→ **[Loja no Telegram](/integrations/telegram-mini-app)** para a configuração completa, referência de blocos e fluxo do cliente.
 
-### Configuração automática, sem setup
-
-Quando você conecta um bot do Telegram, o botão do menu de chat é configurado automaticamente para abrir o Help Center. Disponível em todos os planos, incluindo o trial gratuito. Sem necessidade de configuração no BotFather para esse caminho.
-
-### Criando entradas
-
-1. Vá para **Integrations** → card do seu bot do Telegram
-2. Abra o menu de três pontos → **Help Center**
-3. Adicione até ~50 entradas; arraste para reordenar; escolha o modo (curated ou ask-the-bot)
-
-As alterações se propagam para a Mini App em ~5 minutos (cache do servidor).
-
-### Opcional: link de lançamento direto
-
-Se você também quiser um link `t.me/<your_bot>/<your_app>` para marketing ou QR codes, abra **Mini App settings** no mesmo card e siga o playbook do BotFather (5 passos). O botão do menu de chat continua funcionando sem isso — o playbook só adiciona o formato de link mais amigável para marketing.
-
-### Suporte a idiomas
-
-A UI da Mini App segue o idioma do Telegram de cada usuário final — atualmente inglês, espanhol, português e francês, com inglês como fallback. O *conteúdo* do Help Center que você cria é hoje monolíngue por entrada; variantes de conteúdo por locale estão no roadmap.
+Um pequeno painel de suporte **Help Center** fica fixado ao final do menu de páginas da loja para atalhos pontuais de FAQ + ask-the-bot. A maioria das lojas não depende muito dele — produtos e CTAs de pedido respondem às dúvidas do fluxo de compra na própria loja. Crie entradas a partir do menu de três pontos no card do bot → **Help Center** (até ~50 entradas, arraste para reordenar, cache do servidor de ~5 minutos).
 
 ## Co-pilot do Telegram Business
 

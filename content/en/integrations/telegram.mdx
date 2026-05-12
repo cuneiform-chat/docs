@@ -12,7 +12,7 @@ Telegram integration provides:
 - One-tap emoji reactions with sentiment classification
 - Built-in slash commands (`/start`, `/help`, `/reset`, `/new`)
 - Direct messages and group chats (per-user sessions in groups)
-- A built-in Help Center Mini App for end-user FAQ
+- A built-in [in-bot Storefront](/integrations/telegram-mini-app) — multipage product catalog, per-product AI chat, and lightweight order-taking, all inside Telegram (free on every plan)
 - Optional Telegram Business co-pilot for Premium users (separate integration)
 - Saba on Telegram for operators (separate integration)
 
@@ -107,36 +107,17 @@ import { Callout } from 'nextra/components'
 
 Each user in a group has their own conversation thread — the bot doesn't mix sessions across members. Forum-topic groups are supported; threads stay scoped to their topic.
 
-## Help Center Mini App
+## In-bot Storefront
 
-Every Telegram bot you connect comes with a built-in **Help Center** — a small Mini App that opens inside Telegram when end users tap the menu button next to the message composer.
+Every Telegram bot you connect comes with a built-in **Storefront** — a polished, multipage in-bot website that opens inside Telegram when end users tap the menu button next to the chat composer. Product cards, galleries, videos, themed pages, per-product AI chat, and lightweight order-taking that hands off to a real human in your inbox — all without an app install or a separate website.
 
-### What end users see
+Auto-wired on connect: the chat-menu button opens the storefront, labeled **"Shop"** if you publish a product or **"Open"** otherwise. Available on every plan including the free trial.
 
-A sortable list of FAQ entries you've authored from the admin panel. Two modes per entry:
+The full feature guide — composer, blocks, themes, per-product chat, order CTAs, tier limits — lives on a dedicated page:
 
-- **Curated** — tap to read the answer inline. Rendered markdown, no chat traffic, no LLM cost.
-- **Ask the bot** — tap to fire a pre-written question to your agent in the chat.
+→ **[Telegram Storefront](/integrations/telegram-mini-app)** for the complete setup, block reference, and customer flow.
 
-### Auto-wired, no setup
-
-When you connect a Telegram bot, the chat-menu button is auto-set to open the Help Center. Available on every plan including the free trial. No BotFather configuration required for this path.
-
-### Authoring entries
-
-1. Go to **Integrations** → your Telegram bot card
-2. Open the three-dot menu → **Help Center**
-3. Add up to ~50 entries; drag to reorder; pick mode (curated or ask-the-bot)
-
-Changes propagate to the Mini App within ~5 minutes (server cache).
-
-### Optional: direct-launch link
-
-If you also want a `t.me/<your_bot>/<your_app>` link for marketing or QR codes, open **Mini App settings** on the same card and follow the BotFather playbook (5 steps). The chat-menu button keeps working without this — the playbook only adds the marketing-friendly link shape.
-
-### Locale support
-
-The Mini App UI follows each end user's Telegram language — currently English, Spanish, Portuguese, and French, with English as the fallback. Help Center *content* you author is monolingual per entry today; per-locale content variants are on the roadmap.
+A small **Help Center** support panel is pinned at the end of the storefront's page menu for ad-hoc FAQ + ask-the-bot shortcuts. Most storefronts don't lean on it heavily — products and order CTAs answer buying-flow questions on the storefront itself. Author entries from the bot card's three-dot menu → **Help Center** (up to ~50 entries, drag-to-reorder, ~5 minute server cache).
 
 ## Telegram Business co-pilot
 

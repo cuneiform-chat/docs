@@ -1,170 +1,312 @@
-# Telegram Mini App (Help Center)
+# Boutique Telegram (Mini App intégrée au bot)
 
-Chaque bot Telegram que vous connectez est livré avec un **Help Center** intégré — une petite Mini App qui s'ouvre dans Telegram lorsque les utilisateurs finaux touchent le bouton de menu à côté du compositeur de message. Utilisez-le pour publier des entrées de FAQ qui répondent aux questions courantes sans dépenser un appel LLM, ainsi que des tuiles raccourcis qui envoient des questions pré-écrites à votre agent.
+**Transformez votre bot Telegram en véritable boutique intégrée.** Construisez un catalogue produits multipage soigné — avec photos, vidéos, pages thématiques, un assistant IA par produit et une prise de commande légère — qui s'ouvre *à l'intérieur* de Telegram dès que votre client appuie sur le bouton menu de votre bot. Pas d'app store, pas de site séparé, pas de checkout à gérer. Une simple pression, et votre client parcourt déjà votre boutique.
 
-## Aperçu
-
-Le Telegram Mini App Help Center offre :
-
-- Une liste triable de FAQ que les utilisateurs finaux ouvrent en un seul tap dans Telegram
-- Deux modes d'entrée — **curated** (réponse markdown rendue, zéro coût AI) et **agent** (question pré-écrite envoyée dans le pipeline normal du bot)
-- Bouton de chat-menu câblé automatiquement — pas de configuration BotFather requise pour le flow de base
-- Disponible sur tous les plans, y compris le trial gratuit
-- UI consciente de la locale (anglais, espagnol, portugais, français — fallback à l'anglais)
+Gratuit sur tous les plans, y compris l'essai. Construit dans un compositeur visuel par glisser-déposer disponible dans **Intégrations → bot Telegram → Configurer la mini app** : 12 types de blocs, 6 thèmes, chat IA par produit, CTA de commande qui transfèrent à un humain dans votre inbox.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Cette page concerne le Help Center Mini App qui accompagne le canal **Telegram** destiné aux clients. C'est une fonctionnalité différente de la Saba Mini App, qui est une surface destinée aux opérateurs Cuneiform Chat. Voir [Saba sur Telegram](/integrations/saba-on-telegram) pour le côté opérateur.
+  Cette page couvre la boutique intégrée orientée client qui accompagne chaque intégration **Telegram**. C'est une fonctionnalité distincte de la **Saba Mini App**, qui est une interface opérateur Cuneiform Chat — voir [Saba on Telegram](/integrations/saba-on-telegram) pour le côté opérateur.
 </Callout>
 
-## Fonctionnement pour les utilisateurs finaux
+## Ce que vous pouvez construire
 
-Lorsque quelqu'un ouvre votre bot Telegram, il voit un petit bouton **menu** à côté du compositeur (Telegram l'affiche soit comme une icône à quatre points, soit comme le nom du bot). Le toucher ouvre le Help Center Mini App en plein écran dans Telegram.
+Quelques formes courantes que prend la boutique intégrée en production :
 
-L'utilisateur voit :
+- **Boutique en ligne** — bannière hero + grille de produits + chat par produit (« Est-ce disponible en taille M ? ») + formulaire de demande de commande. Les commandes arrivent dans votre inbox ; un coéquipier répond depuis là.
+- **Carte de restaurant** — multipage (Entrées / Plats / Boissons) + galerie photo + bloc Cart review + champ adresse de livraison au checkout.
+- **Catalogue de cours ou de services** — fiches produit pour chaque cours avec un bloc Video en intro, des témoignages, et un CTA back-to-bot « Réserver un appel ».
+- **Site vitrine** — hero + page à propos + galerie + carte de contact + FAQ — sans aucun produit. La boutique devient une brochure mobile élégante qui vit à l'intérieur de votre bot.
+- **Landing de capture de leads** — une page, un hero, un formulaire, un CTA. Le « tunnel Telegram » le plus léger possible.
 
-- Une liste triable d'entrées de FAQ que vous avez rédigées
-- Une barre de recherche pour filtrer les entrées
-- Deux modes visuels par entrée :
-  - **Entrées curated** — touchez pour lire la réponse inline (markdown rendu, pas de trafic chat)
-  - **Entrées agent** — touchez pour envoyer une question pré-écrite à votre agent dans le chat (la Mini App se ferme et la question apparaît comme un message utilisateur normal)
+Commencez avec une seule page, et faites évoluer vers un catalogue multipage quand vous serez prêt.
 
-Les utilisateurs finaux ne quittent jamais Telegram. Toute l'expérience s'exécute dans la WebView intégrée de Telegram.
+## Pourquoi ça compte
+
+- **Vos clients ne quittent jamais Telegram.** Pas d'installation d'app, pas de domaine à retenir, pas de tunnel de checkout à abandonner. La boutique s'ouvre dans la WebView de Telegram et hérite du thème, de la langue et de la connexion de l'utilisateur.
+- **Une seule pression depuis une conversation.** Le bouton menu à côté du compositeur se câble automatiquement sur votre boutique dès que vous connectez le bot. Le libellé bascule automatiquement sur **« Shop »** dès que vous publiez un produit — aucune configuration BotFather requise.
+- **Chat produit nativement IA.** Le chat par produit est limité aux documents *que vous* attachez à ce produit — l'assistant peut répondre en toute confiance à « quelle est la politique de retour de cette robe ? » sans laisser fuiter d'informations provenant d'autres produits.
+- **Transfert de commande à un humain réel.** Les formulaires de commande légers (mode inquiry ou cart) arrivent dans votre Inbox sous forme de transfert structuré, en gardant la DM Telegram du client ouverte pour le suivi.
+- **Gratuit sur tous les plans.** L'essai a une limite de 5 pages / 25 blocs par page / 100 docs produit ; tous les plans payants suppriment ces limites. La tarification est par organisation — ajouter un deuxième bot Telegram ne change pas le prix de votre palier.
+
+## En un coup d'œil
+
+- **Multipage**, par glisser-déposer. Les utilisateurs finaux appuient sur l'icône hamburger (en haut à gauche) pour changer de page. Si vous ne publiez qu'une seule page, elle se charge en plein écran.
+- **12 types de blocs** — Hero, Product card, Product grid, Carousel, Gallery, FAQ, Testimonial, CTA back-to-bot, Contact, Video, Rich text, Cart review.
+- **6 thèmes** (Telegram par défaut + 5 personnalisés) avec surcharges de style par bloc.
+- **Cycle de vie Draft → Publish** avec retour en un clic au dernier snapshot publié.
+- **Toggle on/off par intégration** — désactivez-le et le menu du bot revient au sélecteur de commandes `/` de Telegram ; l'URL publique renvoie `410 Gone` pour que les marque-pages obsolètes ne laissent pas fuiter de contenu.
+- **Coquille sensible à la locale** (anglais, espagnol, portugais brésilien, français, russe) — suit automatiquement la langue Telegram de l'utilisateur, ou épinglez une locale unique.
+- **Help Center intégré** — une surface FAQ épinglée pour les questions ponctuelles, toujours à une pression. [Voir ci-dessous](#built-in-help-center).
+- **Pas de paiements, pas de stocks, pas de livraison** — c'est une surface catalogue + capture de leads soignée, pas une stack e-commerce complète. Associez-la à un humain dans votre inbox et vous avez une boucle de vente complète.
+
+## Comment les clients la trouvent
+
+Quand quelqu'un ouvre votre bot Telegram, il voit le bouton **menu** à côté du compositeur. Une pression ouvre votre boutique en plein écran à l'intérieur de Telegram. Le libellé du bouton est :
+
+- **« Shop »** — défini automatiquement si votre boutique publiée contient une product card ou une product grid
+- **« Open »** — défini automatiquement sinon
+- **Ce que vous avez tapé** — si vous définissez un libellé personnalisé dans le compositeur (toute chaîne de 1 à 32 caractères survit à chaque publication jusqu'à ce que vous la vidiez)
+
+L'URL de la boutique a la forme `https://tele-mini.cuneiform.chat/{your-org-slug}` (avec `?i={integration_id}` ajouté seulement si votre organisation a plus d'un bot Telegram). Copiez cette URL depuis la fiche d'intégration pour des QR codes, des publicités, ou pour enregistrer un lien de lancement direct BotFather `t.me/<bot>/<app>` (voir le playbook BotFather sur la fiche du bot).
+
+<Callout type="info">
+  Les chemins « ask the bot » et de commande refusent les lancements depuis des groupes / supergroupes / canaux avec un message poli « private chats only ». La navigation dans la boutique et les tuiles FAQ curées s'affichent partout où le bouton menu apparaît.
+</Callout>
 
 ## Prérequis
 
-- Une [intégration Telegram](/integrations/telegram) connectée (le Help Center s'appuie dessus — il n'y a pas d'intégration « Mini App » distincte à ajouter)
-- Au moins une entrée d'aide pour rendre le Help Center utile
+- Une [intégration Telegram](/integrations/telegram) connectée. La boutique se monte par-dessus — il n'y a pas d'intégration séparée à ajouter.
+- (Optionnel) Images de produits, textes de produits, entrées FAQ, et documents de base de connaissances à câbler dans le chat par produit.
 
-## Étapes de Configuration
+## Démarrage rapide (5 minutes)
 
-### 1. Connecter un bot Telegram (si vous ne l'avez pas déjà fait)
+Le chemin le plus court entre « j'ai connecté un bot » et « mon premier client parcourt la boutique » :
 
-Suivez le [guide de configuration Telegram](/integrations/telegram). La Mini App s'active automatiquement une fois le bot connecté — la plateforme appelle l'API `setChatMenuButton` de Telegram en votre nom pour câbler le bouton de menu.
+1. **Allez dans Intégrations → votre bot Telegram → Configurer la mini app.** Le compositeur s'ouvre en état Draft.
+2. **Cliquez sur « + Ajouter une page »** dans le rail gauche. Nommez-la (par ex. « Accueil »).
+3. **Ajoutez un bloc Hero** — titre, sous-titre, image de fond 16:9 (déposez une photo, le recadreur s'ouvre automatiquement).
+4. **Ajoutez une Product card** — nom, prix, image 1:1, description courte. Activez **AI chat** et attachez un doc (une fiche technique PDF, votre politique de livraison — n'importe quoi depuis votre KB).
+5. **Ajoutez un Order CTA** sur ce produit — choisissez le mode `inquiry`, choisissez les champs du formulaire (`name` est toujours requis).
+6. **Cliquez sur Publish.** Le bouton menu du bot se ré-étiquette automatiquement en **« Shop »** puisque vous avez un produit.
+7. **Ouvrez votre bot dans Telegram.** Appuyez sur « Shop ». Appuyez sur votre produit. Appuyez sur « Ask a question ». Appuyez sur « Order this ». Soumettez. Vous verrez le transfert arriver dans votre Inbox en quelques secondes.
 
-### 2. Rédiger les entrées du Help Center
+C'est la boutique minimale viable. Ajoutez plus de pages, plus de produits, des thèmes, des vidéos et un Help Center au fur et à mesure de votre croissance.
 
-1. Dans Cuneiform Chat, allez dans **Integrations** dans la sidebar
-2. Trouvez la carte de votre bot Telegram et ouvrez le menu à trois points
-3. Choisissez **Help Center**
-4. Cliquez sur **Add entry** et choisissez un mode :
-   - **Curated** — rédigez une question (le label de la tuile) et une réponse markdown
-   - **Agent** — rédigez une question (le label de la tuile) et le texte de la question qui doit être envoyé au bot
-5. Sauvegardez
+## Le compositeur
 
-Vous pouvez rédiger jusqu'à 50 entrées par bot. Glissez les entrées pour les réorganiser — l'ordre sur la carte correspond à ce que voient les utilisateurs finaux dans la Mini App.
+Le compositeur se trouve à **Intégrations → [votre bot Telegram] → Configurer la mini app** (aussi accessible via le menu à trois points sur la fiche du bot). C'est une disposition à 3 panneaux :
 
-<Callout type="info">
-  Les modifications se propagent à la Mini App en ~5 minutes (cache serveur). Pour la plupart des sessions de rédaction, vous ne remarquerez pas le délai — les entrées que vous sauvegardez sont visibles aux utilisateurs finaux le temps que vous terminiez la suivante.
-</Callout>
+| Panneau | Ce qu'on y trouve |
+|---------|-------------------|
+| **Rail gauche** | Votre liste de pages (glissez pour réordonner). L'entrée **Help Center** épinglée est en lecture seule ici — vous éditez ces entrées depuis un panneau séparé. Sous la liste des pages : contrôles par intégration (on/off boutique, libellé du bouton menu, langue de l'UI). |
+| **Centre** | La liste des blocs de la page actuellement sélectionnée. Glissez pour réordonner, ajoutez un bloc, dupliquez, ou supprimez. |
+| **Droite** | Un **iframe de prévisualisation en direct** de ce à quoi la page ressemblera. Le toggle soleil/lune bascule entre clair/sombre. La prévisualisation se met à jour pendant que vous tapez. |
 
-### 3. Tester
+Une barre d'outils collante en haut comporte : un badge de statut (Draft / Published), un menu `⋯` (Annuler les modifications / Revenir à la version publiée), **Enregistrer comme brouillon**, et **Publier**.
 
-1. Ouvrez votre bot dans Telegram (DM)
-2. Touchez le bouton **menu** à côté du compositeur
-3. Le Help Center s'ouvre — vous devriez voir vos entrées dans l'ordre où vous les avez rédigées
-4. Touchez une entrée curated — la réponse se rend inline
-5. Touchez une entrée agent — la Mini App se ferme et la question apparaît dans votre chat avec le bot
+### Draft vs Published
 
-## Fonctionnalités
+- **Enregistrer comme brouillon** — vos modifications sont enregistrées mais les clients voient toujours la dernière version publiée.
+- **Publier** — votre brouillon devient en ligne ; un « snapshot publié » figé est automatiquement enregistré pour vous permettre un rollback ultérieur.
+- **Annuler les modifications** — jette les modifications locales non enregistrées et recharge la dernière version enregistrée (aucun appel serveur).
+- **Revenir à la version publiée** — copie le snapshot publié dans votre brouillon de travail et le republie. Désactivé pour les organisations qui n'ont jamais publié auparavant.
 
-### Mode curated (zéro coût AI)
+Si vous cliquez sur **Enregistrer comme brouillon** alors que vous êtes actuellement Published, une boîte de dialogue de confirmation « dépublier » s'affiche (avec un indice pour revenir en arrière).
 
-La réponse d'une entrée curated n'est que du markdown que vous avez rédigé dans le panneau d'administration. Toucher l'entrée rend ce markdown dans la Mini App — pas d'appel LLM, pas de tokens, pas de frais. Utilisez les entrées curated pour les FAQs evergreen (politique de retour, horaires, pages de tarifs, etc.) où la réponse ne change pas souvent.
+## Les 12 types de blocs
 
-### Mode agent (raccourcis pré-écrits)
+Déposez n'importe lequel de ces blocs sur une page de la boutique :
 
-Une entrée agent n'a pas de réponse inline. La toucher ferme la Mini App et envoie la question pré-écrite dans le chat du bot comme si l'utilisateur l'avait tapée. La question passe par le pipeline normal de votre agent — même contenu, mêmes tools, même voix.
+| Bloc | Ce qu'il affiche | Limites notables |
+|------|------------------|------------------|
+| **Hero** | Grand titre + sous-titre + image de fond + bouton CTA optionnel | Titre ≤120 caractères, sous-titre ≤240 caractères |
+| **Product card** | Un produit unique : nom, libellé de prix, **badge de disponibilité** optionnel (« Sold out », « Pre-order », « Last 3 » — texte libre rendu sous forme de pilule), image, description courte, boutons chat et commande optionnels | Nom ≤80, description ≤240, badge de disponibilité ≤40 |
+| **Product grid** | 1 à 12 produits dans l'une des trois mises en page : grille (2 colonnes), pile (pleine largeur), ou ligne à balayage (style Spotify) | Compte comme **1 bloc** quel que soit le nombre de produits |
+| **Carousel** | Une bande horizontale à balayage (1 à 12 diapos). Mélangez diapos d'images et diapos de produits. Personnalisez autoplay, boucle, points, flèches, ratio d'aspect | Compte comme **1 bloc** |
+| **Gallery** | 1 à 8 images. Appuyez pour ouvrir une lightbox | — |
+| **FAQ** | Sélectionne un sous-ensemble de vos entrées Help Center à afficher en ligne sur une page | Limite d'affichage de 1 à 50 |
+| **Testimonial** | Une citation avec nom d'auteur, avatar optionnel, et lien optionnel | Citation ≤400 caractères |
+| **CTA back-to-bot** | Un bouton qui ferme la Mini App et envoie une `/command` à votre bot | La commande doit correspondre à `^/[a-zA-Z0-9_]{1,31}$` |
+| **Contact** | Fiche de contact statique : téléphone, email, adresse, lien carte (pas de formulaire) | — |
+| **Video** | Une vidéo YouTube, chargée paresseusement via `youtube-nocookie.com` pour la confidentialité | Nécessite un ID YouTube de 11 caractères |
+| **Rich text** | Markdown + HTML assaini (éditeur TipTap dans le compositeur) | Markdown ≤2000 caractères, HTML ≤20000 caractères |
+| **Cart review** | Panier intégré avec bouton de checkout. Permet aux clients de réviser leurs sélections sur une page dédiée | Utilisé conjointement avec des CTA de commande sur les blocs produit |
 
-Utilisez les entrées agent pour les questions que vous aimeriez que les utilisateurs posent mais qu'ils ne peuvent pas facilement formuler (« Aide-moi à choisir un plan », « Compare vos produits », etc.).
+Chaque bloc prend également en charge des **surcharges de style** par bloc — couleur de fond, couleur de texte, taille de police — multipliées avec le thème de la page. Utilisez-les avec parcimonie ; le thème gère le look par défaut.
 
-### Recherche
+## Thèmes
 
-Les utilisateurs peuvent filtrer la liste des entrées en tapant dans la barre de recherche. La correspondance se fait sur la question de l'entrée (le label de la tuile).
+Choisissez un thème par page. Le thème contrôle le fond, la couleur du texte, la couleur d'accent et la police.
 
-### UI consciente de la locale
+| Thème | Ambiance |
+|-------|----------|
+| **Telegram** (par défaut) | Hérite du thème Telegram de l'utilisateur — mode clair/sombre automatique, correspond à ce qu'il voit dans les chats |
+| **Soft Light** | Fond crème chaud, serif Georgia — sensation conviviale, éditoriale |
+| **Bold Dark** | Sombre à fort contraste avec accent violet |
+| **Editorial** | Crème style magazine + serif à une échelle de police légèrement plus grande |
+| **Vibrant** | Blanc épuré avec accent rose vif |
+| **Mono** | Blanc + police monospaced à une échelle légèrement plus petite |
 
-Le chrome de la Mini App (placeholder de la barre de recherche, navigation) suit le paramètre de langue Telegram de chaque utilisateur final. Actuellement localisée en :
+Là où vous ne choisissez pas de thème, vous obtenez le Telegram par défaut — votre boutique semble toujours native à l'application Telegram du client.
 
-- Anglais
-- Espagnol (es)
-- Portugais (Brésilien)
-- Français
+## Contrôles par intégration
 
-Les autres langues Telegram font fallback sur l'anglais.
+Chaque intégration Telegram a des paramètres indépendants, limités à ce seul bot. Ajouter un deuxième bot Telegram à la même organisation lui donne ses propres toggles indépendants. Les trois vivent dans le rail gauche du compositeur sous **Mini app settings**.
 
-<Callout type="info">
-  Le *contenu* du Help Center (vos questions et réponses d'entrées) est monolingue par entrée — ce que vous écrivez est ce que chaque utilisateur voit. Les variantes de contenu par locale sont sur la roadmap.
-</Callout>
+### Toggle on/off de la boutique
 
-### Lien de lancement direct optionnel
+- Par défaut : **on**.
+- Le **désactiver** fait deux choses à la fois :
+  1. Le bouton menu du bot est réinitialisé au sélecteur de commandes `/` par défaut de Telegram — la boutique n'est plus accessible depuis l'UI du bot.
+  2. Si un client a toujours l'URL de la boutique en marque-page et l'ouvre directement, la coquille affiche un message « currently unavailable » (le serveur renvoie `410 Gone` pour que les caches obsolètes ne puissent pas laisser fuiter de contenu après la désactivation).
+- Le toggle confirme une fois avec une boîte de dialogue avant de désactiver.
+- Le **réactiver** restaure le bouton menu du bot (libellé automatique ou votre surcharge, selon ce qui est défini).
 
-Si vous souhaitez un lien `t.me/<your_bot>/<your_app>` pour les campagnes marketing ou les codes QR, la carte d'intégration fait apparaître un playbook BotFather en 5 étapes (ouvrez le menu à trois points et choisissez **Mini App settings**). Le bouton de menu Help Center continue de fonctionner sans cela — le playbook ne fait qu'ajouter la forme de lien adaptée au marketing.
+### Surcharge du libellé du bouton menu
 
-## Configuration
+- Par défaut : **dérivation automatique à chaque publication** — « Shop » si votre boutique contient un bloc produit, sinon « Open ».
+- Définissez un libellé personnalisé (1 à 32 caractères) pour **figer le texte du bouton** — la dérivation automatique est ignorée à partir de ce moment, même après des changements de contenu ou une republication.
+- Videz le champ (chaîne vide) pour **revenir à la dérivation automatique**.
+- Utilisez un libellé personnalisé si votre audience ne parle pas anglais — le libellé automatique par défaut est uniquement en anglais.
 
-### Paramètres par entrée
+### Langue de l'UI de la boutique
 
-| Paramètre | Description |
-|---------|-------------|
-| Mode | Curated (réponse markdown inline) ou Agent (envoie une question pré-écrite) |
-| Question | Le label de la tuile que voient les utilisateurs |
-| Answer (curated uniquement) | Markdown rendu lorsque touché |
-| Question text (agent uniquement) | La question pré-écrite envoyée au bot |
-| Order | Position dans la liste (glisser pour réorganiser) |
+La coquille utilise par défaut la langue Telegram du client pour son chrome. Si vous avez rédigé votre boutique dans une seule langue, vous pouvez épingler la langue du chrome de la coquille : choisissez `en`, `es`, `pt` (brésilien), `fr`, ou `ru`. Laisser ce champ vide conserve le comportement de détection automatique.
 
-### Paramètres par bot
+Cela n'affecte que le **chrome de la coquille** (tiroir, boutons système, en-tête du Help Center) — tout ce que vous avez tapé dans un titre de hero, un nom de produit, ou un bloc rich-text est rendu tel quel.
 
-| Paramètre | Description |
-|---------|-------------|
-| Plafond d'entrées | 50 par bot |
-| Cache TTL | ~5 minutes (défini côté plateforme ; non configurable par l'utilisateur) |
+## Chat IA par produit
 
-## Conseils
+N'importe quelle product card peut devenir un produit chattable. Chaque product card porte une rangée de deux boutons dans le compositeur pour gérer les documents qui alimentent son chat :
 
-<Callout type="tip">
-  **Privilégiez les entrées curated.** Elles sont gratuites à servir, instantanées pour les utilisateurs, et elles réduisent le volume de questions « faciles » qui atteignent votre agent — laissant le quota de l'agent pour les plus difficiles.
-</Callout>
+- **Attach docs** — ouvre un sélecteur qui vous permet de choisir parmi n'importe quel dossier de votre base de connaissances. Les documents déjà attachés à ce produit sont affichés désactivés pour vous empêcher de les attacher deux fois. Besoin d'un nouveau fichier ? Utilisez l'action **Upload new** en ligne dans le sélecteur — il atterrit dans votre KB et est automatiquement sélectionné.
+- **Linked docs (N)** — ouvre un gestionnaire qui liste tout ce qui est actuellement attaché. De là, vous pouvez **délier** un doc de ce produit (le doc reste dans votre KB et sur tous les autres produits auxquels il est lié) ou sauter dans la vue Knowledge Base pour l'éditer. Le gestionnaire affiche également une bande « Also linked to : … » lorsque le même doc alimente d'autres produits.
 
-<Callout type="info">
-  **Le contenu curated est du markdown, pas du HTML.** Le gras, l'italique, les listes, les liens et les blocs de code sont rendus. Les `<iframe>` embarqués ou le HTML arbitraire ne le sont pas.
-</Callout>
+Quand un client appuie sur le produit, un chat intégré au panneau s'ouvre. **Le chat est limité aux seuls documents liés à ce produit unique** — l'assistant ne laissera pas fuiter de réponses provenant des fichiers d'autres produits. Les conversations sont diffusées en direct (SSE) et stockées dans une collection dédiée par intégration.
 
-<Callout type="warning">
-  Les entrées en mode agent envoient la question pré-écrite via le pipeline normal du bot — cela signifie qu'elles consomment le même quota de conversation qu'un message utilisateur réel. Pour les boutons de raccourcis à fort trafic, préférez le mode curated.
-</Callout>
+Quelques éléments importants à connaître :
+
+- **Un seul doc peut alimenter plusieurs produits.** Partagez un seul PDF « Livraison et retours » sur chaque produit au lieu de l'uploader cinq fois.
+- **Le déliage est par produit.** Retirer un doc d'une product card le laisse intact dans votre KB et sur tous les autres produits qui y sont liés. Pour supprimer un doc partout, supprimez-le depuis la page Knowledge — tous les liens produits associés sont nettoyés automatiquement.
+- **Les docs atterrissent dans un dossier Showcase Products par défaut** quand vous utilisez l'upload en ligne depuis le sélecteur, mais vous êtes libre de les organiser n'importe où dans votre KB.
+
+Des limites de palier s'appliquent au nombre total de docs produit que vous pouvez attacher (voir [Limites de palier](#tier-limits)).
+
+## Demandes de commande & panier (optionnel)
+
+Vous pouvez attacher un **Order CTA** à n'importe quelle product card ou product grid. C'est purement un transfert de message structuré — **pas de paiements, pas de stocks, pas de fulfillment**.
+
+### Deux modes
+
+- **Mode `inquiry`** — le client appuie sur « Order this » → un formulaire s'ouvre avec le produit pré-rempli → il soumet → un transfert atterrit dans votre inbox.
+- **Mode `cart`** — le client appuie sur « Add to cart » → le produit est ajouté à un panier local (vit uniquement dans son navigateur, indexé sur votre intégration) → il révise sur la page panier (un bloc **Cart review**) et passe à la caisse → un transfert multi-lignes atterrit dans votre inbox.
+
+### Champs du formulaire
+
+Choisissez n'importe quel sous-ensemble de `name`, `phone`, `email`, `notes`, `delivery_address`. **`name` est toujours requis** quel que soit ce que vous sélectionnez.
+
+### Ce qui se passe après la soumission
+
+1. Une nouvelle conversation est créée dans votre inbox avec le résumé de commande formaté comme premier message.
+2. Un **handoff** est créé — un membre d'équipe humain est signalé pour prendre le relais. Les lignes d'article et les informations de contact sont attachées en tant que métadonnées structurées.
+3. Le système **envoie instantanément un message localisé « Got your order »** en retour à la DM Telegram du client, ce qui maintient la fenêtre de réponse de 24 heures de Telegram ouverte pour que les réponses de votre équipe depuis l'inbox routent proprement vers le client.
+4. La vue détaillée de l'inbox affiche un **Order Request Panel** dédié avec lignes d'article, prix, informations de contact et notes proprement disposées.
+
+### Anti-spam / anti-doublon
+
+- Chaque client peut soumettre au maximum **10 commandes par minute** ; chaque tenant au maximum **100 par minute**.
+- Les doubles pressions dans les 60 secondes sur la **même commande exacte** sont dédupliquées ; deux commandes *différentes* dans les 60 secondes passent.
+
+## Help Center intégré
+
+Chaque boutique est livrée avec un petit **Help Center** — une page d'assistance épinglée à la fin du menu des pages, toujours à une pression pour les clients qui ont besoin d'une FAQ ou veulent poser une question au bot. Rédigé depuis un panneau dédié (Intégrations → fiche du bot → Help Center), il accueille jusqu'à environ 50 entrées avec réorganisation par glisser. Deux modes d'entrée : **curated** (réponse markdown rendue en ligne, zéro coût LLM) et **agent** (appuyer envoie une question pré-rédigée dans le chat du bot). Vous pouvez également faire remonter un sous-ensemble de ces entrées en ligne sur une page de la boutique via le **bloc FAQ** — utile pour placer quelques réponses clés à côté des fiches produit.
+
+La plupart des clients n'ont jamais besoin de l'ouvrir — les produits, la galerie et les CTA de commande répondent aux questions du parcours d'achat sur la boutique elle-même.
+
+## Images
+
+Quand vous uploadez une image dans le compositeur :
+
+- **Formats autorisés** : PNG, JPEG, WebP.
+- **Taille max d'upload** : 2 Mo (l'original — ce qui est stocké et servi est beaucoup plus petit).
+- **Recadreur en ligne** s'ouvre automatiquement, verrouillé au bon ratio d'aspect pour l'emplacement (16:9 pour les fonds hero, 1:1 pour les avatars produit / galerie / témoignage).
+- **Compression automatique** : la sortie du recadreur est compressée en WebP dans votre navigateur avant l'upload (hero ≤500 Ko, product/gallery ≤350 Ko, avatar ≤100 Ko).
+- **Texte d'aide sur les dimensions recommandées** est affiché au-dessus de chaque zone de dépôt vide.
+- **Les URL d'images se rafraîchissent automatiquement** toutes les 15 minutes via des URL présignées sécurisées — les clients ne voient jamais vos chemins de stockage bruts.
+
+Le plafond de 2 Mo porte sur l'original que vous uploadez, pas sur ce que les clients voient. Déposez une photo de téléphone 12 MP ou une prise de catalogue en résolution d'impression telle quelle — le recadreur dans le navigateur gère la réduction d'échelle sans perte de qualité visible.
+
+## Limites de palier
+
+Disponible sur tous les plans, y compris l'essai gratuit. Le compositeur applique les plafonds.
+
+| Palier | Pages | Blocs par page | Docs produit (total) |
+|--------|-------|----------------|-----------------------|
+| **Trial** | 5 | 25 | 100 |
+| **Starter** | Illimité | Illimité | Illimité |
+| **Plus** | Illimité | Illimité | Illimité |
+| **Enterprise** | Illimité | Illimité | Illimité |
+
+Remarques :
+
+- Une product grid ou un carousel **compte comme 1 bloc** dans la limite de blocs par page, quel que soit le nombre d'éléments ou de diapos qu'il contient.
+- Quand vous atteignez une limite, le compositeur affiche une modale de mise à niveau.
+- **La tarification est par organisation, pas par bot.** Ajouter un deuxième (ou cinquième) bot Telegram à votre organisation **ne change pas** le prix de votre palier. Chaque bot a sa propre boutique au sein du même plan ; les plafonds sont partagés entre tous vos bots sous une seule organisation.
+
+## Permissions
+
+Les actions d'écriture du compositeur (enregistrer, publier, upload d'image, upload de doc produit, revenir en arrière) requièrent toutes la permission **Integration manage** pour Telegram. En pratique, cela signifie que les rôles **Owner** et **Admin** peuvent rédiger la boutique ; le rôle **Member** est en lecture seule.
+
+Il n'y a **pas de rôle « boutique uniquement »** aujourd'hui — Owner et Admin voient tous deux la facturation. Si vous embauchez un prestataire pour construire votre boutique, vos options sont :
+
+- L'ajouter en tant qu'Admin (en sachant qu'il verra aussi la facturation).
+- Utiliser une session de partage d'écran où vous restez connecté et le freelance pilote.
+- Lui demander de préparer les actifs/textes hors ligne (un document avec tous les textes + images) et vous les collez en tant qu'Owner.
+
+Un rôle granulaire « Integration Editor » est dans la feuille de route.
+
+## Performance & fraîcheur
+
+- **Cache côté serveur** — la réponse publique de la boutique est mise en cache pendant **5 minutes** par intégration.
+- **Le cache est vidé à la publication** — au moment où vous cliquez sur Publish (ou Revert), le cache est nettoyé, pour que les clients voient vos changements dès leur prochaine requête de page.
+- **Support ETag** — la coquille utilise HTTP `If-None-Match` et reçoit un `304 Not Modified` rapide si rien n'a changé, ce qui maintient la consommation de données mobile basse.
+- **Les URL d'images** sont valides pendant 15 minutes ; la coquille les re-récupère automatiquement avant leur expiration.
+
+## Ce que ça NE fait PAS
+
+- **Pas de paiements.** Les Order CTA sont des transferts de demande, pas des checkouts Stripe / WhatsApp Pay / Telegram Stars.
+- **Pas de suivi des stocks.** Les badges de disponibilité sont des libellés texte libre que vous éditez manuellement.
+- **Pas de calculs de livraison / validation d'adresse.** L'adresse de livraison est collectée en tant que texte libre.
+- **Pas de comptes clients.** Les clients sont identifiés par leur ID utilisateur Telegram ; il n'y a pas de flux de connexion ou d'inscription.
+- **Pas de formulaires au-delà de Order Inquiry / Cart Checkout.** Le bloc contact est un affichage statique ; le bloc rich-text ne rend pas de formulaires.
+- **Les chemins « ask the bot » du Help Center et de commande refusent les lancements depuis des groupes / canaux** avec une erreur polie.
+
+## Parcours client de bout en bout
+
+1. Le client ouvre votre bot dans Telegram et appuie sur le bouton menu — libellé **« Shop »** (dérivé automatiquement des blocs produit) ou ce que vous avez défini comme libellé personnalisé.
+2. La boutique se charge à l'intérieur de Telegram. Il voit votre première page.
+3. Il balaie votre galerie, regarde votre vidéo, appuie sur un produit.
+4. Le produit s'ouvre dans un panneau. Il appuie sur « Ask a question » → un chat IA s'ouvre limité aux documents de ce produit. Il obtient une réponse.
+5. Il appuie sur « Order this » → un formulaire apparaît → il remplit nom + téléphone → soumet.
+6. Il reçoit instantanément un message « Got your order, we'll reach out » en retour dans sa DM Telegram.
+7. **Votre équipe reçoit un nouveau transfert dans l'Inbox** avec les détails de la commande. Toute réponse que votre équipe envoie depuis l'inbox atterrit dans la DM du client en temps réel.
 
 ## Dépannage
 
-### Le bouton de menu n'ouvre pas le Help Center
+### Le bouton menu n'ouvre pas la boutique
 
-1. Déconnectez et reconnectez l'intégration Telegram — le bouton de chat-menu est défini lors de l'étape de connexion, et un bot obsolète peut l'avoir perdu
-2. Vérifiez que votre bot est bien celui auquel les utilisateurs envoient des messages (`t.me/<bot-username>`)
-3. Si vous avez défini un bouton de menu personnalisé via BotFather, cela écrase l'auto-config de la plateforme — effacez-le via `/setmenubutton` de BotFather
+1. Confirmez que le **toggle on/off de la boutique** est activé (compositeur → rail gauche → Mini app settings).
+2. Déconnectez et reconnectez l'intégration Telegram — le bouton chat-menu est défini lors de l'étape de connexion, et un bot obsolète peut en manquer.
+3. Si vous avez défini un bouton menu personnalisé via BotFather, cela écrase la configuration automatique de la plateforme — videz-le via `/setmenubutton` de BotFather.
 
-### Les entrées que j'ai rédigées n'apparaissent pas
+### Les clients voient « currently unavailable » en ouvrant l'URL directement
 
-La Mini App utilise un cache serveur de 5 minutes. Attendez quelques minutes, puis demandez à l'utilisateur de rouvrir le bouton de menu (Telegram met aussi en cache la WebView — tirer pour rafraîchir la Mini App ou redémarrer Telegram l'efface).
+Le toggle on/off de la boutique est désactivé — réactivez-le depuis le rail gauche du compositeur.
 
-### La réponse curated se rend bizarrement
+### Les modifications que je viens d'enregistrer n'apparaissent pas pour les clients
 
-La Mini App rend le markdown via la même boîte à outils que le panneau d'administration — prévisualisez votre entrée dans le dialogue **Help Center** avant de sauvegarder. Si une liste ou un bloc de code semble faux, le markdown source manque généralement d'une ligne vide.
+Vos modifications sont toujours en **brouillon**. Cliquez sur **Publier** dans la barre d'outils du compositeur — le cache du serveur est vidé immédiatement. Si vous avez déjà publié et que les clients voient toujours du contenu obsolète, demandez-leur de tirer pour rafraîchir à l'intérieur de la boutique (Telegram met en cache la WebView).
 
-### « This bot doesn't have a Mini App »
+### Le chat produit répond avec les docs d'un autre produit
 
-C'est une fonctionnalité différente — Telegram fait apparaître l'absence d'un lien de lancement direct `t.me/<bot>/<app>`. Votre bouton de menu Help Center fonctionne toujours sans ce lien. Pour ajouter le lien de lancement direct, ouvrez le dialogue Mini App settings sur la carte du bot et suivez le playbook BotFather.
+Vérifiez le gestionnaire **Linked docs** sur la product card — seuls les docs explicitement liés là alimentent le chat. Si un doc n'apparaît pas, attachez-le via le sélecteur **Attach docs**.
 
-## Déconnecter
+### Le libellé de menu personnalisé n'a pas pris effet
 
-Le Help Center fait partie de l'intégration Telegram, il disparaît donc lorsque vous déconnectez le bot Telegram :
+Le champ de saisie du libellé a ses propres boutons **Save** / **Reset** (contrairement au toggle on/off, qui s'enregistre automatiquement). Cliquez sur **Save** après avoir tapé — les frappes partielles n'atteignent jamais Telegram.
 
-1. **Depuis Cuneiform Chat :** Integrations → carte Telegram → menu à trois points → **Delete**
+## Déconnexion
 
-Les entrées d'aide que vous avez rédigées sont supprimées avec l'intégration. Pour effacer uniquement le bouton de menu sans supprimer l'intégration, vous devriez définir un bouton de menu personnalisé via BotFather (`/setmenubutton`) — mais la plupart des utilisateurs veulent le bouton de menu activé, donc c'est rare.
+La boutique fait partie de l'intégration Telegram, donc elle disparaît quand vous déconnectez le bot :
 
-## Articles liés
+- **Intégrations → fiche Telegram → menu à trois points → Supprimer**
 
-- [Telegram](/integrations/telegram) — l'intégration parente ; la Mini App s'appuie dessus
-- [Saba sur Telegram](/integrations/saba-on-telegram) — bot Saba destiné aux opérateurs (fonctionnalité différente, également basée sur Telegram)
-- [Telegram Business](/integrations/telegram-business) — réponses AI sur le compte personnel d'un utilisateur Premium (fonctionnalité différente)
+Les pages, blocs et entrées d'aide que vous avez rédigés sont supprimés avec l'intégration. Pour garder le bot connecté mais mettre seulement la boutique hors ligne, basculez le **toggle on/off de la boutique** sur off à la place.
+
+## Lié
+
+- [Telegram](/integrations/telegram) — l'intégration parente ; la boutique se monte par-dessus
+- [Saba on Telegram](/integrations/saba-on-telegram) — bot Saba orienté opérateur (fonctionnalité différente, également basée sur Telegram)
+- [Telegram Business](/integrations/telegram-business) — réponses IA sur le compte personnel d'un utilisateur Premium (fonctionnalité différente)
