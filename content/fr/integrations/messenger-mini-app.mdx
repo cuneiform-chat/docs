@@ -1,0 +1,174 @@
+# Boutique Messenger (Mini App intégrée à l'application)
+
+**Transformez votre Page Facebook en véritable boutique intégrée.** Construisez un catalogue produits multipage soigné — avec photos, vidéos, pages thématiques, un assistant IA par produit et une prise de commande légère — qui s'ouvre *à l'intérieur* de Messenger dès que votre client appuie sur le bouton **« Open Storefront »** du Persistent Menu de votre Page. Pas d'app store, pas de site séparé, pas de checkout à gérer. Une simple pression, et votre client parcourt déjà votre boutique.
+
+Gratuit sur tous les plans, y compris l'essai. Construit dans le même compositeur visuel par glisser-déposer que la Boutique Telegram — les mêmes 11 types de blocs, les mêmes 6 thèmes, le même chat IA par produit, les mêmes CTA de commande légers — disponible dans **Intégrations → Page Facebook → Configurer la mini app**.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Cette page couvre la boutique Mini App orientée client qui accompagne chaque intégration **Meta (Facebook)**. Le moteur de la boutique est partagé avec la [Boutique Telegram](/integrations/telegram-mini-app) — même compositeur, mêmes blocs, mêmes thèmes. Seuls le lanceur et quelques comportements spécifiques à Messenger diffèrent.
+</Callout>
+
+## Ce que vous pouvez construire
+
+Les mêmes formes que la Boutique Telegram — chaque type de bloc et chaque thème se transposent :
+
+- **Boutique en ligne** — bannière hero + grille de produits + chat par produit + formulaire de demande de commande. Les commandes arrivent dans votre inbox ; un coéquipier répond depuis là.
+- **Carte de restaurant** — multipage (Entrées / Plats / Boissons) + galerie photo + checkout en mode panier avec un champ adresse de livraison.
+- **Catalogue de cours ou de services** — fiches produit avec une vidéo d'intro, des témoignages, et un CTA « Réserver un appel » qui renvoie vers le bot.
+- **Site vitrine** — hero + page à propos + galerie + carte de contact + FAQ. Sans aucun produit. Une brochure mobile élégante qui vit à l'intérieur de votre Page Facebook.
+- **Landing de capture de leads** — une page, un hero, un formulaire, un CTA. Le tunnel Messenger le plus léger possible.
+
+## Pourquoi ça compte
+
+- **Vos clients ne quittent jamais Messenger.** Pas d'installation d'app, pas de domaine à retenir, pas de tunnel de checkout à abandonner. La boutique s'ouvre dans la WebView de Messenger et hérite du thème et de la langue de l'utilisateur.
+- **Une seule pression depuis le chat de votre Page.** Une seule entrée **« Open Storefront »** est automatiquement injectée dans le Persistent Menu dès que vous connectez votre Page — aucune configuration Meta Business Suite, aucune app review, aucun câblage de webhook.
+- **Chat produit nativement IA.** Le chat par produit est limité aux documents *que vous* attachez à ce produit — l'assistant répond « quelle est la politique de retour de cette robe ? » sans laisser fuiter d'informations provenant d'autres produits.
+- **Transfert de commande à un humain réel.** Les formulaires de commande légers (mode inquiry ou cart) arrivent dans votre Inbox sous forme de transfert structuré, en gardant la DM Messenger du client ouverte pour le suivi.
+- **Gratuit sur tous les plans.** Les plafonds de l'essai (5 pages / 25 blocs par page / 100 docs produit) sautent sur chaque plan payant. La tarification est par organisation — ajouter une deuxième Page Facebook ne change pas le prix de votre palier.
+
+## En un coup d'œil
+
+- **Multipage**, par glisser-déposer. Les utilisateurs finaux appuient sur l'icône hamburger (en haut à gauche) pour changer de page. Si vous ne publiez qu'une seule page, elle se charge en plein écran.
+- **11 types de blocs** — Hero, Product card, Product grid, Carousel, Gallery, FAQ, Testimonial, CTA back-to-bot, Contact, Video, Rich text. (Cart est une page virtuelle injectée automatiquement quand vous utilisez des CTA de commande en mode panier — il n'y a pas de bloc « Cart review » séparé.)
+- **6 thèmes** avec surcharges de style par bloc.
+- **Cycle de vie Draft → Publish** avec retour en un clic au dernier snapshot publié.
+- **Persistent Menu injecté automatiquement** — bouton unique « Open Storefront », libellé éditable, action verrouillée.
+- **Repli sur le chat externe** — les blocs sont projetés en Generic Templates dans le chat, en Quick Replies et en carrousels d'images pour les clients Messenger plus anciens.
+- **Help Center intégré** — une surface FAQ épinglée, toujours à une pression. Le même panneau que sur Telegram.
+- **Pas de paiements, pas de stocks, pas de livraison** — c'est une surface catalogue + capture de leads soignée, pas une stack e-commerce complète.
+
+## Comment les clients la trouvent
+
+Chaque Page Facebook connectée expose un **Persistent Menu** à toute personne qui lui envoie un message. Nous injectons automatiquement une seule entrée — **« Open Storefront »** (libellé par défaut, modifiable à n'importe quoi entre 1 et 32 caractères dans n'importe quelle langue) — qui ouvre votre boutique.
+
+Le flux de lancement est un **postback** :
+
+1. L'utilisateur final appuie sur **« Open Storefront »** dans le Persistent Menu.
+2. Le bot reçoit un postback `BROWSE_SHOWCASE`, génère un token de lancement à usage unique, et renvoie un Button Template avec un seul CTA « Open Storefront ».
+3. L'utilisateur final appuie sur le bouton → Messenger ouvre une WebView → la boutique se charge.
+
+Cela représente une pression supplémentaire par rapport à une approche « appuyer sur le menu → WebView instantanée ». Nous utilisons le modèle postback parce que le modèle WebView directe échoue silencieusement sur une cohorte significative de clients Messenger plus anciens (erreur du SDK Meta `2071011`). Avec postback via Button Template, chaque client que nous avons testé fonctionne — et le token de lancement est à usage unique, lié par HMAC, et vit dans la DM du destinataire, donc aucune exposition à un abus par lien partagé.
+
+<Callout type="info">
+  L'action et le payload du postback (`BROWSE_SHOWCASE`) sont verrouillés côté serveur. La seule chose que vous contrôlez via le panneau d'administration est le libellé du bouton.
+</Callout>
+
+## Prérequis
+
+- Une [intégration Meta (Facebook)](/integrations/facebook) connectée. La boutique se monte par-dessus — il n'y a pas d'intégration séparée à ajouter.
+- (Optionnel) Images de produits, textes de produits, entrées FAQ, et documents de base de connaissances à câbler dans le chat par produit.
+
+## Démarrage rapide (5 minutes)
+
+Le chemin le plus court entre « j'ai connecté une Page » et « mon premier client parcourt la boutique » :
+
+1. **Allez dans Intégrations → votre Page Facebook → Configurer la mini app.** Le compositeur s'ouvre en état Draft.
+2. **Cliquez sur « + Ajouter une page »** dans le rail gauche. Nommez-la (par ex. « Accueil »).
+3. **Ajoutez un bloc Hero** — titre, sous-titre, image de fond 16:9 (déposez une photo, le recadreur s'ouvre automatiquement).
+4. **Ajoutez une Product card** — nom, prix, image 1:1, description courte. Activez **AI chat** et attachez un doc (une fiche technique PDF, votre politique de livraison — n'importe quoi depuis votre KB).
+5. **Ajoutez un Order CTA** sur ce produit — choisissez le mode `inquiry`, choisissez les champs du formulaire (`name` est toujours requis).
+6. **Cliquez sur Publish.** Nous publions automatiquement le Persistent Menu — le menu de votre Page affiche désormais « Open Storefront » à chaque visiteur.
+7. **Envoyez une DM à votre propre Page depuis un autre compte Facebook.** Appuyez sur le menu → « Open Storefront » → « Open Storefront » (le Button Template). Appuyez sur votre produit. Appuyez sur « Ask a question ». Appuyez sur « Order this ». Soumettez. Vous verrez le transfert arriver dans votre Inbox en quelques secondes.
+
+C'est la Boutique Messenger minimale viable. Ajoutez plus de pages, plus de produits, des thèmes, des vidéos et un Help Center au fur et à mesure de votre croissance.
+
+## Le compositeur
+
+Le compositeur est le **même éditeur** que celui de la Boutique Telegram — voir [Boutique Telegram : Le compositeur](/integrations/telegram-mini-app#le-compositeur) pour la visite complète (disposition à 3 panneaux, cycle de vie draft/publish, recadreur d'image, limites de palier). La seule surface spécifique au canal est l'onglet **Distribute**.
+
+## L'onglet Distribute (Messenger)
+
+L'onglet le plus à droite du compositeur est **Distribute**. Sur Messenger, il affiche :
+
+| Section | Ce qu'elle fait |
+|---------|-----------------|
+| **Persistent Menu label** | Un seul champ éditable pour le titre du bouton. Par défaut : `Open Storefront`. 1 à 32 caractères, n'importe quelle langue. L'action et le payload du postback (`BROWSE_SHOWCASE`) sont verrouillés côté serveur. |
+| **Ice Breakers** | Prompts de démarrage optionnels affichés aux premiers visiteurs (fonctionnalité native de Messenger). Ajoutez jusqu'à quatre questions courtes ; Messenger les présente sous forme de chips en une pression sur le fil vide. |
+| **Publish to Messenger** | Repousse manuellement le Persistent Menu + les Ice Breakers vers Meta. Utile juste après avoir connecté une Page si l'injection automatique à la connexion a été rejetée (par exemple, les permissions de gestion de Page n'avaient pas encore été propagées). |
+| **Bannière Connect-your-Page** | Si votre intégration a été connectée avant que Meta ne vous accorde les permissions de gestion de Page, une bannière ambre épinglée vous guide à travers l'étape manquante. |
+
+<Callout type="info">
+  **Aucune étape de configuration Meta Business Suite n'est requise**. Le Persistent Menu est défini automatiquement dès que vous connectez votre Page, via la Messenger Profile API de Meta. Si l'injection automatique échoue (rare), appuyez sur **Publish to Messenger** pour réessayer.
+</Callout>
+
+## Repli sur le chat externe pour clients anciens
+
+Pour les utilisateurs finaux sur des clients Messenger qui ne peuvent pas du tout ouvrir de WebView, la boutique fonctionne quand même — elle se projette dans le fil de chat lui-même. L'adaptateur Send API dans `outer_chat_adapter.py` mappe chacun des 11 types de blocs sur une primitive native Messenger :
+
+- **Hero / Product card / CTA back-to-bot** → carte Generic Template
+- **Product grid / Carousel** → carrousel Generic Template (plusieurs cartes à balayer)
+- **Gallery** → messages séquence d'images
+- **FAQ / Rich text** → messages texte avec Quick Replies optionnelles
+- **Testimonial / Contact** → carte Generic Template avec boutons d'action
+- **Video** → pièce jointe vidéo + légende
+
+Pas d'UI cassée, pas d'impasse. La même liste de produits, les mêmes Order CTA — simplement rendus comme templates dans le chat.
+
+## Flux de récupération pour les utilisateurs finaux
+
+Si un utilisateur final atterrit dans une WebView qui ne peut pas bootstrap son authentification (très rare — seulement sur quelques très anciens clients), la coquille de la boutique affiche une bannière épinglée en haut de l'écran avec un lien retour vers votre Page à `m.me/{page_id}?ref=BROWSE_SHOWCASE`. Une pression les ramène au fil Messenger ; appuyer à nouveau sur **« Open Storefront »** leur attribue un token de lancement frais et ils sont de retour à l'intérieur.
+
+C'est automatique — aucune configuration administrateur requise.
+
+## Commandes & transferts
+
+Les Order CTA fonctionnent de la même façon que sur la Boutique Telegram — mode inquiry ou mode cart, mêmes champs de formulaire configurables, même DM instantanée « Got your order », même Order Request Panel dans l'Inbox.
+
+La seule différence spécifique à Messenger : les transferts de commande arrivent dans l'inbox avec `metadata.type == "messenger_mini_app_order"` (Telegram utilise `mini_app_order`). L'inbox rend le même panneau pour les deux.
+
+La **fenêtre de messagerie de 24 heures** s'applique aux messages de suivi : Meta ne vous laisse envoyer un message à un utilisateur que dans les 24 heures suivant son dernier message entrant. Le postback de lancement de la boutique réinitialise la fenêtre, donc la DM « Got your order » et tout suivi de l'équipe arrivent normalement — mais si le client reste silencieux plus de 24 heures, vous aurez besoin qu'il envoie à nouveau un message à votre Page avant de pouvoir répondre.
+
+Voir [Boutique Telegram : Demandes de commande & panier](/integrations/telegram-mini-app#demandes-de-commande--panier-optionnel) pour la visite complète du flux de commande (champs du formulaire, limites anti-spam, fenêtre de déduplication) — tout est partagé avec Messenger.
+
+## Modèle d'authentification (pour les curieux)
+
+Vous n'avez pas besoin d'y penser — la plateforme s'en occupe. Mais si vous êtes curieux :
+
+- **Lectures publiques** (`/style`, `/showcase`, `/help-entries`) sont totalement publiques, indexées par `?i={integration_id}`. Pas de cookie, pas de signed_request, pas de rate-limit dessus — chaque client en démarrage à froid rend la boutique immédiatement.
+- **Actions d'écriture** (`/ask`, `/track`, `/product-chat/stream`, `/order-inquiry`) requièrent une session. Voie principale : un cookie httpOnly `messenger_mini_app_session` généré à partir d'un token de lancement à usage unique (partitionné via CHIPS, pour que le navigateur in-app de Messenger ne le bloque pas comme tiers). Repli : le HMAC `signed_request` de Meta pour le client rare où le SDK fonctionne encore.
+
+C'est tout. Aucun client ne voit de prompt de connexion.
+
+## Ce que ça NE fait PAS
+
+La même portée que la Boutique Telegram :
+
+- **Pas de paiements.** Les Order CTA sont des transferts de demande, pas des Checkout API ni Stripe.
+- **Pas de suivi des stocks.** Les badges de disponibilité sur les product cards sont des libellés texte libre que vous éditez manuellement (« Sold out », « Pre-order », « Last 3 »).
+- **Pas de calculs de livraison / validation d'adresse.** L'adresse de livraison est collectée en tant que texte libre.
+- **Pas de comptes clients.** Les clients sont identifiés par leur PSID Messenger ; il n'y a pas de flux de connexion ou d'inscription.
+- **Pas de commentaires de Page ni de publications de Page.** Cette intégration ne gère que les fils Messenger et les lancements de boutique.
+- **Pas de boutique pour les DM Instagram** (encore). La même intégration Meta ne couvre que Messenger ; les DM Instagram restent en conversation texte uniquement.
+- **La fenêtre de messagerie de 24 heures s'applique.** Voir ci-dessus.
+
+## Dépannage
+
+### « Open Storefront » n'apparaît pas dans le menu de ma Page
+
+1. Ouvrez le compositeur → onglet **Distribute** → appuyez sur **Publish to Messenger**.
+2. Si vous voyez une bannière ambre « Connect your Page », complétez d'abord cette étape — l'injection automatique a besoin de permissions de gestion de Page.
+3. Si la bannière reste après une republication, déconnectez et reconnectez l'intégration. L'injection automatique post-connexion repart à zéro.
+
+### Le client dit que le bouton n'ouvre rien
+
+C'est presque toujours un client Messenger obsolète. La coquille lui affiche une bannière « retour au chat » en une pression ; il rouvre la Page, appuie à nouveau sur **« Open Storefront »**, et le prochain token de lancement obtient une nouvelle rédemption.
+
+### La boutique s'ouvre mais je ne peux pas soumettre de commande
+
+Vérifiez que :
+1. Vous êtes dans Messenger (pas dans le wrapper web habituel de Facebook).
+2. Le dernier message entrant du client à votre Page date de moins de 24 heures (ou il vient d'appuyer sur le bouton de lancement, ce qui réinitialise la fenêtre).
+3. Votre Inbox est bien affiché — la commande peut être arrivée, mais filtrée par une recherche ou un filtre de statut.
+
+### L'injection automatique a échoué et le bouton Publish to Messenger est grisé
+
+Il vous manque des permissions de gestion de Page. Allez dans **Intégrations → votre intégration Meta → menu à trois points → Reconnecter**. Le flux OAuth vous redemande le scope manquant.
+
+## Remarques importantes
+
+- **Une boutique par Page** : chaque Page Facebook a son propre brouillon et sa propre boutique publiée — indépendante des autres Pages de la même organisation.
+- **La tarification est par organisation, pas par Page** : ajouter une deuxième Page Facebook ne change PAS le prix de votre palier.
+- **Compositeur partagé avec Telegram** : si vous opérez les deux canaux, le même compositeur construit les deux — il suffit d'ouvrir le lien « Configurer la mini app » de chaque intégration. Les thèmes, blocs et entrées du Help Center ne se relient pas entre canaux, mais les patrons se transposent.
+- **L'adaptateur de chat externe est automatique** : vous ne le configurez pas. Chaque bloc que vous publiez est projeté en Generic Templates / Quick Replies / carrousels d'images pour le chemin de repli.
