@@ -11,6 +11,7 @@ const meta: MetaRecord = {
   whatsapp: 'WhatsApp',
   'google-chat': 'Google Chat',
   facebook: 'Meta (Facebook)',
+  'messenger-mini-app': 'Messenger Storefront',
   'website-widget': 'Website Widget',
 }
 

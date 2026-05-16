@@ -2,10 +2,17 @@
 
 Connect your agent to Facebook Messenger through your Facebook Page.
 
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Every connected Facebook Page also gets a built-in **in-app Storefront** that launches from the Page's Persistent Menu — multipage product catalog, per-product AI chat, and one-tap order intake right inside Messenger. See [Messenger Storefront](/integrations/messenger-mini-app).
+</Callout>
+
 ## Overview
 
 Meta integration provides:
 - Facebook Messenger conversations via your Page
+- A built-in [Messenger Storefront](/integrations/messenger-mini-app) launchable from the Page's Persistent Menu
 - Background processing with typing indicators
 - Automatic message splitting for long responses
 - 24-hour messaging window compliance
@@ -49,8 +56,6 @@ When users message your Facebook Page through Messenger:
 2. The bot shows a typing indicator while processing
 3. Your agent processes the question
 4. Response is sent back through Messenger
-
-import { Callout } from 'nextra/components'
 
 <Callout type="info">
   Messages are processed in the background. The bot shows a typing indicator while your agent generates a response.
