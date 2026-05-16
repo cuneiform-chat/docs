@@ -2,10 +2,17 @@
 
 Conecte seu agent ao Facebook Messenger por meio da sua Page do Facebook.
 
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Toda Page do Facebook conectada já vem com uma **Loja dentro do aplicativo** que abre a partir do Persistent Menu da Page — catálogo de produtos com várias páginas, chat de IA por produto e captação de pedidos em um toque dentro do Messenger. Veja [Loja Messenger](/integrations/messenger-mini-app).
+</Callout>
+
 ## Visão Geral
 
 A integração com Meta oferece:
 - Conversas pelo Facebook Messenger via sua Page
+- Uma [Loja Messenger](/integrations/messenger-mini-app) integrada que abre a partir do Persistent Menu da Page
 - Processamento em segundo plano com indicadores de digitação
 - Divisão automática de mensagens para respostas longas
 - Conformidade com a janela de mensageria de 24 horas
@@ -50,8 +57,6 @@ Quando os usuários enviam mensagens à sua Page do Facebook pelo Messenger:
 2. O bot exibe um indicador de digitação enquanto processa
 3. Seu agent processa a pergunta
 4. A resposta é enviada de volta pelo Messenger
-
-import { Callout } from 'nextra/components'
 
 <Callout type="info">
   As mensagens são processadas em segundo plano. O bot exibe um indicador de digitação enquanto seu agent gera a resposta.
