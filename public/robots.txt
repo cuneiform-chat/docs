@@ -1,56 +1,40 @@
 # Cuneiform Chat Documentation
 # https://docs.cuneiform.chat
 #
-# Disabled locales (bn, hi, th, ar) are not built; their /<locale>/* paths
-# 404 with a JS redirect to /en. Disallow keeps crawlers from reporting them.
+# Disabled locales (bn, hi, th) are not built; their /<locale>/* paths return
+# HTTP 404 server-side. We intentionally do NOT Disallow them: robots blocks
+# prevent crawling but do not drop already-indexed URLs — letting Google see
+# the 404 is what causes the URL to fall out of the index over time.
+#
+# /_next/static/media/ holds hashed font files that occasionally land in the
+# index as "Crawled - currently not indexed"; not user-facing.
 
 User-agent: *
 Allow: /
-Disallow: /bn/
-Disallow: /hi/
-Disallow: /th/
-Disallow: /ar/
+Disallow: /_next/static/media/
 
 User-agent: GPTBot
 Allow: /
-Disallow: /bn/
-Disallow: /hi/
-Disallow: /th/
-Disallow: /ar/
+Disallow: /_next/static/media/
 
 User-agent: ClaudeBot
 Allow: /
-Disallow: /bn/
-Disallow: /hi/
-Disallow: /th/
-Disallow: /ar/
+Disallow: /_next/static/media/
 
 User-agent: PerplexityBot
 Allow: /
-Disallow: /bn/
-Disallow: /hi/
-Disallow: /th/
-Disallow: /ar/
+Disallow: /_next/static/media/
 
 User-agent: Google-Extended
 Allow: /
-Disallow: /bn/
-Disallow: /hi/
-Disallow: /th/
-Disallow: /ar/
+Disallow: /_next/static/media/
 
 User-agent: Applebot-Extended
 Allow: /
-Disallow: /bn/
-Disallow: /hi/
-Disallow: /th/
-Disallow: /ar/
+Disallow: /_next/static/media/
 
 User-agent: CCBot
 Allow: /
-Disallow: /bn/
-Disallow: /hi/
-Disallow: /th/
-Disallow: /ar/
+Disallow: /_next/static/media/
 
 Sitemap: https://docs.cuneiform.chat/sitemap.xml

@@ -39,6 +39,31 @@ const RESERVED_TOP = new Set([
 // Files inside out/en/ that should not generate a legacy mirror.
 const SKIP_LEAF = new Set(['404.html', 'index.html', 'index.txt', 'en.txt'])
 
+// Orphan paths Google indexed that have no /en/<name>.html equivalent — almost
+// all are Telegram/BotFather slash-commands documented inside MDX prose. Markdown
+// renders `/newbot` as plain text (backticks are correctly applied today), but
+// Google still crawls these URLs from external links and older index entries.
+// Map each to the most relevant doc page.
+const ORPHAN_REDIRECTS = {
+  // BotFather commands
+  '/newbot': '/en/integrations/telegram',
+  '/mybots': '/en/integrations/telegram',
+  '/setdescription': '/en/integrations/telegram',
+  '/setabouttext': '/en/integrations/telegram',
+  '/setprivacy': '/en/integrations/telegram',
+  '/setuserpic': '/en/integrations/telegram',
+  '/start': '/en/integrations/telegram',
+  // Google Chat commands
+  '/set-agent': '/en/integrations/google-chat',
+  '/connect': '/en/integrations/google-chat',
+  // Saba-on-Telegram commands
+  '/ask': '/en/integrations/saba-on-telegram',
+  '/health': '/en/integrations/saba-on-telegram',
+  '/help': '/en',
+  // Misc
+  '/usage': '/en/billing/usage',
+}
+
 if (!existsSync(EN_DIR)) {
   console.error('[legacy-redirects] out/en/ not found — did `next build` run?')
   process.exit(1)
@@ -106,7 +131,22 @@ for (const rel of files) {
   written++
 }
 
+let orphansWritten = 0
+let orphansSkipped = 0
+for (const [urlPath, target] of Object.entries(ORPHAN_REDIRECTS)) {
+  // urlPath is e.g. "/newbot" → file "out/newbot.html"
+  const legacyFile = join(OUT_DIR, urlPath.replace(/^\//, '') + '.html')
+  if (existsSync(legacyFile)) {
+    orphansSkipped++
+    continue
+  }
+  mkdirSync(dirname(legacyFile), { recursive: true })
+  writeFileSync(legacyFile, stubHtml(target))
+  orphansWritten++
+}
+
 console.log(
-  `[legacy-redirects] wrote ${written} stub(s), ` +
-    `skipped ${skippedReserved} reserved + ${skippedExists} pre-existing.`
+  `[legacy-redirects] wrote ${written} mirror stub(s), ` +
+    `skipped ${skippedReserved} reserved + ${skippedExists} pre-existing; ` +
+    `wrote ${orphansWritten} orphan stub(s), skipped ${orphansSkipped} pre-existing.`
 )
