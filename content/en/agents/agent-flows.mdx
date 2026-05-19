@@ -1,0 +1,147 @@
+# Agent Flows
+
+Multi-screen WhatsApp forms an AI agent can hand to a customer mid-conversation. The agent decides when to ask for structured information — name, dates, an uploaded ID photo, a multi-step questionnaire — and your customer fills it in with a native WhatsApp form rather than a long back-and-forth chat.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Agent Flows currently runs on **WhatsApp only**. Web widget, Telegram, and Messenger renderers are on the roadmap.
+</Callout>
+
+## When to use Agent Flows
+
+Reach for a flow when chat alone is the wrong shape for the question:
+
+- **Lead capture** — name + email + business size + meeting preference, all in one screen the customer fills in once
+- **Appointment booking** — pick a date, pick a time slot, confirm
+- **Document or photo upload** — collect an ID, a receipt, a damaged-product photo
+- **Multi-step intake** — symptom checklists, application forms, surveys
+- **Conditional questions** — only ask "what kind of pet?" if they said yes to "do you have a pet?"
+
+The agent recommends a flow when its system prompt + the conversation context match. You set up the flow once in the admin panel; the agent reuses it across every conversation.
+
+## Building a flow
+
+Flows live under **Agent Flows** in the customer admin panel. Each flow has:
+
+- A **name and description** the agent reads to decide when to use it
+- One or more **screens**, each containing **components** (fields)
+- Optional **screen logic** (branch to different screens based on what the customer picks)
+- Optional **A/B variants** (Plan 3 — split traffic between two versions)
+- Per-locale **publications** to WhatsApp (translate once, publish per language)
+
+## Component library — 23 variants
+
+The composer's **Add field** menu groups all 23 components into seven categories. Pick the right shape for the data you need.
+
+### Display (chrome, no input)
+
+These render text or images on the screen without asking the customer for input.
+
+| Component | Use it for |
+|-----------|-----------|
+| **Text Heading** | A large title at the top of a screen (≤ 80 characters) |
+| **Text Subheading** | A secondary title under the heading (≤ 80 characters) |
+| **Text Body** | A paragraph of explanatory copy. Supports **bold** and ~~strikethrough~~ (≤ 4096 characters) |
+| **Text Caption** | Small supporting copy; markdown allowed (≤ 4096 characters) |
+| **Rich Text** | A markdown block — useful for terms, disclaimers, formatted instructions |
+| **Image** | A single image (≤ 100 KB) |
+| **Image Carousel** | Up to 10 swipeable images with captions — product galleries, before/after, instructions |
+
+### Inputs (single-line and multi-line text)
+
+| Component | Use it for |
+|-----------|-----------|
+| **Text Input** | A single-line text box — name, email, short answers |
+| **Text Area** | A multi-line text box — comments, descriptions, longer answers (≤ 600 characters) |
+| **Embedded Link** | An inline tap-to-open link with custom text (≤ 25 characters) |
+
+### Choices (pick from a set)
+
+| Component | Use it for |
+|-----------|-----------|
+| **Dropdown** | Pick one from a long list (10+ options) |
+| **Radio Buttons** | Pick one from a short list (≤ 5 options), all visible at once |
+| **Checkboxes** | Pick any number from a list, with optional minimum and maximum |
+| **Chips Selector** | Pick from up to 20 tag-style chips — interests, categories, multi-select with a tight footprint |
+
+### Date & time
+
+| Component | Use it for |
+|-----------|-----------|
+| **Date Picker** | A single date — booking date, date of birth |
+| **Calendar Picker** | A calendar surface with optional date range, min/max bounds, and unavailable dates greyed out — appointment booking, hotel stays |
+
+<Callout type="info">
+  Both `Date Picker` and `Calendar Picker` are kept as distinct components. Use the **Date Picker** for a quick single date; use the **Calendar Picker** when you need a visible month grid, a range, or to grey out specific dates.
+</Callout>
+
+### Media uploads
+
+| Component | Use it for |
+|-----------|-----------|
+| **Photo Picker** | Customer uploads photos from the camera or gallery (up to 30 per submission) |
+| **Document Picker** | Customer uploads documents — PDF, DOC, etc. (up to 10 per submission) |
+
+<Callout type="warning">
+  **Mutex:** A single screen can hold either a Photo Picker **or** a Document Picker, but not both. Put them on separate screens if your flow needs both kinds of upload.
+</Callout>
+
+### Layout
+
+| Component | Use it for |
+|-----------|-----------|
+| **Navigation List** | Up to 20 tappable rows with chevrons — choose a category, choose a product, choose a destination screen |
+| **Opt-In** | A consent checkbox — terms of service, marketing opt-in, GDPR consent |
+| **Footer** | The submit affordance on the last screen of the flow |
+
+### Logic (conditional rendering)
+
+| Component | Use it for |
+|-----------|-----------|
+| **If** | Render some components only when a condition is true (`then`) — optionally with an alternative (`else`) |
+| **Switch** | Render different components based on a value the customer picked earlier (multiple `cases` + optional `default`) |
+
+<Callout type="info">
+  **If** and **Switch** support up to **3 levels of nesting**. If you find yourself nesting deeper than that, split the logic across multiple screens with screen-level routing instead.
+</Callout>
+
+## Multi-screen flows and routing
+
+A flow can have up to **10 screens**. Each screen ends with a **Footer** that either submits the flow or moves to the next screen. Use the **screen logic** editor to route the customer to a different next screen based on what they picked — for example, customers who select "Refund" go to a refund-specific second screen; everyone else goes to the generic follow-up screen.
+
+For component-level conditional rendering inside a single screen, use **If** / **Switch** instead.
+
+## Localisation
+
+Flows publish per language. Translate the flow once, pick the locales you ship in (the platform supports `en`, `es`, `pt-BR`, `fr`, `ru`, `ar` today), and each customer sees the version that matches their WhatsApp language. If a customer's language isn't published, the integration's default locale is used as a fallback.
+
+## A/B testing
+
+If you want to test two versions of a flow against each other, configure them as **variants** in the Variants tab. Customers are split deterministically (same customer always sees the same variant); the **Submissions** view shows which variant each submission came from, and the **Field Heatmap** lets you compare drop-off and completion rates side by side.
+
+## AI generation
+
+If you have a higher-tier plan, the composer offers **AI form generation**: write a one-line prompt ("a hotel booking form with date-range and photo upload"), or upload a PDF / image of an existing form, and the assistant drafts the flow for you. The draft is fully editable — every field is round-trippable in the composer (no opaque AI snapshots).
+
+## Submissions and analytics
+
+Once a flow is published, every submission lands in the **Submissions** view for that flow. Each row shows:
+
+- Who submitted, when, and through which agent
+- The full field values from the form
+- An **AI score** (0–100) the assistant assigned to the submission — high-value leads bubble to the top
+- The chat turns from the conversation **right before** the form was opened (the conversation-context join — see why the agent decided to ask for this submission)
+
+Aggregate analytics include a **KPI strip** (started / completed / drop-off rate), a **Field-Level Heatmap** showing where customers abandon, and a **Narrative Diagnostic** chat — an AI analyst you can ask "why are people dropping off on screen 2?" and it'll trace the answer through the heatmap, submissions, and conversation context.
+
+## Tier limits
+
+| Tier | Published flows | Locales per flow | AI generation |
+|------|-----------------|------------------|---------------|
+| Trial | 1 | 1 | — |
+| Starter | 1 | 1 | — |
+| Professional | Unlimited | Unlimited | ✅ |
+| Business | Unlimited | Unlimited | ✅ |
+
+All 23 component types are available on every tier that supports Agent Flows — there is no per-component tier-gating.
