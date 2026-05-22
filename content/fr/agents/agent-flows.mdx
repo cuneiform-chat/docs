@@ -1,0 +1,147 @@
+# Agent Flows
+
+Des formulaires WhatsApp multi-écrans qu'un agent IA peut présenter à un client en pleine conversation. L'agent décide quand demander des informations structurées — nom, dates, photo d'une pièce d'identité, questionnaire en plusieurs étapes — et votre client les saisit dans un formulaire WhatsApp natif plutôt qu'au fil d'un long échange de messages.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Agent Flows fonctionne sur **WhatsApp** et est disponible sur **toutes les formules payantes** (avec des limites selon la formule ; voir le tableau des limites par formule plus bas). Les moteurs de rendu pour le widget web, Telegram et Messenger sont sur la feuille de route.
+</Callout>
+
+## Quand utiliser Agent Flows
+
+Optez pour un flow lorsque le chat seul n'est pas la bonne forme pour la question :
+
+- **Capture de leads** — nom + e-mail + taille de l'entreprise + préférence de rendez-vous, le tout sur un écran que le client remplit en une fois
+- **Prise de rendez-vous** — choisir une date, choisir un créneau, confirmer
+- **Téléversement de documents ou de photos** — collecter une pièce d'identité, un reçu, la photo d'un produit endommagé
+- **Admission en plusieurs étapes** — listes de symptômes, formulaires de candidature, enquêtes
+- **Questions conditionnelles** — ne demander « quel type d'animal ? » que si la personne a répondu oui à « avez-vous un animal ? »
+
+L'agent recommande un flow lorsque son prompt système + le contexte de la conversation correspondent. Vous configurez le flow une seule fois dans le panneau d'administration ; l'agent le réutilise dans chaque conversation.
+
+## Créer un flow
+
+Les flows se trouvent sous **Agent Flows** dans le panneau d'administration du client. Chaque flow comporte :
+
+- Un **nom et une description** que l'agent lit pour décider quand l'utiliser
+- Un ou plusieurs **écrans**, chacun contenant des **composants** (champs)
+- Une **logique d'écran** facultative (bifurquer vers différents écrans selon le choix du client)
+- Des **variantes A/B** facultatives — répartir le trafic entre deux versions du même flow
+- Des **publications** par langue sur WhatsApp (traduire une fois, publier par langue)
+
+## Bibliothèque de composants — 23 variantes
+
+Le menu **Add field** de l'éditeur regroupe les 23 composants en sept catégories. Choisissez la forme adaptée aux données dont vous avez besoin.
+
+### Display (affichage, sans saisie)
+
+Ils affichent du texte ou des images à l'écran sans rien demander au client.
+
+| Composant | À utiliser pour |
+|-----------|-----------|
+| **Text Heading** | Un grand titre en haut d'un écran (≤ 80 caractères) |
+| **Text Subheading** | Un titre secondaire sous le titre principal (≤ 80 caractères) |
+| **Text Body** | Un paragraphe de texte explicatif. Prend en charge le **gras** et le ~~barré~~ (≤ 4096 caractères) |
+| **Text Caption** | Petit texte d'accompagnement ; markdown autorisé (≤ 4096 caractères) |
+| **Rich Text** | Un bloc markdown — utile pour les conditions, les mentions légales, les instructions formatées |
+| **Image** | Une seule image (≤ 100 Ko) |
+| **Image Carousel** | Jusqu'à 10 images défilantes avec légendes — galeries de produits, avant/après, instructions |
+
+### Inputs (texte sur une ou plusieurs lignes)
+
+| Composant | À utiliser pour |
+|-----------|-----------|
+| **Text Input** | Un champ de texte sur une ligne — nom, e-mail, réponses courtes |
+| **Text Area** | Un champ de texte multiligne — commentaires, descriptions, réponses plus longues (≤ 600 caractères) |
+| **Embedded Link** | Un lien intégré à toucher pour ouvrir, avec un texte personnalisé (≤ 25 caractères) |
+
+### Choices (choisir dans un ensemble)
+
+| Composant | À utiliser pour |
+|-----------|-----------|
+| **Dropdown** | Choisir un élément dans une longue liste (plus de 10 options) |
+| **Radio Buttons** | Choisir un élément dans une courte liste (≤ 5 options), toutes visibles à la fois |
+| **Checkboxes** | Choisir un nombre quelconque d'éléments dans une liste, avec un minimum et un maximum facultatifs |
+| **Chips Selector** | Choisir parmi jusqu'à 20 puces de type étiquette — centres d'intérêt, catégories, sélection multiple dans un espace réduit |
+
+### Date et heure
+
+| Composant | À utiliser pour |
+|-----------|-----------|
+| **Date Picker** | Une seule date — date de réservation, date de naissance |
+| **Calendar Picker** | Une surface de calendrier avec plage de dates facultative, bornes min/max et dates indisponibles grisées — prise de rendez-vous, séjours à l'hôtel |
+
+<Callout type="info">
+  `Date Picker` et `Calendar Picker` restent des composants distincts. Utilisez le **Date Picker** pour une date unique et rapide ; utilisez le **Calendar Picker** lorsque vous avez besoin d'une grille mensuelle visible, d'une plage ou de griser des dates précises.
+</Callout>
+
+### Téléversements de fichiers
+
+| Composant | À utiliser pour |
+|-----------|-----------|
+| **Photo Picker** | Le client téléverse des photos depuis l'appareil photo ou la galerie (jusqu'à 30 par envoi) |
+| **Document Picker** | Le client téléverse des documents — PDF, DOC, etc. (jusqu'à 10 par envoi) |
+
+<Callout type="warning">
+  **Exclusion mutuelle :** Un même écran peut contenir soit un Photo Picker **soit** un Document Picker, mais pas les deux. Placez-les sur des écrans séparés si votre flow a besoin des deux types de téléversement.
+</Callout>
+
+### Layout
+
+| Composant | À utiliser pour |
+|-----------|-----------|
+| **Navigation List** | Jusqu'à 20 lignes touchables avec chevrons — choisir une catégorie, choisir un produit, choisir un écran de destination |
+| **Opt-In** | Une case de consentement — conditions d'utilisation, consentement marketing, consentement RGPD |
+| **Footer** | L'élément d'envoi sur le dernier écran du flow |
+
+### Logic (rendu conditionnel)
+
+| Composant | À utiliser pour |
+|-----------|-----------|
+| **If** | N'afficher certains composants que lorsqu'une condition est vraie (`then`) — éventuellement avec une alternative (`else`) |
+| **Switch** | Afficher différents composants selon une valeur choisie plus tôt par le client (plusieurs `cases` + un `default` facultatif) |
+
+<Callout type="info">
+  **If** et **Switch** prennent en charge jusqu'à **3 niveaux d'imbrication**. Si vous imbriquez plus profondément, répartissez plutôt la logique sur plusieurs écrans avec un routage au niveau de l'écran.
+</Callout>
+
+## Flows multi-écrans et routage
+
+Un flow peut comporter jusqu'à **10 écrans**. Chaque écran se termine par un **Footer** qui envoie le flow ou passe à l'écran suivant. Utilisez l'éditeur de **logique d'écran** pour router le client vers un écran suivant différent selon son choix — par exemple, les clients qui sélectionnent « Remboursement » accèdent à un deuxième écran spécifique aux remboursements ; tous les autres vont à l'écran de suivi générique.
+
+Pour le rendu conditionnel au niveau du composant à l'intérieur d'un même écran, utilisez plutôt **If** / **Switch**.
+
+## Localisation
+
+Les flows se publient par langue. Traduisez le flow une fois, choisissez les langues dans lesquelles vous publiez (la plateforme prend en charge `en`, `es`, `pt-BR`, `fr`, `ru`, `ar` aujourd'hui) et chaque client voit la version qui correspond à la langue de son WhatsApp. Si la langue d'un client n'est pas publiée, la langue par défaut de l'intégration est utilisée comme repli.
+
+## Tests A/B
+
+Si vous souhaitez comparer deux versions d'un flow, configurez-les comme **variantes** dans l'onglet Variants. Les clients sont répartis de façon déterministe (un même client voit toujours la même variante) ; la vue **Submissions** indique de quelle variante provient chaque envoi, et le **Field Heatmap** vous permet de comparer les taux d'abandon et d'achèvement côte à côte.
+
+## Génération par IA
+
+Si vous disposez d'une formule de niveau supérieur, l'éditeur propose la **génération de formulaires par IA** : écrivez un prompt d'une ligne (« un formulaire de réservation d'hôtel avec plage de dates et téléversement de photo »), ou téléversez un PDF / une image d'un formulaire existant, et l'assistant rédige le flow pour vous. Le brouillon est entièrement modifiable — chaque champ est réversible dans l'éditeur (pas d'instantanés IA opaques).
+
+## Envois et analytique
+
+Une fois un flow publié, chaque envoi arrive dans la vue **Submissions** de ce flow. Chaque ligne indique :
+
+- Qui a envoyé, quand et via quel agent
+- Les valeurs complètes des champs du formulaire
+- Un **score IA** (0–100) attribué à l'envoi par l'assistant — les leads à forte valeur remontent en tête
+- Les tours de chat de la conversation **juste avant** l'ouverture du formulaire (la jointure avec le contexte de la conversation — pour voir pourquoi l'agent a décidé de demander cet envoi)
+
+L'analytique agrégée comprend une **bande de KPI** (démarrés / terminés / taux d'abandon), un **Field-Level Heatmap** qui montre où les clients abandonnent, et un **Narrative Diagnostic** — un analyste IA à qui vous pouvez demander « pourquoi les gens abandonnent-ils à l'écran 2 ? » et qui retrace la réponse à travers la carte de chaleur, les envois et le contexte de la conversation.
+
+## Limites par formule
+
+| Formule | Flows publiés | Langues par flow | Génération par IA |
+|------|-----------------|------------------|---------------|
+| Trial | 1 | 1 | — |
+| Starter | 1 | 1 | — |
+| Plus | Illimité | Illimité | ✅ |
+| Enterprise | Illimité | Illimité | ✅ |
+
+Les 23 types de composants sont disponibles sur toutes les formules qui prennent en charge Agent Flows — il n'y a pas de restriction par composant selon la formule.
