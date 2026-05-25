@@ -37,7 +37,7 @@ Empieza con una página y crece a un catálogo multipágina cuando estés listo.
 - **6 temas** (Telegram por defecto + 5 personalizados) con overrides de estilo por bloque.
 - **Ciclo de vida Draft → Publish** (borrador → publicar) con reversión de un clic al último snapshot publicado.
 - **Toggle de encendido/apagado por integración** — desactívalo y el menú del bot vuelve al selector de comandos `/` de Telegram; la URL pública devuelve `410 Gone` para que los marcadores obsoletos no filtren contenido.
-- **Shell con detección de idioma** (inglés, español, portugués brasileño, francés, ruso) — sigue automáticamente el idioma de Telegram del usuario final, o fija un solo idioma.
+- **Tienda multilingüe** — redacta el contenido de tu tienda en cualquiera de los idiomas que admite WhatsApp (con traducción por IA en un clic para rellenar lo que falte), y un selector de idioma integrado permite que cada visitante elija el suyo. Los idiomas de derecha a izquierda (árabe, hebreo, persa, urdu) se muestran correctamente. El propio chrome del shell sigue el idioma del dispositivo del visitante.
 - **Help Center integrado** — una superficie de FAQ fija para preguntas ad-hoc, siempre a un toque de distancia. [Ver más abajo](#built-in-help-center).
 - **Sin pagos, sin inventario, sin envíos** — esto es una superficie pulida de catálogo + captura de leads, no un stack completo de e-commerce. Combínalo con un humano en tu inbox y tienes un ciclo de ventas completo.
 
@@ -80,7 +80,7 @@ El compositor vive en **Integrations → [tu Telegram bot] → Configure mini ap
 
 | Panel | Qué hay ahí |
 |------|--------------|
-| **Barra izquierda** | Tu lista de páginas (arrastra para reordenar). La entrada fija del **Help Center** es de solo lectura aquí — esas entradas se editan desde un panel separado. Debajo de la lista de páginas: controles por integración (tienda on/off, etiqueta del botón de menú, idioma de la UI). |
+| **Barra izquierda** | Tu lista de páginas (arrastra para reordenar). La entrada fija del **Help Center** es de solo lectura aquí — esas entradas se editan desde un panel separado. Debajo de la lista de páginas: controles por integración (tienda on/off, etiqueta del botón de menú) y el selector de idioma para redactar traducciones. |
 | **Centro** | La lista de bloques de la página actualmente seleccionada. Arrastra para reordenar, agrega un bloque, duplica o elimina. |
 | **Derecha** | Un **iframe de vista previa en vivo** de cómo se verá la página. El toggle sol/luna alterna entre claro y oscuro. La vista previa se actualiza mientras escribes. |
 
@@ -151,11 +151,11 @@ Cada integración de Telegram tiene ajustes independientes, acotados a ese únic
 - Borra el campo (cadena vacía) para **volver a la derivación automática**.
 - Usa una etiqueta personalizada si tu audiencia no habla inglés — la etiqueta automática por defecto es solo en inglés.
 
-### Idioma de UI de la tienda
+### Idiomas de la tienda
 
-El shell usa por defecto el propio idioma de Telegram del cliente para su chrome. Si has redactado tu tienda en un solo idioma, puedes fijar el idioma del chrome del shell: elige `en`, `es`, `pt` (brasileño), `fr` o `ru`. Dejarlo en blanco mantiene el comportamiento de detección automática.
+Redacta tu tienda una vez en inglés y luego añade traducciones para cualquiera de los idiomas que admite WhatsApp. Abre el selector de idioma en el compositor, elige un idioma de destino y escribe las traducciones tú mismo o pulsa **Traducir** para obtener un borrador con IA en un clic que podrás editar. Las variantes regionales son de primera clase — portugués brasileño frente al europeo, chino simplificado frente al tradicional, etc. — para que hables a cada mercado en su propia forma.
 
-Esto solo afecta al **chrome del shell** (drawer, botones del sistema, encabezado del Help Center) — todo lo que hayas escrito en un titular hero, nombre de producto o bloque rich-text se renderiza tal cual.
+Cuando una tienda tiene más de un idioma, aparece un **selector de idioma** para los visitantes, y la tienda detecta automáticamente el idioma del dispositivo de cada visitante (con inglés como reserva). Los idiomas de derecha a izquierda como el árabe se muestran correctamente. Esto traduce el **contenido** que redactaste (titulares hero, nombres de producto, FAQ, rich-text) — el chrome del propio shell (drawer, botones del sistema) sigue el idioma del dispositivo del visitante por separado.
 
 ## Chat de IA por producto
 

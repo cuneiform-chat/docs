@@ -37,7 +37,7 @@ Start with one page, grow into a multipage catalog when you're ready.
 - **6 themes** (Telegram default + 5 custom) with per-block style overrides.
 - **Draft → Publish** lifecycle with one-click revert to the last published snapshot.
 - **Per-integration on/off toggle** — flip it off and the bot menu reverts to Telegram's `/` command picker; the public URL returns `410 Gone` so stale bookmarks don't leak content.
-- **Locale-aware shell** (English, Spanish, Brazilian Portuguese, French, Russian) — auto-follows the end user's Telegram language, or pin a single locale.
+- **Multilingual storefront** — author your storefront's content in any of WhatsApp's supported languages (with one-click AI translation to fill in the gaps), and a built-in language switcher lets each visitor pick their own. Right-to-left languages (Arabic, Hebrew, Persian, Urdu) render correctly. The shell's own buttons auto-follow the visitor's device language.
 - **Built-in Help Center** — a pinned FAQ surface for ad-hoc questions, always one tap away. [See below](#built-in-help-center).
 - **No payments, no inventory, no shipping** — this is a polished catalog + lead-capture surface, not a full e-commerce stack. Pair it with a human in your inbox and you have a complete sales loop.
 
@@ -80,7 +80,7 @@ The composer lives at **Integrations → [your Telegram bot] → Configure mini 
 
 | Pane | What's there |
 |------|--------------|
-| **Left rail** | Your list of pages (drag to reorder). The pinned **Help Center** entry is read-only here — you edit those entries from a separate panel. Below the page list: per-integration controls (storefront on/off, menu-button label, UI language). |
+| **Left rail** | Your list of pages (drag to reorder). The pinned **Help Center** entry is read-only here — you edit those entries from a separate panel. Below the page list: per-integration controls (storefront on/off, menu-button label) and the language switcher for authoring translations. |
 | **Center** | The block list for the currently-selected page. Drag-reorder, add a block, duplicate, or delete. |
 | **Right** | A **live preview iframe** of how the page will look. Sun/moon toggle flips light/dark. The preview updates as you type. |
 
@@ -151,11 +151,11 @@ Each Telegram integration has independent settings, scoped to that one bot. Addi
 - Clear the field (empty string) to **return to auto-derive**.
 - Use a custom label if your audience doesn't speak English — the default auto-label is English-only.
 
-### Storefront UI language
+### Storefront languages
 
-The shell uses the customer's own Telegram language for its chrome by default. If you've authored your storefront in only one language, you can pin the shell's chrome language: pick `en`, `es`, `pt` (Brazilian), `fr`, or `ru`. Leaving it blank keeps the auto-detect behavior.
+Author your storefront once in English, then add translations for any of WhatsApp's supported languages. Open the language switcher in the composer, pick a target language, and either type the translations yourself or hit **Translate** for a one-click AI draft you can edit. Region-specific variants are first-class — Brazilian vs. European Portuguese, Simplified vs. Traditional Chinese, and so on — so you can speak to each market in its own form.
 
-This only affects the **shell chrome** (drawer, system buttons, Help Center heading) — anything you typed in a hero headline, product name, or rich-text block is rendered as-is.
+When a storefront has more than one language, a **language switcher** appears for visitors, and the storefront auto-detects each visitor's device language (falling back to English). Right-to-left languages such as Arabic render correctly. This translates the **content** you authored (hero headlines, product names, FAQ, rich-text) — the shell's own chrome (drawer, system buttons) follows the visitor's device language separately.
 
 ## Per-product AI chat
 

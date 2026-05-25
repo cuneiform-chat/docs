@@ -37,7 +37,7 @@ Commencez avec une seule page, et faites évoluer vers un catalogue multipage qu
 - **6 thèmes** (Telegram par défaut + 5 personnalisés) avec surcharges de style par bloc.
 - **Cycle de vie Draft → Publish** avec retour en un clic au dernier snapshot publié.
 - **Toggle on/off par intégration** — désactivez-le et le menu du bot revient au sélecteur de commandes `/` de Telegram ; l'URL publique renvoie `410 Gone` pour que les marque-pages obsolètes ne laissent pas fuiter de contenu.
-- **Coquille sensible à la locale** (anglais, espagnol, portugais brésilien, français, russe) — suit automatiquement la langue Telegram de l'utilisateur, ou épinglez une locale unique.
+- **Boutique multilingue** — rédigez le contenu de votre boutique dans n'importe quelle langue prise en charge par WhatsApp (avec une traduction par IA en un clic pour combler les manques), et un sélecteur de langue intégré laisse chaque visiteur choisir la sienne. Les langues de droite à gauche (arabe, hébreu, persan, ourdou) s'affichent correctement. Le chrome de la coquille suit, lui, la langue de l'appareil du visiteur.
 - **Help Center intégré** — une surface FAQ épinglée pour les questions ponctuelles, toujours à une pression. [Voir ci-dessous](#built-in-help-center).
 - **Pas de paiements, pas de stocks, pas de livraison** — c'est une surface catalogue + capture de leads soignée, pas une stack e-commerce complète. Associez-la à un humain dans votre inbox et vous avez une boucle de vente complète.
 
@@ -80,7 +80,7 @@ Le compositeur se trouve à **Intégrations → [votre bot Telegram] → Configu
 
 | Panneau | Ce qu'on y trouve |
 |---------|-------------------|
-| **Rail gauche** | Votre liste de pages (glissez pour réordonner). L'entrée **Help Center** épinglée est en lecture seule ici — vous éditez ces entrées depuis un panneau séparé. Sous la liste des pages : contrôles par intégration (on/off boutique, libellé du bouton menu, langue de l'UI). |
+| **Rail gauche** | Votre liste de pages (glissez pour réordonner). L'entrée **Help Center** épinglée est en lecture seule ici — vous éditez ces entrées depuis un panneau séparé. Sous la liste des pages : contrôles par intégration (on/off boutique, libellé du bouton menu) et le sélecteur de langue pour rédiger les traductions. |
 | **Centre** | La liste des blocs de la page actuellement sélectionnée. Glissez pour réordonner, ajoutez un bloc, dupliquez, ou supprimez. |
 | **Droite** | Un **iframe de prévisualisation en direct** de ce à quoi la page ressemblera. Le toggle soleil/lune bascule entre clair/sombre. La prévisualisation se met à jour pendant que vous tapez. |
 
@@ -151,11 +151,11 @@ Chaque intégration Telegram a des paramètres indépendants, limités à ce seu
 - Videz le champ (chaîne vide) pour **revenir à la dérivation automatique**.
 - Utilisez un libellé personnalisé si votre audience ne parle pas anglais — le libellé automatique par défaut est uniquement en anglais.
 
-### Langue de l'UI de la boutique
+### Langues de la boutique
 
-La coquille utilise par défaut la langue Telegram du client pour son chrome. Si vous avez rédigé votre boutique dans une seule langue, vous pouvez épingler la langue du chrome de la coquille : choisissez `en`, `es`, `pt` (brésilien), `fr`, ou `ru`. Laisser ce champ vide conserve le comportement de détection automatique.
+Rédigez votre boutique une fois en anglais, puis ajoutez des traductions pour n'importe quelle langue prise en charge par WhatsApp. Ouvrez le sélecteur de langue dans le compositeur, choisissez une langue cible et saisissez vous-même les traductions ou cliquez sur **Traduire** pour obtenir un brouillon par IA en un clic que vous pourrez modifier. Les variantes régionales sont de premier ordre — portugais brésilien vs européen, chinois simplifié vs traditionnel, etc. — pour parler à chaque marché dans sa propre forme.
 
-Cela n'affecte que le **chrome de la coquille** (tiroir, boutons système, en-tête du Help Center) — tout ce que vous avez tapé dans un titre de hero, un nom de produit, ou un bloc rich-text est rendu tel quel.
+Lorsqu'une boutique a plus d'une langue, un **sélecteur de langue** apparaît pour les visiteurs, et la boutique détecte automatiquement la langue de l'appareil de chaque visiteur (avec l'anglais en repli). Les langues de droite à gauche comme l'arabe s'affichent correctement. Cela traduit le **contenu** que vous avez rédigé (titres de hero, noms de produit, FAQ, rich-text) — le chrome de la coquille (tiroir, boutons système) suit séparément la langue de l'appareil du visiteur.
 
 ## Chat IA par produit
 
