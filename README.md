@@ -2,7 +2,7 @@
 
 Official documentation for [Cuneiform Chat](https://cuneiform.chat) — Document-trained AI chatbots.
 
-*Clay tablets to chatbot. Remembering the beginning.*
+*Run your business through conversation.*
 
 ## Development
 

@@ -35,7 +35,7 @@ const UI_STRINGS: Record<
     title: 'Cuneiform Chat Documentation',
     description:
       'Learn how to create document-trained AI chatbots with Cuneiform Chat',
-    tagline: 'Clay tablets to chatbot. Remembering the beginning.',
+    tagline: 'Run your business through conversation.',
     tryIt: 'Try It',
     requestDemo: 'Request Demo',
     tocTitle: 'On This Page',
@@ -48,7 +48,7 @@ const UI_STRINGS: Record<
     title: 'Documentación de Cuneiform Chat',
     description:
       'Aprende a crear chatbots de IA entrenados con documentos usando Cuneiform Chat',
-    tagline: 'De tablillas de arcilla al chatbot. Recordando el origen.',
+    tagline: 'Gestiona tu negocio conversando.',
     tryIt: 'Pruébalo',
     requestDemo: 'Solicitar demo',
     tocTitle: 'En esta página',
@@ -61,7 +61,7 @@ const UI_STRINGS: Record<
     title: 'Documentação do Cuneiform Chat',
     description:
       'Aprenda a criar chatbots de IA treinados com documentos usando o Cuneiform Chat',
-    tagline: 'De tabuletas de argila ao chatbot. Lembrando o começo.',
+    tagline: 'Gerencie seu negócio conversando.',
     tryIt: 'Experimente',
     requestDemo: 'Solicitar demo',
     tocTitle: 'Nesta página',
@@ -74,7 +74,7 @@ const UI_STRINGS: Record<
     title: 'Documentation Cuneiform Chat',
     description:
       'Apprenez à créer des chatbots IA entraînés sur vos documents avec Cuneiform Chat',
-    tagline: "Des tablettes d'argile au chatbot. Se souvenir du commencement.",
+    tagline: 'Gérez votre entreprise par la conversation.',
     tryIt: 'Essayer',
     requestDemo: 'Demander une démo',
     tocTitle: 'Sur cette page',
@@ -87,7 +87,7 @@ const UI_STRINGS: Record<
     title: 'Документация Cuneiform Chat',
     description:
       'Научитесь создавать AI-чат-ботов, обученных на ваших документах, с Cuneiform Chat',
-    tagline: 'От глиняных табличек до чат-бота. Помним начало.',
+    tagline: 'Управляйте бизнесом через диалог.',
     tryIt: 'Попробовать',
     requestDemo: 'Запросить демо',
     tocTitle: 'На этой странице',
