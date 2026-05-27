@@ -74,11 +74,16 @@ The shortest path from "I connected a bot" to "my first customer is browsing":
 
 That's the minimum-viable storefront. Add more pages, more products, themes, videos, and a Help Center as you grow.
 
-## Generate a storefront with AI
+## Build or enhance a storefront with AI
 
-Don't want to start from a blank canvas? Describe your storefront in plain language and let the AI draft it for you.
+Don't want to start from a blank canvas — or want a hand reworking the one you have? The composer's AI button reads your current storefront and adapts:
 
-Click **Generate with AI** in the composer, then either:
+- **Empty storefront → Generate with AI.** A brand-new bot's storefront has no pages yet, so the AI builds the whole thing from your brief.
+- **Existing storefront → Enhance with AI.** Once your storefront has content (every Telegram/Messenger storefront starts with a page the moment you connect the bot), the button becomes **Enhance with AI** — it sends your *current* storefront to the AI along with your request, and the AI returns the **full updated storefront with your existing pages, blocks, and images preserved**. It never wipes your work.
+
+### Generate (empty storefront)
+
+Click **Generate with AI**, then either:
 
 - **Describe it** — type a one-paragraph prompt: *"a 3-page storefront for a coffee shop: a hero, a product grid with five coffees, a testimonials section, and a contact page — warm editorial look."* The AI drafts the pages, blocks, and a fitting theme.
 - **Upload a PDF** — drop in a product catalog or brochure PDF and the AI turns it into storefront pages and product cards.
@@ -86,16 +91,22 @@ Click **Generate with AI** in the composer, then either:
 
 The result lands **directly in the composer as an unsaved draft** — every page, block, and theme is fully editable. Review it, tweak the copy, add your images, then **Save** and **Publish** as usual.
 
+### Enhance (existing storefront)
+
+Click **Enhance with AI**, type what you want changed — *"add a customer-reviews page and a contact page"*, *"rewrite the hero headline to be punchier"*, *"add three more coffees to the product grid"* — and submit. (Enhance is prompt-only; PDF/image uploads are for generating from scratch.)
+
+Before anything touches your composer, a **review-changes panel** opens summarising what the AI did — pages and blocks **added**, **removed**, or **modified**. Your existing pages, blocks, and uploaded images are kept intact unless your brief asked to change them. Click **Apply changes** to accept, or **Discard** to throw the result away and leave your storefront exactly as it was. Applying loads the result into the composer; you still **Save** and **Publish** as usual.
+
 <Callout type="info">
-  **Free on every plan.** AI generation is available to anyone who can open the composer — there's no separate add-on or higher tier required. (You still need the **Integration manage** permission, same as any other composer edit.)
+  **Free on every plan.** Both Generate and Enhance are available to anyone who can open the composer — there's no separate add-on or higher tier required. (You still need the **Integration manage** permission, same as any other composer edit.)
 </Callout>
 
 A few things to know:
 
-- **It's a starting point, not a finished store.** The AI drafts text and structure; **it does not generate images** — every image slot comes back empty for you to fill from the inline uploader. Pricing, product names, and descriptions are best-guesses from your prompt — edit them to match reality.
-- **English first.** Generation produces English content. Use the composer's **Translate** flow afterward to fill in other languages.
-- **It replaces your current draft.** If the composer already has unsaved blocks, generating will ask you to confirm before overwriting them.
-- **One shot.** Each generation produces a fresh draft from your prompt — there's no back-and-forth refine chat. To try a different direction, just generate again with a new prompt.
+- **It's a starting point, not a finished store.** The AI drafts text and structure; **it does not generate images** — on a generate it leaves every image slot empty for you to fill, and on an enhance it keeps your existing images and won't invent new ones. Pricing, product names, and descriptions are best-guesses — edit them to match reality.
+- **English first.** Generation and enhancement produce English content. Use the composer's **Translate** flow afterward to fill in other languages.
+- **Enhance never wipes — it merges.** Your existing pages and blocks are preserved by identity; the AI only adds, removes, or edits what your brief asks for, and the review panel shows you exactly what changed before you accept it.
+- **One shot.** Each click produces a fresh result from your prompt — there's no back-and-forth refine chat. To try a different direction, just run it again with a new prompt.
 - **If it fails**, you'll see an error with the raw AI output you can copy — usually retrying with a clearer, shorter prompt fixes it.
 
 ## The composer
