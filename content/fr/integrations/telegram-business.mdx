@@ -1,10 +1,10 @@
-# Co-pilot Telegram Business
+# Co-pilot Telegram Premium
 
 Laissez votre AI agent répondre aux DMs **sur le compte personnel d'un utilisateur Telegram Premium**. Ses contacts voient ce qui ressemble à des réponses de l'utilisateur Premium lui-même — parfait pour les founders, créateurs, solopreneurs et petites équipes dont les clients leur envoient des DMs directement sur leur Telegram personnel.
 
 ## Aperçu
 
-Le co-pilot Telegram Business offre :
+Le co-pilot Telegram Premium offre :
 
 - Des réponses AI envoyées via la `business_connection` de l'utilisateur Premium, de sorte que la réponse semble venir de lui
 - Une liaison par utilisateur Premium — un seul bot peut prendre en charge plusieurs utilisateurs Premium dans la même organisation
@@ -20,9 +20,9 @@ import { Callout } from 'nextra/components'
 
 ## Différences avec Telegram régulier
 
-L'[intégration Telegram](/integrations/telegram) régulière connecte un agent à **l'inbox propre d'un bot** — vos utilisateurs finaux DM le bot directement à `t.me/<bot>`. Le co-pilot Telegram Business est l'inverse : le bot répond sur le **compte Telegram personnel d'une personne**, en interceptant les DMs qui arrivent dans la liste de chats normale de cette personne.
+L'[intégration Telegram](/integrations/telegram) régulière connecte un agent à **l'inbox propre d'un bot** — vos utilisateurs finaux DM le bot directement à `t.me/<bot>`. Le co-pilot Telegram Premium est l'inverse : le bot répond sur le **compte Telegram personnel d'une personne**, en interceptant les DMs qui arrivent dans la liste de chats normale de cette personne.
 
-| | Telegram | Co-pilot Telegram Business |
+| | Telegram | Co-pilot Telegram Premium |
 |---|----------|----------------------------|
 | À qui les contacts envoient-ils des messages ? | Au bot (`t.me/<bot>`) | Au compte personnel de l'utilisateur Premium |
 | Que voient les contacts ? | Des réponses du bot | Des réponses qui semblent venir de l'utilisateur Premium |
@@ -59,8 +59,8 @@ Cette étape est ce qui rend le bot éligible pour répondre sur le compte d'un 
 ### 3. Connecter le bot dans Cuneiform Chat
 
 1. Dans Cuneiform Chat, ouvrez **Integrations** dans la sidebar
-2. Trouvez la carte **Telegram Business co-pilot**
-3. Cliquez sur **Add Telegram Business bot**
+2. Trouvez la carte **Telegram Premium co-pilot**
+3. Cliquez sur **Connect Premium bot**
 4. Choisissez l'**Agent** qui doit répondre aux DMs (vous pourrez changer cela plus tard)
 5. Collez le bot token et soumettez
 
@@ -68,7 +68,7 @@ Cette étape est ce qui rend le bot éligible pour répondre sur le compte d'un 
 
 Chaque utilisateur Premium qui veut que le bot réponde pour lui le fait une fois :
 
-1. Sur la carte Telegram Business, cliquez sur **Link a Premium user** — un code de 10 minutes apparaît (avec un raccourci QR)
+1. Sur la carte Telegram Premium, cliquez sur **Link a Premium user** — un code de 10 minutes apparaît (avec un raccourci QR)
 2. L'utilisateur Premium ouvre **Telegram → Settings → Business → Chatbots**
 3. Ajoute le nom d'utilisateur de votre bot et l'active
 4. Ouvre un DM régulier avec le bot et envoie `/start <code>`
@@ -92,7 +92,7 @@ Cela signifie que l'utilisateur Premium n'a pas à explicitement basculer le bot
 
 Si l'utilisateur Premium souhaite désactiver les réponses AI sur **tous** les chats sans dé-lier :
 
-1. Ouvrez la carte Telegram Business dans Cuneiform Chat
+1. Ouvrez la carte Telegram Premium dans Cuneiform Chat
 2. Activez **Disable auto-reply**
 
 L'intégration reste connectée (pas besoin de re-lier) mais le bot ne répond à rien. Re-basculez-le pour reprendre.
@@ -156,9 +156,9 @@ Les contacts de l'utilisateur Premium voient exactement ce que l'agent génère.
 
 ## Déconnecter
 
-Pour supprimer une intégration Telegram Business :
+Pour supprimer une intégration Telegram Premium :
 
-1. **Depuis Cuneiform Chat :** Integrations → carte Telegram Business co-pilot → menu à trois points → **Delete**
+1. **Depuis Cuneiform Chat :** Integrations → carte Telegram Premium co-pilot → menu à trois points → **Delete**
 
 Cela supprime chaque liaison d'utilisateur Premium et arrête la réponse du bot. Le bot lui-même reste dans BotFather sauf si vous l'y supprimez.
 

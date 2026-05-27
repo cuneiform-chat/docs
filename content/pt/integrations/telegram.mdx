@@ -13,7 +13,7 @@ A integração com Telegram oferece:
 - Slash commands integrados (`/start`, `/help`, `/reset`, `/new`)
 - Mensagens diretas e chats em grupo (sessões por usuário em grupos)
 - Uma [Loja integrada ao bot](/integrations/telegram-mini-app) — catálogo de produtos com várias páginas, chat de IA por produto e captação leve de pedidos, tudo dentro do Telegram (gratuita em todos os planos)
-- Co-pilot opcional do Telegram Business para usuários Premium (integração separada)
+- Co-pilot opcional do Telegram Premium para usuários Premium (integração separada)
 - Saba no Telegram para operadores (integração separada)
 
 ## Pré-requisitos
@@ -120,11 +120,11 @@ O guia completo do recurso — composer, blocos, temas, chat por produto, CTAs d
 
 Um pequeno painel de suporte **Help Center** fica fixado ao final do menu de páginas da loja para atalhos pontuais de FAQ + ask-the-bot. A maioria das lojas não depende muito dele — produtos e CTAs de pedido respondem às dúvidas do fluxo de compra na própria loja. Crie entradas a partir do menu de três pontos no card do bot → **Help Center** (até ~50 entradas, arraste para reordenar, cache do servidor de ~5 minutos).
 
-## Co-pilot do Telegram Business
+## Co-pilot do Telegram Premium
 
 Usuários do Telegram com nível Premium podem fazer seu bot responder DMs **na conta pessoal deles** via o modo Business do Telegram. O bot responde através do `business_connection_id` do usuário Premium, então os contatos veem o que parece ser a resposta do próprio usuário Premium — útil para founders, criadores e equipes pequenas que recebem DMs nas contas pessoais o dia inteiro.
 
-A configuração é uma integração separada no painel admin ("Telegram Business co-pilot"). Invariantes principais:
+A configuração é uma integração separada no painel admin ("Telegram Premium co-pilot"). Invariantes principais:
 
 - **1 bot = 1 customer agent.** Um bot do Telegram só pode apontar para um webhook por vez — você não pode compartilhar um bot com a integração regular do Telegram nem com o Saba no Telegram. Crie um novo bot no BotFather para o modo Business.
 - **A chave Business Mode do BotFather é obrigatória.** Sem ela, os usuários Premium veem *"this bot doesn't support Telegram Business yet"* ao adicioná-lo. Ative em Bot Settings → Business Mode.
@@ -133,7 +133,7 @@ A configuração é uma integração separada no painel admin ("Telegram Busines
 - **O takeover manual é automático.** Quando o usuário Premium digita uma resposta ele mesmo, o bot pausa naquele chat por uma janela deslizante para não atravessar uma conversa ao vivo.
 - **Kill switch no nível da conexão.** Ative "Disable auto-reply" no card da integração para pausar o bot em todos os usuários Premium vinculados sem desconectar.
 
-Veja **Connect Business bot** na seção Telegram Business co-pilot da página Integrations do painel admin para o playbook completo de configuração.
+Veja **Connect Premium bot** na seção Telegram Premium co-pilot da página Integrations do painel admin para o playbook completo de configuração.
 
 ## Saba no Telegram
 
