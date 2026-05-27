@@ -78,24 +78,26 @@ That's the minimum-viable storefront. Add more pages, more products, themes, vid
 
 Don't want to start from a blank canvas — or want a hand reworking the one you have? The composer's AI button reads your current storefront and adapts:
 
-- **Empty storefront → Generate with AI.** A brand-new bot's storefront has no pages yet, so the AI builds the whole thing from your brief.
-- **Existing storefront → Enhance with AI.** Once your storefront has content (every Telegram/Messenger storefront starts with a page the moment you connect the bot), the button becomes **Enhance with AI** — it sends your *current* storefront to the AI along with your request, and the AI returns the **full updated storefront with your existing pages, blocks, and images preserved**. It never wipes your work.
+**The AI designs the *structure* — which pages exist, which blocks go on each, the order, and a fitting theme — and drops a "fill me in" placeholder in every text field** (like *"Add your headline"* or *"Product name"*). It doesn't write your real copy, prices, or product names; you fill those in, just like you already upload your own images. That keeps the result fast, honest, and yours to finish.
+
+- **Empty storefront → Generate with AI.** A brand-new bot's storefront has no pages yet, so the AI lays out the whole thing from your brief.
+- **Existing storefront → Enhance with AI.** Once your storefront has content (every Telegram/Messenger storefront starts with a page the moment you connect the bot), the button becomes **Enhance with AI** — it **adds new pages and sections** based on your request and leaves everything you already have completely untouched. It never rewrites or wipes your existing pages.
 
 ### Generate (empty storefront)
 
 Click **Generate with AI**, then either:
 
-- **Describe it** — type a one-paragraph prompt: *"a 3-page storefront for a coffee shop: a hero, a product grid with five coffees, a testimonials section, and a contact page — warm editorial look."* The AI drafts the pages, blocks, and a fitting theme.
+- **Describe it** — type a one-paragraph prompt: *"a 3-page storefront for a coffee shop: a hero, a product grid with five coffees, a testimonials section, and a contact page — warm editorial look."* The AI lays out the pages, blocks, and a fitting theme, with placeholders ready for you to fill.
 - **Upload a PDF** — drop in a product catalog or brochure PDF and the AI turns it into storefront pages and product cards.
 - **Upload an image** — drop in a screenshot or photo of an existing storefront / flyer and the AI drafts a plausible layout from it.
 
-The result lands **directly in the composer as an unsaved draft** — every page, block, and theme is fully editable. Review it, tweak the copy, add your images, then **Save** and **Publish** as usual.
+The result lands **directly in the composer as an unsaved draft** — every page, block, and theme is fully editable. The composer flags which blocks still need content so you can see exactly what to fill in. Replace the placeholders with your real copy, add your images, then **Save** and **Publish** as usual.
 
 ### Enhance (existing storefront)
 
-Click **Enhance with AI**, type what you want changed — *"add a customer-reviews page and a contact page"*, *"rewrite the hero headline to be punchier"*, *"add three more coffees to the product grid"* — and submit. (Enhance is prompt-only; PDF/image uploads are for generating from scratch.)
+Click **Enhance with AI**, type what you want **added** — *"add a customer-reviews page"*, *"add a contact page"*, *"add an FAQ section"* — and submit. (Enhance is prompt-only; PDF/image uploads are for generating from scratch.)
 
-Before anything touches your composer, a **review-changes panel** opens summarising what the AI did — pages and blocks **added**, **removed**, or **modified**. Your existing pages, blocks, and uploaded images are kept intact unless your brief asked to change them. Click **Apply changes** to accept, or **Discard** to throw the result away and leave your storefront exactly as it was. Applying loads the result into the composer; you still **Save** and **Publish** as usual.
+Before anything touches your composer, a **review-changes panel** opens summarising the new pages and blocks the AI is proposing to **add**. Your existing pages, blocks, and uploaded images are kept exactly as they were. Click **Apply changes** to accept, or **Discard** to throw the result away. Applying drops the new structure into the composer (with fill-me-in placeholders flagged); you still fill in the copy, **Save**, and **Publish** as usual.
 
 <Callout type="info">
   **Free on every plan.** Both Generate and Enhance are available to anyone who can open the composer — there's no separate add-on or higher tier required. (You still need the **Integration manage** permission, same as any other composer edit.)
@@ -103,9 +105,10 @@ Before anything touches your composer, a **review-changes panel** opens summaris
 
 A few things to know:
 
-- **It's a starting point, not a finished store.** The AI drafts text and structure; **it does not generate images** — on a generate it leaves every image slot empty for you to fill, and on an enhance it keeps your existing images and won't invent new ones. Pricing, product names, and descriptions are best-guesses — edit them to match reality.
-- **English first.** Generation and enhancement produce English content. Use the composer's **Translate** flow afterward to fill in other languages.
-- **Enhance never wipes — it merges.** Your existing pages and blocks are preserved by identity; the AI only adds, removes, or edits what your brief asks for, and the review panel shows you exactly what changed before you accept it.
+- **It's a layout, not a finished store.** The AI designs structure and drops in placeholders; **it does not write your real copy and does not generate images.** Replace the *"Add your headline"* / *"Product name"* placeholders with your real text, and upload your own images — the composer highlights every block that still needs content.
+- **Video and image galleries are yours to add.** The AI skips video and gallery blocks because their content *is* a real asset (a YouTube link, your photos). Add those blocks yourself from the composer when you have the asset.
+- **Enhance only adds — it never touches what you have.** It appends new pages and sections; it doesn't rewrite, reorder, or delete your existing ones. To rework an existing page, edit it directly in the composer.
+- **English first.** Generation and enhancement produce English placeholders and labels. Use the composer's **Translate** flow afterward to fill in other languages.
 - **One shot.** Each click produces a fresh result from your prompt — there's no back-and-forth refine chat. To try a different direction, just run it again with a new prompt.
 - **If it fails**, you'll see an error with the raw AI output you can copy — usually retrying with a clearer, shorter prompt fixes it.
 
