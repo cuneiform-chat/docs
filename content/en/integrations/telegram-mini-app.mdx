@@ -2,7 +2,7 @@
 
 **Turn your Telegram bot into a full in-app storefront.** Build a polished, multipage product catalog — with photos, videos, themed pages, an AI assistant per product, and lightweight order-taking — that opens *inside* Telegram the moment a customer taps your bot's menu button. No app store, no separate website, no checkout to manage. Just a tap, and your customer is browsing.
 
-Free on every plan, including the trial. Built in a visual drag-and-drop composer at **Integrations → Telegram bot → Configure mini app**: 12 block types, 6 themes, per-product AI chat, order CTAs that hand off to a real human in your inbox.
+Free on every plan, including the trial. Built in a visual drag-and-drop composer at **Integrations → Telegram bot → Configure mini app**: 11 block types, 6 themes, per-product AI chat, order CTAs that hand off to a real human in your inbox.
 
 import { Callout } from 'nextra/components'
 
@@ -15,7 +15,7 @@ import { Callout } from 'nextra/components'
 A few common shapes the storefront takes in production:
 
 - **Boutique storefront** — hero banner + product grid + per-product chat ("Does this come in size M?") + order inquiry form. Orders land in your inbox; a teammate replies from there.
-- **Restaurant menu** — multipage (Starters / Mains / Drinks) + photo gallery + Cart Review block + delivery address field on checkout.
+- **Restaurant menu** — multipage (Starters / Mains / Drinks) + photo gallery + cart-mode order CTAs (the cart page appears automatically) + delivery address field on checkout.
 - **Course or service catalog** — product cards for each course with a Video block intro, testimonials, and a "Book a call" CTA back to the bot.
 - **Brochure site** — hero + about page + gallery + contact card + FAQ — no products at all. The storefront becomes a polished mobile brochure that lives inside your bot.
 - **Lead-capture landing** — one page, one hero, one form, one CTA. The lightest possible "Telegram funnel."
@@ -33,7 +33,7 @@ Start with one page, grow into a multipage catalog when you're ready.
 ## At a glance
 
 - **Multipage**, drag-and-drop. End users tap the hamburger (top-left) to switch pages. If you publish one page, it loads full-screen.
-- **12 block types** — Hero, Product card, Product grid, Carousel, Gallery, FAQ, Testimonial, CTA back-to-bot, Contact, Video, Rich text, Cart review.
+- **11 block types** — Hero, Product card, Product grid, Carousel, Gallery, FAQ, Testimonial, CTA back-to-bot, Contact, Video, Rich text. (Cart is an auto-injected virtual page when you use cart-mode order CTAs — no separate "Cart review" block.)
 - **6 themes** (Telegram default + 5 custom) with per-block style overrides.
 - **Draft → Publish** lifecycle with one-click revert to the last published snapshot.
 - **Per-integration on/off toggle** — flip it off and the bot menu reverts to Telegram's `/` command picker; the public URL returns `410 Gone` so stale bookmarks don't leak content.
@@ -119,7 +119,7 @@ A sticky toolbar at the top has: a status badge (Draft / Published), a `⋯` men
 
 If you click **Save as draft** while currently Published, you'll get an "unpublish" confirmation dialog (with a hint about how to get back).
 
-## The 12 block types
+## The 11 block types
 
 Drop any of these onto a storefront page:
 
@@ -136,7 +136,10 @@ Drop any of these onto a storefront page:
 | **Contact** | Static contact card: phone, email, address, map link (no form) | — |
 | **Video** | A YouTube video, lazy-loaded via `youtube-nocookie.com` for privacy | Needs 11-char YouTube ID |
 | **Rich text** | Markdown + sanitized HTML (TipTap editor in the composer) | Markdown ≤2000 chars, HTML ≤20000 chars |
-| **Cart review** | Inline cart with checkout button. Lets customers review their selections on a dedicated page | Used together with order CTAs on product blocks |
+
+<Callout type="info">
+  **There's no "Cart review" block.** When you put an order CTA in **cart** mode on a product, the storefront automatically injects a cart page for customers to review and check out — you don't place or configure a cart block yourself. (Earlier versions had a manual Cart review block; it was retired in May 2026.)
+</Callout>
 
 Every block also supports per-block **style overrides** — background color, text color, font size — multiplied with the page theme. Use them sparingly; the theme handles the look by default.
 
@@ -205,7 +208,7 @@ You can attach an **Order CTA** to any product card or product grid. This is pur
 ### Two modes
 
 - **`inquiry` mode** — customer taps "Order this" → a form opens with the product pre-filled → they submit → one handoff lands in your inbox.
-- **`cart` mode** — customer taps "Add to cart" → product is added to a local cart (lives in their browser only, keyed to your integration) → they review on the cart page (a **Cart review** block) and check out → one multi-line handoff lands in your inbox.
+- **`cart` mode** — customer taps "Add to cart" → product is added to a local cart (lives in their browser only, keyed to your integration) → they review on the **cart page (auto-injected when you use cart-mode CTAs — no block to place)** and check out → one multi-line handoff lands in your inbox.
 
 ### Form fields
 
