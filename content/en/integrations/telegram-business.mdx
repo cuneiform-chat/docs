@@ -1,10 +1,10 @@
-# Telegram Business co-pilot
+# Telegram Premium co-pilot
 
 Let your AI agent reply to DMs **on a Telegram Premium user's personal account**. Their contacts see what looks like the Premium user's own replies — perfect for founders, creators, solopreneurs, and small teams whose customers DM them directly on their personal Telegram.
 
 ## Overview
 
-Telegram Business co-pilot provides:
+Telegram Premium co-pilot provides:
 
 - AI replies sent through the Premium user's `business_connection`, so the response appears to come from them
 - Per-Premium-user linking — one bot can support several Premium users in the same org
@@ -20,9 +20,9 @@ import { Callout } from 'nextra/components'
 
 ## How it differs from regular Telegram
 
-The regular [Telegram integration](/integrations/telegram) connects an agent to **a bot's own inbox** — your end users DM the bot directly at `t.me/<bot>`. Telegram Business co-pilot is the opposite: the bot replies on a **person's personal Telegram account**, intercepting DMs that come into that person's normal chat list.
+The regular [Telegram integration](/integrations/telegram) connects an agent to **a bot's own inbox** — your end users DM the bot directly at `t.me/<bot>`. Telegram Premium co-pilot is the opposite: the bot replies on a **person's personal Telegram account**, intercepting DMs that come into that person's normal chat list.
 
-| | Telegram | Telegram Business co-pilot |
+| | Telegram | Telegram Premium co-pilot |
 |---|----------|----------------------------|
 | Who do contacts message? | The bot (`t.me/<bot>`) | The Premium user's personal account |
 | What do contacts see? | Replies from the bot | Replies that look like they come from the Premium user |
@@ -59,8 +59,8 @@ This step is what makes the bot eligible to reply on a Premium user's account. W
 ### 3. Connect the bot in Cuneiform Chat
 
 1. In Cuneiform Chat, open **Integrations** in the sidebar
-2. Find the **Telegram Business co-pilot** card
-3. Click **Add Telegram Business bot**
+2. Find the **Telegram Premium co-pilot** card
+3. Click **Connect Premium bot**
 4. Pick the **Agent** that should answer DMs (you can change this later)
 5. Paste the bot token and submit
 
@@ -68,7 +68,7 @@ This step is what makes the bot eligible to reply on a Premium user's account. W
 
 Each Premium user who wants the bot to reply for them does this once:
 
-1. On the Telegram Business card, click **Link a Premium user** — a 10-minute code appears (with a QR shortcut)
+1. On the Telegram Premium card, click **Link a Premium user** — a 10-minute code appears (with a QR shortcut)
 2. The Premium user opens **Telegram → Settings → Business → Chatbots**
 3. Adds your bot's username and enables it
 4. Opens a regular DM with the bot and sends `/start <code>`
@@ -92,7 +92,7 @@ This means the Premium user doesn't have to explicitly toggle the bot off when j
 
 If the Premium user wants to disable AI replies across **every** chat without unlinking:
 
-1. Open the Telegram Business card in Cuneiform Chat
+1. Open the Telegram Premium card in Cuneiform Chat
 2. Toggle **Disable auto-reply** on
 
 The integration stays connected (no need to re-link) but the bot replies to nothing. Toggle it back on to resume.
@@ -156,9 +156,9 @@ The Premium user's contacts see exactly what the agent generates. If something o
 
 ## Disconnecting
 
-To remove a Telegram Business integration:
+To remove a Telegram Premium integration:
 
-1. **From Cuneiform Chat:** Integrations → Telegram Business co-pilot card → three-dot menu → **Delete**
+1. **From Cuneiform Chat:** Integrations → Telegram Premium co-pilot card → three-dot menu → **Delete**
 
 This removes every Premium-user link and stops the bot from replying. The bot itself stays in BotFather unless you delete it there.
 

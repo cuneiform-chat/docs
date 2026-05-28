@@ -13,7 +13,7 @@ Telegram integration provides:
 - Built-in slash commands (`/start`, `/help`, `/reset`, `/new`)
 - Direct messages and group chats (per-user sessions in groups)
 - A built-in [in-bot Storefront](/integrations/telegram-mini-app) — multipage product catalog, per-product AI chat, and lightweight order-taking, all inside Telegram (free on every plan)
-- Optional Telegram Business co-pilot for Premium users (separate integration)
+- Optional Telegram Premium co-pilot for Premium users (separate integration)
 - Saba on Telegram for operators (separate integration)
 
 ## Prerequisites
@@ -119,11 +119,11 @@ The full feature guide — composer, blocks, themes, per-product chat, order CTA
 
 A small **Help Center** support panel is pinned at the end of the storefront's page menu for ad-hoc FAQ + ask-the-bot shortcuts. Most storefronts don't lean on it heavily — products and order CTAs answer buying-flow questions on the storefront itself. Author entries from the bot card's three-dot menu → **Help Center** (up to ~50 entries, drag-to-reorder, ~5 minute server cache).
 
-## Telegram Business co-pilot
+## Telegram Premium co-pilot
 
 Premium-tier Telegram users can have your bot answer DMs **on their personal account** via Telegram's Business mode. The bot replies through the Premium user's `business_connection_id`, so contacts see what looks like the Premium user's own replies — useful for founders, creators, and small teams who get DM'd on their personal accounts all day.
 
-Setup is a separate integration in the admin panel ("Telegram Business co-pilot"). Key invariants:
+Setup is a separate integration in the admin panel ("Telegram Premium co-pilot"). Key invariants:
 
 - **1 bot = 1 customer agent.** A Telegram bot can only point at one webhook at a time — you can't share a bot with the regular Telegram integration or Saba on Telegram. Create a fresh BotFather bot for Business mode.
 - **BotFather Business Mode toggle is required.** Without it, Premium users see *"this bot doesn't support Telegram Business yet"* when adding it. Toggle it on under Bot Settings → Business Mode.
@@ -132,7 +132,7 @@ Setup is a separate integration in the admin panel ("Telegram Business co-pilot"
 - **Manual takeover is automatic.** When the Premium user types a reply themselves, the bot pauses on that chat for a sliding window so it doesn't talk over a live conversation.
 - **Connection-level kill switch.** Toggle "Disable auto-reply" on the integration card to pause the bot across every linked Premium user without disconnecting.
 
-See **Connect Business bot** under the Telegram Business co-pilot section of the admin panel Integrations page for the full setup playbook.
+See **Connect Premium bot** under the Telegram Premium co-pilot section of the admin panel Integrations page for the full setup playbook.
 
 ## Saba on Telegram
 

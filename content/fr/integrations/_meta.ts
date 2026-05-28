@@ -4,7 +4,7 @@ const meta: MetaRecord = {
   index: 'Aperçu',
   telegram: 'Telegram',
   'saba-on-telegram': 'Saba sur Telegram',
-  'telegram-business': 'Telegram Business',
+  'telegram-business': 'Telegram Premium',
   'telegram-mini-app': 'Boutique Telegram',
   discord: 'Discord',
   slack: 'Slack',
