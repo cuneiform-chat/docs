@@ -31,8 +31,8 @@ const SITE_URL = 'https://docs.cuneiform.chat'
 
 // Top-level segments that must never be clobbered.
 const RESERVED_TOP = new Set([
-  'en', 'es', 'pt', 'fr', 'ru',           // active locales
-  'bn', 'hi', 'th', 'ar',                 // disabled locales (frozen)
+  'en', 'es', 'pt', 'fr', 'ru', 'bn',     // active locales
+  'hi', 'th', 'ar',                       // disabled locales (frozen)
   '_next', '_pagefind',                   // framework / search assets
 ])
 

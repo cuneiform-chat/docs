@@ -2,17 +2,18 @@
 
 import { usePathname } from 'next/navigation'
 
-// Active locales: en (source), es, pt, fr, ru.
-// Disabled: bn, hi, th — content directories retained on disk but no
+// Active locales: en (source), es, pt, fr, ru, bn.
+// Disabled: hi, th — content directories retained on disk but no
 // longer built or routed. Do NOT add disabled codes back without updating
 // next.config.mjs and `.claude/references/features/admin-panel-i18n.md`.
-const LOCALES = ['en', 'es', 'pt', 'fr', 'ru'] as const
+const LOCALES = ['en', 'es', 'pt', 'fr', 'ru', 'bn'] as const
 const LOCALE_LABELS: Record<string, string> = {
   en: 'English',
   es: 'Español',
   pt: 'Português',
   fr: 'Français',
   ru: 'Русский',
+  bn: 'বাংলা',
 }
 
 export function LocaleSwitcher() {
@@ -22,7 +23,7 @@ export function LocaleSwitcher() {
 
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const newLocale = e.target.value
-    const newPath = pathname.replace(/^\/(en|es|pt|fr|ru)/, `/${newLocale}`)
+    const newPath = pathname.replace(/^\/(en|es|pt|fr|ru|bn)/, `/${newLocale}`)
     window.location.href = newPath
   }
 

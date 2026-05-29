@@ -6,11 +6,11 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { LocaleSwitcher } from '../../components/locale-switcher'
 
-// Active locales: en (source), es, pt, fr, ru.
-// Disabled: bn, hi, th — content/{code}/ retained on disk, not built.
+// Active locales: en (source), es, pt, fr, ru, bn.
+// Disabled: hi, th — content/{code}/ retained on disk, not built.
 // Mirrors the admin panel locale policy. See
 // `.claude/references/features/admin-panel-i18n.md` for rationale.
-const LOCALES = ['en', 'es', 'pt', 'fr', 'ru'] as const
+const LOCALES = ['en', 'es', 'pt', 'fr', 'ru', 'bn'] as const
 type Locale = (typeof LOCALES)[number]
 const RTL_LOCALES: Locale[] = []
 
@@ -93,6 +93,19 @@ const UI_STRINGS: Record<
     tocTitle: 'На этой странице',
     backToTop: 'Наверх',
     searchPlaceholder: 'Поиск по документации…',
+  },
+  bn: {
+    editLink: 'GitHub-এ এই পৃষ্ঠাটি সম্পাদনা করুন →',
+    feedbackContent: 'প্রশ্ন আছে? আমাদের ফিডব্যাক দিন →',
+    title: 'Cuneiform Chat ডকুমেন্টেশন',
+    description:
+      'Cuneiform Chat দিয়ে ডকুমেন্ট-প্রশিক্ষিত AI চ্যাটবট তৈরি করতে শিখুন',
+    tagline: 'কথোপকথনের মাধ্যমে আপনার ব্যবসা পরিচালনা করুন।',
+    tryIt: 'ব্যবহার করুন',
+    requestDemo: 'ডেমো অনুরোধ করুন',
+    tocTitle: 'এই পৃষ্ঠায়',
+    backToTop: 'উপরে যান',
+    searchPlaceholder: 'ডকুমেন্টেশনে খুঁজুন…',
   },
 }
 
