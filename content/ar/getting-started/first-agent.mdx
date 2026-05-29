@@ -1,27 +1,24 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# إنشاء أول Agent
 
-# Create Your First Agent
+الـ Agents هي روبوتات الدردشة التي تتفاعل مع مستخدميك. يمكن ضبط كل Agent بمعرفة وسلوك وشخصية محدّدة.
 
-Agents are the chatbots that interact with your users. Each agent can be configured with specific knowledge, behavior, and personality.
+## إنشاء Agent
 
-## Creating an Agent
+1. انتقل إلى **Agents** في الشريط الجانبي
+2. انقر على **Create Agent**
+3. املأ المعلومات الأساسية:
+   - **Name** — اسم وصفي للـ Agent (مثل "Customer Support Bot")
+   - **Description** — ما الذي يفعله هذا الـ Agent (لمرجعك الخاص)
 
-1. Navigate to **Agents** in the sidebar
-2. Click **Create Agent**
-3. Fill in the basic information:
-   - **Name** — A descriptive name for your agent (e.g., "Customer Support Bot")
-   - **Description** — What this agent does (for your reference)
+## ضبط الـ Agent
 
-## Agent Configuration
+### شخصية الـ Agent
 
-### Agent Persona
+تحدّد شخصية الـ Agent طابعه وسلوكه. وهي التعليمات التي توجّه طريقة ردّ الـ Agent.
 
-The agent persona defines your agent's personality and behavior. This is the instruction that guides how your agent responds.
+يمكنك كتابة شخصيتك الخاصة أو النقر على **Generate** لاستخدام Persona Builder المدعوم بالذكاء الاصطناعي الذي ينشئ شخصية بناءً على متطلباتك.
 
-You can write your own persona or click **Generate** to use the AI-powered Persona Builder that creates one based on your requirements.
-
-**Example:**
+**مثال:**
 ```
 You are a helpful customer support assistant for Acme Corp.
 You answer questions about our products and services based on the provided documentation.
@@ -29,46 +26,46 @@ Be friendly, professional, and concise.
 If you don't know the answer, say so rather than making something up.
 ```
 
-### Platform Rules
+### قواعد المنصة
 
-All agents automatically include built-in safety guardrails:
+تتضمّن جميع الـ Agents تلقائيًا ضوابط أمان مدمجة:
 
-- Won't fabricate facts, numbers, or dates
-- Says "I don't know" when information is unavailable
-- Won't guess at missing information
-- Corrects incorrect assumptions in questions
-- Won't impersonate professionals (lawyers, doctors, etc.)
-- Refuses harmful or inappropriate content
+- لن تختلق وقائع أو أرقامًا أو تواريخ
+- تقول "لا أعرف" عندما تكون المعلومات غير متوفرة
+- لن تخمّن المعلومات الناقصة
+- تصحّح الافتراضات الخاطئة في الأسئلة
+- لن تنتحل صفة المتخصصين (المحامين، الأطباء، إلخ)
+- ترفض المحتوى الضار أو غير اللائق
 
-These rules are always active and cannot be disabled.
+هذه القواعد فعّالة دائمًا ولا يمكن تعطيلها.
 
-### Knowledge Access Control
+### التحكم في الوصول إلى المعرفة
 
-Control which documents your agent can access:
+تحكَّم في المستندات التي يمكن لـ Agent الوصول إليها:
 
-- **Exclude Mode** (default) — Agent accesses all documents except those you select to hide
-- **Include Mode** — Agent only accesses the specific folders, tags, or documents you select
+- **Exclude Mode** (الوضع الافتراضي) — يصل الـ Agent إلى جميع المستندات باستثناء تلك التي تختار إخفاءها
+- **Include Mode** — يصل الـ Agent فقط إلى المجلدات أو الوسوم أو المستندات المحدّدة التي تختارها
 
-Use Include Mode when you want to restrict an agent to a specific knowledge set.
+استخدم Include Mode عندما تريد قصر الـ Agent على مجموعة معرفة محدّدة.
 
-### LLM Configuration
+### ضبط الـ LLM
 
-For most users, the default AI model settings work well. Advanced users can customize:
+بالنسبة لمعظم المستخدمين، تعمل إعدادات نموذج الذكاء الاصطناعي الافتراضية بشكل جيّد. ويمكن للمستخدمين المتقدمين تخصيص:
 
-- **Model** — Choose from available AI models
-- **Temperature** — Lower = more consistent, higher = more creative
-- **Show Document References** — Enable to include source citations in responses
+- **Model** — اختر من بين نماذج الذكاء الاصطناعي المتاحة
+- **Temperature** — كلما انخفضت = أكثر اتساقًا، وكلما ارتفعت = أكثر إبداعًا
+- **Show Document References** — فعِّلها لتضمين استشهادات المصادر في الإجابات
 
-## Save Your Agent
+## حفظ الـ Agent
 
-Click **Create Agent** to save. Your agent starts in **Testing** status, meaning you can test it in the Playground but channel integrations are disabled until you activate it.
+انقر على **Create Agent** للحفظ. يبدأ الـ Agent في حالة **Testing**، أي أنه يمكنك اختباره في الـ Playground لكن عمليات دمج القنوات تظل معطّلة حتى تقوم بتفعيله.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  Your draft is automatically saved as you work. If you leave and come back, your progress will be restored.
+  يُحفظ مسوّدتك تلقائيًا أثناء العمل. إذا غادرت ثم عُدت، ستُستعاد تقدّمك.
 </Callout>
 
-## Next Step
+## الخطوة التالية
 
-Your agent is created! Now let's [test it in the playground](/getting-started/test-your-agent).
+تم إنشاء الـ Agent الخاص بك! والآن لنُقم بـ[اختباره في الـ Playground](/getting-started/test-your-agent).

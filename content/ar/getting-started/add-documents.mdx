@@ -1,81 +1,78 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# إضافة المحتوى
 
-# Add Content
+تأتي معرفة روبوت الدردشة من المحتوى الذي تقدّمه. يوضّح لك هذا الدليل كيفية رفع المستندات وزحف المواقع الإلكترونية لبناء محتواك.
 
-Your chatbot's knowledge comes from the content you provide. This guide shows you how to upload documents and crawl websites to build your content.
+## الوصول إلى المحتوى
 
-## Accessing Content
+1. سجّل الدخول إلى لوحة تحكم Cuneiform Chat الخاصة بك
+2. انتقل إلى **Content** في الشريط الجانبي
+3. اسحب الملفات إلى منطقة الإفلات، أو انقر على منطقة الإفلات (**Drag & drop documents, or click to select**) لفتح مُنتقي الملفات
 
-1. Sign in to your Cuneiform Chat dashboard
-2. Navigate to **Content** in the sidebar
-3. Drag files into the dropzone, or click the dropzone (**Drag & drop documents, or click to select**) to open the file picker
+## أنواع الملفات المدعومة
 
-## Supported File Types
+يدعم Cuneiform Chat مجموعة واسعة من تنسيقات المستندات:
 
-Cuneiform Chat supports a wide range of document formats:
-
-| Format | Extensions | Notes |
+| التنسيق | الامتدادات | ملاحظات |
 |--------|-----------|-------|
-| PDF | `.pdf` | Text-based and scanned (OCR) |
-| Word | `.docx`, `.doc` | Microsoft Word documents |
-| Text | `.txt`, `.md`, `.rtf` | Plain text, Markdown, Rich Text |
-| PowerPoint | `.pptx`, `.ppt` | Presentation slides |
-| Web/Data | `.html`, `.htm`, `.json`, `.xml` | Web pages and structured data |
+| PDF | `.pdf` | نصية وممسوحة ضوئيًا (OCR) |
+| Word | `.docx`, `.doc` | مستندات Microsoft Word |
+| نص | `.txt`, `.md`, `.rtf` | نص عادي، وMarkdown، ونص منسّق |
+| PowerPoint | `.pptx`, `.ppt` | شرائح العروض التقديمية |
+| ويب/بيانات | `.html`, `.htm`, `.json`, `.xml` | صفحات ويب وبيانات مهيكلة |
 
-## Upload Methods
+## طرق الرفع
 
-### Direct Upload
+### الرفع المباشر
 
-1. Click the dropzone on the **Documents** tab
-2. Select files from your computer in the file picker
-3. Wait for processing to complete
+1. انقر على منطقة الإفلات في تبويب **Documents**
+2. حدِّد الملفات من جهازك في مُنتقي الملفات
+3. انتظر اكتمال المعالجة
 
-### Drag and Drop
+### السحب والإفلات
 
-Drag files from your computer and drop them into the dropzone on the **Documents** tab.
+اسحب الملفات من جهازك وأفلِتها في منطقة الإفلات ضمن تبويب **Documents**.
 
-### Cloud Storage
+### التخزين السحابي
 
-Connect your cloud storage for seamless imports:
+اربط تخزينك السحابي لاستيراد سلس:
 
-- **Google Drive** — Import directly from your Drive
-- **Dropbox** — Connect your Dropbox account
-- **OneDrive** — Import from Microsoft OneDrive
-- **Box** — Connect your Box account
+- **Google Drive** — استورد مباشرةً من Drive الخاص بك
+- **Dropbox** — اربط حساب Dropbox الخاص بك
+- **OneDrive** — استورد من Microsoft OneDrive
+- **Box** — اربط حساب Box الخاص بك
 
-See [Cloud Storage Integration](/knowledge-base/cloud-storage) for setup instructions.
+راجع [دمج التخزين السحابي](/knowledge-base/cloud-storage) للحصول على تعليمات الإعداد.
 
-### Website Crawling
+### زحف المواقع الإلكترونية
 
-Crawl public websites and import the content as documents:
+ازحف المواقع الإلكترونية العامة واستورد محتواها كمستندات:
 
-1. Navigate to **Content** and click the **Website** tab
-2. Enter a URL and click **Crawl**
-3. Review and edit crawled pages
-4. Select pages and click **Process Selected**
+1. انتقل إلى **Content** وانقر على تبويب **Website**
+2. أدخل عنوان URL وانقر على **Crawl**
+3. راجِع الصفحات المزحوفة وعدِّلها
+4. حدِّد الصفحات وانقر على **Process Selected**
 
-The crawler follows links up to 2 levels deep. The number of pages you can crawl depends on your [plan](/billing/plans).
+يتبع الزاحف الروابط حتى مستويين من العمق. يعتمد عدد الصفحات التي يمكنك زحفها على [خطتك](/billing/plans).
 
-See [Website Crawling](/knowledge-base/website-crawling) for the full guide.
+راجع [زحف المواقع الإلكترونية](/knowledge-base/website-crawling) للحصول على الدليل الكامل.
 
-## Document Processing
+## معالجة المستندات
 
-After uploading or crawling, your content is automatically processed and made searchable by your agents.
+بعد الرفع أو الزحف، تُعالَج محتوياتك تلقائيًا وتصبح قابلة للبحث من قِبل الـ Agents الخاصة بك.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Processing time depends on document size and complexity. Most documents complete within a few minutes. The system automatically detects duplicate content to avoid redundant uploads.
+  يعتمد وقت المعالجة على حجم المستند وتعقيده. تكتمل معظم المستندات خلال دقائق معدودة. يكتشف النظام تلقائيًا المحتوى المكرّر لتجنّب عمليات الرفع المتكررة.
 </Callout>
 
-## Best Practices
+## أفضل الممارسات
 
-- **Quality over quantity** — Well-structured documents produce better responses
-- **Keep content current** — Remove outdated documents to avoid confusion
-- **Organize with folders** — Use the folder structure to keep documents organized
-- **Crawl selectively** — Review and edit crawled pages before processing to remove navigation and boilerplate
+- **الجودة قبل الكمية** — تُنتج المستندات جيّدة التنظيم إجابات أفضل
+- **حافِظ على حداثة المحتوى** — احذف المستندات القديمة لتجنّب الالتباس
+- **نظِّم باستخدام المجلدات** — استخدم بنية المجلدات للحفاظ على تنظيم المستندات
+- **ازحف بانتقائية** — راجِع الصفحات المزحوفة وعدِّلها قبل المعالجة لإزالة عناصر التنقّل والمحتوى النمطي
 
-## Next Step
+## الخطوة التالية
 
-With documents uploaded, you're ready to [create your first agent](/getting-started/first-agent).
+بعد رفع المستندات، تكون جاهزًا لـ[إنشاء أول Agent](/getting-started/first-agent).

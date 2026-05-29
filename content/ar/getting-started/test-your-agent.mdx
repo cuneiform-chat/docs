@@ -1,97 +1,94 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# اختبار الـ Agent
 
-# Test Your Agent
+قبل نشر الـ Agent الخاص بك، استخدم الـ Playground لاختبار إجاباته وضبط سلوكه بدقة.
 
-Before deploying your agent, use the Playground to test its responses and fine-tune its behavior.
+## الوصول إلى الـ Playground
 
-## Accessing the Playground
+1. انتقل إلى **Agents** في الشريط الجانبي
+2. انقر على **Test** في بطاقة الـ Agent الخاص بك
+3. يُفتح الـ Playground كلوحة جانبية — ابدأ المحادثة!
 
-1. Navigate to **Agents** in the sidebar
-2. Click **Test** on your agent card
-3. The Playground opens as a side panel — start chatting!
+استخدم مفتاح تبديل الشريط الجانبي لإخفاء قائمة المحادثات وإتاحة مساحة أكبر. اضغط **Shift+Enter** لإضافة أسطر جديدة دون إرسال.
 
-Use the sidebar toggle to hide the conversation list for more space. Press **Shift+Enter** to add new lines without sending.
+## اختبار الـ Agent
 
-## Testing Your Agent
+### اطرح أسئلة تجريبية
 
-### Ask Sample Questions
+جرّب الأسئلة التي قد يطرحها مستخدموك:
 
-Try questions that your users might ask:
+- أسئلة تُجيب عنها مستنداتك مباشرةً
+- أسئلة متابعة تتطلب سياقًا
+- الحالات الحدّية والاستعلامات الغامضة
+- أسئلة خارج محتواك (لاختبار الحدود)
 
-- Questions directly answered by your documents
-- Follow-up questions that require context
-- Edge cases and ambiguous queries
-- Questions outside your content (to test boundaries)
+### قيِّم الإجابات
 
-### Evaluate Responses
+لكل إجابة، ضع في اعتبارك:
 
-For each response, consider:
+- **الدقة** — هل المعلومات صحيحة؟
+- **الصلة** — هل تُجيب عن السؤال الفعلي؟
+- **النبرة** — هل تتطابق مع أسلوبك المتوقّع؟
+- **المصادر** — هل استشهادات المستندات مفيدة؟
 
-- **Accuracy** — Is the information correct?
-- **Relevance** — Does it answer the actual question?
-- **Tone** — Does it match your expected style?
-- **Sources** — Are document references helpful?
+## تحسين الـ Agent
 
-## Refining Your Agent
+بناءً على الاختبار، قد ترغب في تعديل:
 
-Based on testing, you may want to adjust:
+### شخصية الـ Agent
 
-### Agent Persona
+إذا لم تكن الإجابات دقيقة تمامًا، فحسِّن شخصية الـ Agent:
 
-If responses aren't quite right, refine the agent persona:
+- أضِف تعليمات محدّدة للسيناريوهات الشائعة
+- وضِّح النبرة والشخصية
+- حدِّد الحدود لما ينبغي للـ Agent فعله وما لا ينبغي
 
-- Add specific instructions for common scenarios
-- Clarify the tone and personality
-- Set boundaries for what the agent should and shouldn't do
+### المحتوى
 
-### Content
+إذا تعذّر على الـ Agent العثور على المعلومات:
 
-If the agent can't find information:
-
-- Check that relevant documents are uploaded
-- Verify documents processed successfully
-- Consider adding more detailed content
+- تحقّق من أن المستندات ذات الصلة مرفوعة
+- تأكّد من أن المستندات عُولِجت بنجاح
+- فكّر في إضافة محتوى أكثر تفصيلًا
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  Keep a list of test questions and expected answers. Re-run these tests after making changes to ensure improvements don't break other behaviors.
+  احتفظ بقائمة من الأسئلة التجريبية والإجابات المتوقّعة. أعِد تشغيل هذه الاختبارات بعد إجراء أي تغييرات لضمان ألّا تكسر التحسيناتُ سلوكياتٍ أخرى.
 </Callout>
 
-## Conversation History
+## سجلّ المحادثات
 
-The Playground maintains conversation history within a session. Use this to test:
+يحتفظ الـ Playground بسجلّ المحادثات ضمن الجلسة الواحدة. استخدم هذا لاختبار:
 
-- Multi-turn conversations
-- Context retention
-- Follow-up questions
+- المحادثات متعددة الأدوار
+- الاحتفاظ بالسياق
+- أسئلة المتابعة
 
-While the agent responds, you'll see tool indicators showing what it's doing (searching documents, processing your query, etc.). Click **Stop** if you need to cancel a response.
+أثناء ردّ الـ Agent، سترى مؤشرات الأدوات التي توضّح ما يفعله (البحث في المستندات، معالجة استعلامك، إلخ). انقر على **Stop** إذا احتجت إلى إلغاء إجابة.
 
-## Activating Your Agent
+## تفعيل الـ Agent
 
-New agents start in **Testing** status — you can test in the Playground, but channel integrations are disabled.
+تبدأ الـ Agents الجديدة في حالة **Testing** — يمكنك الاختبار في الـ Playground، لكن عمليات دمج القنوات تظل معطّلة.
 
-To enable integrations:
+لتفعيل عمليات الدمج:
 
-1. Open your agent's edit page
-2. Change the **Status** dropdown from "Testing" to "Active"
-3. Click **Save**
+1. افتح صفحة تحرير الـ Agent الخاص بك
+2. غيِّر قائمة **Status** المنسدلة من "Testing" إلى "Active"
+3. انقر على **Save**
 
-Once active, you can deploy to various channels:
+بمجرد التفعيل، يمكنك النشر على قنوات مختلفة:
 
-- [Telegram](/integrations/telegram) — Connect to Telegram
-- [Discord](/integrations/discord) — Add to your Discord server
-- [Slack](/integrations/slack) — Integrate with Slack workspaces
-- [WhatsApp](/integrations/whatsapp) — Connect to WhatsApp Business
-- [Messenger](/integrations/facebook) — Connect to Facebook Messenger
-- [Google Chat](/integrations/google-chat) — Integrate with Google Workspace
+- [Telegram](/integrations/telegram) — الربط بـ Telegram
+- [Discord](/integrations/discord) — الإضافة إلى خادم Discord الخاص بك
+- [Slack](/integrations/slack) — الدمج مع مساحات عمل Slack
+- [WhatsApp](/integrations/whatsapp) — الربط بـ WhatsApp Business
+- [Messenger](/integrations/facebook) — الربط بـ Facebook Messenger
+- [Google Chat](/integrations/google-chat) — الدمج مع Google Workspace
 
-## Next Steps
+## الخطوات التالية
 
-Congratulations! You've created and tested your first Cuneiform Chat agent. Explore the following sections to learn more:
+تهانينا! لقد أنشأت واختبرت أول Agent على Cuneiform Chat. استكشف الأقسام التالية لمعرفة المزيد:
 
-- [Agent Configuration](/agents/configuring) — Advanced agent settings
-- [Content Management](/knowledge-base) — Document organization tips
-- [Integrations](/integrations) — Deploy to multiple channels
+- [ضبط الـ Agent](/agents/configuring) — إعدادات الـ Agent المتقدمة
+- [إدارة المحتوى](/knowledge-base) — نصائح لتنظيم المستندات
+- [Integrations](/integrations) — النشر على قنوات متعددة
