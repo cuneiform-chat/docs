@@ -1,27 +1,24 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# شخصيات الـ Agent
 
-# Agent Personas
+شخصية الـ Agent هي أهمّ إعداد له. فهي تحدّد الطابع والسلوك والحدود.
 
-The agent persona is the most important configuration for your agent. It defines personality, behavior, and boundaries.
+## ما هي شخصية الـ Agent؟
 
-## What is an Agent Persona?
+شخصية الـ Agent هي مجموعة من التعليمات تُعطى للذكاء الاصطناعي قبل أي محادثة مع المستخدم. وهي تصوغ كل ردّ يقدّمه الـ Agent.
 
-The agent persona is a set of instructions given to the AI before any user conversation. It shapes every response your agent gives.
+## بنية شخصية جيّدة للـ Agent
 
-## Structure of a Good Agent Persona
+### 1. تعريف الدور
 
-### 1. Role Definition
-
-Start by defining who the agent is:
+ابدأ بتحديد من هو الـ Agent:
 
 ```
 You are a customer support assistant for TechCorp, a software company.
 ```
 
-### 2. Core Responsibilities
+### 2. المسؤوليات الأساسية
 
-Describe what the agent should do:
+صِف ما ينبغي للـ Agent فعله:
 
 ```
 Your role is to:
@@ -30,9 +27,9 @@ Your role is to:
 - Guide users to relevant documentation
 ```
 
-### 3. Behavior Guidelines
+### 3. إرشادات السلوك
 
-Set the tone and style:
+اضبط النبرة والأسلوب:
 
 ```
 Communication style:
@@ -41,15 +38,15 @@ Communication style:
 - Keep responses concise unless detail is requested
 ```
 
-### 4. Automatic Language Detection
+### 4. الكشف التلقائي للغة
 
-Your agent automatically detects the language of each user message and responds in kind — no manual configuration needed. 176 languages are supported out of the box.
+يكشف الـ Agent تلقائيًا لغة كل رسالة من المستخدم ويردّ بها — دون أي إعداد يدوي. ويُدعَم 176 لغة جاهزة.
 
-The agent adapts per-message, so it can handle multilingual conversations naturally. Safety and accuracy rules remain in English internally.
+يتكيّف الـ Agent مع كل رسالة، فيستطيع التعامل مع المحادثات متعدّدة اللغات بسلاسة. وتبقى قواعد الأمان والدقّة بالإنجليزية داخليًا.
 
-### 5. Boundaries
+### 5. الحدود
 
-Define what the agent should NOT do:
+حدّد ما يجب على الـ Agent ألّا يفعله:
 
 ```
 Important boundaries:
@@ -59,9 +56,9 @@ Important boundaries:
 - If unsure, acknowledge uncertainty and suggest contacting support
 ```
 
-## Example Agent Personas
+## أمثلة على شخصيات الـ Agent
 
-### Customer Support
+### دعم العملاء
 
 ```
 You are a helpful customer support assistant for Acme Corp.
@@ -83,7 +80,7 @@ Do not:
 - Discuss internal company matters
 ```
 
-### Technical Documentation
+### التوثيق التقني
 
 ```
 You are a technical documentation assistant.
@@ -102,7 +99,7 @@ When answering:
 - Explain complex concepts step by step
 ```
 
-### FAQ Bot
+### روبوت الأسئلة الشائعة
 
 ```
 You are a FAQ assistant for [Company Name].
@@ -116,52 +113,52 @@ If a question isn't covered in the documentation:
 Tone: Friendly and helpful, but concise.
 ```
 
-## Tips for Better Personas
+## نصائح لشخصيات أفضل
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-**Start simple.** Begin with a basic prompt and add complexity based on testing results.
+**ابدأ ببساطة.** ابدأ بموجّه أساسي ثم أضِف التعقيد بناءً على نتائج الاختبار.
 </Callout>
 
-1. **Be specific** — Vague instructions lead to inconsistent behavior
-2. **Use examples** — Show the agent what good responses look like
-3. **Set clear boundaries** — Define what the agent should NOT do
-4. **Iterate** — Test and refine based on actual conversations
-5. **Keep it focused** — Long, complex prompts can confuse the model
-6. **Language is automatic** — Your agent detects the user's language and responds accordingly. No need to add language instructions to the persona text
+1. **كن محدّدًا** — التعليمات الغامضة تؤدّي إلى سلوك غير متّسق
+2. **استخدم أمثلة** — أرِ الـ Agent كيف تبدو الردود الجيّدة
+3. **اضبط حدودًا واضحة** — حدّد ما يجب على الـ Agent ألّا يفعله
+4. **كرّر التحسين** — اختبر وحسّن بناءً على المحادثات الفعلية
+5. **حافظ على التركيز** — الموجّهات الطويلة والمعقّدة قد تُربِك النموذج
+6. **اللغة تلقائية** — يكشف الـ Agent لغة المستخدم ويردّ بها. لا حاجة لإضافة تعليمات لغوية إلى نصّ الشخصية
 
-## Testing Your Persona
+## اختبار شخصيتك
 
-After writing or updating your agent persona:
+بعد كتابة شخصية الـ Agent أو تحديثها:
 
-1. Test in the [Playground](/agents/testing)
-2. Try edge cases and tricky questions
-3. Refine based on results
-4. Re-test to ensure improvements
+1. اختبر في الـ [Playground](/agents/testing)
+2. جرّب الحالات الحديّة والأسئلة الصعبة
+3. حسّن بناءً على النتائج
+4. أعد الاختبار للتأكّد من التحسينات
 
-## Template Variables
+## المتغيّرات في القالب
 
-Personalize your agent's system prompt with dynamic variables.
+خصّص موجّه نظام الـ Agent بمتغيّرات ديناميكية.
 
-### Available Variables
+### المتغيّرات المتاحة
 
-| Variable | Description | Example |
+| المتغيّر | الوصف | مثال |
 |----------|-------------|---------|
-| `{{organization_name}}` | Your organization name | "Acme Corp" |
-| `{{current_date}}` | Today's date | "2026-02-03" |
-| `{{current_year}}` | Current year | "2026" |
+| `{{organization_name}}` | اسم مؤسستك | "Acme Corp" |
+| `{{current_date}}` | تاريخ اليوم | "2026-02-03" |
+| `{{current_year}}` | السنة الحالية | "2026" |
 
-### Using Variables
+### استخدام المتغيّرات
 
-In your system prompt:
+في موجّه النظام:
 
 ```
 Welcome to {{organization_name}}! I'm here to help you today.
 ```
 
-**Result:** "Welcome to Acme Corp! I'm here to help you today."
+**النتيجة:** "Welcome to Acme Corp! I'm here to help you today."
 
 <Callout type="info">
-  Variables are resolved at message-send time using your organization's actual values. There is no in-UI preview — test in the [Playground](/agents/testing) to verify the rendered prompt.
+  تُحَلّ المتغيّرات وقت إرسال الرسالة باستخدام القيم الفعلية لمؤسستك. ولا توجد معاينة داخل الواجهة — اختبر في الـ [Playground](/agents/testing) للتحقّق من الموجّه بعد تحليله.
 </Callout>

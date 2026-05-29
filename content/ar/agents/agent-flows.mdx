@@ -1,192 +1,189 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Agent Flows
 
-Multi-screen WhatsApp forms an AI agent can hand to a customer mid-conversation. The agent decides when to ask for structured information — name, dates, an uploaded ID photo, a multi-step questionnaire — and your customer fills it in with a native WhatsApp form rather than a long back-and-forth chat.
+نماذج WhatsApp متعدّدة الشاشات يمكن للـ Agent تسليمها إلى العميل أثناء المحادثة. يقرّر الـ Agent متى يطلب معلومات منظَّمة — اسمًا، أو تواريخ، أو صورة هوية مرفوعة، أو استبيانًا متعدّد الخطوات — ويملؤها عميلك عبر نموذج WhatsApp أصلي بدلًا من تبادل طويل في الدردشة.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Agent Flows runs on **WhatsApp** and is available on **all paid plans** (tier-limited — see the Tier limits table below). Web widget, Telegram, and Messenger renderers are on the roadmap.
+  يعمل Agent Flows على **WhatsApp** ويتوفّر في **جميع الباقات المدفوعة** (محدود حسب الباقة — راجع جدول حدود الباقات أدناه). ومُحرّكات العرض للـ Web widget وTelegram وMessenger على خارطة الطريق.
 </Callout>
 
-## When to use Agent Flows
+## متى تستخدم Agent Flows
 
-Reach for a flow when chat alone is the wrong shape for the question:
+استعن بنموذج عندما تكون الدردشة وحدها الشكل الخاطئ للسؤال:
 
-- **Lead capture** — name + email + business size + meeting preference, all in one screen the customer fills in once
-- **Appointment booking** — pick a date, pick a time slot, confirm
-- **Document or photo upload** — collect an ID, a receipt, a damaged-product photo
-- **Multi-step intake** — symptom checklists, application forms, surveys
-- **Conditional questions** — only ask "what kind of pet?" if they said yes to "do you have a pet?"
+- **التقاط العملاء المحتملين** — الاسم + البريد الإلكتروني + حجم العمل + تفضيل الاجتماع، كلها في شاشة واحدة يملؤها العميل مرّة واحدة
+- **حجز المواعيد** — اختر تاريخًا، اختر فترة زمنية، أكّد
+- **رفع مستند أو صورة** — جمع هوية أو إيصال أو صورة منتج تالف
+- **استقبال متعدّد الخطوات** — قوائم أعراض، نماذج طلبات، استبيانات
+- **الأسئلة الشرطية** — لا تسأل "ما نوع الحيوان الأليف؟" إلا إذا أجاب بنعم على "هل لديك حيوان أليف؟"
 
-The agent recommends a flow when its system prompt + the conversation context match. You set up the flow once in the admin panel; the agent reuses it across every conversation.
+يوصي الـ Agent بنموذج عندما يتطابق موجّه نظامه مع سياق المحادثة. تُعِدّ النموذج مرّة واحدة في لوحة التحكم؛ ويعيد الـ Agent استخدامه عبر كل محادثة.
 
-## Building a flow
+## بناء نموذج
 
-Flows live under **Agent Flows** in the customer admin panel. Each flow has:
+تعيش النماذج ضمن **Agent Flows** في لوحة تحكم العميل. لكل نموذج:
 
-- A **name and description** the agent reads to decide when to use it
-- One or more **screens**, each containing **components** (fields)
-- Optional **screen logic** (branch to different screens based on what the customer picks)
-- Optional **A/B variants** — split traffic between two versions of the same flow
-- Per-locale **publications** to WhatsApp (translate once, publish per language)
+- **اسم ووصف** يقرؤهما الـ Agent ليقرّر متى يستخدمه
+- **شاشة** واحدة أو أكثر، تحتوي كل منها على **مكوّنات** (حقول)
+- **منطق شاشة** اختياري (التفرّع إلى شاشات مختلفة بناءً على ما يختاره العميل)
+- **متغايرات A/B** اختيارية — تقسيم حركة المرور بين نسختين من النموذج نفسه
+- **منشورات** لكل لغة إلى WhatsApp (تُرجِم مرّة واحدة، وانشر لكل لغة)
 
-## Starting from a template
+## البدء من قالب
 
-You don't have to start from a blank composer. Open the **Templates** tab on the Agent Flows list to browse a curated library of ready-made flows — lead capture, demo booking, support intake, product feedback, and more. Click **Use this template** and it creates an editable draft in your own workspace: the screens, fields, logic, and translations come pre-filled. Bind the draft to a WhatsApp number, tweak anything you want, and publish.
+لست مضطرًا إلى البدء من محرّر فارغ. افتح علامة تبويب **Templates** في قائمة Agent Flows لتصفّح مكتبة منسّقة من النماذج الجاهزة — التقاط العملاء المحتملين، وحجز العروض التوضيحية، واستقبال الدعم، وملاحظات المنتج، وغيرها. انقر على **Use this template** فيُنشئ مسوّدة قابلة للتعديل في مساحة عملك: الشاشات والحقول والمنطق والترجمات كلها مُعبّأة مسبقًا. اربط المسوّدة برقم WhatsApp، وعدّل ما تشاء، ثم انشر.
 
-A template is just a starting point — once you've created your copy, it's a normal flow you fully own and can edit freely. The template library is available to every plan that has Agent Flows.
+القالب مجرّد نقطة بداية — بمجرّد إنشائك لنسختك، تصبح نموذجًا عاديًا تملكه بالكامل ويمكنك تعديله بحرّية. وتتوفّر مكتبة القوالب لكل باقة فيها Agent Flows.
 
-## Component library — 23 variants
+## مكتبة المكوّنات — 23 متغايرًا
 
-The composer's **Add field** menu groups all 23 components into seven categories. Pick the right shape for the data you need.
+تجمع قائمة **Add field** في المحرّر جميع المكوّنات الـ 23 ضمن سبع فئات. اختر الشكل المناسب للبيانات التي تحتاجها.
 
-### Display (chrome, no input)
+### العرض (واجهة، دون إدخال)
 
-These render text or images on the screen without asking the customer for input.
+تعرض هذه النصوص أو الصور على الشاشة دون أن تطلب إدخالًا من العميل.
 
-| Component | Use it for |
+| المكوّن | استخدمه لـ |
 |-----------|-----------|
-| **Text Heading** | A large title at the top of a screen (≤ 80 characters) |
-| **Text Subheading** | A secondary title under the heading (≤ 80 characters) |
-| **Text Body** | A paragraph of explanatory copy. Supports **bold** and ~~strikethrough~~ (≤ 4096 characters) |
-| **Text Caption** | Small supporting copy; markdown allowed (≤ 4096 characters) |
-| **Rich Text** | A markdown block — useful for terms, disclaimers, formatted instructions |
-| **Image** | A single image (≤ 100 KB) |
-| **Image Carousel** | Up to 10 swipeable images with captions — product galleries, before/after, instructions |
+| **Text Heading** | عنوان كبير في أعلى الشاشة (≤ 80 حرفًا) |
+| **Text Subheading** | عنوان ثانوي تحت العنوان الرئيسي (≤ 80 حرفًا) |
+| **Text Body** | فقرة من النصّ التوضيحي. يدعم **النصّ العريض** و~~المشطوب~~ (≤ 4096 حرفًا) |
+| **Text Caption** | نصّ مساعد صغير؛ يُسمح بـ markdown (≤ 4096 حرفًا) |
+| **Rich Text** | كتلة markdown — مفيدة للشروط والإخلاءات والتعليمات المنسّقة |
+| **Image** | صورة واحدة (≤ 100 كيلوبايت) |
+| **Image Carousel** | حتى 10 صور قابلة للتمرير مع تسميات توضيحية — معارض المنتجات، قبل/بعد، التعليمات |
 
-### Inputs (single-line and multi-line text)
+### الإدخالات (نصّ من سطر واحد ومتعدّد الأسطر)
 
-| Component | Use it for |
+| المكوّن | استخدمه لـ |
 |-----------|-----------|
-| **Text Input** | A single-line text box — name, email, short answers |
-| **Text Area** | A multi-line text box — comments, descriptions, longer answers (≤ 600 characters) |
-| **Embedded Link** | An inline tap-to-open link with custom text (≤ 25 characters) |
+| **Text Input** | مربّع نصّ من سطر واحد — الاسم، البريد الإلكتروني، إجابات قصيرة |
+| **Text Area** | مربّع نصّ متعدّد الأسطر — تعليقات، أوصاف، إجابات أطول (≤ 600 حرف) |
+| **Embedded Link** | رابط مضمَّن للنقر والفتح بنصّ مخصّص (≤ 25 حرفًا) |
 
-### Choices (pick from a set)
+### الاختيارات (الاختيار من مجموعة)
 
-| Component | Use it for |
+| المكوّن | استخدمه لـ |
 |-----------|-----------|
-| **Dropdown** | Pick one from a long list (10+ options) |
-| **Radio Buttons** | Pick one from a short list (≤ 5 options), all visible at once |
-| **Checkboxes** | Pick any number from a list, with optional minimum and maximum |
-| **Chips Selector** | Pick from up to 20 tag-style chips — interests, categories, multi-select with a tight footprint |
+| **Dropdown** | اختر واحدًا من قائمة طويلة (10+ خيارات) |
+| **Radio Buttons** | اختر واحدًا من قائمة قصيرة (≤ 5 خيارات)، كلها مرئية دفعة واحدة |
+| **Checkboxes** | اختر أي عدد من قائمة، بحدّ أدنى وأقصى اختياريين |
+| **Chips Selector** | اختر من حتى 20 رقاقة على هيئة وسوم — اهتمامات، فئات، اختيار متعدّد بمساحة ضيّقة |
 
-### Date & time
+### التاريخ والوقت
 
-| Component | Use it for |
+| المكوّن | استخدمه لـ |
 |-----------|-----------|
-| **Date Picker** | A single date — booking date, date of birth |
-| **Calendar Picker** | A calendar surface with optional date range, min/max bounds, and unavailable dates greyed out — appointment booking, hotel stays |
+| **Date Picker** | تاريخ واحد — تاريخ الحجز، تاريخ الميلاد |
+| **Calendar Picker** | سطح تقويم مع نطاق تاريخ اختياري، وحدود دنيا/قصوى، وتواريخ غير متاحة مظلَّلة — حجز المواعيد، إقامات الفنادق |
 
 <Callout type="info">
-  Both `Date Picker` and `Calendar Picker` are kept as distinct components. Use the **Date Picker** for a quick single date; use the **Calendar Picker** when you need a visible month grid, a range, or to grey out specific dates.
+  يُحتفَظ بكلٍّ من `Date Picker` و`Calendar Picker` كمكوّنين منفصلين. استخدم **Date Picker** لتاريخ واحد سريع؛ واستخدم **Calendar Picker** عندما تحتاج إلى شبكة شهر مرئية أو نطاق أو تظليل تواريخ محدّدة.
 </Callout>
 
-### Media uploads
+### رفع الوسائط
 
-| Component | Use it for |
+| المكوّن | استخدمه لـ |
 |-----------|-----------|
-| **Photo Picker** | Customer uploads photos from the camera or gallery (up to 30 per submission) |
-| **Document Picker** | Customer uploads documents — PDF, DOC, etc. (up to 10 per submission) |
+| **Photo Picker** | يرفع العميل صورًا من الكاميرا أو المعرض (حتى 30 لكل إرسال) |
+| **Document Picker** | يرفع العميل مستندات — PDF وDOC، إلخ (حتى 10 لكل إرسال) |
 
 <Callout type="warning">
-  **Mutex:** A single screen can hold either a Photo Picker **or** a Document Picker, but not both. Put them on separate screens if your flow needs both kinds of upload.
+  **حصري متبادل:** يمكن للشاشة الواحدة أن تحتوي على Photo Picker **أو** Document Picker، لكن ليس كليهما. ضعهما على شاشتين منفصلتين إذا احتاج نموذجك إلى نوعَي الرفع كليهما.
 </Callout>
 
-### Layout
+### التخطيط
 
-| Component | Use it for |
+| المكوّن | استخدمه لـ |
 |-----------|-----------|
-| **Navigation List** | Up to 20 tappable rows with chevrons — choose a category, choose a product, choose a destination screen |
-| **Opt-In** | A consent checkbox — terms of service, marketing opt-in, GDPR consent |
-| **Footer** | The submit affordance on the last screen of the flow |
+| **Navigation List** | حتى 20 صفًّا قابلًا للنقر مع أسهم — اختيار فئة، اختيار منتج، اختيار شاشة وجهة |
+| **Opt-In** | مربّع موافقة — شروط الخدمة، الموافقة التسويقية، موافقة GDPR |
+| **Footer** | عنصر الإرسال على الشاشة الأخيرة من النموذج |
 
-### Logic (conditional rendering)
+### المنطق (العرض الشرطي)
 
-| Component | Use it for |
+| المكوّن | استخدمه لـ |
 |-----------|-----------|
-| **If** | Render some components only when a condition is true (`then`) — optionally with an alternative (`else`) |
-| **Switch** | Render different components based on a value the customer picked earlier (multiple `cases` + optional `default`) |
+| **If** | عرض بعض المكوّنات فقط عندما يكون الشرط صحيحًا (`then`) — مع بديل اختياري (`else`) |
+| **Switch** | عرض مكوّنات مختلفة بناءً على قيمة اختارها العميل سابقًا (عدّة `cases` + `default` اختياري) |
 
 <Callout type="info">
-  **If** and **Switch** support up to **3 levels of nesting**. If you find yourself nesting deeper than that, split the logic across multiple screens with screen-level routing instead.
+  يدعم **If** و**Switch** حتى **3 مستويات من التداخل**. إذا وجدت نفسك تتداخل أعمق من ذلك، فقسّم المنطق عبر عدّة شاشات مع توجيه على مستوى الشاشة بدلًا من ذلك.
 </Callout>
 
-## Multi-screen flows and routing
+## النماذج متعدّدة الشاشات والتوجيه
 
-A flow can have up to **10 screens**. Each screen ends with a **Footer** that either submits the flow or moves to the next screen. Use the **screen logic** editor to route the customer to a different next screen based on what they picked — for example, customers who select "Refund" go to a refund-specific second screen; everyone else goes to the generic follow-up screen.
+يمكن أن يحتوي النموذج على حتى **10 شاشات**. تنتهي كل شاشة بـ **Footer** يُرسِل النموذج أو ينتقل إلى الشاشة التالية. استخدم محرّر **منطق الشاشة** لتوجيه العميل إلى شاشة تالية مختلفة بناءً على ما اختاره — فمثلًا، العملاء الذين يختارون "Refund" ينتقلون إلى شاشة ثانية خاصة بالاسترداد؛ والجميع غيرهم ينتقلون إلى شاشة المتابعة العامّة.
 
-For component-level conditional rendering inside a single screen, use **If** / **Switch** instead.
+للعرض الشرطي على مستوى المكوّن داخل شاشة واحدة، استخدم **If** / **Switch** بدلًا من ذلك.
 
-## Localisation
+## التوطين
 
-Flows publish per language. Translate the flow once, then pick the languages you ship it in from **WhatsApp's full supported-language list** — every language Meta lets you publish a WhatsApp Flow in. The picker shows region-distinct options where it matters, so you can ship **Português (Brasil)** separately from **Português (Portugal)**, or **中文 (简体)** separately from **中文 (繁體)**. Each customer sees the version that matches their WhatsApp language; if a customer's language isn't published, the integration's default locale is used as a fallback. (When the customer writes in a base language like Portuguese and you've only published a regional variant such as Brazilian Portuguese, they still get the localized form.)
+تُنشَر النماذج لكل لغة. تُرجِم النموذج مرّة واحدة، ثم اختر اللغات التي تشحنه بها من **قائمة اللغات المدعومة الكاملة في WhatsApp** — كل لغة تتيح لك Meta نشر نموذج WhatsApp بها. يعرض المنتقي خيارات متمايزة إقليميًا حيثما كان ذلك مهمًّا، فيمكنك شحن **Português (Brasil)** بشكل منفصل عن **Português (Portugal)**، أو **中文 (简体)** بشكل منفصل عن **中文 (繁體)**. ويرى كل عميل النسخة التي تطابق لغة WhatsApp لديه؛ وإذا لم تكن لغة العميل منشورة، تُستخدَم اللغة الافتراضية للتكامل كبديل. (عندما يكتب العميل بلغة أساسية مثل البرتغالية وكنت قد نشرت متغايرًا إقليميًا فقط مثل البرتغالية البرازيلية، فإنه يحصل مع ذلك على النموذج المُوطَّن.)
 
-## A/B testing
+## اختبار A/B
 
-If you want to test two versions of a flow against each other, configure them as **variants** in the Variants tab. Customers are split deterministically (same customer always sees the same variant); the **Submissions** view shows which variant each submission came from, and the **Field Heatmap** lets you compare drop-off and completion rates side by side.
+إذا أردت اختبار نسختين من نموذج إحداهما مقابل الأخرى، فاضبطهما كـ **variants** في علامة تبويب Variants. يُقسَّم العملاء بشكل حتمي (يرى العميل نفسه المتغاير نفسه دائمًا)؛ ويعرض عرض **Submissions** المتغاير الذي جاء منه كل إرسال، ويتيح لك **Field Heatmap** مقارنة معدّلات الانسحاب والإكمال جنبًا إلى جنب.
 
-## AI generation
+## التوليد بالذكاء الاصطناعي
 
-If you have a higher-tier plan, the composer offers **AI form generation**: write a one-line prompt ("a hotel booking form with date-range and photo upload"), or upload a PDF / image of an existing form, and the assistant drafts the flow for you. The draft is fully editable — every field is round-trippable in the composer (no opaque AI snapshots).
+إذا كانت لديك باقة من فئة أعلى، يوفّر المحرّر **توليد النماذج بالذكاء الاصطناعي**: اكتب موجّهًا من سطر واحد ("نموذج حجز فندق مع نطاق تاريخ ورفع صورة")، أو ارفع PDF / صورة لنموذج موجود، فيصوغ المساعد النموذج لك. والمسوّدة قابلة للتعديل بالكامل — كل حقل قابل للتعديل ذهابًا وإيابًا في المحرّر (لا لقطات ذكاء اصطناعي مبهمة).
 
-## Submissions and analytics
+## الإرسالات والتحليلات
 
-Once a flow is published, every submission lands in the **Submissions** view for that flow. Each row shows:
+بمجرّد نشر نموذج، يهبط كل إرسال في عرض **Submissions** لذلك النموذج. يعرض كل صفّ:
 
-- Who submitted, when, and through which agent
-- The full field values from the form
-- An **AI score** (0–100) the assistant assigned to the submission — high-value leads bubble to the top
-- The chat turns from the conversation **right before** the form was opened (the conversation-context join — see why the agent decided to ask for this submission)
+- مَن أرسل، ومتى، ومن خلال أي Agent
+- قيم الحقول الكاملة من النموذج
+- **AI score** (0–100) أسنده المساعد إلى الإرسال — تطفو العملاء المحتملون عالو القيمة إلى الأعلى
+- أدوار المحادثة من المحادثة **مباشرة قبل** فتح النموذج (ربط سياق المحادثة — لمعرفة سبب قرار الـ Agent طلب هذا الإرسال)
 
-Aggregate analytics include a **KPI strip** (started / completed / drop-off rate), a **Field-Level Heatmap** showing where customers abandon, and a **Narrative Diagnostic** chat — an AI analyst you can ask "why are people dropping off on screen 2?" and it'll trace the answer through the heatmap, submissions, and conversation context.
+تتضمّن التحليلات المجمَّعة **KPI strip** (المبدوء / المكتمل / معدّل الانسحاب)، و**Field-Level Heatmap** يوضّح أين يتخلّى العملاء، و**Narrative Diagnostic** — محلِّل بالذكاء الاصطناعي يمكنك أن تسأله "لماذا ينسحب الناس على الشاشة 2؟" فيتتبّع الإجابة عبر الخريطة الحرارية والإرسالات وسياق المحادثة.
 
-## Notifications and the lead funnel
+## الإشعارات ومسار العملاء المحتملين
 
-A submission is only valuable if someone acts on it fast. Each flow's **Distribute** tab has a notification block so the right people hear about a lead the moment it lands:
+لا يكون الإرسال ذا قيمة إلا إذا تصرّف أحدهم بناءً عليه بسرعة. تحتوي علامة تبويب **Distribute** لكل نموذج على كتلة إشعارات كي يسمع الأشخاص المناسبون بالعميل المحتمل لحظة هبوطه:
 
-- **Submission notifications** — when a form is submitted, an in-app notification appears, deep-linked straight to that submission. Toggle it per flow.
-- **Reply-after-takeover notifications** — when one of your team replies to a lead in WhatsApp and the customer writes back, you get a second notification — the second beat of the speed-to-lead loop.
-- **Email recipients** — add up to ten email addresses and each submission also sends a deferred email deep-linking to the submission, so offline staff still catch the lead.
+- **إشعارات الإرسال** — عند إرسال نموذج، يظهر إشعار داخل التطبيق، مرتبط ارتباطًا عميقًا مباشرة بذلك الإرسال. فعّله لكل نموذج على حدة.
+- **إشعارات الردّ بعد الاستلام** — عندما يردّ أحد أعضاء فريقك على عميل محتمل في WhatsApp ويكتب العميل ردًّا، تحصل على إشعار ثانٍ — النبضة الثانية في حلقة السرعة إلى العميل المحتمل.
+- **مستلمو البريد الإلكتروني** — أضِف حتى عشرة عناوين بريد إلكتروني، ويرسل كل إرسال أيضًا بريدًا مؤجّلًا مرتبطًا ارتباطًا عميقًا بالإرسال، كي يلتقط الموظفون غير المتّصلين العميل المحتمل أيضًا.
 
-A chatty customer won't spam you: a burst of messages right after a submission collapses into **one** notification, and a fresh one only fires after a human has actually replied and the customer comes back.
+لن يُغرِقك العميل الكثير الحديث: تتجمّع دفعة من الرسائل مباشرة بعد إرسال في إشعار **واحد**، ولا يُطلَق إشعار جديد إلا بعد أن يكون إنسان قد ردّ فعلًا وعاد العميل.
 
-Each flow also has a **funnel strip** on its submissions page — a read-only, at-a-glance view of where leads stand:
+لكل نموذج أيضًا **funnel strip** في صفحة إرسالاته — عرض للقراءة فقط، بنظرة واحدة، لموضع العملاء المحتملين:
 
-| Stage | Meaning |
+| المرحلة | المعنى |
 |-------|---------|
-| **Submitted** | every submission for the flow |
-| **Engaged by AI** | the agent followed up in the conversation after the form |
-| **Human replied** | someone on your team replied by hand |
-| **Resolved** | the conversation was archived |
-| **Awaiting human reply** | notified, but no human has replied yet — your at-risk leads |
+| **Submitted** | كل إرسال للنموذج |
+| **Engaged by AI** | تابع الـ Agent في المحادثة بعد النموذج |
+| **Human replied** | ردّ أحد أعضاء فريقك يدويًا |
+| **Resolved** | أُرشِفت المحادثة |
+| **Awaiting human reply** | أُشعِر، لكن لم يردّ إنسان بعد — عملاؤك المحتملون المعرَّضون للخطر |
 
-The funnel is a **heuristic view** to help you manage the pipeline at a glance, not a revenue-attribution model.
+المسار **عرض تقريبي (heuristic)** لمساعدتك على إدارة خطّ الأنابيب بنظرة واحدة، وليس نموذج عزو إيرادات.
 
-## Contextual acknowledgments
+## الإقرارات السياقية
 
-When a customer finishes a flow, they see WhatsApp's instant completion screen with the confirmation message you set on the form. Shortly after, the agent also sends a **separate WhatsApp message that references what they actually filled in** — "Got it — I've put you down for 2pm Tuesday. Anything else?" — so the conversation picks up naturally instead of leaving the customer staring at a static "thanks." The agent already knows the submitted values, so the acknowledgment is specific, not boilerplate.
+عندما ينهي العميل نموذجًا، يرى شاشة الإكمال الفورية في WhatsApp مع رسالة التأكيد التي ضبطتها على النموذج. وبعد ذلك بقليل، يرسل الـ Agent أيضًا **رسالة WhatsApp منفصلة تشير إلى ما ملأه فعلًا** — "تمام — سجّلتك للساعة 2 ظهرًا الثلاثاء. أي شيء آخر؟" — كي تستأنف المحادثة بشكل طبيعي بدلًا من ترك العميل يحدّق في "شكرًا" ثابتة. يعرف الـ Agent القيم المُرسَلة سلفًا، فيكون الإقرار محدّدًا لا قالبيًا.
 
-This is **on by default** for every flow. If you'd rather the agent stay quiet after a submission, turn off **Acknowledge submissions** on the flow's **Distribute** tab. The acknowledgment also stays silent automatically when one of your team has taken over the conversation — you won't get an AI message stepping on a human reply.
+هذا **مفعّل افتراضيًا** لكل نموذج. وإذا فضّلت أن يبقى الـ Agent صامتًا بعد الإرسال، فأوقِف **Acknowledge submissions** في علامة تبويب **Distribute** للنموذج. ويبقى الإقرار صامتًا تلقائيًا أيضًا عندما يكون أحد أعضاء فريقك قد استلم المحادثة — فلن تحصل على رسالة ذكاء اصطناعي تطغى على ردّ بشري.
 
-## Sharing a flow as a campaign link
+## مشاركة نموذج كرابط حملة
 
-Published flows don't only live inside conversations the agent starts. Open the **Campaign asset** card on the flow's **Distribute** tab and generate a **shareable link** — a standard WhatsApp click-to-chat link (plus a downloadable **QR code**) you can drop into an email, an Instagram bio, a "Book a demo" button, or print on a flyer.
+لا تعيش النماذج المنشورة داخل المحادثات التي يبدؤها الـ Agent فحسب. افتح بطاقة **Campaign asset** في علامة تبويب **Distribute** للنموذج وأنشئ **رابطًا قابلًا للمشاركة** — رابط WhatsApp قياسي للنقر والدردشة (بالإضافة إلى **رمز QR** قابل للتنزيل) يمكنك إدراجه في بريد إلكتروني، أو سيرة Instagram، أو زر "Book a demo"، أو طباعته على نشرة.
 
-When someone clicks the link, WhatsApp opens a chat with your number and a prefilled message; they tap send, and **the exact form opens as the first reply** — no guessing, no AI greeting in between. The person who clicked "Book Demo" gets the booking form straight away. The agent then handles the rest of the conversation normally.
+عندما ينقر أحدهم على الرابط، يفتح WhatsApp دردشة مع رقمك مع رسالة مُعبّأة مسبقًا؛ ينقر على إرسال، و**يُفتَح النموذج بالضبط كأول ردّ** — دون تخمين، ودون تحية ذكاء اصطناعي في الوسط. فالشخص الذي نقر "Book Demo" يحصل على نموذج الحجز فورًا. ثم يتولّى الـ Agent بقية المحادثة بشكل طبيعي.
 
-Each link has a **hit counter** so you can see how many people launched the form through it, and you can **revoke** a link at any time. If a link's text is edited or stripped before sending, or the link is revoked, the message simply falls through to a normal AI conversation — nothing breaks.
+لكل رابط **عدّاد نقرات** كي ترى عدد الأشخاص الذين أطلقوا النموذج عبره، ويمكنك **إبطال** رابط في أي وقت. وإذا عُدِّل نصّ الرابط أو حُذِف قبل الإرسال، أو أُبطِل الرابط، فإن الرسالة تسقط ببساطة إلى محادثة ذكاء اصطناعي عادية — لا شيء ينكسر.
 
-## Tier limits
+## حدود الباقات
 
-| Tier | Published flows | Locales per flow | AI generation |
+| الباقة | النماذج المنشورة | اللغات لكل نموذج | التوليد بالذكاء الاصطناعي |
 |------|-----------------|------------------|---------------|
 | Trial | 1 | 1 | — |
 | Starter | 1 | 1 | — |
-| Plus | Unlimited | Unlimited | ✅ |
-| Enterprise | Unlimited | Unlimited | ✅ |
+| Plus | غير محدود | غير محدود | ✅ |
+| Enterprise | غير محدود | غير محدود | ✅ |
 
-All 23 component types are available on every tier that supports Agent Flows — there is no per-component tier-gating.
+تتوفّر جميع أنواع المكوّنات الـ 23 في كل باقة تدعم Agent Flows — ولا يوجد تقييد حسب الباقة لكل مكوّن على حدة.

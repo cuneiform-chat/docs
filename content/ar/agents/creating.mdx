@@ -1,57 +1,54 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
-# Creating Agents
+# إنشاء الـ Agents
 
 import { Callout } from 'nextra/components'
 
-Learn how to create new agents in Cuneiform Chat.
+تعرّف على كيفية إنشاء Agents جديدة في Cuneiform Chat.
 
-## Getting Started
+## البدء
 
-1. Navigate to **Agents** in the sidebar
-2. Click the **Create Agent** button in the top right
-3. Fill in the form sections below
+1. انتقل إلى **Agents** في الشريط الجانبي
+2. انقر على زر **Create Agent** في أعلى اليمين
+3. املأ أقسام النموذج أدناه
 
-## Basic Information
+## المعلومات الأساسية
 
-This section captures essential details about your agent.
+يلتقط هذا القسم التفاصيل الجوهرية عن الـ Agent.
 
-| Field | Required | Description |
+| الحقل | مطلوب | الوصف |
 |-------|----------|-------------|
-| **Name** | Yes | A name for your agent (e.g., "Customer Support Agent"). Maximum 100 characters. |
-| **Description** | No | A brief description of what this agent does. Maximum 500 characters. |
+| **Name** | نعم | اسم للـ Agent (مثل "Customer Support Agent"). بحدّ أقصى 100 حرف. |
+| **Description** | لا | وصف موجز لما يفعله هذا الـ Agent. بحدّ أقصى 500 حرف. |
 
-**Tips:**
-- Choose a descriptive name that indicates the agent's purpose
-- The description helps you and your team understand the agent's role
+**نصائح:**
+- اختر اسمًا وصفيًا يدلّ على غرض الـ Agent
+- يساعدك الوصف وفريقك على فهم دور الـ Agent
 
-## Agent Persona
+## شخصية الـ Agent
 
-The agent persona defines how your agent behaves and responds through a system prompt.
+تحدّد شخصية الـ Agent كيف يتصرّف ويردّ من خلال موجّه نظام (system prompt).
 
-**Key Elements:**
+**العناصر الأساسية:**
 
-- **Platform Rules Box** — Shows built-in safety rules that are automatically applied (click to view details)
-- **Generate Button** — Opens the [Agent Persona Builder](/agents/persona-builder) to help create your persona
-- **Edit Button** — Opens a panel to manually write or edit the persona
+- **Platform Rules Box** — تعرض قواعد الأمان المدمجة المطبّقة تلقائيًا (انقر لعرض التفاصيل)
+- **Generate Button** — يفتح [منشئ شخصيات الـ Agent](/agents/persona-builder) لمساعدتك على إنشاء شخصيتك
+- **Edit Button** — يفتح لوحة لكتابة الشخصية أو تعديلها يدويًا
 
-### Platform Rules
+### قواعد المنصة
 
-These safety guardrails are automatically applied to all agents:
+تُطبَّق ضوابط الأمان هذه تلقائيًا على جميع الـ Agents:
 
-- **No fabrication** — Won't invent facts not in your content
-- **Acknowledges gaps** — Says "I don't know" when appropriate
-- **Resists speculation** — Won't guess at missing information
-- **No professional impersonation** — Won't act as lawyers, doctors, etc.
-- **Corrects false premises** — Points out incorrect assumptions
-- **Blocks harmful content** — Refuses inappropriate requests
+- **لا اختلاق** — لن تخترع وقائع غير موجودة في محتواك
+- **الإقرار بالنقص** — تقول "لا أعرف" عند الاقتضاء
+- **مقاومة التخمين** — لن تخمّن المعلومات الناقصة
+- **لا انتحال للمهن** — لن تتصرّف كمحامين أو أطباء، إلخ.
+- **تصحيح المقدّمات الخاطئة** — تنبّه إلى الافتراضات غير الصحيحة
+- **حجب المحتوى الضار** — ترفض الطلبات غير اللائقة
 
 <Callout type="info">
-  Platform rules ensure all agents behave reliably and safely. They cannot be disabled. See [Agent Persona Builder](/agents/persona-builder#platform-rules) for details.
+  تضمن قواعد المنصة أن تتصرّف جميع الـ Agents بموثوقية وأمان. ولا يمكن تعطيلها. راجع [منشئ شخصيات الـ Agent](/agents/persona-builder#platform-rules) للتفاصيل.
 </Callout>
 
-### Quick Persona Example
+### مثال سريع على الشخصية
 
 ```
 You are a helpful assistant for [Your Company].
@@ -59,89 +56,89 @@ Answer questions based on the provided documentation.
 Be concise and friendly.
 ```
 
-See [Agent Personas](/agents/agent-personas) for detailed guidance on writing effective personas.
+راجع [شخصيات الـ Agent](/agents/agent-personas) للحصول على إرشادات مفصّلة حول كتابة شخصيات فعّالة.
 
-## Language Support
+## دعم اللغات
 
-Your agent automatically detects the language of each user message and responds in the same language — no configuration needed. 176 languages are supported out of the box. See [Agent Personas — Language Detection](/agents/agent-personas#4-automatic-language-detection) for details.
+يكشف الـ Agent تلقائيًا لغة كل رسالة من المستخدم ويردّ باللغة نفسها — دون أي إعداد. ويُدعَم 176 لغة جاهزة. راجع [شخصيات الـ Agent — كشف اللغة](/agents/agent-personas#4-automatic-language-detection) للتفاصيل.
 
-## LLM Configuration
+## ضبط الـ LLM
 
-This section controls the AI model settings.
+يتحكّم هذا القسم في إعدادات نموذج الذكاء الاصطناعي.
 
-**Default Mode:**
+**الوضع الافتراضي:**
 
-By default, LLM settings use your organization's tier defaults. You'll see an info box showing "Using tier defaults". This is recommended for most use cases.
+افتراضيًا، تستخدم إعدادات الـ LLM القيم الافتراضية لباقة مؤسستك. سترى مربّع معلومات يعرض "Using tier defaults". وهذا مُوصى به لمعظم حالات الاستخدام.
 
-**Advanced Mode:**
+**الوضع المتقدّم:**
 
-Toggle on **Advanced** to customize:
+فعّل **Advanced** للتخصيص:
 
-| Setting | Description |
+| الإعداد | الوصف |
 |---------|-------------|
-| **Model** | Choose from available AI models based on your plan |
-| **Temperature** | Controls response creativity (lower = more consistent, higher = more creative) |
+| **Model** | اختر من بين نماذج الذكاء الاصطناعي المتاحة حسب باقتك |
+| **Temperature** | يتحكّم في إبداع الردّ (أقل = أكثر اتساقًا، أعلى = أكثر إبداعًا) |
 
 **Show Document References:**
 
-This toggle (always visible) controls whether the agent includes source citations in responses:
-- **Off** (default) — Responses don't mention source documents
-- **On** — Responses include references to source documents (useful for legal/compliance)
+يتحكّم هذا المفتاح (الظاهر دائمًا) في ما إذا كان الـ Agent يضمّن استشهادات المصادر في الردود:
+- **Off** (الوضع الافتراضي) — لا تذكر الردود المستندات المصدرية
+- **On** — تتضمّن الردود إشارات إلى المستندات المصدرية (مفيد للأغراض القانونية/الامتثال)
 
-## Knowledge Access Control
+## التحكم في الوصول إلى المعرفة
 
-Control what documents your agent can access when answering questions.
+تحكَّم في المستندات التي يمكن للـ Agent الوصول إليها عند الإجابة عن الأسئلة.
 
-| Mode | Behavior | When to Use |
+| الوضع | السلوك | متى تستخدمه |
 |------|----------|-------------|
-| **Exclude Mode** | Agent accesses ALL documents EXCEPT those selected | Hide sensitive documents from the agent |
-| **Include Mode** | Agent accesses ONLY selected items | Restrict agent to a specific set of knowledge |
+| **Exclude Mode** | يصل الـ Agent إلى جميع المستندات باستثناء المحدّدة | إخفاء المستندات الحسّاسة عن الـ Agent |
+| **Include Mode** | يصل الـ Agent فقط إلى العناصر المحدّدة | قصر الـ Agent على مجموعة معرفة محدّدة |
 
-**When using Include Mode:**
-- Select specific folders the agent can access
-- Select specific tags the agent can access
-- Select individual documents the agent can access
+**عند استخدام Include Mode:**
+- اختر مجلدات محدّدة يمكن للـ Agent الوصول إليها
+- اختر وسومًا محدّدة يمكن للـ Agent الوصول إليها
+- اختر مستندات فردية يمكن للـ Agent الوصول إليها
 
-The agent will only use information from the selected sources when responding.
+سيستخدم الـ Agent المعلومات من المصادر المحدّدة فقط عند الردّ.
 
 <Callout type="important">
-  Start with Exclude Mode (full knowledge access) unless you need to hide specific documents. You can always restrict access later.
+  ابدأ بـ Exclude Mode (وصول كامل إلى المعرفة) ما لم تكن بحاجة إلى إخفاء مستندات محدّدة. يمكنك دائمًا تقييد الوصول لاحقًا.
 </Callout>
 
-## Form Actions
+## إجراءات النموذج
 
-At the bottom of the form:
+في أسفل النموذج:
 
-| Button | Action |
+| الزر | الإجراء |
 |--------|--------|
-| **Cancel** | Discard changes and go back |
-| **Reset** | Clear all fields and start over (shows confirmation dialog) |
-| **Create Agent** | Save the agent and open its edit page |
+| **Cancel** | تجاهُل التغييرات والعودة |
+| **Reset** | مسح جميع الحقول والبدء من جديد (يعرض مربّع تأكيد) |
+| **Create Agent** | حفظ الـ Agent وفتح صفحة تعديله |
 
 <Callout type="info">
-  Your draft is automatically saved as you work. If you leave and come back, your progress will be restored.
+  تُحفظ مسوّدتك تلقائيًا أثناء العمل. إذا غادرت ثم عُدت، فستُستعاد تقدّمك.
 </Callout>
 
-## After Creating
+## بعد الإنشاء
 
-When you click **Create Agent**:
+عند النقر على **Create Agent**:
 
-1. The agent is created with **Testing** status
-2. You're taken to the agent's edit page
-3. Test the agent using the Playground
-4. Connect integrations when ready to go live
-5. Change status to **Active** when ready
+1. يُنشَأ الـ Agent بحالة **Testing**
+2. تنتقل إلى صفحة تعديل الـ Agent
+3. اختبر الـ Agent باستخدام الـ Playground
+4. اربط عمليات الدمج عندما تكون جاهزًا للإطلاق
+5. غيّر الحالة إلى **Active** عند الجاهزية
 
 <Callout type="info">
-  New agents start in **Testing** status. You can test in the Playground, but channel integrations are disabled until you activate the agent.
+  تبدأ الـ Agents الجديدة بحالة **Testing**. يمكنك الاختبار في الـ Playground، لكن عمليات دمج القنوات معطّلة حتى تفعّل الـ Agent.
 </Callout>
 
-## Managing Agents
+## إدارة الـ Agents
 
-From the Agents page, you can:
+من صفحة Agents، يمكنك:
 
-- **Edit** — Click on any agent to modify its settings
-- **Test** — Click **Test** on an agent card to open the Playground
-- **Change Status** — Set to Testing, Active, Inactive, or Archived
+- **Edit** — انقر على أي Agent لتعديل إعداداته
+- **Test** — انقر على **Test** في بطاقة Agent لفتح الـ Playground
+- **Change Status** — اضبطها على Testing أو Active أو Inactive أو Archived
 
-See [Configuration Options](/agents/configuring) for details on all agent settings.
+راجع [خيارات الإعداد](/agents/configuring) للاطّلاع على تفاصيل جميع إعدادات الـ Agent.

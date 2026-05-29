@@ -1,200 +1,197 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
-# Configuration Options
+# خيارات الإعداد
 
 import { Callout } from 'nextra/components'
 
-Detailed guide to all agent configuration options.
+دليل مفصّل لجميع خيارات إعداد الـ Agent.
 
-## Page Structure
+## بنية الصفحة
 
-The agent edit page has three tabs:
+تحتوي صفحة تعديل الـ Agent على ثلاث علامات تبويب:
 
-| Tab | Purpose |
+| علامة التبويب | الغرض |
 |-----|---------|
-| **Configuration** | Core settings (status, name, persona, LLM, messages) |
-| **Knowledge Access** | Control which documents the agent can use |
-| **Integrations** | Connect to external channels (Telegram, Discord, etc.) |
+| **Configuration** | الإعدادات الأساسية (الحالة، الاسم، الشخصية، الـ LLM، الرسائل) |
+| **Knowledge Access** | التحكم في المستندات التي يمكن للـ Agent استخدامها |
+| **Integrations** | الربط بالقنوات الخارجية (Telegram وDiscord، إلخ) |
 
-## Configuration Tab
+## علامة تبويب Configuration
 
-### Status
+### الحالة
 
-Control your agent's availability:
+تحكَّم في توفّر الـ Agent:
 
-| Status | Playground | Integrations | Notes |
+| الحالة | Playground | Integrations | ملاحظات |
 |--------|------------|--------------|-------|
-| **Testing** | ✅ Enabled | ❌ Disabled | Default for new agents. Test before going live. |
-| **Active** | ✅ Enabled | ✅ Enabled | Ready for production use. |
-| **Inactive** | ❌ Disabled | ❌ Disabled | Temporarily disabled. |
-| **Archived** | ❌ Disabled | ❌ Disabled | Hidden from main list. |
+| **Testing** | ✅ مفعّل | ❌ معطّل | الوضع الافتراضي للـ Agents الجديدة. اختبره قبل الإطلاق. |
+| **Active** | ✅ مفعّل | ✅ مفعّل | جاهز للاستخدام في الإنتاج. |
+| **Inactive** | ❌ معطّل | ❌ معطّل | معطّل مؤقتًا. |
+| **Archived** | ❌ معطّل | ❌ معطّل | مخفيّ من القائمة الرئيسية. |
 
 <Callout type="warning">
-  If your agent has connected integrations and you change from Active to another status, you'll see a confirmation dialog warning that the agent will stop responding on connected channels.
+  إذا كانت للـ Agent عمليات دمج مرتبطة وغيّرت حالته من Active إلى حالة أخرى، فسترى مربّع تأكيد يحذّر من أن الـ Agent سيتوقّف عن الردّ على القنوات المرتبطة.
 </Callout>
 
-### Basic Settings
+### الإعدادات الأساسية
 
-- **Name** — Identifies the agent in your dashboard
-- **Description** — Internal notes about the agent's purpose
+- **Name** — يحدّد الـ Agent في لوحة التحكم
+- **Description** — ملاحظات داخلية عن غرض الـ Agent
 
-### LLM Configuration
+### ضبط الـ LLM
 
-Control the AI model powering your agent.
+تحكَّم في نموذج الذكاء الاصطناعي الذي يشغّل الـ Agent.
 
-**Default Mode (Advanced toggle off):**
-- Uses your organization's tier defaults
-- Displays an info box explaining tier defaults are in use
-- Recommended for most use cases
+**الوضع الافتراضي (مفتاح Advanced مُطفأ):**
+- يستخدم القيم الافتراضية لباقة مؤسستك
+- يعرض مربّع معلومات يوضّح أن القيم الافتراضية للباقة قيد الاستخدام
+- مُوصى به لمعظم حالات الاستخدام
 
-**Advanced Mode (Advanced toggle on):**
+**الوضع المتقدّم (مفتاح Advanced مُفعَّل):**
 
-| Setting | Description |
+| الإعداد | الوصف |
 |---------|-------------|
-| **Model** | Select from available AI models based on your plan |
-| **Temperature** | Controls response creativity (0.0-2.0) |
+| **Model** | اختر من بين نماذج الذكاء الاصطناعي المتاحة حسب باقتك |
+| **Temperature** | يتحكّم في إبداع الردّ (0.0–2.0) |
 
-#### Temperature Guide
+#### دليل Temperature
 
-| Value | Behavior |
+| القيمة | السلوك |
 |-------|----------|
-| 0.0 - 0.3 | Focused, deterministic responses |
-| 0.4 - 0.7 | Balanced creativity and consistency |
-| 0.8 - 2.0 | More creative, varied responses |
+| 0.0 - 0.3 | ردود مركّزة وحتمية |
+| 0.4 - 0.7 | توازن بين الإبداع والاتساق |
+| 0.8 - 2.0 | ردود أكثر إبداعًا وتنوّعًا |
 
-**Recommendation:** Start with 0.3-0.5 for factual Q&A based on documents.
+**التوصية:** ابدأ بـ 0.3–0.5 للأسئلة والأجوبة الواقعية المستندة إلى المستندات.
 
 #### Show Document References
 
-This toggle (always visible regardless of Advanced mode) controls whether the agent includes source citations in responses:
+يتحكّم هذا المفتاح (الظاهر دائمًا بصرف النظر عن الوضع المتقدّم) في ما إذا كان الـ Agent يضمّن استشهادات المصادر في الردود:
 
-- **Off** (default) — Responses don't mention source documents
-- **On** — Responses include references to source documents
+- **Off** (الوضع الافتراضي) — لا تذكر الردود المستندات المصدرية
+- **On** — تتضمّن الردود إشارات إلى المستندات المصدرية
 
 <Callout type="important">
-  Enable document references for use cases requiring transparency, such as legal, compliance, or internal content where users need to verify sources.
+  فعّل استشهادات المستندات لحالات الاستخدام التي تتطلّب الشفافية، مثل المجالات القانونية أو الامتثال أو المحتوى الداخلي حيث يحتاج المستخدمون إلى التحقّق من المصادر.
 </Callout>
 
-### Language Support
+### دعم اللغات
 
-Your agent automatically detects the language of each user message and responds in kind — no manual configuration needed. 176 languages are supported out of the box, including Arabic, French, German, Spanish, Turkish, Chinese, Japanese, and more.
+يكشف الـ Agent تلقائيًا لغة كل رسالة من المستخدم ويردّ بها — دون أي إعداد يدوي. ويُدعَم 176 لغة جاهزة، بما في ذلك العربية والفرنسية والألمانية والإسبانية والتركية والصينية واليابانية وغيرها.
 
-### Agent Persona
+### شخصية الـ Agent
 
-The instructions that control agent behavior. See [Agent Personas](/agents/agent-personas) for best practices.
+التعليمات التي تتحكّم في سلوك الـ Agent. راجع [شخصيات الـ Agent](/agents/agent-personas) لأفضل الممارسات.
 
-**Actions available:**
-- **Generate** — Opens the [Agent Persona Builder](/agents/persona-builder)
-- **Edit** — Opens a slide-out panel to write or modify the persona directly
+**الإجراءات المتاحة:**
+- **Generate** — يفتح [منشئ شخصيات الـ Agent](/agents/persona-builder)
+- **Edit** — يفتح لوحة منزلقة لكتابة الشخصية أو تعديلها مباشرة
 
-Click on the persona text area to open the edit panel.
+انقر على منطقة نصّ الشخصية لفتح لوحة التعديل.
 
 **Platform Rules Box:**
-Click to view the platform reliability rules that are automatically applied to all agents:
-- No fabrication — won't invent facts
-- Acknowledges gaps — says "I don't know" when appropriate
-- Resists speculation — won't guess at missing information
-- No professional impersonation — won't act as lawyers, doctors, etc.
-- Corrects false premises — points out incorrect assumptions
-- Blocks harmful content — refuses inappropriate requests
+انقر لعرض قواعد الموثوقية للمنصة المطبّقة تلقائيًا على جميع الـ Agents:
+- لا اختلاق — لن تخترع وقائع
+- الإقرار بالنقص — تقول "لا أعرف" عند الاقتضاء
+- مقاومة التخمين — لن تخمّن المعلومات الناقصة
+- لا انتحال للمهن — لن تتصرّف كمحامين أو أطباء، إلخ.
+- تصحيح المقدّمات الخاطئة — تنبّه إلى الافتراضات غير الصحيحة
+- حجب المحتوى الضار — ترفض الطلبات غير اللائقة
 
 <Callout type="info">
-  Platform rules ensure all agents behave reliably and safely. They cannot be disabled or modified.
+  تضمن قواعد المنصة أن تتصرّف جميع الـ Agents بموثوقية وأمان. ولا يمكن تعطيلها أو تعديلها.
 </Callout>
 
-## Knowledge Access Tab
+## علامة تبويب Knowledge Access
 
-Control which documents your agent can access when responding to queries.
+تحكَّم في المستندات التي يمكن للـ Agent الوصول إليها عند الردّ على الاستفسارات.
 
-### Access Modes
+### أوضاع الوصول
 
-| Mode | Behavior | When to Use |
+| الوضع | السلوك | متى تستخدمه |
 |------|----------|-------------|
-| **Exclude Mode** | Agent accesses ALL documents EXCEPT those selected | Hide sensitive documents while allowing access to everything else |
-| **Include Mode** | Agent accesses ONLY selected items | Restrict agent to a specific set of documents |
+| **Exclude Mode** | يصل الـ Agent إلى جميع المستندات باستثناء المحدّدة | إخفاء المستندات الحسّاسة مع السماح بالوصول إلى كل ما عداها |
+| **Include Mode** | يصل الـ Agent فقط إلى العناصر المحدّدة | قصر الـ Agent على مجموعة محدّدة من المستندات |
 
-### Selection Options
+### خيارات التحديد
 
-Fine-tune access using multiple selection types:
+اضبط الوصول بدقّة باستخدام أنواع تحديد متعدّدة:
 
-- **Folders** — Select entire folders and all documents within them
-- **Tags** — Filter documents by their assigned tags
-- **Individual Documents** — Include or exclude specific documents within selected folders
+- **Folders** — اختر مجلدات كاملة وجميع المستندات بداخلها
+- **Tags** — رشّح المستندات حسب الوسوم المسندة إليها
+- **Individual Documents** — ضمّن أو استبعد مستندات محدّدة ضمن المجلدات المختارة
 
-### Access Preview
+### معاينة الوصول
 
-The preview panel shows the effective document access based on your current selections. Use this to verify your configuration before saving.
+تعرض لوحة المعاينة الوصول الفعلي إلى المستندات بناءً على تحديداتك الحالية. استخدمها للتحقّق من إعدادك قبل الحفظ.
 
 <Callout type="info">
-  Start with **Exclude Mode** if you want broad access with specific restrictions. Use **Include Mode** when you need tight control over exactly which documents the agent can reference.
+  ابدأ بـ **Exclude Mode** إذا كنت تريد وصولًا واسعًا مع قيود محدّدة. استخدم **Include Mode** عندما تحتاج إلى تحكّم دقيق في المستندات التي يمكن للـ Agent الإشارة إليها بالضبط.
 </Callout>
 
-## Integrations Tab
+## علامة تبويب Integrations
 
-Connect your agent to communication channels.
+اربط الـ Agent بقنوات التواصل.
 
-This tab shows available integration options for your agent. You can connect channels like:
+تعرض علامة التبويب هذه خيارات الدمج المتاحة للـ Agent. يمكنك ربط قنوات مثل:
 - Telegram
 - Discord
 - Slack
 - WhatsApp
 - Meta (Facebook Messenger)
-- And more (based on your plan)
+- وغيرها (حسب باقتك)
 
-See the [Integrations documentation](/integrations) for detailed setup guides for each channel.
+راجع [توثيق Integrations](/integrations) للحصول على أدلّة إعداد مفصّلة لكل قناة.
 
 ## Human Handoff
 
-Enable live chat handoff so your AI agent can transfer conversations to a real human when users request it.
+فعّل التحويل إلى الدردشة المباشرة كي يتمكّن الـ Agent من نقل المحادثات إلى إنسان حقيقي عندما يطلب المستخدمون ذلك.
 
-**How to enable:**
+**كيفية التفعيل:**
 
-1. In the **Configuration** tab, scroll to the **Human Handoff** section
-2. Toggle **Enable Human Handoff** on
-3. Configure the messages:
-   - **Handoff Message** — Shown to the user when the transfer starts
-   - **Accept Message** — Auto-sent when a human agent accepts the conversation
-   - **Resolve Message** — Shown when the human agent ends the conversation
-   - **Max Wait Time** — Auto-expire if no agent accepts (5, 15, 30, 60, or 120 minutes; default: 30 minutes)
-4. Click **Save Changes**
+1. في علامة تبويب **Configuration**، مرّر إلى قسم **Human Handoff**
+2. فعّل **Enable Human Handoff**
+3. اضبط الرسائل:
+   - **Handoff Message** — تُعرَض للمستخدم عند بدء التحويل
+   - **Accept Message** — تُرسَل تلقائيًا عندما يقبل عضو بشري المحادثة
+   - **Resolve Message** — تُعرَض عندما ينهي العضو البشري المحادثة
+   - **Max Wait Time** — انتهاء تلقائي إذا لم يقبل أي عضو (5 أو 15 أو 30 أو 60 أو 120 دقيقة؛ الافتراضي: 30 دقيقة)
+4. انقر على **Save Changes**
 
-When a user asks to speak with a human, the AI creates a handoff request visible on the **Inbox** page. A team member accepts, chats with the user on their channel, and resolves when done.
-
-<Callout type="info">
-  Human Handoff is available on all plans. Enable it per agent in the Configuration tab.
-</Callout>
-
-## Testing Your Agent
-
-Before saving changes, you can test your agent:
-
-1. Click the **Test Agent** button at the bottom of the form
-2. The Playground panel slides open
-3. Have a test conversation with your agent
-4. Close the Playground when done
+عندما يطلب مستخدم التحدّث إلى إنسان، يُنشئ الذكاء الاصطناعي طلب تحويل يظهر في صفحة **Inbox**. يقبله عضو في الفريق، ويتحادث مع المستخدم على قناته، ثم يحلّ الطلب عند الانتهاء.
 
 <Callout type="info">
-  The Test Agent button is disabled when the agent status is Archived or Inactive. Change the status to Active or Testing to enable testing.
+  يتوفّر Human Handoff في جميع الباقات. فعّله لكل Agent على حدة في علامة تبويب Configuration.
 </Callout>
 
-## Saving Changes
+## اختبار الـ Agent
 
-| Button | Action |
+قبل حفظ التغييرات، يمكنك اختبار الـ Agent:
+
+1. انقر على زر **Test Agent** في أسفل النموذج
+2. تنزلق لوحة الـ Playground لتُفتَح
+3. أجرِ محادثة اختبارية مع الـ Agent
+4. أغلق الـ Playground عند الانتهاء
+
+<Callout type="info">
+  يكون زر Test Agent معطّلًا عندما تكون حالة الـ Agent هي Archived أو Inactive. غيّر الحالة إلى Active أو Testing لتمكين الاختبار.
+</Callout>
+
+## حفظ التغييرات
+
+| الزر | الإجراء |
 |--------|--------|
-| **Save Changes** | Save all modifications |
-| **Test Agent** | Open the Playground to test |
+| **Save Changes** | حفظ جميع التعديلات |
+| **Test Agent** | فتح الـ Playground للاختبار |
 
-To discard changes, navigate away using the back button or sidebar navigation.
+لتجاهُل التغييرات، انتقل بعيدًا باستخدام زر الرجوع أو التنقّل في الشريط الجانبي.
 
-**What gets saved:**
-- Only changed fields are updated
-- You'll see "No changes to save" if nothing was modified
-- Success or error messages appear after save
+**ما الذي يُحفَظ:**
+- لا تُحدَّث إلا الحقول المتغيّرة
+- سترى "No changes to save" إذا لم يتغيّر شيء
+- تظهر رسائل النجاح أو الخطأ بعد الحفظ
 
-**Partial Save Handling:**
-If some changes save but others fail, you'll be notified which sections failed and the page will refresh to show the current state.
+**معالجة الحفظ الجزئي:**
+إذا حُفظت بعض التغييرات وفشلت أخرى، فستُخطَر بالأقسام التي فشلت وستُحدَّث الصفحة لتعرض الحالة الراهنة.
 
 <Callout type="info">
-  Changes to agent settings take effect immediately after saving. Test in the Playground after making changes.
+  تسري تغييرات إعدادات الـ Agent فور الحفظ. اختبر في الـ Playground بعد إجراء التغييرات.
 </Callout>

@@ -1,52 +1,49 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Inbox والتحويل البشري
 
-# Inbox & Human Handoff
-
-When your AI agent can't fully resolve a conversation, it can transfer the user to a human team member. This is called Human Handoff — it connects your AI-powered support with real people when they're needed most.
+عندما يعجز الـ Agent عن حلّ محادثة بالكامل، يمكنه نقل المستخدم إلى عضو بشري في الفريق. يُسمّى هذا Human Handoff — وهو يربط دعمك المدعوم بالذكاء الاصطناعي بأشخاص حقيقيين عند الحاجة إليهم أكثر من أي وقت.
 
 import { Callout } from 'nextra/components'
 
-## Overview
+## نظرة عامة
 
-Human Handoff provides:
-- Seamless transfer from AI agent to a human team member
-- Real-time chat with end users on any connected channel
-- Queue management with status tracking
-- In-app and email notifications when users request help
-- Automatic expiry if no agent is available within the configured time
+يوفّر Human Handoff:
+- نقلًا سلسًا من الـ Agent إلى عضو بشري في الفريق
+- دردشة فورية مع المستخدمين على أي قناة مرتبطة
+- إدارة لقائمة الانتظار مع تتبّع الحالة
+- إشعارات داخل التطبيق وبالبريد الإلكتروني عندما يطلب المستخدمون المساعدة
+- انتهاءً تلقائيًا إذا لم يتوفّر أي عضو ضمن الوقت المحدّد
 
-## Prerequisites
+## المتطلّبات المسبقة
 
-- An active AI agent with Human Handoff enabled
-- At least one connected channel (or the Website Widget)
-- A team member available to respond in the admin panel
+- Agent نشط مع تفعيل Human Handoff
+- قناة مرتبطة واحدة على الأقل (أو Website Widget)
+- عضو في الفريق متاح للردّ في لوحة التحكم
 
-## Enabling Human Handoff
+## تفعيل Human Handoff
 
-Human Handoff is configured per agent.
+يُضبَط Human Handoff لكل Agent على حدة.
 
-1. Go to **Agents** and click your agent to edit
-2. In the **Configuration** tab, scroll to the **Human Handoff** section
-3. Toggle **Enable Human Handoff** on
-4. Configure the settings:
+1. انتقل إلى **Agents** وانقر على الـ Agent لتعديله
+2. في علامة تبويب **Configuration**، مرّر إلى قسم **Human Handoff**
+3. فعّل **Enable Human Handoff**
+4. اضبط الإعدادات:
 
-| Setting | Description | Default |
+| الإعداد | الوصف | الافتراضي |
 |---------|-------------|---------|
-| **Handoff Message** | Shown to the user when the transfer starts | "I'm connecting you with a human agent. Please hold on." |
-| **Accept Message** | Auto-sent when a team member accepts the chat | "Hi! I'm {'{agent_name}'} from {'{org_name}'}. How can I help you?" |
-| **Resolve Message** | Shown to the user when the chat ends | "You're now back with the AI assistant. How can I help?" |
-| **Max Wait Time** | Auto-expire if no one accepts (5, 15, 30, 60, or 120 minutes) | 30 minutes |
+| **Handoff Message** | تُعرَض للمستخدم عند بدء التحويل | "I'm connecting you with a human agent. Please hold on." |
+| **Accept Message** | تُرسَل تلقائيًا عندما يقبل عضو في الفريق الدردشة | "Hi! I'm {'{agent_name}'} from {'{org_name}'}. How can I help you?" |
+| **Resolve Message** | تُعرَض للمستخدم عند انتهاء الدردشة | "You're now back with the AI assistant. How can I help?" |
+| **Max Wait Time** | انتهاء تلقائي إذا لم يقبل أحد (5 أو 15 أو 30 أو 60 أو 120 دقيقة) | 30 دقيقة |
 
-5. Click **Save Changes**
+5. انقر على **Save Changes**
 
 <Callout type="info">
-  Messages support `{'{agent_name}'}` and `{'{org_name}'}` placeholders that are automatically replaced with real values.
+  تدعم الرسائل العنصرين النائبين `{'{agent_name}'}` و`{'{org_name}'}` اللذين يُستبدَلان تلقائيًا بقيم حقيقية.
 </Callout>
 
-For more details on agent settings, see [Configuration Options](/agents/configuring#human-handoff).
+لمزيد من التفاصيل حول إعدادات الـ Agent، راجع [خيارات الإعداد](/agents/configuring#human-handoff).
 
-## How It Works
+## كيف يعمل
 
 ```
 User asks to speak with a human
@@ -63,157 +60,157 @@ User asks to speak with a human
   → AI agent resumes the conversation
 ```
 
-During a handoff, the AI agent pauses. All messages from the user are routed directly to the human team member. When resolved, the AI agent automatically resumes handling the conversation.
+أثناء التحويل، يتوقّف الـ Agent مؤقتًا. وتُوجَّه جميع رسائل المستخدم مباشرة إلى العضو البشري في الفريق. وعند حلّ المحادثة، يستأنف الـ Agent تلقائيًا التعامل معها.
 
-## Using the Inbox Page
+## استخدام صفحة Inbox
 
-Navigate to **Inbox** in the sidebar to see the handoff queue.
+انتقل إلى **Inbox** في الشريط الجانبي لرؤية قائمة انتظار التحويل.
 
-### Queue Stats
+### إحصاءات قائمة الانتظار
 
-At the top of the page you'll see:
+في أعلى الصفحة سترى:
 
-- **Queued** — Number of users waiting for a team member
-- **Active** — Number of chats currently being handled
-- **Agents online** — How many team members have the Inbox page open
+- **Queued** — عدد المستخدمين المنتظرين عضوًا في الفريق
+- **Active** — عدد الدردشات التي تُعالَج حاليًا
+- **Agents online** — عدد أعضاء الفريق الذين يفتحون صفحة Inbox
 
 <Callout type="info">
-  Your online status is tracked automatically while you have the Inbox page open. No manual "go online" action is needed.
+  تُتتبَّع حالتك على الإنترنت تلقائيًا ما دامت صفحة Inbox مفتوحة لديك. ولا حاجة إلى إجراء يدوي للاتصال.
 </Callout>
 
-### Filtering
+### التصفية
 
-Use the status filter dropdown to view specific sessions:
+استخدم قائمة تصفية الحالة المنسدلة لعرض جلسات محدّدة:
 
-| Filter | Shows |
+| الفلتر | يعرض |
 |--------|-------|
-| Queued & Active | Conversations that need attention (default) |
-| Queued Only | Users waiting for someone to accept |
-| Active Only | Conversations currently being handled |
-| Resolved | Completed conversations |
-| Expired | Sessions that timed out |
-| All | Everything |
+| Queued & Active | المحادثات التي تحتاج إلى اهتمام (الافتراضي) |
+| Queued Only | المستخدمون المنتظرون من يقبل |
+| Active Only | المحادثات التي تُعالَج حاليًا |
+| Resolved | المحادثات المكتملة |
+| Expired | الجلسات التي انتهى وقتها |
+| All | كل شيء |
 
-### Queue Table
+### جدول قائمة الانتظار
 
-Each row shows the AI agent that escalated, the user's channel, session status, escalation reason, wait time, and which team member is assigned (if any).
+يعرض كل صفّ الـ Agent الذي صعّد المحادثة، وقناة المستخدم، وحالة الجلسة، وسبب التصعيد، ووقت الانتظار، وأي عضو في الفريق مُسنَدة إليه (إن وُجد).
 
-Click any row to open the chat detail page.
+انقر على أي صفّ لفتح صفحة تفاصيل الدردشة.
 
-## Accepting and Chatting
+## القبول والدردشة
 
-When you click a queued session, the chat detail page opens.
+عند النقر على جلسة في قائمة الانتظار، تُفتَح صفحة تفاصيل الدردشة.
 
-### Accepting a Session
+### قبول جلسة
 
-Click the green **Accept** button in the header. This:
+انقر على زر **Accept** الأخضر في الترويسة. يؤدّي هذا إلى:
 
-1. Changes the session status from Queued to Active
-2. Sends the accept message to the user on their channel
-3. Opens the message input so you can start chatting
+1. تغيير حالة الجلسة من Queued إلى Active
+2. إرسال رسالة القبول إلى المستخدم على قناته
+3. فتح حقل الرسائل كي تبدأ الدردشة
 
 <Callout type="warning">
-  Only one team member can accept a session. Once accepted, it's assigned to you.
+  يمكن لعضو واحد فقط من الفريق قبول جلسة. وبمجرّد قبولها، تُسنَد إليك.
 </Callout>
 
-### Chat Interface
+### واجهة الدردشة
 
-The chat detail page has two sections:
+تحتوي صفحة تفاصيل الدردشة على قسمين:
 
-**Chat Panel (left):**
-- Messages are grouped by sender with distinct styling:
-  - **User messages** (dark) — on the left
-  - **AI bot messages** (light) — on the right
-  - **Human agent messages** (blue) — on the right, labeled with your name
-- Type in the text area at the bottom and press Enter to send
-- Messages are delivered in real-time to the user's channel
+**لوحة الدردشة (يسار):**
+- تُجمَّع الرسائل حسب المُرسِل بتنسيق مميّز:
+  - **رسائل المستخدم** (داكنة) — على اليسار
+  - **رسائل الروبوت الذكي** (فاتحة) — على اليمين
+  - **رسائل العضو البشري** (زرقاء) — على اليمين، مُعنونة باسمك
+- اكتب في منطقة النصّ بالأسفل واضغط Enter للإرسال
+- تُسلَّم الرسائل فوريًا إلى قناة المستخدم
 
-**Context Sidebar (right, desktop only):**
-- **Timeline** — Created, Accepted, Resolved timestamps with live wait timer
-- **Session** — Status, channel, message count, assigned agent
-- **Participants** — End user, AI agent, and human agent
-- **Escalation Reason** — Why the AI decided to hand off (if provided)
+**شريط السياق الجانبي (يمين، على سطح المكتب فقط):**
+- **Timeline** — أوقات الإنشاء والقبول والحلّ مع مؤقّت انتظار حيّ
+- **Session** — الحالة، القناة، عدد الرسائل، العضو المُسنَد
+- **Participants** — المستخدم النهائي، والـ Agent، والعضو البشري
+- **Escalation Reason** — لماذا قرّر الذكاء الاصطناعي التحويل (إن تَوفّر)
 
-## Resolving Sessions
+## حلّ الجلسات
 
-When you've addressed the user's issue:
+عندما تكون قد عالجت مشكلة المستخدم:
 
-1. Click the **Resolve** button in the header
-2. A confirmation dialog appears
-3. Optionally add an **internal note** (not shown to the user — for your team's records)
-4. Click **Resolve** to confirm
+1. انقر على زر **Resolve** في الترويسة
+2. يظهر مربّع تأكيد
+3. أضِف اختياريًا **ملاحظة داخلية** (لا تُعرَض للمستخدم — لسجلّات فريقك)
+4. انقر على **Resolve** للتأكيد
 
-After resolving:
-- The resolve message is sent to the user
-- The conversation returns to the AI agent
-- The session moves to Resolved status
+بعد الحلّ:
+- تُرسَل رسالة الحلّ إلى المستخدم
+- تعود المحادثة إلى الـ Agent
+- تنتقل الجلسة إلى حالة Resolved
 
-## What Happens When No One Is Available
+## ماذا يحدث عند عدم توفّر أحد
 
-If no team member accepts within the configured **Max Wait Time**:
+إذا لم يقبل أي عضو في الفريق ضمن **Max Wait Time** المحدّد:
 
-1. The session status changes to **Expired**
-2. The user receives a message that no agent is available
-3. The conversation returns to the AI agent automatically
+1. تتغيّر حالة الجلسة إلى **Expired**
+2. يتلقّى المستخدم رسالة بأنه لا يتوفّر أي عضو
+3. تعود المحادثة إلى الـ Agent تلقائيًا
 
 <Callout type="important">
-  Set the Max Wait Time based on your team's availability. If you have limited staff, a shorter time (5–10 minutes) is better than leaving users waiting.
+  اضبط Max Wait Time بناءً على توفّر فريقك. إذا كان لديك عدد محدود من الموظفين، فإن وقتًا أقصر (5–10 دقائق) أفضل من ترك المستخدمين ينتظرون.
 </Callout>
 
-## Notifications
+## الإشعارات
 
-### In-App Notifications
+### الإشعارات داخل التطبيق
 
-When a user requests a human agent, all team members in your organization receive an in-app notification via the notification bell in the admin panel header.
+عندما يطلب مستخدم عضوًا بشريًا، يتلقّى جميع أعضاء الفريق في مؤسستك إشعارًا داخل التطبيق عبر جرس الإشعارات في ترويسة لوحة التحكم.
 
-### Email Reminders
+### تذكيرات البريد الإلكتروني
 
-If a handoff session remains queued for **3 minutes** without being accepted, an email reminder is sent to all team members in your organization. This ensures someone is notified even if they're not currently in the admin panel.
+إذا بقيت جلسة تحويل في قائمة الانتظار لمدّة **3 دقائق** دون قبولها، يُرسَل تذكير بالبريد الإلكتروني إلى جميع أعضاء الفريق في مؤسستك. وهذا يضمن إشعار أحدهم حتى لو لم يكن حاضرًا في لوحة التحكم.
 
-## Supported Channels
+## القنوات المدعومة
 
-Human Handoff works with all connected channels:
+يعمل Human Handoff مع جميع القنوات المرتبطة:
 
-| Channel | Delivery Method |
+| القناة | طريقة التسليم |
 |---------|----------------|
-| Telegram | Messages sent via bot |
-| Discord | Messages sent to channel |
-| Slack | Messages sent to channel |
-| WhatsApp | Messages sent via API |
-| Meta (Facebook Messenger) | Messages sent via page |
-| Google Chat | Messages sent to space |
-| Website Widget | Messages appear in chat widget |
+| Telegram | تُرسَل الرسائل عبر الروبوت |
+| Discord | تُرسَل الرسائل إلى القناة |
+| Slack | تُرسَل الرسائل إلى القناة |
+| WhatsApp | تُرسَل الرسائل عبر الـ API |
+| Meta (Facebook Messenger) | تُرسَل الرسائل عبر الصفحة |
+| Google Chat | تُرسَل الرسائل إلى المساحة |
+| Website Widget | تظهر الرسائل في أداة الدردشة |
 
 <Callout type="info">
-  On the Website Widget, messages are delivered via real-time streaming. On all other channels, messages are pushed directly through the channel's API.
+  على Website Widget، تُسلَّم الرسائل عبر البثّ الفوري. وعلى جميع القنوات الأخرى، تُدفَع الرسائل مباشرة عبر API القناة.
 </Callout>
 
-## FAQ
+## الأسئلة الشائعة
 
-### Which plans include Human Handoff?
+### ما الباقات التي تتضمّن Human Handoff؟
 
-Human Handoff is available on all plans, including Trial. Enable it per agent in the Configuration tab.
+يتوفّر Human Handoff في جميع الباقات، بما في ذلك Trial. فعّله لكل Agent على حدة في علامة تبويب Configuration.
 
-### Can multiple team members handle handoffs?
+### هل يمكن لعدّة أعضاء في الفريق التعامل مع التحويلات؟
 
-Yes. Any team member in your organization can accept queued sessions. The "Agents online" counter shows how many team members currently have the Inbox page open.
+نعم. يمكن لأي عضو في فريق مؤسستك قبول الجلسات في قائمة الانتظار. ويعرض عدّاد "Agents online" عدد أعضاء الفريق الذين يفتحون صفحة Inbox حاليًا.
 
-### What if I close my browser during an active chat?
+### ماذا لو أغلقت متصفّحي أثناء دردشة نشطة؟
 
-The session remains Active. When you return to the Inbox page, you can continue the conversation where you left off.
+تبقى الجلسة Active. وعند عودتك إلى صفحة Inbox، يمكنك متابعة المحادثة من حيث توقّفت.
 
-### Can the user tell they're talking to a human?
+### هل يمكن للمستخدم معرفة أنه يتحدّث إلى إنسان؟
 
-The user receives the configured accept message when you join. Beyond that, the experience depends on how you write the handoff messages and your conversation style.
+يتلقّى المستخدم رسالة القبول المحدّدة عند انضمامك. وبعد ذلك، تعتمد التجربة على كيفية كتابتك لرسائل التحويل وأسلوب محادثتك.
 
-### Does the AI see the human agent's messages?
+### هل يرى الذكاء الاصطناعي رسائل العضو البشري؟
 
-Human agent messages are stored in the conversation history. When the AI resumes after resolution, it has context from the handoff exchange.
+تُخزَّن رسائل العضو البشري في سجلّ المحادثة. وعندما يستأنف الذكاء الاصطناعي بعد الحلّ، يكون لديه سياق من تبادل التحويل.
 
-### Can I review past handoff sessions?
+### هل يمكنني مراجعة جلسات التحويل السابقة؟
 
-Yes. Use the status filter on the Inbox page to view **Resolved** or **Expired** sessions. Click any session to review the full conversation.
+نعم. استخدم فلتر الحالة في صفحة Inbox لعرض الجلسات **Resolved** أو **Expired**. انقر على أي جلسة لمراجعة المحادثة كاملة.
 
-### What triggers the AI to hand off?
+### ما الذي يدفع الذكاء الاصطناعي إلى التحويل؟
 
-The AI agent decides to escalate when a user explicitly asks to speak with a human (e.g., "Can I talk to a real person?"). The AI uses a classification check to verify the user genuinely wants a human before creating the handoff.
+يقرّر الـ Agent التصعيد عندما يطلب المستخدم صراحةً التحدّث إلى إنسان (مثل "Can I talk to a real person?"). ويستخدم الذكاء الاصطناعي فحص تصنيف للتأكّد من أن المستخدم يريد إنسانًا فعلًا قبل إنشاء التحويل.

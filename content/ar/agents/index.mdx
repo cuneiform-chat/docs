@@ -1,61 +1,57 @@
 ---
-description: Configure AI agents with custom personas, knowledge access, and multi-channel deployment.
+description: اضبط وكلاء الذكاء الاصطناعي بشخصيات مخصّصة، ووصول إلى المعرفة، ونشر متعدّد القنوات.
 ---
-
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 
 # Agents
 
-Agents are the AI chatbots that interact with your users. Each agent has its own configuration, knowledge access, and personality.
+الـ Agents هي روبوتات الدردشة الذكية التي تتفاعل مع مستخدميك. لكل Agent إعداداته الخاصة، ووصوله إلى المعرفة، وشخصيته.
 
-## What is an Agent?
+## ما هو الـ Agent؟
 
-An agent is a configured chatbot that:
+الـ Agent هو روبوت دردشة مضبوط:
 
-- Answers questions using your content
-- Follows instructions defined in its agent persona
-- Maintains conversation context within sessions
-- Can be deployed to multiple channels
+- يجيب عن الأسئلة باستخدام محتواك
+- يتّبع التعليمات المحدّدة في شخصيته
+- يحافظ على سياق المحادثة ضمن الجلسات
+- يمكن نشره على قنوات متعدّدة
 
-## Agent Concepts
+## مفاهيم الـ Agent
 
-### Agent Persona
+### شخصية الـ Agent
 
-The agent persona is the set of instructions that defines how your agent behaves. It controls:
+شخصية الـ Agent هي مجموعة التعليمات التي تحدّد كيف يتصرّف. وهي تتحكّم في:
 
-- **Personality** — Friendly, professional, casual, etc.
-- **Scope** — What topics the agent should and shouldn't address
-- **Response style** — Length, format, and tone of answers
-- **Guardrails** — Boundaries and limitations
-- **Language** — Automatic per-message detection (176 languages supported)
+- **الطابع** — ودود، احترافي، عفوي، إلخ.
+- **النطاق** — المواضيع التي ينبغي للـ Agent تناولها وتلك التي يجب تجنّبها
+- **أسلوب الردّ** — طول الإجابات وتنسيقها ونبرتها
+- **الضوابط** — الحدود والقيود
+- **اللغة** — كشف تلقائي لكل رسالة (دعم 176 لغة)
 
-### Knowledge Access
+### الوصول إلى المعرفة
 
-Each agent accesses your content to find relevant information. You can configure:
+يصل كل Agent إلى محتواك للعثور على المعلومات ذات الصلة. يمكنك ضبط:
 
-- Which documents the agent can search
-- How many sources to retrieve
-- Whether to show source citations
+- المستندات التي يمكن للـ Agent البحث فيها
+- عدد المصادر التي يجري استرجاعها
+- ما إذا كان سيعرض استشهادات المصادر
 
-### Channels
+### القنوات
 
-Agents can be deployed to multiple channels simultaneously:
+يمكن نشر الـ Agents على قنوات متعدّدة في آنٍ واحد:
 
-- Messaging platforms (Telegram, Discord, Slack, WhatsApp, Google Chat)
-- Facebook Messenger via Meta integration
-- Human Handoff — seamlessly transfer conversations to a human team member
+- منصّات المراسلة (Telegram وDiscord وSlack وWhatsApp وGoogle Chat)
+- Facebook Messenger عبر تكامل Meta
+- Human Handoff — انقل المحادثات بسلاسة إلى عضو بشري في الفريق
 
-## In This Section
+## في هذا القسم
 
 import { Cards } from 'nextra/components'
 
 <Cards>
-  <Cards.Card title="Creating Agents" href="/agents/creating" />
-  <Cards.Card title="Configuration Options" href="/agents/configuring" />
-  <Cards.Card title="Agent Personas" href="/agents/agent-personas" />
-  <Cards.Card title="Agent Persona Builder" href="/agents/persona-builder" />
-  <Cards.Card title="Testing in Playground" href="/agents/testing" />
-  <Cards.Card title="Inbox & Human Handoff" href="/agents/inbox" />
+  <Cards.Card title="إنشاء الـ Agents" href="/agents/creating" />
+  <Cards.Card title="خيارات الإعداد" href="/agents/configuring" />
+  <Cards.Card title="شخصيات الـ Agent" href="/agents/agent-personas" />
+  <Cards.Card title="منشئ شخصيات الـ Agent" href="/agents/persona-builder" />
+  <Cards.Card title="الاختبار في Playground" href="/agents/testing" />
+  <Cards.Card title="Inbox والتحويل البشري" href="/agents/inbox" />
 </Cards>

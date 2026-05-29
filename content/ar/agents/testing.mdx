@@ -1,83 +1,80 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
-# Testing in Playground
+# الاختبار في Playground
 
 import { Callout } from 'nextra/components'
 
-The Playground is your environment for testing and refining agents before deployment.
+الـ Playground هو بيئتك لاختبار الـ Agents وصقلها قبل النشر.
 
-## Accessing the Playground
+## الوصول إلى الـ Playground
 
-1. Navigate to **Agents** in the sidebar
-2. Click **Test** on your agent card (or **Test Agent** when editing an agent)
-3. The Playground slides open as a side panel — start a conversation
+1. انتقل إلى **Agents** في الشريط الجانبي
+2. انقر على **Test** في بطاقة الـ Agent (أو **Test Agent** أثناء تعديل Agent)
+3. ينزلق الـ Playground ليُفتَح كلوحة جانبية — ابدأ محادثة
 
 <Callout type="info">
-  The Test button is disabled when the agent status is **Archived** or **Inactive**. Change the status to **Active** or **Testing** to enable testing.
+  يكون زر Test معطّلًا عندما تكون حالة الـ Agent هي **Archived** أو **Inactive**. غيّر الحالة إلى **Active** أو **Testing** لتمكين الاختبار.
 </Callout>
 
-## What to Test
+## ماذا تختبر
 
-### Basic Functionality
+### الوظائف الأساسية
 
-- Can the agent answer questions from your documents?
-- Are responses accurate and relevant?
-- Does the tone match your expectations?
+- هل يستطيع الـ Agent الإجابة عن الأسئلة من مستنداتك؟
+- هل الردود دقيقة وذات صلة؟
+- هل تطابق النبرة توقّعاتك؟
 
-### Edge Cases
+### الحالات الحديّة
 
-Test scenarios that might trip up your agent:
+اختبر السيناريوهات التي قد تُربِك الـ Agent:
 
-- Questions not covered by your documents
-- Ambiguous or unclear questions
-- Multi-part questions
-- Follow-up questions requiring context
+- أسئلة لا تغطّيها مستنداتك
+- أسئلة غامضة أو غير واضحة
+- أسئلة متعدّدة الأجزاء
+- أسئلة متابعة تتطلّب سياقًا
 
-### Conversation Flow
+### تدفّق المحادثة
 
-Test multi-turn conversations:
+اختبر المحادثات متعدّدة الأدوار:
 
-- Does the agent remember context from earlier messages?
-- Can it handle topic changes gracefully?
-- Does it ask for clarification when needed?
+- هل يتذكّر الـ Agent السياق من الرسائل السابقة؟
+- هل يستطيع التعامل مع تغيّرات الموضوع بسلاسة؟
+- هل يطلب التوضيح عند الحاجة؟
 
-## Evaluating Responses
+## تقييم الردود
 
-For each response, consider:
+لكل ردّ، ضع في اعتبارك:
 
-| Aspect | Questions to Ask |
+| الجانب | أسئلة لطرحها |
 |--------|-----------------|
-| **Accuracy** | Is the information correct? |
-| **Relevance** | Does it answer the actual question? |
-| **Completeness** | Is anything important missing? |
-| **Tone** | Does it match your brand voice? |
-| **Length** | Is it appropriately concise or detailed? |
+| **الدقّة** | هل المعلومة صحيحة؟ |
+| **الصلة** | هل تجيب عن السؤال الفعلي؟ |
+| **الاكتمال** | هل ينقص شيء مهمّ؟ |
+| **النبرة** | هل تطابق صوت علامتك التجارية؟ |
+| **الطول** | هل هو موجز أو مفصّل بالقدر المناسب؟ |
 
-## Iterative Improvement
+## التحسين التكراري
 
-### Identify Issues
+### تحديد المشكلات
 
-Common problems and solutions:
+المشكلات الشائعة وحلولها:
 
-| Issue | Solution |
+| المشكلة | الحل |
 |-------|----------|
-| Wrong information | Check document content, improve retrieval |
-| Too verbose | Add "be concise" to agent persona |
-| Too formal/casual | Adjust tone in agent persona |
-| Doesn't know answer | Add relevant documents |
-| Makes up facts | Strengthen boundaries in prompt |
+| معلومات خاطئة | تحقّق من محتوى المستند، وحسّن الاسترجاع |
+| إسهاب مفرط | أضِف "be concise" إلى شخصية الـ Agent |
+| رسمي/عفوي بإفراط | اضبط النبرة في شخصية الـ Agent |
+| لا يعرف الإجابة | أضِف مستندات ذات صلة |
+| يختلق وقائع | عزّز الحدود في الموجّه |
 
-### Make Changes
+### إجراء التغييرات
 
-1. Identify the issue in Playground testing
-2. Adjust relevant settings (prompt, documents, configuration)
-3. Test again with the same questions
-4. Verify the fix doesn't break other behaviors
+1. حدّد المشكلة أثناء الاختبار في الـ Playground
+2. اضبط الإعدادات ذات الصلة (الموجّه، المستندات، الإعداد)
+3. اختبر مجدّدًا بالأسئلة نفسها
+4. تحقّق من أن الإصلاح لا يكسر سلوكيات أخرى
 
-## Test Scenarios Checklist
+## قائمة سيناريوهات الاختبار
 
-Create a set of standard test questions:
+أنشئ مجموعة من أسئلة الاختبار القياسية:
 
 ```markdown
 ## Test Scenarios for [Agent Name]
@@ -95,17 +92,17 @@ Create a set of standard test questions:
 ```
 
 <Callout type="important">
-  Save your test scenarios and re-run them after making changes to catch regressions.
+  احفظ سيناريوهات الاختبار وأعد تشغيلها بعد إجراء التغييرات لرصد أي تراجعات.
 </Callout>
 
-## Ready for Deployment
+## جاهز للنشر
 
-Your agent is ready when:
+يكون الـ Agent جاهزًا عندما:
 
-- ✅ Answers common questions accurately
-- ✅ Handles edge cases gracefully
-- ✅ Maintains appropriate tone
-- ✅ Respects defined boundaries
-- ✅ Multi-turn conversations work well
+- ✅ يجيب عن الأسئلة الشائعة بدقّة
+- ✅ يتعامل مع الحالات الحديّة بسلاسة
+- ✅ يحافظ على نبرة مناسبة
+- ✅ يحترم الحدود المحدّدة
+- ✅ تعمل المحادثات متعدّدة الأدوار جيّدًا
 
-Next, deploy your agent to [channels](/integrations) where users will interact with it.
+بعد ذلك، انشر الـ Agent على [القنوات](/integrations) حيث سيتفاعل معه المستخدمون.
