@@ -1,0 +1,353 @@
+# Telegram Storefront (In-bot Mini App)
+
+**अपने Telegram bot को एक पूरे in-app storefront में बदलें।** एक polished, multipage product catalog बनाएं — photos, videos, themed pages, हर product के लिए एक AI assistant, और lightweight order-taking के साथ — जो *Telegram के अंदर* तभी खुलता है जब कोई customer आपके bot के menu button को tap करता है। कोई app store नहीं, कोई अलग website नहीं, manage करने के लिए कोई checkout नहीं। बस एक tap, और आपका customer browse कर रहा है।
+
+हर plan पर free, trial सहित। एक visual drag-and-drop composer में बना हुआ, **Integrations → Telegram bot → Configure mini app** पर: 11 block types, 6 themes, per-product AI chat, ऐसे order CTAs जो आपके inbox में एक असली इंसान को handoff करते हैं।
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  यह page उस customer-facing storefront Mini App को cover करता है जो हर **Telegram** integration के साथ आता है। यह **Saba Mini App** से एक अलग feature है, जो एक Cuneiform Chat operator surface है — operator वाले पक्ष के लिए [Saba on Telegram](/integrations/saba-on-telegram) देखें।
+</Callout>
+
+## आप क्या बना सकते हैं
+
+production में storefront कुछ आम shapes लेता है:
+
+- **Boutique storefront** — hero banner + product grid + per-product chat ("क्या यह size M में आता है?") + order inquiry form। Orders आपके inbox में आते हैं; एक teammate वहीं से reply करता है।
+- **Restaurant menu** — multipage (Starters / Mains / Drinks) + photo gallery + cart-mode order CTAs (cart page अपने आप दिखता है) + checkout पर delivery address field।
+- **Course या service catalog** — हर course के लिए product cards एक Video block intro, testimonials, और bot पर वापस जाने वाले एक "Book a call" CTA के साथ।
+- **Brochure site** — hero + about page + gallery + contact card + FAQ — कोई products बिल्कुल नहीं। storefront आपके bot के अंदर रहने वाला एक polished mobile brochure बन जाता है।
+- **Lead-capture landing** — एक page, एक hero, एक form, एक CTA। सबसे हल्का संभव "Telegram funnel"।
+
+एक page से शुरू करें, और जब आप तैयार हों तब एक multipage catalog में बढ़ें।
+
+## यह क्यों मायने रखता है
+
+- **Customers कभी Telegram नहीं छोड़ते।** कोई app install नहीं, याद रखने के लिए कोई domain नहीं, छोड़ने के लिए कोई checkout flow नहीं। storefront Telegram के WebView में खुलता है और user की theme, language, और login को inherit करता है।
+- **एक chat से एक tap।** composer के बगल वाला menu button तब अपने आप आपके storefront से wire हो जाता है जब आप bot connect करते हैं। जैसे ही आप कोई product publish करते हैं label अपने आप **"Shop"** में बदल जाता है — किसी BotFather config की ज़रूरत नहीं।
+- **AI-native product chat।** Per-product chat उन documents तक scoped होता है जिन्हें *आप* उस product से attach करते हैं — assistant "इस dress पर return policy क्या है?" का जवाब आत्मविश्वास से दे सकता है, बिना दूसरे products के facts leak किए।
+- **एक असली इंसान को order handoffs।** Lightweight order forms (inquiry या cart mode) आपके Inbox में एक structured handoff के रूप में आते हैं, customer का Telegram DM follow-up के लिए खुला रखते हुए।
+- **हर plan पर free।** Trial को 5-page / 25-blocks-per-page / 100-product-docs का cap मिलता है; हर paid plan caps हटा देता है। Pricing per-org है — दूसरा Telegram bot जोड़ने से आपका tier price नहीं बदलता।
+
+## एक नज़र में
+
+- **Multipage**, drag-and-drop। End users pages switch करने के लिए hamburger (top-left) tap करते हैं। अगर आप एक page publish करते हैं, तो वह full-screen load होता है।
+- **11 block types** — Hero, Product card, Product grid, Carousel, Gallery, FAQ, Testimonial, CTA back-to-bot, Contact, Video, Rich text। (जब आप cart-mode order CTAs इस्तेमाल करते हैं तो Cart एक auto-injected virtual page होता है — कोई अलग "Cart review" block नहीं।)
+- **6 themes** (Telegram default + 5 custom) per-block style overrides के साथ।
+- **Draft → Publish** lifecycle, अंतिम published snapshot पर one-click revert के साथ।
+- **Per-integration on/off toggle** — इसे off करें और bot menu Telegram के `/` command picker पर वापस चला जाता है; public URL `410 Gone` लौटाता है ताकि पुराने bookmarks content leak न करें।
+- **Multilingual storefront** — अपने storefront के content को WhatsApp की किसी भी supported language में author करें (gaps भरने के लिए one-click AI translation के साथ), और एक built-in language switcher हर visitor को अपनी खुद की चुनने देता है। Right-to-left languages (Arabic, Hebrew, Persian, Urdu) सही render होती हैं। shell के अपने buttons अपने आप visitor की device language को follow करते हैं।
+- **Built-in Help Center** — ad-hoc सवालों के लिए एक pinned FAQ surface, हमेशा एक tap दूर। [नीचे देखें](#built-in-help-center)।
+- **No payments, no inventory, no shipping** — यह एक polished catalog + lead-capture surface है, कोई पूरा e-commerce stack नहीं। इसे अपने inbox में एक इंसान के साथ pair करें और आपके पास एक पूरा sales loop है।
+
+## Customers इसे कैसे ढूँढते हैं
+
+जब कोई आपका Telegram bot खोलता है, तो उन्हें composer के बगल में **menu** button दिखता है। इसे tap करने पर आपका storefront Telegram के अंदर full-screen खुलता है। button label है:
+
+- **"Shop"** — अगर आपके published storefront में कोई product card या product grid है तो auto-set
+- **"Open"** — अन्यथा auto-set
+- **जो भी आपने type किया** — अगर आप composer में एक custom label set करते हैं (कोई भी 1–32-character string हर publish के बाद बना रहता है जब तक आप इसे clear नहीं करते)
+
+storefront URL का shape `https://storefront.cuneiform.chat/{your-org-slug}` होता है (`?i={integration_id}` केवल तब append होता है जब आपके org के पास एक से ज़्यादा Telegram bot हों)। QR codes, ads के लिए, या एक BotFather `t.me/<bot>/<app>` direct-launch link register करने के लिए इस URL को integration card से copy करें (bot card पर BotFather playbook देखें)।
+
+<Callout type="info">
+  "ask the bot" और order paths group / supergroup / channel launches को एक विनम्र "private chats only" message के साथ अस्वीकार करते हैं। Storefront browsing और curated FAQ tiles हर जगह display होते हैं जहाँ menu button दिखता है।
+</Callout>
+
+## Prerequisites
+
+- एक connected [Telegram integration](/integrations/telegram)। storefront इसके ऊपर चलता है — जोड़ने के लिए कोई अलग integration नहीं है।
+- (Optional) Product images, product copy, FAQ entries, और per-product chat में wire करने के लिए knowledge-base documents।
+
+## Quick start (5 minutes)
+
+"मैंने एक bot connect किया" से "मेरा पहला customer browse कर रहा है" तक का सबसे छोटा रास्ता:
+
+1. **Integrations → आपका Telegram bot → Configure mini app पर जाएं।** composer Draft state में खुलता है।
+2. left rail में **"+ Add page" पर click करें।** इसे name दें (जैसे "Home")।
+3. **एक Hero block जोड़ें** — headline, subheadline, एक 16:9 background image (एक photo drop करें, cropper अपने आप खुलता है)।
+4. **एक Product card जोड़ें** — name, price, 1:1 image, short description। **AI chat** को toggle on करें और एक doc attach करें (एक PDF spec sheet, आपकी shipping policy — आपके KB से कुछ भी)।
+5. उस product पर **एक Order CTA** जोड़ें — `inquiry` mode चुनें, form fields चुनें (`name` हमेशा required है)।
+6. **Publish पर click करें।** आपके पास एक product होने के बाद bot menu button अपने आप **"Shop"** में relabel हो जाता है।
+7. **Telegram में अपना bot खोलें।** "Shop" tap करें। अपना product tap करें। "Ask a question" tap करें। "Order this" tap करें। Submit करें। आप कुछ ही seconds में handoff को अपने Inbox में आता देखेंगे।
+
+यह minimum-viable storefront है। जैसे-जैसे आप बढ़ते हैं और pages, और products, themes, videos, और एक Help Center जोड़ें।
+
+## AI के साथ एक storefront बनाएं या enhance करें
+
+एक खाली canvas से शुरू नहीं करना चाहते — या जो आपके पास है उसे फिर से तैयार करने में मदद चाहते हैं? composer का AI button आपके मौजूदा storefront को पढ़ता है और adapt करता है:
+
+**AI *structure* design करता है — कौन से pages मौजूद हैं, हर पर कौन से blocks जाते हैं, क्रम, और एक उपयुक्त theme — और हर text field में एक "fill me in" placeholder drop करता है** (जैसे *"Add your headline"* या *"Product name"*)। यह आपकी असली copy, prices, या product names नहीं लिखता; आप उन्हें भरते हैं, ठीक वैसे ही जैसे आप पहले से अपनी images upload करते हैं। यह result को fast, ईमानदार, और finish करने के लिए आपका रखता है।
+
+- **Empty storefront → Generate with AI।** एक बिल्कुल नए bot के storefront में अभी कोई pages नहीं होते, इसलिए AI आपके brief से पूरी चीज़ layout करता है।
+- **Existing storefront → Enhance with AI।** जब आपके storefront में content होता है (जैसे ही आप bot connect करते हैं, हर Telegram/Messenger storefront एक page के साथ शुरू होता है), button **Enhance with AI** बन जाता है — यह आपके request के आधार पर **नए pages और sections जोड़ता है** और जो कुछ आपके पास पहले से है उसे पूरी तरह से अछूता छोड़ देता है। यह आपके मौजूदा pages को कभी rewrite या wipe नहीं करता।
+
+### Generate (empty storefront)
+
+**Generate with AI** पर click करें, फिर या तो:
+
+- **इसे describe करें** — एक one-paragraph prompt type करें: *"a 3-page storefront for a coffee shop: a hero, a product grid with five coffees, a testimonials section, and a contact page — warm editorial look."* AI pages, blocks, और एक उपयुक्त theme layout करता है, आपके भरने के लिए तैयार placeholders के साथ।
+- **एक PDF upload करें** — एक product catalog या brochure PDF drop करें और AI इसे storefront pages और product cards में बदल देता है।
+- **एक image upload करें** — एक मौजूदा storefront / flyer का screenshot या photo drop करें और AI उससे एक plausible layout draft करता है।
+
+result **सीधे composer में एक unsaved draft के रूप में** आता है — हर page, block, और theme पूरी तरह editable है। composer flag करता है कि किन blocks को अभी content की ज़रूरत है ताकि आप ठीक देख सकें कि क्या भरना है। placeholders को अपनी असली copy से replace करें, अपनी images जोड़ें, फिर हमेशा की तरह **Save** और **Publish** करें।
+
+### Enhance (existing storefront)
+
+**Enhance with AI** पर click करें, type करें कि आप क्या **जोड़ना** चाहते हैं — *"add a customer-reviews page"*, *"add a contact page"*, *"add an FAQ section"* — और submit करें। (Enhance prompt-only है; PDF/image uploads scratch से generate करने के लिए हैं।)
+
+कुछ भी आपके composer को छूने से पहले, एक **review-changes panel** खुलता है जो AI द्वारा **जोड़े जाने** के लिए प्रस्तावित नए pages और blocks का सारांश देता है। आपके मौजूदा pages, blocks, और uploaded images बिल्कुल वैसे ही रखे जाते हैं जैसे वे थे। स्वीकार करने के लिए **Apply changes** पर click करें, या result को फेंकने के लिए **Discard**। Apply करने से नई structure composer में drop हो जाती है (fill-me-in placeholders flag किए हुए); आप अभी भी copy भरते हैं, **Save** करते हैं, और हमेशा की तरह **Publish** करते हैं।
+
+<Callout type="info">
+  **हर plan पर free।** Generate और Enhance दोनों किसी भी ऐसे व्यक्ति के लिए उपलब्ध हैं जो composer खोल सकता है — कोई अलग add-on या उच्च tier की ज़रूरत नहीं। (आपको अभी भी **Integration manage** permission चाहिए, किसी भी अन्य composer edit की तरह।)
+</Callout>
+
+जानने लायक कुछ बातें:
+
+- **यह एक layout है, एक finished store नहीं।** AI structure design करता है और placeholders drop करता है; **यह आपकी असली copy नहीं लिखता और images generate नहीं करता।** *"Add your headline"* / *"Product name"* placeholders को अपने असली text से replace करें, और अपनी images upload करें — composer हर उस block को highlight करता है जिसे अभी content की ज़रूरत है।
+- **Video और image galleries आपको खुद जोड़नी होती हैं।** AI video और gallery blocks को skip करता है क्योंकि उनका content *एक असली asset है* (एक YouTube link, आपकी photos)। जब आपके पास asset हो तो उन blocks को composer से खुद जोड़ें।
+- **Enhance केवल जोड़ता है — यह आपके पास जो है उसे कभी नहीं छूता।** यह नए pages और sections append करता है; यह आपके मौजूदा को rewrite, reorder, या delete नहीं करता। किसी मौजूदा page को फिर से तैयार करने के लिए, उसे composer में सीधे edit करें।
+- **English first।** Generation और enhancement English placeholders और labels produce करते हैं। दूसरी languages भरने के लिए बाद में composer का **Translate** flow इस्तेमाल करें।
+- **One shot।** हर click आपके prompt से एक fresh result produce करता है — कोई back-and-forth refine chat नहीं है। एक अलग दिशा आज़माने के लिए, बस इसे एक नए prompt के साथ फिर से run करें।
+- **अगर यह fail होता है**, तो आपको raw AI output के साथ एक error दिखेगा जिसे आप copy कर सकते हैं — आमतौर पर एक साफ़, छोटे prompt के साथ retry करने से यह ठीक हो जाता है।
+
+## Composer
+
+composer **Integrations → [your Telegram bot] → Configure mini app** पर रहता है (bot card पर three-dot menu के ज़रिए भी पहुँचा जा सकता है)। यह एक 3-pane layout है:
+
+| Pane | वहाँ क्या है |
+|------|--------------|
+| **Left rail** | आपके pages की list (reorder करने के लिए drag करें)। pinned **Help Center** entry यहाँ read-only है — आप उन entries को एक अलग panel से edit करते हैं। page list के नीचे: per-integration controls (storefront on/off, menu-button label) और translations author करने के लिए language switcher। |
+| **Center** | वर्तमान में चयनित page के लिए block list। Drag-reorder, एक block जोड़ें, duplicate, या delete करें। |
+| **Right** | page कैसा दिखेगा इसका एक **live preview iframe**। Sun/moon toggle light/dark flip करता है। आपके type करते ही preview update होता है। |
+
+ऊपर एक sticky toolbar में है: एक status badge (Draft / Published), एक `⋯` menu (Discard changes / Revert to published), **Save as draft**, और **Publish**।
+
+### Draft vs Published
+
+- **Save as draft** — आपके edits save हो जाते हैं लेकिन customers अभी भी अंतिम published version देखते हैं।
+- **Publish** — आपका draft live हो जाता है; एक frozen "published snapshot" अपने आप save हो जाता है ताकि आप बाद में roll back कर सकें।
+- **Discard changes** — unsaved local edits फेंक देता है और अंतिम-saved version reload करता है (कोई server call नहीं)।
+- **Revert to published** — published snapshot को आपके working draft में वापस copy करता है और इसे republish करता है। उन orgs के लिए disabled जिन्होंने पहले कभी publish नहीं किया।
+
+अगर आप वर्तमान में Published होते हुए **Save as draft** पर click करते हैं, तो आपको एक "unpublish" confirmation dialog मिलेगा (वापस आने के तरीके के hint के साथ)।
+
+## 11 block types
+
+इनमें से किसी को भी एक storefront page पर drop करें:
+
+| Block | यह क्या दिखाता है | Notable limits |
+|-------|---------------|----------------|
+| **Hero** | बड़ी headline + subheadline + background image + optional CTA button | Headline ≤120 chars, subheadline ≤240 chars |
+| **Product card** | एक single product: name, price label, optional **availability badge** ("Sold out", "Pre-order", "Last 3" — एक pill के रूप में render होने वाला free text), image, short description, optional chat & order buttons | Name ≤80, description ≤240, availability badge ≤40 |
+| **Product grid** | तीन layouts में से एक में 1–12 products: grid (2-col), stack (full-width), या swipeable row (Spotify-style) | चाहे कितने भी products हों, **1 block** के रूप में गिना जाता है |
+| **Carousel** | एक horizontal swipeable strip (1–12 slides)। image slides और product slides mix करें। autoplay, loop, dots, arrows, aspect ratio customize करें | **1 block** के रूप में गिना जाता है |
+| **Gallery** | 1–8 images। एक lightbox खोलने के लिए tap करें | — |
+| **FAQ** | एक page पर inline display करने के लिए आपकी Help Center entries का एक subset चुनता है | display limit 1–50 set करें |
+| **Testimonial** | author name, optional avatar, और optional link के साथ एक quote | Quote ≤400 chars |
+| **CTA back-to-bot** | एक button जो Mini App को बंद करता है और आपके bot को एक `/command` भेजता है | Command `^/[a-zA-Z0-9_]{1,31}$` से match होना चाहिए |
+| **Contact** | Static contact card: phone, email, address, map link (कोई form नहीं) | — |
+| **Video** | एक YouTube video, privacy के लिए `youtube-nocookie.com` के ज़रिए lazy-loaded | 11-char YouTube ID चाहिए |
+| **Rich text** | Markdown + sanitized HTML (composer में TipTap editor) | Markdown ≤2000 chars, HTML ≤20000 chars |
+
+<Callout type="info">
+  **कोई "Cart review" block नहीं है।** जब आप किसी product पर एक order CTA को **cart** mode में रखते हैं, तो storefront customers के review और check out करने के लिए अपने आप एक cart page inject करता है — आप खुद कोई cart block place या configure नहीं करते। (पहले के versions में एक manual Cart review block था; इसे May 2026 में retire कर दिया गया था।)
+</Callout>
+
+हर block per-block **style overrides** भी support करता है — background color, text color, font size — जो page theme के साथ multiply होते हैं। इन्हें संयम से इस्तेमाल करें; theme default रूप से look संभालती है।
+
+## Themes
+
+हर page के लिए एक theme चुनें। theme background, text color, accent color, और font को control करती है।
+
+| Theme | Vibe |
+|-------|------|
+| **Telegram** (default) | user की Telegram theme को inherit करती है — automatic light/dark mode, जो वे chats में देखते हैं उससे match करती है |
+| **Soft Light** | Warm cream background, Georgia serif — friendly, editorial feel |
+| **Bold Dark** | High-contrast dark with purple accent |
+| **Editorial** | Magazine-style cream + serif, थोड़े बड़े font scale पर |
+| **Vibrant** | Clean white with bold pink accent |
+| **Mono** | White + monospaced font, थोड़े छोटे scale पर |
+
+जहाँ आप कोई theme नहीं चुनते, वहाँ आपको Telegram default मिलता है — आपका storefront हमेशा customer के Telegram app के लिए native महसूस होता है।
+
+## Per-integration controls
+
+हर Telegram integration के स्वतंत्र settings होते हैं, जो उस एक bot तक scoped होते हैं। उसी org में दूसरा Telegram bot जोड़ने पर उसे अपने खुद के स्वतंत्र toggles मिलते हैं। तीनों composer के left rail में **Mini app settings** के नीचे रहते हैं।
+
+### Storefront on/off toggle
+
+- Default: **on**।
+- इसे **off** करना एक साथ दो काम करता है:
+  1. bot का menu button Telegram के default `/` command picker पर reset हो जाता है — storefront अब bot UI से पहुँच योग्य नहीं रहता।
+  2. अगर किसी customer ने अभी भी storefront URL bookmark किया है और इसे सीधे खोलता है, तो shell एक "currently unavailable" message दिखाता है (server `410 Gone` लौटाता है ताकि stale caches off-switch के बाद content leak न कर सकें)।
+- toggle disable करने से पहले एक dialog के साथ एक बार confirm करता है।
+- इसे वापस **on** करना bot menu button को restore करता है (auto-label या आपका override, जो भी set हो)।
+
+### Menu-button label override
+
+- Default: **हर publish पर auto-derive** — अगर आपके storefront में कोई product block है तो "Shop", अन्यथा "Open"।
+- **button text को freeze** करने के लिए एक custom label (1–32 chars) set करें — उस बिंदु से auto-derive skip हो जाता है, content changes या republish के बाद भी।
+- **auto-derive पर वापस लौटने** के लिए field clear करें (empty string)।
+- अगर आपका audience English नहीं बोलता तो एक custom label इस्तेमाल करें — default auto-label English-only है।
+
+### Storefront languages
+
+अपने storefront को एक बार English में author करें, फिर WhatsApp की किसी भी supported language के लिए translations जोड़ें। composer में language switcher खोलें, एक target language चुनें, और या तो translations खुद type करें या एक one-click AI draft के लिए **Translate** hit करें जिसे आप edit कर सकते हैं। Region-specific variants first-class हैं — Brazilian बनाम European Portuguese, Simplified बनाम Traditional Chinese, इत्यादि — इसलिए आप हर market से उसके अपने रूप में बात कर सकते हैं।
+
+जब किसी storefront में एक से ज़्यादा language होती है, तो visitors के लिए एक **language switcher** दिखता है, और storefront हर visitor की device language अपने आप detect करता है (English पर fallback करते हुए)। Arabic जैसी right-to-left languages सही render होती हैं। यह उस **content** को translate करता है जो आपने author किया (hero headlines, product names, FAQ, rich-text) — shell का अपना chrome (drawer, system buttons) visitor की device language को अलग से follow करता है।
+
+## Per-product AI chat
+
+कोई भी product card एक chattable product बन सकता है। हर product card composer में एक two-button row रखता है जो उसके chat को power देने वाले documents को manage करता है:
+
+- **Attach docs** — एक picker खोलता है जो आपको अपने knowledge base के किसी भी folder से चुनने देता है। इस product से पहले से attached docs disabled दिखाए जाते हैं ताकि आप double-attach न कर सकें। एक नई file चाहिए? picker में inline **Upload new** action इस्तेमाल करें — यह आपके KB में आता है और auto-selected हो जाता है।
+- **Linked docs (N)** — एक manager खोलता है जो वर्तमान में attached सब कुछ list करता है। वहाँ से आप इस product से एक doc **unlink** कर सकते हैं (doc आपके KB में और किसी भी अन्य product पर बना रहता है जिससे यह linked है) या इसे edit करने के लिए Knowledge Base view में jump कर सकते हैं। जब वही doc दूसरे products को power देता है तो manager एक "Also linked to: …" strip भी दिखाता है।
+
+जब कोई customer product tap करता है, तो एक in-sheet chat खुलता है। **chat केवल उस single product के linked documents तक scoped होता है** — assistant दूसरे products की files से जवाब leak नहीं करेगा। Conversations live stream होते हैं (SSE) और हर integration के लिए एक dedicated collection में store होते हैं।
+
+जानने लायक कुछ बातें:
+
+- **एक doc कई products को power दे सकता है।** हर product में पाँच बार upload करने के बजाय एक single "Shipping & returns" PDF को सभी products में share करें।
+- **Unlinking per-product है।** एक product card से एक doc हटाना इसे आपके KB में और इसे link करने वाले किसी भी अन्य products पर बरकरार छोड़ देता है। किसी doc को हर जगह से delete करने के लिए, इसे Knowledge page से delete करें — इसके सभी product links अपने आप clean हो जाते हैं।
+- **Docs default रूप से एक "Showcase Products" folder में आते हैं** जब आप picker से inline upload इस्तेमाल करते हैं, लेकिन आप उन्हें अपने KB में कहीं भी organize करने के लिए स्वतंत्र हैं।
+
+आपके द्वारा attach किए जा सकने वाले product docs की कुल संख्या पर tier limits लागू होते हैं ([Tier limits](#tier-limits) देखें)।
+
+## Order inquiries & cart (optional)
+
+आप किसी भी product card या product grid पर एक **Order CTA** attach कर सकते हैं। यह विशुद्ध रूप से एक structured-message handoff है — **कोई payments नहीं, कोई inventory नहीं, कोई fulfillment नहीं।**
+
+### दो modes
+
+- **`inquiry` mode** — customer "Order this" tap करता है → एक form खुलता है जिसमें product pre-filled होता है → वे submit करते हैं → एक handoff आपके inbox में आता है।
+- **`cart` mode** — customer "Add to cart" tap करता है → product एक local cart में जुड़ जाता है (केवल उनके browser में रहता है, आपके integration से keyed) → वे **cart page (cart-mode CTAs इस्तेमाल करने पर auto-injected — place करने के लिए कोई block नहीं)** पर review करते हैं और check out करते हैं → एक multi-line handoff आपके inbox में आता है।
+
+### Form fields
+
+`name`, `phone`, `email`, `notes`, `delivery_address` का कोई भी subset चुनें। आप जो भी चुनें उसकी परवाह किए बिना **`name` हमेशा required है**।
+
+### Submit के बाद क्या होता है
+
+1. आपके inbox में एक नई conversation बनती है जिसमें पहले message के रूप में formatted order summary होती है।
+2. एक **handoff** बनता है — एक human team member को take over करने का signal दिया जाता है। Line items और contact info structured metadata के रूप में attach होते हैं।
+3. system **तुरंत customer के Telegram DM में वापस एक localized "Got your order" message भेजता है**, जो Telegram की 24-घंटे reply window खुली रखता है ताकि आपकी team के inbox से replies customer को साफ़-सुथरे वापस route हों।
+4. inbox detail view एक dedicated **Order Request Panel** render करता है जिसमें line items, prices, contact info, और notes साफ़-सुथरे laid out होते हैं।
+
+### Anti-spam / anti-duplicate
+
+- हर customer अधिकतम **10 orders प्रति minute** submit कर सकता है; हर tenant अधिकतम **100 प्रति minute**।
+- **बिल्कुल एक ही order** पर 60 seconds के अंदर double-taps dedup हो जाते हैं; 60 seconds के अंदर दो *अलग* orders होकर गुज़र जाते हैं।
+
+## Built-in Help Center
+
+हर storefront एक छोटे **Help Center** के साथ आता है — page menu के अंत में एक pinned support page, उन customers के लिए हमेशा एक tap दूर जिन्हें एक FAQ चाहिए या bot से एक सवाल पूछना है। एक dedicated panel से authored (Integrations → bot card → Help Center), यह drag-to-reorder के साथ ~100 तक entries रखता है। दो entry modes: **curated** (markdown answer inline render होता है, zero LLM cost) और **agent** (tap करने पर एक pre-written सवाल bot chat में fire होता है)। आप इनमें से entries का एक subset **FAQ block** के ज़रिए एक storefront page पर inline भी surface कर सकते हैं — product cards के बगल में कुछ key answers रखने के लिए उपयोगी।
+
+ज़्यादातर customers को इसे कभी खोलने की ज़रूरत नहीं पड़ती — products, gallery, और order CTAs storefront पर ही buying-flow के सवालों का जवाब देते हैं।
+
+## Images
+
+जब आप composer में एक image upload करते हैं:
+
+- **Allowed formats**: PNG, JPEG, WebP।
+- **Max upload size**: 2 MB (original — जो store और serve होता है वह बहुत छोटा होता है)।
+- **Inline cropper** अपने आप खुलता है, slot के लिए सही aspect ratio पर locked (hero backgrounds के लिए 16:9, product / gallery / testimonial avatars के लिए 1:1)।
+- **Auto-compression**: cropper output upload से पहले आपके browser में WebP में compress होता है (hero ≤500 KB, product/gallery ≤350 KB, avatar ≤100 KB)।
+- **Recommended dimensions helper text** हर empty dropzone के ऊपर दिखता है।
+- **Image URLs अपने आप refresh होते हैं** हर 15 minutes में secure presigned URLs के ज़रिए — customers आपके raw storage paths कभी नहीं देखते।
+
+2 MB cap आपके द्वारा upload किए गए original पर है, customers जो देखते हैं उस पर नहीं। एक 12 MP phone photo या एक print-resolution catalog shot ज्यों का त्यों drop करें — in-browser cropper बिना किसी दिखने वाली quality loss के scale-down संभाल लेता है।
+
+## Tier limits
+
+हर plan पर उपलब्ध, free trial सहित। composer caps enforce करता है।
+
+| Tier | Pages | Blocks per page | Product docs (total) |
+|------|-------|------------------|-----------------------|
+| **Trial** | 5 | 25 | 100 |
+| **Starter** | Unlimited | Unlimited | Unlimited |
+| **Plus** | Unlimited | Unlimited | Unlimited |
+| **Enterprise** | Unlimited | Unlimited | Unlimited |
+
+Notes:
+
+- एक product grid या carousel per-page block limit की ओर **1 block के रूप में गिना जाता है**, चाहे इसमें कितने भी items या slides हों।
+- जब आप किसी limit तक पहुँचते हैं, तो composer एक upgrade modal surface करता है।
+- **Pricing per-org है, per-bot नहीं।** आपके org में दूसरा (या पाँचवाँ) Telegram bot जोड़ना आपके tier price को **नहीं** बदलता। हर bot को उसी plan के अंदर अपना खुद का storefront मिलता है; caps आपके एक org के तहत सभी bots में shared होते हैं।
+
+## Permissions
+
+composer के write actions (save, publish, image upload, product doc upload, revert) सभी को Telegram के लिए **Integration manage** permission चाहिए। व्यवहार में इसका मतलब है कि **Owner** और **Admin** roles storefront author कर सकते हैं; **Member** role view-only है।
+
+आज कोई **"storefront-only" role नहीं** है — Owner और Admin दोनों Billing भी देखते हैं। अगर आप अपना storefront बनाने के लिए एक contractor लाते हैं, तो आपके विकल्प हैं:
+
+- उन्हें Admin के रूप में जोड़ें (इस चेतावनी के साथ कि वे Billing भी देखेंगे)।
+- एक screen-sharing session इस्तेमाल करें जहाँ आप logged in रहते हैं और freelancer drive करता है।
+- उनसे assets/copy offline तैयार करवाएं (सारे text + images वाला एक doc) और आप उन्हें Owner के रूप में paste करें।
+
+एक granular "Integration Editor" role roadmap पर है।
+
+## Performance & freshness
+
+- **Server-side cache** — public storefront response हर integration के लिए **5 minutes** के लिए cached होता है।
+- **Publish पर cache busts** — जिस क्षण आप Publish (या Revert) पर click करते हैं, cache wipe हो जाता है, इसलिए customers अपने अगले page request के अंदर आपके changes देखते हैं।
+- **ETag support** — shell HTTP `If-None-Match` इस्तेमाल करता है और अगर कुछ नहीं बदला तो एक fast `304 Not Modified` पाता है, mobile data usage कम रखते हुए।
+- **Image URLs** 15 minutes के लिए valid होते हैं; shell expire होने से पहले अपने आप re-fetch करता है।
+
+## यह क्या नहीं करता
+
+- **No payments।** Order CTAs inquiry handoffs हैं, Stripe / WhatsApp Pay / Telegram Stars checkouts नहीं।
+- **No inventory tracking।** Availability badges free-text labels हैं जिन्हें आप manually edit करते हैं।
+- **No shipping calculations / address validation।** delivery address free-form text के रूप में collect होता है।
+- **No customer accounts।** Customers अपने Telegram user ID से identified होते हैं; कोई login या signup flow नहीं है।
+- **Order Inquiry / Cart Checkout से परे कोई forms नहीं।** contact block static display है; rich-text block forms render नहीं करता।
+- **Help Center "ask the bot" और order paths group / channel launches को अस्वीकार करते हैं** एक विनम्र error के साथ।
+
+## End-to-end customer flow
+
+1. Customer Telegram में आपका bot खोलता है और menu button tap करता है — **"Shop"** (product blocks से auto-derived) या जो भी आपने custom label के रूप में set किया, से labeled।
+2. storefront Telegram के अंदर load होता है। वे आपका पहला page देखते हैं।
+3. वे आपकी gallery से swipe करते हैं, आपका video देखते हैं, एक product tap करते हैं।
+4. product एक sheet में खुलता है। वे "Ask a question" tap करते हैं → उस product के documents तक scoped एक AI chat खुलता है। उन्हें एक जवाब मिलता है।
+5. वे "Order this" tap करते हैं → एक form pop up होता है → वे name + phone भरते हैं → submit करते हैं।
+6. उन्हें तुरंत अपने Telegram DM में वापस एक "Got your order, we'll reach out" message मिलता है।
+7. **आपकी team को Inbox में एक नया handoff मिलता है** order details के साथ। आपकी team inbox से जो भी reply भेजती है वह real time में customer के DM में आता है।
+
+## Troubleshooting
+
+### Menu button storefront नहीं खोलता
+
+1. Confirm करें कि **storefront on/off toggle** on है (composer → left rail → Mini app settings)।
+2. Telegram integration को disconnect और reconnect करें — chat-menu button connection step के दौरान set होता है, और एक stale bot में यह missing हो सकता है।
+3. अगर आपने BotFather के ज़रिए एक custom menu button set किया है, तो वह platform के auto-config को override करता है — इसे BotFather के `/setmenubutton` के ज़रिए clear करें।
+
+### URL सीधे खोलने पर Customers को "currently unavailable" दिखता है
+
+storefront on/off toggle off है — इसे composer के left rail से वापस on करें।
+
+### मैंने अभी save किए edits customers के लिए नहीं दिखते
+
+आपके edits अभी भी **Draft** में हैं। composer toolbar में **Publish** पर click करें — server cache तुरंत bust हो जाता है। अगर आप पहले ही publish कर चुके हैं और customers अभी भी stale content देखते हैं, तो उन्हें storefront के अंदर pull-to-refresh करने को कहें (Telegram WebView को cache करता है)।
+
+### Product chat एक अलग product के docs से जवाब देता है
+
+product card पर **Linked docs** manager को double-check करें — केवल वहाँ explicitly linked docs ही chat को power देते हैं। अगर कोई doc नहीं दिख रहा, तो इसे **Attach docs** picker के ज़रिए attach करें।
+
+### Custom menu label प्रभावी नहीं हुआ
+
+label input के अपने खुद के **Save** / **Reset** buttons हैं (on/off toggle के विपरीत, जो auto-saves)। type करने के बाद **Save** पर click करें — partial keystrokes कभी Telegram तक नहीं पहुँचते।
+
+## Disconnecting
+
+storefront Telegram integration का हिस्सा है, इसलिए जब आप bot disconnect करते हैं तो यह चला जाता है:
+
+- **Integrations → Telegram card → three-dot menu → Delete**
+
+आपके द्वारा author किए गए Storefront pages, blocks, और help entries integration के साथ delete हो जाते हैं। bot को connected रखने पर बस storefront को offline ले जाने के लिए, इसके बजाय **storefront on/off toggle** को off कर दें।
+
+## Related
+
+- [Telegram](/integrations/telegram) — parent integration; storefront इसके ऊपर चलता है
+- [Saba on Telegram](/integrations/saba-on-telegram) — operator-facing Saba bot (अलग feature, यह भी Telegram-based)
+- [Telegram Business](/integrations/telegram-business) — एक Premium user के personal account पर AI replies (अलग feature)

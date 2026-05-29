@@ -1,0 +1,169 @@
+# Telegram Premium co-pilot
+
+अपने AI agent को **एक Telegram Premium user के personal account पर** DMs का reply करने दें। उनके contacts को ऐसा दिखता है जैसे reply खुद Premium user ने भेजे हों — founders, creators, solopreneurs, और छोटी teams के लिए perfect, जिनके customers उन्हें सीधे उनके personal Telegram पर DM करते हैं।
+
+## अवलोकन
+
+Telegram Premium co-pilot ये प्रदान करता है:
+
+- AI replies जो Premium user के `business_connection` के ज़रिए भेजे जाते हैं, ताकि response ऐसा लगे जैसे उन्हीं से आया हो
+- Per-Premium-user linking — एक bot एक ही org में कई Premium users को support कर सकता है
+- Automatic manual takeover — जब Premium user खुद कोई reply type करता है, तो bot उस chat पर एक sliding window के लिए pause हो जाता है ताकि वह किसी live conversation के ऊपर न बोले
+- Connection-level kill switch जो हर linked user पर bot को बिना disconnect किए चुप करा देता है
+- Voice-note transcription और live-streaming replies, बिल्कुल regular Telegram channel की तरह
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  यहाँ "Premium" का मतलब Telegram user के account tier से है (Telegram Premium subscription, जो Business Mode enable करने के लिए ज़रूरी है)। यह आपका Cuneiform Chat plan नहीं है — अधिकांश Cuneiform Chat plans आपके plan के आधार पर इस integration को support करते हैं।
+</Callout>
+
+## यह regular Telegram से कैसे अलग है
+
+Regular [Telegram integration](/integrations/telegram) एक agent को **एक bot के अपने inbox** से connect करता है — आपके end users सीधे `t.me/<bot>` पर bot को DM करते हैं। Telegram Premium co-pilot इसका उल्टा है: bot **एक व्यक्ति के personal Telegram account पर** reply करता है, उस व्यक्ति की सामान्य chat list में आने वाले DMs को intercept करते हुए।
+
+| | Telegram | Telegram Premium co-pilot |
+|---|----------|----------------------------|
+| Contacts किसे message करते हैं? | Bot को (`t.me/<bot>`) | Premium user के personal account को |
+| Contacts को क्या दिखता है? | Bot से replies | ऐसे replies जो Premium user से आते दिखते हैं |
+| एक bot support करता है… | Unlimited end users | आपके org में N Premium users (हर एक की एक row) |
+| Group chats? | हाँ | नहीं — सिर्फ़ DMs |
+| Manual takeover? | N/A | Premium user के type करते ही auto-pause |
+
+## आवश्यकताएँ
+
+- हर उस user के लिए **Telegram Premium** वाला एक Telegram account जो चाहता है कि bot उसके लिए reply करे
+- एक fresh BotFather bot — **Business mode के लिए dedicated** (किसी दूसरे integration द्वारा reuse नहीं किया जा सकता)
+- एक Cuneiform Chat agent जो पहले से configured हो और Playground में test किया गया हो
+
+## Setup Steps
+
+### 1. BotFather में एक dedicated bot बनाएँ
+
+1. Telegram खोलें, **@BotFather** search करें, और `/newbot` भेजें
+2. एक name और username चुनें
+3. **Bot Token** copy करें
+
+### 2. Bot पर Business Mode enable करें
+
+यही step bot को एक Premium user के account पर reply करने के योग्य बनाता है। इसके बिना, Premium users इसे add करते समय *"this bot doesn't support Telegram Business yet"* देखते हैं।
+
+1. BotFather में, `/mybots` भेजें और अपना नया bot select करें
+2. **Bot Settings** → **Business Mode** चुनें
+3. इसे **ON** toggle करें
+
+<Callout type="warning">
+  Business Mode per-bot होता है। अगर आप इसे enable करना भूल जाते हैं, तो हर Premium-user link attempt ऊपर दिए गए message के साथ silently fail हो जाता है। इसे फिर से toggle करें और link अगली try में काम करेगा।
+</Callout>
+
+### 3. Cuneiform Chat में bot connect करें
+
+1. Cuneiform Chat में, sidebar में **Integrations** खोलें
+2. **Telegram Premium co-pilot** card ढूँढें
+3. **Connect Premium bot** पर click करें
+4. वह **Agent** चुनें जो DMs का जवाब देगा (आप इसे बाद में बदल सकते हैं)
+5. bot token paste करें और submit करें
+
+### 4. Premium users अपने personal accounts link करते हैं
+
+हर Premium user जो चाहता है कि bot उसके लिए reply करे, यह एक बार करता है:
+
+1. Telegram Premium card पर, **Link a Premium user** पर click करें — एक 10-minute code दिखता है (एक QR shortcut के साथ)
+2. Premium user **Telegram → Settings → Business → Chatbots** खोलता है
+3. आपके bot का username add करता है और इसे enable करता है
+4. bot के साथ एक regular DM खोलता है और `/start <code>` भेजता है
+5. bot एक confirmation के साथ reply करता है
+
+एक बार link लग जाने के बाद, हर contact जो Premium user को DM करता है उसे AI replies मिलते हैं — सिवाय तब के जब Premium user खुद कोई reply type करता है (नीचे Manual takeover देखें)।
+
+## Features
+
+### Premium user के account पर replies
+
+जब कोई contact Premium user को DM करता है, तो Telegram, Premium user के `business_connection` के ज़रिए bot को एक `business_message` event deliver करता है। bot agent को call करता है, फिर reply को उसी connection के ज़रिए वापस भेजता है — ताकि contact को message मौजूदा thread में दिखे, जो Premium user को attribute किया गया हो। contact की तरफ़ कोई नया bot conversation नहीं बनता।
+
+### Automatic manual takeover
+
+जिस पल Premium user किसी भी chat में खुद कोई reply type करके भेजता है, bot **उस chat** पर एक sliding window के लिए pause हो जाता है। यह window हर बार reset होती है जब Premium user फिर से type करता है, ताकि जब तक live conversation जारी रहे, bot उतनी देर चुप रहे। silence period के बाद, bot auto-replying फिर से शुरू कर देता है।
+
+इसका मतलब है कि किसी conversation में कूदते समय Premium user को bot को explicitly off toggle करने की ज़रूरत नहीं है — bot बस एक तरफ़ हट जाता है।
+
+### Connection-level kill switch
+
+अगर Premium user बिना unlink किए **हर** chat पर AI replies disable करना चाहता है:
+
+1. Cuneiform Chat में Telegram Premium card खोलें
+2. **Disable auto-reply** को on toggle करें
+
+Integration connected रहता है (फिर से link करने की ज़रूरत नहीं) लेकिन bot किसी को reply नहीं करता। फिर से शुरू करने के लिए इसे वापस on toggle करें।
+
+### Voice notes और rich formatting
+
+Contacts से आने वाले voice notes को Whisper के ज़रिए transcribe किया जाता है और typed messages की तरह जवाब दिया जाता है। Replies MarkdownV2 में render होते हैं, bold, italics, code blocks, और links के साथ — वही toolkit जो regular Telegram channel इस्तेमाल करता है।
+
+## Configuration Options
+
+### Per-integration settings
+
+| Setting | विवरण |
+|---------|-------------|
+| Agent | इस bot के लिए सभी linked Premium users में कौन-सा agent DMs का जवाब देता है |
+| Auto-reply enabled | Connection-level kill switch (card पर toggle) |
+
+### Per-link controls
+
+Card पर हर Premium-user row दिखाती है:
+
+- linked user का display name
+- आख़िरी activity का timestamp
+- उस user को unlink करने के लिए एक delete control (bot उनके लिए reply करना बंद कर देता है; उनके contacts को फिर से bot से कुछ भी नहीं दिखता)
+
+## Tips
+
+<Callout type="info">
+  **एक bot, एक agent।** अगर आप अलग-अलग Premium users के लिए अलग-अलग agents चाहते हैं, तो अलग bots बनाएँ — हर agent के लिए एक। Business Mode toggle और link flow को हर bot के लिए दोहराना पड़ता है।
+</Callout>
+
+<Callout type="info">
+  **Group chats scope से बाहर हैं।** Telegram के Business connections सिर्फ़ private DMs को cover करते हैं। bot group messages को ignore करता है, भले ही उसे किसी group में add किया गया हो।
+</Callout>
+
+<Callout type="tip">
+  teammates में roll out करने से पहले पहले खुद अपने Premium account के साथ link flow test करें। BotFather Business Mode toggle सबसे आम अड़चन है — एक बार यह confirm कर लेना कि यह काम करता है, बाद में confused DMs का एक round बचा देता है।
+</Callout>
+
+## Troubleshooting
+
+### Premium user को "this bot doesn't support Telegram Business yet" दिखता है
+
+Bot पर Business Mode enabled नहीं है। BotFather → `/mybots` → अपना bot → **Bot Settings** → **Business Mode** → **ON** toggle करें, फिर Premium user से Settings → Business → Chatbots step फिर से करने को कहें।
+
+### Link code expire हो गया
+
+Codes 10 minutes के लिए valid होते हैं। एक fresh code generate करने के लिए फिर से **Link a Premium user** पर click करें।
+
+### Bot सबके लिए चुप रहता है
+
+Integration card पर **Disable auto-reply** toggle check करें — जब यह off होता है, तो bot हर linked user को ignore करता है। इसे वापस on toggle करें।
+
+### Bot किसी एक खास contact के लिए चुप रहता है
+
+Premium user ने हाल ही में उस chat में कोई reply type किया था और manual-takeover pause अभी भी active है। sliding window के clear होने का इंतज़ार करें, या Premium user से उस chat में type करना बंद करने को कहें।
+
+### Bot की replies गलत दिखती हैं
+
+Premium user के contacts को ठीक वही दिखता है जो agent generate करता है। अगर कुछ off-brand या off-policy slip हो जाए, तो उसे agent के prompt और tools में ठीक करें — यह वही agent है जो Telegram channel इस्तेमाल करता है, उसी Playground के साथ testing के लिए।
+
+## Disconnecting
+
+एक Telegram Premium integration हटाने के लिए:
+
+1. **Cuneiform Chat से:** Integrations → Telegram Premium co-pilot card → three-dot menu → **Delete**
+
+यह हर Premium-user link को हटा देता है और bot को reply करने से रोक देता है। bot खुद BotFather में बना रहता है जब तक आप उसे वहाँ delete न करें।
+
+## संबंधित
+
+- [Telegram](/integrations/telegram) — regular customer-facing Telegram channel (आपके agent के अपने bot inbox के लिए)
+- [Saba on Telegram](/integrations/saba-on-telegram) — operator-facing platform assistant (अलग feature, यह भी Telegram-based)
+- [Telegram Storefront](/integrations/telegram-mini-app) — regular Telegram channel के लिए in-bot storefront

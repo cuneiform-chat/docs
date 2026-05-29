@@ -1,0 +1,189 @@
+# Agent Flows
+
+Multi-screen WhatsApp forms जो एक AI agent बातचीत के बीच में किसी customer को सौंप सकता है। Agent तय करता है कि structured information कब मांगनी है — नाम, dates, एक uploaded ID photo, एक multi-step questionnaire — और आपका customer लंबी back-and-forth chat के बजाय एक native WhatsApp form में इसे भर देता है।
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Agent Flows **WhatsApp** पर चलता है और **सभी paid plans** पर उपलब्ध है (tier-limited — नीचे दी गई Tier limits table देखें)। Web widget, Telegram, और Messenger renderers roadmap पर हैं।
+</Callout>
+
+## Agent Flows का उपयोग कब करें
+
+जब अकेली chat किसी सवाल के लिए गलत आकार हो, तब एक flow का सहारा लें:
+
+- **Lead capture** — नाम + email + business size + meeting preference, सब एक ही screen में जिसे customer एक बार भरता है
+- **Appointment booking** — एक date चुनें, एक time slot चुनें, confirm करें
+- **Document या photo upload** — एक ID, एक receipt, एक damaged-product photo इकट्ठा करें
+- **Multi-step intake** — symptom checklists, application forms, surveys
+- **Conditional questions** — "what kind of pet?" केवल तभी पूछें जब उन्होंने "do you have a pet?" पर हाँ कहा हो
+
+जब agent का system prompt + conversation context मेल खाते हैं, तब agent एक flow की सिफारिश करता है। आप flow को admin panel में एक बार set up करते हैं; agent इसे हर बातचीत में दोबारा उपयोग करता है।
+
+## एक flow बनाना
+
+Flows customer admin panel में **Agent Flows** के अंतर्गत रहते हैं। हर flow में होता है:
+
+- एक **name और description** जिसे agent पढ़कर तय करता है कि इसका उपयोग कब करना है
+- एक या अधिक **screens**, जिनमें से हर एक में **components** (fields) होते हैं
+- वैकल्पिक **screen logic** (customer जो चुनता है उसके आधार पर अलग screens पर branch करें)
+- वैकल्पिक **A/B variants** — एक ही flow के दो versions के बीच traffic को split करें
+- WhatsApp पर per-locale **publications** (एक बार translate करें, हर language के लिए publish करें)
+
+## एक template से शुरुआत करना
+
+आपको खाली composer से शुरू करने की ज़रूरत नहीं है। ready-made flows की एक curated library देखने के लिए Agent Flows list पर **Templates** tab खोलें — lead capture, demo booking, support intake, product feedback, और बहुत कुछ। **Use this template** पर click करें और यह आपके अपने workspace में एक editable draft बना देता है: screens, fields, logic, और translations पहले से भरे आते हैं। Draft को एक WhatsApp number से bind करें, जो चाहें वह बदलें, और publish करें।
+
+एक template बस एक शुरुआती बिंदु है — एक बार जब आप अपनी copy बना लेते हैं, तो यह एक सामान्य flow है जिसका आप पूरी तरह मालिक हैं और जिसे स्वतंत्र रूप से edit कर सकते हैं। Template library हर उस plan के लिए उपलब्ध है जिसमें Agent Flows है।
+
+## Component library — 23 variants
+
+Composer का **Add field** menu सभी 23 components को सात categories में group करता है। आपको जिस data की ज़रूरत है उसके लिए सही आकार चुनें।
+
+### Display (chrome, no input)
+
+ये बिना customer से input मांगे screen पर text या images render करते हैं।
+
+| Component | किसके लिए उपयोग करें |
+|-----------|-----------|
+| **Text Heading** | किसी screen के शीर्ष पर एक बड़ा title (≤ 80 characters) |
+| **Text Subheading** | heading के नीचे एक secondary title (≤ 80 characters) |
+| **Text Body** | व्याख्यात्मक copy का एक paragraph। **bold** और ~~strikethrough~~ को support करता है (≤ 4096 characters) |
+| **Text Caption** | छोटी supporting copy; markdown की अनुमति है (≤ 4096 characters) |
+| **Rich Text** | एक markdown block — terms, disclaimers, formatted instructions के लिए उपयोगी |
+| **Image** | एक single image (≤ 100 KB) |
+| **Image Carousel** | captions के साथ 10 तक swipeable images — product galleries, before/after, instructions |
+
+### Inputs (single-line और multi-line text)
+
+| Component | किसके लिए उपयोग करें |
+|-----------|-----------|
+| **Text Input** | एक single-line text box — नाम, email, छोटे answers |
+| **Text Area** | एक multi-line text box — comments, descriptions, लंबे answers (≤ 600 characters) |
+| **Embedded Link** | custom text के साथ एक inline tap-to-open link (≤ 25 characters) |
+
+### Choices (एक set में से चुनें)
+
+| Component | किसके लिए उपयोग करें |
+|-----------|-----------|
+| **Dropdown** | एक लंबी list (10+ options) में से एक चुनें |
+| **Radio Buttons** | एक छोटी list (≤ 5 options) में से एक चुनें, सभी एक साथ दिखाई देते हैं |
+| **Checkboxes** | एक list में से कितने भी चुनें, वैकल्पिक minimum और maximum के साथ |
+| **Chips Selector** | 20 तक tag-style chips में से चुनें — interests, categories, कम जगह में multi-select |
+
+### Date & time
+
+| Component | किसके लिए उपयोग करें |
+|-----------|-----------|
+| **Date Picker** | एक single date — booking date, date of birth |
+| **Calendar Picker** | वैकल्पिक date range, min/max bounds, और unavailable dates greyed out के साथ एक calendar surface — appointment booking, hotel stays |
+
+<Callout type="info">
+  `Date Picker` और `Calendar Picker` दोनों को अलग components के रूप में रखा गया है। एक त्वरित single date के लिए **Date Picker** का उपयोग करें; जब आपको एक visible month grid, एक range, या specific dates को grey out करने की ज़रूरत हो तब **Calendar Picker** का उपयोग करें।
+</Callout>
+
+### Media uploads
+
+| Component | किसके लिए उपयोग करें |
+|-----------|-----------|
+| **Photo Picker** | Customer camera या gallery से photos upload करता है (प्रति submission 30 तक) |
+| **Document Picker** | Customer documents upload करता है — PDF, DOC, आदि (प्रति submission 10 तक) |
+
+<Callout type="warning">
+  **Mutex:** एक single screen या तो एक Photo Picker **या** एक Document Picker रख सकती है, लेकिन दोनों नहीं। यदि आपके flow को दोनों तरह के upload की ज़रूरत है तो उन्हें अलग screens पर रखें।
+</Callout>
+
+### Layout
+
+| Component | किसके लिए उपयोग करें |
+|-----------|-----------|
+| **Navigation List** | chevrons के साथ 20 तक tappable rows — एक category चुनें, एक product चुनें, एक destination screen चुनें |
+| **Opt-In** | एक consent checkbox — terms of service, marketing opt-in, GDPR consent |
+| **Footer** | flow की अंतिम screen पर submit affordance |
+
+### Logic (conditional rendering)
+
+| Component | किसके लिए उपयोग करें |
+|-----------|-----------|
+| **If** | कुछ components केवल तभी render करें जब एक condition true हो (`then`) — वैकल्पिक रूप से एक विकल्प (`else`) के साथ |
+| **Switch** | customer ने पहले जो value चुनी थी उसके आधार पर अलग components render करें (कई `cases` + वैकल्पिक `default`) |
+
+<Callout type="info">
+  **If** और **Switch** **nesting के 3 levels** तक support करते हैं। यदि आप खुद को उससे अधिक गहरे nesting करते हुए पाते हैं, तो इसके बजाय logic को screen-level routing के साथ कई screens में बाँट दें।
+</Callout>
+
+## Multi-screen flows और routing
+
+एक flow में **10 screens** तक हो सकती हैं। हर screen एक **Footer** के साथ समाप्त होती है जो या तो flow submit करता है या अगली screen पर जाता है। customer ने जो चुना उसके आधार पर उसे एक अलग अगली screen पर route करने के लिए **screen logic** editor का उपयोग करें — उदाहरण के लिए, "Refund" चुनने वाले customers एक refund-specific दूसरी screen पर जाते हैं; बाकी सभी generic follow-up screen पर जाते हैं।
+
+एक single screen के अंदर component-level conditional rendering के लिए, इसके बजाय **If** / **Switch** का उपयोग करें।
+
+## Localisation
+
+Flows प्रति language publish होते हैं। flow को एक बार translate करें, फिर **WhatsApp की पूरी supported-language list** में से उन languages को चुनें जिनमें आप इसे ship करते हैं — हर वह language जिसमें Meta आपको एक WhatsApp Flow publish करने देता है। Picker वहाँ region-distinct options दिखाता है जहाँ यह मायने रखता है, इसलिए आप **Português (Brasil)** को **Português (Portugal)** से अलग, या **中文 (简体)** को **中文 (繁體)** से अलग ship कर सकते हैं। हर customer वह version देखता है जो उनकी WhatsApp language से मेल खाता है; यदि किसी customer की language publish नहीं हुई है, तो integration के default locale का उपयोग fallback के रूप में किया जाता है। (जब customer Portuguese जैसी base language में लिखता है और आपने केवल Brazilian Portuguese जैसा regional variant publish किया है, तब भी उन्हें localized form मिलता है।)
+
+## A/B testing
+
+यदि आप एक flow के दो versions को एक-दूसरे के मुकाबले test करना चाहते हैं, तो उन्हें Variants tab में **variants** के रूप में configure करें। Customers को deterministically split किया जाता है (एक ही customer हमेशा वही variant देखता है); **Submissions** view दिखाता है कि हर submission किस variant से आया, और **Field Heatmap** आपको drop-off और completion rates की side by side तुलना करने देता है।
+
+## AI generation
+
+यदि आपके पास higher-tier plan है, तो composer **AI form generation** प्रदान करता है: एक one-line prompt लिखें ("a hotel booking form with date-range and photo upload"), या किसी मौजूदा form का PDF / image upload करें, और assistant आपके लिए flow का draft बना देता है। Draft पूरी तरह editable है — हर field composer में round-trippable है (कोई opaque AI snapshots नहीं)।
+
+## Submissions और analytics
+
+एक बार flow publish हो जाने पर, हर submission उस flow के लिए **Submissions** view में आ जाता है। हर row दिखाती है:
+
+- किसने submit किया, कब किया, और किस agent के माध्यम से किया
+- form से पूरे field values
+- एक **AI score** (0–100) जो assistant ने submission को दिया — high-value leads ऊपर आ जाते हैं
+- form खुलने से **ठीक पहले** की conversation के chat turns (conversation-context join — देखें कि agent ने इस submission को मांगने का फैसला क्यों किया)
+
+Aggregate analytics में एक **KPI strip** (started / completed / drop-off rate), एक **Field-Level Heatmap** जो दिखाती है कि customers कहाँ छोड़ देते हैं, और एक **Narrative Diagnostic** chat शामिल है — एक AI analyst जिससे आप पूछ सकते हैं "screen 2 पर लोग क्यों drop off कर रहे हैं?" और यह heatmap, submissions, और conversation context के माध्यम से उत्तर खोज निकालेगा।
+
+## Notifications और lead funnel
+
+एक submission तभी मूल्यवान है जब कोई उस पर तेज़ी से कार्रवाई करे। हर flow के **Distribute** tab में एक notification block है ताकि सही लोग किसी lead के आते ही उसके बारे में सुनें:
+
+- **Submission notifications** — जब एक form submit होता है, तो एक in-app notification दिखाई देता है, जो सीधे उस submission से deep-linked होता है। इसे प्रति flow toggle करें।
+- **Reply-after-takeover notifications** — जब आपकी team में से कोई WhatsApp में किसी lead को जवाब देता है और customer वापस लिखता है, तो आपको एक दूसरा notification मिलता है — speed-to-lead loop की दूसरी धड़कन।
+- **Email recipients** — दस email addresses तक जोड़ें और हर submission एक deferred email भी भेजता है जो submission से deep-linking करता है, ताकि offline staff भी lead पकड़ सके।
+
+एक बातूनी customer आपको spam नहीं करेगा: किसी submission के तुरंत बाद messages की एक झड़ी **एक** notification में सिमट जाती है, और एक नया तभी fire होता है जब कोई इंसान वास्तव में जवाब दे चुका हो और customer वापस आए।
+
+हर flow के पास अपनी submissions page पर एक **funnel strip** भी होती है — leads कहाँ खड़े हैं इसका एक read-only, एक नज़र में दिखने वाला view:
+
+| Stage | अर्थ |
+|-------|---------|
+| **Submitted** | flow के लिए हर submission |
+| **Engaged by AI** | agent ने form के बाद बातचीत में follow up किया |
+| **Human replied** | आपकी team में से किसी ने हाथ से जवाब दिया |
+| **Resolved** | बातचीत archive कर दी गई |
+| **Awaiting human reply** | notified, लेकिन अभी तक किसी इंसान ने जवाब नहीं दिया — आपके at-risk leads |
+
+Funnel एक **heuristic view** है जो आपको एक नज़र में pipeline manage करने में मदद करती है, यह कोई revenue-attribution model नहीं है।
+
+## Contextual acknowledgments
+
+जब एक customer एक flow पूरा करता है, तो उन्हें WhatsApp की instant completion screen दिखती है जिसमें आपके द्वारा form पर set किया गया confirmation message होता है। थोड़ी देर बाद, agent एक **अलग WhatsApp message भी भेजता है जो उनके द्वारा वास्तव में भरी गई जानकारी का संदर्भ देता है** — "Got it — I've put you down for 2pm Tuesday. Anything else?" — ताकि बातचीत स्वाभाविक रूप से आगे बढ़े बजाय इसके कि customer एक static "thanks" को घूरता रह जाए। Agent पहले से ही submitted values जानता है, इसलिए acknowledgment specific होता है, boilerplate नहीं।
+
+यह हर flow के लिए **default रूप से on** है। यदि आप चाहते हैं कि agent किसी submission के बाद चुप रहे, तो flow के **Distribute** tab पर **Acknowledge submissions** को off कर दें। Acknowledgment अपने आप तब भी चुप रहता है जब आपकी team में से किसी ने बातचीत संभाल ली हो — आपको एक AI message किसी इंसानी जवाब पर भारी पड़ता हुआ नहीं मिलेगा।
+
+## एक flow को campaign link के रूप में share करना
+
+Published flows केवल उन बातचीतों में नहीं रहते जो agent शुरू करता है। flow के **Distribute** tab पर **Campaign asset** card खोलें और एक **shareable link** generate करें — एक standard WhatsApp click-to-chat link (साथ ही एक downloadable **QR code**) जिसे आप एक email, एक Instagram bio, एक "Book a demo" button में डाल सकते हैं, या एक flyer पर print कर सकते हैं।
+
+जब कोई link पर click करता है, तो WhatsApp आपके number के साथ एक chat और एक prefilled message खोलता है; वे send tap करते हैं, और **पहले reply के रूप में ठीक वही form खुलता है** — कोई अनुमान नहीं, बीच में कोई AI greeting नहीं। जिसने "Book Demo" पर click किया उसे तुरंत booking form मिल जाता है। फिर agent बाकी बातचीत को सामान्य रूप से संभालता है।
+
+हर link में एक **hit counter** होता है ताकि आप देख सकें कि कितने लोगों ने इसके ज़रिए form launch किया, और आप किसी भी समय एक link को **revoke** कर सकते हैं। यदि किसी link का text send करने से पहले edit या strip कर दिया जाता है, या link revoke कर दिया जाता है, तो message बस एक सामान्य AI conversation में fall through हो जाता है — कुछ भी नहीं टूटता।
+
+## Tier limits
+
+| Tier | Published flows | प्रति flow Locales | AI generation |
+|------|-----------------|------------------|---------------|
+| Trial | 1 | 1 | — |
+| Starter | 1 | 1 | — |
+| Plus | Unlimited | Unlimited | ✅ |
+| Enterprise | Unlimited | Unlimited | ✅ |
+
+सभी 23 component types हर उस tier पर उपलब्ध हैं जो Agent Flows को support करता है — कोई per-component tier-gating नहीं है।

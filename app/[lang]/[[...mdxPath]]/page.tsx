@@ -3,7 +3,9 @@ import { useMDXComponents as getMDXComponents } from '../../../mdx-components'
 
 export const generateStaticParams = generateStaticParamsFor('mdxPath', 'lang')
 
-const LOCALES = ['en', 'es', 'pt', 'fr', 'ru'] as const
+// Active locales: en (source), es, pt, fr, ru, bn, hi — keep in sync with
+// next.config.mjs i18n.locales. Drives per-page hreflang alternates.
+const LOCALES = ['en', 'es', 'pt', 'fr', 'ru', 'bn', 'hi'] as const
 const SITE_URL = 'https://docs.cuneiform.chat'
 
 export async function generateMetadata(props: {
