@@ -1,12 +1,25 @@
 # Agent Flows
 
-Multi-screen WhatsApp forms an AI agent can hand to a customer mid-conversation. The agent decides when to ask for structured information — name, dates, an uploaded ID photo, a multi-step questionnaire — and your customer fills it in with a native WhatsApp form rather than a long back-and-forth chat.
+Multi-screen forms an AI agent can hand to a customer mid-conversation. The agent decides when to ask for structured information — name, dates, an uploaded ID photo, a multi-step questionnaire — and your customer fills it in with a native form rather than a long back-and-forth chat.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Agent Flows runs on **WhatsApp** and is available on **all paid plans** (tier-limited — see the Tier limits table below). Web widget, Telegram, and Messenger renderers are on the roadmap.
+  Agent Flows runs on **WhatsApp, Telegram, Messenger, and your website chat widget** and is available on **all paid plans** (tier-limited — see the Tier limits table below). Build a flow once; it renders natively on every supported channel.
 </Callout>
+
+## Supported channels
+
+A flow is channel-neutral — you design it once and it renders natively wherever the agent runs.
+
+| Channel | How the form opens | Notes |
+|---------|-------------------|-------|
+| **WhatsApp** | The agent sends a native WhatsApp Flow button; the form opens inside WhatsApp | Publishes per-language to Meta; the only channel with native rich-text limits set by WhatsApp |
+| **Telegram** | The agent sends an inline button that opens the form as a Telegram Mini App | Full rich-text (bold, headings, lists, tables) |
+| **Messenger** | The agent sends a button that opens the form in a Messenger Webview | Full rich-text |
+| **Website chat widget** | The form opens inline in the embedded chat widget on your site | Lightweight renderer; rich text is limited to bold, italic, links, and lists |
+
+The same components, screens, logic, and translations work on every channel — there's nothing per-channel to maintain. Conditional logic (**If** / **Switch**) and screen routing are evaluated the same way on every renderer, so a flow behaves identically no matter where your customer fills it in.
 
 ## When to use Agent Flows
 
@@ -120,7 +133,7 @@ For component-level conditional rendering inside a single screen, use **If** / *
 
 ## Localisation
 
-Flows publish per language. Translate the flow once, then pick the languages you ship it in from **WhatsApp's full supported-language list** — every language Meta lets you publish a WhatsApp Flow in. The picker shows region-distinct options where it matters, so you can ship **Português (Brasil)** separately from **Português (Portugal)**, or **中文 (简体)** separately from **中文 (繁體)**. Each customer sees the version that matches their WhatsApp language; if a customer's language isn't published, the integration's default locale is used as a fallback. (When the customer writes in a base language like Portuguese and you've only published a regional variant such as Brazilian Portuguese, they still get the localized form.)
+Translate the flow once and each customer sees the version that matches their language. On **WhatsApp**, you publish per language — pick the languages you ship it in from **WhatsApp's full supported-language list** (every language Meta lets you publish a WhatsApp Flow in). The picker shows region-distinct options where it matters, so you can ship **Português (Brasil)** separately from **Português (Portugal)**, or **中文 (简体)** separately from **中文 (繁體)**. Each customer sees the version that matches their WhatsApp language; if a customer's language isn't published, the integration's default locale is used as a fallback. (When the customer writes in a base language like Portuguese and you've only published a regional variant such as Brazilian Portuguese, they still get the localized form.) On **Telegram, Messenger, and the website widget**, there's no separate publish step — the form renders in the customer's language on the fly from the same translations.
 
 ## A/B testing
 
