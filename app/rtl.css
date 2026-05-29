@@ -1,0 +1,19 @@
+/*
+ * RTL overrides for the docs theme.
+ *
+ * Nextra 4's `nextra-theme-docs` already handles RTL chrome (sidebar/TOC/navbar/
+ * callouts/nav-arrows) via CSS logical properties + `:dir(rtl)` rules, so layout
+ * flips correctly from the `<html dir="rtl">` set in app/[lang]/layout.tsx.
+ *
+ * The one thing it does NOT pin is code-block direction: block code (`.nextra-code`)
+ * inherits the page's `rtl` base direction and right-aligns. Code is LTR by docs
+ * convention (and the widget embed snippet is a copy-paste public contract), so we
+ * force block code back to LTR + left alignment under RTL. Inline `<code>` inside
+ * Arabic prose is left untouched — the browser's bidi algorithm already places it
+ * correctly within the surrounding RTL paragraph.
+ */
+[dir='rtl'] .nextra-code pre,
+[dir='rtl'] .nextra-code code {
+  direction: ltr;
+  text-align: left;
+}
