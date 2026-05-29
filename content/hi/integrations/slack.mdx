@@ -19,10 +19,9 @@ Slack integration प्रदान करती है:
 
 ### 1. Integration Setup शुरू करें
 
-1. **Agents** में जाएं → अपना agent चुनें
-2. **Integrations** tab पर जाएं
-3. **Slack** पर क्लिक करें
-4. **Add to Slack** पर क्लिक करें
+1. Sidebar में **Integrations** पर जाएं
+2. **Slack** card खोलें
+3. **Add to Slack** पर क्लिक करें
 
 ### 2. App Authorize करें
 
@@ -46,7 +45,7 @@ Slack integration प्रदान करती है:
 /ask What is our refund policy?
 ```
 
-Response channel में दिखता है (या settings के अनुसार ephemeral message के रूप में)।
+Response channel में दिखता है।
 
 ### Direct Messages
 
@@ -90,16 +89,13 @@ import { Callout } from 'nextra/components'
 
 ## Configuration Options
 
-### Response Settings
+Slack integration card से आप ये कर सकते हैं:
 
-| Setting | विवरण |
-|---------|-------------|
-| Response type | In-channel या ephemeral |
-| Thread behavior | Thread में या main channel में reply करें |
-
-### Channel Restrictions
-
-Bot को specific channels तक restrict करने के लिए optionally सेट करें।
+| Option | विवरण |
+|--------|-------------|
+| Default agent | चुनें कि कौन सा agent reply करे जब कोई channel-specific mapping लागू न हो |
+| Channel mappings | specific Slack channels को specific agents पर route करें |
+| Channel commands | अपने workspace में available slash commands manage करें |
 
 ## Multi-Workspace Support
 
@@ -127,10 +123,19 @@ Bot को specific channels तक restrict करने के लिए optio
 
 ### Permission Issues
 
-जरूरी permissions:
+Slack app ये OAuth scopes request करता है (pre-configured — install के दौरान आप **Allow** पर क्लिक करते ही ये सब grant हो जाते हैं):
 - `commands` — Slash commands के लिए
 - `chat:write` — Messages भेजने के लिए
+- `chat:write.customize` — Custom username/icon के साथ messages भेजें
 - `app_mentions:read` — @ mentions के लिए
+- `im:history` — Context के लिए direct-message history पढ़ें
+- `channels:history` — Context के लिए public-channel history पढ़ें
+- `channels:read` — Public channels list करें
+- `groups:history` — Context के लिए private-channel history पढ़ें
+- `mpim:history` — Context के लिए group-DM history पढ़ें
+- `users:read` — User names resolve करें
+- `canvases:write` — Slack canvases बनाएं और edit करें
+- `assistant:write` — Agents & AI Apps pane में suggested prompts seed करें
 
 ## Security
 
@@ -143,7 +148,7 @@ Bot को specific channels तक restrict करने के लिए optio
 Slack integration हटाने के लिए:
 
 1. **Cuneiform Chat से:**
-   - Agents → Agent चुनें → Integrations → Slack → Disconnect
+   - Integrations (sidebar) → Slack → Disconnect
 
 2. **Slack से:**
    - Workspace settings पर जाएं
