@@ -1,160 +1,157 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# دمج Meta (Facebook)
 
-# Meta (Facebook) Integration
-
-Connect your agent to Facebook Messenger through your Facebook Page.
+اربط الـ Agent الخاص بك بـ Facebook Messenger عبر صفحة Facebook الخاصة بك.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Every connected Facebook Page also gets a built-in **in-app Storefront** that launches from the Page's Persistent Menu — multipage product catalog, per-product AI chat, and one-tap order intake right inside Messenger. See [Messenger Storefront](/integrations/messenger-mini-app).
+  تحصل كل صفحة Facebook مرتبطة أيضًا على **Storefront مدمج داخل التطبيق** يُطلَق من القائمة الثابتة (Persistent Menu) للصفحة — كتالوج منتجات متعدّد الصفحات، ودردشة ذكية لكل منتج، وأخذ طلبات بنقرة واحدة مباشرةً داخل Messenger. راجع [Messenger Storefront](/integrations/messenger-mini-app).
 </Callout>
 
-## Overview
+## نظرة عامة
 
-Meta integration provides:
-- Facebook Messenger conversations via your Page
-- A built-in [Messenger Storefront](/integrations/messenger-mini-app) launchable from the Page's Persistent Menu
-- Background processing with typing indicators
-- Automatic message splitting for long responses
-- 24-hour messaging window compliance
-- Conversation memory within sessions
+يوفّر دمج Meta ما يلي:
+- محادثات Facebook Messenger عبر صفحتك
+- [Messenger Storefront](/integrations/messenger-mini-app) مدمج يُطلَق من القائمة الثابتة للصفحة
+- معالجة في الخلفية مع مؤشّرات الكتابة
+- تقسيم تلقائي للرسائل للردود الطويلة
+- الالتزام بنافذة المراسلة لمدة 24 ساعة
+- ذاكرة محادثة ضمن الجلسات
 
-## Prerequisites
+## المتطلّبات المسبقة
 
-- A Facebook Page you manage
-- Admin or Editor role on the Page
-- Cuneiform Chat account with an active agent
+- صفحة Facebook تديرها
+- دور Admin أو Editor على الصفحة
+- حساب Cuneiform Chat مع Agent نشط
 
-## Setup Steps
+## خطوات الإعداد
 
-### 1. Start Integration Setup
+### 1. ابدأ إعداد الدمج
 
-1. Go to **Integrations** in the sidebar
-2. Open the **Facebook Pages** card
-3. Click **Connect Page**
+1. انتقل إلى **Integrations** في الشريط الجانبي
+2. افتح بطاقة **Facebook Pages**
+3. انقر على **Connect Page**
 
-### 2. Authorize with Facebook
+### 2. صرّح عبر Facebook
 
-1. Select which **Agent** should respond
-2. Click **Connect with Facebook**
-3. Log in to Facebook (if needed)
-4. Select the Page you want to connect
-5. Grant Messenger permissions
-6. You'll be redirected back with a success message
+1. اختر أي **Agent** ينبغي أن يردّ
+2. انقر على **Connect with Facebook**
+3. سجّل الدخول إلى Facebook (إن لزم)
+4. اختر الصفحة التي تريد ربطها
+5. امنح صلاحيات Messenger
+6. ستُعاد توجيهك مع رسالة نجاح
 
-### 3. Verify Connection
+### 3. تحقّق من الاتصال
 
-Once connected, your Page will appear in the integrations list showing:
-- Page name and status
-- Page ID
-- Last activity timestamp
+بمجرّد الربط، ستظهر صفحتك في قائمة عمليات الدمج موضّحةً:
+- اسم الصفحة والحالة
+- معرّف الصفحة (Page ID)
+- طابع زمني لآخر نشاط
 
-## How It Works
+## كيف يعمل
 
-When users message your Facebook Page through Messenger:
+عندما يراسل المستخدمون صفحة Facebook الخاصة بك عبر Messenger:
 
-1. Message arrives via Facebook Messenger
-2. The bot shows a typing indicator while processing
-3. Your agent processes the question
-4. Response is sent back through Messenger
+1. تصل الرسالة عبر Facebook Messenger
+2. يُظهر الروبوت مؤشّر كتابة أثناء المعالجة
+3. يعالج الـ Agent السؤال
+4. يُرسَل الرد عبر Messenger
 
 <Callout type="info">
-  Messages are processed in the background. The bot shows a typing indicator while your agent generates a response.
+  تُعالَج الرسائل في الخلفية. يُظهر الروبوت مؤشّر كتابة أثناء توليد الـ Agent للرد.
 </Callout>
 
-## Features
+## الميزات
 
-### Automatic Responses
+### الردود التلقائية
 
-Your agent automatically responds to incoming Messenger conversations based on your content. All text messages trigger a response — no commands or prefixes needed.
+يردّ الـ Agent الخاص بك تلقائيًا على محادثات Messenger الواردة بناءً على المحتوى الخاص بك. كل الرسائل النصية تُطلق ردًا — بلا حاجة إلى أوامر أو بادئات.
 
-### Typing Indicators
+### مؤشّرات الكتابة
 
-While your agent processes a message, users see a typing indicator ("...") in Messenger, providing a natural conversation feel.
+أثناء معالجة الـ Agent لرسالة، يرى المستخدمون مؤشّر كتابة ("...") في Messenger، ما يمنح إحساسًا طبيعيًا بالمحادثة.
 
-### Message Splitting
+### تقسيم الرسائل
 
-Responses longer than 2,000 characters are automatically split into multiple messages, preserving paragraph breaks and sentence boundaries for readability.
+تُقسَّم الردود التي تتجاوز 2,000 حرف تلقائيًا إلى رسائل متعدّدة، مع الحفاظ على فواصل الفقرات وحدود الجمل لسهولة القراءة.
 
-### Conversation Memory
+### ذاكرة المحادثة
 
-The bot remembers context within a session, so users can ask follow-up questions without repeating themselves.
+يتذكّر الروبوت السياق ضمن الجلسة، فيمكن للمستخدمين طرح أسئلة متابعة دون تكرار أنفسهم.
 
-### Message Queuing
+### وضع الرسائل في قائمة الانتظار
 
-If a user sends additional messages while the bot is still processing, they are queued and included in the next response.
+إذا أرسل مستخدم رسائل إضافية بينما لا يزال الروبوت يعالج، تُوضَع في قائمة الانتظار وتُضمَّن في الرد التالي.
 
-### 24-Hour Messaging Window
+### نافذة المراسلة لمدة 24 ساعة
 
-Facebook's policy allows responses within 24 hours of the last user message. Your agent responds in real-time, well within this window. After 24 hours of inactivity, the user must send a new message to restart the conversation.
+تسمح سياسة Facebook بالردود خلال 24 ساعة من آخر رسالة للمستخدم. يردّ الـ Agent الخاص بك في الوقت الفعلي، ضمن هذه النافذة بشكل جيّد. بعد 24 ساعة من عدم النشاط، يجب على المستخدم إرسال رسالة جديدة لإعادة بدء المحادثة.
 
 <Callout type="warning">
-  Users must message your Page first — you cannot send unsolicited messages. If more than 24 hours pass since their last message, the bot cannot reply until the user messages again.
+  يجب على المستخدمين مراسلة صفحتك أولًا — لا يمكنك إرسال رسائل غير مطلوبة. إذا مرّ أكثر من 24 ساعة منذ آخر رسالة لهم، فلا يمكن للروبوت الرد حتى يراسل المستخدم مجددًا.
 </Callout>
 
-## Managing Pages
+## إدارة الصفحات
 
-### View Connected Pages
+### عرض الصفحات المرتبطة
 
-Each connected Page displays:
-- Page name and connection status
-- Associated agent
-- Activity information
+تعرض كل صفحة مرتبطة:
+- اسم الصفحة وحالة الاتصال
+- الـ Agent المرتبط
+- معلومات النشاط
 
-### Available Actions
+### الإجراءات المتاحة
 
-| Action | Description |
+| الإجراء | الوصف |
 |--------|-------------|
-| **Test Connection** | Verify the integration is working |
-| **Disconnect** | Remove the Page connection |
+| **Test Connection** | يتحقّق من أن عملية الدمج تعمل |
+| **Disconnect** | يزيل اتصال الصفحة |
 
-Access these via the three-dot menu on each connected Page.
+ادخل إليها عبر القائمة ثلاثية النقاط على كل صفحة مرتبطة.
 
-## Troubleshooting
+## استكشاف الأخطاء وإصلاحها
 
-### Page Not Appearing
+### الصفحة لا تظهر
 
-1. Verify you have Admin or Editor role on the Page
-2. Check you granted all requested permissions
-3. Try disconnecting and reconnecting
+1. تحقّق من امتلاكك دور Admin أو Editor على الصفحة
+2. تأكّد من منحك كل الصلاحيات المطلوبة
+3. جرّب قطع الاتصال وإعادة الربط
 
-### Messages Not Receiving Responses
+### الرسائل لا تتلقّى ردودًا
 
-1. Use "Test Connection" to verify the integration
-2. Check your agent is configured and working (test in Playground)
-3. Ensure Messenger permissions are granted
-4. Verify the user messaged within the last 24 hours (messaging window policy)
+1. استخدم "Test Connection" للتحقّق من عملية الدمج
+2. تحقّق من أن الـ Agent الخاص بك مُعدّ ويعمل (اختبر في الـ Playground)
+3. تأكّد من منح صلاحيات Messenger
+4. تحقّق من أن المستخدم راسل خلال آخر 24 ساعة (سياسة نافذة المراسلة)
 
-### Authorization Errors
+### أخطاء التصريح
 
-1. Clear Facebook login session and try again
-2. Verify your Facebook account has Page access
-3. Check Page isn't restricted by Facebook
+1. امسح جلسة تسجيل دخول Facebook وحاول مرة أخرى
+2. تحقّق من أن حساب Facebook الخاص بك لديه وصول إلى الصفحة
+3. تحقّق من أن الصفحة غير مقيّدة من Facebook
 
-## Security
+## الأمان
 
-- **OAuth tokens** are encrypted and stored securely
-- **Webhook signatures** are verified using HMAC-SHA256 on every incoming request
-- No access to Page content beyond Messenger conversations
-- Compliant with Facebook Platform policies
+- تُشفَّر **رموز OAuth** وتُخزَّن بأمان
+- يُتحقَّق من **توقيعات الـ Webhook** باستخدام HMAC-SHA256 على كل طلب وارد
+- لا وصول إلى محتوى الصفحة يتجاوز محادثات Messenger
+- متوافق مع سياسات منصّة Facebook
 
-## Disconnecting
+## قطع الاتصال
 
-To remove the Meta integration:
+لإزالة دمج Meta:
 
-1. Go to **Integrations** in the sidebar
-2. Click the three-dot menu on your Page
-3. Select **Disconnect**
+1. انتقل إلى **Integrations** في الشريط الجانبي
+2. انقر على القائمة ثلاثية النقاط على صفحتك
+3. اختر **Disconnect**
 
-To fully revoke access:
-1. Go to Facebook Settings → Business Integrations
-2. Remove the Cuneiform Chat app
+لإلغاء الوصول بالكامل:
+1. انتقل إلى Facebook Settings ← Business Integrations
+2. أزِل تطبيق Cuneiform Chat
 
-## Important Notes
+## ملاحظات مهمّة
 
-- **One agent per Page**: Each Facebook Page can only connect to one AI agent at a time
-- **Messenger only**: This integration works through Facebook Messenger, not Page comments or posts
-- **Message limit**: Individual messages are limited to 2,000 characters; longer responses are automatically split
-- **To change agents**: Disconnect the existing integration first, then reconnect with a different agent
+- **Agent واحد لكل صفحة**: يمكن لكل صفحة Facebook الاتصال بـ Agent ذكي واحد فقط في كل مرة
+- **Messenger فقط**: تعمل عملية الدمج هذه عبر Facebook Messenger، وليس تعليقات الصفحة أو منشوراتها
+- **حدّ الرسائل**: تُحدَّد الرسائل الفردية بـ 2,000 حرف؛ تُقسَّم الردود الأطول تلقائيًا
+- **لتغيير الـ Agents**: اقطع اتصال عملية الدمج الموجودة أولًا، ثم أعد الربط بـ Agent مختلف

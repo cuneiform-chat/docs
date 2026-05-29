@@ -1,289 +1,286 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# دمج Google Chat
 
-# Google Chat Integration
+اربط الـ Agent الخاص بك بـ Google Chat للتواصل السلس داخل Google Workspace.
 
-Connect your agent to Google Chat for seamless communication within Google Workspace.
+## نظرة عامة
 
-## Overview
+يوفّر دمج Google Chat ما يلي:
+- مراسلة مباشرة مع روبوتك
+- دعم مساحات Google Workspace (Spaces) مع محفّزات @mention
+- توجيه الـ Agent على مستوى المساحة — عيّن Agents مختلفة لمساحات مختلفة
+- ردود نصية مع ذاكرة محادثة ووعي اختياري بسياق المساحة
+- معالجة غير متزامنة مع إقرار فوري
+- أمان جاهز للمؤسّسات مع عزل قائم على النطاق
 
-Google Chat integration provides:
-- Direct messaging with your bot
-- Google Workspace Spaces support with @mention triggers
-- Space-level agent routing — assign different agents to different Spaces
-- Text-based responses with conversation memory and opt-in space context awareness
-- Async processing with instant acknowledgment
-- Enterprise-ready security with domain-based isolation
+## المتطلّبات المسبقة
 
-## Prerequisites
-
-- An active AI agent (created in the Agents section)
-- A Google Workspace account (personal Gmail accounts are not supported)
-- A **verified domain** — verify your domain ownership in **Settings > Domains** before connecting
+- Agent ذكي نشط (مُنشأ في قسم Agents)
+- حساب Google Workspace (حسابات Gmail الشخصية غير مدعومة)
+- **نطاق مُتحقَّق منه** — تحقّق من ملكية نطاقك في **Settings > Domains** قبل الاتصال
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Google Chat integration requires a Google Workspace account and a verified domain. Personal Gmail accounts cannot install custom Chat apps. If your organization doesn't use Google Workspace, the Google Chat section won't appear on the Integrations page.
+  يتطلّب دمج Google Chat حساب Google Workspace ونطاقًا مُتحقَّقًا منه. لا يمكن لحسابات Gmail الشخصية تثبيت تطبيقات Chat المخصّصة. إذا كانت مؤسّستك لا تستخدم Google Workspace، فلن يظهر قسم Google Chat في صفحة Integrations.
 </Callout>
 
-## Setup Steps
+## خطوات الإعداد
 
-### 1. Verify Your Domain (One-Time Setup)
+### 1. تحقّق من نطاقك (إعداد لمرة واحدة)
 
-Before connecting Google Chat, verify your domain ownership:
+قبل ربط Google Chat، تحقّق من ملكية نطاقك:
 
-1. Go to **Settings** from the sidebar
-2. Click the **Domains** tab
-3. Your domain is auto-detected from your account email
-4. Add a **TXT record** in your DNS provider with the values shown:
-   - **Type:** TXT
-   - **Name:** `_cuneiform-verify` (or the full value shown)
-   - **Content:** The verification string displayed (e.g., `cuneiform-verify=abc123...`)
-5. Click **Verify Now** — DNS changes can take up to 48 hours to propagate
-6. Once the status changes to **Verified**, proceed to create the integration
+1. انتقل إلى **Settings** من الشريط الجانبي
+2. انقر على تبويب **Domains**
+3. يُكتشَف نطاقك تلقائيًا من بريد حسابك الإلكتروني
+4. أضف **سجلّ TXT** في مزوّد DNS الخاص بك بالقيم المعروضة:
+   - **النوع:** TXT
+   - **الاسم:** `_cuneiform-verify` (أو القيمة الكاملة المعروضة)
+   - **المحتوى:** سلسلة التحقّق المعروضة (مثل `cuneiform-verify=abc123...`)
+5. انقر على **Verify Now** — قد تستغرق تغييرات DNS حتى 48 ساعة للانتشار
+6. بمجرّد أن تتغيّر الحالة إلى **Verified**، تابع لإنشاء عملية الدمج
 
-Quick links to common DNS providers (Cloudflare, GoDaddy, Namecheap, Route 53, DigitalOcean, Hostinger) are shown on the verification card.
+تُعرض روابط سريعة لمزوّدي DNS الشائعين (Cloudflare وGoDaddy وNamecheap وRoute 53 وDigitalOcean وHostinger) على بطاقة التحقّق.
 
-### 2. Create Google Chat Integration
+### 2. أنشئ دمج Google Chat
 
-1. Go to **Integrations** from the sidebar
-2. Under "Google Chat Bots", click **Connect Bot**
-3. Select the **Agent** that will be the default for DMs and unlinked Spaces
-4. Enter a **Bot Name** (for your reference in the admin panel)
-5. Click **Connect Bot**
-6. Copy the **Verification Code** displayed (format: `VERIFY-XXXXXX`)
+1. انتقل إلى **Integrations** من الشريط الجانبي
+2. ضمن "Google Chat Bots"، انقر على **Connect Bot**
+3. اختر **Agent** الذي سيكون الافتراضي للرسائل المباشرة والمساحات غير المرتبطة
+4. أدخل **Bot Name** (لمرجعك في لوحة الإدارة)
+5. انقر على **Connect Bot**
+6. انسخ **Verification Code** المعروض (الصيغة: `VERIFY-XXXXXX`)
 
-### 3. Complete Bot Verification
+### 3. أكمل التحقّق من الروبوت
 
-After creating the integration, you'll receive a verification code:
+بعد إنشاء عملية الدمج، ستتلقّى رمز تحقّق:
 
-1. Open Google Chat
-2. Click **Start a chat** → **Find apps**
-3. Search for the platform bot
-4. Start a direct message with the bot
-5. Send the verification code (e.g., `VERIFY-ABC123`)
-6. The bot will confirm: "Setup complete! Your workspace (yourdomain.com) is now connected. Send a message to start chatting!"
+1. افتح Google Chat
+2. انقر على **Start a chat** ← **Find apps**
+3. ابحث عن روبوت المنصّة
+4. ابدأ رسالة مباشرة مع الروبوت
+5. أرسل رمز التحقّق (مثل `VERIFY-ABC123`)
+6. سيؤكّد الروبوت: "Setup complete! Your workspace (yourdomain.com) is now connected. Send a message to start chatting!"
 
-Your integration status will change from "Pending Verification" to "Active".
+ستتغيّر حالة عملية الدمج من "Pending Verification" إلى "Active".
 
 <Callout type="warning">
-  Only users from your Google Workspace domain can complete verification. Users from other domains or personal Gmail accounts will see an error.
+  يمكن فقط للمستخدمين من نطاق Google Workspace الخاص بك إكمال التحقّق. سيرى المستخدمون من نطاقات أخرى أو حسابات Gmail الشخصية خطأً.
 </Callout>
 
-## Using the Bot
+## استخدام الروبوت
 
-### Direct Messages
+### الرسائل المباشرة
 
-Users can start a conversation:
+يمكن للمستخدمين بدء محادثة:
 
-1. Open Google Chat
-2. Click **Start a chat** → **Find apps**
-3. Search for your bot name
-4. Start chatting naturally — the bot responds to all messages in DMs
+1. افتح Google Chat
+2. انقر على **Start a chat** ← **Find apps**
+3. ابحث عن اسم روبوتك
+4. ابدأ التحدّث بشكل طبيعي — يردّ الروبوت على كل الرسائل في الرسائل المباشرة
 
-DMs are always handled by the **default agent**.
+تُعالَج الرسائل المباشرة دائمًا بواسطة **الـ Agent الافتراضي**.
 
-### In Spaces
+### في المساحات (Spaces)
 
-Add the bot to a Space:
+أضف الروبوت إلى مساحة:
 
-1. Open the Space
-2. Click the Space name → **Manage apps**
-3. Add your bot
-4. Mention the bot with `@Cuneiform Chat` to interact — the bot only responds to @mentions in Spaces
+1. افتح المساحة
+2. انقر على اسم المساحة ← **Manage apps**
+3. أضف روبوتك
+4. أشِر إلى الروبوت بـ `@Cuneiform Chat` للتفاعل — يردّ الروبوت فقط على @mentions في المساحات
 
 <Callout type="info">
-  When the bot is first added to a Space, it sends a welcome message with available bot commands. In DMs, it sends a simple introduction.
+  عند إضافة الروبوت إلى مساحة لأول مرة، يرسل رسالة ترحيب مع أوامر الروبوت المتاحة. في الرسائل المباشرة، يرسل مقدّمة بسيطة.
 </Callout>
 
-## Space-Level Agent Routing
+## توجيه الـ Agent على مستوى المساحة
 
-Each Space can optionally use a different agent than the default. Use these bot commands in a Space (requires @mention):
+يمكن لكل مساحة اختياريًا استخدام Agent مختلف عن الافتراضي. استخدم أوامر الروبوت هذه في مساحة (تتطلّب @mention):
 
-| Command | Description |
+| الأمر | الوصف |
 |---------|-------------|
-| `@Cuneiform Chat /set-agent <name>` | Link this Space to a specific agent |
-| `@Cuneiform Chat /current-agent` | Show which agent handles this Space |
-| `@Cuneiform Chat /reset-agent` | Revert Space to the default agent |
-| `@Cuneiform Chat /connect` | (Space managers only) Enable thread history awareness |
+| `@Cuneiform Chat /set-agent <name>` | اربط هذه المساحة بـ Agent محدّد |
+| `@Cuneiform Chat /current-agent` | أظهِر أي Agent يتولّى هذه المساحة |
+| `@Cuneiform Chat /reset-agent` | أعِد المساحة إلى الـ Agent الافتراضي |
+| `@Cuneiform Chat /connect` | (مديرو المساحة فقط) فعّل الوعي بسجلّ السلاسل |
 
-**How routing works:**
-- **DMs** → always use the default agent
-- **Space with custom agent** → uses the assigned agent
-- **Space without custom agent** → falls back to the default agent
+**كيف يعمل التوجيه:**
+- **الرسائل المباشرة** ← تستخدم دائمًا الـ Agent الافتراضي
+- **مساحة بـ Agent مخصّص** ← تستخدم الـ Agent المُعيَّن
+- **مساحة بلا Agent مخصّص** ← ترجع إلى الـ Agent الافتراضي
 
 <Callout type="info">
-  You can view Space-agent mappings in the admin panel under the integration card's "Space mappings" section.
+  يمكنك عرض روابط المساحة-الـ Agent في لوحة الإدارة ضمن قسم "Space mappings" في بطاقة الدمج.
 </Callout>
 
-## Thread History Awareness
+## الوعي بسجلّ السلاسل
 
-By default, the bot only sees the message that directly @mentioned it. If team members send context messages first (in other threads or earlier in the Space) and then @mention the bot, it won't have that context — unless a Space manager runs `/connect`.
+افتراضيًا، يرى الروبوت فقط الرسالة التي أشارت إليه مباشرةً بـ @mention. إذا أرسل أعضاء الفريق رسائل سياق أولًا (في سلاسل أخرى أو في وقت سابق في المساحة) ثم أشاروا إلى الروبوت، فلن يكون لديه ذلك السياق — ما لم يشغّل مدير مساحة `/connect`.
 
-### How It Works
+### كيف يعمل
 
-1. A Space manager sends `@Cuneiform Chat /connect` in the Space
-2. The bot sends a one-time authorization link (expires in 10 minutes)
-3. The manager clicks the link and signs in with their Google Workspace account
-4. The bot can now read messages sent in the Space within the last 15 minutes before each @mention
+1. يرسل مدير مساحة `@Cuneiform Chat /connect` في المساحة
+2. يرسل الروبوت رابط تصريح لمرة واحدة (تنتهي صلاحيته خلال 10 دقائق)
+3. ينقر المدير على الرابط ويسجّل الدخول بحساب Google Workspace الخاص به
+4. يمكن للروبوت الآن قراءة الرسائل المرسلة في المساحة خلال آخر 15 دقيقة قبل كل @mention
 
-Once connected, on every @mention the bot automatically reads recent Space messages as context — understanding what the team was discussing before it was @mentioned.
+بمجرّد الاتصال، عند كل @mention يقرأ الروبوت تلقائيًا رسائل المساحة الأخيرة كسياق — فيفهم ما كان الفريق يناقشه قبل أن يُشار إليه.
 
-**Example:** Team members post "what are the pricing plans?" and "what's included in starter?" then @mention the bot with "can you help?" — the bot sees all three messages and responds with full context.
+**مثال:** ينشر أعضاء الفريق "what are the pricing plans?" و"what's included in starter?" ثم يشيرون إلى الروبوت بـ "can you help?" — يرى الروبوت الرسائل الثلاث ويردّ بسياق كامل.
 
-### Requirements and Privacy
+### المتطلّبات والخصوصية
 
-- Only **Space managers** (not regular members) can run `/connect`
-- Authorization is per-Space — each Space needs its own `/connect`
-- The space manager's Google OAuth token is encrypted and stored securely
-- Only messages visible to that manager's account are readable
-- Removing the bot from a Space automatically deletes the stored token
+- يمكن فقط لـ **مديري المساحة** (وليس الأعضاء العاديين) تشغيل `/connect`
+- التصريح لكل مساحة — تحتاج كل مساحة إلى `/connect` الخاص بها
+- يُشفَّر رمز Google OAuth لمدير المساحة ويُخزَّن بأمان
+- يمكن قراءة الرسائل المرئية لذلك المدير فقط
+- إزالة الروبوت من مساحة تحذف الرمز المخزّن تلقائيًا
 
-### Re-authorization
+### إعادة التصريح
 
-If the bot loses access (e.g., token revoked in your Google account), it will notify the Space:
+إذا فقد الروبوت الوصول (مثلًا، إذا أُلغي الرمز في حساب Google الخاص بك)، فسيُخطر المساحة:
 
 > ⚠️ Thread history access has expired or been revoked. A space manager should run `/connect` to restore it.
 
-Run `/connect` again to restore access.
+شغّل `/connect` مرة أخرى لاستعادة الوصول.
 
-## Features
+## الميزات
 
-### Async Responses
+### الردود غير المتزامنة
 
-When you send a message, the bot immediately replies with a brief acknowledgment (e.g., "Working on it...") and then delivers the full answer once processing is complete. This typically takes 3–8 seconds depending on the complexity of your question.
+عندما ترسل رسالة، يردّ الروبوت فورًا بإقرار مختصر (مثل "Working on it...") ثم يقدّم الإجابة الكاملة بمجرّد اكتمال المعالجة. يستغرق هذا عادةً 3–8 ثوانٍ حسب تعقيد سؤالك.
 
-### Conversation Memory
+### ذاكرة المحادثة
 
-The bot remembers context within a session, so you can ask follow-up questions without repeating yourself.
+يتذكّر الروبوت السياق ضمن الجلسة، فيمكنك طرح أسئلة متابعة دون تكرار نفسك.
 
-**Space context awareness (opt-in):** After a Space manager runs `/connect`, the bot reads messages sent in the Space within the last 15 minutes before each @mention — so it understands what the team was already discussing without you needing to repeat context. See [Thread History Awareness](#thread-history-awareness) below for setup steps.
+**الوعي بسياق المساحة (اختياري):** بعد أن يشغّل مدير مساحة `/connect`، يقرأ الروبوت الرسائل المرسلة في المساحة خلال آخر 15 دقيقة قبل كل @mention — فيفهم ما كان الفريق يناقشه بالفعل دون حاجتك إلى تكرار السياق. راجع [الوعي بسجلّ السلاسل](#الوعي-بسجل-السلاسل) أدناه لخطوات الإعداد.
 
-### Message Queuing
+### وضع الرسائل في قائمة الانتظار
 
-If you send additional messages while the bot is still processing, they are queued and included in the next response. You'll see a message like "I'm still working on your previous question. I'll include this in my next response."
+إذا أرسلت رسائل إضافية بينما لا يزال الروبوت يعالج، تُوضَع في قائمة الانتظار وتُضمَّن في الرد التالي. سترى رسالة مثل "I'm still working on your previous question. I'll include this in my next response."
 
-### `/help` Command
+### أمر `/help`
 
-Type `/help` or `help` to see usage instructions, including available space commands.
+اكتب `/help` أو `help` لرؤية تعليمات الاستخدام، بما في ذلك أوامر المساحة المتاحة.
 
-### Domain-Based Access
+### الوصول القائم على النطاق
 
-Only users from your Google Workspace domain can interact with your bot, ensuring enterprise-level security.
+يمكن فقط للمستخدمين من نطاق Google Workspace الخاص بك التفاعل مع روبوتك، ما يضمن أمانًا على مستوى المؤسّسات.
 
-### Text-Based Responses
+### الردود النصية
 
-The bot responds with text messages only. Images, files, interactive buttons, and card attachments are not supported. Responses are limited to approximately 30,000 characters.
+يردّ الروبوت برسائل نصية فقط. الصور والملفات والأزرار التفاعلية ومرفقات البطاقات غير مدعومة. تُحدَّد الردود بنحو 30,000 حرف.
 
-## Managing Your Integration
+## إدارة عملية الدمج
 
-Each integration card displays:
-- **Bot name** - The display name you configured
-- **Status badge** - Active, Pending Verification, or Error
-- **Domain name** - Your Google Workspace domain (after verification)
-- **Default agent** - Dropdown to change the default agent (used for DMs + unlinked Spaces)
-- **Space mappings** - Collapsible section showing which Spaces have custom agent assignments
-- **Space commands** - Collapsible section showing available bot commands
-- **Last activity** timestamp
+تعرض كل بطاقة دمج:
+- **اسم الروبوت** - الاسم المعروض الذي ضبطته
+- **شارة الحالة** - Active أو Pending Verification أو Error
+- **اسم النطاق** - نطاق Google Workspace الخاص بك (بعد التحقّق)
+- **الـ Agent الافتراضي** - قائمة منسدلة لتغيير الـ Agent الافتراضي (يُستخدم للرسائل المباشرة + المساحات غير المرتبطة)
+- **Space mappings** - قسم قابل للطيّ يُظهر أي المساحات لها تعيينات Agent مخصّصة
+- **Space commands** - قسم قابل للطيّ يُظهر أوامر الروبوت المتاحة
+- طابع زمني لـ **Last activity**
 
-### Available Actions
+### الإجراءات المتاحة
 
-| Action | Description |
+| الإجراء | الوصف |
 |--------|-------------|
-| **Change default agent** | Use the dropdown to switch which agent handles DMs and unlinked Spaces |
-| **Test Connection** | Verifies the integration is working (three-dot menu) |
-| **Disconnect** | Removes this integration (three-dot menu) |
+| **Change default agent** | استخدم القائمة المنسدلة لتبديل أي Agent يتولّى الرسائل المباشرة والمساحات غير المرتبطة |
+| **Test Connection** | يتحقّق من أن عملية الدمج تعمل (القائمة ثلاثية النقاط) |
+| **Disconnect** | يزيل عملية الدمج هذه (القائمة ثلاثية النقاط) |
 
-## Troubleshooting
+## استكشاف الأخطاء وإصلاحها
 
-### Bot Not Appearing in Google Chat
+### الروبوت لا يظهر في Google Chat
 
-1. Ensure you're using a Google Workspace account (not personal Gmail)
-2. Search for the bot name in "Find apps"
-3. Wait a few minutes for the app to propagate
+1. تأكّد من استخدامك حساب Google Workspace (وليس Gmail شخصي)
+2. ابحث عن اسم الروبوت في "Find apps"
+3. انتظر بضع دقائق حتى ينتشر التطبيق
 
-### Google Chat Section Not Visible
+### قسم Google Chat غير مرئي
 
-1. Google Chat only appears for organizations using Google Workspace
-2. If your organization uses a different email provider (e.g., Microsoft 365), the section is hidden
-3. The system automatically detects your email provider via MX records
+1. يظهر Google Chat فقط للمؤسّسات التي تستخدم Google Workspace
+2. إذا كانت مؤسّستك تستخدم مزوّد بريد إلكتروني مختلفًا (مثل Microsoft 365)، يكون القسم مخفيًا
+3. يكتشف النظام مزوّد بريدك الإلكتروني تلقائيًا عبر سجلّات MX
 
-### Domain Verification Issues
+### مشكلات التحقّق من النطاق
 
-1. DNS changes can take up to 48 hours to propagate — wait and try **Verify Now** again
-2. Check that you added the TXT record with the exact values shown in Settings > Domains
-3. Verify the record is on the correct domain (e.g., `_cuneiform-verify.yourdomain.com`)
-4. Use the DNS provider quick links on the verification card for easy access
+1. قد تستغرق تغييرات DNS حتى 48 ساعة للانتشار — انتظر وجرّب **Verify Now** مرة أخرى
+2. تحقّق من إضافتك سجلّ TXT بالقيم الدقيقة المعروضة في Settings > Domains
+3. تحقّق من أن السجلّ على النطاق الصحيح (مثل `_cuneiform-verify.yourdomain.com`)
+4. استخدم روابط مزوّد DNS السريعة على بطاقة التحقّق للوصول السهل
 
-### Verification Code Not Working
+### رمز التحقّق لا يعمل
 
-1. Ensure you're sending the code from your Google Workspace email
-2. Check that the code is entered exactly as shown (including the `VERIFY-` prefix)
-3. Verify the integration is still in "Pending Verification" status
-4. Try creating a new integration if the code has expired
+1. تأكّد من إرسالك الرمز من بريد Google Workspace الإلكتروني الخاص بك
+2. تحقّق من إدخال الرمز تمامًا كما هو معروض (بما في ذلك البادئة `VERIFY-`)
+3. تحقّق من أن عملية الدمج لا تزال في حالة "Pending Verification"
+4. جرّب إنشاء عملية دمج جديدة إذا انتهت صلاحية الرمز
 
-### Bot Says "Working on it..." But No Response Follows
+### الروبوت يقول "Working on it..." لكن لا يتبعه رد
 
-1. The bot processes messages asynchronously — wait up to 25 seconds for the full response
-2. If no response arrives, try sending your message again
-3. Check that the associated agent is properly configured
+1. يعالج الروبوت الرسائل بشكل غير متزامن — انتظر حتى 25 ثانية للرد الكامل
+2. إذا لم يصل رد، جرّب إرسال رسالتك مرة أخرى
+3. تحقّق من أن الـ Agent المرتبط مُعدّ بشكل صحيح
 
-### Messages Not Being Processed
+### الرسائل لا تُعالَج
 
-1. Confirm your workspace has been verified (status should be "Active")
-2. For Spaces, ensure you're @mentioning the bot
-3. Check that the associated agent is properly configured
+1. تأكّد من أن مساحة عملك مُتحقَّق منها (يجب أن تكون الحالة "Active")
+2. بالنسبة للمساحات، تأكّد من أنك تشير إلى الروبوت بـ @mention
+3. تحقّق من أن الـ Agent المرتبط مُعدّ بشكل صحيح
 
-### "Organization hasn't connected" Message
+### رسالة "Organization hasn't connected"
 
-This means the bot doesn't recognize your Google Workspace domain:
-1. Your admin hasn't created the integration yet
-2. The domain hasn't been verified with a verification code
-3. You're messaging from a personal Gmail account (not supported)
+هذا يعني أن الروبوت لا يتعرّف على نطاق Google Workspace الخاص بك:
+1. لم ينشئ مسؤولك عملية الدمج بعد
+2. لم يُتحقَّق من النطاق برمز تحقّق
+3. أنت تراسل من حساب Gmail شخصي (غير مدعوم)
 
-### `/set-agent` Says Agent Not Found
+### `/set-agent` يقول إن الـ Agent غير موجود
 
-1. Check the exact agent name in the admin panel (case-sensitive)
-2. Ensure the agent is in "Active" status
-3. Agent names with spaces are supported — type the full name after `/set-agent`
+1. تحقّق من اسم الـ Agent الدقيق في لوحة الإدارة (حسّاس لحالة الأحرف)
+2. تأكّد من أن الـ Agent في حالة "Active"
+3. أسماء الـ Agents التي تحتوي على مسافات مدعومة — اكتب الاسم الكامل بعد `/set-agent`
 
-### `/connect` Says "Only space managers can run /connect"
+### `/connect` يقول "Only space managers can run /connect"
 
-You must be a Space manager to run `/connect`. Ask a Space manager in your Space to run the command.
+يجب أن تكون مدير مساحة لتشغيل `/connect`. اطلب من مدير مساحة في مساحتك تشغيل الأمر.
 
-### `/connect` Authorization Link Expired
+### انتهت صلاحية رابط تصريح `/connect`
 
-The link is valid for 10 minutes. Run `@Cuneiform Chat /connect` again to get a fresh link.
+الرابط صالح لمدة 10 دقائق. شغّل `@Cuneiform Chat /connect` مرة أخرى للحصول على رابط جديد.
 
-### Bot Says "Thread history access has expired"
+### الروبوت يقول "Thread history access has expired"
 
-A Space manager needs to run `@Cuneiform Chat /connect` again to re-authorize. This happens when the Google OAuth token is revoked (e.g., in Google account settings).
+يحتاج مدير مساحة إلى تشغيل `@Cuneiform Chat /connect` مرة أخرى لإعادة التصريح. يحدث هذا عند إلغاء رمز Google OAuth (مثلًا، في إعدادات حساب Google).
 
-## Security
+## الأمان
 
-- **Domain ownership verification** — DNS TXT record proves your organization owns the domain before connecting
-- **Google Workspace detection** — MX record check confirms your domain uses Google Workspace
-- **Domain-based isolation** — only your organization's Google Workspace users can interact with your bot
-- **Webhook verification** — every incoming request is validated against your platform's Google Cloud project
-- **Verification codes** are single-use and tied to your domain
-- Messages processed over secure, encrypted connections
+- **التحقّق من ملكية النطاق** — يثبت سجلّ DNS TXT أن مؤسّستك تملك النطاق قبل الاتصال
+- **اكتشاف Google Workspace** — يؤكّد فحص سجلّ MX أن نطاقك يستخدم Google Workspace
+- **العزل القائم على النطاق** — يمكن فقط لمستخدمي Google Workspace في مؤسّستك التفاعل مع روبوتك
+- **التحقّق من الـ Webhook** — يُتحقَّق من كل طلب وارد مقابل مشروع Google Cloud الخاص بمنصّتك
+- **رموز التحقّق** للاستخدام مرة واحدة ومرتبطة بنطاقك
+- تُعالَج الرسائل عبر اتصالات آمنة ومُشفَّرة
 
-## Disconnecting
+## قطع الاتصال
 
-To remove the Google Chat integration:
+لإزالة دمج Google Chat:
 
-1. Go to **Integrations** from the sidebar
-2. Find your Google Chat integration card
-3. Click the three-dot menu
-4. Select **Disconnect**
+1. انتقل إلى **Integrations** من الشريط الجانبي
+2. اعثر على بطاقة دمج Google Chat الخاصة بك
+3. انقر على القائمة ثلاثية النقاط
+4. اختر **Disconnect**
 
-## Important Notes
+## ملاحظات مهمّة
 
-- **Google Workspace required**: Personal Gmail accounts cannot use this integration. If your org doesn't use Google Workspace, the Google Chat section won't appear.
-- **Domain verification required**: Verify your domain in Settings > Domains before connecting Google Chat.
-- **One integration per organization**: Each organization can have one Google Chat integration
-- **Text only**: The bot does not support images, files, or interactive buttons
-- **Managed at org level**: Google Chat is configured on the Integrations page, not per-agent
-- **Space routing**: Use `/set-agent` in Spaces to assign specialized agents to different teams
-- **Default agent**: Change the default agent anytime using the dropdown — no disconnect needed
+- **Google Workspace مطلوب**: لا يمكن لحسابات Gmail الشخصية استخدام عملية الدمج هذه. إذا كانت مؤسّستك لا تستخدم Google Workspace، فلن يظهر قسم Google Chat.
+- **التحقّق من النطاق مطلوب**: تحقّق من نطاقك في Settings > Domains قبل ربط Google Chat.
+- **عملية دمج واحدة لكل مؤسّسة**: يمكن لكل مؤسّسة أن تملك دمج Google Chat واحدًا
+- **نص فقط**: لا يدعم الروبوت الصور أو الملفات أو الأزرار التفاعلية
+- **مُدار على مستوى المؤسّسة**: يُضبَط Google Chat في صفحة Integrations، وليس لكل Agent
+- **توجيه المساحة**: استخدم `/set-agent` في المساحات لتعيين Agents متخصّصة لفِرق مختلفة
+- **الـ Agent الافتراضي**: غيّر الـ Agent الافتراضي في أي وقت باستخدام القائمة المنسدلة — بلا حاجة لقطع الاتصال

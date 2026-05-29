@@ -1,56 +1,52 @@
 ---
-description: Deploy AI chatbots to Telegram, Discord, Slack, WhatsApp, Google Chat, Facebook Messenger, and your own website.
+description: انشر روبوتات الدردشة الذكية على Telegram وDiscord وSlack وWhatsApp وGoogle Chat وFacebook Messenger وموقعك الإلكتروني الخاص.
 ---
 
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# عمليات الدمج
 
+انشر الـ Agents الخاصة بك على قنوات متعددة وتواصل مع المستخدمين أينما كانوا.
 
-# Integrations
+## القنوات المتاحة
 
-Deploy your agents to multiple channels and reach users wherever they are.
-
-## Available Channels
-
-| Channel | Description | Best For |
+| القناة | الوصف | الأنسب لـ |
 |---------|-------------|----------|
-| [Telegram](/integrations/telegram) | Telegram bot | Mobile users, communities |
-| [Discord](/integrations/discord) | Discord bot with slash commands | Gaming, developer communities |
-| [Slack](/integrations/slack) | Slack app | Team workspaces |
-| [WhatsApp](/integrations/whatsapp) | WhatsApp Business | Customer communication |
-| [Google Chat](/integrations/google-chat) | Google Workspace app | Enterprise teams |
-| [Meta (Facebook)](/integrations/facebook) | Facebook Messenger | Consumer audience |
-| [Website Widget](/integrations/website-widget) | Embeddable chat widget | Customer support, any website |
+| [Telegram](/integrations/telegram) | روبوت Telegram | مستخدمو الأجهزة المحمولة، المجتمعات |
+| [Discord](/integrations/discord) | روبوت Discord مع أوامر slash | الألعاب، مجتمعات المطورين |
+| [Slack](/integrations/slack) | تطبيق Slack | مساحات عمل الفرق |
+| [WhatsApp](/integrations/whatsapp) | WhatsApp Business | التواصل مع العملاء |
+| [Google Chat](/integrations/google-chat) | تطبيق Google Workspace | فرق المؤسسات |
+| [Meta (Facebook)](/integrations/facebook) | Facebook Messenger | الجمهور الاستهلاكي |
+| [Website Widget](/integrations/website-widget) | أداة دردشة قابلة للتضمين | دعم العملاء، أي موقع إلكتروني |
 
-## How Integrations Work
+## كيف تعمل عمليات الدمج
 
-1. **Configure** — Set up the integration for your chosen channel
-2. **Connect** — Link your agent to the channel
-3. **Deploy** — Your agent becomes available to users
-4. **Monitor** — Track conversations and usage
+1. **الإعداد** — قم بإعداد عملية الدمج للقناة التي اخترتها
+2. **الربط** — اربط الـ Agent الخاص بك بالقناة
+3. **النشر** — يصبح الـ Agent الخاص بك متاحًا للمستخدمين
+4. **المراقبة** — تتبّع المحادثات والاستخدام
 
-## Multi-Channel Deployment
+## النشر متعدد القنوات
 
-A single agent can be deployed to multiple channels simultaneously:
+يمكن نشر Agent واحد على قنوات متعددة في وقت واحد:
 
-- Same content across all channels
-- Consistent responses everywhere
-- Centralized conversation history
-- Unified analytics
+- المحتوى نفسه عبر جميع القنوات
+- ردود متّسقة في كل مكان
+- سجلّ محادثات مركزي
+- تحليلات موحّدة
 
-## Channel-Specific Features
+## ميزات خاصة بكل قناة
 
-Each channel has unique capabilities:
+تتمتّع كل قناة بقدرات فريدة:
 
-- **Telegram** — Rich messages, inline keyboards
-- **Discord** — Slash commands, server integration
-- **Slack** — Workspace apps, channel responses
-- **WhatsApp** — Business messaging, rich media
-- **Google Chat** — Google Workspace integration, spaces support
-- **Meta (Facebook)** — Messenger integration, page messaging
-- **Website Widget** — Embeddable chat, customizable appearance, domain allowlisting
+- **Telegram** — رسائل غنية، لوحات مفاتيح مدمجة (inline keyboards)
+- **Discord** — أوامر slash، دمج مع الخوادم
+- **Slack** — تطبيقات مساحة العمل، ردود في القنوات
+- **WhatsApp** — مراسلة الأعمال، وسائط غنية
+- **Google Chat** — دمج مع Google Workspace، دعم المساحات (spaces)
+- **Meta (Facebook)** — دمج مع Messenger، مراسلة الصفحات
+- **Website Widget** — دردشة قابلة للتضمين، مظهر قابل للتخصيص، قائمة نطاقات مسموح بها
 
-## Getting Started
+## البدء
 
 import { Cards } from 'nextra/components'
 
@@ -64,12 +60,12 @@ import { Cards } from 'nextra/components'
   <Cards.Card title="Website Widget" href="/integrations/website-widget" />
 </Cards>
 
-## Requirements
+## المتطلبات
 
-Before setting up integrations:
+قبل إعداد عمليات الدمج:
 
-1. ✅ Create at least one agent
-2. ✅ Upload documents to your content
-3. ✅ Test your agent in the Playground
+1. ✅ أنشئ Agent واحدًا على الأقل
+2. ✅ ارفع المستندات إلى المحتوى الخاص بك
+3. ✅ اختبر الـ Agent الخاص بك في الـ Playground
 
-Each channel may have additional requirements (bot tokens, app credentials, etc.) detailed in their respective guides.
+قد تتطلّب كل قناة متطلبات إضافية (رموز الروبوت، بيانات اعتماد التطبيق، إلخ) موضّحة في أدلّتها الخاصة.

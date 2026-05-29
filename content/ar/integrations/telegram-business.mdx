@@ -1,172 +1,169 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# مساعد طيّار Telegram Premium
 
-# Telegram Premium co-pilot
+دَع الـ Agent الذكي الخاص بك يردّ على الرسائل المباشرة **على الحساب الشخصي لمستخدم Telegram Premium**. يرى جهات اتصاله ما يبدو وكأنه ردود مستخدم Premium نفسه — مثالي للمؤسّسين والمبدعين وروّاد الأعمال الفرديين والفرق الصغيرة الذين يراسلهم عملاؤهم مباشرةً على حساب Telegram الشخصي.
 
-Let your AI agent reply to DMs **on a Telegram Premium user's personal account**. Their contacts see what looks like the Premium user's own replies — perfect for founders, creators, solopreneurs, and small teams whose customers DM them directly on their personal Telegram.
+## نظرة عامة
 
-## Overview
+يوفّر مساعد طيّار Telegram Premium ما يلي:
 
-Telegram Premium co-pilot provides:
-
-- AI replies sent through the Premium user's `business_connection`, so the response appears to come from them
-- Per-Premium-user linking — one bot can support several Premium users in the same org
-- Automatic manual takeover — when the Premium user types a reply themselves, the bot pauses on that chat for a sliding window so it doesn't talk over a live conversation
-- Connection-level kill switch to silence the bot across every linked user without disconnecting
-- Voice-note transcription and live-streaming replies, same as the regular Telegram channel
+- ردود ذكية تُرسَل من خلال `business_connection` الخاص بمستخدم Premium، فيبدو الرد وكأنه صادر منه
+- ربط لكل مستخدم Premium — يمكن لروبوت واحد دعم عدّة مستخدمي Premium في المؤسّسة نفسها
+- استلام يدوي تلقائي — عندما يكتب مستخدم Premium ردًا بنفسه، يتوقّف الروبوت مؤقتًا في تلك المحادثة لفترة منزلقة كي لا يتحدّث فوق محادثة حية
+- مفتاح إيقاف على مستوى الاتصال لإسكات الروبوت عبر كل المستخدمين المرتبطين دون قطع الاتصال
+- نسخ الملاحظات الصوتية وردود البثّ المباشر، مثل قناة Telegram العادية تمامًا
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  "Premium" here refers to the Telegram user's account tier (Telegram Premium subscription, required to enable Business Mode). It's not your Cuneiform Chat plan — most Cuneiform Chat plans support this integration based on your plan.
+  يشير "Premium" هنا إلى فئة حساب مستخدم Telegram (اشتراك Telegram Premium، المطلوب لتمكين وضع Business). إنه ليس خطة Cuneiform Chat الخاصة بك — تدعم معظم خطط Cuneiform Chat عملية الدمج هذه بناءً على خطتك.
 </Callout>
 
-## How it differs from regular Telegram
+## كيف يختلف عن Telegram العادي
 
-The regular [Telegram integration](/integrations/telegram) connects an agent to **a bot's own inbox** — your end users DM the bot directly at `t.me/<bot>`. Telegram Premium co-pilot is the opposite: the bot replies on a **person's personal Telegram account**, intercepting DMs that come into that person's normal chat list.
+يربط [دمج Telegram](/integrations/telegram) العادي Agent بـ **صندوق وارد الروبوت نفسه** — يراسل مستخدموك النهائيون الروبوت مباشرةً على `t.me/<bot>`. مساعد طيّار Telegram Premium هو العكس: يردّ الروبوت على **حساب Telegram الشخصي لشخص ما**، معترضًا الرسائل المباشرة التي تصل إلى قائمة الدردشة العادية لذلك الشخص.
 
-| | Telegram | Telegram Premium co-pilot |
+| | Telegram | مساعد طيّار Telegram Premium |
 |---|----------|----------------------------|
-| Who do contacts message? | The bot (`t.me/<bot>`) | The Premium user's personal account |
-| What do contacts see? | Replies from the bot | Replies that look like they come from the Premium user |
-| One bot supports… | Unlimited end users | N Premium users in your org (one row each) |
-| Group chats? | Yes | No — DMs only |
-| Manual takeover? | N/A | Auto-pauses when the Premium user types |
+| من يراسل جهات الاتصال؟ | الروبوت (`t.me/<bot>`) | الحساب الشخصي لمستخدم Premium |
+| ماذا ترى جهات الاتصال؟ | ردود من الروبوت | ردود تبدو وكأنها صادرة من مستخدم Premium |
+| روبوت واحد يدعم… | عددًا غير محدود من المستخدمين النهائيين | N من مستخدمي Premium في مؤسّستك (صف لكل منهم) |
+| محادثات المجموعات؟ | نعم | لا — الرسائل المباشرة فقط |
+| الاستلام اليدوي؟ | لا ينطبق | يتوقّف تلقائيًا عندما يكتب مستخدم Premium |
 
-## Prerequisites
+## المتطلّبات المسبقة
 
-- A Telegram account with **Telegram Premium** for each user who wants the bot to reply for them
-- A fresh BotFather bot — **dedicated to Business mode** (cannot be reused by another integration)
-- A Cuneiform Chat agent that's already configured and tested in the Playground
+- حساب Telegram مع **Telegram Premium** لكل مستخدم يريد أن يردّ الروبوت نيابةً عنه
+- روبوت BotFather جديد — **مخصّص لوضع Business** (لا يمكن إعادة استخدامه من قِبل عملية دمج أخرى)
+- Agent في Cuneiform Chat مُعدّ ومُختبَر بالفعل في الـ Playground
 
-## Setup Steps
+## خطوات الإعداد
 
-### 1. Create a dedicated bot in BotFather
+### 1. أنشئ روبوتًا مخصّصًا في BotFather
 
-1. Open Telegram, search for **@BotFather**, and send `/newbot`
-2. Pick a name and username
-3. Copy the **Bot Token**
+1. افتح Telegram، وابحث عن **@BotFather**، وأرسل `/newbot`
+2. اختر اسمًا واسم مستخدم
+3. انسخ **رمز الروبوت (Bot Token)**
 
-### 2. Enable Business Mode on the bot
+### 2. فعّل وضع Business على الروبوت
 
-This step is what makes the bot eligible to reply on a Premium user's account. Without it, Premium users see *"this bot doesn't support Telegram Business yet"* when adding it.
+هذه الخطوة هي ما يجعل الروبوت مؤهّلًا للرد على حساب مستخدم Premium. بدونها، يرى مستخدمو Premium *"this bot doesn't support Telegram Business yet"* عند إضافته.
 
-1. In BotFather, send `/mybots` and select your new bot
-2. Pick **Bot Settings** → **Business Mode**
-3. Toggle it **ON**
+1. في BotFather، أرسل `/mybots` واختر روبوتك الجديد
+2. اختر **Bot Settings** ← **Business Mode**
+3. فعّله **ON**
 
 <Callout type="warning">
-  Business Mode is per-bot. If you forget to enable it, every Premium-user link attempt fails silently with the message above. Re-toggle it and the link works on the next try.
+  وضع Business لكل روبوت على حدة. إذا نسيت تفعيله، تفشل كل محاولة ربط لمستخدم Premium بصمت مع الرسالة المذكورة أعلاه. أعد تفعيله ويعمل الربط في المحاولة التالية.
 </Callout>
 
-### 3. Connect the bot in Cuneiform Chat
+### 3. اربط الروبوت في Cuneiform Chat
 
-1. In Cuneiform Chat, open **Integrations** in the sidebar
-2. Find the **Telegram Premium co-pilot** card
-3. Click **Connect Premium bot**
-4. Pick the **Agent** that should answer DMs (you can change this later)
-5. Paste the bot token and submit
+1. في Cuneiform Chat، افتح **Integrations** في الشريط الجانبي
+2. اعثر على بطاقة **Telegram Premium co-pilot**
+3. انقر على **Connect Premium bot**
+4. اختر **Agent** الذي ينبغي أن يجيب على الرسائل المباشرة (يمكنك تغييره لاحقًا)
+5. الصق رمز الروبوت وأرسله
 
-### 4. Premium users link their personal accounts
+### 4. يربط مستخدمو Premium حساباتهم الشخصية
 
-Each Premium user who wants the bot to reply for them does this once:
+يقوم كل مستخدم Premium يريد أن يردّ الروبوت نيابةً عنه بهذا مرة واحدة:
 
-1. On the Telegram Premium card, click **Link a Premium user** — a 10-minute code appears (with a QR shortcut)
-2. The Premium user opens **Telegram → Settings → Business → Chatbots**
-3. Adds your bot's username and enables it
-4. Opens a regular DM with the bot and sends `/start <code>`
-5. The bot replies with a confirmation
+1. على بطاقة Telegram Premium، انقر على **Link a Premium user** — يظهر رمز صالح لمدة 10 دقائق (مع اختصار QR)
+2. يفتح مستخدم Premium **Telegram ← Settings ← Business ← Chatbots**
+3. يضيف اسم مستخدم روبوتك ويفعّله
+4. يفتح رسالة مباشرة عادية مع الروبوت ويرسل `/start <code>`
+5. يردّ الروبوت بتأكيد
 
-Once the link is in place, every contact who DMs the Premium user gets AI replies — except when the Premium user types a reply themselves (see Manual takeover below).
+بمجرد إتمام الربط، يحصل كل جهة اتصال تراسل مستخدم Premium على ردود ذكية — باستثناء عندما يكتب مستخدم Premium ردًا بنفسه (راجع الاستلام اليدوي أدناه).
 
-## Features
+## الميزات
 
-### Replies on the Premium user's account
+### الردود على حساب مستخدم Premium
 
-When a contact DMs the Premium user, Telegram delivers a `business_message` event to the bot via the Premium user's `business_connection`. The bot calls the agent, then sends the reply back through the same connection — so the contact sees the message in the existing thread, attributed to the Premium user. No new bot conversation is created on the contact's side.
+عندما تراسل جهة اتصال مستخدم Premium، يسلّم Telegram حدث `business_message` إلى الروبوت عبر `business_connection` الخاص بمستخدم Premium. يستدعي الروبوت الـ Agent، ثم يرسل الرد عبر الاتصال نفسه — فترى جهة الاتصال الرسالة في السلسلة الموجودة، منسوبةً إلى مستخدم Premium. لا تُنشأ محادثة روبوت جديدة من جانب جهة الاتصال.
 
-### Automatic manual takeover
+### الاستلام اليدوي التلقائي
 
-The moment the Premium user types and sends a reply themselves in any chat, the bot pauses on **that chat** for a sliding window. The window resets every time the Premium user types again, so the bot stays silent for as long as the live conversation continues. After the silence period, the bot resumes auto-replying.
+في اللحظة التي يكتب فيها مستخدم Premium ويرسل ردًا بنفسه في أي محادثة، يتوقّف الروبوت مؤقتًا في **تلك المحادثة** لفترة منزلقة. تُعاد ضبط الفترة في كل مرة يكتب فيها مستخدم Premium مجددًا، فيبقى الروبوت صامتًا طالما استمرّت المحادثة الحية. بعد فترة الصمت، يستأنف الروبوت الرد التلقائي.
 
-This means the Premium user doesn't have to explicitly toggle the bot off when jumping into a conversation — the bot just steps aside.
+هذا يعني أن مستخدم Premium ليس عليه أن يوقف الروبوت صراحةً عند قفزه إلى محادثة — فالروبوت ببساطة يتنحّى جانبًا.
 
-### Connection-level kill switch
+### مفتاح إيقاف على مستوى الاتصال
 
-If the Premium user wants to disable AI replies across **every** chat without unlinking:
+إذا أراد مستخدم Premium تعطيل الردود الذكية عبر **كل** المحادثات دون فكّ الربط:
 
-1. Open the Telegram Premium card in Cuneiform Chat
-2. Toggle **Disable auto-reply** on
+1. افتح بطاقة Telegram Premium في Cuneiform Chat
+2. فعّل **Disable auto-reply**
 
-The integration stays connected (no need to re-link) but the bot replies to nothing. Toggle it back on to resume.
+تبقى عملية الدمج متّصلة (لا حاجة لإعادة الربط) لكن الروبوت لا يردّ على أي شيء. أعد تفعيله لاستئناف العمل.
 
-### Voice notes and rich formatting
+### الملاحظات الصوتية والتنسيق الغني
 
-Voice notes from contacts are transcribed via Whisper and answered like typed messages. Replies render in MarkdownV2 with bold, italics, code blocks, and links — same toolkit as the regular Telegram channel.
+تُنسَخ الملاحظات الصوتية من جهات الاتصال عبر Whisper ويُجاب عنها مثل الرسائل المكتوبة. تُعرض الردود بتنسيق MarkdownV2 مع النص الغامق والمائل وكتل الكود والروابط — نفس مجموعة الأدوات في قناة Telegram العادية.
 
-## Configuration Options
+## خيارات الإعداد
 
-### Per-integration settings
+### الإعدادات لكل عملية دمج
 
-| Setting | Description |
+| الإعداد | الوصف |
 |---------|-------------|
-| Agent | Which agent answers DMs across all linked Premium users for this bot |
-| Auto-reply enabled | Connection-level kill switch (toggle on the card) |
+| Agent | أي Agent يجيب على الرسائل المباشرة عبر كل مستخدمي Premium المرتبطين بهذا الروبوت |
+| الرد التلقائي مُفعّل | مفتاح الإيقاف على مستوى الاتصال (التبديل على البطاقة) |
 
-### Per-link controls
+### عناصر التحكّم لكل رابط
 
-Each Premium-user row on the card shows:
+يعرض كل صف لمستخدم Premium على البطاقة:
 
-- The linked user's display name
-- Last activity timestamp
-- A delete control to unlink that user (the bot stops replying for them; their contacts go back to seeing nothing from the bot)
+- الاسم المعروض للمستخدم المرتبط
+- طابع زمني لآخر نشاط
+- عنصر تحكّم للحذف لفكّ ربط ذلك المستخدم (يتوقّف الروبوت عن الرد نيابةً عنه؛ تعود جهات اتصاله إلى عدم رؤية أي شيء من الروبوت)
 
-## Tips
+## نصائح
 
 <Callout type="info">
-  **One bot, one agent.** If you want different agents for different Premium users, create separate bots — one per agent. The Business Mode toggle and link flow have to be repeated per bot.
+  **روبوت واحد، Agent واحد.** إذا أردت Agents مختلفة لمستخدمي Premium مختلفين، أنشئ روبوتات منفصلة — واحدًا لكل Agent. يجب تكرار تبديل وضع Business وتدفّق الربط لكل روبوت.
 </Callout>
 
 <Callout type="info">
-  **Group chats are out of scope.** Telegram's Business connections only cover private DMs. The bot ignores group messages even when added to one.
+  **محادثات المجموعات خارج النطاق.** تغطّي اتصالات Business في Telegram الرسائل المباشرة الخاصة فقط. يتجاهل الروبوت رسائل المجموعات حتى عند إضافته إلى واحدة.
 </Callout>
 
 <Callout type="tip">
-  Test the link flow yourself first with your own Premium account before rolling it out to teammates. The BotFather Business Mode toggle is the most common stumbling block — confirming it works once saves a round of confused DMs later.
+  اختبر تدفّق الربط بنفسك أولًا باستخدام حساب Premium الخاص بك قبل طرحه لزملائك. تبديل وضع Business في BotFather هو العقبة الأكثر شيوعًا — تأكيد أنه يعمل مرة واحدة يوفّر جولة من الرسائل المباشرة المربكة لاحقًا.
 </Callout>
 
-## Troubleshooting
+## استكشاف الأخطاء وإصلاحها
 
-### Premium user sees "this bot doesn't support Telegram Business yet"
+### مستخدم Premium يرى "this bot doesn't support Telegram Business yet"
 
-Business Mode isn't enabled on the bot. Go to BotFather → `/mybots` → your bot → **Bot Settings** → **Business Mode** → toggle **ON**, then have the Premium user retry the Settings → Business → Chatbots step.
+وضع Business غير مُفعّل على الروبوت. انتقل إلى BotFather ← `/mybots` ← روبوتك ← **Bot Settings** ← **Business Mode** ← فعّله **ON**، ثم اطلب من مستخدم Premium إعادة محاولة خطوة Settings ← Business ← Chatbots.
 
-### Link code expired
+### انتهت صلاحية رمز الربط
 
-Codes are valid for 10 minutes. Click **Link a Premium user** again to generate a fresh one.
+الرموز صالحة لمدة 10 دقائق. انقر على **Link a Premium user** مرة أخرى لإنشاء رمز جديد.
 
-### Bot stays silent for everyone
+### الروبوت يبقى صامتًا للجميع
 
-Check the **Disable auto-reply** toggle on the integration card — when off, the bot ignores every linked user. Toggle it back on.
+تحقّق من تبديل **Disable auto-reply** على بطاقة الدمج — عندما يكون مفعّلًا، يتجاهل الروبوت كل مستخدم مرتبط. أعد تفعيله.
 
-### Bot stays silent for one specific contact
+### الروبوت يبقى صامتًا لجهة اتصال محدّدة
 
-The Premium user typed a reply in that chat recently and the manual-takeover pause is still active. Wait for the sliding window to clear, or have the Premium user stop typing in the chat.
+كتب مستخدم Premium ردًا في تلك المحادثة مؤخرًا ولا يزال توقّف الاستلام اليدوي نشطًا. انتظر حتى تنقضي الفترة المنزلقة، أو اطلب من مستخدم Premium التوقّف عن الكتابة في المحادثة.
 
-### Bot replies look wrong
+### ردود الروبوت تبدو خاطئة
 
-The Premium user's contacts see exactly what the agent generates. If something off-brand or off-policy slips through, fix it in the agent's prompt and tools — it's the same agent the Telegram channel uses, with the same Playground for testing.
+ترى جهات اتصال مستخدم Premium تمامًا ما يولّده الـ Agent. إذا تسرّب شيء خارج الهوية التجارية أو خارج السياسة، أصلحه في موجّه الـ Agent وأدواته — إنه نفس الـ Agent الذي تستخدمه قناة Telegram، مع نفس الـ Playground للاختبار.
 
-## Disconnecting
+## قطع الاتصال
 
-To remove a Telegram Premium integration:
+لإزالة دمج Telegram Premium:
 
-1. **From Cuneiform Chat:** Integrations → Telegram Premium co-pilot card → three-dot menu → **Delete**
+1. **من Cuneiform Chat:** Integrations ← بطاقة Telegram Premium co-pilot ← القائمة ثلاثية النقاط ← **Delete**
 
-This removes every Premium-user link and stops the bot from replying. The bot itself stays in BotFather unless you delete it there.
+يزيل ذلك كل رابط لمستخدم Premium ويوقف الروبوت عن الرد. يبقى الروبوت نفسه في BotFather ما لم تحذفه من هناك.
 
-## Related
+## ذات صلة
 
-- [Telegram](/integrations/telegram) — the regular customer-facing Telegram channel (for your agent's own bot inbox)
-- [Saba on Telegram](/integrations/saba-on-telegram) — operator-facing platform assistant (different feature, also Telegram-based)
-- [Telegram Storefront](/integrations/telegram-mini-app) — in-bot storefront for the regular Telegram channel
+- [Telegram](/integrations/telegram) — قناة Telegram العادية الموجّهة للعملاء (لصندوق وارد روبوت الـ Agent الخاص بك)
+- [Saba on Telegram](/integrations/saba-on-telegram) — مساعد المنصّة الموجّه للمشغّلين (ميزة مختلفة، تعتمد أيضًا على Telegram)
+- [Telegram Storefront](/integrations/telegram-mini-app) — Storefront مدمج داخل الروبوت لقناة Telegram العادية

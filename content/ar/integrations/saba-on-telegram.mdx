@@ -1,159 +1,156 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Saba on Telegram
 
-Connect a dedicated Telegram bot so members of your organization can chat with **Saba** — the Cuneiform Chat platform assistant — right from Telegram. Same answers and same data access as Saba inside the admin panel, just on your phone.
+اربط روبوت Telegram مخصّصًا حتى يتمكّن أعضاء مؤسّستك من التحدّث مع **Saba** — مساعد منصّة Cuneiform Chat — مباشرةً من Telegram. نفس الإجابات ونفس الوصول إلى البيانات كما هو الحال مع Saba داخل لوحة الإدارة، لكن على هاتفك.
 
-## Overview
+## نظرة عامة
 
-Saba on Telegram lets your team:
+يتيح Saba on Telegram لفريقك:
 
-- Ask Saba about agents, conversations, billing, usage, and integrations from a Telegram DM
-- Send voice notes — Saba transcribes and answers them like typed questions
-- Tap follow-up suggestions Saba surfaces under each reply
-- Switch mid-thread to the **Saba Mini App** (a richer chat surface inside Telegram) via an inline button under every reply
-- Use slash commands (`/agents`, `/analytics`, `/usage`, `/billing`, `/integrations`, `/conversations`, `/health`, `/help`, `/new`, `/clear`, `/reset`)
+- سؤال Saba عن الـ Agents والمحادثات والفوترة والاستخدام وعمليات الدمج من رسالة Telegram مباشرة
+- إرسال ملاحظات صوتية — ينسخها Saba ويجيب عنها كأسئلة مكتوبة
+- النقر على الاقتراحات التي يطرحها Saba تحت كل رد
+- التبديل في منتصف السلسلة إلى **Saba Mini App** (سطح دردشة أغنى داخل Telegram) عبر زر مدمج تحت كل رد
+- استخدام أوامر slash (`/agents` و`/analytics` و`/usage` و`/billing` و`/integrations` و`/conversations` و`/health` و`/help` و`/new` و`/clear` و`/reset`)
 
-This is **not** a customer-facing channel — it's purely for org members. End users never interact with this bot.
+هذه **ليست** قناة موجّهة للعملاء — إنها مخصّصة لأعضاء المؤسّسة فقط. لا يتفاعل المستخدمون النهائيون مع هذا الروبوت أبدًا.
 
-## How it differs from the regular Telegram integration
+## كيف يختلف عن دمج Telegram العادي
 
 | | Telegram | Saba on Telegram |
 |---|----------|------------------|
-| Who chats with the bot? | Your end users | Your org members (admins, operators) |
-| What does it do? | Runs your AI agent | Runs Saba (platform assistant) |
-| Where? | DMs and group chats | Private DMs only |
-| Per-user link required? | No — anyone can chat | Yes — each member links their account once |
+| من يتحدّث مع الروبوت؟ | المستخدمون النهائيون | أعضاء مؤسّستك (المسؤولون، المشغّلون) |
+| ماذا يفعل؟ | يشغّل الـ Agent الذكي الخاص بك | يشغّل Saba (مساعد المنصّة) |
+| أين؟ | الرسائل المباشرة ومحادثات المجموعات | الرسائل المباشرة الخاصة فقط |
+| هل يلزم ربط لكل مستخدم؟ | لا — يمكن لأي شخص التحدّث | نعم — يربط كل عضو حسابه مرة واحدة |
 
-If you want to deploy your agent to end users, see [Telegram Integration](/integrations/telegram). This page is about the operator-facing bot.
+إذا أردت نشر الـ Agent الخاص بك للمستخدمين النهائيين، راجع [دمج Telegram](/integrations/telegram). تتناول هذه الصفحة الروبوت الموجّه للمشغّلين.
 
-## Prerequisites
+## المتطلّبات المسبقة
 
-- A Telegram account
-- An organization with at least one admin member
-- A fresh BotFather bot dedicated to Saba (you cannot reuse a bot already connected to the regular Telegram integration — one webhook per bot)
+- حساب Telegram
+- مؤسّسة بها عضو مسؤول واحد على الأقل
+- روبوت BotFather جديد مخصّص لـ Saba (لا يمكنك إعادة استخدام روبوت مرتبط بالفعل بدمج Telegram العادي — webhook واحد لكل روبوت)
 
-## Setup Steps
+## خطوات الإعداد
 
-### 1. Create a dedicated bot in BotFather
+### 1. أنشئ روبوتًا مخصّصًا في BotFather
 
-1. Open Telegram and search for **@BotFather**
-2. Send `/newbot`
-3. Pick a name and username — something like `acme-saba-bot` makes its purpose obvious
-4. Copy the **Bot Token** BotFather replies with
+1. افتح Telegram وابحث عن **@BotFather**
+2. أرسل `/newbot`
+3. اختر اسمًا واسم مستخدم — شيء مثل `acme-saba-bot` يوضّح غرضه
+4. انسخ **رمز الروبوت (Bot Token)** الذي يردّ به BotFather
 
 import { Callout } from 'nextra/components'
 
 <Callout type="warning">
-  Use a brand-new bot. A Telegram bot can only point at one webhook at a time, so you can't share it with your customer-facing Telegram integration or with Telegram Business mode.
+  استخدم روبوتًا جديدًا تمامًا. يمكن لروبوت Telegram أن يشير إلى webhook واحد فقط في كل مرة، لذا لا يمكنك مشاركته مع دمج Telegram الموجّه للعملاء أو مع وضع Telegram Business.
 </Callout>
 
-### 2. Connect the bot
+### 2. اربط الروبوت
 
-1. In Cuneiform Chat, open **Integrations** in the sidebar
-2. Find the **Saba on Telegram** card
-3. Click **Connect Saba Bot**
-4. Paste the bot token and submit
+1. في Cuneiform Chat، افتح **Integrations** في الشريط الجانبي
+2. اعثر على بطاقة **Saba on Telegram**
+3. انقر على **Connect Saba Bot**
+4. الصق رمز الروبوت وأرسله
 
-The platform validates the token, registers the webhook, and lights up the card.
+تتحقّق المنصّة من الرمز، وتسجّل الـ webhook، وتُضيء البطاقة.
 
-### 3. Link your account
+### 3. اربط حسابك
 
-Each member of your org needs to link their personal Telegram account once.
+يحتاج كل عضو في مؤسّستك إلى ربط حساب Telegram الشخصي مرة واحدة.
 
-1. On the Saba on Telegram card, click **Link my account**
-2. Copy the 10-minute code that appears (or scan the QR code)
-3. Open the bot in Telegram
-4. Send `/start <your-code>` — Saba confirms the link
+1. على بطاقة Saba on Telegram، انقر على **Link my account**
+2. انسخ الرمز الصالح لمدة 10 دقائق الذي يظهر (أو امسح رمز QR)
+3. افتح الروبوت في Telegram
+4. أرسل `/start <your-code>` — يؤكّد Saba الربط
 
-Codes are single-use and expire after 10 minutes. If yours expires, click **Link my account** again to generate a fresh one.
+الرموز للاستخدام مرة واحدة وتنتهي صلاحيتها بعد 10 دقائق. إذا انتهت صلاحية رمزك، انقر على **Link my account** مرة أخرى لإنشاء رمز جديد.
 
-### 4. Have other admins link themselves
+### 4. اطلب من المسؤولين الآخرين ربط أنفسهم
 
-Send teammates the bot's `t.me/<bot-username>` link and ask them to:
+أرسل لزملائك رابط الروبوت `t.me/<bot-username>` واطلب منهم:
 
-1. Visit the same Saba on Telegram card in their own admin panel session
-2. Generate their own link code
-3. DM the bot with `/start <code>`
+1. زيارة بطاقة Saba on Telegram نفسها في جلسة لوحة الإدارة الخاصة بهم
+2. إنشاء رمز الربط الخاص بهم
+3. مراسلة الروبوت بـ `/start <code>`
 
-Each linked member's Telegram account is bound to their org membership — Saba enforces the same role-based permissions it does inside the admin panel.
+يُربَط حساب Telegram لكل عضو مرتبط بعضويته في المؤسّسة — يفرض Saba نفس الصلاحيات المبنية على الأدوار التي يفرضها داخل لوحة الإدارة.
 
-## Using the bot
+## استخدام الروبوت
 
-### Ask anything Saba can answer in the panel
+### اسأل عن أي شيء يمكن لـ Saba الإجابة عنه في اللوحة
 
 ```
-How many agents do I have?
-What did we spend on Telegram last week?
-Show me failing integrations.
+كم عدد الـ Agents لديّ؟
+كم أنفقنا على Telegram الأسبوع الماضي؟
+أرني عمليات الدمج المتعطّلة.
 ```
 
-Saba reads from your org's data and replies inline.
+يقرأ Saba من بيانات مؤسّستك ويردّ ضمنيًا.
 
-### Voice notes
+### الملاحظات الصوتية
 
-Send a voice note up to 2 minutes. Whisper transcribes it, and Saba answers as if you'd typed the question. Useful when you're walking, driving, or just don't want to type.
+أرسل ملاحظة صوتية حتى دقيقتين. ينسخها Whisper، ويجيب Saba كما لو كنت قد كتبت السؤال. مفيد عندما تكون تمشي أو تقود أو لا ترغب في الكتابة.
 
-### Slash commands
+### أوامر slash
 
-Type `/` in the chat to see the autocomplete menu. Saba registers a default set of commands when you connect the bot:
+اكتب `/` في الدردشة لرؤية قائمة الإكمال التلقائي. يسجّل Saba مجموعة افتراضية من الأوامر عند ربطك للروبوت:
 
-| Command | What it does |
+| الأمر | ماذا يفعل |
 |---------|--------------|
-| `/help` | Show capabilities and the command list |
-| `/new`, `/clear`, `/reset` | Start a fresh conversation (clears conversation memory) |
-| `/agents` | Summarize your agents |
-| `/analytics` | Recent analytics overview |
-| `/usage` | Current usage and quotas |
-| `/billing` | Subscription and recent charges |
-| `/integrations` | Status of every connected channel |
-| `/conversations` | Recent conversation activity |
-| `/health` | Workspace health summary |
+| `/help` | إظهار القدرات وقائمة الأوامر |
+| `/new` و `/clear` و `/reset` | بدء محادثة جديدة (يمسح ذاكرة المحادثة) |
+| `/agents` | تلخيص الـ Agents لديك |
+| `/analytics` | نظرة عامة على التحليلات الأخيرة |
+| `/usage` | الاستخدام والحصص الحالية |
+| `/billing` | الاشتراك والرسوم الأخيرة |
+| `/integrations` | حالة كل قناة مرتبطة |
+| `/conversations` | نشاط المحادثات الأخير |
+| `/health` | ملخّص صحة مساحة العمل |
 
-### Follow-up suggestions
+### الاقتراحات للمتابعة
 
-Each Saba reply ends with up to three follow-up question buttons. Tap one to send it to Saba without retyping. The buttons are valid for 24 hours after the reply lands.
+ينتهي كل رد من Saba بحتى ثلاثة أزرار لأسئلة المتابعة. انقر على أحدها لإرساله إلى Saba دون إعادة الكتابة. الأزرار صالحة لمدة 24 ساعة بعد وصول الرد.
 
 ### Open in Mini App
 
-Every reply also has an **Open in Mini App** button. Tap it to switch to the Saba Mini App — a richer chat surface inside Telegram with conversation history, tool-call detail, and a markdown export. Both surfaces share the same conversation, so you can flip between them anytime.
+يحتوي كل رد أيضًا على زر **Open in Mini App**. انقر عليه للتبديل إلى Saba Mini App — سطح دردشة أغنى داخل Telegram مع سجلّ المحادثات وتفاصيل استدعاء الأدوات والتصدير بصيغة markdown. يتشارك السطحان نفس المحادثة، فيمكنك التنقّل بينهما في أي وقت.
 
-## Configuration Options
+## خيارات الإعداد
 
-### Resync slash commands
+### إعادة مزامنة أوامر slash
 
-If Telegram's slash menu falls out of sync (rare — can happen if the command list was updated server-side after your bot was connected), open the three-dot menu on the Saba on Telegram card and pick **Resync slash commands**. The platform re-pushes the canonical set to BotFather.
+إذا خرجت قائمة slash في Telegram عن المزامنة (نادر — يمكن أن يحدث إذا تم تحديث قائمة الأوامر من جانب الخادم بعد ربط روبوتك)، افتح القائمة ثلاثية النقاط على بطاقة Saba on Telegram واختر **Resync slash commands**. تعيد المنصّة دفع المجموعة المعتمدة إلى BotFather.
 
-### Disconnect
+### قطع الاتصال
 
-To remove the integration:
+لإزالة عملية الدمج:
 
-1. **From Cuneiform Chat:** Integrations → Saba on Telegram card → three-dot menu → **Delete**
-2. **From Telegram (optional):** delete the bot via BotFather (`/mybots` → select bot → **Delete bot**)
+1. **من Cuneiform Chat:** Integrations ← بطاقة Saba on Telegram ← القائمة ثلاثية النقاط ← **Delete**
+2. **من Telegram (اختياري):** احذف الروبوت عبر BotFather (`/mybots` ← اختر الروبوت ← **Delete bot**)
 
-Disconnecting removes every member's link and stops the bot from responding. The Telegram bot itself stays in BotFather unless you delete it there too.
+يزيل قطع الاتصال رابط كل عضو ويوقف الروبوت عن الاستجابة. يبقى روبوت Telegram نفسه في BotFather ما لم تحذفه من هناك أيضًا.
 
-## Read-only by design
+## للقراءة فقط بحكم التصميم
 
-Saba on Telegram answers questions and surfaces information — it does **not** mutate your org's data. You can ask "what's failing?" but you can't say "fix it" through Telegram. Use the admin panel for write actions like editing an agent, changing billing, or deleting a conversation.
+يجيب Saba on Telegram عن الأسئلة ويعرض المعلومات — لكنه **لا** يعدّل بيانات مؤسّستك. يمكنك أن تسأل "ما الذي يتعطّل؟" لكن لا يمكنك أن تقول "أصلحه" عبر Telegram. استخدم لوحة الإدارة لإجراءات الكتابة مثل تعديل Agent أو تغيير الفوترة أو حذف محادثة.
 
-## Tips
+## نصائح
 
 <Callout type="info">
-  Each member's link is per-bot. If you connect a new Saba bot later (for example, after changing the bot's name), members need to re-link via the new bot's `/start <code>` flow.
+  رابط كل عضو خاص بكل روبوت. إذا ربطت روبوت Saba جديدًا لاحقًا (على سبيل المثال، بعد تغيير اسم الروبوت)، يحتاج الأعضاء إلى إعادة الربط عبر تدفّق `/start <code>` للروبوت الجديد.
 </Callout>
 
 <Callout type="info">
-  Saba on Telegram uses private DMs only. Adding the bot to a group chat will simply be ignored — keeps every inbound message bound to one identifiable member.
+  يستخدم Saba on Telegram الرسائل المباشرة الخاصة فقط. ستُتجاهَل إضافة الروبوت إلى محادثة مجموعة ببساطة — وهذا يبقي كل رسالة واردة مرتبطة بعضو واحد يمكن التعرّف عليه.
 </Callout>
 
 <Callout type="tip">
-  Pair Saba on Telegram with the Mini App for the best experience: quick questions in the DM, deep dives in the Mini App. Same conversation, different surfaces.
+  اقرن Saba on Telegram مع Mini App للحصول على أفضل تجربة: الأسئلة السريعة في الرسائل المباشرة، والتعمّق في Mini App. نفس المحادثة، أسطح مختلفة.
 </Callout>
 
-## Related
+## ذات صلة
 
-- [Platform Assistant](/getting-started/platform-assistant) — the user-side overview of Saba (panel, DM, Mini App)
-- [Telegram](/integrations/telegram) — the customer-facing Telegram channel for your agents
-- [Telegram Storefront](/integrations/telegram-mini-app) — in-bot storefront on every customer Telegram bot (different feature)
+- [Platform Assistant](/getting-started/platform-assistant) — نظرة عامة من جانب المستخدم على Saba (اللوحة، الرسائل المباشرة، Mini App)
+- [Telegram](/integrations/telegram) — قناة Telegram الموجّهة للعملاء لـ Agents الخاصة بك
+- [Telegram Storefront](/integrations/telegram-mini-app) — Storefront مدمج داخل الروبوت على كل روبوت Telegram موجّه للعملاء (ميزة مختلفة)

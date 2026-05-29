@@ -1,177 +1,174 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# Messenger Storefront (Mini App مدمج داخل التطبيق)
 
-# Messenger Storefront (In-app Mini App)
+**حوّل صفحة Facebook الخاصة بك إلى متجر كامل داخل التطبيق.** ابنِ كتالوج منتجات أنيقًا متعدّد الصفحات — مع صور وفيديوهات وصفحات مُنسّقة ومساعد ذكي لكل منتج وأخذ طلبات بسيط — يُفتح *داخل* Messenger في اللحظة التي ينقر فيها العميل على زر **"Open Storefront"** في القائمة الثابتة (Persistent Menu) لصفحتك. لا متجر تطبيقات، لا موقع منفصل، لا عملية دفع لإدارتها. مجرّد نقرة، ويصبح عميلك يتصفّح.
 
-**Turn your Facebook Page into a full in-app storefront.** Build a polished, multipage product catalog — with photos, videos, themed pages, an AI assistant per product, and lightweight order-taking — that opens *inside* Messenger the moment a customer taps the **"Open Storefront"** button on your Page's Persistent Menu. No app store, no separate website, no checkout to manage. Just a tap, and your customer is browsing.
-
-Free on every plan, including the trial. Built in the same visual drag-and-drop composer as the Telegram Storefront — same 11 block types, same 6 themes, same per-product AI chat, same lightweight order CTAs — at **Integrations → Facebook Page → Configure mini app**.
+مجانًا على كل خطة، بما في ذلك الفترة التجريبية. مبني في نفس المُؤلّف البصري بالسحب والإفلات الخاص بـ Telegram Storefront — نفس أنواع الكتل الـ 11، ونفس الثيمات الـ 6، ونفس الدردشة الذكية لكل منتج، ونفس دعوات إجراء الطلب البسيطة — في **Integrations ← صفحة Facebook ← Configure mini app**.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  This page covers the customer-facing storefront Mini App that ships with every **Meta (Facebook)** integration. The storefront engine is shared with the [Telegram Storefront](/integrations/telegram-mini-app) — same composer, same blocks, same themes. Only the launcher and a few Messenger-specific behaviors differ.
+  تتناول هذه الصفحة الـ Storefront Mini App الموجّه للعملاء الذي يأتي مع كل عملية دمج **Meta (Facebook)**. يُشارَك محرّك الـ Storefront مع [Telegram Storefront](/integrations/telegram-mini-app) — نفس المُؤلّف، ونفس الكتل، ونفس الثيمات. يختلف المُطلِق (launcher) فقط وبعض السلوكيات الخاصة بـ Messenger.
 </Callout>
 
-## What you can build
+## ما يمكنك بناؤه
 
-Same shapes as the Telegram Storefront — every block type and theme ports over:
+نفس أشكال Telegram Storefront — يُنقَل كل نوع كتلة وثيم:
 
-- **Boutique storefront** — hero banner + product grid + per-product chat + order inquiry form. Orders land in your inbox; a teammate replies from there.
-- **Restaurant menu** — multipage (Starters / Mains / Drinks) + photo gallery + cart-mode checkout with a delivery address field.
-- **Course or service catalog** — product cards with a Video intro, testimonials, and a "Book a call" CTA back to the bot.
-- **Brochure Page** — hero + about + gallery + contact card + FAQ. No products at all. A polished mobile brochure that lives inside your Facebook Page.
-- **Lead-capture landing** — one page, one hero, one form, one CTA. The lightest possible Messenger funnel.
+- **متجر بوتيك** — لافتة hero + شبكة منتجات + دردشة لكل منتج + نموذج استفسار طلب. تصل الطلبات إلى صندوق الوارد لديك؛ يردّ أحد أعضاء الفريق من هناك.
+- **قائمة مطعم** — متعدّد الصفحات (المقبّلات / الأطباق الرئيسية / المشروبات) + معرض صور + دفع في وضع cart مع حقل عنوان توصيل.
+- **كتالوج دورات أو خدمات** — بطاقات منتجات مع كتلة Video تمهيدية وشهادات عملاء ودعوة إجراء "احجز مكالمة" تعود إلى الروبوت.
+- **صفحة كتيّب** — hero + "حول" + معرض + بطاقة اتصال + أسئلة شائعة. بلا منتجات على الإطلاق. كتيّب أنيق للهاتف المحمول يعيش داخل صفحة Facebook الخاصة بك.
+- **صفحة هبوط لجمع العملاء المحتملين** — صفحة واحدة، hero واحد، نموذج واحد، دعوة إجراء واحدة. أخفّ قمع Messenger ممكن.
 
-## Why it matters
+## لماذا يهمّ
 
-- **Customers never leave Messenger.** No app install, no domain to remember, no checkout flow to abandon. The storefront opens in Messenger's WebView and inherits the user's theme and language.
-- **One tap from your Page's chat.** A single **"Open Storefront"** entry is auto-seeded into the Persistent Menu the moment you connect your Page — no Meta Business Suite config, no app review, no webhook wiring.
-- **AI-native product chat.** Per-product chat is scoped to documents *you* attach to that product — the assistant answers "what's the return policy on this dress?" without leaking facts from other products.
-- **Order handoffs to a real human.** Lightweight order forms (inquiry or cart mode) land in your Inbox as a structured handoff, with the customer's Messenger DM held open for follow-up.
-- **Free on every plan.** Trial cap (5 pages / 25 blocks per page / 100 product docs) lifts on every paid plan. Pricing is per-org — adding a second Facebook Page doesn't change your tier price.
+- **لا يغادر العملاء Messenger أبدًا.** لا تثبيت تطبيق، لا نطاق يجب تذكّره، لا تدفّق دفع لتركه. يُفتح الـ Storefront في عارض الويب (WebView) الخاص بـ Messenger ويرث ثيم المستخدم ولغته.
+- **نقرة واحدة من محادثة صفحتك.** يُبذَر إدخال **"Open Storefront"** واحد تلقائيًا في القائمة الثابتة في اللحظة التي تربط فيها صفحتك — بلا إعداد في Meta Business Suite، بلا مراجعة تطبيق، بلا توصيل webhook.
+- **دردشة منتجات ذكية بطبيعتها.** الدردشة لكل منتج محصورة في المستندات التي *تربطها أنت* بذلك المنتج — يجيب المساعد عن "ما سياسة الإرجاع لهذا الفستان؟" دون تسريب حقائق من منتجات أخرى.
+- **تحويل الطلبات إلى إنسان حقيقي.** نماذج الطلب البسيطة (وضع استفسار أو سلّة) تصل إلى صندوق الوارد لديك كتحويل منظّم، مع إبقاء الرسالة المباشرة في Messenger للعميل مفتوحة للمتابعة.
+- **مجانًا على كل خطة.** حدّ الفترة التجريبية (5 صفحات / 25 كتلة لكل صفحة / 100 مستند منتج) يُرفَع على كل خطة مدفوعة. التسعير لكل مؤسّسة — إضافة صفحة Facebook ثانية لا تغيّر سعر فئتك.
 
-## At a glance
+## لمحة سريعة
 
-- **Multipage**, drag-and-drop. End users tap the hamburger (top-left) to switch pages. If you publish one page, it loads full-screen.
-- **11 block types** — Hero, Product card, Product grid, Carousel, Gallery, FAQ, Testimonial, CTA back-to-bot, Contact, Video, Rich text. (Cart is an auto-injected virtual page when you use cart-mode order CTAs — no separate "Cart review" block.)
-- **6 themes** with per-block style overrides.
-- **Draft → Publish** lifecycle with one-click revert to the last published snapshot.
-- **Auto-seeded Persistent Menu** — single "Open Storefront" button, editable label, locked action.
-- **Outer-chat fallback** — blocks project to in-chat Generic Templates, Quick Replies, and image carousels for older Messenger clients.
-- **Built-in Help Center** — a pinned FAQ surface, always one tap away. Same panel as Telegram.
-- **No payments, no inventory, no shipping** — this is a polished catalog + lead-capture surface, not a full e-commerce stack.
+- **متعدّد الصفحات**، بالسحب والإفلات. ينقر المستخدمون النهائيون على رمز الهامبرغر (أعلى اليسار) للتبديل بين الصفحات. إذا نشرت صفحة واحدة، تُحمَّل بملء الشاشة.
+- **11 نوع كتلة** — Hero، Product card، Product grid، Carousel، Gallery، FAQ، Testimonial، CTA back-to-bot، Contact، Video، Rich text. (السلّة صفحة افتراضية تُحقَن تلقائيًا عند استخدامك دعوات طلب في وضع cart — لا كتلة "Cart review" منفصلة.)
+- **6 ثيمات** مع تجاوزات نمط لكل كتلة.
+- دورة حياة **Draft ← Publish** مع رجوع بنقرة واحدة إلى آخر لقطة منشورة.
+- **قائمة ثابتة مبذورة تلقائيًا** — زر "Open Storefront" واحد، عنوان قابل للتعديل، إجراء مقفل.
+- **آلية احتياطية في المحادثة الخارجية** — تُسقَط الكتل إلى Generic Templates داخل المحادثة وQuick Replies وعروض صور دوّارة (carousels) لعملاء Messenger الأقدم.
+- **Help Center مدمج** — سطح أسئلة شائعة مثبّت، دائمًا على بُعد نقرة واحدة. نفس اللوحة الخاصة بـ Telegram.
+- **لا مدفوعات، لا مخزون، لا شحن** — هذا سطح كتالوج + جمع عملاء محتملين أنيق، وليس مكدّس تجارة إلكترونية كاملًا.
 
-## How customers find it
+## كيف يعثر عليه العملاء
 
-Every connected Facebook Page exposes a **Persistent Menu** to anyone messaging it. We auto-seed a single entry — **"Open Storefront"** (default label, editable to anything 1–32 characters in any language) — that opens your storefront.
+تعرض كل صفحة Facebook مرتبطة **قائمة ثابتة (Persistent Menu)** لأي شخص يراسلها. نبذر إدخالًا واحدًا — **"Open Storefront"** (العنوان الافتراضي، قابل للتعديل إلى أي شيء بطول 1–32 حرفًا بأي لغة) — يفتح متجرك.
 
-The launch flow is a **postback**:
+تدفّق الإطلاق هو **postback**:
 
-1. End user taps **"Open Storefront"** on the Persistent Menu.
-2. The bot receives a `BROWSE_SHOWCASE` postback, mints a one-time launch token, and sends back a Button Template with a single "Open Storefront" CTA.
-3. End user taps the button → Messenger opens a WebView → storefront loads.
+1. ينقر المستخدم النهائي على **"Open Storefront"** في القائمة الثابتة.
+2. يتلقّى الروبوت postback بـ `BROWSE_SHOWCASE`، ويسكّ رمز إطلاق لمرة واحدة، ويرسل قالب زر (Button Template) بدعوة إجراء "Open Storefront" واحدة.
+3. ينقر المستخدم النهائي على الزر ← يفتح Messenger عارض ويب (WebView) ← يُحمَّل الـ Storefront.
 
-That's one extra tap compared to a "tap menu → instant WebView" approach. We use the postback model because the direct-WebView model silently fails on a meaningful cohort of older Messenger clients (Meta SDK error `2071011`). With postback-via-Button-Template, every client we've tested works — and the launcher token is single-use, HMAC-bound, and lives in the recipient's DM, so there's no exposure to share-link abuse.
+هذه نقرة إضافية واحدة مقارنةً بنهج "انقر القائمة ← عارض ويب فوري". نستخدم نموذج postback لأن نموذج عارض الويب المباشر يفشل بصمت على شريحة معتبرة من عملاء Messenger الأقدم (خطأ Meta SDK رقم `2071011`). مع postback عبر Button Template، يعمل كل عميل اختبرناه — ورمز المُطلِق للاستخدام مرة واحدة، ومرتبط بـ HMAC، ويعيش في الرسالة المباشرة للمستلِم، فلا يوجد تعرّض لإساءة استخدام روابط المشاركة.
 
 <Callout type="info">
-  The action and postback payload (`BROWSE_SHOWCASE`) are locked server-side. The only thing you control via the admin panel is the button label.
+  الإجراء وحمولة الـ postback (`BROWSE_SHOWCASE`) مقفلان من جانب الخادم. الشيء الوحيد الذي تتحكّم فيه عبر لوحة الإدارة هو عنوان الزر.
 </Callout>
 
-## Prerequisites
+## المتطلّبات المسبقة
 
-- A connected [Meta (Facebook) integration](/integrations/facebook). The storefront rides on top of it — there's no separate integration to add.
-- (Optional) Product images, product copy, FAQ entries, and knowledge-base documents to wire into per-product chat.
+- [دمج Meta (Facebook)](/integrations/facebook) مرتبط. يركب الـ Storefront فوقه — لا توجد عملية دمج منفصلة لإضافتها.
+- (اختياري) صور المنتجات، ونصوص المنتجات، وإدخالات الأسئلة الشائعة، ومستندات قاعدة المعرفة لربطها بالدردشة لكل منتج.
 
-## Quick start (5 minutes)
+## بداية سريعة (5 دقائق)
 
-The shortest path from "I connected a Page" to "my first customer is browsing":
+أقصر طريق من "ربطت صفحة" إلى "أوّل عميل لي يتصفّح":
 
-1. **Go to Integrations → your Facebook Page → Configure mini app.** The composer opens in Draft state.
-2. **Click "+ Add page"** in the left rail. Name it (e.g. "Home").
-3. **Add a Hero block** — headline, subheadline, a 16:9 background image (drop a photo, the cropper opens automatically).
-4. **Add a Product card** — name, price, 1:1 image, short description. Toggle on **AI chat** and attach a doc (a PDF spec sheet, your shipping policy — anything from your KB).
-5. **Add an Order CTA** on that product — pick `inquiry` mode, choose form fields (`name` is always required).
-6. **Click Publish.** We auto-publish the Persistent Menu — your Page's menu now shows "Open Storefront" to every visitor.
-7. **DM your own Page from a different Facebook account.** Tap the menu → "Open Storefront" → "Open Storefront" (the Button Template). Tap your product. Tap "Ask a question." Tap "Order this." Submit. You'll see the handoff land in your Inbox within seconds.
+1. **انتقل إلى Integrations ← صفحة Facebook الخاصة بك ← Configure mini app.** يُفتح المُؤلّف في حالة Draft.
+2. **انقر على "+ Add page"** في الشريط الأيسر. سمِّها (مثل "Home").
+3. **أضف كتلة Hero** — عنوان رئيسي، عنوان فرعي، صورة خلفية بنسبة 16:9 (أفلِت صورة، يُفتح أداة الاقتصاص تلقائيًا).
+4. **أضف بطاقة Product card** — اسم، سعر، صورة بنسبة 1:1، وصف قصير. فعّل **AI chat** واربط مستندًا (ورقة مواصفات PDF، سياسة الشحن الخاصة بك — أي شيء من قاعدة معرفتك).
+5. **أضف Order CTA** على ذلك المنتج — اختر وضع `inquiry`، واختر حقول النموذج (`name` مطلوب دائمًا).
+6. **انقر على Publish.** ننشر القائمة الثابتة تلقائيًا — تعرض قائمة صفحتك الآن "Open Storefront" لكل زائر.
+7. **راسل صفحتك بنفسك من حساب Facebook مختلف.** انقر على القائمة ← "Open Storefront" ← "Open Storefront" (الـ Button Template). انقر على منتجك. انقر على "Ask a question". انقر على "Order this". أرسل. سترى التحويل يصل إلى صندوق الوارد لديك خلال ثوانٍ.
 
-That's the minimum-viable Messenger Storefront. Add more pages, more products, themes, videos, and a Help Center as you grow.
+هذا هو الحدّ الأدنى القابل للتطبيق من Messenger Storefront. أضف المزيد من الصفحات والمنتجات والثيمات والفيديوهات وHelp Center مع نموّك.
 
-## The composer
+## المُؤلّف
 
-The composer is the **same editor** as the Telegram Storefront — see [Telegram Storefront: The composer](/integrations/telegram-mini-app#the-composer) for the full tour (3-pane layout, draft/publish lifecycle, image cropper, tier limits). The only channel-specific surface is the **Distribute** tab.
+المُؤلّف هو **نفس المحرّر** الخاص بـ Telegram Storefront — راجع [Telegram Storefront: The composer](/integrations/telegram-mini-app#the-composer) للجولة الكاملة (تخطيط من 3 أجزاء، دورة حياة draft/publish، أداة اقتصاص الصور، حدود الفئة). السطح الوحيد الخاص بالقناة هو تبويب **Distribute**.
 
-## The Distribute tab (Messenger)
+## تبويب Distribute (Messenger)
 
-The composer's right-most tab is **Distribute**. On Messenger it shows:
+التبويب الأقصى يمينًا في المُؤلّف هو **Distribute**. على Messenger يعرض:
 
-| Section | What it does |
+| القسم | ما يفعله |
 |---------|--------------|
-| **Persistent Menu label** | A single editable input for the button title. Default: `Open Storefront`. 1–32 characters, any language. The action and postback payload (`BROWSE_SHOWCASE`) are locked server-side. |
-| **Ice Breakers** | Optional starter prompts shown to first-time visitors (Messenger's native feature). Add up to four short questions; Messenger surfaces them as one-tap chips on the empty thread. |
-| **Publish to Messenger** | Manually re-push the Persistent Menu + Ice Breakers to Meta. Useful right after connecting a Page if the auto-seed at connect-time was rejected (e.g. Page-management permissions hadn't propagated yet). |
-| **Connect-your-Page banner** | If your integration was connected before Meta granted you Page-management permissions, a sticky amber banner walks you through the missing step. |
+| **Persistent Menu label** | حقل إدخال واحد قابل للتعديل لعنوان الزر. الافتراضي: `Open Storefront`. 1–32 حرفًا، أي لغة. الإجراء وحمولة الـ postback (`BROWSE_SHOWCASE`) مقفلان من جانب الخادم. |
+| **Ice Breakers** | موجّهات بدء اختيارية تُعرض للزوّار لأول مرة (ميزة Messenger الأصلية). أضف حتى أربعة أسئلة قصيرة؛ يُظهرها Messenger كحبوب بنقرة واحدة في السلسلة الفارغة. |
+| **Publish to Messenger** | أعِد دفع القائمة الثابتة + Ice Breakers يدويًا إلى Meta. مفيد بعد ربط صفحة مباشرةً إذا رُفض البذر التلقائي وقت الاتصال (مثلًا، لم تكن صلاحيات إدارة الصفحة قد انتشرت بعد). |
+| **Connect-your-Page banner** | إذا رُبطت عملية دمجك قبل أن تمنحك Meta صلاحيات إدارة الصفحة، يرشدك شريط كهرماني ثابت عبر الخطوة المفقودة. |
 
 <Callout type="info">
-  There's **no Meta Business Suite configuration step**. The Persistent Menu is set automatically the moment you connect your Page, via Meta's Messenger Profile API. If the auto-seed fails (rare), tap **Publish to Messenger** to retry.
+  **لا توجد خطوة إعداد في Meta Business Suite.** تُضبَط القائمة الثابتة تلقائيًا في اللحظة التي تربط فيها صفحتك، عبر Messenger Profile API من Meta. إذا فشل البذر التلقائي (نادر)، انقر على **Publish to Messenger** لإعادة المحاولة.
 </Callout>
 
-## Outer-chat fallback for older clients
+## آلية احتياطية في المحادثة الخارجية للعملاء الأقدم
 
-For end users on Messenger clients that can't open a WebView at all, the storefront still works — it projects into the chat thread itself. The Send API adapter at `outer_chat_adapter.py` maps each of the 11 block types into a Messenger-native primitive:
+بالنسبة للمستخدمين النهائيين على عملاء Messenger الذين لا يستطيعون فتح عارض ويب على الإطلاق، لا يزال الـ Storefront يعمل — فهو يُسقِط نفسه في سلسلة المحادثة ذاتها. يربط محوّل Send API في `outer_chat_adapter.py` كلًّا من أنواع الكتل الـ 11 بعنصر أصلي في Messenger:
 
-- **Hero / Product card / CTA back-to-bot** → Generic Template card
-- **Product grid / Carousel** → Generic Template carousel (multi-card swipe)
-- **Gallery** → image-sequence messages
-- **FAQ / Rich text** → text messages with optional Quick Replies
-- **Testimonial / Contact** → Generic Template card with action buttons
-- **Video** → video attachment + caption
+- **Hero / Product card / CTA back-to-bot** ← بطاقة Generic Template
+- **Product grid / Carousel** ← عرض دوّار من Generic Template (تمرير متعدّد البطاقات)
+- **Gallery** ← رسائل متسلسلة من الصور
+- **FAQ / Rich text** ← رسائل نصية مع Quick Replies اختيارية
+- **Testimonial / Contact** ← بطاقة Generic Template مع أزرار إجراء
+- **Video** ← مرفق فيديو + تعليق
 
-No broken UI, no dead ends. The same product list, the same order CTAs — just rendered as in-chat templates.
+لا واجهة معطّلة، لا طرق مسدودة. نفس قائمة المنتجات، نفس دعوات الطلب — لكن معروضة كقوالب داخل المحادثة.
 
-## Recovery flow for end users
+## تدفّق الاسترداد للمستخدمين النهائيين
 
-If an end user lands in a WebView that can't bootstrap auth (very rare — only on a few very old clients), the storefront shell shows a sticky top-of-screen banner linking back to your Page at `m.me/{page_id}?ref=BROWSE_SHOWCASE`. One tap returns them to the Messenger thread; tapping **"Open Storefront"** again gets them a fresh launcher token and they're back inside.
+إذا وصل مستخدم نهائي إلى عارض ويب لا يستطيع تمهيد المصادقة (نادر جدًا — فقط على بعض العملاء القديمين جدًا)، يعرض الـ shell الخاص بالـ Storefront شريطًا ثابتًا أعلى الشاشة يربط مجددًا بصفحتك على `m.me/{page_id}?ref=BROWSE_SHOWCASE`. نقرة واحدة تعيدهم إلى سلسلة Messenger؛ ونقر **"Open Storefront"** مرة أخرى يمنحهم رمز مُطلِق جديدًا وهم عائدون إلى الداخل.
 
-This is automatic — there's no admin setup required.
+هذا تلقائي — لا يلزم إعداد إداري.
 
-## Orders & handoffs
+## الطلبات والتحويلات
 
-Order CTAs work the same way as the Telegram Storefront — inquiry mode or cart mode, same configurable form fields, same instant "Got your order" DM, same Order Request Panel in the Inbox.
+تعمل دعوات الطلب بنفس طريقة Telegram Storefront — وضع استفسار أو وضع سلّة، نفس حقول النموذج القابلة للتهيئة، نفس رسالة "Got your order" الفورية، نفس Order Request Panel في صندوق الوارد.
 
-The only Messenger-specific difference: order handoffs land in the inbox with `metadata.type == "messenger_mini_app_order"` (Telegram uses `mini_app_order`). The inbox renders the same panel for both.
+الفرق الوحيد الخاص بـ Messenger: تصل تحويلات الطلب إلى صندوق الوارد بـ `metadata.type == "messenger_mini_app_order"` (يستخدم Telegram `mini_app_order`). يعرض صندوق الوارد نفس اللوحة لكليهما.
 
-The **24-hour messaging window** applies to follow-up messages: Meta only lets you message a user within 24 hours of their last inbound. The storefront launch postback resets the window, so the "Got your order" DM and any teammate follow-up land normally — but if the customer goes silent for >24 hours, you'll need them to message your Page again before you can reply.
+تنطبق **نافذة المراسلة لمدة 24 ساعة** على رسائل المتابعة: تتيح Meta لك فقط مراسلة مستخدم خلال 24 ساعة من آخر رسالة واردة منه. يعيد postback إطلاق الـ Storefront ضبط النافذة، فتصل رسالة "Got your order" وأي متابعة من عضو الفريق بشكل طبيعي — لكن إذا التزم العميل الصمت لأكثر من 24 ساعة، ستحتاج إلى أن يراسل صفحتك مجددًا قبل أن تتمكّن من الرد.
 
-See [Telegram Storefront: Orders and cart](/integrations/telegram-mini-app#orders-and-cart) for the full order-flow walk-through (form fields, anti-spam limits, dedup window) — all shared with Messenger.
+راجع [Telegram Storefront: Orders and cart](/integrations/telegram-mini-app#orders-and-cart) للاطّلاع الكامل على تدفّق الطلب (حقول النموذج، حدود مكافحة الرسائل غير المرغوبة، نافذة منع التكرار) — كله مشترك مع Messenger.
 
-## Auth model (for the curious)
+## نموذج المصادقة (لمن يهتمّ)
 
-You don't need to think about this — the platform handles it. But if you're curious:
+لا تحتاج إلى التفكير في هذا — تتولّاه المنصّة. لكن إن كنت فضوليًا:
 
-- **Public reads** (`/style`, `/showcase`, `/help-entries`) are fully public, keyed by `?i={integration_id}`. No cookie, no signed_request, no rate-limit on these — every cold-start client renders the storefront immediately.
-- **Write actions** (`/ask`, `/track`, `/product-chat/stream`, `/order-inquiry`) require a session. Primary path: a `messenger_mini_app_session` httpOnly cookie minted from a one-time launch token (CHIPS-partitioned, so Messenger's in-app browser doesn't third-party-block it). Fallback: Meta's `signed_request` HMAC for the rare client where the SDK still works.
+- **القراءات العامة** (`/style` و`/showcase` و`/help-entries`) عامة بالكامل، مُفتاحة بـ `?i={integration_id}`. لا cookie، لا signed_request، لا حدّ معدّل على هذه — يعرض كل عميل ببداية باردة الـ Storefront فورًا.
+- **إجراءات الكتابة** (`/ask` و`/track` و`/product-chat/stream` و`/order-inquiry`) تتطلّب جلسة. المسار الأساسي: cookie من نوع `messenger_mini_app_session` httpOnly مسكوك من رمز إطلاق لمرة واحدة (مقسّم بـ CHIPS، حتى لا يحجبه متصفّح Messenger داخل التطبيق كطرف ثالث). الآلية الاحتياطية: HMAC الخاص بـ `signed_request` من Meta للعميل النادر الذي لا يزال SDK يعمل عليه.
 
-That's it. No customer ever sees a login prompt.
+هذا كل شيء. لا يرى أي عميل مطالبة بتسجيل الدخول أبدًا.
 
-## What it does NOT do
+## ما لا يفعله
 
-Same scope as the Telegram Storefront:
+نفس نطاق Telegram Storefront:
 
-- **No payments.** Order CTAs are inquiry handoffs, not Checkout API or Stripe.
-- **No inventory tracking.** Availability badges on product cards are free-text labels you edit manually ("Sold out", "Pre-order", "Last 3").
-- **No shipping calculations / address validation.** Delivery address is collected as free-form text.
-- **No customer accounts.** Customers are identified by their Messenger PSID; there's no login or signup flow.
-- **No Page comments or Page posts.** This integration only handles Messenger threads and storefront launches.
-- **No Instagram DM storefront** (yet). The same Meta integration covers Messenger only; Instagram DM is text-conversation only.
-- **24-hour messaging window applies.** See above.
+- **لا مدفوعات.** دعوات الطلب تحويلات استفسار، وليست Checkout API أو Stripe.
+- **لا تتبّع للمخزون.** شارات التوفّر على بطاقات المنتجات تسميات نصية حرّة تعدّلها يدويًا ("Sold out"، "Pre-order"، "Last 3").
+- **لا حسابات شحن / التحقّق من العناوين.** يُجمَع عنوان التوصيل كنص حرّ.
+- **لا حسابات عملاء.** يُعرَّف العملاء بمعرّف Messenger الخاص بهم (PSID)؛ لا يوجد تدفّق تسجيل دخول أو اشتراك.
+- **لا تعليقات صفحة أو منشورات صفحة.** تتعامل عملية الدمج هذه فقط مع سلاسل Messenger وعمليات إطلاق الـ Storefront.
+- **لا Storefront في الرسائل المباشرة في Instagram** (بعد). تغطّي عملية دمج Meta نفسها Messenger فقط؛ والرسائل المباشرة في Instagram هي محادثة نصية فقط.
+- **تنطبق نافذة المراسلة لمدة 24 ساعة.** راجع أعلاه.
 
-## Troubleshooting
+## استكشاف الأخطاء وإصلاحها
 
-### "Open Storefront" doesn't appear on my Page's menu
+### "Open Storefront" لا يظهر في قائمة صفحتي
 
-1. Open the composer → **Distribute** tab → tap **Publish to Messenger**.
-2. If you see a "Connect your Page" amber banner, complete that step first — the auto-seed needs Page-management permissions.
-3. If the banner stays after a re-publish, disconnect and reconnect the integration. The post-connect auto-seed runs fresh.
+1. افتح المُؤلّف ← تبويب **Distribute** ← انقر على **Publish to Messenger**.
+2. إذا رأيت شريطًا كهرمانيًا "Connect your Page"، أكمل تلك الخطوة أولًا — يحتاج البذر التلقائي إلى صلاحيات إدارة الصفحة.
+3. إذا بقي الشريط بعد إعادة النشر، اقطع اتصال عملية الدمج وأعد ربطها. يعمل البذر التلقائي بعد الاتصال من جديد.
 
-### Customer says the button doesn't open anything
+### يقول العميل إن الزر لا يفتح أي شيء
 
-Almost always a stale Messenger client. The shell shows them a one-tap "back to chat" banner; they reopen the Page, tap **"Open Storefront"** again, and the next launcher token gets a fresh redemption.
+غالبًا ما يكون عميل Messenger قديمًا. يعرض الـ shell له شريط "العودة إلى المحادثة" بنقرة واحدة؛ يعيد فتح الصفحة، وينقر على **"Open Storefront"** مرة أخرى، فيحصل رمز المُطلِق التالي على استرداد جديد.
 
-### Storefront opens but I can't submit an order
+### يُفتح الـ Storefront لكنني لا أستطيع إرسال طلب
 
-Check that:
-1. You're inside Messenger (not the regular Facebook web wrapper).
-2. The customer's last inbound message to your Page was less than 24 hours ago (or they just tapped the launch button, which resets the window).
-3. Your Inbox is showing — the order may have landed, but is filtered out by a search or status filter.
+تحقّق من أن:
+1. أنت داخل Messenger (وليس غلاف الويب العادي في Facebook).
+2. آخر رسالة واردة من العميل إلى صفحتك كانت قبل أقل من 24 ساعة (أو أنه نقر للتو على زر الإطلاق، الذي يعيد ضبط النافذة).
+3. صندوق وارد لديك معروض — قد يكون الطلب قد وصل، لكنه مُستبعَد بفلتر بحث أو حالة.
 
-### Auto-seed failed and Publish to Messenger button greyed out
+### فشل البذر التلقائي وزر Publish to Messenger معطّل (رمادي)
 
-You're missing Page-management permissions. Go to **Integrations → your Meta integration → Three-dot menu → Reconnect**. The OAuth flow re-prompts you for the missing scope.
+تفتقر إلى صلاحيات إدارة الصفحة. انتقل إلى **Integrations ← عملية دمج Meta الخاصة بك ← القائمة ثلاثية النقاط ← Reconnect**. يعيد تدفّق OAuth مطالبتك بالنطاق المفقود.
 
-## Important notes
+## ملاحظات مهمّة
 
-- **One storefront per Page**: each Facebook Page has its own draft and published storefront — independent of other Pages in the same org.
-- **Pricing is per-org, not per-Page**: adding a second Facebook Page does NOT change your tier price.
-- **Shared composer with Telegram**: if you operate both channels, the same composer builds both — just open each integration's "Configure mini app" link. Themes, blocks, and Help Center entries don't cross-link, but the patterns transfer.
-- **Outer-chat adapter is automatic**: you don't configure it. Every block you publish projects into Generic Templates / Quick Replies / image carousels for the fallback path.
+- **Storefront واحد لكل صفحة**: لكل صفحة Facebook مسودّتها ومتجرها المنشور الخاص بها — مستقلّ عن الصفحات الأخرى في المؤسّسة نفسها.
+- **التسعير لكل مؤسّسة، وليس لكل صفحة**: إضافة صفحة Facebook ثانية لا تغيّر سعر فئتك.
+- **مُؤلّف مشترك مع Telegram**: إذا كنت تشغّل القناتين، فنفس المُؤلّف يبني كليهما — افتح فقط رابط "Configure mini app" لكل عملية دمج. لا تتقاطع الثيمات والكتل وإدخالات Help Center، لكن الأنماط تنتقل.
+- **محوّل المحادثة الخارجية تلقائي**: لا تضبطه. كل كتلة تنشرها تُسقَط إلى Generic Templates / Quick Replies / عروض صور دوّارة لمسار الآلية الاحتياطية.

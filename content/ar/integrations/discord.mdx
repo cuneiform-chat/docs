@@ -1,193 +1,190 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# دمج Discord
 
-# Discord Integration
+أضف الـ Agent الخاص بك إلى خوادم Discord باستخدام أوامر slash والرسائل المباشرة.
 
-Add your agent to Discord servers using slash commands and direct messages.
+## نظرة عامة
 
-## Overview
+يوفّر دمج Discord ما يلي:
+- دعم أوامر slash (`/ask`)
+- محادثات الرسائل المباشرة
+- توفّر على مستوى الخادم
+- ردود خاصة بكل قناة
+- تنسيق الإطارات الغنية (rich embed)
+- رسائل مباشرة نصية اختيارية (بلا حاجة إلى بادئة أمر)
 
-Discord integration provides:
-- Slash command support (`/ask`)
-- Direct message conversations
-- Server-wide availability
-- Channel-specific responses
-- Rich embed formatting
-- Optional text-based DMs (no command prefix needed)
+## المتطلّبات المسبقة
 
-## Prerequisites
+- حساب Discord
+- صلاحيات Manage Server على الخادم المستهدف
+- الوصول إلى Discord Developer Portal
 
-- A Discord account
-- Manage Server permissions on the target server
-- Discord Developer Portal access
+## خطوات الإعداد
 
-## Setup Steps
+### 1. أنشئ تطبيق Discord
 
-### 1. Create a Discord Application
+1. انتقل إلى [Discord Developer Portal](https://discord.com/developers/applications)
+2. انقر على **New Application**
+3. أدخل اسمًا (مثل "My Support Bot")
+4. انقر على **Create**
 
-1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
-2. Click **New Application**
-3. Enter a name (e.g., "My Support Bot")
-4. Click **Create**
+### 2. احصل على بيانات الاعتماد الخاصة بك
 
-### 2. Get Your Credentials
+من Discord Developer Portal، اجمع هذه القيم:
 
-From the Discord Developer Portal, collect these values:
-
-| Field | Description | Where to Find |
+| الحقل | الوصف | أين تجده |
 |-------|-------------|---------------|
-| **Application ID** | Your Discord app's ID | General Information page |
-| **Public Key** | 64-character hex string for signature verification | General Information page |
-| **Bot Token** | Secret token for your bot | Bot section → **Reset Token** |
-| **Guild ID** (optional) | Server ID for instant command registration | Right-click server → Copy Server ID |
+| **Application ID** | معرّف تطبيق Discord الخاص بك | صفحة General Information |
+| **Public Key** | سلسلة سداسية عشرية مكوّنة من 64 حرفًا للتحقّق من التوقيع | صفحة General Information |
+| **Bot Token** | الرمز السرّي لروبوتك | قسم Bot ← **Reset Token** |
+| **Guild ID** (اختياري) | معرّف الخادم للتسجيل الفوري للأوامر | انقر بزرّ الفأرة الأيمن على الخادم ← Copy Server ID |
 
 import { Callout } from 'nextra/components'
 
 <Callout type="warning">
-  Keep your Bot Token secure — never share it publicly. Anyone with your token can control your bot.
+  حافظ على أمان رمز الروبوت (Bot Token) — لا تشاركه علنًا أبدًا. أي شخص يملك رمزك يمكنه التحكّم في روبوتك.
 </Callout>
 
-### 3. Connect to Cuneiform Chat
+### 3. اربطه بـ Cuneiform Chat
 
-1. Go to **Integrations** in the sidebar
-2. Open the **Discord** card
-3. Enter your **Application ID**, **Public Key**, and **Bot Token**
-4. Optionally enter a **Guild ID** for instant slash command registration
-5. Click **Connect**
+1. انتقل إلى **Integrations** في الشريط الجانبي
+2. افتح بطاقة **Discord**
+3. أدخل **Application ID** و**Public Key** و**Bot Token**
+4. أدخل اختياريًا **Guild ID** للتسجيل الفوري لأوامر slash
+5. انقر على **Connect**
 
-### 4. Configure Webhook URL (Required)
+### 4. اضبط عنوان الـ Webhook (مطلوب)
 
-After connecting, you'll see a success dialog with your **Webhook URL**:
+بعد الربط، سترى مربّع حوار نجاح مع **Webhook URL** الخاص بك:
 
-1. Copy the **Webhook URL** from the success dialog
-2. In Discord Developer Portal, go to **General Information**
-3. Find **Interactions Endpoint URL**
-4. Paste the webhook URL and click **Save Changes**
+1. انسخ **Webhook URL** من مربّع حوار النجاح
+2. في Discord Developer Portal، انتقل إلى **General Information**
+3. اعثر على **Interactions Endpoint URL**
+4. الصق عنوان الـ webhook وانقر على **Save Changes**
 
 <Callout type="info">
-  This step is required. Discord uses this URL to send slash command interactions to your bot.
+  هذه الخطوة مطلوبة. يستخدم Discord هذا العنوان لإرسال تفاعلات أوامر slash إلى روبوتك.
 </Callout>
 
-### 5. Add Bot to Your Server
+### 5. أضف الروبوت إلى خادمك
 
-Use the **Add to Server** button on the integration card, or use the invite URL provided after connection. This adds the bot with the required permissions.
+استخدم زر **Add to Server** على بطاقة الدمج، أو استخدم عنوان الدعوة المقدّم بعد الاتصال. يضيف هذا الروبوت بالصلاحيات المطلوبة.
 
-## Using the Bot
+## استخدام الروبوت
 
-### Slash Commands
+### أوامر slash
 
-Users interact with your bot using the `/ask` slash command:
+يتفاعل المستخدمون مع روبوتك باستخدام أمر slash `/ask`:
 
 ```
 /ask What are your business hours?
 ```
 
-The bot processes the question and responds in the channel.
+يعالج الروبوت السؤال ويردّ في القناة.
 
-### Direct Messages
+### الرسائل المباشرة
 
-Message the bot directly for private conversations:
+راسل الروبوت مباشرةً للمحادثات الخاصة:
 
-1. Find the bot in your server's member list
-2. Right-click and select **Message**
-3. Use `/ask` command or enable Text DMs (see below)
+1. اعثر على الروبوت في قائمة أعضاء خادمك
+2. انقر بزرّ الفأرة الأيمن واختر **Message**
+3. استخدم أمر `/ask` أو فعّل Text DMs (راجع أدناه)
 
-### Text DMs Toggle
+### مفتاح تبديل Text DMs
 
-The **Text DMs** switch on the integration card controls direct message behavior:
+يتحكّم مفتاح **Text DMs** على بطاقة الدمج في سلوك الرسائل المباشرة:
 
-- **Off** (default): Users must use the `/ask` command in DMs
-- **On**: Users can send plain text messages in DMs (no command prefix needed)
+- **Off** (افتراضي): يجب على المستخدمين استخدام أمر `/ask` في الرسائل المباشرة
+- **On**: يمكن للمستخدمين إرسال رسائل نصية عادية في الرسائل المباشرة (بلا حاجة إلى بادئة أمر)
 
 <Callout type="info">
-  When enabling Text DMs, you'll need to enable **Message Content Intent** in Discord Developer Portal → Bot section → Privileged Gateway Intents.
+  عند تفعيل Text DMs، ستحتاج إلى تفعيل **Message Content Intent** في Discord Developer Portal ← قسم Bot ← Privileged Gateway Intents.
 </Callout>
 
-### Response Format
+### تنسيق الرد
 
-Responses are posted as plain text messages. Long answers are automatically split across multiple messages so they fit within Discord's 2,000-character per-message limit.
+تُنشَر الردود كرسائل نصية عادية. تُقسَّم الإجابات الطويلة تلقائيًا عبر رسائل متعدّدة لتلائم حدّ Discord البالغ 2,000 حرف لكل رسالة.
 
-## Features
+## الميزات
 
-### Server-Wide Access
+### وصول على مستوى الخادم
 
-Once added, the bot is available in all text channels where it has permissions.
+بمجرّد إضافته، يصبح الروبوت متاحًا في كل القنوات النصية التي لديه صلاحيات فيها.
 
-### Thread Support
+### دعم السلاسل (Threads)
 
-The bot can respond in threads, keeping conversations organized.
+يمكن للروبوت الرد في السلاسل، ما يبقي المحادثات منظّمة.
 
-### Instant vs Global Commands
+### الأوامر الفورية مقابل العالمية
 
-- **With Guild ID**: Slash commands register instantly in that server
-- **Without Guild ID**: Global commands take up to 1 hour to propagate
+- **مع Guild ID**: تُسجَّل أوامر slash فورًا في ذلك الخادم
+- **بدون Guild ID**: تستغرق الأوامر العالمية حتى ساعة واحدة للانتشار
 
 <Callout type="important">
-  Provide a Guild ID during setup for instant slash command availability. You can add more servers later.
+  قدّم Guild ID أثناء الإعداد للتوفّر الفوري لأوامر slash. يمكنك إضافة المزيد من الخوادم لاحقًا.
 </Callout>
 
-## Managing Your Bot
+## إدارة روبوتك
 
-Each connected bot displays:
-- **Bot username** and status (Active/Error)
+يعرض كل روبوت مرتبط:
+- **اسم مستخدم الروبوت** والحالة (Active/Error)
 - **Application ID**
-- **Associated agent**
-- **Last activity** timestamp
-- **Webhook URL** (for reference)
+- **الـ Agent المرتبط**
+- طابع زمني لـ **Last activity**
+- **Webhook URL** (للمرجع)
 
-### Available Actions
+### الإجراءات المتاحة
 
-| Action | Description |
+| الإجراء | الوصف |
 |--------|-------------|
-| **Add to Server** | Opens invite link to add bot to a server |
-| **Developer Portal** | Opens Discord Developer Portal for this app |
-| **Copy URL** | Copies the webhook URL |
-| **Test Connection** | Verifies bot connectivity |
-| **Disconnect** | Removes this integration |
+| **Add to Server** | يفتح رابط دعوة لإضافة الروبوت إلى خادم |
+| **Developer Portal** | يفتح Discord Developer Portal لهذا التطبيق |
+| **Copy URL** | ينسخ عنوان الـ webhook |
+| **Test Connection** | يتحقّق من اتصال الروبوت |
+| **Disconnect** | يزيل عملية الدمج هذه |
 
-## Troubleshooting
+## استكشاف الأخطاء وإصلاحها
 
-### Bot Not Responding
+### الروبوت لا يستجيب
 
-1. Verify the **Interactions Endpoint URL** is configured in Discord Developer Portal
-2. Confirm bot has permissions in the channel
-3. Check the token is correct in Cuneiform Chat
-4. Test slash commands are registered (`/` shows your command)
+1. تحقّق من ضبط **Interactions Endpoint URL** في Discord Developer Portal
+2. تأكّد من أن للروبوت صلاحيات في القناة
+3. تحقّق من صحة الرمز في Cuneiform Chat
+4. اختبر أن أوامر slash مسجّلة (`/` تُظهر أمرك)
 
-### Commands Not Showing
+### الأوامر لا تظهر
 
-Slash commands can take up to an hour to register globally. For immediate testing:
-- Provide a Guild ID during setup for instant registration
-- Wait for global propagation if no Guild ID was provided
+يمكن أن تستغرق أوامر slash حتى ساعة للتسجيل عالميًا. للاختبار الفوري:
+- قدّم Guild ID أثناء الإعداد للتسجيل الفوري
+- انتظر الانتشار العالمي إذا لم يُقدَّم Guild ID
 
-### Permission Errors
+### أخطاء الصلاحيات
 
-Ensure the bot has these permissions:
+تأكّد من أن للروبوت هذه الصلاحيات:
 - Send Messages
 - Use Slash Commands
 - Embed Links
-- Read Message History (for thread support)
+- Read Message History (لدعم السلاسل)
 
-### Text DMs Not Working
+### Text DMs لا تعمل
 
-1. Verify **Text DMs** toggle is enabled on the integration card
-2. Enable **Message Content Intent** in Discord Developer Portal → Bot section
-3. Restart the bot connection if needed
+1. تحقّق من تفعيل مفتاح **Text DMs** على بطاقة الدمج
+2. فعّل **Message Content Intent** في Discord Developer Portal ← قسم Bot
+3. أعد تشغيل اتصال الروبوت إذا لزم الأمر
 
-## Security
+## الأمان
 
-- Bot tokens are encrypted and stored securely
-- Commands use Discord's built-in signature verification
-- No server data is accessed beyond direct interactions
+- تُشفَّر رموز الروبوت وتُخزَّن بأمان
+- تستخدم الأوامر التحقّق المدمج من التوقيع في Discord
+- لا يُتاح الوصول إلى أي بيانات خادم تتجاوز التفاعلات المباشرة
 
-## Disconnecting
+## قطع الاتصال
 
-To remove the Discord integration:
+لإزالة دمج Discord:
 
-1. Go to **Integrations** in the sidebar
-2. Click the three-dot menu on your Discord bot
-3. Select **Disconnect**
+1. انتقل إلى **Integrations** في الشريط الجانبي
+2. انقر على القائمة ثلاثية النقاط على روبوت Discord الخاص بك
+3. اختر **Disconnect**
 
-To fully remove the bot from Discord:
-1. Go to your Discord server settings
-2. Navigate to **Integrations** → Remove the bot
+لإزالة الروبوت بالكامل من Discord:
+1. انتقل إلى إعدادات خادم Discord الخاص بك
+2. انتقل إلى **Integrations** ← أزل الروبوت

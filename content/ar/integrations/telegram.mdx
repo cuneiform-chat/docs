@@ -1,197 +1,194 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# دمج Telegram
 
-# Telegram Integration
+اربط الـ Agent الخاص بك بـ Telegram ودَع المستخدمين يتحدّثون معه مباشرةً داخل تطبيق Telegram.
 
-Connect your agent to Telegram and let users chat with it directly in the Telegram app.
+## نظرة عامة
 
-## Overview
+يوفّر دمج Telegram ما يلي:
+- ردود بثّ مباشر (Bot API 9.5 `sendMessageDraft` مع آلية احتياطية لتعديل الرسائل)
+- رسائل صوتية تُنسخ تلقائيًا باستخدام Whisper
+- تنسيق MarkdownV2 يُعرض بشكل نظيف في كل مرة
+- حملات الروابط العميقة (deep-link) مع رسائل ترحيب مخصّصة وردود مقترحة
+- تفاعلات إيموجي بنقرة واحدة مع تصنيف المشاعر
+- أوامر slash مدمجة (`/start` و`/help` و`/reset` و`/new`)
+- الرسائل المباشرة ومحادثات المجموعات (جلسات لكل مستخدم في المجموعات)
+- [Storefront مدمج داخل الروبوت](/integrations/telegram-mini-app) — كتالوج منتجات متعدّد الصفحات، ودردشة ذكية لكل منتج، وأخذ طلبات بسيط، كل ذلك داخل Telegram (مجانًا على كل خطة)
+- مساعد طيّار اختياري بـ Telegram Premium لمستخدمي Premium (عملية دمج منفصلة)
+- Saba on Telegram للمشغّلين (عملية دمج منفصلة)
 
-Telegram integration provides:
-- Live streaming replies (Bot API 9.5 `sendMessageDraft` with edit-message fallback)
-- Voice messages transcribed automatically with Whisper
-- MarkdownV2 formatting that renders cleanly every time
-- Deep-link campaigns with custom welcome and suggested replies
-- One-tap emoji reactions with sentiment classification
-- Built-in slash commands (`/start`, `/help`, `/reset`, `/new`)
-- Direct messages and group chats (per-user sessions in groups)
-- A built-in [in-bot Storefront](/integrations/telegram-mini-app) — multipage product catalog, per-product AI chat, and lightweight order-taking, all inside Telegram (free on every plan)
-- Optional Telegram Premium co-pilot for Premium users (separate integration)
-- Saba on Telegram for operators (separate integration)
+## المتطلّبات المسبقة
 
-## Prerequisites
+- حساب Telegram
+- الوصول إلى BotFather (أداة إنشاء الروبوتات في Telegram)
 
-- A Telegram account
-- BotFather access (Telegram's bot creation tool)
+## خطوات الإعداد
 
-## Setup Steps
+### 1. أنشئ روبوت Telegram
 
-### 1. Create a Telegram Bot
+1. افتح Telegram وابحث عن **@BotFather**
+2. ابدأ محادثة وأرسل `/newbot`
+3. اتبع التعليمات:
+   - أدخل اسمًا لروبوتك (مثل "My Support Bot")
+   - أدخل اسم مستخدم (يجب أن ينتهي بـ "bot"، مثل "mysupportbot")
+4. سيمنحك BotFather **رمز الروبوت (Bot Token)** — احفظه بأمان
 
-1. Open Telegram and search for **@BotFather**
-2. Start a chat and send `/newbot`
-3. Follow the prompts:
-   - Enter a name for your bot (e.g., "My Support Bot")
-   - Enter a username (must end in "bot", e.g., "mysupportbot")
-4. BotFather will give you a **Bot Token** — save this securely
+### 2. اربطه بـ Cuneiform Chat
 
-### 2. Connect to Cuneiform Chat
+1. انتقل إلى **Integrations** في الشريط الجانبي
+2. افتح بطاقة **Telegram**
+3. الصق رمز الروبوت (Bot Token)
+4. انقر على **Connect**
 
-1. Go to **Integrations** in the sidebar
-2. Open the **Telegram** card
-3. Paste your Bot Token
-4. Click **Connect**
+### 3. اضبط روبوتك
 
-### 3. Configure Your Bot
+إعدادات اختيارية للروبوت عبر BotFather:
 
-Optional bot settings via BotFather:
+- `/setdescription` — ما يفعله الروبوت
+- `/setabouttext` — معلومات في ملف الروبوت الشخصي
+- `/setuserpic` — صورة الملف الشخصي لروبوتك
 
-- `/setdescription` — What the bot does
-- `/setabouttext` — Information in the bot profile
-- `/setuserpic` — Profile picture for your bot
+### 4. اختبر روبوتك
 
-### 4. Test Your Bot
+1. اعثر على روبوتك في Telegram بالبحث عن اسم المستخدم الخاص به
+2. ابدأ محادثة بـ `/start`
+3. أرسل رسالة وتأكّد من حصولك على رد
 
-1. Find your bot in Telegram by searching its username
-2. Start a conversation with `/start`
-3. Send a message and verify you get a response
-
-## How It Works
+## كيف يعمل
 
 ```
-User sends message → Telegram → Cuneiform Chat → Agent processes → Response sent back
+المستخدم يرسل رسالة → Telegram → Cuneiform Chat → الـ Agent يعالجها → يُرسَل الرد
 ```
 
-Messages are processed in real-time. The agent searches your content and generates responses based on your configuration.
+تُعالَج الرسائل في الوقت الفعلي. يبحث الـ Agent في المحتوى الخاص بك ويولّد الردود بناءً على إعداداتك.
 
-## Features
+## الميزات
 
-### Live streaming replies
+### ردود البثّ المباشر
 
-The bot's reply lands within milliseconds and grows in place as your agent thinks — using Telegram's native `sendMessageDraft` (Bot API 9.5) where supported, with a throttled edit-message fallback elsewhere. No more 5–15 seconds of silence between question and answer.
+يصل رد الروبوت خلال أجزاء من الثانية وينمو في مكانه بينما يفكّر الـ Agent — باستخدام `sendMessageDraft` الأصلي في Telegram (Bot API 9.5) حيثما كان مدعومًا، مع آلية احتياطية مُنظَّمة لتعديل الرسائل في الأماكن الأخرى. لا مزيد من 5–15 ثانية من الصمت بين السؤال والإجابة.
 
-### Voice messages
+### الرسائل الصوتية
 
-Voice notes sent to the bot are transcribed via Whisper and answered as if they'd been typed. Language is auto-detected from the conversation, so short clips in any language stay accurate. Caps at 2 minutes per note. Available on every plan, including the free trial.
+تُنسَخ الملاحظات الصوتية المُرسلة إلى الروبوت عبر Whisper ويُجاب عنها كما لو كانت مكتوبة. تُكتشَف اللغة تلقائيًا من المحادثة، لذا تبقى المقاطع القصيرة بأي لغة دقيقة. الحد الأقصى دقيقتان لكل ملاحظة. متاح على كل خطة، بما في ذلك الفترة التجريبية المجانية.
 
-### MarkdownV2 formatting
+### تنسيق MarkdownV2
 
-Bold, italics, code blocks, lists, and links render exactly as your agent intended — no broken markdown or stray asterisks. Escaping is centralized in the platform so every reply stays clean. MarkdownV2 is the default; HTML mode is available per integration if needed.
+يُعرض النص الغامق والمائل وكتل الكود والقوائم والروابط تمامًا كما قصدها الـ Agent — بلا markdown معطّل أو علامات نجمية شاردة. تُدار آلية الهروب (escaping) مركزيًا في المنصّة بحيث يبقى كل رد نظيفًا. MarkdownV2 هو الوضع الافتراضي؛ ووضع HTML متاح لكل عملية دمج إذا لزم الأمر.
 
-### Deep links and referral campaigns
+### الروابط العميقة وحملات الإحالة
 
-Generate `t.me/your-bot?start=your-code` links from the integration card. Each code can carry a custom welcome message and up to three suggested replies. Click-through, unique users, and conversation conversion are tracked per code — useful for ad campaigns, QR codes, and multi-channel attribution.
+أنشئ روابط `t.me/your-bot?start=your-code` من بطاقة الدمج. يمكن أن يحمل كل رمز رسالة ترحيب مخصّصة وحتى ثلاثة ردود مقترحة. يُتتبّع معدّل النقر والمستخدمون الفريدون وتحويل المحادثة لكل رمز — مفيد للحملات الإعلانية ورموز QR وإسناد القنوات المتعددة.
 
-### One-tap emoji reactions
+### تفاعلات الإيموجي بنقرة واحدة
 
-Users react to bot messages with 👍, ❤, 😡, or any emoji. The bot acknowledges with the right tone via short reaction-acknowledgement replies. A built-in classifier maps any emoji to a positive, negative, or neutral signal you can analyze later. Currently active in DMs.
+يتفاعل المستخدمون مع رسائل الروبوت بـ 👍 أو ❤ أو 😡 أو أي إيموجي. يُقرّ الروبوت بالنبرة الصحيحة عبر ردود قصيرة للإقرار بالتفاعل. يربط مصنّف مدمج أي إيموجي بإشارة إيجابية أو سلبية أو محايدة يمكنك تحليلها لاحقًا. نشط حاليًا في الرسائل المباشرة (DMs).
 
-### Slash commands
+### أوامر slash
 
-The integration registers a default command list with Telegram on connect, so users see `/start`, `/help`, `/reset`, and any custom commands you author in Telegram's native autocomplete menu. `/start`, `/help`, `/reset`, and `/new` are handled inline at zero AI cost. Drag to reorder; up to 32 entries.
+تسجّل عملية الدمج قائمة أوامر افتراضية مع Telegram عند الربط، بحيث يرى المستخدمون `/start` و`/help` و`/reset` وأي أوامر مخصّصة تؤلّفها في قائمة الإكمال التلقائي الأصلية في Telegram. تُعالَج `/start` و`/help` و`/reset` و`/new` ضمنيًا بتكلفة ذكاء اصطناعي صفرية. اسحب لإعادة الترتيب؛ حتى 32 إدخالًا.
 
-### Direct messages
+### الرسائل المباشرة
 
-Users chat with your bot one-on-one for private support conversations. Each user has their own session.
+يتحدّث المستخدمون مع روبوتك وجهًا لوجه لمحادثات دعم خاصة. لكل مستخدم جلسته الخاصة.
 
-### Group chats
+### محادثات المجموعات
 
-Add your bot to group chats:
+أضف روبوتك إلى محادثات المجموعات:
 
-1. Add the bot to a group
-2. Make it an admin (for full message access — see Group Privacy below)
-3. Users mention the bot (`@your_bot`) or reply to its messages
+1. أضف الروبوت إلى مجموعة
+2. اجعله مشرفًا (للوصول الكامل إلى الرسائل — راجع خصوصية المجموعة أدناه)
+3. يذكر المستخدمون الروبوت (`@your_bot`) أو يردّون على رسائله
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  By default, Telegram bots have **Group Privacy** mode ON — the bot only sees messages that mention it directly or reply to its own messages. Toggle it off in BotFather (My bots → your bot → Bot Settings → Group Privacy → Off) if you want the bot to see every message.
+  افتراضيًا، يكون وضع **خصوصية المجموعة (Group Privacy)** مُفعّلًا في روبوتات Telegram — لا يرى الروبوت سوى الرسائل التي تذكره مباشرةً أو ترد على رسائله. أوقف تفعيله في BotFather (My bots ← روبوتك ← Bot Settings ← Group Privacy ← Off) إذا أردت أن يرى الروبوت كل رسالة.
 </Callout>
 
-Each user in a group has their own conversation thread — the bot doesn't mix sessions across members. Forum-topic groups are supported; threads stay scoped to their topic.
+لكل مستخدم في المجموعة سلسلة محادثته الخاصة — لا يخلط الروبوت الجلسات بين الأعضاء. مجموعات مواضيع المنتدى (forum-topic) مدعومة؛ تبقى السلاسل محصورة في موضوعها.
 
-## In-bot Storefront
+## Storefront مدمج داخل الروبوت
 
-Every Telegram bot you connect comes with a built-in **Storefront** — a polished, multipage in-bot website that opens inside Telegram when end users tap the menu button next to the chat composer. Product cards, galleries, videos, themed pages, per-product AI chat, and lightweight order-taking that hands off to a real human in your inbox — all without an app install or a separate website.
+يأتي كل روبوت Telegram تربطه مع **Storefront** مدمج — موقع متعدّد الصفحات داخل الروبوت، أنيق، يُفتح داخل Telegram عندما ينقر المستخدمون النهائيون على زر القائمة بجوار حقل كتابة الرسالة. بطاقات منتجات، ومعارض، وفيديوهات، وصفحات مُنسّقة، ودردشة ذكية لكل منتج، وأخذ طلبات بسيط يُحوَّل إلى إنسان حقيقي في صندوق الوارد لديك — كل ذلك دون تثبيت تطبيق أو موقع منفصل.
 
-Auto-wired on connect: the chat-menu button opens the storefront, labeled **"Shop"** if you publish a product or **"Open"** otherwise. Available on every plan including the free trial.
+يُربَط تلقائيًا عند الاتصال: يفتح زر قائمة الدردشة الـ Storefront، بعنوان **"Shop"** إذا نشرت منتجًا أو **"Open"** بخلاف ذلك. متاح على كل خطة بما في ذلك الفترة التجريبية المجانية.
 
-The full feature guide — composer, blocks, themes, per-product chat, order CTAs, tier limits — lives on a dedicated page:
+دليل الميزة الكامل — المُؤلّف، والكتل (blocks)، والثيمات (themes)، والدردشة لكل منتج، ودعوات إجراء الطلب (order CTAs)، وحدود الخطط — موجود في صفحة مخصّصة:
 
-→ **[Telegram Storefront](/integrations/telegram-mini-app)** for the complete setup, block reference, and customer flow.
+← **[Telegram Storefront](/integrations/telegram-mini-app)** للإعداد الكامل، ومرجع الكتل، وتدفّق العميل.
 
-A small **Help Center** support panel is pinned at the end of the storefront's page menu for ad-hoc FAQ + ask-the-bot shortcuts. Most storefronts don't lean on it heavily — products and order CTAs answer buying-flow questions on the storefront itself. Author entries from the bot card's three-dot menu → **Help Center** (up to ~100 entries, drag-to-reorder, ~5 minute server cache).
+تُثبَّت لوحة دعم صغيرة في **Help Center** في نهاية قائمة صفحات الـ Storefront للأسئلة الشائعة العارضة واختصارات سؤال الروبوت. معظم المتاجر لا تعتمد عليها كثيرًا — فالمنتجات ودعوات الطلب تجيب عن أسئلة تدفّق الشراء على الـ Storefront نفسه. ألّف الإدخالات من القائمة ثلاثية النقاط لبطاقة الروبوت ← **Help Center** (حتى ~100 إدخال، إعادة ترتيب بالسحب، تخزين مؤقت على الخادم ~5 دقائق).
 
-## Telegram Premium co-pilot
+## مساعد طيّار Telegram Premium
 
-Premium-tier Telegram users can have your bot answer DMs **on their personal account** via Telegram's Business mode. The bot replies through the Premium user's `business_connection_id`, so contacts see what looks like the Premium user's own replies — useful for founders, creators, and small teams who get DM'd on their personal accounts all day.
+يمكن لمستخدمي Telegram من فئة Premium أن يجعلوا روبوتك يجيب على الرسائل المباشرة **على حساباتهم الشخصية** عبر وضع Business في Telegram. يرد الروبوت من خلال `business_connection_id` الخاص بمستخدم Premium، فيرى جهات الاتصال ما يبدو وكأنه ردود مستخدم Premium نفسه — مفيد للمؤسّسين والمبدعين والفرق الصغيرة الذين تصلهم رسائل مباشرة على حساباتهم الشخصية طوال اليوم.
 
-Setup is a separate integration in the admin panel ("Telegram Premium co-pilot"). Key invariants:
+الإعداد عملية دمج منفصلة في لوحة الإدارة ("Telegram Premium co-pilot"). الثوابت الأساسية:
 
-- **1 bot = 1 customer agent.** A Telegram bot can only point at one webhook at a time — you can't share a bot with the regular Telegram integration or Saba on Telegram. Create a fresh BotFather bot for Business mode.
-- **BotFather Business Mode toggle is required.** Without it, Premium users see *"this bot doesn't support Telegram Business yet"* when adding it. Toggle it on under Bot Settings → Business Mode.
-- **N Premium users per integration.** Each links once via `/start <code>` in a regular DM with the bot.
-- **DMs only.** Business connections don't cover group chats.
-- **Manual takeover is automatic.** When the Premium user types a reply themselves, the bot pauses on that chat for a sliding window so it doesn't talk over a live conversation.
-- **Connection-level kill switch.** Toggle "Disable auto-reply" on the integration card to pause the bot across every linked Premium user without disconnecting.
+- **روبوت واحد = Agent عميل واحد.** يمكن لروبوت Telegram أن يشير إلى webhook واحد فقط في كل مرة — لا يمكنك مشاركة روبوت مع دمج Telegram العادي أو مع Saba on Telegram. أنشئ روبوت BotFather جديدًا لوضع Business.
+- **تبديل وضع Business في BotFather مطلوب.** بدونه، يرى مستخدمو Premium *"this bot doesn't support Telegram Business yet"* عند إضافته. فعّله ضمن Bot Settings ← Business Mode.
+- **N من مستخدمي Premium لكل عملية دمج.** يربط كل واحد حسابه مرة واحدة عبر `/start <code>` في رسالة مباشرة عادية مع الروبوت.
+- **الرسائل المباشرة فقط.** لا تغطّي اتصالات Business محادثات المجموعات.
+- **الاستلام اليدوي تلقائي.** عندما يكتب مستخدم Premium ردًا بنفسه، يتوقّف الروبوت مؤقتًا في تلك المحادثة لفترة منزلقة كي لا يتحدّث فوق محادثة حية.
+- **مفتاح إيقاف على مستوى الاتصال.** فعّل "Disable auto-reply" على بطاقة الدمج لإيقاف الروبوت مؤقتًا عبر كل مستخدمي Premium المرتبطين دون قطع الاتصال.
 
-See **Connect Premium bot** under the Telegram Premium co-pilot section of the admin panel Integrations page for the full setup playbook.
+راجع **Connect Premium bot** ضمن قسم Telegram Premium co-pilot في صفحة Integrations بلوحة الإدارة للحصول على دليل الإعداد الكامل.
 
 ## Saba on Telegram
 
-Operators can also chat with **Saba** (the platform assistant) from a dedicated Telegram bot. Same permissions and data access as the admin panel — useful when you're away from your laptop and need to check agent stats, billing, or recent activity.
+يمكن للمشغّلين أيضًا التحدّث مع **Saba** (مساعد المنصّة) من روبوت Telegram مخصّص. نفس الصلاحيات ونفس الوصول إلى البيانات كما في لوحة الإدارة — مفيد عندما تكون بعيدًا عن حاسوبك المحمول وتحتاج إلى التحقّق من إحصائيات الـ Agent أو الفوترة أو النشاط الأخير.
 
-Two surfaces over the same channel:
+سطحان فوق نفس القناة:
 
-- **DM bot** — text replies in a regular Telegram DM, with inline action buttons that deep-link back to the right admin-panel page (`?from=saba_telegram` for attribution).
-- **Saba Mini App** — a richer chat surface inside Telegram at `saba-mini.cuneiform.chat` with conversation history, tool-call detail, browser voice input, and markdown export. Every DM reply ships with an "Open in Mini App" inline button to switch surfaces mid-conversation.
+- **روبوت الرسائل المباشرة (DM bot)** — ردود نصية في رسالة Telegram مباشرة عادية، مع أزرار إجراء مدمجة تُحيل عميقًا إلى صفحة لوحة الإدارة الصحيحة (`?from=saba_telegram` للإسناد).
+- **Saba Mini App** — سطح دردشة أغنى داخل Telegram على `saba-mini.cuneiform.chat` مع سجلّ المحادثات وتفاصيل استدعاء الأدوات والإدخال الصوتي عبر المتصفّح والتصدير بصيغة markdown. يأتي كل رد في الرسائل المباشرة مع زر مدمج "Open in Mini App" للتبديل بين الأسطح في منتصف المحادثة.
 
-Setup is admin-side: connect a fresh BotFather bot under "Saba on Telegram" in Integrations. Each org member then links their personal account with a 10-minute code.
+الإعداد من جانب الإدارة: اربط روبوت BotFather جديدًا ضمن "Saba on Telegram" في Integrations. بعد ذلك يربط كل عضو في المؤسّسة حسابه الشخصي برمز صالح لمدة 10 دقائق.
 
-See [Platform Assistant → From Telegram](/getting-started/platform-assistant#from-telegram) for the user-side experience.
+راجع [Platform Assistant ← From Telegram](/getting-started/platform-assistant#from-telegram) لتجربة جانب المستخدم.
 
-## Bot Commands
+## أوامر الروبوت
 
-You can configure custom commands via BotFather:
+يمكنك ضبط أوامر مخصّصة عبر BotFather:
 
-| Command | Description |
+| الأمر | الوصف |
 |---------|-------------|
-| `/start` | Begin conversation |
-| `/help` | Show help message |
-| `/reset` | Reset the current conversation |
-| `/new` | Start a new conversation (alias of `/reset`, handled inline) |
+| `/start` | بدء المحادثة |
+| `/help` | إظهار رسالة المساعدة |
+| `/reset` | إعادة تعيين المحادثة الحالية |
+| `/new` | بدء محادثة جديدة (مرادف لـ `/reset`، يُعالَج ضمنيًا) |
 
-## Troubleshooting
+## استكشاف الأخطاء وإصلاحها
 
-### Bot Not Responding
+### الروبوت لا يستجيب
 
-1. Verify the bot token is correct
-2. Check the integration is connected in Cuneiform Chat
-3. Ensure your agent is properly configured
-4. Test the agent in Playground first
+1. تحقّق من صحة رمز الروبوت (token)
+2. تأكّد من أن عملية الدمج مرتبطة في Cuneiform Chat
+3. تأكّد من أن الـ Agent الخاص بك مُعدّ بشكل صحيح
+4. اختبر الـ Agent في الـ Playground أولًا
 
-### Token Issues
+### مشكلات الرمز (Token)
 
-If you need a new token:
-1. Go to BotFather
-2. Send `/mybots` → Select your bot → **API Token** → **Revoke**
-3. Update the new token in Cuneiform Chat
+إذا احتجت إلى رمز جديد:
+1. انتقل إلى BotFather
+2. أرسل `/mybots` ← اختر روبوتك ← **API Token** ← **Revoke**
+3. حدّث الرمز الجديد في Cuneiform Chat
 
-### Group Chat Issues
+### مشكلات محادثة المجموعة
 
-- Ensure the bot has admin permissions
-- Check privacy mode settings via BotFather (`/setprivacy`)
+- تأكّد من أن للروبوت صلاحيات المشرف
+- تحقّق من إعدادات وضع الخصوصية عبر BotFather (`/setprivacy`)
 
-## Security
+## الأمان
 
-- Bot tokens are encrypted and stored securely
-- Conversations are processed through secure connections
+- تُشفَّر رموز الروبوت وتُخزَّن بأمان
+- تُعالَج المحادثات عبر اتصالات آمنة
 
-## Disconnecting
+## قطع الاتصال
 
-To remove the Telegram integration:
+لإزالة دمج Telegram:
 
-1. Go to **Integrations** in the sidebar
-2. Open the **Telegram** card and click **Disconnect**
+1. انتقل إلى **Integrations** في الشريط الجانبي
+2. افتح بطاقة **Telegram** وانقر على **Disconnect**
 
-This stops the bot from responding but doesn't delete the Telegram bot itself. Delete via BotFather if needed.
+يوقف ذلك الروبوت عن الاستجابة لكنه لا يحذف روبوت Telegram نفسه. احذفه عبر BotFather إذا لزم الأمر.

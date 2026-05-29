@@ -1,160 +1,157 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# دمج Slack
 
-# Slack Integration
+أضف الـ Agent الخاص بك إلى مساحات عمل Slack للوصول على مستوى الفريق.
 
-Add your agent to Slack workspaces for team-wide access.
+## نظرة عامة
 
-## Overview
+يوفّر دمج Slack ما يلي:
+- دعم أوامر slash (`/ask`)
+- محادثات الرسائل المباشرة
+- الإشارات في القنوات (mentions)
+- توفّر على مستوى مساحة العمل
 
-Slack integration provides:
-- Slash command support (`/ask`)
-- Direct message conversations
-- Channel mentions
-- Workspace-wide availability
+## المتطلّبات المسبقة
 
-## Prerequisites
+- صلاحيات مسؤول مساحة عمل Slack أو صلاحيات تثبيت التطبيقات
+- حساب Cuneiform Chat مع Agent نشط
 
-- Slack workspace admin or app installation permissions
-- Cuneiform Chat account with an active agent
+## خطوات الإعداد
 
-## Setup Steps
+### 1. ابدأ إعداد الدمج
 
-### 1. Start Integration Setup
+1. انتقل إلى **Integrations** في الشريط الجانبي
+2. افتح بطاقة **Slack**
+3. انقر على **Add to Slack**
 
-1. Go to **Integrations** in the sidebar
-2. Open the **Slack** card
-3. Click **Add to Slack**
+### 2. صرّح للتطبيق
 
-### 2. Authorize the App
+1. اختر مساحة العمل المراد تثبيتها
+2. راجع الصلاحيات
+3. انقر على **Allow**
 
-1. Select the workspace to install
-2. Review the permissions
-3. Click **Allow**
+### 3. تحقّق من التثبيت
 
-### 3. Verify Installation
+1. افتح Slack
+2. جرّب أمر slash: `/ask Hello`
+3. تحقّق من حصولك على رد
 
-1. Open Slack
-2. Try the slash command: `/ask Hello`
-3. Verify you receive a response
+## استخدام الروبوت
 
-## Using the Bot
+### أوامر slash
 
-### Slash Commands
-
-Use the `/ask` command in any channel:
+استخدم أمر `/ask` في أي قناة:
 
 ```
 /ask What is our refund policy?
 ```
 
-The response appears in the channel.
+يظهر الرد في القناة.
 
-### Direct Messages
+### الرسائل المباشرة
 
-Message the bot directly for private conversations:
+راسل الروبوت مباشرةً للمحادثات الخاصة:
 
-1. Find the app in your Slack sidebar
-2. Open a direct message
-3. Chat naturally
+1. اعثر على التطبيق في الشريط الجانبي في Slack
+2. افتح رسالة مباشرة
+3. تحدّث بشكل طبيعي
 
-### Channel Mentions
+### الإشارات في القنوات
 
-Mention the bot in channels to ask questions:
+أشِر إلى الروبوت في القنوات لطرح الأسئلة:
 
 ```
 @YourBot What are the shipping options?
 ```
 
-## Features
+## الميزات
 
-### Workspace-Wide Access
+### وصول على مستوى مساحة العمل
 
-Once installed, the bot is available to all workspace members.
+بمجرّد التثبيت، يصبح الروبوت متاحًا لكل أعضاء مساحة العمل.
 
-### Thread Replies
+### ردود السلاسل (Threads)
 
-Responses can be posted in threads to keep channels organized.
+يمكن نشر الردود في السلاسل لإبقاء القنوات منظّمة.
 
-### Rich Formatting
+### التنسيق الغني
 
-Responses support Slack's formatting:
-- Bold and italic text
-- Links
-- Code blocks
-- Lists
+تدعم الردود تنسيق Slack:
+- نص غامق ومائل
+- روابط
+- كتل كود
+- قوائم
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  The bot only responds when explicitly invoked (slash command or mention) to avoid noise.
+  يردّ الروبوت فقط عند استدعائه صراحةً (أمر slash أو إشارة) لتجنّب الضوضاء.
 </Callout>
 
-## Configuration Options
+## خيارات الإعداد
 
-From the Slack integration card you can:
+من بطاقة دمج Slack يمكنك:
 
-| Option | Description |
+| الخيار | الوصف |
 |--------|-------------|
-| Default agent | Choose which agent replies when no channel-specific mapping applies |
-| Channel mappings | Route specific Slack channels to specific agents |
-| Channel commands | Manage the slash commands available in your workspace |
+| Default agent | اختر أي Agent يردّ عندما لا ينطبق ربط خاص بقناة |
+| Channel mappings | وجّه قنوات Slack محدّدة إلى Agents محدّدة |
+| Channel commands | أدِر أوامر slash المتاحة في مساحة عملك |
 
-## Multi-Workspace Support
+## دعم مساحات العمل المتعدّدة
 
-You can install the same agent to multiple Slack workspaces:
+يمكنك تثبيت الـ Agent نفسه على مساحات عمل Slack متعدّدة:
 
-1. Each workspace requires separate authorization
-2. All workspaces share the same agent and content
-3. Conversations are tracked separately per workspace
+1. تتطلّب كل مساحة عمل تصريحًا منفصلًا
+2. تتشارك كل مساحات العمل نفس الـ Agent والمحتوى
+3. تُتتبّع المحادثات بشكل منفصل لكل مساحة عمل
 
-## Troubleshooting
+## استكشاف الأخطاء وإصلاحها
 
 ### Command Not Found
 
-If `/ask` doesn't work:
-1. Verify the app is installed in your workspace
-2. Check the app has proper permissions
-3. Try reinstalling the integration
+إذا لم يعمل `/ask`:
+1. تحقّق من تثبيت التطبيق في مساحة عملك
+2. تحقّق من أن للتطبيق الصلاحيات المناسبة
+3. جرّب إعادة تثبيت عملية الدمج
 
-### No Response
+### لا يوجد رد
 
-If the bot doesn't respond:
-1. Verify your agent is configured and working (test in Playground)
-2. Check the Slack integration is connected
-3. Ensure the bot has channel access
+إذا لم يستجب الروبوت:
+1. تحقّق من أن الـ Agent الخاص بك مُعدّ ويعمل (اختبر في الـ Playground)
+2. تحقّق من أن دمج Slack مرتبط
+3. تأكّد من أن للروبوت وصولًا إلى القناة
 
-### Permission Issues
+### مشكلات الصلاحيات
 
-The Slack app requests these OAuth scopes (pre-configured — you grant them all when you click **Allow** during install):
-- `commands` — For slash commands
-- `chat:write` — To send messages
-- `chat:write.customize` — Send messages with custom username/icon
-- `app_mentions:read` — For @ mentions
-- `im:history` — Read direct-message history for context
-- `channels:history` — Read public-channel history for context
-- `channels:read` — List public channels
-- `groups:history` — Read private-channel history for context
-- `mpim:history` — Read group-DM history for context
-- `users:read` — Resolve user names
-- `canvases:write` — Create and edit Slack canvases
-- `assistant:write` — Seed suggested prompts in the Agents & AI Apps pane
+يطلب تطبيق Slack نطاقات OAuth هذه (مُعدّة مسبقًا — تمنحها جميعًا عند النقر على **Allow** أثناء التثبيت):
+- `commands` — لأوامر slash
+- `chat:write` — لإرسال الرسائل
+- `chat:write.customize` — إرسال رسائل باسم مستخدم/أيقونة مخصّصة
+- `app_mentions:read` — لإشارات @
+- `im:history` — قراءة سجلّ الرسائل المباشرة للسياق
+- `channels:history` — قراءة سجلّ القنوات العامة للسياق
+- `channels:read` — سرد القنوات العامة
+- `groups:history` — قراءة سجلّ القنوات الخاصة للسياق
+- `mpim:history` — قراءة سجلّ الرسائل المباشرة الجماعية للسياق
+- `users:read` — تحليل أسماء المستخدمين
+- `canvases:write` — إنشاء وتعديل لوحات Slack (canvases)
+- `assistant:write` — بذر موجّهات مقترحة في جزء Agents & AI Apps
 
-## Security
+## الأمان
 
-- OAuth tokens are encrypted
-- No access to messages except explicit commands/mentions
-- Workspace data remains private
+- تُشفَّر رموز OAuth
+- لا وصول إلى الرسائل باستثناء الأوامر/الإشارات الصريحة
+- تبقى بيانات مساحة العمل خاصة
 
-## Disconnecting
+## قطع الاتصال
 
-To remove the Slack integration:
+لإزالة دمج Slack:
 
-1. **From Cuneiform Chat:**
-   - Integrations (sidebar) → Slack → Disconnect
+1. **من Cuneiform Chat:**
+   - Integrations (الشريط الجانبي) ← Slack ← Disconnect
 
-2. **From Slack:**
-   - Go to workspace settings
-   - Apps → Find the app → Remove
+2. **من Slack:**
+   - انتقل إلى إعدادات مساحة العمل
+   - Apps ← اعثر على التطبيق ← Remove
 
-Both steps ensure complete removal.
+تضمن كلتا الخطوتين الإزالة الكاملة.
