@@ -45,7 +45,7 @@ Use the `/ask` command in any channel:
 /ask What is our refund policy?
 ```
 
-The response appears in the channel (or as an ephemeral message, depending on settings).
+The response appears in the channel.
 
 ### Direct Messages
 
@@ -89,16 +89,13 @@ import { Callout } from 'nextra/components'
 
 ## Configuration Options
 
-### Response Settings
+From the Slack integration card you can:
 
-| Setting | Description |
-|---------|-------------|
-| Response type | In-channel or ephemeral |
-| Thread behavior | Reply in thread or main channel |
-
-### Channel Restrictions
-
-Optionally restrict the bot to specific channels for focused use.
+| Option | Description |
+|--------|-------------|
+| Default agent | Choose which agent replies when no channel-specific mapping applies |
+| Channel mappings | Route specific Slack channels to specific agents |
+| Channel commands | Manage the slash commands available in your workspace |
 
 ## Multi-Workspace Support
 
@@ -137,6 +134,8 @@ The Slack app requests these OAuth scopes (pre-configured — you grant them all
 - `groups:history` — Read private-channel history for context
 - `mpim:history` — Read group-DM history for context
 - `users:read` — Resolve user names
+- `canvases:write` — Create and edit Slack canvases
+- `assistant:write` — Seed suggested prompts in the Agents & AI Apps pane
 
 ## Security
 
