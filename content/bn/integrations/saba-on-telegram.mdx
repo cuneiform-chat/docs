@@ -1,87 +1,84 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Saba on Telegram
 
-Connect a dedicated Telegram bot so members of your organization can chat with **Saba** — the Cuneiform Chat platform assistant — right from Telegram. Same answers and same data access as Saba inside the admin panel, just on your phone.
+একটি নিবেদিত Telegram bot সংযুক্ত করুন যাতে আপনার organization-এর সদস্যরা Telegram থেকেই **Saba**-র সাথে — Cuneiform Chat platform assistant — chat করতে পারে। admin panel-এর ভেতরের Saba-র মতোই একই উত্তর ও একই data access, শুধু আপনার ফোনে।
 
-## Overview
+## সংক্ষিপ্ত বিবরণ
 
-Saba on Telegram lets your team:
+Saba on Telegram আপনার team-কে দেয়:
 
-- Ask Saba about agents, conversations, billing, usage, and integrations from a Telegram DM
-- Send voice notes — Saba transcribes and answers them like typed questions
-- Tap follow-up suggestions Saba surfaces under each reply
-- Switch mid-thread to the **Saba Mini App** (a richer chat surface inside Telegram) via an inline button under every reply
-- Use slash commands (`/agents`, `/analytics`, `/usage`, `/billing`, `/integrations`, `/conversations`, `/health`, `/help`, `/new`, `/clear`, `/reset`)
+- একটি Telegram DM থেকে agent, conversation, billing, usage ও integration সম্পর্কে Saba-কে জিজ্ঞাসা করার সুযোগ
+- voice note পাঠানো — Saba সেগুলো transcribe করে এবং টাইপ করা প্রশ্নের মতো উত্তর দেয়
+- প্রতিটি reply-এর নিচে Saba যে follow-up suggestion দেখায় তাতে tap করা
+- প্রতিটি reply-এর নিচে একটি inline button-এর মাধ্যমে thread-এর মাঝপথে **Saba Mini App**-এ (Telegram-এর ভেতরে একটি আরও সমৃদ্ধ chat surface) switch করা
+- slash command ব্যবহার করা (`/agents`, `/analytics`, `/usage`, `/billing`, `/integrations`, `/conversations`, `/health`, `/help`, `/new`, `/clear`, `/reset`)
 
-This is **not** a customer-facing channel — it's purely for org members. End users never interact with this bot.
+এটি একটি customer-facing channel **নয়** — এটি সম্পূর্ণভাবে org সদস্যদের জন্য। End user-রা কখনো এই bot-এর সাথে interact করে না।
 
-## How it differs from the regular Telegram integration
+## regular Telegram integration থেকে এটি কীভাবে আলাদা
 
 | | Telegram | Saba on Telegram |
 |---|----------|------------------|
-| Who chats with the bot? | Your end users | Your org members (admins, operators) |
-| What does it do? | Runs your AI agent | Runs Saba (platform assistant) |
-| Where? | DMs and group chats | Private DMs only |
-| Per-user link required? | No — anyone can chat | Yes — each member links their account once |
+| কে bot-এর সাথে chat করে? | আপনার end user-রা | আপনার org সদস্যরা (admin, operator) |
+| এটি কী করে? | আপনার AI agent চালায় | Saba চালায় (platform assistant) |
+| কোথায়? | DM ও group chat | শুধু ব্যক্তিগত DM |
+| Per-user link প্রয়োজন? | না — যে কেউ chat করতে পারে | হ্যাঁ — প্রতিটি সদস্য একবার তাদের account link করে |
 
-If you want to deploy your agent to end users, see [Telegram Integration](/integrations/telegram). This page is about the operator-facing bot.
+আপনি যদি আপনার agent-কে end user-দের কাছে deploy করতে চান, [Telegram Integration](/integrations/telegram) দেখুন। এই page-টি operator-facing bot সম্পর্কে।
 
-## Prerequisites
+## পূর্বশর্ত
 
-- A Telegram account
-- An organization with at least one admin member
-- A fresh BotFather bot dedicated to Saba (you cannot reuse a bot already connected to the regular Telegram integration — one webhook per bot)
+- একটি Telegram account
+- অন্তত একজন admin সদস্য সহ একটি organization
+- Saba-র জন্য নিবেদিত একটি নতুন BotFather bot (regular Telegram integration-এর সাথে ইতিমধ্যে সংযুক্ত একটি bot পুনরায় ব্যবহার করা যাবে না — প্রতি bot-এ একটি webhook)
 
-## Setup Steps
+## সেটআপ ধাপসমূহ
 
-### 1. Create a dedicated bot in BotFather
+### ১. BotFather-এ একটি নিবেদিত bot তৈরি করুন
 
-1. Open Telegram and search for **@BotFather**
-2. Send `/newbot`
-3. Pick a name and username — something like `acme-saba-bot` makes its purpose obvious
-4. Copy the **Bot Token** BotFather replies with
+1. Telegram খুলুন এবং **@BotFather** সার্চ করুন
+2. `/newbot` পাঠান
+3. একটি নাম ও username বেছে নিন — `acme-saba-bot`-এর মতো কিছু এর উদ্দেশ্য স্পষ্ট করে
+4. BotFather যে **Bot Token** দিয়ে reply দেয় তা copy করুন
 
 import { Callout } from 'nextra/components'
 
 <Callout type="warning">
-  Use a brand-new bot. A Telegram bot can only point at one webhook at a time, so you can't share it with your customer-facing Telegram integration or with Telegram Business mode.
+  একটি একদম নতুন bot ব্যবহার করুন। একটি Telegram bot একসাথে শুধু একটি webhook-এ point করতে পারে, তাই আপনি এটি আপনার customer-facing Telegram integration বা Telegram Business mode-এর সাথে share করতে পারবেন না।
 </Callout>
 
-### 2. Connect the bot
+### ২. bot সংযুক্ত করুন
 
-1. In Cuneiform Chat, open **Integrations** in the sidebar
-2. Find the **Saba on Telegram** card
-3. Click **Connect Saba Bot**
-4. Paste the bot token and submit
+1. Cuneiform Chat-এ, sidebar-এ **Integrations** খুলুন
+2. **Saba on Telegram** card খুঁজুন
+3. **Connect Saba Bot**-এ click করুন
+4. bot token paste করুন এবং submit করুন
 
-The platform validates the token, registers the webhook, and lights up the card.
+platform token-টি validate করে, webhook register করে এবং card-টি সক্রিয় করে।
 
-### 3. Link your account
+### ৩. আপনার account link করুন
 
-Each member of your org needs to link their personal Telegram account once.
+আপনার org-এর প্রতিটি সদস্যকে একবার তাদের ব্যক্তিগত Telegram account link করতে হবে।
 
-1. On the Saba on Telegram card, click **Link my account**
-2. Copy the 10-minute code that appears (or scan the QR code)
-3. Open the bot in Telegram
-4. Send `/start <your-code>` — Saba confirms the link
+1. Saba on Telegram card-এ, **Link my account**-এ click করুন
+2. যে ১০-মিনিটের code আসে তা copy করুন (অথবা QR code scan করুন)
+3. Telegram-এ bot খুলুন
+4. `/start <your-code>` পাঠান — Saba link নিশ্চিত করে
 
-Codes are single-use and expire after 10 minutes. If yours expires, click **Link my account** again to generate a fresh one.
+Code single-use এবং ১০ মিনিট পরে মেয়াদ শেষ হয়। আপনারটির মেয়াদ শেষ হলে, একটি নতুন তৈরি করতে আবার **Link my account**-এ click করুন।
 
-### 4. Have other admins link themselves
+### ৪. অন্য admin-দের নিজেদের link করতে বলুন
 
-Send teammates the bot's `t.me/<bot-username>` link and ask them to:
+Teammate-দের bot-এর `t.me/<bot-username>` link পাঠান এবং তাদের বলুন:
 
-1. Visit the same Saba on Telegram card in their own admin panel session
-2. Generate their own link code
-3. DM the bot with `/start <code>`
+1. তাদের নিজস্ব admin panel session-এ একই Saba on Telegram card-এ যেতে
+2. তাদের নিজস্ব link code তৈরি করতে
+3. `/start <code>` দিয়ে bot-কে DM করতে
 
-Each linked member's Telegram account is bound to their org membership — Saba enforces the same role-based permissions it does inside the admin panel.
+প্রতিটি linked সদস্যের Telegram account তাদের org membership-এর সাথে আবদ্ধ — Saba admin panel-এর ভেতরে যেভাবে করে সেভাবেই একই role-based permission প্রয়োগ করে।
 
-## Using the bot
+## bot ব্যবহার করা
 
-### Ask anything Saba can answer in the panel
+### panel-এ Saba যা উত্তর দিতে পারে যেকোনো কিছু জিজ্ঞাসা করুন
 
 ```
 How many agents do I have?
@@ -89,71 +86,71 @@ What did we spend on Telegram last week?
 Show me failing integrations.
 ```
 
-Saba reads from your org's data and replies inline.
+Saba আপনার org-এর data থেকে পড়ে এবং inline reply দেয়।
 
-### Voice notes
+### voice note
 
-Send a voice note up to 2 minutes. Whisper transcribes it, and Saba answers as if you'd typed the question. Useful when you're walking, driving, or just don't want to type.
+২ মিনিট পর্যন্ত একটি voice note পাঠান। Whisper এটি transcribe করে, এবং Saba এমনভাবে উত্তর দেয় যেন আপনি প্রশ্নটি টাইপ করেছেন। আপনি হাঁটার সময়, গাড়ি চালানোর সময়, বা যখন শুধু টাইপ করতে চান না তখন উপযোগী।
 
-### Slash commands
+### slash command
 
-Type `/` in the chat to see the autocomplete menu. Saba registers a default set of commands when you connect the bot:
+autocomplete menu দেখতে chat-এ `/` টাইপ করুন। আপনি bot সংযুক্ত করার সময় Saba command-এর একটি default set register করে:
 
-| Command | What it does |
-|---------|--------------|
-| `/help` | Show capabilities and the command list |
-| `/new`, `/clear`, `/reset` | Start a fresh conversation (clears conversation memory) |
-| `/agents` | Summarize your agents |
-| `/analytics` | Recent analytics overview |
-| `/usage` | Current usage and quotas |
-| `/billing` | Subscription and recent charges |
-| `/integrations` | Status of every connected channel |
-| `/conversations` | Recent conversation activity |
-| `/health` | Workspace health summary |
+| Command | এটি কী করে |
+|---------|------------|
+| `/help` | সক্ষমতা ও command তালিকা দেখায় |
+| `/new`, `/clear`, `/reset` | একটি নতুন কথোপকথন শুরু করে (conversation memory পরিষ্কার করে) |
+| `/agents` | আপনার agent-গুলোর সারসংক্ষেপ দেয় |
+| `/analytics` | সাম্প্রতিক analytics-এর সংক্ষিপ্ত বিবরণ |
+| `/usage` | বর্তমান usage ও quota |
+| `/billing` | Subscription ও সাম্প্রতিক charge |
+| `/integrations` | প্রতিটি সংযুক্ত channel-এর status |
+| `/conversations` | সাম্প্রতিক কথোপকথন কার্যকলাপ |
+| `/health` | Workspace-এর health সারসংক্ষেপ |
 
-### Follow-up suggestions
+### follow-up suggestion
 
-Each Saba reply ends with up to three follow-up question buttons. Tap one to send it to Saba without retyping. The buttons are valid for 24 hours after the reply lands.
+প্রতিটি Saba reply তিনটি পর্যন্ত follow-up প্রশ্নের button দিয়ে শেষ হয়। পুনরায় টাইপ না করে Saba-কে পাঠাতে একটিতে tap করুন। reply আসার পর button-গুলো ২৪ ঘণ্টা valid থাকে।
 
-### Open in Mini App
+### Mini App-এ খুলুন
 
-Every reply also has an **Open in Mini App** button. Tap it to switch to the Saba Mini App — a richer chat surface inside Telegram with conversation history, tool-call detail, and a markdown export. Both surfaces share the same conversation, so you can flip between them anytime.
+প্রতিটি reply-এ একটি **Open in Mini App** button-ও রয়েছে। Saba Mini App-এ switch করতে এটি tap করুন — Telegram-এর ভেতরে কথোপকথনের ইতিহাস, tool-call detail ও একটি markdown export সহ একটি আরও সমৃদ্ধ chat surface। দুটি surface-ই একই কথোপকথন share করে, তাই আপনি যেকোনো সময় এদের মধ্যে অদলবদল করতে পারেন।
 
-## Configuration Options
+## Configuration অপশন
 
-### Resync slash commands
+### slash command resync করুন
 
-If Telegram's slash menu falls out of sync (rare — can happen if the command list was updated server-side after your bot was connected), open the three-dot menu on the Saba on Telegram card and pick **Resync slash commands**. The platform re-pushes the canonical set to BotFather.
+Telegram-এর slash menu sync-এর বাইরে চলে গেলে (বিরল — আপনার bot সংযুক্ত হওয়ার পরে command তালিকা server-side update করা হলে ঘটতে পারে), Saba on Telegram card-এ three-dot menu খুলুন এবং **Resync slash commands** বেছে নিন। platform canonical set-টি আবার BotFather-এ push করে।
 
 ### Disconnect
 
-To remove the integration:
+integration সরাতে:
 
-1. **From Cuneiform Chat:** Integrations → Saba on Telegram card → three-dot menu → **Delete**
-2. **From Telegram (optional):** delete the bot via BotFather (`/mybots` → select bot → **Delete bot**)
+1. **Cuneiform Chat থেকে:** Integrations → Saba on Telegram card → three-dot menu → **Delete**
+2. **Telegram থেকে (ঐচ্ছিক):** BotFather-এর মাধ্যমে bot delete করুন (`/mybots` → bot নির্বাচন করুন → **Delete bot**)
 
-Disconnecting removes every member's link and stops the bot from responding. The Telegram bot itself stays in BotFather unless you delete it there too.
+Disconnect করলে প্রতিটি সদস্যের link সরে যায় এবং bot-কে response দেওয়া থেকে থামায়। আপনি BotFather-এ এটি delete না করলে Telegram bot নিজে সেখানেই থাকে।
 
-## Read-only by design
+## নকশা অনুসারে read-only
 
-Saba on Telegram answers questions and surfaces information — it does **not** mutate your org's data. You can ask "what's failing?" but you can't say "fix it" through Telegram. Use the admin panel for write actions like editing an agent, changing billing, or deleting a conversation.
+Saba on Telegram প্রশ্নের উত্তর দেয় এবং তথ্য তুলে ধরে — এটি আপনার org-এর data পরিবর্তন **করে না**। আপনি জিজ্ঞাসা করতে পারেন "কী ব্যর্থ হচ্ছে?" কিন্তু Telegram-এর মাধ্যমে "এটি ঠিক করো" বলতে পারবেন না। একটি agent edit করা, billing পরিবর্তন করা, বা একটি কথোপকথন delete করার মতো write action-এর জন্য admin panel ব্যবহার করুন।
 
-## Tips
+## পরামর্শ
 
 <Callout type="info">
-  Each member's link is per-bot. If you connect a new Saba bot later (for example, after changing the bot's name), members need to re-link via the new bot's `/start <code>` flow.
+  প্রতিটি সদস্যের link per-bot। আপনি যদি পরে একটি নতুন Saba bot সংযুক্ত করেন (উদাহরণস্বরূপ, bot-এর নাম পরিবর্তন করার পরে), সদস্যদের নতুন bot-এর `/start <code>` flow-এর মাধ্যমে পুনরায় link করতে হবে।
 </Callout>
 
 <Callout type="info">
-  Saba on Telegram uses private DMs only. Adding the bot to a group chat will simply be ignored — keeps every inbound message bound to one identifiable member.
+  Saba on Telegram শুধু ব্যক্তিগত DM ব্যবহার করে। একটি group chat-এ bot যোগ করলে তা কেবল উপেক্ষা করা হবে — প্রতিটি inbound message একজন শনাক্তযোগ্য সদস্যের সাথে আবদ্ধ রাখে।
 </Callout>
 
 <Callout type="tip">
-  Pair Saba on Telegram with the Mini App for the best experience: quick questions in the DM, deep dives in the Mini App. Same conversation, different surfaces.
+  সেরা অভিজ্ঞতার জন্য Saba on Telegram-কে Mini App-এর সাথে যুক্ত করুন: DM-এ দ্রুত প্রশ্ন, Mini App-এ গভীর অনুসন্ধান। একই কথোপকথন, ভিন্ন surface।
 </Callout>
 
-## Related
+## সম্পর্কিত
 
-- [Platform Assistant](/getting-started/platform-assistant) — the user-side overview of Saba (panel, DM, Mini App)
-- [Telegram](/integrations/telegram) — the customer-facing Telegram channel for your agents
-- [Telegram Storefront](/integrations/telegram-mini-app) — in-bot storefront on every customer Telegram bot (different feature)
+- [Platform Assistant](/getting-started/platform-assistant) — Saba-র user-side সংক্ষিপ্ত বিবরণ (panel, DM, Mini App)
+- [Telegram](/integrations/telegram) — আপনার agent-দের জন্য customer-facing Telegram channel
+- [Telegram Storefront](/integrations/telegram-mini-app) — প্রতিটি customer Telegram bot-এ in-bot storefront (ভিন্ন feature)

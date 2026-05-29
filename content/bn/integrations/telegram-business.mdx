@@ -1,172 +1,169 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Telegram Premium co-pilot
 
-Let your AI agent reply to DMs **on a Telegram Premium user's personal account**. Their contacts see what looks like the Premium user's own replies — perfect for founders, creators, solopreneurs, and small teams whose customers DM them directly on their personal Telegram.
+আপনার AI agent-কে **একজন Telegram Premium user-এর ব্যক্তিগত account-এ** DM-এর reply দিতে দিন। তাদের contact-রা যা দেখে তা Premium user-এর নিজের reply-এর মতোই — যেসব founder, creator, solopreneur ও ছোট team-এর customer-রা তাদের ব্যক্তিগত Telegram-এ সরাসরি DM করে তাদের জন্য একদম উপযুক্ত।
 
-## Overview
+## সংক্ষিপ্ত বিবরণ
 
-Telegram Premium co-pilot provides:
+Telegram Premium co-pilot প্রদান করে:
 
-- AI replies sent through the Premium user's `business_connection`, so the response appears to come from them
-- Per-Premium-user linking — one bot can support several Premium users in the same org
-- Automatic manual takeover — when the Premium user types a reply themselves, the bot pauses on that chat for a sliding window so it doesn't talk over a live conversation
-- Connection-level kill switch to silence the bot across every linked user without disconnecting
-- Voice-note transcription and live-streaming replies, same as the regular Telegram channel
+- Premium user-এর `business_connection`-এর মাধ্যমে পাঠানো AI reply, যাতে response তাদের কাছ থেকেই এসেছে বলে মনে হয়
+- Per-Premium-user linking — একটি bot একই org-এর একাধিক Premium user-কে সমর্থন করতে পারে
+- স্বয়ংক্রিয় manual takeover — Premium user যখন নিজে একটি reply টাইপ করেন, তখন bot সেই chat-এ একটি sliding window-এর জন্য থেমে যায় যাতে একটি চলমান কথোপকথনের উপর কথা না বলে
+- Disconnect না করেই প্রতিটি linked user জুড়ে bot-কে চুপ করানোর জন্য connection-level kill switch
+- Voice-note transcription ও live-streaming reply, regular Telegram channel-এর মতোই
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  "Premium" here refers to the Telegram user's account tier (Telegram Premium subscription, required to enable Business Mode). It's not your Cuneiform Chat plan — most Cuneiform Chat plans support this integration based on your plan.
+  এখানে "Premium" বলতে Telegram user-এর account tier বোঝায় (Telegram Premium subscription, Business Mode সক্রিয় করতে আবশ্যক)। এটি আপনার Cuneiform Chat plan নয় — বেশিরভাগ Cuneiform Chat plan আপনার plan-এর ভিত্তিতে এই integration সমর্থন করে।
 </Callout>
 
-## How it differs from regular Telegram
+## regular Telegram থেকে এটি কীভাবে আলাদা
 
-The regular [Telegram integration](/integrations/telegram) connects an agent to **a bot's own inbox** — your end users DM the bot directly at `t.me/<bot>`. Telegram Premium co-pilot is the opposite: the bot replies on a **person's personal Telegram account**, intercepting DMs that come into that person's normal chat list.
+regular [Telegram integration](/integrations/telegram) একটি agent-কে **একটি bot-এর নিজস্ব inbox**-এর সাথে সংযুক্ত করে — আপনার end user-রা সরাসরি `t.me/<bot>`-এ bot-কে DM করে। Telegram Premium co-pilot ঠিক উল্টো: bot **একজন ব্যক্তির ব্যক্তিগত Telegram account**-এ reply দেয়, সেই ব্যক্তির স্বাভাবিক chat list-এ আসা DM-গুলো intercept করে।
 
 | | Telegram | Telegram Premium co-pilot |
 |---|----------|----------------------------|
-| Who do contacts message? | The bot (`t.me/<bot>`) | The Premium user's personal account |
-| What do contacts see? | Replies from the bot | Replies that look like they come from the Premium user |
-| One bot supports… | Unlimited end users | N Premium users in your org (one row each) |
-| Group chats? | Yes | No — DMs only |
-| Manual takeover? | N/A | Auto-pauses when the Premium user types |
+| Contact-রা কাকে message করে? | bot-কে (`t.me/<bot>`) | Premium user-এর ব্যক্তিগত account |
+| Contact-রা কী দেখে? | bot থেকে reply | যেসব reply Premium user-এর কাছ থেকে এসেছে বলে মনে হয় |
+| একটি bot সমর্থন করে… | সীমাহীন end user | আপনার org-এ N জন Premium user (প্রত্যেকে একটি করে row) |
+| Group chat? | হ্যাঁ | না — শুধু DM |
+| Manual takeover? | প্রযোজ্য নয় | Premium user টাইপ করলে auto-pause হয় |
 
-## Prerequisites
+## পূর্বশর্ত
 
-- A Telegram account with **Telegram Premium** for each user who wants the bot to reply for them
-- A fresh BotFather bot — **dedicated to Business mode** (cannot be reused by another integration)
-- A Cuneiform Chat agent that's already configured and tested in the Playground
+- প্রতিটি user-এর জন্য একটি **Telegram Premium** সহ Telegram account, যিনি চান bot তাদের হয়ে reply দিক
+- একটি নতুন BotFather bot — **Business mode-এর জন্য নিবেদিত** (অন্য কোনো integration-এর সাথে পুনরায় ব্যবহার করা যাবে না)
+- একটি Cuneiform Chat agent যা ইতিমধ্যে Playground-এ configure ও test করা হয়েছে
 
-## Setup Steps
+## সেটআপ ধাপসমূহ
 
-### 1. Create a dedicated bot in BotFather
+### ১. BotFather-এ একটি নিবেদিত bot তৈরি করুন
 
-1. Open Telegram, search for **@BotFather**, and send `/newbot`
-2. Pick a name and username
-3. Copy the **Bot Token**
+1. Telegram খুলুন, **@BotFather** সার্চ করুন এবং `/newbot` পাঠান
+2. একটি নাম ও username বেছে নিন
+3. **Bot Token** copy করুন
 
-### 2. Enable Business Mode on the bot
+### ২. bot-এ Business Mode সক্রিয় করুন
 
-This step is what makes the bot eligible to reply on a Premium user's account. Without it, Premium users see *"this bot doesn't support Telegram Business yet"* when adding it.
+এই ধাপটিই bot-কে একজন Premium user-এর account-এ reply দেওয়ার যোগ্য করে তোলে। এটি ছাড়া, Premium user-রা bot যোগ করার সময় *"this bot doesn't support Telegram Business yet"* দেখে।
 
-1. In BotFather, send `/mybots` and select your new bot
-2. Pick **Bot Settings** → **Business Mode**
-3. Toggle it **ON**
+1. BotFather-এ `/mybots` পাঠান এবং আপনার নতুন bot নির্বাচন করুন
+2. **Bot Settings** → **Business Mode** বেছে নিন
+3. এটি **ON** করুন
 
 <Callout type="warning">
-  Business Mode is per-bot. If you forget to enable it, every Premium-user link attempt fails silently with the message above. Re-toggle it and the link works on the next try.
+  Business Mode per-bot। আপনি এটি সক্রিয় করতে ভুলে গেলে, প্রতিটি Premium-user link প্রচেষ্টা উপরের message সহ নীরবে ব্যর্থ হয়। এটি আবার toggle করুন এবং পরের চেষ্টায় link কাজ করবে।
 </Callout>
 
-### 3. Connect the bot in Cuneiform Chat
+### ৩. Cuneiform Chat-এ bot সংযুক্ত করুন
 
-1. In Cuneiform Chat, open **Integrations** in the sidebar
-2. Find the **Telegram Premium co-pilot** card
-3. Click **Connect Premium bot**
-4. Pick the **Agent** that should answer DMs (you can change this later)
-5. Paste the bot token and submit
+1. Cuneiform Chat-এ, sidebar-এ **Integrations** খুলুন
+2. **Telegram Premium co-pilot** card খুঁজুন
+3. **Connect Premium bot**-এ click করুন
+4. কোন **Agent** DM-এর উত্তর দেবে তা বেছে নিন (আপনি পরে এটি পরিবর্তন করতে পারবেন)
+5. bot token paste করুন এবং submit করুন
 
-### 4. Premium users link their personal accounts
+### ৪. Premium user-রা তাদের ব্যক্তিগত account link করেন
 
-Each Premium user who wants the bot to reply for them does this once:
+প্রতিটি Premium user যিনি চান bot তাদের হয়ে reply দিক, তিনি একবার এটি করেন:
 
-1. On the Telegram Premium card, click **Link a Premium user** — a 10-minute code appears (with a QR shortcut)
-2. The Premium user opens **Telegram → Settings → Business → Chatbots**
-3. Adds your bot's username and enables it
-4. Opens a regular DM with the bot and sends `/start <code>`
-5. The bot replies with a confirmation
+1. Telegram Premium card-এ, **Link a Premium user**-এ click করুন — একটি ১০-মিনিটের code আসে (একটি QR shortcut সহ)
+2. Premium user **Telegram → Settings → Business → Chatbots** খোলেন
+3. আপনার bot-এর username যোগ করেন এবং এটি সক্রিয় করেন
+4. bot-এর সাথে একটি regular DM খোলেন এবং `/start <code>` পাঠান
+5. bot একটি confirmation দিয়ে reply দেয়
 
-Once the link is in place, every contact who DMs the Premium user gets AI replies — except when the Premium user types a reply themselves (see Manual takeover below).
+একবার link সম্পন্ন হলে, Premium user-কে DM করা প্রতিটি contact AI reply পায় — শুধু তখনই নয় যখন Premium user নিজে একটি reply টাইপ করেন (নিচের Manual takeover দেখুন)।
 
-## Features
+## বৈশিষ্ট্যসমূহ
 
-### Replies on the Premium user's account
+### Premium user-এর account-এ reply
 
-When a contact DMs the Premium user, Telegram delivers a `business_message` event to the bot via the Premium user's `business_connection`. The bot calls the agent, then sends the reply back through the same connection — so the contact sees the message in the existing thread, attributed to the Premium user. No new bot conversation is created on the contact's side.
+একজন contact যখন Premium user-কে DM করে, Telegram Premium user-এর `business_connection`-এর মাধ্যমে bot-কে একটি `business_message` event পাঠায়। bot agent-কে call করে, তারপর একই connection-এর মাধ্যমে reply ফেরত পাঠায় — তাই contact বিদ্যমান thread-এ message-টি দেখে, Premium user-এর নামে। Contact-এর দিকে কোনো নতুন bot কথোপকথন তৈরি হয় না।
 
-### Automatic manual takeover
+### স্বয়ংক্রিয় manual takeover
 
-The moment the Premium user types and sends a reply themselves in any chat, the bot pauses on **that chat** for a sliding window. The window resets every time the Premium user types again, so the bot stays silent for as long as the live conversation continues. After the silence period, the bot resumes auto-replying.
+Premium user যে মুহূর্তে যেকোনো chat-এ নিজে একটি reply টাইপ করে পাঠান, bot **সেই chat**-এ একটি sliding window-এর জন্য থেমে যায়। Premium user আবার টাইপ করলেই window reset হয়, তাই চলমান কথোপকথন যতক্ষণ চলে bot ততক্ষণ চুপ থাকে। নীরবতার সময়ের পরে, bot আবার auto-reply শুরু করে।
 
-This means the Premium user doesn't have to explicitly toggle the bot off when jumping into a conversation — the bot just steps aside.
+এর মানে Premium user-কে একটি কথোপকথনে ঢোকার সময় স্পষ্টভাবে bot বন্ধ করতে হয় না — bot এমনিতেই সরে দাঁড়ায়।
 
-### Connection-level kill switch
+### connection-level kill switch
 
-If the Premium user wants to disable AI replies across **every** chat without unlinking:
+Premium user যদি unlink না করেই **প্রতিটি** chat জুড়ে AI reply disable করতে চান:
 
-1. Open the Telegram Premium card in Cuneiform Chat
-2. Toggle **Disable auto-reply** on
+1. Cuneiform Chat-এ Telegram Premium card খুলুন
+2. **Disable auto-reply** toggle on করুন
 
-The integration stays connected (no need to re-link) but the bot replies to nothing. Toggle it back on to resume.
+Integration সংযুক্ত থাকে (পুনরায় link করার প্রয়োজন নেই) কিন্তু bot কিছুতেই reply দেয় না। আবার শুরু করতে এটি back on করুন।
 
-### Voice notes and rich formatting
+### Voice note ও rich formatting
 
-Voice notes from contacts are transcribed via Whisper and answered like typed messages. Replies render in MarkdownV2 with bold, italics, code blocks, and links — same toolkit as the regular Telegram channel.
+Contact-দের voice note Whisper-এর মাধ্যমে transcribe করা হয় এবং টাইপ করা message-এর মতো উত্তর দেওয়া হয়। Reply MarkdownV2-তে bold, italic, code block ও link সহ render হয় — regular Telegram channel-এর মতো একই toolkit।
 
-## Configuration Options
+## Configuration অপশন
 
-### Per-integration settings
+### Per-integration setting
 
-| Setting | Description |
-|---------|-------------|
-| Agent | Which agent answers DMs across all linked Premium users for this bot |
-| Auto-reply enabled | Connection-level kill switch (toggle on the card) |
+| Setting | বিবরণ |
+|---------|-------|
+| Agent | এই bot-এর জন্য সব linked Premium user জুড়ে কোন agent DM-এর উত্তর দেয় |
+| Auto-reply enabled | connection-level kill switch (card-এ toggle) |
 
-### Per-link controls
+### Per-link control
 
-Each Premium-user row on the card shows:
+card-এ প্রতিটি Premium-user row দেখায়:
 
-- The linked user's display name
-- Last activity timestamp
-- A delete control to unlink that user (the bot stops replying for them; their contacts go back to seeing nothing from the bot)
+- linked user-এর display name
+- শেষ activity-র timestamp
+- সেই user-কে unlink করার একটি delete control (bot তাদের জন্য reply দেওয়া বন্ধ করে; তাদের contact-রা আবার bot থেকে কিছুই না দেখা অবস্থায় ফিরে যায়)
 
-## Tips
+## পরামর্শ
 
 <Callout type="info">
-  **One bot, one agent.** If you want different agents for different Premium users, create separate bots — one per agent. The Business Mode toggle and link flow have to be repeated per bot.
+  **One bot, one agent.** আপনি যদি ভিন্ন Premium user-দের জন্য ভিন্ন agent চান, আলাদা bot তৈরি করুন — প্রতি agent-এ একটি। Business Mode toggle ও link flow প্রতি bot-এ পুনরাবৃত্তি করতে হবে।
 </Callout>
 
 <Callout type="info">
-  **Group chats are out of scope.** Telegram's Business connections only cover private DMs. The bot ignores group messages even when added to one.
+  **Group chat scope-এর বাইরে।** Telegram-এর Business connection শুধু ব্যক্তিগত DM cover করে। bot একটি group-এ যোগ করা হলেও group message উপেক্ষা করে।
 </Callout>
 
 <Callout type="tip">
-  Test the link flow yourself first with your own Premium account before rolling it out to teammates. The BotFather Business Mode toggle is the most common stumbling block — confirming it works once saves a round of confused DMs later.
+  Teammate-দের কাছে roll out করার আগে আগে নিজের Premium account দিয়ে নিজেই link flow test করুন। BotFather-এর Business Mode toggle সবচেয়ে সাধারণ বাধা — একবার এটি কাজ করে তা নিশ্চিত করলে পরে এক দফা বিভ্রান্ত DM থেকে রেহাই পাওয়া যায়।
 </Callout>
 
-## Troubleshooting
+## সমস্যা সমাধান
 
-### Premium user sees "this bot doesn't support Telegram Business yet"
+### Premium user "this bot doesn't support Telegram Business yet" দেখছেন
 
-Business Mode isn't enabled on the bot. Go to BotFather → `/mybots` → your bot → **Bot Settings** → **Business Mode** → toggle **ON**, then have the Premium user retry the Settings → Business → Chatbots step.
+bot-এ Business Mode সক্রিয় নেই। BotFather → `/mybots` → আপনার bot → **Bot Settings** → **Business Mode** → **ON** করুন, তারপর Premium user-কে Settings → Business → Chatbots ধাপটি পুনরায় চেষ্টা করতে বলুন।
 
-### Link code expired
+### Link code-এর মেয়াদ শেষ হয়ে গেছে
 
-Codes are valid for 10 minutes. Click **Link a Premium user** again to generate a fresh one.
+Code ১০ মিনিট পর্যন্ত valid থাকে। একটি নতুন তৈরি করতে আবার **Link a Premium user**-এ click করুন।
 
-### Bot stays silent for everyone
+### bot সবার জন্য চুপ থাকে
 
-Check the **Disable auto-reply** toggle on the integration card — when off, the bot ignores every linked user. Toggle it back on.
+integration card-এ **Disable auto-reply** toggle check করুন — এটি off থাকলে, bot প্রতিটি linked user উপেক্ষা করে। এটি আবার on করুন।
 
-### Bot stays silent for one specific contact
+### bot একটি নির্দিষ্ট contact-এর জন্য চুপ থাকে
 
-The Premium user typed a reply in that chat recently and the manual-takeover pause is still active. Wait for the sliding window to clear, or have the Premium user stop typing in the chat.
+Premium user সম্প্রতি সেই chat-এ একটি reply টাইপ করেছেন এবং manual-takeover pause এখনো সক্রিয়। sliding window পরিষ্কার হওয়ার জন্য অপেক্ষা করুন, অথবা Premium user-কে সেই chat-এ টাইপ করা বন্ধ করতে বলুন।
 
-### Bot replies look wrong
+### bot-এর reply ভুল দেখায়
 
-The Premium user's contacts see exactly what the agent generates. If something off-brand or off-policy slips through, fix it in the agent's prompt and tools — it's the same agent the Telegram channel uses, with the same Playground for testing.
+Premium user-এর contact-রা ঠিক যা agent generate করে তাই দেখে। off-brand বা off-policy কিছু পার হয়ে গেলে, agent-এর prompt ও tool-এ এটি ঠিক করুন — এটি Telegram channel যে agent ব্যবহার করে সেই একই agent, test করার জন্য একই Playground সহ।
 
-## Disconnecting
+## Disconnect করা
 
-To remove a Telegram Premium integration:
+একটি Telegram Premium integration সরাতে:
 
-1. **From Cuneiform Chat:** Integrations → Telegram Premium co-pilot card → three-dot menu → **Delete**
+1. **Cuneiform Chat থেকে:** Integrations → Telegram Premium co-pilot card → three-dot menu → **Delete**
 
-This removes every Premium-user link and stops the bot from replying. The bot itself stays in BotFather unless you delete it there.
+এটি প্রতিটি Premium-user link সরিয়ে দেয় এবং bot-কে reply দেওয়া থেকে থামায়। আপনি BotFather-এ bot-টি delete না করলে bot নিজে সেখানেই থাকে।
 
-## Related
+## সম্পর্কিত
 
-- [Telegram](/integrations/telegram) — the regular customer-facing Telegram channel (for your agent's own bot inbox)
-- [Saba on Telegram](/integrations/saba-on-telegram) — operator-facing platform assistant (different feature, also Telegram-based)
-- [Telegram Storefront](/integrations/telegram-mini-app) — in-bot storefront for the regular Telegram channel
+- [Telegram](/integrations/telegram) — regular customer-facing Telegram channel (আপনার agent-এর নিজস্ব bot inbox-এর জন্য)
+- [Saba on Telegram](/integrations/saba-on-telegram) — operator-facing platform assistant (ভিন্ন feature, এটিও Telegram-ভিত্তিক)
+- [Telegram Storefront](/integrations/telegram-mini-app) — regular Telegram channel-এর জন্য in-bot storefront

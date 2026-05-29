@@ -1,177 +1,174 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
 # Messenger Storefront (In-app Mini App)
 
-**Turn your Facebook Page into a full in-app storefront.** Build a polished, multipage product catalog — with photos, videos, themed pages, an AI assistant per product, and lightweight order-taking — that opens *inside* Messenger the moment a customer taps the **"Open Storefront"** button on your Page's Persistent Menu. No app store, no separate website, no checkout to manage. Just a tap, and your customer is browsing.
+**আপনার Facebook Page-কে একটি সম্পূর্ণ in-app storefront-এ পরিণত করুন।** একটি পরিপাটি, multipage product catalog তৈরি করুন — photo, video, themed page, প্রতি product-এ একটি AI assistant ও lightweight order-taking সহ — যা একজন customer আপনার Page-এর Persistent Menu-তে **"Open Storefront"** button-এ tap করার মুহূর্তেই Messenger-এর *ভেতরে* খোলে। কোনো app store নেই, কোনো আলাদা website নেই, পরিচালনা করার মতো কোনো checkout নেই। শুধু একটি tap, আর আপনার customer browse করছে।
 
-Free on every plan, including the trial. Built in the same visual drag-and-drop composer as the Telegram Storefront — same 11 block types, same 6 themes, same per-product AI chat, same lightweight order CTAs — at **Integrations → Facebook Page → Configure mini app**.
+প্রতিটি plan-এ free, trial সহ। Telegram Storefront-এর মতো একই visual drag-and-drop composer-এ তৈরি — একই ১১টি block type, একই ৬টি theme, একই per-product AI chat, একই lightweight order CTA — **Integrations → Facebook Page → Configure mini app**-এ।
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  This page covers the customer-facing storefront Mini App that ships with every **Meta (Facebook)** integration. The storefront engine is shared with the [Telegram Storefront](/integrations/telegram-mini-app) — same composer, same blocks, same themes. Only the launcher and a few Messenger-specific behaviors differ.
+  এই page-টি customer-facing storefront Mini App cover করে যা প্রতিটি **Meta (Facebook)** integration-এর সাথে আসে। storefront engine-টি [Telegram Storefront](/integrations/telegram-mini-app)-এর সাথে shared — একই composer, একই block, একই theme। শুধু launcher ও কয়েকটি Messenger-নির্দিষ্ট আচরণ আলাদা।
 </Callout>
 
-## What you can build
+## আপনি যা তৈরি করতে পারেন
 
-Same shapes as the Telegram Storefront — every block type and theme ports over:
+Telegram Storefront-এর মতোই একই আকার — প্রতিটি block type ও theme port হয়:
 
-- **Boutique storefront** — hero banner + product grid + per-product chat + order inquiry form. Orders land in your inbox; a teammate replies from there.
-- **Restaurant menu** — multipage (Starters / Mains / Drinks) + photo gallery + cart-mode checkout with a delivery address field.
-- **Course or service catalog** — product cards with a Video intro, testimonials, and a "Book a call" CTA back to the bot.
-- **Brochure Page** — hero + about + gallery + contact card + FAQ. No products at all. A polished mobile brochure that lives inside your Facebook Page.
-- **Lead-capture landing** — one page, one hero, one form, one CTA. The lightest possible Messenger funnel.
+- **Boutique storefront** — hero banner + product grid + per-product chat + order inquiry form। Order আপনার inbox-এ আসে; একজন teammate সেখান থেকে reply দেয়।
+- **Restaurant menu** — multipage (Starters / Mains / Drinks) + photo gallery + একটি delivery address field সহ cart-mode checkout।
+- **Course বা service catalog** — একটি Video intro, testimonial ও bot-এ ফিরে একটি "Book a call" CTA সহ product card।
+- **Brochure Page** — hero + about + gallery + contact card + FAQ। কোনো product একদম নেই। আপনার Facebook Page-এর ভেতরে বাস করা একটি পরিপাটি mobile brochure।
+- **Lead-capture landing** — একটি page, একটি hero, একটি form, একটি CTA। সম্ভাব্য সবচেয়ে হালকা Messenger funnel।
 
-## Why it matters
+## কেন এটি গুরুত্বপূর্ণ
 
-- **Customers never leave Messenger.** No app install, no domain to remember, no checkout flow to abandon. The storefront opens in Messenger's WebView and inherits the user's theme and language.
-- **One tap from your Page's chat.** A single **"Open Storefront"** entry is auto-seeded into the Persistent Menu the moment you connect your Page — no Meta Business Suite config, no app review, no webhook wiring.
-- **AI-native product chat.** Per-product chat is scoped to documents *you* attach to that product — the assistant answers "what's the return policy on this dress?" without leaking facts from other products.
-- **Order handoffs to a real human.** Lightweight order forms (inquiry or cart mode) land in your Inbox as a structured handoff, with the customer's Messenger DM held open for follow-up.
-- **Free on every plan.** Trial cap (5 pages / 25 blocks per page / 100 product docs) lifts on every paid plan. Pricing is per-org — adding a second Facebook Page doesn't change your tier price.
+- **Customer-রা কখনো Messenger ছাড়ে না।** কোনো app install নেই, মনে রাখার মতো কোনো domain নেই, ছেড়ে দেওয়ার মতো কোনো checkout flow নেই। storefront Messenger-এর WebView-তে খোলে এবং user-এর theme ও ভাষা উত্তরাধিকার সূত্রে পায়।
+- **আপনার Page-এর chat থেকে এক tap।** আপনি আপনার Page সংযুক্ত করার মুহূর্তেই Persistent Menu-তে একটি একক **"Open Storefront"** entry স্বয়ংক্রিয়ভাবে seed করা হয় — কোনো Meta Business Suite config নেই, কোনো app review নেই, কোনো webhook wiring নেই।
+- **AI-native product chat।** Per-product chat *আপনি* সেই product-এ attach করা document-এ scope করা — assistant অন্য product-এর তথ্য ফাঁস না করেই "এই dress-এ return policy কী?"-এর উত্তর দেয়।
+- **একজন সত্যিকারের মানুষের কাছে order handoff।** Lightweight order form (inquiry বা cart mode) একটি structured handoff হিসেবে আপনার Inbox-এ আসে, follow-up-এর জন্য customer-এর Messenger DM খোলা রাখা অবস্থায়।
+- **প্রতিটি plan-এ free।** Trial cap (৫ page / প্রতি page-এ ২৫ block / ১০০ product doc) প্রতিটি paid plan-এ উঠে যায়। Pricing per-org — একটি দ্বিতীয় Facebook Page যোগ করলে আপনার tier price পরিবর্তন হয় না।
 
-## At a glance
+## এক নজরে
 
-- **Multipage**, drag-and-drop. End users tap the hamburger (top-left) to switch pages. If you publish one page, it loads full-screen.
-- **11 block types** — Hero, Product card, Product grid, Carousel, Gallery, FAQ, Testimonial, CTA back-to-bot, Contact, Video, Rich text. (Cart is an auto-injected virtual page when you use cart-mode order CTAs — no separate "Cart review" block.)
-- **6 themes** with per-block style overrides.
-- **Draft → Publish** lifecycle with one-click revert to the last published snapshot.
-- **Auto-seeded Persistent Menu** — single "Open Storefront" button, editable label, locked action.
-- **Outer-chat fallback** — blocks project to in-chat Generic Templates, Quick Replies, and image carousels for older Messenger clients.
-- **Built-in Help Center** — a pinned FAQ surface, always one tap away. Same panel as Telegram.
-- **No payments, no inventory, no shipping** — this is a polished catalog + lead-capture surface, not a full e-commerce stack.
+- **Multipage**, drag-and-drop। End user-রা page switch করতে hamburger (উপরে-বামে) tap করে। আপনি একটি page publish করলে, এটি full-screen load হয়।
+- **১১টি block type** — Hero, Product card, Product grid, Carousel, Gallery, FAQ, Testimonial, CTA back-to-bot, Contact, Video, Rich text। (আপনি cart-mode order CTA ব্যবহার করলে Cart একটি auto-injected virtual page — কোনো আলাদা "Cart review" block নেই।)
+- per-block style override সহ **৬টি theme**।
+- শেষ published snapshot-এ এক-click revert সহ **Draft → Publish** lifecycle।
+- **Auto-seeded Persistent Menu** — একক "Open Storefront" button, editable label, locked action।
+- **Outer-chat fallback** — পুরোনো Messenger client-এর জন্য block-গুলো in-chat Generic Template, Quick Reply ও image carousel-এ project করে।
+- **Built-in Help Center** — একটি pinned FAQ surface, সবসময় এক tap দূরে। Telegram-এর মতো একই panel।
+- **কোনো payment নেই, কোনো inventory নেই, কোনো shipping নেই** — এটি একটি পরিপাটি catalog + lead-capture surface, একটি সম্পূর্ণ e-commerce stack নয়।
 
-## How customers find it
+## Customer-রা কীভাবে এটি খুঁজে পায়
 
-Every connected Facebook Page exposes a **Persistent Menu** to anyone messaging it. We auto-seed a single entry — **"Open Storefront"** (default label, editable to anything 1–32 characters in any language) — that opens your storefront.
+প্রতিটি সংযুক্ত Facebook Page যে কেউ এটিকে message করে তার কাছে একটি **Persistent Menu** প্রকাশ করে। আমরা একটি একক entry স্বয়ংক্রিয়ভাবে seed করি — **"Open Storefront"** (default label, যেকোনো ভাষায় ১–৩২ অক্ষরের যেকোনো কিছুতে editable) — যা আপনার storefront খোলে।
 
-The launch flow is a **postback**:
+launch flow একটি **postback**:
 
-1. End user taps **"Open Storefront"** on the Persistent Menu.
-2. The bot receives a `BROWSE_SHOWCASE` postback, mints a one-time launch token, and sends back a Button Template with a single "Open Storefront" CTA.
-3. End user taps the button → Messenger opens a WebView → storefront loads.
+1. End user Persistent Menu-তে **"Open Storefront"**-এ tap করে।
+2. bot একটি `BROWSE_SHOWCASE` postback পায়, একটি one-time launch token mint করে এবং একটি একক "Open Storefront" CTA সহ একটি Button Template ফেরত পাঠায়।
+3. End user button-এ tap করে → Messenger একটি WebView খোলে → storefront load হয়।
 
-That's one extra tap compared to a "tap menu → instant WebView" approach. We use the postback model because the direct-WebView model silently fails on a meaningful cohort of older Messenger clients (Meta SDK error `2071011`). With postback-via-Button-Template, every client we've tested works — and the launcher token is single-use, HMAC-bound, and lives in the recipient's DM, so there's no exposure to share-link abuse.
+একটি "tap menu → instant WebView" পদ্ধতির তুলনায় এটি একটি অতিরিক্ত tap। আমরা postback model ব্যবহার করি কারণ direct-WebView model পুরোনো Messenger client-এর একটি উল্লেখযোগ্য অংশে নীরবে ব্যর্থ হয় (Meta SDK error `2071011`)। postback-via-Button-Template দিয়ে, আমরা test করা প্রতিটি client কাজ করে — এবং launcher token single-use, HMAC-bound, এবং recipient-এর DM-এ থাকে, তাই share-link অপব্যবহারের কোনো ঝুঁকি নেই।
 
 <Callout type="info">
-  The action and postback payload (`BROWSE_SHOWCASE`) are locked server-side. The only thing you control via the admin panel is the button label.
+  action ও postback payload (`BROWSE_SHOWCASE`) server-side locked। admin panel-এর মাধ্যমে আপনি যা নিয়ন্ত্রণ করেন তা শুধু button label।
 </Callout>
 
-## Prerequisites
+## পূর্বশর্ত
 
-- A connected [Meta (Facebook) integration](/integrations/facebook). The storefront rides on top of it — there's no separate integration to add.
-- (Optional) Product images, product copy, FAQ entries, and knowledge-base documents to wire into per-product chat.
+- একটি সংযুক্ত [Meta (Facebook) integration](/integrations/facebook)। storefront এর উপরে চলে — যোগ করার মতো কোনো আলাদা integration নেই।
+- (ঐচ্ছিক) per-product chat-এ wire করার জন্য product image, product copy, FAQ entry ও knowledge-base document।
 
-## Quick start (5 minutes)
+## Quick start (৫ মিনিট)
 
-The shortest path from "I connected a Page" to "my first customer is browsing":
+"আমি একটি Page সংযুক্ত করেছি" থেকে "আমার প্রথম customer browse করছে" পর্যন্ত সবচেয়ে ছোট পথ:
 
-1. **Go to Integrations → your Facebook Page → Configure mini app.** The composer opens in Draft state.
-2. **Click "+ Add page"** in the left rail. Name it (e.g. "Home").
-3. **Add a Hero block** — headline, subheadline, a 16:9 background image (drop a photo, the cropper opens automatically).
-4. **Add a Product card** — name, price, 1:1 image, short description. Toggle on **AI chat** and attach a doc (a PDF spec sheet, your shipping policy — anything from your KB).
-5. **Add an Order CTA** on that product — pick `inquiry` mode, choose form fields (`name` is always required).
-6. **Click Publish.** We auto-publish the Persistent Menu — your Page's menu now shows "Open Storefront" to every visitor.
-7. **DM your own Page from a different Facebook account.** Tap the menu → "Open Storefront" → "Open Storefront" (the Button Template). Tap your product. Tap "Ask a question." Tap "Order this." Submit. You'll see the handoff land in your Inbox within seconds.
+1. **Integrations → আপনার Facebook Page → Configure mini app-এ যান।** composer Draft state-এ খোলে।
+2. বাম rail-এ **"+ Add page"**-এ click করুন। এটির নাম দিন (যেমন "Home")।
+3. **একটি Hero block যোগ করুন** — headline, subheadline, একটি 16:9 background image (একটি photo drop করুন, cropper স্বয়ংক্রিয়ভাবে খোলে)।
+4. **একটি Product card যোগ করুন** — name, price, 1:1 image, ছোট description। **AI chat** toggle on করুন এবং একটি doc attach করুন (একটি PDF spec sheet, আপনার shipping policy — আপনার KB থেকে যেকোনো কিছু)।
+5. সেই product-এ **একটি Order CTA যোগ করুন** — `inquiry` mode বেছে নিন, form field বেছে নিন (`name` সবসময় আবশ্যক)।
+6. **Publish-এ click করুন।** আমরা স্বয়ংক্রিয়ভাবে Persistent Menu publish করি — আপনার Page-এর menu এখন প্রতিটি visitor-কে "Open Storefront" দেখায়।
+7. **একটি ভিন্ন Facebook account থেকে আপনার নিজের Page-কে DM করুন।** menu → "Open Storefront" → "Open Storefront" (Button Template) tap করুন। আপনার product-এ tap করুন। "Ask a question"-এ tap করুন। "Order this"-এ tap করুন। Submit করুন। কয়েক সেকেন্ডের মধ্যে আপনার Inbox-এ handoff আসতে দেখবেন।
 
-That's the minimum-viable Messenger Storefront. Add more pages, more products, themes, videos, and a Help Center as you grow.
+এটিই minimum-viable Messenger Storefront। আপনি বড় হওয়ার সাথে সাথে আরও page, আরও product, theme, video ও একটি Help Center যোগ করুন।
 
-## The composer
+## composer
 
-The composer is the **same editor** as the Telegram Storefront — see [Telegram Storefront: The composer](/integrations/telegram-mini-app#the-composer) for the full tour (3-pane layout, draft/publish lifecycle, image cropper, tier limits). The only channel-specific surface is the **Distribute** tab.
+composer Telegram Storefront-এর **একই editor** — সম্পূর্ণ tour-এর জন্য [Telegram Storefront: The composer](/integrations/telegram-mini-app#the-composer) দেখুন (3-pane layout, draft/publish lifecycle, image cropper, tier limit)। একমাত্র channel-নির্দিষ্ট surface হলো **Distribute** tab।
 
-## The Distribute tab (Messenger)
+## Distribute tab (Messenger)
 
-The composer's right-most tab is **Distribute**. On Messenger it shows:
+composer-এর সবচেয়ে ডানের tab হলো **Distribute**। Messenger-এ এটি দেখায়:
 
-| Section | What it does |
-|---------|--------------|
-| **Persistent Menu label** | A single editable input for the button title. Default: `Open Storefront`. 1–32 characters, any language. The action and postback payload (`BROWSE_SHOWCASE`) are locked server-side. |
-| **Ice Breakers** | Optional starter prompts shown to first-time visitors (Messenger's native feature). Add up to four short questions; Messenger surfaces them as one-tap chips on the empty thread. |
-| **Publish to Messenger** | Manually re-push the Persistent Menu + Ice Breakers to Meta. Useful right after connecting a Page if the auto-seed at connect-time was rejected (e.g. Page-management permissions hadn't propagated yet). |
-| **Connect-your-Page banner** | If your integration was connected before Meta granted you Page-management permissions, a sticky amber banner walks you through the missing step. |
+| Section | এটি কী করে |
+|---------|------------|
+| **Persistent Menu label** | button title-এর জন্য একটি একক editable input। Default: `Open Storefront`। ১–৩২ অক্ষর, যেকোনো ভাষা। action ও postback payload (`BROWSE_SHOWCASE`) server-side locked। |
+| **Ice Breakers** | প্রথমবারের visitor-দের দেখানো ঐচ্ছিক starter prompt (Messenger-এর native feature)। চারটি পর্যন্ত ছোট প্রশ্ন যোগ করুন; Messenger খালি thread-এ এগুলোকে one-tap chip হিসেবে দেখায়। |
+| **Publish to Messenger** | Meta-তে Persistent Menu + Ice Breakers manually আবার push করুন। একটি Page সংযুক্ত করার ঠিক পরে উপযোগী যদি connect-time-এর auto-seed প্রত্যাখ্যাত হয় (যেমন Page-management permission এখনো propagate হয়নি)। |
+| **Connect-your-Page banner** | Meta আপনাকে Page-management permission দেওয়ার আগে আপনার integration সংযুক্ত হয়ে থাকলে, একটি sticky amber banner আপনাকে অনুপস্থিত ধাপের মধ্য দিয়ে নিয়ে যায়। |
 
 <Callout type="info">
-  There's **no Meta Business Suite configuration step**. The Persistent Menu is set automatically the moment you connect your Page, via Meta's Messenger Profile API. If the auto-seed fails (rare), tap **Publish to Messenger** to retry.
+  **কোনো Meta Business Suite configuration ধাপ নেই।** আপনি আপনার Page সংযুক্ত করার মুহূর্তেই Meta-র Messenger Profile API-এর মাধ্যমে Persistent Menu স্বয়ংক্রিয়ভাবে সেট হয়। auto-seed ব্যর্থ হলে (বিরল), পুনরায় চেষ্টা করতে **Publish to Messenger**-এ tap করুন।
 </Callout>
 
-## Outer-chat fallback for older clients
+## পুরোনো client-এর জন্য outer-chat fallback
 
-For end users on Messenger clients that can't open a WebView at all, the storefront still works — it projects into the chat thread itself. The Send API adapter at `outer_chat_adapter.py` maps each of the 11 block types into a Messenger-native primitive:
+যেসব end user-এর Messenger client একটি WebView একদমই খুলতে পারে না, তাদের জন্য storefront এখনও কাজ করে — এটি chat thread-এর ভেতরেই project করে। `outer_chat_adapter.py`-এর Send API adapter ১১টি block type-এর প্রতিটিকে একটি Messenger-native primitive-এ map করে:
 
 - **Hero / Product card / CTA back-to-bot** → Generic Template card
 - **Product grid / Carousel** → Generic Template carousel (multi-card swipe)
-- **Gallery** → image-sequence messages
-- **FAQ / Rich text** → text messages with optional Quick Replies
-- **Testimonial / Contact** → Generic Template card with action buttons
+- **Gallery** → image-sequence message
+- **FAQ / Rich text** → ঐচ্ছিক Quick Reply সহ text message
+- **Testimonial / Contact** → action button সহ Generic Template card
 - **Video** → video attachment + caption
 
-No broken UI, no dead ends. The same product list, the same order CTAs — just rendered as in-chat templates.
+কোনো ভাঙা UI নেই, কোনো dead end নেই। একই product list, একই order CTA — শুধু in-chat template হিসেবে render করা।
 
-## Recovery flow for end users
+## End user-দের জন্য recovery flow
 
-If an end user lands in a WebView that can't bootstrap auth (very rare — only on a few very old clients), the storefront shell shows a sticky top-of-screen banner linking back to your Page at `m.me/{page_id}?ref=BROWSE_SHOWCASE`. One tap returns them to the Messenger thread; tapping **"Open Storefront"** again gets them a fresh launcher token and they're back inside.
+একজন end user যদি এমন একটি WebView-তে এসে পড়ে যা auth bootstrap করতে পারে না (অত্যন্ত বিরল — শুধু কয়েকটি খুব পুরোনো client-এ), storefront shell একটি sticky top-of-screen banner দেখায় যা `m.me/{page_id}?ref=BROWSE_SHOWCASE`-এ আপনার Page-এ ফিরে link করে। এক tap তাদের Messenger thread-এ ফিরিয়ে আনে; আবার **"Open Storefront"**-এ tap করলে তারা একটি নতুন launcher token পায় এবং ভেতরে ফিরে আসে।
 
-This is automatic — there's no admin setup required.
+এটি স্বয়ংক্রিয় — কোনো admin setup প্রয়োজন নেই।
 
-## Orders & handoffs
+## Order ও handoff
 
-Order CTAs work the same way as the Telegram Storefront — inquiry mode or cart mode, same configurable form fields, same instant "Got your order" DM, same Order Request Panel in the Inbox.
+Order CTA Telegram Storefront-এর মতোই একইভাবে কাজ করে — inquiry mode বা cart mode, একই configurable form field, একই instant "Got your order" DM, Inbox-এ একই Order Request Panel।
 
-The only Messenger-specific difference: order handoffs land in the inbox with `metadata.type == "messenger_mini_app_order"` (Telegram uses `mini_app_order`). The inbox renders the same panel for both.
+একমাত্র Messenger-নির্দিষ্ট পার্থক্য: order handoff inbox-এ `metadata.type == "messenger_mini_app_order"` সহ আসে (Telegram `mini_app_order` ব্যবহার করে)। inbox দুটোর জন্যই একই panel render করে।
 
-The **24-hour messaging window** applies to follow-up messages: Meta only lets you message a user within 24 hours of their last inbound. The storefront launch postback resets the window, so the "Got your order" DM and any teammate follow-up land normally — but if the customer goes silent for >24 hours, you'll need them to message your Page again before you can reply.
+**২৪-ঘণ্টার messaging window** follow-up message-এর ক্ষেত্রে প্রযোজ্য: Meta আপনাকে শুধু একজন user-এর শেষ inbound-এর ২৪ ঘণ্টার মধ্যে message করতে দেয়। storefront launch postback window reset করে, তাই "Got your order" DM ও যেকোনো teammate follow-up স্বাভাবিকভাবে আসে — কিন্তু customer >২৪ ঘণ্টা চুপ থাকলে, আপনি reply দিতে পারার আগে তাদের আপনার Page-কে আবার message করতে হবে।
 
-See [Telegram Storefront: Orders and cart](/integrations/telegram-mini-app#orders-and-cart) for the full order-flow walk-through (form fields, anti-spam limits, dedup window) — all shared with Messenger.
+সম্পূর্ণ order-flow walk-through-এর জন্য (form field, anti-spam limit, dedup window) [Telegram Storefront: Orders and cart](/integrations/telegram-mini-app#orders-and-cart) দেখুন — সবই Messenger-এর সাথে shared।
 
-## Auth model (for the curious)
+## Auth model (কৌতূহলীদের জন্য)
 
-You don't need to think about this — the platform handles it. But if you're curious:
+আপনাকে এটি নিয়ে ভাবতে হবে না — platform এটি সামলায়। তবে আপনি কৌতূহলী হলে:
 
-- **Public reads** (`/style`, `/showcase`, `/help-entries`) are fully public, keyed by `?i={integration_id}`. No cookie, no signed_request, no rate-limit on these — every cold-start client renders the storefront immediately.
-- **Write actions** (`/ask`, `/track`, `/product-chat/stream`, `/order-inquiry`) require a session. Primary path: a `messenger_mini_app_session` httpOnly cookie minted from a one-time launch token (CHIPS-partitioned, so Messenger's in-app browser doesn't third-party-block it). Fallback: Meta's `signed_request` HMAC for the rare client where the SDK still works.
+- **Public read** (`/style`, `/showcase`, `/help-entries`) সম্পূর্ণ public, `?i={integration_id}` দিয়ে keyed। এগুলোতে কোনো cookie নেই, কোনো signed_request নেই, কোনো rate-limit নেই — প্রতিটি cold-start client storefront সাথে সাথে render করে।
+- **Write action** (`/ask`, `/track`, `/product-chat/stream`, `/order-inquiry`) একটি session প্রয়োজন। Primary path: একটি one-time launch token থেকে mint করা একটি `messenger_mini_app_session` httpOnly cookie (CHIPS-partitioned, তাই Messenger-এর in-app browser এটিকে third-party-block করে না)। Fallback: যে বিরল client-এ SDK এখনও কাজ করে তার জন্য Meta-র `signed_request` HMAC।
 
-That's it. No customer ever sees a login prompt.
+ব্যাস। কোনো customer কখনো একটি login prompt দেখে না।
 
-## What it does NOT do
+## এটি যা করে না
 
-Same scope as the Telegram Storefront:
+Telegram Storefront-এর মতোই একই scope:
 
-- **No payments.** Order CTAs are inquiry handoffs, not Checkout API or Stripe.
-- **No inventory tracking.** Availability badges on product cards are free-text labels you edit manually ("Sold out", "Pre-order", "Last 3").
-- **No shipping calculations / address validation.** Delivery address is collected as free-form text.
-- **No customer accounts.** Customers are identified by their Messenger PSID; there's no login or signup flow.
-- **No Page comments or Page posts.** This integration only handles Messenger threads and storefront launches.
-- **No Instagram DM storefront** (yet). The same Meta integration covers Messenger only; Instagram DM is text-conversation only.
-- **24-hour messaging window applies.** See above.
+- **কোনো payment নেই।** Order CTA inquiry handoff, Checkout API বা Stripe নয়।
+- **কোনো inventory tracking নেই।** Product card-এ availability badge হলো free-text label যা আপনি manually edit করেন ("Sold out", "Pre-order", "Last 3")।
+- **কোনো shipping calculation / address validation নেই।** Delivery address free-form text হিসেবে সংগ্রহ করা হয়।
+- **কোনো customer account নেই।** Customer-দের তাদের Messenger PSID দিয়ে শনাক্ত করা হয়; কোনো login বা signup flow নেই।
+- **কোনো Page comment বা Page post নেই।** এই integration শুধু Messenger thread ও storefront launch সামলায়।
+- **কোনো Instagram DM storefront নেই** (এখনো)। একই Meta integration শুধু Messenger cover করে; Instagram DM শুধু text-conversation।
+- **২৪-ঘণ্টার messaging window প্রযোজ্য।** উপরে দেখুন।
 
-## Troubleshooting
+## সমস্যা সমাধান
 
-### "Open Storefront" doesn't appear on my Page's menu
+### "Open Storefront" আমার Page-এর menu-তে আসছে না
 
-1. Open the composer → **Distribute** tab → tap **Publish to Messenger**.
-2. If you see a "Connect your Page" amber banner, complete that step first — the auto-seed needs Page-management permissions.
-3. If the banner stays after a re-publish, disconnect and reconnect the integration. The post-connect auto-seed runs fresh.
+1. composer → **Distribute** tab → **Publish to Messenger**-এ tap করুন।
+2. আপনি একটি "Connect your Page" amber banner দেখলে, আগে সেই ধাপটি সম্পন্ন করুন — auto-seed-এর Page-management permission প্রয়োজন।
+3. একটি re-publish-এর পরেও banner থাকলে, integration disconnect করে আবার reconnect করুন। post-connect auto-seed নতুন করে চলে।
 
-### Customer says the button doesn't open anything
+### Customer বলে button কিছুই খোলে না
 
-Almost always a stale Messenger client. The shell shows them a one-tap "back to chat" banner; they reopen the Page, tap **"Open Storefront"** again, and the next launcher token gets a fresh redemption.
+প্রায় সবসময় একটি stale Messenger client। shell তাদের একটি one-tap "back to chat" banner দেখায়; তারা Page আবার খোলে, আবার **"Open Storefront"**-এ tap করে, এবং পরের launcher token একটি নতুন redemption পায়।
 
-### Storefront opens but I can't submit an order
+### storefront খোলে কিন্তু আমি একটি order submit করতে পারি না
 
-Check that:
-1. You're inside Messenger (not the regular Facebook web wrapper).
-2. The customer's last inbound message to your Page was less than 24 hours ago (or they just tapped the launch button, which resets the window).
-3. Your Inbox is showing — the order may have landed, but is filtered out by a search or status filter.
+Check করুন যে:
+1. আপনি Messenger-এর ভেতরে আছেন (regular Facebook web wrapper নয়)।
+2. আপনার Page-এ customer-এর শেষ inbound message ২৪ ঘণ্টার কম আগে ছিল (অথবা তারা সবেমাত্র launch button tap করেছে, যা window reset করে)।
+3. আপনার Inbox দেখাচ্ছে — order হয়তো এসেছে, কিন্তু একটি search বা status filter দিয়ে বাদ পড়েছে।
 
-### Auto-seed failed and Publish to Messenger button greyed out
+### auto-seed ব্যর্থ হয়েছে এবং Publish to Messenger button ধূসর
 
-You're missing Page-management permissions. Go to **Integrations → your Meta integration → Three-dot menu → Reconnect**. The OAuth flow re-prompts you for the missing scope.
+আপনার Page-management permission নেই। **Integrations → আপনার Meta integration → Three-dot menu → Reconnect**-এ যান। OAuth flow আপনাকে অনুপস্থিত scope-এর জন্য আবার prompt করে।
 
-## Important notes
+## গুরুত্বপূর্ণ নোট
 
-- **One storefront per Page**: each Facebook Page has its own draft and published storefront — independent of other Pages in the same org.
-- **Pricing is per-org, not per-Page**: adding a second Facebook Page does NOT change your tier price.
-- **Shared composer with Telegram**: if you operate both channels, the same composer builds both — just open each integration's "Configure mini app" link. Themes, blocks, and Help Center entries don't cross-link, but the patterns transfer.
-- **Outer-chat adapter is automatic**: you don't configure it. Every block you publish projects into Generic Templates / Quick Replies / image carousels for the fallback path.
+- **প্রতি Page-এ একটি storefront**: প্রতিটি Facebook Page-এর নিজস্ব draft ও published storefront রয়েছে — একই org-এর অন্য Page থেকে স্বাধীন।
+- **Pricing per-org, per-Page নয়**: একটি দ্বিতীয় Facebook Page যোগ করলে আপনার tier price পরিবর্তন হয় না।
+- **Telegram-এর সাথে shared composer**: আপনি দুটি channel-ই পরিচালনা করলে, একই composer দুটোই তৈরি করে — শুধু প্রতিটি integration-এর "Configure mini app" link খুলুন। Theme, block ও Help Center entry cross-link হয় না, কিন্তু pattern-গুলো transfer হয়।
+- **Outer-chat adapter স্বয়ংক্রিয়**: আপনি এটি configure করেন না। আপনি যে প্রতিটি block publish করেন তা fallback path-এর জন্য Generic Template / Quick Reply / image carousel-এ project করে।
