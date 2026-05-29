@@ -1,122 +1,118 @@
 ---
-description: Monitor agent performance, track conversations, and analyze usage across all channels.
+description: راقب أداء الـ Agent، وتتبّع المحادثات، وحلّل الاستخدام عبر جميع القنوات.
 ---
 
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# التحليلات
 
+راقب أداء الـ Agents لديك وافهم كيف يتفاعل المستخدمون مع روبوتات الدردشة الخاصة بك.
 
-# Analytics
+## نظرة عامة
 
-Monitor your agents' performance and understand how users interact with your chatbots.
-
-## Overview
-
-Analytics help you:
-- Track conversation volume and query patterns
-- Monitor agent performance and credit usage
-- Understand channel distribution
-- Identify areas for improvement
+تساعدك التحليلات على:
+- تتبّع حجم المحادثات وأنماط الاستعلامات
+- مراقبة أداء الـ Agent واستهلاك الـ credits
+- فهم توزيع القنوات
+- تحديد مجالات التحسين
 
 ## Dashboard
 
-Access analytics from the **Analytics** section in your sidebar.
+ادخل إلى التحليلات من قسم **Analytics** في الشريط الجانبي.
 
-### Key Metrics
+### المقاييس الرئيسية
 
-| Metric | Description |
+| المقياس | الوصف |
 |--------|-------------|
-| Total Queries | Agent executions (AI responses) |
-| Conversations | Number of chat sessions |
-| Unique Users | Individual users who chatted |
-| Credits Used | Platform credits consumed |
+| Total Queries | عمليات تنفيذ الـ Agent (ردود الـ AI) |
+| Conversations | عدد جلسات الدردشة |
+| Unique Users | المستخدمون الأفراد الذين أجروا محادثة |
+| Credits Used | الـ credits المستهلكة من المنصة |
 
-### Credit Usage
+### استهلاك الـ Credits
 
-The dashboard shows your current billing cycle credit consumption:
-- Credits used vs. allocated
-- Percentage progress bar
-- Remaining credits for the period
+يعرض الـ Dashboard استهلاك الـ credits لدورة الفوترة الحالية:
+- الـ credits المستخدمة مقابل المخصصة
+- شريط تقدّم بالنسبة المئوية
+- الـ credits المتبقية للفترة
 
-### Charts
+### الرسوم البيانية
 
-The dashboard includes visual charts:
-- **Query Volume** — Line chart showing queries over time
-- **Channel Distribution** — Pie chart breaking down queries by channel
-- **Agent Distribution** — Pie chart breaking down queries by agent
+يتضمّن الـ Dashboard رسومًا بيانية مرئية:
+- **Query Volume** — رسم خطي يوضّح الاستعلامات عبر الزمن
+- **Channel Distribution** — رسم دائري يقسّم الاستعلامات حسب القناة
+- **Agent Distribution** — رسم دائري يقسّم الاستعلامات حسب الـ Agent
 
-### Top Agents
+### أبرز الـ Agents
 
-A ranked list of your most active agents showing:
-- Agent name and rank
-- Total queries handled
-- Number of conversations
-- Credits consumed
-- Current status (active, inactive, testing, archived)
+قائمة مرتّبة بأكثر الـ Agents نشاطًا لديك تعرض:
+- اسم الـ Agent وترتيبه
+- إجمالي الاستعلامات المُعالَجة
+- عدد المحادثات
+- الـ credits المستهلكة
+- الحالة الراهنة (active، inactive، testing، archived)
 
-Click any agent to view detailed analytics, or click **View All** to see all agents.
+انقر على أي Agent لعرض التحليلات التفصيلية، أو انقر **View All** لرؤية جميع الـ Agents.
 
-### Top Channels
+### أبرز القنوات
 
-A ranked list of your most active communication channels showing:
-- Channel name and rank
-- Total queries handled
-- Number of conversations
-- Credits consumed
+قائمة مرتّبة بأكثر قنوات التواصل نشاطًا لديك تعرض:
+- اسم القناة وترتيبها
+- إجمالي الاستعلامات المُعالَجة
+- عدد المحادثات
+- الـ credits المستهلكة
 
-Click any channel to view detailed analytics, or click **View All** to see all channels.
+انقر على أي قناة لعرض التحليلات التفصيلية، أو انقر **View All** لرؤية جميع القنوات.
 
-## In This Section
+## في هذا القسم
 
 import { Cards } from 'nextra/components'
 
 <Cards>
-  <Cards.Card title="Conversations" href="/analytics/conversations" />
-  <Cards.Card title="Usage Metrics" href="/analytics/usage" />
-  <Cards.Card title="Agent Analytics" href="/analytics/agents" />
-  <Cards.Card title="Channel Analytics" href="/analytics/channels" />
+  <Cards.Card title="تحليلات المحادثات" href="/analytics/conversations" />
+  <Cards.Card title="مقاييس الاستخدام" href="/analytics/usage" />
+  <Cards.Card title="تحليلات الـ Agent" href="/analytics/agents" />
+  <Cards.Card title="تحليلات القنوات" href="/analytics/channels" />
 </Cards>
 
-## Time Periods
+## الفترات الزمنية
 
-View analytics for different time ranges:
-- Current Billing Cycle
-- Last 7 days
-- Last 14 days
-- Last 30 days
-- Last 90 days
+اعرض التحليلات لنطاقات زمنية مختلفة:
+- دورة الفوترة الحالية
+- آخر 7 أيام
+- آخر 14 يومًا
+- آخر 30 يومًا
+- آخر 90 يومًا
 
-## Granularity
+## مستوى التفصيل
 
-Adjust how data is grouped:
-- Hourly
-- Daily
-- Weekly
-- Monthly
+اضبط كيفية تجميع البيانات:
+- كل ساعة
+- يوميًا
+- أسبوعيًا
+- شهريًا
 
-## Filtering
+## التصفية
 
-The main dashboard supports **Date range** selection and **Granularity** controls. To filter by Agent or Channel, open the [Conversations page](/analytics/conversations), which exposes Agent and Channel dropdowns alongside its date range.
+يدعم الـ Dashboard الرئيسي تحديد **Date range** وعناصر التحكم في **Granularity**. للتصفية حسب الـ Agent أو القناة، افتح [صفحة المحادثات](/analytics/conversations) التي تتيح قوائم منسدلة للـ Agent والقناة إلى جانب نطاقها الزمني.
 
-## Using Analytics
+## استخدام التحليلات
 
-### Identify Patterns
+### تحديد الأنماط
 
-See what channels and agents handle the most queries to:
-- Optimize resource allocation
-- Focus improvements where needed
-- Understand user preferences
+اطّلع على القنوات والـ Agents التي تعالج أكبر عدد من الاستعلامات من أجل:
+- تحسين توزيع الموارد
+- تركيز التحسينات حيث تلزم
+- فهم تفضيلات المستخدمين
 
-### Monitor Performance
+### مراقبة الأداء
 
-Track trends to ensure:
-- Credit usage stays within limits
-- User engagement is healthy
-- No unusual patterns
+تتبّع الاتجاهات لضمان:
+- بقاء استهلاك الـ credits ضمن الحدود
+- صحّة تفاعل المستخدمين
+- عدم وجود أنماط غير معتادة
 
-### Optimize Agents
+### تحسين الـ Agents
 
-Use insights to:
-- Adjust agent personas
-- Add missing documentation
-- Improve response accuracy
+استخدم الرؤى من أجل:
+- تعديل شخصيات الـ Agent
+- إضافة الوثائق الناقصة
+- تحسين دقة الردود

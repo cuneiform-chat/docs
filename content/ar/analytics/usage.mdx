@@ -1,85 +1,82 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# مقاييس الاستخدام
 
-# Usage Metrics
+تتبّع استهلاكك للموارد واستغلالك للـ credits.
 
-Track your resource consumption and credit utilization.
+## نظرة عامة على استهلاك الـ Credits
 
-## Credit Usage Overview
+يعرض لوحة معلومات التحليلات استخدامك لدورة الفوترة الحالية:
 
-The analytics dashboard shows your current billing cycle usage:
+- **Credits Used** — الـ credits المستهلكة من المنصّة في هذه الفترة
+- **Credits Remaining** — الـ credits المتاحة حتى نهاية الفترة
+- **Usage Percentage** — شريط تقدّم مرئي للاستهلاك
 
-- **Credits Used** — Platform credits consumed this period
-- **Credits Remaining** — Available credits until period end
-- **Usage Percentage** — Visual progress bar of consumption
+## المقاييس الرئيسية
 
-## Key Metrics
+### حجم الاستعلامات
 
-### Query Volume
-
-| Metric | Description |
+| المقياس | الوصف |
 |--------|-------------|
-| Total Queries | AI agent executions in the period |
-| Conversations | Total chat sessions |
-| Unique Users | Individual users who interacted |
+| Total Queries | عمليات تنفيذ الـ AI Agent في الفترة |
+| Conversations | إجمالي جلسات الدردشة |
+| Unique Users | المستخدمون الأفراد الذين تفاعلوا |
 
-### Distribution Breakdown
+### تفصيل التوزيع
 
-View how usage is distributed:
+اعرض كيفية توزيع الاستخدام:
 
-- **By Agent** — Which agents handle the most queries
-- **By Channel** — Usage across Telegram, Discord, Slack, WhatsApp, etc.
+- **By Agent** — الـ Agents التي تعالج أكبر عدد من الاستعلامات
+- **By Channel** — الاستخدام عبر Telegram وDiscord وSlack وWhatsApp، إلخ
 
-## Usage Trends
+## اتجاهات الاستخدام
 
-### Query Volume Chart
+### رسم حجم الاستعلامات
 
-The main analytics dashboard displays a query volume chart showing:
-- Queries over time
-- Configurable granularity (hourly, daily, weekly, monthly)
-- Date range selection
+تعرض لوحة التحليلات الرئيسية رسمًا لحجم الاستعلامات يوضّح:
+- الاستعلامات عبر الزمن
+- مستوى تفصيل قابل للضبط (hourly وdaily وweekly وmonthly)
+- تحديد النطاق الزمني
 
-### Distribution Charts
+### رسوم التوزيع
 
-Pie charts showing:
-- Channel distribution — Percentage of queries per platform
-- Agent distribution — Percentage of queries per agent
+رسوم دائرية توضّح:
+- توزيع القنوات — النسبة المئوية للاستعلامات لكل منصّة
+- توزيع الـ Agents — النسبة المئوية للاستعلامات لكل Agent
 
-## Credit Monitoring
+## مراقبة الـ Credits
 
-### Current Period
+### الفترة الحالية
 
-View your billing cycle status:
-- Period start and end dates
-- Credits used vs. allocated
-- Percentage consumed
+اعرض حالة دورة الفوترة لديك:
+- تاريخا بداية الفترة ونهايتها
+- الـ credits المستخدمة مقابل المخصصة
+- النسبة المئوية المستهلكة
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Credits reset at the start of each billing period. Check the **Billing** section for your cycle dates.
+  تُعاد الـ credits إلى الصفر عند بداية كل فترة فوترة. تفقّد قسم **Billing** لمعرفة تواريخ دورتك.
 </Callout>
 
-## Usage Warnings
+## تحذيرات الاستخدام
 
-The **Billing** page displays automatic warning banners when:
+تعرض صفحة **Billing** لافتات تحذير تلقائية عندما:
 
-- **Approaching limit** — You've used most of your monthly quota
-- **Limit reached** — Monthly quota is depleted
-- **Blocked** — Extra usage balance also depleted
+- **Approaching limit** — استخدمت معظم حصّتك الشهرية
+- **Limit reached** — نفدت حصّتك الشهرية
+- **Blocked** — نفد أيضًا رصيد الاستخدام الإضافي
 
-These warnings appear in **Billing & Usage** to help you take action before service is affected.
+تظهر هذه التحذيرات في **Billing & Usage** لمساعدتك على التصرّف قبل أن تتأثّر الخدمة.
 
-## Optimization Tips
+## نصائح للتحسين
 
-### Reduce Query Usage
+### تقليل استخدام الاستعلامات
 
-- Improve agent personas for better first-response accuracy
-- Add FAQ content to reduce follow-up questions
-- Optimize content for faster retrieval
+- حسِّن شخصيات الـ Agent لدقّة أفضل في الردّ الأول
+- أضِف محتوى FAQ لتقليل الأسئلة المتابِعة
+- حسِّن المحتوى لاسترجاع أسرع
 
-### Monitor High-Usage Areas
+### مراقبة المناطق عالية الاستخدام
 
-- Check which agents consume the most credits
-- Identify channels with highest volume
-- Review conversations that use more tokens
+- تفقّد الـ Agents التي تستهلك أكبر قدر من الـ credits
+- حدِّد القنوات ذات الحجم الأعلى
+- راجع المحادثات التي تستخدم عددًا أكبر من الـ tokens

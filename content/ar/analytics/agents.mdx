@@ -1,98 +1,95 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# تحليلات الـ Agent
 
-# Agent Analytics
+اعرض مقاييس الأداء التفصيلية لجميع الـ Agents لديك. قارن أحجام الاستعلامات والمحادثات واستهلاك الـ credits عبر محفظة الـ Agents بأكملها.
 
-View detailed performance metrics for all your agents. Compare query volumes, conversations, and credit usage across your entire agent portfolio.
+## الوصول إلى تحليلات الـ Agent
 
-## Accessing Agent Analytics
+1. انتقل إلى **Analytics** في الشريط الجانبي
+2. انقر **View All** بجوار "Top Agents"، أو
+3. انتقل مباشرةً إلى **Analytics > By Agent**
 
-1. Navigate to **Analytics** in the sidebar
-2. Click **View All** next to "Top Agents", or
-3. Go directly to **Analytics > By Agent**
+## التنقّل
 
-## Navigation
+يعرض مسار التنقّل موضعك الحالي: **Dashboard / Agents**. انقر "Dashboard" للعودة إلى صفحة التحليلات الرئيسية.
 
-The breadcrumb shows your location: **Dashboard / Agents**. Click "Dashboard" to return to the main analytics page.
+## عناصر التحكم في النطاق الزمني
 
-## Date Range Controls
-
-| Control | Description |
+| عنصر التحكم | الوصف |
 |---------|-------------|
-| **Last 7 days** | View metrics for the past week |
-| **Last 14 days** | View metrics for two weeks |
-| **Last 30 days** | View metrics for the past month |
-| **Last 90 days** | View metrics for the past quarter |
-| **Refresh** | Reload data with latest values |
+| **Last 7 days** | عرض المقاييس للأسبوع الماضي |
+| **Last 14 days** | عرض المقاييس لأسبوعين |
+| **Last 30 days** | عرض المقاييس للشهر الماضي |
+| **Last 90 days** | عرض المقاييس للربع الماضي |
+| **Refresh** | إعادة تحميل البيانات بأحدث القيم |
 
-## Agents Table
+## جدول الـ Agents
 
-All your agents listed with performance metrics:
+تُدرَج جميع الـ Agents لديك مع مقاييس الأداء:
 
-| Column | Description | Sortable |
+| العمود | الوصف | قابل للفرز |
 |--------|-------------|----------|
-| Agent | Agent name | No |
-| Status | active, inactive, testing, or archived | No |
-| Queries | Total questions answered | Yes |
-| Conversations | Chat sessions | Yes |
-| Credits | Resources consumed | Yes |
-| Channels | Which channels the agent is used on | No |
-| (Arrow) | Link to detailed view | No |
+| Agent | اسم الـ Agent | لا |
+| Status | active أو inactive أو testing أو archived | لا |
+| Queries | إجمالي الأسئلة المُجاب عنها | نعم |
+| Conversations | جلسات الدردشة | نعم |
+| Credits | الموارد المستهلكة | نعم |
+| Channels | القنوات التي يُستخدَم فيها الـ Agent | لا |
+| (السهم) | رابط إلى العرض التفصيلي | لا |
 
-### Sorting
+### الفرز
 
-Click any sortable column header to sort by that metric:
-- **First click**: Sort descending (highest first)
-- **Second click**: Sort ascending (lowest first)
-- Active sort column is highlighted
+انقر على ترويسة أي عمود قابل للفرز للترتيب حسب ذلك المقياس:
+- **النقرة الأولى**: فرز تنازلي (الأعلى أولًا)
+- **النقرة الثانية**: فرز تصاعدي (الأدنى أولًا)
+- يُميَّز عمود الفرز النشط
 
-### Pagination
+### تقسيم الصفحات
 
-For large agent lists:
-- Shows "Showing X - Y of Z"
-- Use **Previous/Next** buttons to navigate pages
+لقوائم الـ Agents الكبيرة:
+- يُعرَض "Showing X - Y of Z"
+- استخدم زرّي **Previous/Next** للتنقّل بين الصفحات
 
-## Agent Status Badges
+## شارات حالة الـ Agent
 
-| Badge | Color | Meaning |
+| الشارة | اللون | المعنى |
 |-------|-------|---------|
-| active | Green | Agent is deployed and receiving queries |
-| inactive | Gray | Agent is paused |
-| testing | Yellow | Agent is being tested before deployment |
-| archived | Yellow | Agent is archived |
+| active | أخضر | الـ Agent منشور ويستقبل الاستعلامات |
+| inactive | رمادي | الـ Agent متوقّف مؤقتًا |
+| testing | أصفر | يجري اختبار الـ Agent قبل النشر |
+| archived | أصفر | الـ Agent مؤرشَف |
 
-## Channel Badges
+## شارات القنوات
 
-The Channels column shows which platforms each agent is used on:
-- Up to 3 channel badges shown (e.g., "web", "telegram", "discord")
-- If more than 3, shows "+X" to indicate additional channels
+يوضّح عمود Channels المنصّات التي يُستخدَم عليها كل Agent:
+- تُعرَض حتى 3 شارات قنوات (مثل "web" و"telegram" و"discord")
+- إذا زاد العدد عن 3، يُعرَض "X+" للإشارة إلى قنوات إضافية
 
-## Viewing Agent Details
+## عرض تفاصيل الـ Agent
 
-Click the arrow on any agent row to see:
-- Detailed metrics for that specific agent
-- Time-series charts
-- Channel breakdown
-- More granular data
+انقر على السهم في أي صفّ Agent لرؤية:
+- مقاييس تفصيلية لذلك الـ Agent تحديدًا
+- رسوم بيانية زمنية
+- تفصيل حسب القناة
+- بيانات أكثر تفصيلًا
 
-## Tips
+## نصائح
 
-- Sort by **Credits** to find your most resource-intensive agents
-- Sort by **Queries** to identify your most popular agents
-- Use **90 days** for long-term trend analysis
-- Check inactive agents to see if they should be reactivated
-- Click through to individual agents for deeper insights
+- افرز حسب **Credits** للعثور على الـ Agents الأكثر استهلاكًا للموارد
+- افرز حسب **Queries** لتحديد الـ Agents الأكثر شيوعًا
+- استخدم **90 days** لتحليل الاتجاهات على المدى الطويل
+- تفقّد الـ Agents غير النشطة لمعرفة ما إذا كان ينبغي إعادة تفعيلها
+- انقر للدخول إلى الـ Agents الفردية للحصول على رؤى أعمق
 
-## Common Questions
+## أسئلة شائعة
 
-**Q: How do I find my most used agent?**
+**س: كيف أعثر على الـ Agent الأكثر استخدامًا لديّ؟**
 
-Click the "Queries" column header to sort by query count. The top row is your most active agent.
+انقر على ترويسة عمود "Queries" للفرز حسب عدد الاستعلامات. الصفّ العلوي هو الـ Agent الأكثر نشاطًا لديك.
 
-**Q: What do the channel badges mean?**
+**س: ماذا تعني شارات القنوات؟**
 
-They show which platforms (Web, Telegram, Discord, Slack, etc.) each agent receives queries from.
+تُظهِر المنصّات (Web وTelegram وDiscord وSlack، إلخ) التي يستقبل منها كل Agent الاستعلامات.
 
-**Q: Why is an agent showing zero queries?**
+**س: لماذا يُظهِر أحد الـ Agents صفر استعلامات؟**
 
-The agent may be new, inactive, or not yet deployed to any channel.
+قد يكون الـ Agent جديدًا أو غير نشط أو لم يُنشَر بعد على أي قناة.

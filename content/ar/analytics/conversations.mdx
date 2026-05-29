@@ -1,146 +1,143 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# تحليلات المحادثات
 
-# Conversation Analytics
+تتبّع مقاييس المحادثات واعرض النصوص الكاملة التفصيلية عبر الـ Agents والقنوات لديك.
 
-Track conversation metrics and view detailed transcripts across your agents and channels.
+## نظرة عامة
 
-## Overview
+توفّر تحليلات المحادثات:
 
-Conversation analytics provides:
+- إجمالي حجم المحادثات
+- المحادثات لكل Agent
+- المحادثات لكل قناة
+- النصوص الكاملة للرسائل
+- رؤى مدعومة بالـ AI حول المحادثات
 
-- Total conversation volume
-- Conversations per agent
-- Conversations per channel
-- Full message transcripts
-- AI-powered conversation insights
+## الوصول إلى المحادثات
 
-## Accessing Conversations
+### من الـ Dashboard
 
-### From the Dashboard
+1. انتقل إلى **Analytics** في الشريط الجانبي
+2. انقر **Conversations** في القائمة الفرعية للتحليلات
 
-1. Go to **Analytics** in the sidebar
-2. Click **Conversations** in the analytics sub-menu
+(ملاحظة: يفتح زر **View All** على بطاقتي Top Agents وTop Channels التفصيل حسب الـ Agent أو القناة — وليس قائمة المحادثات.)
 
-(Note: the **View All** button on the Top Agents and Top Channels cards opens the per-agent or per-channel breakdown — not the Conversations list.)
+### قائمة المحادثات
 
-### Conversation List
+اعرض جميع المحادثات مع:
 
-View all conversations with:
-
-| Column | Description |
+| العمود | الوصف |
 |--------|-------------|
-| Title | Conversation title or session ID |
-| Agent | Which agent handled the conversation |
-| Channel | Platform (Telegram, Discord, Slack, etc.) |
-| Messages | Total message count |
-| Last Active | When the conversation was last updated |
-| Status | Active, handoff, archived, or deleted |
+| Title | عنوان المحادثة أو معرّف الجلسة |
+| Agent | الـ Agent الذي عالج المحادثة |
+| Channel | المنصّة (Telegram وDiscord وSlack، إلخ) |
+| Messages | إجمالي عدد الرسائل |
+| Last Active | آخر تحديث للمحادثة |
+| Status | active أو handoff أو archived أو deleted |
 
-## Filtering Conversations
+## تصفية المحادثات
 
-Filter the conversation list by:
+صفِّ قائمة المحادثات حسب:
 
-- **Agent** — Select a specific agent or all agents
-- **Channel** — Filter by platform (WhatsApp, Telegram, Meta, Slack, Discord, Google Chat, Widget, Playground)
-- **Date range** — Last 7, 14, 30, or 90 days
+- **Agent** — اختر Agent محددًا أو كل الـ Agents
+- **Channel** — صفِّ حسب المنصّة (WhatsApp وTelegram وMeta وSlack وDiscord وGoogle Chat وWidget وPlayground)
+- **Date range** — آخر 7 أو 14 أو 30 أو 90 يومًا
 
-## Conversation Details
+## تفاصيل المحادثة
 
-Click any conversation to view its full details:
+انقر على أي محادثة لعرض تفاصيلها الكاملة:
 
-### Overview Tab
+### تبويب Overview
 
-- **Total Messages** — Message count in the conversation
-- **Credits Spent** — Platform credits used
-- **Agent** — Which agent handled the conversation
-- **Channel** — Platform where it occurred
-- **Created** — When the conversation started
-- **Last Active** — Most recent activity
+- **Total Messages** — عدد الرسائل في المحادثة
+- **Credits Spent** — الـ credits المستخدمة من المنصّة
+- **Agent** — الـ Agent الذي عالج المحادثة
+- **Channel** — المنصّة التي جرت فيها
+- **Created** — وقت بدء المحادثة
+- **Last Active** — أحدث نشاط
 
-### Message Activity Chart
+### رسم نشاط الرسائل
 
-Visualize message patterns over time:
-- Toggle between hourly and daily granularity
-- Show/hide user messages and assistant messages
-- See conversation activity patterns
+تصوّر أنماط الرسائل عبر الزمن:
+- بدّل بين مستوى التفصيل الساعي واليومي
+- أظهِر/أخفِ رسائل المستخدم ورسائل المساعد
+- اطّلع على أنماط نشاط المحادثة
 
-### Messages Tab
+### تبويب Messages
 
-View the complete conversation transcript:
+اعرض النص الكامل للمحادثة:
 
-- **Full message history** — See every message in the conversation
-- **Role indicators** — User, Assistant, System, and Tool messages are color-coded
-- **Timestamps** — When each message was sent
-- **Token usage** — Input/output tokens per message (when available)
+- **Full message history** — اطّلع على كل رسالة في المحادثة
+- **Role indicators** — رسائل User وAssistant وSystem وTool مرمّزة بالألوان
+- **Timestamps** — وقت إرسال كل رسالة
+- **Token usage** — رموز الإدخال/الإخراج لكل رسالة (عند توفّرها)
 
-#### Message Filtering
+#### تصفية الرسائل
 
-Filter messages by time period:
-- Last 24 hours
-- Last 7 days
-- Last 30 days
-- All messages
+صفِّ الرسائل حسب الفترة الزمنية:
+- آخر 24 ساعة
+- آخر 7 أيام
+- آخر 30 يومًا
+- كل الرسائل
 
-#### Export
+#### التصدير
 
-Click **Export** to download the conversation as a JSON file containing:
-- Conversation metadata
-- All messages with timestamps
-- Token information
+انقر **Export** لتنزيل المحادثة كملف JSON يحتوي على:
+- البيانات الوصفية للمحادثة
+- جميع الرسائل مع الطوابع الزمنية
+- معلومات الـ tokens
 
-## AI-Powered Insights
+## الرؤى المدعومة بالـ AI
 
-Generate intelligent summaries of conversations:
+ولِّد ملخّصات ذكية للمحادثات:
 
-1. Navigate to a conversation's **Messages** tab
-2. Click **Generate Insights**
-3. View AI-analyzed insights including:
-   - **Key Points** — Main topics discussed
-   - **User Intents** — What the user was trying to accomplish
-   - **Key Info Shared** — Important information exchanged
-   - **Suggested Actions** — Recommendations based on the conversation
+1. انتقل إلى تبويب **Messages** في المحادثة
+2. انقر **Generate Insights**
+3. اعرض الرؤى المحلَّلة بالـ AI، ومنها:
+   - **Key Points** — أبرز المواضيع التي نُوقِشت
+   - **User Intents** — ما كان المستخدم يحاول إنجازه
+   - **Key Info Shared** — المعلومات المهمّة المتبادَلة
+   - **Suggested Actions** — توصيات مبنية على المحادثة
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Generating insights consumes credits from your account. Results are cached for faster access on subsequent views.
+  يستهلك توليد الرؤى credits من حسابك. تُخزَّن النتائج مؤقتًا لوصول أسرع في المرّات اللاحقة.
 </Callout>
 
-## Privacy Considerations
+## اعتبارات الخصوصية
 
-Conversation data is handled according to:
+تُعالَج بيانات المحادثات وفقًا لـ:
 
-- Privacy policy requirements
-- User consent where applicable
+- متطلّبات سياسة الخصوصية
+- موافقة المستخدم حيثما ينطبق ذلك
 
-## Tips
+## نصائح
 
-- Use filters to find conversations from specific agents or channels
-- Export important conversations for record-keeping or analysis
-- Generate AI insights to quickly understand long conversations
-- Check the Message Activity chart to identify peak usage times
-- Review conversation transcripts to improve your agent's persona
-- Monitor credits spent to track usage patterns
+- استخدم عوامل التصفية للعثور على محادثات من Agents أو قنوات محددة
+- صدِّر المحادثات المهمّة لحفظ السجلّات أو التحليل
+- ولِّد رؤى الـ AI لفهم المحادثات الطويلة بسرعة
+- تفقّد رسم نشاط الرسائل لتحديد أوقات الذروة في الاستخدام
+- راجع نصوص المحادثات لتحسين شخصية الـ Agent لديك
+- راقب الـ credits المستهلكة لتتبّع أنماط الاستخدام
 
-## Common Questions
+## أسئلة شائعة
 
-**Q: How do I find conversations from a specific channel?**
+**س: كيف أعثر على المحادثات من قناة محددة؟**
 
-Use the Channel filter at the top of the conversation list to select a specific platform like Telegram, Discord, or Slack.
+استخدم عامل تصفية Channel أعلى قائمة المحادثات لاختيار منصّة محددة مثل Telegram أو Discord أو Slack.
 
-**Q: Can I export multiple conversations at once?**
+**س: هل يمكنني تصدير عدّة محادثات دفعةً واحدة؟**
 
-Currently, export works one conversation at a time. Export each conversation individually from the Messages tab.
+حاليًا، يعمل التصدير لمحادثة واحدة في كل مرّة. صدِّر كل محادثة على حدة من تبويب Messages.
 
-**Q: What does "Generate Insights" do?**
+**س: ماذا يفعل "Generate Insights"؟**
 
-It uses AI to analyze the conversation and provide a summary including key points, user intents, important information shared, and suggested actions.
+يستخدم الـ AI لتحليل المحادثة وتقديم ملخّص يتضمّن النقاط الرئيسية ونوايا المستخدم والمعلومات المهمّة المتبادَلة والإجراءات المقترحة.
 
-**Q: Do AI insights cost credits?**
+**س: هل تكلّف رؤى الـ AI أي credits؟**
 
-Yes, generating insights consumes credits from your account. However, results are cached so viewing the same insights again is free.
+نعم، يستهلك توليد الرؤى credits من حسابك. لكن النتائج تُخزَّن مؤقتًا، فعرض الرؤى نفسها مرّة أخرى مجاني.
 
-**Q: How long are conversations stored?**
+**س: إلى متى تُخزَّن المحادثات؟**
 
-Conversations are stored securely and available for analytics. Contact support if you have questions about data storage.
+تُخزَّن المحادثات بأمان وتبقى متاحة للتحليلات. تواصل مع الدعم إن كانت لديك أسئلة حول تخزين البيانات.

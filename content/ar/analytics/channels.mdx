@@ -1,97 +1,94 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# تحليلات القنوات
 
-# Channel Analytics
+اعرض مقاييس الأداء مفصّلة حسب القناة. قارن أحجام الاستعلامات والمحادثات والمستخدمين الفريدين واستهلاك الـ credits عبر جميع المنصّات التي تستقبل عليها الـ Agents الاستعلامات.
 
-View performance metrics broken down by channel. Compare query volumes, conversations, unique users, and credit usage across all platforms where your agents receive queries.
+## الوصول إلى تحليلات القنوات
 
-## Accessing Channel Analytics
+1. انتقل إلى **Analytics** في الشريط الجانبي
+2. انقر **View All** بجوار "Channel Distribution"، أو
+3. انتقل مباشرةً إلى **Analytics > By Channel**
 
-1. Navigate to **Analytics** in the sidebar
-2. Click **View All** next to "Channel Distribution", or
-3. Go directly to **Analytics > By Channel**
+## التنقّل
 
-## Navigation
+يعرض مسار التنقّل موضعك الحالي: **Dashboard / Channels**. انقر "Dashboard" للعودة إلى صفحة التحليلات الرئيسية.
 
-The breadcrumb shows your location: **Dashboard / Channels**. Click "Dashboard" to return to the main analytics page.
+## عناصر التحكم في النطاق الزمني
 
-## Date Range Controls
-
-| Control | Description |
+| عنصر التحكم | الوصف |
 |---------|-------------|
-| **Last 7 days** | View metrics for the past week |
-| **Last 14 days** | View metrics for two weeks |
-| **Last 30 days** | View metrics for the past month |
-| **Last 90 days** | View metrics for the past quarter |
-| **Refresh** | Reload data with latest values |
+| **Last 7 days** | عرض المقاييس للأسبوع الماضي |
+| **Last 14 days** | عرض المقاييس لأسبوعين |
+| **Last 30 days** | عرض المقاييس للشهر الماضي |
+| **Last 90 days** | عرض المقاييس للربع الماضي |
+| **Refresh** | إعادة تحميل البيانات بأحدث القيم |
 
-## Summary Cards
+## بطاقات الملخّص
 
-Four cards showing aggregated metrics across all channels:
+أربع بطاقات تعرض مقاييس مجمّعة عبر جميع القنوات:
 
-| Card | Description |
+| البطاقة | الوصف |
 |------|-------------|
-| Total Channels | Number of active channels |
-| Total Queries | Sum of queries across all channels |
-| Total Conversations | Sum of conversations across all channels |
-| Total Credits | Sum of credits used across all channels |
+| Total Channels | عدد القنوات النشطة |
+| Total Queries | مجموع الاستعلامات عبر جميع القنوات |
+| Total Conversations | مجموع المحادثات عبر جميع القنوات |
+| Total Credits | مجموع الـ credits المستخدمة عبر جميع القنوات |
 
-## Channels Table
+## جدول القنوات
 
-All your active channels listed with performance metrics:
+تُدرَج جميع قنواتك النشطة مع مقاييس الأداء:
 
-| Column | Description |
+| العمود | الوصف |
 |--------|-------------|
-| Channel | Channel name with color-coded badge |
-| Queries | Total questions answered on this channel |
-| Conversations | Chat sessions on this channel |
-| Unique Users | Distinct users who interacted via this channel |
-| Credits | Resources consumed by this channel |
-| % of Total | Visual progress bar showing this channel's share of total queries |
-| (Arrow) | Link to detailed channel view |
+| Channel | اسم القناة مع شارة ملوّنة |
+| Queries | إجمالي الأسئلة المُجاب عنها على هذه القناة |
+| Conversations | جلسات الدردشة على هذه القناة |
+| Unique Users | المستخدمون المتمايزون الذين تفاعلوا عبر هذه القناة |
+| Credits | الموارد المستهلكة من هذه القناة |
+| % of Total | شريط تقدّم مرئي يوضّح حصّة هذه القناة من إجمالي الاستعلامات |
+| (السهم) | رابط إلى العرض التفصيلي للقناة |
 
-## Channel Types
+## أنواع القنوات
 
-Your agents can receive queries from various platforms:
+يمكن للـ Agents لديك استقبال الاستعلامات من منصّات متنوّعة:
 
-| Channel | Description |
+| القناة | الوصف |
 |---------|-------------|
-| Web | Queries from the embeddable web chat surface |
-| Widget | Queries from the website chat widget |
-| Telegram | Telegram bot integration |
-| Discord | Discord bot integration |
-| Slack | Slack app integration |
-| Meta | Meta/Messenger integration |
-| WhatsApp | WhatsApp Business integration |
-| Google Chat | Google Chat (Workspace) integration |
-| OpenAI Apps | Conversations from OpenAI Apps SDK |
-| Playground | Queries from the agent testing interface |
-| API | Direct API calls to your agent |
+| Web | الاستعلامات من سطح دردشة الويب القابل للتضمين |
+| Widget | الاستعلامات من أداة دردشة الموقع الإلكتروني |
+| Telegram | تكامل بوت Telegram |
+| Discord | تكامل بوت Discord |
+| Slack | تكامل تطبيق Slack |
+| Meta | تكامل Meta/Messenger |
+| WhatsApp | تكامل WhatsApp Business |
+| Google Chat | تكامل Google Chat (Workspace) |
+| OpenAI Apps | المحادثات من OpenAI Apps SDK |
+| Playground | الاستعلامات من واجهة اختبار الـ Agent |
+| API | استدعاءات الـ API المباشرة إلى الـ Agent |
 
-## Viewing Channel Details
+## عرض تفاصيل القناة
 
-Click the arrow on any channel row to see:
-- Detailed metrics for that specific channel
-- Time-series charts with granularity options (Hourly, Daily, Weekly, Monthly)
-- Agent breakdown within that channel
+انقر على السهم في أي صفّ قناة لرؤية:
+- مقاييس تفصيلية لتلك القناة تحديدًا
+- رسوم بيانية زمنية مع خيارات لمستوى التفصيل (Hourly وDaily وWeekly وMonthly)
+- تفصيل الـ Agents ضمن تلك القناة
 
-## Tips
+## نصائح
 
-- Compare **% of Total** to understand which channels drive the most traffic
-- Use this view to identify underperforming channels that need attention
-- Check **Unique Users** to understand audience reach per platform
-- Review **Credits** to see resource consumption by channel
+- قارن **% of Total** لفهم القنوات التي تدفع أكبر قدر من حركة الاستخدام
+- استخدم هذا العرض لتحديد القنوات الضعيفة الأداء التي تحتاج إلى اهتمام
+- تفقّد **Unique Users** لفهم مدى وصول الجمهور لكل منصّة
+- راجع **Credits** لمعرفة استهلاك الموارد حسب القناة
 
-## Common Questions
+## أسئلة شائعة
 
-**Q: Why don't I see all channels listed?**
+**س: لماذا لا أرى جميع القنوات مدرجة؟**
 
-Only channels with at least one query during the selected date range appear in the table.
+تظهر في الجدول فقط القنوات التي سجّلت استعلامًا واحدًا على الأقل خلال النطاق الزمني المحدد.
 
-**Q: How is the percentage calculated?**
+**س: كيف تُحتسَب النسبة المئوية؟**
 
-The percentage shows each channel's share of total queries across all channels for the selected period.
+تُظهِر النسبة المئوية حصّة كل قناة من إجمالي الاستعلامات عبر جميع القنوات للفترة المحددة.
 
-**Q: Can I compare channels over time?**
+**س: هل يمكنني مقارنة القنوات عبر الزمن؟**
 
-Click into a specific channel to see its time-series data and trends.
+انقر للدخول إلى قناة محددة لرؤية بياناتها الزمنية واتجاهاتها.
