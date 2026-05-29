@@ -1,88 +1,85 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# وصول الـ Agent إلى المعرفة
 
-# Agent Knowledge Access
+تحكّم في المستندات التي يمكن لكل Agent الوصول إليها عند الإجابة عن الأسئلة. قيّد الـ Agents بمجلدات أو وسوم محدّدة، أو استبعِد محتوى معيّنًا من نطاق وصولها.
 
-Control which documents each agent can access when answering questions. Restrict agents to specific folders or tags, or exclude certain content from their reach.
+## كيفية الوصول
 
-## Getting There
+1. انتقل إلى **Agents** في الشريط الجانبي
+2. انقر على Agent لتعديله، أو أنشئ Agent جديدًا
+3. مرّر إلى قسم **Knowledge Access Control**
 
-1. Navigate to **Agents** in the sidebar
-2. Click on an agent to edit it, or create a new agent
-3. Scroll to the **Knowledge Access Control** section
+## أوضاع الوصول
 
-## Access Modes
+يحدّد وضع الوصول كيفية تأثير اختياراتك على وصول الـ Agent إلى المستندات.
 
-The access mode determines how your selections affect the agent's document access.
-
-| Mode | Icon | Description | Use When |
+| الوضع | الأيقونة | الوصف | متى يُستخدَم |
 |------|------|-------------|----------|
-| **Exclude Mode** | Red X | Agent accesses ALL documents EXCEPT selected | You want to hide sensitive documents but allow everything else |
-| **Include Mode** | Green Check | Agent accesses ONLY selected documents | You want to restrict the agent to specific content |
+| **Exclude Mode** | X حمراء | يصل الـ Agent إلى كل المستندات باستثناء المختارة | تريد إخفاء مستندات حسّاسة مع السماح بكل ما عداها |
+| **Include Mode** | علامة صحّ خضراء | يصل الـ Agent إلى المستندات المختارة فقط | تريد تقييد الـ Agent بمحتوى محدّد |
 
-### Choosing the Right Mode
+### اختيار الوضع المناسب
 
-**Exclude Mode** (default):
-- Starts with full access to all documents
-- Select folders/tags to block from the agent
-- Good for: Hiding HR documents, financial data, or drafts
+**Exclude Mode** (الافتراضي):
+- يبدأ بوصول كامل إلى جميع المستندات
+- اختر المجلدات/الوسوم لحجبها عن الـ Agent
+- مناسب لـ: إخفاء مستندات الموارد البشرية أو البيانات المالية أو المسوّدات
 
 **Include Mode**:
-- Starts with no access
-- Select folders/tags to grant access
-- Good for: Creating specialized agents for specific topics
+- يبدأ بدون أيّ وصول
+- اختر المجلدات/الوسوم لمنح الوصول إليها
+- مناسب لـ: إنشاء Agents متخصّصة لمواضيع محدّدة
 
-## Selecting Content
+## اختيار المحتوى
 
-### By Folders
+### حسب المجلدات
 
-1. Click the **Folders** tab
-2. Use the search box to find folders
-3. Check folders to include/exclude
-4. Expand folders (click arrow) to select individual documents
-5. A checkmark shows selected items; partial selection shows a dash
+1. انقر على تبويب **Folders**
+2. استخدم مربّع البحث للعثور على المجلدات
+3. حدّد المجلدات لتضمينها/استبعادها
+4. وسّع المجلدات (انقر على السهم) لاختيار مستندات فردية
+5. تُظهِر علامة الصحّ العناصر المختارة؛ ويُظهِر التحديد الجزئي شَرطة
 
-### By Tags
+### حسب الوسوم
 
-1. Click the **Tags** tab
-2. Use the search box to find tags
-3. Check tags to include/exclude
-4. Each tag shows how many documents use it
+1. انقر على تبويب **Tags**
+2. استخدم مربّع البحث للعثور على الوسوم
+3. حدّد الوسوم لتضمينها/استبعادها
+4. يُظهِر كل وسم عدد المستندات التي تستخدمه
 
-## Preview Panel
+## لوحة المعاينة
 
-The preview panel on the right shows:
-- Total accessible documents based on current selection
-- Updates in real-time as you make changes
+تُظهِر لوحة المعاينة على اليمين:
+- إجمالي المستندات التي يمكن الوصول إليها بناءً على التحديد الحالي
+- تتحدّث في الوقت الفعلي مع إجرائك التغييرات
 
-## Saving Changes
+## حفظ التغييرات
 
-When editing an existing agent:
-1. Make your selections
-2. Click **Save Changes** (green button)
-3. Or click **Reset Changes** to undo unsaved changes
+عند تعديل Agent موجود:
+1. أجرِ اختياراتك
+2. انقر على **Save Changes** (الزرّ الأخضر)
+3. أو انقر على **Reset Changes** للتراجع عن التغييرات غير المحفوظة
 
-When creating a new agent:
-- Knowledge access settings save automatically when you submit the agent form
+عند إنشاء Agent جديد:
+- تُحفَظ إعدادات الوصول إلى المعرفة تلقائيًا عند إرسال نموذج الـ Agent
 
-## Tips
+## نصائح
 
-- Use **Exclude Mode** when you want broad access with a few exceptions
-- Use **Include Mode** for focused, topic-specific agents
-- Combine folders AND tags for precise control
-- Check the preview panel to verify your selection before saving
-- For Include Mode, you must select at least one folder or tag
+- استخدم **Exclude Mode** عندما تريد وصولًا واسعًا مع بعض الاستثناءات
+- استخدم **Include Mode** للـ Agents المركّزة الخاصة بموضوع محدّد
+- ادمج المجلدات والوسوم معًا للتحكّم الدقيق
+- تحقّق من لوحة المعاينة للتأكّد من تحديدك قبل الحفظ
+- في Include Mode، يجب اختيار مجلد أو وسم واحد على الأقلّ
 
-## Common Questions
+## أسئلة شائعة
 
-**Q: What happens if I select both folders and tags?**
-A: The agent can access documents that match ANY of your selections. Folders and tags combine inclusively.
+**س: ماذا يحدث إذا اخترت المجلدات والوسوم معًا؟**
+ج: يمكن للـ Agent الوصول إلى المستندات التي تطابق أيًّا من اختياراتك. تتكامل المجلدات والوسوم بشكل شامل.
 
-**Q: Can I give an agent access to everything?**
-A: Yes. Use Exclude Mode and don't select anything to exclude. The agent will have full access.
+**س: هل يمكنني منح Agent وصولًا إلى كل شيء؟**
+ج: نعم. استخدم Exclude Mode ولا تختر شيئًا لاستبعاده. سيحظى الـ Agent بوصول كامل.
 
-**Q: What if a document is in a selected folder but has an excluded tag?**
-A: In Exclude Mode, any match to excluded content blocks access. In Include Mode, any match to included content grants access.
+**س: ماذا لو كان مستند في مجلد مختار لكن يحمل وسمًا مُستبعَدًا؟**
+ج: في Exclude Mode، أيّ تطابق مع محتوى مُستبعَد يحجب الوصول. وفي Include Mode، أيّ تطابق مع محتوى مُضمَّن يمنح الوصول.
 
-**Q: Does this affect existing conversations?**
-A: Yes. Changes take effect immediately for new messages. The agent will use the updated access rules.
+**س: هل يؤثّر هذا في المحادثات الحالية؟**
+ج: نعم. تسري التغييرات فورًا على الرسائل الجديدة. سيستخدم الـ Agent قواعد الوصول المحدّثة.

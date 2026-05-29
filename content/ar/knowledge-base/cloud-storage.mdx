@@ -1,134 +1,131 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
-# Cloud Storage Integration
+# تكامل التخزين السحابي
 
 import { Callout } from 'nextra/components'
 
-Import documents directly from your cloud storage accounts. Connect to Google Drive, Dropbox, OneDrive, or Box to add files to your Content without downloading them first.
+استورد المستندات مباشرة من حسابات التخزين السحابي لديك. اتصل بـ Google Drive أو Dropbox أو OneDrive أو Box لإضافة الملفات إلى المحتوى دون تنزيلها أولًا.
 
-## Getting There
+## كيفية الوصول
 
-Navigate to **Content** in the sidebar. Cloud storage icons appear at the top of the page, next to the upload drop zone.
+انتقل إلى **Content** في الشريط الجانبي. تظهر أيقونات التخزين السحابي في أعلى الصفحة، بجوار منطقة إفلات الرفع.
 
-## Supported Providers
+## المزوّدون المدعومون
 
-| Provider | Icon Location | What You Can Import |
+| المزوّد | موقع الأيقونة | ما يمكنك استيراده |
 |----------|---------------|---------------------|
-| Google Drive | Cloud icons row | Files, Google Docs, Slides |
-| Dropbox | Cloud icons row | Files from your Dropbox |
-| OneDrive | Cloud icons row | Files from your OneDrive |
-| Box | Cloud icons row | Files from your Box account |
+| Google Drive | صفّ أيقونات السحابة | الملفات، Google Docs، Slides |
+| Dropbox | صفّ أيقونات السحابة | الملفات من Dropbox لديك |
+| OneDrive | صفّ أيقونات السحابة | الملفات من OneDrive لديك |
+| Box | صفّ أيقونات السحابة | الملفات من حساب Box لديك |
 
-## How to Import Files
+## كيفية استيراد الملفات
 
-### Step 1: Click the Provider Icon
+### الخطوة 1: انقر على أيقونة المزوّد
 
-Click the icon for your cloud storage provider. You'll see a tooltip showing the provider name when you hover.
+انقر على أيقونة مزوّد التخزين السحابي لديك. سترى تلميحًا يعرض اسم المزوّد عند تمرير المؤشّر فوقه.
 
-### Step 2: Sign In
+### الخطوة 2: تسجيل الدخول
 
-You'll be prompted to sign in and authorize access. This authorization is remembered for your browser session.
+سيُطلَب منك تسجيل الدخول والإذن بالوصول. يُحفَظ هذا الإذن طوال جلسة متصفّحك.
 
-### Step 3: Select Files
+### الخطوة 3: اختيار الملفات
 
-A file picker opens showing your cloud storage contents:
-- Navigate through folders to find files
-- Select multiple files at once
-- Only supported file types are shown (based on your plan)
+يفتح مُنتقي ملفات يعرض محتويات تخزينك السحابي:
+- تنقّل عبر المجلدات للعثور على الملفات
+- اختر ملفات متعدّدة دفعة واحدة
+- تُعرَض أنواع الملفات المدعومة فقط (بناءً على خطتك)
 
-### Step 4: Import
+### الخطوة 4: الاستيراد
 
-Click to confirm your selection. Files are queued for import and processing begins automatically.
+انقر لتأكيد اختيارك. تُدرَج الملفات في قائمة الانتظار للاستيراد وتبدأ المعالجة تلقائيًا.
 
-## Import Options
+## خيارات الاستيراد
 
-Before importing, you can configure:
+قبل الاستيراد، يمكنك ضبط:
 
-| Option | Description |
+| الخيار | الوصف |
 |--------|-------------|
-| Premium Processing | Enable for better AI understanding (checkbox below upload area) |
-| Target Folder | Upload directly to a folder by clicking the provider icon on a folder row |
+| Premium Processing | فعّله لفهم أفضل من الذكاء الاصطناعي (مربّع اختيار أسفل منطقة الرفع) |
+| المجلد الوجهة | ارفع مباشرة إلى مجلد بالنقر على أيقونة المزوّد على صفّ المجلد |
 
-## Importing to a Specific Folder
+## الاستيراد إلى مجلد محدّد
 
-You can import cloud files directly into a folder:
+يمكنك استيراد الملفات السحابية مباشرة إلى مجلد:
 
-1. Find the folder in your document browser
-2. Hover over the folder row
-3. Click the cloud storage icon that appears
-4. Select files from your cloud storage
-5. Files are imported directly into that folder
+1. ابحث عن المجلد في متصفّح المستندات
+2. مرّر المؤشّر فوق صفّ المجلد
+3. انقر على أيقونة التخزين السحابي التي تظهر
+4. اختر الملفات من تخزينك السحابي
+5. تُستورَد الملفات مباشرة إلى ذلك المجلد
 
-## During Import
+## أثناء الاستيراد
 
-- A progress indicator shows import status
-- Files appear in your document list as they're processed
-- You can continue working while files import
-- If duplicates are detected, you'll be notified after import completes
+- يعرض مؤشّر تقدّم حالة الاستيراد
+- تظهر الملفات في قائمة مستنداتك أثناء معالجتها
+- يمكنك متابعة العمل أثناء استيراد الملفات
+- إذا اكتُشِفت تكرارات، فستُخطَر بعد اكتمال الاستيراد
 
-## Google Workspace Files
+## ملفات Google Workspace
 
-Google Drive supports native Google Workspace documents:
-- **Google Docs** — Automatically converted to text
-- **Google Slides** — Text content is extracted
-
-<Callout type="info">
-  Formatting and charts are not preserved — only the text content is extracted.
-</Callout>
-
-## Permissions
-
-Cuneiform Chat requests minimal permissions:
-- Read access to selected files only
-- No write access to your cloud storage
-- No access to files you don't explicitly select
+يدعم Google Drive مستندات Google Workspace الأصلية:
+- **Google Docs** — تُحوَّل تلقائيًا إلى نصّ
+- **Google Slides** — يُستخرَج المحتوى النصّي
 
 <Callout type="info">
-  You can revoke access at any time through your cloud provider's settings.
+  لا يُحافَظ على التنسيق والرسوم البيانية — يُستخرَج المحتوى النصّي فقط.
 </Callout>
 
-## Sync Behavior
+## الأذونات
 
-Currently, cloud imports are **one-time imports**:
-- Files are copied at the time of import
-- Changes in cloud storage are not automatically synced
-- To update content, re-import the modified files
+يطلب Cuneiform Chat أذونات بالحدّ الأدنى:
+- وصول قراءة إلى الملفات المختارة فقط
+- لا وصول كتابة إلى تخزينك السحابي
+- لا وصول إلى الملفات التي لا تختارها صراحة
 
-## Tips
+<Callout type="info">
+  يمكنك إلغاء الوصول في أيّ وقت من إعدادات مزوّد السحابة لديك.
+</Callout>
 
-- Select multiple files at once to save time
-- Only supported file types appear in the picker (based on your plan)
-- Use folder-level import for better organization
-- Large files may take longer to process after import
+## سلوك المزامنة
 
-## Common Questions
+حاليًا، عمليات الاستيراد السحابية هي **عمليات استيراد لمرّة واحدة**:
+- تُنسَخ الملفات في وقت الاستيراد
+- لا تُزامَن التغييرات في التخزين السحابي تلقائيًا
+- لتحديث المحتوى، أعِد استيراد الملفات المعدّلة
 
-**Q: Do I need to re-authorize each time?**
-A: Usually not. If your session is active, clicking the icon opens the file picker directly. You may occasionally need to re-authorize after clearing your browser data or using a new browser.
+## نصائح
 
-**Q: Can I import entire folders?**
-A: Currently, you select individual files. Navigate into folders in the picker to select files within them.
+- اختر ملفات متعدّدة دفعة واحدة لتوفير الوقت
+- تظهر أنواع الملفات المدعومة فقط في المُنتقي (بناءً على خطتك)
+- استخدم الاستيراد على مستوى المجلد لتنظيم أفضل
+- قد تستغرق الملفات الكبيرة وقتًا أطول للمعالجة بعد الاستيراد
 
-**Q: What happens to my original files?**
-A: Your cloud files remain unchanged. We create a copy in your Content.
+## أسئلة شائعة
 
-**Q: Why don't I see some files in the picker?**
-A: Only supported file types are shown. Check the [supported file types](/knowledge-base/supported-formats) for available formats.
+**س: هل أحتاج إلى إعادة الإذن في كل مرّة؟**
+ج: عادةً لا. إذا كانت جلستك نشطة، فإنّ النقر على الأيقونة يفتح مُنتقي الملفات مباشرة. قد تحتاج أحيانًا إلى إعادة الإذن بعد مسح بيانات متصفّحك أو استخدام متصفّح جديد.
 
-## Troubleshooting
+**س: هل يمكنني استيراد مجلدات كاملة؟**
+ج: حاليًا، تختار ملفات فردية. تنقّل داخل المجلدات في المُنتقي لاختيار الملفات بداخلها.
 
-### Authorization Issues
+**س: ماذا يحدث لملفاتي الأصلية؟**
+ج: تبقى ملفاتك السحابية دون تغيير. نُنشئ نسخة في محتواك.
 
-If you can't connect:
-- Check you're signed into the correct account
-- Try revoking and re-authorizing access
-- Ensure third-party app access is enabled in your provider settings
+**س: لماذا لا أرى بعض الملفات في المُنتقي؟**
+ج: تُعرَض أنواع الملفات المدعومة فقط. راجع [أنواع الملفات المدعومة](/knowledge-base/supported-formats) للاطّلاع على الصيغ المتاحة.
 
-### Import Failures
+## استكشاف الأخطاء وإصلاحها
 
-If files fail to import:
-- Verify files are in supported formats
-- Check files aren't corrupted
-- Ensure you have permission to access the files
-- Try importing fewer files at once
+### مشكلات الإذن
+
+إذا تعذّر عليك الاتصال:
+- تحقّق من تسجيل دخولك بالحساب الصحيح
+- جرّب إلغاء الوصول وإعادة الإذن
+- تأكّد من تمكين وصول التطبيقات الخارجية في إعدادات مزوّدك
+
+### فشل الاستيراد
+
+إذا فشل استيراد الملفات:
+- تحقّق من أنّ الملفات بصيغ مدعومة
+- تأكّد من أنّ الملفات غير تالفة
+- تأكّد من امتلاكك إذن الوصول إلى الملفات
+- جرّب استيراد ملفات أقلّ دفعة واحدة

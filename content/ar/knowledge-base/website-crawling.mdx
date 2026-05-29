@@ -1,129 +1,126 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
-
-# Website Crawling
+# الزحف على المواقع
 
 import { Callout } from 'nextra/components'
 
-Crawl public websites and add the content to your Content. The crawler visits pages, extracts content as Markdown, and lets you review and edit before processing.
+ازحف على المواقع العامة وأضِف محتواها إلى المحتوى لديك. يزور الزاحف الصفحات، ويستخرج المحتوى بصيغة Markdown، ويتيح لك مراجعته وتعديله قبل المعالجة.
 
-## Getting There
+## كيفية الوصول
 
-Navigate to **Content** in the sidebar, then click the **Website** tab.
+انتقل إلى **Content** في الشريط الجانبي، ثم انقر على تبويب **Website**.
 
-## How to Crawl a Website
+## كيفية الزحف على موقع
 
-### Step 1: Enter the URL
+### الخطوة 1: أدخِل الرابط
 
-Paste the website URL in the input field (e.g., `https://docs.example.com`). The crawler will start from this page and follow links to discover more pages.
+الصق رابط الموقع في حقل الإدخال (مثل `https://docs.example.com`). سيبدأ الزاحف من هذه الصفحة ويتّبع الروابط لاكتشاف المزيد من الصفحات.
 
-### Step 2: Configure Options
+### الخطوة 2: ضبط الخيارات
 
-| Option | Default | Description |
+| الخيار | الافتراضي | الوصف |
 |--------|---------|-------------|
-| Target Folder | No folder (root) | Select a destination folder for crawled documents |
-| Single page only | Off | Only crawl the entered URL, don't follow links |
-| Respect robots.txt | On | Honor the site's robots.txt crawling rules |
+| المجلد الوجهة | بلا مجلد (الجذر) | اختر مجلدًا وجهة للمستندات المزحوفة |
+| Single page only | معطّل | ازحف على الرابط المُدخَل فقط، ولا تتّبع الروابط |
+| Respect robots.txt | مفعّل | التزم بقواعد الزحف في ملف robots.txt للموقع |
 
-### Step 3: Start Crawling
+### الخطوة 3: ابدأ الزحف
 
-Click **Crawl** to begin. The crawler visits pages starting from your URL and extracts their content.
+انقر على **Crawl** للبدء. يزور الزاحف الصفحات بدءًا من رابطك ويستخرج محتواها.
 
-### Step 4: Monitor Progress
+### الخطوة 4: راقب التقدّم
 
-- A progress bar shows pages crawled vs. your plan's maximum
-- Pages appear in a live list as they are discovered
-- Click any page to preview its content immediately
-- Use the **Cancel** button to stop the crawl at any time
-
-<Callout type="info">
-  Only one crawl can run at a time per organization. Wait for the current crawl to complete or cancel it before starting another.
-</Callout>
-
-## Reviewing Crawled Pages
-
-After crawling completes, you can review and edit pages before adding them to your Content.
-
-### Edit Page Content
-
-1. Click any page in the list to open the editor
-2. Edit the **title** and **markdown content**
-3. Remove irrelevant sections (navigation menus, footers, sidebars)
-4. Click **Save** to update
+- يعرض شريط التقدّم الصفحات المزحوفة مقابل الحدّ الأقصى لخطتك
+- تظهر الصفحات في قائمة حيّة عند اكتشافها
+- انقر على أيّ صفحة لمعاينة محتواها فورًا
+- استخدم زرّ **Cancel** لإيقاف الزحف في أيّ وقت
 
 <Callout type="info">
-  Only pages with "Pending" status can be edited. Once processing starts, pages cannot be changed.
+  يمكن تشغيل زحف واحد فقط في كل مرّة لكل مؤسّسة. انتظر اكتمال الزحف الحالي أو ألغِه قبل بدء آخر.
 </Callout>
 
-### Select and Process Pages
+## مراجعة الصفحات المزحوفة
 
-1. Use checkboxes to select pages you want to keep
-2. Use **Select All** to select all pending pages at once
-3. Optionally choose a target folder
-4. Click **Process Selected**
+بعد اكتمال الزحف، يمكنك مراجعة الصفحات وتعديلها قبل إضافتها إلى المحتوى لديك.
 
-After processing starts, you're automatically switched to the **Documents** tab where the new documents will appear.
+### تعديل محتوى الصفحة
 
-## Crawl Status Reference
+1. انقر على أيّ صفحة في القائمة لفتح المُحرِّر
+2. عدّل **العنوان** و**محتوى markdown**
+3. أزِل الأقسام غير ذات الصلة (قوائم التنقّل، التذييلات، الأشرطة الجانبية)
+4. انقر على **Save** للتحديث
 
-| Status | Meaning |
+<Callout type="info">
+  يمكن تعديل الصفحات ذات الحالة "Pending" فقط. بمجرّد بدء المعالجة، لا يمكن تغيير الصفحات.
+</Callout>
+
+### اختيار الصفحات ومعالجتها
+
+1. استخدم مربّعات الاختيار لتحديد الصفحات التي تريد الاحتفاظ بها
+2. استخدم **Select All** لتحديد جميع الصفحات المعلّقة دفعة واحدة
+3. اختر اختياريًا مجلدًا وجهة
+4. انقر على **Process Selected**
+
+بعد بدء المعالجة، يُنقَل تلقائيًا إلى تبويب **Documents** حيث ستظهر المستندات الجديدة.
+
+## مرجع حالة الزحف
+
+| الحالة | المعنى |
 |--------|---------|
-| Pending | Crawl is queued to start |
-| In Progress | Actively visiting pages |
-| Completed | All reachable pages crawled |
-| Partial Success | Some pages crawled, some failed |
-| Failed | Crawl could not complete |
-| Cancelled | Stopped by you |
+| Pending | الزحف في قائمة الانتظار للبدء |
+| In Progress | يزور الصفحات بنشاط |
+| Completed | تم الزحف على جميع الصفحات القابلة للوصول |
+| Partial Success | تم زحف بعض الصفحات وفشل البعض الآخر |
+| Failed | تعذّر اكتمال الزحف |
+| Cancelled | أوقفته أنت |
 
-## Session Persistence
+## استمرارية الجلسة
 
-Your crawl session survives navigation and page refresh:
-- Active crawls automatically restore when you return to the Website tab
-- Completed crawls are available for review for up to 1 hour
+تبقى جلسة الزحف لديك صامدة عبر التنقّل وتحديث الصفحة:
+- تُستعاد عمليات الزحف النشطة تلقائيًا عند عودتك إلى تبويب Website
+- تتوفّر عمليات الزحف المكتملة للمراجعة لمدّة تصل إلى ساعة واحدة
 
-## Tips
+## نصائح
 
-- Review and edit crawled content before processing to improve quality
-- Use "Single page only" for individual pages you want to add quickly
-- Keep "Respect robots.txt" enabled to follow site owner preferences
-- Crawled documents appear in the Documents tab as Markdown (.md) files
+- راجع المحتوى المزحوف وعدّله قبل المعالجة لتحسين الجودة
+- استخدم "Single page only" للصفحات الفردية التي تريد إضافتها بسرعة
+- أبقِ "Respect robots.txt" مفعّلًا لاحترام تفضيلات مالك الموقع
+- تظهر المستندات المزحوفة في تبويب Documents كملفات Markdown ‏(.md)
 
-## Common Questions
+## أسئلة شائعة
 
-**Q: How many pages can I crawl?**
-A: The maximum number of pages depends on your plan. The crawler follows links from your starting URL up to a fixed depth — or, if you enable **Single page only**, it stops at the entered URL and skips link-following entirely.
+**س: كم عدد الصفحات التي يمكنني زحفها؟**
+ج: يعتمد الحدّ الأقصى لعدد الصفحات على خطتك. يتّبع الزاحف الروابط من رابط البداية حتى عمق ثابت — أو، إذا فعّلت **Single page only**، يتوقّف عند الرابط المُدخَل ويتخطّى اتّباع الروابط تمامًا.
 
-**Q: Can I crawl pages behind a login?**
-A: No. The crawler can only access publicly available pages. Pages behind authentication will be skipped.
+**س: هل يمكنني زحف صفحات خلف تسجيل الدخول؟**
+ج: لا. يمكن للزاحف الوصول إلى الصفحات المتاحة للعموم فقط. ستُتخطّى الصفحات الموجودة خلف المصادقة.
 
-**Q: What format are crawled pages?**
-A: Content is extracted as Markdown (.md) documents and processed through the standard pipeline (chunking, embedding, and search indexing).
+**س: ما صيغة الصفحات المزحوفة؟**
+ج: يُستخرَج المحتوى كمستندات Markdown ‏(.md) ويُعالَج عبر خطّ المعالجة القياسي (التقسيم، والتضمين، وفهرسة البحث).
 
-**Q: Why did some pages fail?**
-A: Pages can fail due to bot protection (firewalls like Cloudflare), server errors, or empty content. The crawl will show "Partial Success" status.
+**س: لماذا فشلت بعض الصفحات؟**
+ج: قد تفشل الصفحات بسبب الحماية من الروبوتات (جدران حماية مثل Cloudflare)، أو أخطاء الخادم، أو المحتوى الفارغ. سيُظهِر الزحف حالة "Partial Success".
 
-**Q: Can I re-crawl the same site?**
-A: Yes. Start a new crawl with the same URL. Previous crawled pages are replaced when a new crawl begins.
+**س: هل يمكنني إعادة زحف الموقع نفسه؟**
+ج: نعم. ابدأ زحفًا جديدًا بالرابط نفسه. تُستبدَل الصفحات المزحوفة السابقة عند بدء زحف جديد.
 
-**Q: Where do processed pages appear?**
-A: In the **Documents** tab of the Content page. They appear as Markdown (.md) files.
+**س: أين تظهر الصفحات المُعالَجة؟**
+ج: في تبويب **Documents** بصفحة Content. تظهر كملفات Markdown ‏(.md).
 
-## Troubleshooting
+## استكشاف الأخطاء وإصلاحها
 
-### Pages Return 403 or 503 Errors
+### الصفحات تُرجِع أخطاء 403 أو 503
 
-The site may be blocking automated crawlers. Options:
-- Ask the site owner to whitelist `CuneiformBot/1.0`
-- Try crawling a specific page with "Single page only" enabled
+قد يحظر الموقع الزواحف الآلية. الخيارات:
+- اطلب من مالك الموقع إدراج `CuneiformBot/1.0` في القائمة البيضاء
+- جرّب زحف صفحة محدّدة مع تفعيل "Single page only"
 
-### Empty or Garbled Content
+### محتوى فارغ أو مشوّه
 
-Some sites use heavy JavaScript rendering. The crawler supports most modern frameworks, but:
-- Single-page apps that require authentication won't work
-- Content loaded via infinite scroll may be partially captured
+تستخدم بعض المواقع عرضًا مكثّفًا بـ JavaScript. يدعم الزاحف معظم الأطُر الحديثة، لكن:
+- لن تعمل تطبيقات الصفحة الواحدة التي تتطلّب المصادقة
+- قد يُلتقَط المحتوى المُحمَّل عبر التمرير اللانهائي جزئيًا
 
-### Crawl Seems Slow
+### الزحف يبدو بطيئًا
 
-- Each page takes a few seconds to crawl (includes rendering and rate limiting)
-- Larger sites with many pages will take several minutes
-- You can cancel and retry if a crawl appears stuck
+- تستغرق كل صفحة بضع ثوانٍ للزحف (يشمل العرض وتحديد المعدّل)
+- ستستغرق المواقع الأكبر ذات الصفحات الكثيرة عدّة دقائق
+- يمكنك الإلغاء وإعادة المحاولة إذا بدا الزحف عالقًا

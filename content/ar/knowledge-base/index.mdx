@@ -1,105 +1,101 @@
 ---
-description: Manage your AI content. Upload documents, connect cloud storage, and crawl websites.
+description: أدِر محتوى الذكاء الاصطناعي الخاص بك. ارفع المستندات، واربط التخزين السحابي، وازحف على المواقع.
 ---
 
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# المحتوى
 
+المحتوى هو المكان الذي تدير فيه جميع المستندات التي تستخدمها الـ Agents للإجابة عن الأسئلة. ارفع المستندات، ونظّمها في مجلدات، وأضِف الوسوم، وتحكّم في أيّ الـ Agents يمكنه الوصول إلى أيّ محتوى.
 
-# Content
+## كيف يعمل
 
-Content is where you manage all the documents that your AI agents use to answer questions. Upload documents, organize them into folders, add tags, and control which agents can access which content.
+1. **إضافة المحتوى** — ارفع المستندات، أو استورد من التخزين السحابي، أو ازحف على المواقع
+2. **المعالجة** — تُعالَج المستندات وتُفهرَس تلقائيًا
+3. **البحث** — يبحث الـ Agents في المحتوى ذي الصلة عند الإجابة عن الأسئلة
+4. **الردّ** — تُولَّد الإجابات بناءً على محتواك الفعلي
 
-## How It Works
+## كيفية الوصول
 
-1. **Add Content** — Upload documents, import from cloud storage, or crawl websites
-2. **Process** — Documents are automatically processed and indexed
-3. **Search** — Agents search relevant content when answering questions
-4. **Respond** — Answers are generated based on your actual content
+انتقل إلى **Content** في قائمة الشريط الجانبي. هذا هو مركزك الرئيسي لإدارة المستندات.
 
-## Getting There
+## ما تراه
 
-Navigate to **Content** in the sidebar menu. This is your central hub for document management.
+### منطقة الرفع
 
-## What You See
+في أعلى الصفحة:
+- **أيقونات التخزين السحابي** — انقر على Google Drive أو Dropbox أو OneDrive أو Box لاستيراد الملفات مباشرة
+- **منطقة الإفلات** — اسحب الملفات وأفلِتها أو انقر لتصفّح الملفات المحلية
+- **تبويب المواقع** — انتقل إلى تبويب Website للزحف على محتوى المواقع العامة واستيراده
 
-### Upload Area
+### متصفّح المستندات
 
-At the top of the page:
-- **Cloud Storage Icons** — Click Google Drive, Dropbox, OneDrive, or Box to import files directly
-- **Drop Zone** — Drag and drop files or click to browse local files
-- **Website Tab** — Switch to the Website tab to crawl and import public website content
+أسفل منطقة الرفع، يعرض جدول جميع مستنداتك:
 
-### Document Browser
-
-Below the upload area, a table displays all your documents:
-
-| Column | Description |
+| العمود | الوصف |
 |--------|-------------|
-| Name | Document filename with type icon and source indicator |
-| Tags | Labels assigned to the document |
-| Status | Processing state (see Document Status below) |
-| Size | File size in MB |
-| Type | File extension (PDF, DOCX, etc.) |
-| Uploaded | Date and time of upload |
-| Actions | Menu for document operations |
+| الاسم | اسم ملف المستند مع أيقونة النوع ومؤشّر المصدر |
+| الوسوم | التسميات المُسنَدة إلى المستند |
+| الحالة | حالة المعالجة (راجع حالة المستند أدناه) |
+| الحجم | حجم الملف بالميغابايت |
+| النوع | امتداد الملف (PDF، DOCX، إلخ.) |
+| تاريخ الرفع | تاريخ ووقت الرفع |
+| الإجراءات | قائمة عمليات المستند |
 
-### Toolbar
+### شريط الأدوات
 
-- **Search** — Find documents by name
-- **Tag Filter** — Show only documents with specific tags
-- **Refresh** — Update the document list
-- **New Folder** — Create a folder for organization
-- **Fullscreen** — Expand the browser for more space
+- **البحث** — العثور على المستندات بالاسم
+- **مرشّح الوسوم** — عرض المستندات ذات الوسوم المحدّدة فقط
+- **التحديث** — تحديث قائمة المستندات
+- **مجلد جديد** — إنشاء مجلد للتنظيم
+- **ملء الشاشة** — توسيع المتصفّح لمساحة أكبر
 
-## Document Status
+## حالة المستند
 
-| Status | Meaning |
+| الحالة | المعنى |
 |--------|---------|
-| Uploaded | Document has been uploaded to the system |
-| Validating | Document is being validated |
-| Stored | Document has been stored and is awaiting processing |
-| Processing | Document is being analyzed and indexed |
-| Ready | Document is processed and available for your agents |
-| Failed | Processing encountered an error (can be retried) |
+| Uploaded | تم رفع المستند إلى النظام |
+| Validating | يجري التحقّق من المستند |
+| Stored | تم تخزين المستند وهو في انتظار المعالجة |
+| Processing | يجري تحليل المستند وفهرسته |
+| Ready | تمت معالجة المستند وهو متاح للـ Agents |
+| Failed | واجهت المعالجة خطأً (يمكن إعادة المحاولة) |
 
-## Working with Documents
+## العمل مع المستندات
 
-### View a Document
+### عرض مستند
 
-Click any document row to open the document viewer, which displays the content and metadata.
+انقر على أيّ صفّ مستند لفتح عارض المستند، الذي يعرض المحتوى وبيانات التعريف.
 
-### Document Actions
+### إجراءات المستند
 
-Hover over a document to see quick action buttons:
-- **Tag** — Add or remove tags
-- **Premium Processing** — Upgrade processing quality (if eligible)
-- **Retry** — Reprocess failed documents
-- **Chat** — Have a conversation about this specific document
+مرّر المؤشّر فوق مستند لرؤية أزرار الإجراءات السريعة:
+- **Tag** — إضافة الوسوم أو إزالتها
+- **Premium Processing** — ترقية جودة المعالجة (إن كنت مؤهّلًا)
+- **Retry** — إعادة معالجة المستندات الفاشلة
+- **Chat** — إجراء محادثة حول هذا المستند تحديدًا
 
-From the Actions menu (...):
-- **Move to Folder** — Relocate the document
-- **Reprocess** — Retry processing for failed documents
-- **Delete** — Remove the document permanently
+من قائمة الإجراءات (...):
+- **Move to Folder** — نقل المستند
+- **Reprocess** — إعادة محاولة المعالجة للمستندات الفاشلة
+- **Delete** — إزالة المستند نهائيًا
 
-## In This Section
+## في هذا القسم
 
 import { Cards } from 'nextra/components'
 
 <Cards>
-  <Cards.Card title="Uploading Documents" href="/knowledge-base/uploading-documents" />
-  <Cards.Card title="Supported Formats" href="/knowledge-base/supported-formats" />
-  <Cards.Card title="Folders and Tags" href="/knowledge-base/folders-and-tags" />
-  <Cards.Card title="Cloud Storage" href="/knowledge-base/cloud-storage" />
-  <Cards.Card title="Website Crawling" href="/knowledge-base/website-crawling" />
-  <Cards.Card title="Managing Documents" href="/knowledge-base/managing-documents" />
-  <Cards.Card title="Agent Knowledge Access" href="/knowledge-base/agent-knowledge-access" />
+  <Cards.Card title="رفع المستندات" href="/knowledge-base/uploading-documents" />
+  <Cards.Card title="الصيغ المدعومة" href="/knowledge-base/supported-formats" />
+  <Cards.Card title="المجلدات والوسوم" href="/knowledge-base/folders-and-tags" />
+  <Cards.Card title="التخزين السحابي" href="/knowledge-base/cloud-storage" />
+  <Cards.Card title="الزحف على المواقع" href="/knowledge-base/website-crawling" />
+  <Cards.Card title="إدارة المستندات" href="/knowledge-base/managing-documents" />
+  <Cards.Card title="وصول الـ Agent إلى المعرفة" href="/knowledge-base/agent-knowledge-access" />
 </Cards>
 
-## Best Practices
+## أفضل الممارسات
 
-- **Keep content current** — Regularly update documents to maintain accuracy
-- **Organize with folders** — Group related documents for easier management
-- **Use tags for cross-cutting themes** — Tags help find documents across folders
-- **Quality matters** — Well-structured documents produce better AI responses
-- **Remove duplicates** — Avoid uploading the same content multiple times
+- **حافِظ على حداثة المحتوى** — حدّث المستندات بانتظام للحفاظ على الدقة
+- **نظّم باستخدام المجلدات** — اجمع المستندات ذات الصلة لتسهيل الإدارة
+- **استخدم الوسوم للمواضيع الشاملة** — تساعد الوسوم في العثور على المستندات عبر المجلدات
+- **الجودة مهمّة** — المستندات جيّدة البنية تنتج ردود ذكاء اصطناعي أفضل
+- **أزِل التكرارات** — تجنّب رفع المحتوى نفسه مرّات متعدّدة

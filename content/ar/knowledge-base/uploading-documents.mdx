@@ -1,129 +1,126 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# رفع المستندات
 
-# Uploading Documents
+ارفع المستندات إلى محتواك ليتمكّن الـ Agents من استخدامها للإجابة عن الأسئلة. تُعالَج المستندات تلقائيًا وتصبح قابلة للبحث.
 
-Upload documents to your content so your AI agents can use them to answer questions. Documents are automatically processed and made searchable.
+## كيفية الوصول
 
-## Getting There
+1. سجّل الدخول إلى Admin Panel
+2. انتقل إلى **Content** في قائمة الشريط الجانبي
+3. تظهر منطقة الرفع في أعلى الصفحة
 
-1. Log in to the Admin Panel
-2. Navigate to **Content** in the sidebar menu
-3. The upload area is displayed at the top of the page
+## طرق الرفع
 
-## Upload Methods
+### رفع الملفات المحلية
 
-### Local File Upload
+1. **اسحب وأفلِت** الملفات مباشرة على منطقة الرفع، أو
+2. **انقر** على منطقة الرفع لفتح متصفّح الملفات
+3. اختر ملفًا واحدًا أو أكثر للرفع
+4. تبدأ الملفات بالرفع تلقائيًا مع تتبّع التقدّم
 
-1. **Drag and drop** files directly onto the upload area, OR
-2. **Click** the upload area to open a file browser
-3. Select one or more files to upload
-4. Files begin uploading automatically with progress tracking
+### الاستيراد من التخزين السحابي
 
-### Cloud Storage Import
+استورد الملفات مباشرة من مزوّدي التخزين السحابي لديك:
 
-Import files directly from your cloud storage providers:
-
-| Provider | Icon | How to Use |
+| المزوّد | الأيقونة | كيفية الاستخدام |
 |----------|------|------------|
-| Google Drive | Google Drive icon | Click to open Google Drive picker, select files |
-| Dropbox | Dropbox icon | Click to open Dropbox chooser, select files |
-| OneDrive | OneDrive icon | Click to open OneDrive picker, select files |
-| Box | Box icon | Click to open Box picker, select files |
+| Google Drive | أيقونة Google Drive | انقر لفتح مُنتقي Google Drive، واختر الملفات |
+| Dropbox | أيقونة Dropbox | انقر لفتح مُنتقي Dropbox، واختر الملفات |
+| OneDrive | أيقونة OneDrive | انقر لفتح مُنتقي OneDrive، واختر الملفات |
+| Box | أيقونة Box | انقر لفتح مُنتقي Box، واختر الملفات |
 
-After selecting files from any provider, they are automatically imported to your content.
+بعد اختيار الملفات من أيّ مزوّد، تُستورَد تلقائيًا إلى محتواك.
 
-## Upload Options
+## خيارات الرفع
 
-### Adding Tags
+### إضافة الوسوم
 
-Optionally assign tags to documents during upload:
+يمكنك اختياريًا إسناد وسوم إلى المستندات أثناء الرفع:
 
-1. Click **+ Add Tags** before uploading
-2. Select tags from the dropdown
-3. Selected tags will be applied to all uploaded documents
+1. انقر على **+ Add Tags** قبل الرفع
+2. اختر الوسوم من القائمة المنسدلة
+3. ستُطبَّق الوسوم المختارة على جميع المستندات المرفوعة
 
-## Supported File Types
+## أنواع الملفات المدعومة
 
-The file types you can upload depend on your plan. Common formats include:
+تعتمد أنواع الملفات التي يمكنك رفعها على خطتك. تشمل الصيغ الشائعة:
 
-- **Documents:** PDF, DOCX, DOC, TXT, MD, RTF
-- **Presentations:** PPTX, PPT
-- **Web/Data:** HTML, HTM, JSON, XML
+- **المستندات:** PDF، DOCX، DOC، TXT، MD، RTF
+- **العروض التقديمية:** PPTX، PPT
+- **الويب/البيانات:** HTML، HTM، JSON، XML
 
-File size limits also vary by plan (shown in the upload area).
+تختلف حدود حجم الملفات أيضًا حسب الخطة (تُعرَض في منطقة الرفع).
 
-See [Supported Formats](/knowledge-base/supported-formats) for the complete list.
+راجع [الصيغ المدعومة](/knowledge-base/supported-formats) للاطّلاع على القائمة الكاملة.
 
-## During Upload
+## أثناء الرفع
 
-### Progress Tracking
+### تتبّع التقدّم
 
-- Each file shows upload progress with a percentage bar
-- Upload speed and estimated time remaining are displayed
-- Files are processed one at a time
+- يعرض كل ملف تقدّم الرفع بشريط نسبة مئوية
+- تُعرَض سرعة الرفع والوقت المتبقّي المُقدَّر
+- تُعالَج الملفات واحدًا تلو الآخر
 
-### Cancel Options
+### خيارات الإلغاء
 
-- **Cancel individual file:** Click the X next to a file
-- **Cancel all:** Click "Cancel All Pending" to stop the entire batch
-- A warning appears if you try to leave the page during upload
+- **إلغاء ملف فردي:** انقر على X بجوار الملف
+- **إلغاء الكل:** انقر على "Cancel All Pending" لإيقاف الدفعة بأكملها
+- يظهر تحذير إذا حاولت مغادرة الصفحة أثناء الرفع
 
-## Processing Status
+## حالة المعالجة
 
-Track document status in Content:
+تتبّع حالة المستند في Content:
 
-| Status | Meaning |
+| الحالة | المعنى |
 |--------|---------|
-| Uploaded | Document has been uploaded to the system |
-| Validating | Document is being validated |
-| Stored | Document has been stored and is awaiting processing |
-| Processing | Document is being analyzed and indexed |
-| Ready | Document is processed and available for your agents |
-| Failed | Processing encountered an error (can be retried) |
+| Uploaded | تم رفع المستند إلى النظام |
+| Validating | يجري التحقّق من المستند |
+| Stored | تم تخزين المستند وهو في انتظار المعالجة |
+| Processing | يجري تحليل المستند وفهرسته |
+| Ready | تمت معالجة المستند وهو متاح للـ Agents |
+| Failed | واجهت المعالجة خطأً (يمكن إعادة المحاولة) |
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Processing time depends on document size and complexity. Most documents complete within a few minutes.
+  يعتمد وقت المعالجة على حجم المستند وتعقيده. تكتمل معظم المستندات خلال بضع دقائق.
 </Callout>
 
-## After Upload
+## بعد الرفع
 
-### Success
+### النجاح
 
-- Successfully uploaded files appear in your document browser
-- Documents are automatically processed for search
-- You can organize them into folders or add tags
+- تظهر الملفات المرفوعة بنجاح في متصفّح المستندات
+- تُعالَج المستندات تلقائيًا للبحث
+- يمكنك تنظيمها في مجلدات أو إضافة وسوم
 
-### Handling Duplicates
+### التعامل مع التكرارات
 
-- The system detects duplicate content automatically
-- If a file with identical content already exists, you'll see a warning
-- The existing file location is shown in the error message
+- يكتشف النظام المحتوى المكرّر تلقائيًا
+- إذا كان ملف بمحتوى مطابق موجودًا بالفعل، فسترى تحذيرًا
+- يُعرَض موقع الملف الموجود في رسالة الخطأ
 
-### Handling Errors
+### التعامل مع الأخطاء
 
-- If a file fails to upload, an error message explains why
-- Common issues include file too large or unsupported format
-- You can retry individual files or upload them again
+- إذا فشل رفع ملف، تشرح رسالة الخطأ السبب
+- تشمل المشكلات الشائعة كون الملف كبيرًا جدًا أو بصيغة غير مدعومة
+- يمكنك إعادة محاولة الملفات الفردية أو رفعها مجدّدًا
 
-## Tips
+## نصائح
 
-- Upload multiple files at once to save time
-- Apply tags during upload to keep documents organized
-- Check the supported file types shown in the upload area
+- ارفع ملفات متعدّدة دفعة واحدة لتوفير الوقت
+- طبّق الوسوم أثناء الرفع للحفاظ على تنظيم المستندات
+- تحقّق من أنواع الملفات المدعومة المعروضة في منطقة الرفع
 
-## Common Questions
+## أسئلة شائعة
 
-**Q: How many files can I upload at once?**
-A: You can select multiple files for batch upload. They process one at a time with progress tracking.
+**س: كم عدد الملفات التي يمكنني رفعها دفعة واحدة؟**
+ج: يمكنك اختيار ملفات متعدّدة للرفع الجماعي. تُعالَج واحدًا تلو الآخر مع تتبّع التقدّم.
 
-**Q: Why was my file rejected?**
-A: Check if the file type is supported and the file size is within limits (shown in the upload area). Some files may be blocked for security reasons.
+**س: لماذا رُفِض ملفي؟**
+ج: تحقّق ممّا إذا كان نوع الملف مدعومًا وحجمه ضمن الحدود (المعروضة في منطقة الرفع). قد تُحظَر بعض الملفات لأسباب أمنية.
 
-**Q: How long does processing take?**
-A: Upload time depends on file size and your connection. After upload, documents are processed in the background and become searchable automatically.
+**س: كم تستغرق المعالجة؟**
+ج: يعتمد وقت الرفع على حجم الملف واتصالك. بعد الرفع، تُعالَج المستندات في الخلفية وتصبح قابلة للبحث تلقائيًا.
 
-**Q: Can I upload to a specific folder?**
-A: Yes, you can upload directly to folders using the folder menu or organize documents after upload.
+**س: هل يمكنني الرفع إلى مجلد محدّد؟**
+ج: نعم، يمكنك الرفع مباشرة إلى المجلدات باستخدام قائمة المجلد أو تنظيم المستندات بعد الرفع.

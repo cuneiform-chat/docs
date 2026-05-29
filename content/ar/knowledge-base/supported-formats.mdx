@@ -1,88 +1,85 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# الصيغ المدعومة
 
-# Supported Formats
+يدعم Cuneiform Chat مجموعة واسعة من صيغ المستندات.
 
-Cuneiform Chat supports a wide range of document formats.
+## أنواع المستندات
 
-## Document Types
+### المستندات النصية
 
-### Text Documents
-
-| Format | Extensions | Notes |
+| الصيغة | الامتدادات | ملاحظات |
 |--------|-----------|-------|
-| PDF | `.pdf` | Text-based and scanned (with OCR) |
-| Microsoft Word | `.docx`, `.doc` | Full formatting support |
-| Plain Text | `.txt` | Simple text files |
-| Markdown | `.md` | Markdown formatting preserved |
-| Rich Text | `.rtf` | Basic formatting support |
+| PDF | `.pdf` | نصّية وممسوحة ضوئيًا (مع OCR) |
+| Microsoft Word | `.docx`، `.doc` | دعم كامل للتنسيق |
+| Plain Text | `.txt` | ملفات نصّية بسيطة |
+| Markdown | `.md` | يُحافَظ على تنسيق Markdown |
+| Rich Text | `.rtf` | دعم تنسيق أساسي |
 
-### Presentations
+### العروض التقديمية
 
-| Format | Extensions | Notes |
+| الصيغة | الامتدادات | ملاحظات |
 |--------|-----------|-------|
-| PowerPoint | `.pptx`, `.ppt` | Slide content extracted |
+| PowerPoint | `.pptx`، `.ppt` | يُستخرَج محتوى الشرائح |
 
-### Web Content
+### محتوى الويب
 
-| Format | Extensions | Notes |
+| الصيغة | الامتدادات | ملاحظات |
 |--------|-----------|-------|
-| HTML | `.html`, `.htm` | Web page content |
+| HTML | `.html`، `.htm` | محتوى صفحات الويب |
 
-### Data Formats
+### صيغ البيانات
 
-| Format | Extensions | Notes |
+| الصيغة | الامتدادات | ملاحظات |
 |--------|-----------|-------|
-| JSON | `.json` | Structured data files |
-| XML | `.xml` | XML documents |
+| JSON | `.json` | ملفات بيانات مُهيكَلة |
+| XML | `.xml` | مستندات XML |
 
-## Format-Specific Notes
+## ملاحظات خاصة بكل صيغة
 
-### PDFs
+### ملفات PDF
 
-PDFs work best when they are:
-- **Text-based** — Created from digital documents
-- **Searchable** — Text can be selected/copied
+تعمل ملفات PDF على أفضل وجه عندما تكون:
+- **نصّية** — مُنشأة من مستندات رقمية
+- **قابلة للبحث** — يمكن تحديد النصّ ونسخه
 
-Scanned PDFs are supported but may have lower quality extraction due to OCR limitations.
+ملفات PDF الممسوحة ضوئيًا مدعومة لكن قد يكون استخراجها بجودة أقلّ بسبب قيود الـ OCR.
 
-### Word Documents
+### مستندات Word
 
-`.docx` (modern format) is recommended over `.doc` (legacy format) for best results.
+يُوصى بصيغة `.docx` (الصيغة الحديثة) على `.doc` (الصيغة القديمة) للحصول على أفضل النتائج.
 
-Supported elements:
-- Text and paragraphs
-- Headings and styles
-- Tables
-- Lists
+العناصر المدعومة:
+- النصّ والفقرات
+- العناوين والأنماط
+- الجداول
+- القوائم
 
 ### Markdown
 
-Markdown formatting is preserved during processing:
-- Headings become section markers
-- Lists maintain structure
-- Code blocks are recognized
+يُحافَظ على تنسيق Markdown أثناء المعالجة:
+- تصبح العناوين علامات لتقسيم الأقسام
+- تحافظ القوائم على بنيتها
+- يُتعرَّف على كتل الشيفرة
 
-## Unsupported Formats
+## الصيغ غير المدعومة
 
-The following are not currently supported:
-- Images (`.jpg`, `.png`, `.gif`)
-- Audio files (`.mp3`, `.wav`)
-- Video files (`.mp4`, `.mov`)
-- Compressed archives (`.zip`, `.rar`)
-- Executable files (`.exe`, `.app`)
+الصيغ التالية غير مدعومة حاليًا:
+- الصور (`.jpg`، `.png`، `.gif`)
+- ملفات الصوت (`.mp3`، `.wav`)
+- ملفات الفيديو (`.mp4`، `.mov`)
+- الأرشيفات المضغوطة (`.zip`، `.rar`)
+- الملفات التنفيذية (`.exe`، `.app`)
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  If you have content in an unsupported format, try converting it to PDF or a text-based format before uploading.
+  إذا كان لديك محتوى بصيغة غير مدعومة، فحاول تحويله إلى PDF أو صيغة نصّية قبل الرفع.
 </Callout>
 
-## File Size Limits
+## حدود حجم الملف
 
-Maximum file sizes depend on your plan. Very large documents may take longer to process.
+يعتمد الحدّ الأقصى لأحجام الملفات على خطتك. قد تستغرق المستندات الكبيرة جدًا وقتًا أطول للمعالجة.
 
-For best performance:
-- Split very large documents into smaller files
-- Remove unnecessary images from PDFs if they're not needed
-- Use text-based formats when possible
+للحصول على أفضل أداء:
+- قسّم المستندات الكبيرة جدًا إلى ملفات أصغر
+- أزِل الصور غير الضرورية من ملفات PDF إن لم تكن مطلوبة
+- استخدم الصيغ النصّية عند الإمكان

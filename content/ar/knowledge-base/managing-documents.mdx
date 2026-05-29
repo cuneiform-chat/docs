@@ -1,145 +1,142 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# إدارة المستندات
 
-# Managing Documents
+تعرّف على كيفية تنظيم مستندات محتواك وتحديثها وصيانتها. يشمل ذلك عرض المستندات، والتنظيم بالمجلدات، وتحديث المحتوى، وإجراء العمليات الجماعية.
 
-Learn how to organize, update, and maintain your content documents. This includes viewing documents, organizing with folders, updating content, and performing bulk operations.
+## كيفية الوصول
 
-## Getting There
+1. انقر على **Content** في الشريط الجانبي
+2. اعرض جميع مستنداتك في القائمة
 
-1. Click **Content** in the sidebar
-2. View all your documents in the list
+## عرض المستندات
 
-## Viewing Documents
+ادخل إلى مستنداتك من قسم Content:
 
-Access your documents from the Content section:
+- اعرض جميع المستندات في قائمة
+- اطّلع على حالة المعالجة لكل مستند
+- تحقّق من وقت إضافة المستندات أو تحديثها
 
-- View all documents in a list
-- See processing status for each document
-- Check when documents were added or updated
+### تفاصيل المستند
 
-### Document Details
+انقر على أيّ مستند لعرض:
 
-Click on any document to view:
-
-| Information | Description |
+| المعلومة | الوصف |
 |-------------|-------------|
-| **File information** | Name, size, format, upload date |
-| **Processing status** | Current state in the pipeline |
-| **View Chunks** | Open the chunks preview to inspect searchable segments |
+| **معلومات الملف** | الاسم والحجم والصيغة وتاريخ الرفع |
+| **حالة المعالجة** | الحالة الراهنة في خطّ المعالجة |
+| **View Chunks** | فتح معاينة الأجزاء لفحص المقاطع القابلة للبحث |
 
-## Organizing Documents
+## تنظيم المستندات
 
-### Using Folders
+### استخدام المجلدات
 
-Create folders to organize related documents:
+أنشئ مجلدات لتنظيم المستندات ذات الصلة:
 
-1. Click the **New Folder** button (folder icon with plus)
-2. Enter a folder name
-3. Click **Create**
+1. انقر على زرّ **New Folder** (أيقونة المجلد مع علامة زائد)
+2. أدخِل اسم المجلد
+3. انقر على **Create**
 
-Suggested organization:
-- By topic (Products, Policies, FAQs)
-- By department (Sales, Support, HR)
-- By document type (Guides, References, Tutorials)
+تنظيم مقترَح:
+- حسب الموضوع (المنتجات، السياسات، الأسئلة الشائعة)
+- حسب القسم (المبيعات، الدعم، الموارد البشرية)
+- حسب نوع المستند (الأدلّة، المراجع، الدروس التعليمية)
 
-### Moving Documents
+### نقل المستندات
 
-Move documents between folders:
+انقل المستندات بين المجلدات:
 
-1. Click the document menu (⋮)
-2. Select **Move to Folder**
-3. Choose the destination folder
+1. انقر على قائمة المستند (⋮)
+2. اختر **Move to Folder**
+3. اختر المجلد الوجهة
 
-### Using Tags
+### استخدام الوسوم
 
-Add tags to documents for flexible categorization:
+أضِف وسومًا إلى المستندات لتصنيف مرن:
 
-1. Click the document menu (⋮)
-2. Select **Manage Tags**
-3. Add or remove tags as needed
+1. انقر على قائمة المستند (⋮)
+2. اختر **Manage Tags**
+3. أضِف الوسوم أو أزِلها حسب الحاجة
 
-Tags work alongside folders — use folders for primary organization and tags for cross-cutting categories.
+تعمل الوسوم جنبًا إلى جنب مع المجلدات — استخدم المجلدات للتنظيم الأساسي والوسوم للفئات الشاملة.
 
-## Updating Documents
+## تحديث المستندات
 
-### Re-process a Failed Document
+### إعادة معالجة مستند فاشل
 
-If a document fails to process, you can retry:
+إذا فشلت معالجة مستند، يمكنك إعادة المحاولة:
 
-1. Click the document menu (⋮)
-2. Select **Reprocess**
+1. انقر على قائمة المستند (⋮)
+2. اختر **Reprocess**
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  The Reprocess option only appears for documents with a "Failed" status.
+  يظهر خيار Reprocess فقط للمستندات ذات الحالة "Failed".
 </Callout>
 
-### Replacing Content
+### استبدال المحتوى
 
-To update a document's content, delete the old version and upload the new file. The document will be processed automatically.
+لتحديث محتوى مستند، احذف النسخة القديمة وارفع الملف الجديد. ستُعالَج المستند تلقائيًا.
 
-## Deleting Documents
+## حذف المستندات
 
-Remove documents you no longer need:
+أزِل المستندات التي لم تعد بحاجة إليها:
 
-1. Click the document menu (⋮)
-2. Select **Delete**
-3. Confirm deletion
+1. انقر على قائمة المستند (⋮)
+2. اختر **Delete**
+3. أكّد الحذف
 
 <Callout type="warning">
-  Deleted documents are permanently removed and cannot be recovered. The content will no longer be searchable by your agents.
+  تُزال المستندات المحذوفة نهائيًا ولا يمكن استعادتها. لن يعود المحتوى قابلًا للبحث من قِبل الـ Agents.
 </Callout>
 
-## Bulk Operations
+## العمليات الجماعية
 
-Manage multiple documents at once:
+أدِر مستندات متعدّدة دفعة واحدة:
 
-1. Select multiple documents using checkboxes
-2. Use the bulk action menu:
-   - **Move to Folder** — Move selected documents to a folder
-   - **Reprocess Failed** — Retry processing for failed documents in selection
+1. اختر مستندات متعدّدة باستخدام مربّعات الاختيار
+2. استخدم قائمة الإجراءات الجماعية:
+   - **Move to Folder** — نقل المستندات المختارة إلى مجلد
+   - **Reprocess Failed** — إعادة معالجة المستندات الفاشلة في التحديد
 
-## Search and Filter
+## البحث والتصفية
 
-Find specific documents:
+ابحث عن مستندات محدّدة:
 
-| Feature | Description |
+| الميزة | الوصف |
 |---------|-------------|
-| **Search** | Search by document name |
-| **Filter by folder** | Click a folder in the document browser to view its contents |
-| **Filter by tag** | Use the tag filter to show documents with specific tags |
+| **البحث** | البحث باسم المستند |
+| **التصفية حسب المجلد** | انقر على مجلد في متصفّح المستندات لعرض محتوياته |
+| **التصفية حسب الوسم** | استخدم مرشّح الوسوم لعرض المستندات ذات الوسوم المحدّدة |
 
-Documents are sorted by upload date (newest first).
+تُرتَّب المستندات حسب تاريخ الرفع (الأحدث أولًا).
 
-## Storage Management
+## إدارة التخزين
 
-Track your storage usage:
+تتبّع استخدام تخزينك:
 
-1. Go to the **Dashboard**
-2. View the "Storage Used" card showing current usage and limit
-3. Delete unnecessary documents to free space
+1. انتقل إلى **Dashboard**
+2. اعرض بطاقة "Storage Used" التي تُظهِر الاستخدام الحالي والحدّ
+3. احذف المستندات غير الضرورية لتحرير المساحة
 
-## Tips
+## نصائح
 
-- Remove outdated documents regularly to keep your content clean
-- Use folders and tags to organize documents for easy retrieval
-- Check for failed documents and reprocess them when needed
-- To update content, delete the old document and upload the new version
-- Use bulk operations to move multiple documents to folders at once
-- Delete duplicates to avoid confusing your agents
+- أزِل المستندات القديمة بانتظام للحفاظ على نظافة محتواك
+- استخدم المجلدات والوسوم لتنظيم المستندات لسهولة الاسترجاع
+- تحقّق من المستندات الفاشلة وأعِد معالجتها عند الحاجة
+- لتحديث المحتوى، احذف المستند القديم وارفع النسخة الجديدة
+- استخدم العمليات الجماعية لنقل مستندات متعدّدة إلى المجلدات دفعة واحدة
+- احذف التكرارات لتجنّب إرباك الـ Agents
 
-## Common Questions
+## أسئلة شائعة
 
-**Q: How do I update a document's content?**
-A: Delete the old document and upload the new version. The new document will be processed automatically.
+**س: كيف أحدّث محتوى مستند؟**
+ج: احذف المستند القديم وارفع النسخة الجديدة. ستُعالَج المستند الجديد تلقائيًا.
 
-**Q: Can I recover a deleted document?**
-A: No, deleted documents are permanently removed and cannot be recovered. Make sure you have a backup before deleting.
+**س: هل يمكنني استعادة مستند محذوف؟**
+ج: لا، تُزال المستندات المحذوفة نهائيًا ولا يمكن استعادتها. تأكّد من وجود نسخة احتياطية قبل الحذف.
 
-**Q: How do I know if a document processed successfully?**
-A: Check the processing status column. Documents show **Ready** when complete, or **Failed** if there was an error.
+**س: كيف أعرف ما إذا كانت معالجة المستند قد نجحت؟**
+ج: تحقّق من عمود حالة المعالجة. تُظهِر المستندات **Ready** عند الاكتمال، أو **Failed** في حال وجود خطأ.
 
-**Q: What should I do if a document fails to process?**
-A: Click the document menu (⋮) and select **Reprocess**. This option only appears for failed documents. If it continues to fail, check the file format and size.
+**س: ماذا أفعل إذا فشلت معالجة مستند؟**
+ج: انقر على قائمة المستند (⋮) واختر **Reprocess**. يظهر هذا الخيار فقط للمستندات الفاشلة. إذا استمرّ الفشل، تحقّق من صيغة الملف وحجمه.
