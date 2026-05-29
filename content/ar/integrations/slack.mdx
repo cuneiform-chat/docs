@@ -1,0 +1,160 @@
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+# Slack Integration
+
+Add your agent to Slack workspaces for team-wide access.
+
+## Overview
+
+Slack integration provides:
+- Slash command support (`/ask`)
+- Direct message conversations
+- Channel mentions
+- Workspace-wide availability
+
+## Prerequisites
+
+- Slack workspace admin or app installation permissions
+- Cuneiform Chat account with an active agent
+
+## Setup Steps
+
+### 1. Start Integration Setup
+
+1. Go to **Integrations** in the sidebar
+2. Open the **Slack** card
+3. Click **Add to Slack**
+
+### 2. Authorize the App
+
+1. Select the workspace to install
+2. Review the permissions
+3. Click **Allow**
+
+### 3. Verify Installation
+
+1. Open Slack
+2. Try the slash command: `/ask Hello`
+3. Verify you receive a response
+
+## Using the Bot
+
+### Slash Commands
+
+Use the `/ask` command in any channel:
+
+```
+/ask What is our refund policy?
+```
+
+The response appears in the channel.
+
+### Direct Messages
+
+Message the bot directly for private conversations:
+
+1. Find the app in your Slack sidebar
+2. Open a direct message
+3. Chat naturally
+
+### Channel Mentions
+
+Mention the bot in channels to ask questions:
+
+```
+@YourBot What are the shipping options?
+```
+
+## Features
+
+### Workspace-Wide Access
+
+Once installed, the bot is available to all workspace members.
+
+### Thread Replies
+
+Responses can be posted in threads to keep channels organized.
+
+### Rich Formatting
+
+Responses support Slack's formatting:
+- Bold and italic text
+- Links
+- Code blocks
+- Lists
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  The bot only responds when explicitly invoked (slash command or mention) to avoid noise.
+</Callout>
+
+## Configuration Options
+
+From the Slack integration card you can:
+
+| Option | Description |
+|--------|-------------|
+| Default agent | Choose which agent replies when no channel-specific mapping applies |
+| Channel mappings | Route specific Slack channels to specific agents |
+| Channel commands | Manage the slash commands available in your workspace |
+
+## Multi-Workspace Support
+
+You can install the same agent to multiple Slack workspaces:
+
+1. Each workspace requires separate authorization
+2. All workspaces share the same agent and content
+3. Conversations are tracked separately per workspace
+
+## Troubleshooting
+
+### Command Not Found
+
+If `/ask` doesn't work:
+1. Verify the app is installed in your workspace
+2. Check the app has proper permissions
+3. Try reinstalling the integration
+
+### No Response
+
+If the bot doesn't respond:
+1. Verify your agent is configured and working (test in Playground)
+2. Check the Slack integration is connected
+3. Ensure the bot has channel access
+
+### Permission Issues
+
+The Slack app requests these OAuth scopes (pre-configured — you grant them all when you click **Allow** during install):
+- `commands` — For slash commands
+- `chat:write` — To send messages
+- `chat:write.customize` — Send messages with custom username/icon
+- `app_mentions:read` — For @ mentions
+- `im:history` — Read direct-message history for context
+- `channels:history` — Read public-channel history for context
+- `channels:read` — List public channels
+- `groups:history` — Read private-channel history for context
+- `mpim:history` — Read group-DM history for context
+- `users:read` — Resolve user names
+- `canvases:write` — Create and edit Slack canvases
+- `assistant:write` — Seed suggested prompts in the Agents & AI Apps pane
+
+## Security
+
+- OAuth tokens are encrypted
+- No access to messages except explicit commands/mentions
+- Workspace data remains private
+
+## Disconnecting
+
+To remove the Slack integration:
+
+1. **From Cuneiform Chat:**
+   - Integrations (sidebar) → Slack → Disconnect
+
+2. **From Slack:**
+   - Go to workspace settings
+   - Apps → Find the app → Remove
+
+Both steps ensure complete removal.

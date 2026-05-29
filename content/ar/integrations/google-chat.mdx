@@ -1,0 +1,289 @@
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+# Google Chat Integration
+
+Connect your agent to Google Chat for seamless communication within Google Workspace.
+
+## Overview
+
+Google Chat integration provides:
+- Direct messaging with your bot
+- Google Workspace Spaces support with @mention triggers
+- Space-level agent routing — assign different agents to different Spaces
+- Text-based responses with conversation memory and opt-in space context awareness
+- Async processing with instant acknowledgment
+- Enterprise-ready security with domain-based isolation
+
+## Prerequisites
+
+- An active AI agent (created in the Agents section)
+- A Google Workspace account (personal Gmail accounts are not supported)
+- A **verified domain** — verify your domain ownership in **Settings > Domains** before connecting
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Google Chat integration requires a Google Workspace account and a verified domain. Personal Gmail accounts cannot install custom Chat apps. If your organization doesn't use Google Workspace, the Google Chat section won't appear on the Integrations page.
+</Callout>
+
+## Setup Steps
+
+### 1. Verify Your Domain (One-Time Setup)
+
+Before connecting Google Chat, verify your domain ownership:
+
+1. Go to **Settings** from the sidebar
+2. Click the **Domains** tab
+3. Your domain is auto-detected from your account email
+4. Add a **TXT record** in your DNS provider with the values shown:
+   - **Type:** TXT
+   - **Name:** `_cuneiform-verify` (or the full value shown)
+   - **Content:** The verification string displayed (e.g., `cuneiform-verify=abc123...`)
+5. Click **Verify Now** — DNS changes can take up to 48 hours to propagate
+6. Once the status changes to **Verified**, proceed to create the integration
+
+Quick links to common DNS providers (Cloudflare, GoDaddy, Namecheap, Route 53, DigitalOcean, Hostinger) are shown on the verification card.
+
+### 2. Create Google Chat Integration
+
+1. Go to **Integrations** from the sidebar
+2. Under "Google Chat Bots", click **Connect Bot**
+3. Select the **Agent** that will be the default for DMs and unlinked Spaces
+4. Enter a **Bot Name** (for your reference in the admin panel)
+5. Click **Connect Bot**
+6. Copy the **Verification Code** displayed (format: `VERIFY-XXXXXX`)
+
+### 3. Complete Bot Verification
+
+After creating the integration, you'll receive a verification code:
+
+1. Open Google Chat
+2. Click **Start a chat** → **Find apps**
+3. Search for the platform bot
+4. Start a direct message with the bot
+5. Send the verification code (e.g., `VERIFY-ABC123`)
+6. The bot will confirm: "Setup complete! Your workspace (yourdomain.com) is now connected. Send a message to start chatting!"
+
+Your integration status will change from "Pending Verification" to "Active".
+
+<Callout type="warning">
+  Only users from your Google Workspace domain can complete verification. Users from other domains or personal Gmail accounts will see an error.
+</Callout>
+
+## Using the Bot
+
+### Direct Messages
+
+Users can start a conversation:
+
+1. Open Google Chat
+2. Click **Start a chat** → **Find apps**
+3. Search for your bot name
+4. Start chatting naturally — the bot responds to all messages in DMs
+
+DMs are always handled by the **default agent**.
+
+### In Spaces
+
+Add the bot to a Space:
+
+1. Open the Space
+2. Click the Space name → **Manage apps**
+3. Add your bot
+4. Mention the bot with `@Cuneiform Chat` to interact — the bot only responds to @mentions in Spaces
+
+<Callout type="info">
+  When the bot is first added to a Space, it sends a welcome message with available bot commands. In DMs, it sends a simple introduction.
+</Callout>
+
+## Space-Level Agent Routing
+
+Each Space can optionally use a different agent than the default. Use these bot commands in a Space (requires @mention):
+
+| Command | Description |
+|---------|-------------|
+| `@Cuneiform Chat /set-agent <name>` | Link this Space to a specific agent |
+| `@Cuneiform Chat /current-agent` | Show which agent handles this Space |
+| `@Cuneiform Chat /reset-agent` | Revert Space to the default agent |
+| `@Cuneiform Chat /connect` | (Space managers only) Enable thread history awareness |
+
+**How routing works:**
+- **DMs** → always use the default agent
+- **Space with custom agent** → uses the assigned agent
+- **Space without custom agent** → falls back to the default agent
+
+<Callout type="info">
+  You can view Space-agent mappings in the admin panel under the integration card's "Space mappings" section.
+</Callout>
+
+## Thread History Awareness
+
+By default, the bot only sees the message that directly @mentioned it. If team members send context messages first (in other threads or earlier in the Space) and then @mention the bot, it won't have that context — unless a Space manager runs `/connect`.
+
+### How It Works
+
+1. A Space manager sends `@Cuneiform Chat /connect` in the Space
+2. The bot sends a one-time authorization link (expires in 10 minutes)
+3. The manager clicks the link and signs in with their Google Workspace account
+4. The bot can now read messages sent in the Space within the last 15 minutes before each @mention
+
+Once connected, on every @mention the bot automatically reads recent Space messages as context — understanding what the team was discussing before it was @mentioned.
+
+**Example:** Team members post "what are the pricing plans?" and "what's included in starter?" then @mention the bot with "can you help?" — the bot sees all three messages and responds with full context.
+
+### Requirements and Privacy
+
+- Only **Space managers** (not regular members) can run `/connect`
+- Authorization is per-Space — each Space needs its own `/connect`
+- The space manager's Google OAuth token is encrypted and stored securely
+- Only messages visible to that manager's account are readable
+- Removing the bot from a Space automatically deletes the stored token
+
+### Re-authorization
+
+If the bot loses access (e.g., token revoked in your Google account), it will notify the Space:
+
+> ⚠️ Thread history access has expired or been revoked. A space manager should run `/connect` to restore it.
+
+Run `/connect` again to restore access.
+
+## Features
+
+### Async Responses
+
+When you send a message, the bot immediately replies with a brief acknowledgment (e.g., "Working on it...") and then delivers the full answer once processing is complete. This typically takes 3–8 seconds depending on the complexity of your question.
+
+### Conversation Memory
+
+The bot remembers context within a session, so you can ask follow-up questions without repeating yourself.
+
+**Space context awareness (opt-in):** After a Space manager runs `/connect`, the bot reads messages sent in the Space within the last 15 minutes before each @mention — so it understands what the team was already discussing without you needing to repeat context. See [Thread History Awareness](#thread-history-awareness) below for setup steps.
+
+### Message Queuing
+
+If you send additional messages while the bot is still processing, they are queued and included in the next response. You'll see a message like "I'm still working on your previous question. I'll include this in my next response."
+
+### `/help` Command
+
+Type `/help` or `help` to see usage instructions, including available space commands.
+
+### Domain-Based Access
+
+Only users from your Google Workspace domain can interact with your bot, ensuring enterprise-level security.
+
+### Text-Based Responses
+
+The bot responds with text messages only. Images, files, interactive buttons, and card attachments are not supported. Responses are limited to approximately 30,000 characters.
+
+## Managing Your Integration
+
+Each integration card displays:
+- **Bot name** - The display name you configured
+- **Status badge** - Active, Pending Verification, or Error
+- **Domain name** - Your Google Workspace domain (after verification)
+- **Default agent** - Dropdown to change the default agent (used for DMs + unlinked Spaces)
+- **Space mappings** - Collapsible section showing which Spaces have custom agent assignments
+- **Space commands** - Collapsible section showing available bot commands
+- **Last activity** timestamp
+
+### Available Actions
+
+| Action | Description |
+|--------|-------------|
+| **Change default agent** | Use the dropdown to switch which agent handles DMs and unlinked Spaces |
+| **Test Connection** | Verifies the integration is working (three-dot menu) |
+| **Disconnect** | Removes this integration (three-dot menu) |
+
+## Troubleshooting
+
+### Bot Not Appearing in Google Chat
+
+1. Ensure you're using a Google Workspace account (not personal Gmail)
+2. Search for the bot name in "Find apps"
+3. Wait a few minutes for the app to propagate
+
+### Google Chat Section Not Visible
+
+1. Google Chat only appears for organizations using Google Workspace
+2. If your organization uses a different email provider (e.g., Microsoft 365), the section is hidden
+3. The system automatically detects your email provider via MX records
+
+### Domain Verification Issues
+
+1. DNS changes can take up to 48 hours to propagate — wait and try **Verify Now** again
+2. Check that you added the TXT record with the exact values shown in Settings > Domains
+3. Verify the record is on the correct domain (e.g., `_cuneiform-verify.yourdomain.com`)
+4. Use the DNS provider quick links on the verification card for easy access
+
+### Verification Code Not Working
+
+1. Ensure you're sending the code from your Google Workspace email
+2. Check that the code is entered exactly as shown (including the `VERIFY-` prefix)
+3. Verify the integration is still in "Pending Verification" status
+4. Try creating a new integration if the code has expired
+
+### Bot Says "Working on it..." But No Response Follows
+
+1. The bot processes messages asynchronously — wait up to 25 seconds for the full response
+2. If no response arrives, try sending your message again
+3. Check that the associated agent is properly configured
+
+### Messages Not Being Processed
+
+1. Confirm your workspace has been verified (status should be "Active")
+2. For Spaces, ensure you're @mentioning the bot
+3. Check that the associated agent is properly configured
+
+### "Organization hasn't connected" Message
+
+This means the bot doesn't recognize your Google Workspace domain:
+1. Your admin hasn't created the integration yet
+2. The domain hasn't been verified with a verification code
+3. You're messaging from a personal Gmail account (not supported)
+
+### `/set-agent` Says Agent Not Found
+
+1. Check the exact agent name in the admin panel (case-sensitive)
+2. Ensure the agent is in "Active" status
+3. Agent names with spaces are supported — type the full name after `/set-agent`
+
+### `/connect` Says "Only space managers can run /connect"
+
+You must be a Space manager to run `/connect`. Ask a Space manager in your Space to run the command.
+
+### `/connect` Authorization Link Expired
+
+The link is valid for 10 minutes. Run `@Cuneiform Chat /connect` again to get a fresh link.
+
+### Bot Says "Thread history access has expired"
+
+A Space manager needs to run `@Cuneiform Chat /connect` again to re-authorize. This happens when the Google OAuth token is revoked (e.g., in Google account settings).
+
+## Security
+
+- **Domain ownership verification** — DNS TXT record proves your organization owns the domain before connecting
+- **Google Workspace detection** — MX record check confirms your domain uses Google Workspace
+- **Domain-based isolation** — only your organization's Google Workspace users can interact with your bot
+- **Webhook verification** — every incoming request is validated against your platform's Google Cloud project
+- **Verification codes** are single-use and tied to your domain
+- Messages processed over secure, encrypted connections
+
+## Disconnecting
+
+To remove the Google Chat integration:
+
+1. Go to **Integrations** from the sidebar
+2. Find your Google Chat integration card
+3. Click the three-dot menu
+4. Select **Disconnect**
+
+## Important Notes
+
+- **Google Workspace required**: Personal Gmail accounts cannot use this integration. If your org doesn't use Google Workspace, the Google Chat section won't appear.
+- **Domain verification required**: Verify your domain in Settings > Domains before connecting Google Chat.
+- **One integration per organization**: Each organization can have one Google Chat integration
+- **Text only**: The bot does not support images, files, or interactive buttons
+- **Managed at org level**: Google Chat is configured on the Integrations page, not per-agent
+- **Space routing**: Use `/set-agent` in Spaces to assign specialized agents to different teams
+- **Default agent**: Change the default agent anytime using the dropdown — no disconnect needed

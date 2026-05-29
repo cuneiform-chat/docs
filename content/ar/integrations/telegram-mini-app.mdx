@@ -1,0 +1,356 @@
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+# Telegram Storefront (In-bot Mini App)
+
+**Turn your Telegram bot into a full in-app storefront.** Build a polished, multipage product catalog — with photos, videos, themed pages, an AI assistant per product, and lightweight order-taking — that opens *inside* Telegram the moment a customer taps your bot's menu button. No app store, no separate website, no checkout to manage. Just a tap, and your customer is browsing.
+
+Free on every plan, including the trial. Built in a visual drag-and-drop composer at **Integrations → Telegram bot → Configure mini app**: 11 block types, 6 themes, per-product AI chat, order CTAs that hand off to a real human in your inbox.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  This page covers the customer-facing storefront Mini App that ships with every **Telegram** integration. It's a different feature from the **Saba Mini App**, which is a Cuneiform Chat operator surface — see [Saba on Telegram](/integrations/saba-on-telegram) for the operator side.
+</Callout>
+
+## What you can build
+
+A few common shapes the storefront takes in production:
+
+- **Boutique storefront** — hero banner + product grid + per-product chat ("Does this come in size M?") + order inquiry form. Orders land in your inbox; a teammate replies from there.
+- **Restaurant menu** — multipage (Starters / Mains / Drinks) + photo gallery + cart-mode order CTAs (the cart page appears automatically) + delivery address field on checkout.
+- **Course or service catalog** — product cards for each course with a Video block intro, testimonials, and a "Book a call" CTA back to the bot.
+- **Brochure site** — hero + about page + gallery + contact card + FAQ — no products at all. The storefront becomes a polished mobile brochure that lives inside your bot.
+- **Lead-capture landing** — one page, one hero, one form, one CTA. The lightest possible "Telegram funnel."
+
+Start with one page, grow into a multipage catalog when you're ready.
+
+## Why it matters
+
+- **Customers never leave Telegram.** No app install, no domain to remember, no checkout flow to abandon. The storefront opens in Telegram's WebView and inherits the user's theme, language, and login.
+- **One tap from a chat.** The menu button next to the composer auto-wires to your storefront when you connect the bot. The label auto-flips to **"Shop"** the moment you publish a product — no BotFather config needed.
+- **AI-native product chat.** Per-product chat is scoped to documents *you* attach to that product — the assistant can answer "what's the return policy on this dress?" with confidence, without leaking facts from other products.
+- **Order handoffs to a real human.** Lightweight order forms (inquiry or cart mode) land in your Inbox as a structured handoff, with the customer's Telegram DM held open for follow-up.
+- **Free on every plan.** Trial gets a 5-page / 25-blocks-per-page / 100-product-docs cap; every paid plan removes the caps. Pricing is per-org — adding a second Telegram bot doesn't change your tier price.
+
+## At a glance
+
+- **Multipage**, drag-and-drop. End users tap the hamburger (top-left) to switch pages. If you publish one page, it loads full-screen.
+- **11 block types** — Hero, Product card, Product grid, Carousel, Gallery, FAQ, Testimonial, CTA back-to-bot, Contact, Video, Rich text. (Cart is an auto-injected virtual page when you use cart-mode order CTAs — no separate "Cart review" block.)
+- **6 themes** (Telegram default + 5 custom) with per-block style overrides.
+- **Draft → Publish** lifecycle with one-click revert to the last published snapshot.
+- **Per-integration on/off toggle** — flip it off and the bot menu reverts to Telegram's `/` command picker; the public URL returns `410 Gone` so stale bookmarks don't leak content.
+- **Multilingual storefront** — author your storefront's content in any of WhatsApp's supported languages (with one-click AI translation to fill in the gaps), and a built-in language switcher lets each visitor pick their own. Right-to-left languages (Arabic, Hebrew, Persian, Urdu) render correctly. The shell's own buttons auto-follow the visitor's device language.
+- **Built-in Help Center** — a pinned FAQ surface for ad-hoc questions, always one tap away. [See below](#built-in-help-center).
+- **No payments, no inventory, no shipping** — this is a polished catalog + lead-capture surface, not a full e-commerce stack. Pair it with a human in your inbox and you have a complete sales loop.
+
+## How customers find it
+
+When someone opens your Telegram bot, they see the **menu** button next to the composer. Tapping it opens your storefront full-screen inside Telegram. The button label is:
+
+- **"Shop"** — auto-set if your published storefront contains any product card or product grid
+- **"Open"** — auto-set otherwise
+- **Whatever you typed** — if you set a custom label in the composer (any 1–32-character string survives every publish until you clear it)
+
+The storefront URL has the shape `https://storefront.cuneiform.chat/{your-org-slug}` (with `?i={integration_id}` appended only if your org has more than one Telegram bot). Copy this URL from the integration card for QR codes, ads, or to register a BotFather `t.me/<bot>/<app>` direct-launch link (see the BotFather playbook on the bot card).
+
+<Callout type="info">
+  The "ask the bot" and order paths refuse group / supergroup / channel launches with a polite "private chats only" message. Storefront browsing and curated FAQ tiles display anywhere the menu button shows up.
+</Callout>
+
+## Prerequisites
+
+- A connected [Telegram integration](/integrations/telegram). The storefront rides on top of it — there's no separate integration to add.
+- (Optional) Product images, product copy, FAQ entries, and knowledge-base documents to wire into per-product chat.
+
+## Quick start (5 minutes)
+
+The shortest path from "I connected a bot" to "my first customer is browsing":
+
+1. **Go to Integrations → your Telegram bot → Configure mini app.** The composer opens in Draft state.
+2. **Click "+ Add page"** in the left rail. Name it (e.g. "Home").
+3. **Add a Hero block** — headline, subheadline, a 16:9 background image (drop a photo, the cropper opens automatically).
+4. **Add a Product card** — name, price, 1:1 image, short description. Toggle on **AI chat** and attach a doc (a PDF spec sheet, your shipping policy — anything from your KB).
+5. **Add an Order CTA** on that product — pick `inquiry` mode, choose form fields (`name` is always required).
+6. **Click Publish.** The bot menu button auto-relabels to **"Shop"** since you have a product.
+7. **Open your bot in Telegram.** Tap "Shop." Tap your product. Tap "Ask a question." Tap "Order this." Submit. You'll see the handoff land in your Inbox within seconds.
+
+That's the minimum-viable storefront. Add more pages, more products, themes, videos, and a Help Center as you grow.
+
+## Build or enhance a storefront with AI
+
+Don't want to start from a blank canvas — or want a hand reworking the one you have? The composer's AI button reads your current storefront and adapts:
+
+**The AI designs the *structure* — which pages exist, which blocks go on each, the order, and a fitting theme — and drops a "fill me in" placeholder in every text field** (like *"Add your headline"* or *"Product name"*). It doesn't write your real copy, prices, or product names; you fill those in, just like you already upload your own images. That keeps the result fast, honest, and yours to finish.
+
+- **Empty storefront → Generate with AI.** A brand-new bot's storefront has no pages yet, so the AI lays out the whole thing from your brief.
+- **Existing storefront → Enhance with AI.** Once your storefront has content (every Telegram/Messenger storefront starts with a page the moment you connect the bot), the button becomes **Enhance with AI** — it **adds new pages and sections** based on your request and leaves everything you already have completely untouched. It never rewrites or wipes your existing pages.
+
+### Generate (empty storefront)
+
+Click **Generate with AI**, then either:
+
+- **Describe it** — type a one-paragraph prompt: *"a 3-page storefront for a coffee shop: a hero, a product grid with five coffees, a testimonials section, and a contact page — warm editorial look."* The AI lays out the pages, blocks, and a fitting theme, with placeholders ready for you to fill.
+- **Upload a PDF** — drop in a product catalog or brochure PDF and the AI turns it into storefront pages and product cards.
+- **Upload an image** — drop in a screenshot or photo of an existing storefront / flyer and the AI drafts a plausible layout from it.
+
+The result lands **directly in the composer as an unsaved draft** — every page, block, and theme is fully editable. The composer flags which blocks still need content so you can see exactly what to fill in. Replace the placeholders with your real copy, add your images, then **Save** and **Publish** as usual.
+
+### Enhance (existing storefront)
+
+Click **Enhance with AI**, type what you want **added** — *"add a customer-reviews page"*, *"add a contact page"*, *"add an FAQ section"* — and submit. (Enhance is prompt-only; PDF/image uploads are for generating from scratch.)
+
+Before anything touches your composer, a **review-changes panel** opens summarising the new pages and blocks the AI is proposing to **add**. Your existing pages, blocks, and uploaded images are kept exactly as they were. Click **Apply changes** to accept, or **Discard** to throw the result away. Applying drops the new structure into the composer (with fill-me-in placeholders flagged); you still fill in the copy, **Save**, and **Publish** as usual.
+
+<Callout type="info">
+  **Free on every plan.** Both Generate and Enhance are available to anyone who can open the composer — there's no separate add-on or higher tier required. (You still need the **Integration manage** permission, same as any other composer edit.)
+</Callout>
+
+A few things to know:
+
+- **It's a layout, not a finished store.** The AI designs structure and drops in placeholders; **it does not write your real copy and does not generate images.** Replace the *"Add your headline"* / *"Product name"* placeholders with your real text, and upload your own images — the composer highlights every block that still needs content.
+- **Video and image galleries are yours to add.** The AI skips video and gallery blocks because their content *is* a real asset (a YouTube link, your photos). Add those blocks yourself from the composer when you have the asset.
+- **Enhance only adds — it never touches what you have.** It appends new pages and sections; it doesn't rewrite, reorder, or delete your existing ones. To rework an existing page, edit it directly in the composer.
+- **English first.** Generation and enhancement produce English placeholders and labels. Use the composer's **Translate** flow afterward to fill in other languages.
+- **One shot.** Each click produces a fresh result from your prompt — there's no back-and-forth refine chat. To try a different direction, just run it again with a new prompt.
+- **If it fails**, you'll see an error with the raw AI output you can copy — usually retrying with a clearer, shorter prompt fixes it.
+
+## The composer
+
+The composer lives at **Integrations → [your Telegram bot] → Configure mini app** (also reachable via the three-dot menu on the bot card). It's a 3-pane layout:
+
+| Pane | What's there |
+|------|--------------|
+| **Left rail** | Your list of pages (drag to reorder). The pinned **Help Center** entry is read-only here — you edit those entries from a separate panel. Below the page list: per-integration controls (storefront on/off, menu-button label) and the language switcher for authoring translations. |
+| **Center** | The block list for the currently-selected page. Drag-reorder, add a block, duplicate, or delete. |
+| **Right** | A **live preview iframe** of how the page will look. Sun/moon toggle flips light/dark. The preview updates as you type. |
+
+A sticky toolbar at the top has: a status badge (Draft / Published), a `⋯` menu (Discard changes / Revert to published), **Save as draft**, and **Publish**.
+
+### Draft vs Published
+
+- **Save as draft** — your edits are saved but customers still see the last published version.
+- **Publish** — your draft becomes live; a frozen "published snapshot" is automatically saved so you can roll back later.
+- **Discard changes** — throws away unsaved local edits and reloads the last-saved version (no server call).
+- **Revert to published** — copies the published snapshot back into your working draft and republishes it. Disabled for orgs that have never published before.
+
+If you click **Save as draft** while currently Published, you'll get an "unpublish" confirmation dialog (with a hint about how to get back).
+
+## The 11 block types
+
+Drop any of these onto a storefront page:
+
+| Block | What it shows | Notable limits |
+|-------|---------------|----------------|
+| **Hero** | Big headline + subheadline + background image + optional CTA button | Headline ≤120 chars, subheadline ≤240 chars |
+| **Product card** | A single product: name, price label, optional **availability badge** ("Sold out", "Pre-order", "Last 3" — free text rendered as a pill), image, short description, optional chat & order buttons | Name ≤80, description ≤240, availability badge ≤40 |
+| **Product grid** | 1–12 products in one of three layouts: grid (2-col), stack (full-width), or swipeable row (Spotify-style) | Counts as **1 block** no matter how many products |
+| **Carousel** | A horizontal swipeable strip (1–12 slides). Mix image slides and product slides. Customize autoplay, loop, dots, arrows, aspect ratio | Counts as **1 block** |
+| **Gallery** | 1–8 images. Tap to open a lightbox | — |
+| **FAQ** | Picks a subset of your Help Center entries to display inline on a page | Set display limit 1–50 |
+| **Testimonial** | A quote with author name, optional avatar, and optional link | Quote ≤400 chars |
+| **CTA back-to-bot** | A button that closes the Mini App and sends a `/command` to your bot | Command must match `^/[a-zA-Z0-9_]{1,31}$` |
+| **Contact** | Static contact card: phone, email, address, map link (no form) | — |
+| **Video** | A YouTube video, lazy-loaded via `youtube-nocookie.com` for privacy | Needs 11-char YouTube ID |
+| **Rich text** | Markdown + sanitized HTML (TipTap editor in the composer) | Markdown ≤2000 chars, HTML ≤20000 chars |
+
+<Callout type="info">
+  **There's no "Cart review" block.** When you put an order CTA in **cart** mode on a product, the storefront automatically injects a cart page for customers to review and check out — you don't place or configure a cart block yourself. (Earlier versions had a manual Cart review block; it was retired in May 2026.)
+</Callout>
+
+Every block also supports per-block **style overrides** — background color, text color, font size — multiplied with the page theme. Use them sparingly; the theme handles the look by default.
+
+## Themes
+
+Pick a theme per page. The theme controls background, text color, accent color, and font.
+
+| Theme | Vibe |
+|-------|------|
+| **Telegram** (default) | Inherits the user's Telegram theme — automatic light/dark mode, matches what they see in chats |
+| **Soft Light** | Warm cream background, Georgia serif — friendly, editorial feel |
+| **Bold Dark** | High-contrast dark with purple accent |
+| **Editorial** | Magazine-style cream + serif at slightly larger font scale |
+| **Vibrant** | Clean white with bold pink accent |
+| **Mono** | White + monospaced font at slightly smaller scale |
+
+Where you don't pick a theme, you get the Telegram default — your storefront always feels native to the customer's Telegram app.
+
+## Per-integration controls
+
+Each Telegram integration has independent settings, scoped to that one bot. Adding a second Telegram bot to the same org gets its own independent toggles. All three live in the composer's left rail under **Mini app settings**.
+
+### Storefront on/off toggle
+
+- Default: **on**.
+- Turning it **off** does two things at once:
+  1. The bot's menu button is reset to Telegram's default `/` command picker — the storefront is no longer reachable from the bot UI.
+  2. If a customer still has the storefront URL bookmarked and opens it directly, the shell shows a "currently unavailable" message (the server returns `410 Gone` so stale caches can't leak content past the off-switch).
+- The toggle confirms once with a dialog before disabling.
+- Turning it back **on** restores the bot menu button (auto-label or your override, whichever is set).
+
+### Menu-button label override
+
+- Default: **auto-derive on every publish** — "Shop" if your storefront has any product block, otherwise "Open".
+- Set a custom label (1–32 chars) to **freeze the button text** — auto-derive is skipped from that point on, even after content changes or republish.
+- Clear the field (empty string) to **return to auto-derive**.
+- Use a custom label if your audience doesn't speak English — the default auto-label is English-only.
+
+### Storefront languages
+
+Author your storefront once in English, then add translations for any of WhatsApp's supported languages. Open the language switcher in the composer, pick a target language, and either type the translations yourself or hit **Translate** for a one-click AI draft you can edit. Region-specific variants are first-class — Brazilian vs. European Portuguese, Simplified vs. Traditional Chinese, and so on — so you can speak to each market in its own form.
+
+When a storefront has more than one language, a **language switcher** appears for visitors, and the storefront auto-detects each visitor's device language (falling back to English). Right-to-left languages such as Arabic render correctly. This translates the **content** you authored (hero headlines, product names, FAQ, rich-text) — the shell's own chrome (drawer, system buttons) follows the visitor's device language separately.
+
+## Per-product AI chat
+
+Any product card can become a chattable product. Each product card carries a two-button row in the composer for managing the documents that power its chat:
+
+- **Attach docs** — opens a picker that lets you pick from any folder in your knowledge base. Docs already attached to this product are shown disabled so you can't double-attach. Need a new file? Use the inline **Upload new** action in the picker — it lands in your KB and is auto-selected.
+- **Linked docs (N)** — opens a manager that lists everything currently attached. From there you can **unlink** a doc from this product (the doc stays in your KB and on any other products it's linked to) or jump into the Knowledge Base view to edit it. The manager also shows a "Also linked to: …" strip when the same doc powers other products.
+
+When a customer taps the product, an in-sheet chat opens. **The chat is scoped to that single product's linked documents only** — the assistant won't leak answers from other products' files. Conversations are streamed live (SSE) and stored in a dedicated collection per integration.
+
+A few things worth knowing:
+
+- **One doc can power multiple products.** Share a single "Shipping & returns" PDF across every product instead of uploading it five times.
+- **Unlinking is per-product.** Removing a doc from one product card leaves it intact in your KB and on any other products that link to it. To delete a doc everywhere, delete it from the Knowledge page — all product links for it are cleaned up automatically.
+- **Docs land in a "Showcase Products" folder by default** when you use the inline upload from the picker, but you're free to organize them anywhere in your KB.
+
+Tier limits apply to the total number of product docs you can attach (see [Tier limits](#tier-limits)).
+
+## Order inquiries & cart (optional)
+
+You can attach an **Order CTA** to any product card or product grid. This is purely a structured-message handoff — **no payments, no inventory, no fulfillment**.
+
+### Two modes
+
+- **`inquiry` mode** — customer taps "Order this" → a form opens with the product pre-filled → they submit → one handoff lands in your inbox.
+- **`cart` mode** — customer taps "Add to cart" → product is added to a local cart (lives in their browser only, keyed to your integration) → they review on the **cart page (auto-injected when you use cart-mode CTAs — no block to place)** and check out → one multi-line handoff lands in your inbox.
+
+### Form fields
+
+Choose any subset of `name`, `phone`, `email`, `notes`, `delivery_address`. **`name` is always required** regardless of what you select.
+
+### What happens after submit
+
+1. A new conversation is created in your inbox with the formatted order summary as the first message.
+2. A **handoff** is created — a human team member is signaled to take over. Line items and contact info are attached as structured metadata.
+3. The system **instantly sends a localized "Got your order" message back to the customer's Telegram DM**, which keeps Telegram's 24-hour reply window open so your team's replies from the inbox route cleanly back to the customer.
+4. The inbox detail view renders a dedicated **Order Request Panel** with line items, prices, contact info, and notes laid out cleanly.
+
+### Anti-spam / anti-duplicate
+
+- Each customer can submit at most **10 orders per minute**; each tenant at most **100 per minute**.
+- Double-taps within 60 seconds on the **same exact order** are dedup'd; two *different* orders within 60 seconds go through.
+
+## Built-in Help Center
+
+Every storefront ships with a small **Help Center** — a pinned support page at the end of the page menu, always one tap away for customers who need an FAQ or want to ask the bot a question. Authored from a dedicated panel (Integrations → bot card → Help Center), it carries up to ~100 entries with drag-to-reorder. Two entry modes: **curated** (markdown answer renders inline, zero LLM cost) and **agent** (tapping fires a pre-written question into the bot chat). You can also surface a subset of these entries inline on a storefront page via the **FAQ block** — useful for putting a few key answers next to product cards.
+
+Most customers never need to open it — products, gallery, and order CTAs answer the buying-flow questions on the storefront itself.
+
+## Images
+
+When you upload an image in the composer:
+
+- **Allowed formats**: PNG, JPEG, WebP.
+- **Max upload size**: 2 MB (the original — what gets stored and served is much smaller).
+- **Inline cropper** opens automatically, locked to the right aspect ratio for the slot (16:9 for hero backgrounds, 1:1 for product / gallery / testimonial avatars).
+- **Auto-compression**: cropper output is compressed to WebP in your browser before upload (hero ≤500 KB, product/gallery ≤350 KB, avatar ≤100 KB).
+- **Recommended dimensions helper text** is shown above each empty dropzone.
+- **Image URLs auto-refresh** every 15 minutes via secure presigned URLs — customers never see your raw storage paths.
+
+The 2 MB cap is on the original you upload, not on what customers see. Drop in a 12 MP phone photo or a print-resolution catalog shot as-is — the in-browser cropper handles the scale-down without visible quality loss.
+
+## Tier limits
+
+Available on every plan, including the free trial. The composer enforces caps.
+
+| Tier | Pages | Blocks per page | Product docs (total) |
+|------|-------|------------------|-----------------------|
+| **Trial** | 5 | 25 | 100 |
+| **Starter** | Unlimited | Unlimited | Unlimited |
+| **Plus** | Unlimited | Unlimited | Unlimited |
+| **Enterprise** | Unlimited | Unlimited | Unlimited |
+
+Notes:
+
+- A product grid or carousel **counts as 1 block** toward the per-page block limit, no matter how many items or slides it contains.
+- When you hit a limit, the composer surfaces an upgrade modal.
+- **Pricing is per-org, not per-bot.** Adding a second (or fifth) Telegram bot to your org does **not** change your tier price. Each bot gets its own storefront inside the same plan; the caps are shared across all your bots under one org.
+
+## Permissions
+
+The composer's write actions (save, publish, image upload, product doc upload, revert) all require the **Integration manage** permission for Telegram. In practice that means **Owner** and **Admin** roles can author the storefront; **Member** role is view-only.
+
+There is **no "storefront-only" role** today — both Owner and Admin also see Billing. If you bring on a contractor to build out your storefront, your options are:
+
+- Add them as Admin (with the caveat that they'll also see Billing).
+- Use a screen-sharing session where you stay logged in and the freelancer drives.
+- Have them prepare assets/copy offline (a doc with all the text + images) and you paste them in as Owner.
+
+A granular "Integration Editor" role is on the roadmap.
+
+## Performance & freshness
+
+- **Server-side cache** — the public storefront response is cached for **5 minutes** per integration.
+- **Cache busts on publish** — the moment you click Publish (or Revert), the cache is wiped, so customers see your changes within their next page request.
+- **ETag support** — the shell uses HTTP `If-None-Match` and gets a fast `304 Not Modified` if nothing changed, keeping mobile data usage low.
+- **Image URLs** are valid for 15 minutes; the shell re-fetches automatically before they expire.
+
+## What it does NOT do
+
+- **No payments.** Order CTAs are inquiry handoffs, not Stripe / WhatsApp Pay / Telegram Stars checkouts.
+- **No inventory tracking.** Availability badges are free-text labels you edit manually.
+- **No shipping calculations / address validation.** The delivery address is collected as free-form text.
+- **No customer accounts.** Customers are identified by their Telegram user ID; there is no login or signup flow.
+- **No forms beyond Order Inquiry / Cart Checkout.** The contact block is static display; the rich-text block doesn't render forms.
+- **Help Center "ask the bot" and order paths refuse group / channel launches** with a polite error.
+
+## End-to-end customer flow
+
+1. Customer opens your bot in Telegram and taps the menu button — labeled **"Shop"** (auto-derived from product blocks) or whatever you set as a custom label.
+2. The storefront loads inside Telegram. They see your first page.
+3. They swipe through your gallery, watch your video, tap a product.
+4. The product opens in a sheet. They tap "Ask a question" → an AI chat opens scoped to that product's documents. They get an answer.
+5. They tap "Order this" → a form pops up → they fill in name + phone → submit.
+6. They instantly get a "Got your order, we'll reach out" message back in their Telegram DM.
+7. **Your team gets a new handoff in Inbox** with the order details. Any reply your team sends from the inbox lands in the customer's DM in real time.
+
+## Troubleshooting
+
+### Menu button doesn't open the storefront
+
+1. Confirm the **storefront on/off toggle** is on (composer → left rail → Mini app settings).
+2. Disconnect and reconnect the Telegram integration — the chat-menu button is set during the connection step, and a stale bot may be missing it.
+3. If you set a custom menu button via BotFather, that overrides the platform's auto-config — clear it via BotFather's `/setmenubutton`.
+
+### Customers see "currently unavailable" when opening the URL directly
+
+The storefront on/off toggle is off — turn it back on from the composer's left rail.
+
+### Edits I just saved don't show up for customers
+
+Your edits are still in **Draft**. Click **Publish** in the composer toolbar — the server cache busts immediately. If you've already published and customers still see stale content, ask them to pull-to-refresh inside the storefront (Telegram caches the WebView).
+
+### Product chat answers from a different product's docs
+
+Double-check the **Linked docs** manager on the product card — only docs explicitly linked there power the chat. If a doc isn't appearing, attach it via the **Attach docs** picker.
+
+### Custom menu label didn't take effect
+
+The label input has its own **Save** / **Reset** buttons (unlike the on/off toggle, which auto-saves). Click **Save** after typing — partial keystrokes never hit Telegram.
+
+## Disconnecting
+
+The storefront is part of the Telegram integration, so it goes away when you disconnect the bot:
+
+- **Integrations → Telegram card → three-dot menu → Delete**
+
+Storefront pages, blocks, and help entries you authored are deleted with the integration. To keep the bot connected but take just the storefront offline, flip the **storefront on/off toggle** to off instead.
+
+## Related
+
+- [Telegram](/integrations/telegram) — the parent integration; the storefront rides on top of it
+- [Saba on Telegram](/integrations/saba-on-telegram) — operator-facing Saba bot (different feature, also Telegram-based)
+- [Telegram Business](/integrations/telegram-business) — AI replies on a Premium user's personal account (different feature)

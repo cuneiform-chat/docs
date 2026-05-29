@@ -6,13 +6,13 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { LocaleSwitcher } from '../../components/locale-switcher'
 
-// Active locales: en (source), es, pt, fr, ru, bn, hi.
+// Active locales: en (source), es, pt, fr, ru, bn, hi, ar (RTL).
 // Disabled: th — content/th/ retained on disk, not built.
 // Mirrors the admin panel locale policy. See
 // `.claude/references/features/admin-panel-i18n.md` for rationale.
-const LOCALES = ['en', 'es', 'pt', 'fr', 'ru', 'bn', 'hi'] as const
+const LOCALES = ['en', 'es', 'pt', 'fr', 'ru', 'bn', 'hi', 'ar'] as const
 type Locale = (typeof LOCALES)[number]
-const RTL_LOCALES: Locale[] = []
+const RTL_LOCALES: Locale[] = ['ar']
 
 const UI_STRINGS: Record<
   Locale,
@@ -119,6 +119,19 @@ const UI_STRINGS: Record<
     tocTitle: 'इस पृष्ठ पर',
     backToTop: 'ऊपर जाएं',
     searchPlaceholder: 'दस्तावेज़ीकरण में खोजें…',
+  },
+  ar: {
+    editLink: 'تعديل هذه الصفحة على GitHub →',
+    feedbackContent: 'لديك سؤال؟ شاركنا رأيك →',
+    title: 'توثيق Cuneiform Chat',
+    description:
+      'تعلّم كيفية إنشاء روبوتات دردشة ذكية مُدرَّبة على مستنداتك باستخدام Cuneiform Chat',
+    tagline: 'أدِر أعمالك عبر المحادثة.',
+    tryIt: 'جرّبه',
+    requestDemo: 'اطلب عرضًا توضيحيًا',
+    tocTitle: 'في هذه الصفحة',
+    backToTop: 'العودة إلى الأعلى',
+    searchPlaceholder: 'ابحث في التوثيق…',
   },
 }
 

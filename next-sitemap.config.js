@@ -10,8 +10,8 @@ module.exports = {
     if (path === '/' || path === '') return null
 
     // Active locales only. th is disabled and not built.
-    const isLocaleRoot = /^\/(en|es|pt|fr|ru|bn|hi)\/?$/.test(path)
-    const isSectionIndex = /^\/(en|es|pt|fr|ru|bn|hi)\/[^/]+$/.test(path)
+    const isLocaleRoot = /^\/(en|es|pt|fr|ru|bn|hi|ar)\/?$/.test(path)
+    const isSectionIndex = /^\/(en|es|pt|fr|ru|bn|hi|ar)\/[^/]+$/.test(path)
 
     return {
       loc: path,

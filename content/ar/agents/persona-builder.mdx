@@ -1,0 +1,196 @@
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+# Agent Persona Builder
+
+import { Callout } from 'nextra/components'
+
+Generate professional agent personas in seconds using characteristics selection.
+
+<Callout type="info">
+  The Agent Persona Builder helps you create effective agent personas without writing prompts from scratch.
+</Callout>
+
+## Getting Started
+
+1. Navigate to **Agents** and create or edit an agent
+2. Click **Generate** next to the Agent Persona field
+3. The Agent Persona Builder panel slides open with three tabs
+
+## Builder Tabs
+
+### Custom Build
+
+Create a unique persona by selecting characteristics across 5 categories:
+
+| Category | What It Controls |
+|----------|------------------|
+| **Role & Identity** | Agent's primary function (customer support, sales, tech support, HR, etc.) |
+| **Communication Style** | Formality, tone, verbosity, and technical level |
+| **Response Behavior** | Format (conversational vs bullet points), proactivity, question handling |
+| **Operational Boundaries** | How strictly agent stays on topic, escalation tendency |
+| **Knowledge Integration** | Citation style, how agent handles uncertainty |
+
+**Category Navigation:**
+- Click any category header to expand or collapse it
+- Each category contains multiple fields with dropdown options
+- Selected options are highlighted
+
+**Reset Button:**
+Click **Reset** in the Custom Build section to restore all defaults.
+
+#### Role & Identity Options
+
+Choose your agent's primary function:
+- Customer Support
+- Sales
+- Technical Support
+- HR / Internal
+- Education
+- Healthcare Information
+- Legal Information
+- Finance / Accounting
+- General Assistant
+
+#### Communication Style
+
+Fine-tune how your agent communicates:
+
+| Setting | Options |
+|---------|---------|
+| **Formality** | Casual, Friendly Professional, Formal Professional, Corporate Formal |
+| **Tone** | Empathetic & Supportive, Confident & Authoritative, Calm & Reassuring, Enthusiastic & Engaging, Neutral & Objective |
+| **Verbosity** | Concise, Balanced, Comprehensive |
+| **Technical Level** | Layperson, Mixed, Technical |
+
+#### Tone Options
+
+Available tone presets:
+- Empathetic & Supportive
+- Confident & Authoritative
+- Calm & Reassuring
+- Enthusiastic & Engaging
+- Neutral & Objective
+
+#### Detail Levels
+
+- **Concise** — Brief, to-the-point responses
+- **Balanced** — Moderate detail with clear explanations
+- **Comprehensive** — Thorough, detailed responses
+
+#### Response Behavior
+
+Control how responses are structured:
+- **Format** — Conversational, Step-by-Step Guides, or Technical Documentation
+- **Proactivity** — Whether agent suggests related topics
+- **Question Handling** — How agent asks for clarification
+
+#### Operational Boundaries
+
+Set guardrails for your agent:
+- **Scope Strictness** — How strictly agent stays within documented topics
+- **Escalation** — When to suggest contacting human support
+- **Out-of-scope Handling** — How to respond to off-topic questions
+
+#### Knowledge Integration
+
+Configure how agent uses your documents:
+- **Citation Style** — Whether to reference specific documents
+- **Uncertainty Handling** — How to respond when unsure
+
+### Use Preset
+
+Load pre-configured personas for common use cases:
+
+- **System Templates** — Platform-provided presets optimized for specific roles
+- **My Templates** — Presets saved by your organization's admins
+
+**Using a Preset:**
+1. Click the **Use Preset** tab
+2. Browse available presets
+3. Click on a preset to select it
+4. The preset loads into Custom Build tab
+5. Adjust any characteristics if needed
+6. Click **Generate Persona**
+
+### Platform Rules
+
+View the read-only guardrails automatically applied to all agents:
+
+- **No fabrication** — Won't invent facts, numbers, or dates not in your content
+- **Acknowledges gaps** — Says "I don't have that information" rather than guessing
+- **Resists speculation** — Won't estimate missing values even when asked
+- **No professional impersonation** — Won't role-play as attorneys, doctors, CPAs, or financial advisors
+- **Corrects false premises** — Points out incorrect assumptions before answering
+- **Blocks harmful content** — Refuses self-harm, explicit, or fraudulent content
+
+<Callout type="info">
+  Platform rules ensure all agents behave reliably and safely, regardless of persona configuration. They cannot be disabled.
+</Callout>
+
+## Generating a Persona
+
+**Before Generation:**
+The panel shows your configuration options at full width.
+
+**Generate Button:**
+When on the Custom Build tab:
+1. Click **Generate Persona** at the bottom
+2. A loading state shows while generating
+3. Takes a few seconds
+
+**After Generation:**
+The panel layout changes to a split view:
+- **Left side:** Your configuration options
+- **Right side:** Generated prompt preview
+
+**Preview Panel Features:**
+- Full text of the generated system prompt
+- Editable — you can modify the text directly
+- Character count displayed at the bottom
+
+## After Generating
+
+Once you have a generated persona, you have several options:
+
+### Regenerate
+
+Click **Regenerate** to create a new version with the same settings. Each generation produces slightly different results.
+
+### Edit the Prompt
+
+Click in the preview panel to edit the generated text directly. Make any adjustments needed for your specific use case.
+
+### Save as Preset
+
+Click **Save as Preset** to save your configuration for reuse:
+1. Dialog opens asking for preset name
+2. Enter a descriptive name
+3. The preset saves to your organization under **My Templates**
+
+<Callout type="important">
+  Saved presets are available to all admins in your organization. Use them to maintain consistent agent personalities across multiple agents.
+</Callout>
+
+### Apply to Agent
+
+Click **Apply to Agent** to use this persona:
+1. The prompt is inserted into your agent's system prompt field
+2. The builder closes
+3. Continue configuring other agent settings
+
+## Best Practices
+
+- **Start with a preset** — Use system templates as a starting point, then customize
+- **Match role to purpose** — Choose a role that aligns with your agent's actual function
+- **Balance verbosity** — Concise works better for quick Q&A, detailed for complex topics
+- **Test after generating** — Always test your agent in the Playground after applying a new persona
+- **Iterate** — Regenerate with different settings if results aren't quite right
+- **Keep it focused** — Overly complex prompts can confuse the agent
+
+## Next Steps
+
+After generating your agent persona:
+
+- [Test in the Playground](/agents/testing) — Verify the persona works as expected
+- [Learn about Agent Personas](/agents/agent-personas) — Understand persona structure and best practices

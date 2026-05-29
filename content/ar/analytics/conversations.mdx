@@ -1,0 +1,146 @@
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+# Conversation Analytics
+
+Track conversation metrics and view detailed transcripts across your agents and channels.
+
+## Overview
+
+Conversation analytics provides:
+
+- Total conversation volume
+- Conversations per agent
+- Conversations per channel
+- Full message transcripts
+- AI-powered conversation insights
+
+## Accessing Conversations
+
+### From the Dashboard
+
+1. Go to **Analytics** in the sidebar
+2. Click **Conversations** in the analytics sub-menu
+
+(Note: the **View All** button on the Top Agents and Top Channels cards opens the per-agent or per-channel breakdown — not the Conversations list.)
+
+### Conversation List
+
+View all conversations with:
+
+| Column | Description |
+|--------|-------------|
+| Title | Conversation title or session ID |
+| Agent | Which agent handled the conversation |
+| Channel | Platform (Telegram, Discord, Slack, etc.) |
+| Messages | Total message count |
+| Last Active | When the conversation was last updated |
+| Status | Active, handoff, archived, or deleted |
+
+## Filtering Conversations
+
+Filter the conversation list by:
+
+- **Agent** — Select a specific agent or all agents
+- **Channel** — Filter by platform (WhatsApp, Telegram, Meta, Slack, Discord, Google Chat, Widget, Playground)
+- **Date range** — Last 7, 14, 30, or 90 days
+
+## Conversation Details
+
+Click any conversation to view its full details:
+
+### Overview Tab
+
+- **Total Messages** — Message count in the conversation
+- **Credits Spent** — Platform credits used
+- **Agent** — Which agent handled the conversation
+- **Channel** — Platform where it occurred
+- **Created** — When the conversation started
+- **Last Active** — Most recent activity
+
+### Message Activity Chart
+
+Visualize message patterns over time:
+- Toggle between hourly and daily granularity
+- Show/hide user messages and assistant messages
+- See conversation activity patterns
+
+### Messages Tab
+
+View the complete conversation transcript:
+
+- **Full message history** — See every message in the conversation
+- **Role indicators** — User, Assistant, System, and Tool messages are color-coded
+- **Timestamps** — When each message was sent
+- **Token usage** — Input/output tokens per message (when available)
+
+#### Message Filtering
+
+Filter messages by time period:
+- Last 24 hours
+- Last 7 days
+- Last 30 days
+- All messages
+
+#### Export
+
+Click **Export** to download the conversation as a JSON file containing:
+- Conversation metadata
+- All messages with timestamps
+- Token information
+
+## AI-Powered Insights
+
+Generate intelligent summaries of conversations:
+
+1. Navigate to a conversation's **Messages** tab
+2. Click **Generate Insights**
+3. View AI-analyzed insights including:
+   - **Key Points** — Main topics discussed
+   - **User Intents** — What the user was trying to accomplish
+   - **Key Info Shared** — Important information exchanged
+   - **Suggested Actions** — Recommendations based on the conversation
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Generating insights consumes credits from your account. Results are cached for faster access on subsequent views.
+</Callout>
+
+## Privacy Considerations
+
+Conversation data is handled according to:
+
+- Privacy policy requirements
+- User consent where applicable
+
+## Tips
+
+- Use filters to find conversations from specific agents or channels
+- Export important conversations for record-keeping or analysis
+- Generate AI insights to quickly understand long conversations
+- Check the Message Activity chart to identify peak usage times
+- Review conversation transcripts to improve your agent's persona
+- Monitor credits spent to track usage patterns
+
+## Common Questions
+
+**Q: How do I find conversations from a specific channel?**
+
+Use the Channel filter at the top of the conversation list to select a specific platform like Telegram, Discord, or Slack.
+
+**Q: Can I export multiple conversations at once?**
+
+Currently, export works one conversation at a time. Export each conversation individually from the Messages tab.
+
+**Q: What does "Generate Insights" do?**
+
+It uses AI to analyze the conversation and provide a summary including key points, user intents, important information shared, and suggested actions.
+
+**Q: Do AI insights cost credits?**
+
+Yes, generating insights consumes credits from your account. However, results are cached so viewing the same insights again is free.
+
+**Q: How long are conversations stored?**
+
+Conversations are stored securely and available for analytics. Contact support if you have questions about data storage.

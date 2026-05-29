@@ -1,8 +1,8 @@
 # Cuneiform Chat Documentation
 # https://docs.cuneiform.chat
 #
-# Disabled locales (bn, hi, th) are not built; their /<locale>/* paths return
-# HTTP 404 server-side. We intentionally do NOT Disallow them: robots blocks
+# Disabled locale (th) is not built; its /th/* paths return
+# HTTP 404 server-side. We intentionally do NOT Disallow it: robots blocks
 # prevent crawling but do not drop already-indexed URLs — letting Google see
 # the 404 is what causes the URL to fall out of the index over time.
 #

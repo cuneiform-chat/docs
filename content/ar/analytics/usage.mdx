@@ -1,0 +1,85 @@
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+# Usage Metrics
+
+Track your resource consumption and credit utilization.
+
+## Credit Usage Overview
+
+The analytics dashboard shows your current billing cycle usage:
+
+- **Credits Used** — Platform credits consumed this period
+- **Credits Remaining** — Available credits until period end
+- **Usage Percentage** — Visual progress bar of consumption
+
+## Key Metrics
+
+### Query Volume
+
+| Metric | Description |
+|--------|-------------|
+| Total Queries | AI agent executions in the period |
+| Conversations | Total chat sessions |
+| Unique Users | Individual users who interacted |
+
+### Distribution Breakdown
+
+View how usage is distributed:
+
+- **By Agent** — Which agents handle the most queries
+- **By Channel** — Usage across Telegram, Discord, Slack, WhatsApp, etc.
+
+## Usage Trends
+
+### Query Volume Chart
+
+The main analytics dashboard displays a query volume chart showing:
+- Queries over time
+- Configurable granularity (hourly, daily, weekly, monthly)
+- Date range selection
+
+### Distribution Charts
+
+Pie charts showing:
+- Channel distribution — Percentage of queries per platform
+- Agent distribution — Percentage of queries per agent
+
+## Credit Monitoring
+
+### Current Period
+
+View your billing cycle status:
+- Period start and end dates
+- Credits used vs. allocated
+- Percentage consumed
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Credits reset at the start of each billing period. Check the **Billing** section for your cycle dates.
+</Callout>
+
+## Usage Warnings
+
+The **Billing** page displays automatic warning banners when:
+
+- **Approaching limit** — You've used most of your monthly quota
+- **Limit reached** — Monthly quota is depleted
+- **Blocked** — Extra usage balance also depleted
+
+These warnings appear in **Billing & Usage** to help you take action before service is affected.
+
+## Optimization Tips
+
+### Reduce Query Usage
+
+- Improve agent personas for better first-response accuracy
+- Add FAQ content to reduce follow-up questions
+- Optimize content for faster retrieval
+
+### Monitor High-Usage Areas
+
+- Check which agents consume the most credits
+- Identify channels with highest volume
+- Review conversations that use more tokens

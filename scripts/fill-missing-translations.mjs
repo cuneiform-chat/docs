@@ -15,7 +15,7 @@ const SOURCE_LOCALE = 'en'
 
 // Active non-source locales — keep in sync with next.config.mjs i18n.locales.
 // Disabled (frozen on disk, do NOT include): th.
-const LOCALES = ['es', 'pt', 'fr', 'ru', 'bn', 'hi']
+const LOCALES = ['es', 'pt', 'fr', 'ru', 'bn', 'hi', 'ar']
 
 const NOTICE_BANNER = `{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
 {/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}

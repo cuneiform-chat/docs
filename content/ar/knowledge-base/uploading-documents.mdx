@@ -1,0 +1,129 @@
+{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
+{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+
+# Uploading Documents
+
+Upload documents to your content so your AI agents can use them to answer questions. Documents are automatically processed and made searchable.
+
+## Getting There
+
+1. Log in to the Admin Panel
+2. Navigate to **Content** in the sidebar menu
+3. The upload area is displayed at the top of the page
+
+## Upload Methods
+
+### Local File Upload
+
+1. **Drag and drop** files directly onto the upload area, OR
+2. **Click** the upload area to open a file browser
+3. Select one or more files to upload
+4. Files begin uploading automatically with progress tracking
+
+### Cloud Storage Import
+
+Import files directly from your cloud storage providers:
+
+| Provider | Icon | How to Use |
+|----------|------|------------|
+| Google Drive | Google Drive icon | Click to open Google Drive picker, select files |
+| Dropbox | Dropbox icon | Click to open Dropbox chooser, select files |
+| OneDrive | OneDrive icon | Click to open OneDrive picker, select files |
+| Box | Box icon | Click to open Box picker, select files |
+
+After selecting files from any provider, they are automatically imported to your content.
+
+## Upload Options
+
+### Adding Tags
+
+Optionally assign tags to documents during upload:
+
+1. Click **+ Add Tags** before uploading
+2. Select tags from the dropdown
+3. Selected tags will be applied to all uploaded documents
+
+## Supported File Types
+
+The file types you can upload depend on your plan. Common formats include:
+
+- **Documents:** PDF, DOCX, DOC, TXT, MD, RTF
+- **Presentations:** PPTX, PPT
+- **Web/Data:** HTML, HTM, JSON, XML
+
+File size limits also vary by plan (shown in the upload area).
+
+See [Supported Formats](/knowledge-base/supported-formats) for the complete list.
+
+## During Upload
+
+### Progress Tracking
+
+- Each file shows upload progress with a percentage bar
+- Upload speed and estimated time remaining are displayed
+- Files are processed one at a time
+
+### Cancel Options
+
+- **Cancel individual file:** Click the X next to a file
+- **Cancel all:** Click "Cancel All Pending" to stop the entire batch
+- A warning appears if you try to leave the page during upload
+
+## Processing Status
+
+Track document status in Content:
+
+| Status | Meaning |
+|--------|---------|
+| Uploaded | Document has been uploaded to the system |
+| Validating | Document is being validated |
+| Stored | Document has been stored and is awaiting processing |
+| Processing | Document is being analyzed and indexed |
+| Ready | Document is processed and available for your agents |
+| Failed | Processing encountered an error (can be retried) |
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Processing time depends on document size and complexity. Most documents complete within a few minutes.
+</Callout>
+
+## After Upload
+
+### Success
+
+- Successfully uploaded files appear in your document browser
+- Documents are automatically processed for search
+- You can organize them into folders or add tags
+
+### Handling Duplicates
+
+- The system detects duplicate content automatically
+- If a file with identical content already exists, you'll see a warning
+- The existing file location is shown in the error message
+
+### Handling Errors
+
+- If a file fails to upload, an error message explains why
+- Common issues include file too large or unsupported format
+- You can retry individual files or upload them again
+
+## Tips
+
+- Upload multiple files at once to save time
+- Apply tags during upload to keep documents organized
+- Check the supported file types shown in the upload area
+
+## Common Questions
+
+**Q: How many files can I upload at once?**
+A: You can select multiple files for batch upload. They process one at a time with progress tracking.
+
+**Q: Why was my file rejected?**
+A: Check if the file type is supported and the file size is within limits (shown in the upload area). Some files may be blocked for security reasons.
+
+**Q: How long does processing take?**
+A: Upload time depends on file size and your connection. After upload, documents are processed in the background and become searchable automatically.
+
+**Q: Can I upload to a specific folder?**
+A: Yes, you can upload directly to folders using the folder menu or organize documents after upload.

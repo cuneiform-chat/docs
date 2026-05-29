@@ -31,9 +31,9 @@ const SITE_URL = 'https://docs.cuneiform.chat'
 
 // Top-level segments that must never be clobbered.
 const RESERVED_TOP = new Set([
-  'en', 'es', 'pt', 'fr', 'ru', 'bn', 'hi',  // active locales
-  'th', 'ar',                                // disabled locales (frozen)
-  '_next', '_pagefind',                      // framework / search assets
+  'en', 'es', 'pt', 'fr', 'ru', 'bn', 'hi', 'ar',  // active locales
+  'th',                                            // disabled locales (frozen)
+  '_next', '_pagefind',                            // framework / search assets
 ])
 
 // Files inside out/en/ that should not generate a legacy mirror.
