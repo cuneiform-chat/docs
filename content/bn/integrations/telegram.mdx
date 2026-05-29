@@ -1,14 +1,20 @@
 # Telegram ইন্টিগ্রেশন
 
-আপনার agent-কে Telegram-এ সংযুক্ত করুন এবং user-দের সরাসরি Telegram app-এ chat করতে দিন।
+আপনার agent-কে Telegram-এ সংযুক্ত করুন এবং user-দের সরাসরি Telegram app-এ এর সাথে chat করতে দিন।
 
 ## সংক্ষিপ্ত বিবরণ
 
 Telegram integration প্রদান করে:
-- আপনার bot-এর সাথে সরাসরি messaging
-- Group chat support
-- Rich message formatting
-- Interaction-এর জন্য inline keyboard
+- Live streaming reply (Bot API 9.5 `sendMessageDraft`, edit-message fallback সহ)
+- Whisper দিয়ে স্বয়ংক্রিয়ভাবে transcribe হওয়া voice message
+- MarkdownV2 formatting যা প্রতিবার পরিচ্ছন্নভাবে render হয়
+- কাস্টম welcome ও suggested reply সহ deep-link campaign
+- Sentiment classification সহ এক-ট্যাপে emoji reaction
+- বিল্ট-ইন slash command (`/start`, `/help`, `/reset`, `/new`)
+- Direct message ও group chat (group-এ per-user session)
+- একটি বিল্ট-ইন [in-bot Storefront](/integrations/telegram-mini-app) — multipage product catalog, per-product AI chat, এবং হালকা order-taking, সবই Telegram-এর ভেতরে (প্রতিটি plan-এ ফ্রি)
+- Premium user-দের জন্য ঐচ্ছিক Telegram Premium co-pilot (আলাদা integration)
+- অপারেটরদের জন্য Saba on Telegram (আলাদা integration)
 
 ## পূর্বশর্ত
 
@@ -28,11 +34,10 @@ Telegram integration প্রদান করে:
 
 ### ২. Cuneiform Chat-এ সংযুক্ত করুন
 
-1. **Agents** → আপনার agent নির্বাচন করুন
-2. **Integrations** tab-এ navigate করুন
-3. **Telegram**-এ click করুন
-4. আপনার Bot Token paste করুন
-5. **Connect**-এ click করুন
+1. সাইডবারে **Integrations**-এ যান
+2. **Telegram** card খুলুন
+3. আপনার Bot Token paste করুন
+4. **Connect**-এ click করুন
 
 ### ৩. আপনার Bot configure করুন
 
@@ -58,31 +63,89 @@ Message real-time-এ প্রক্রিয়া হয়। Agent আপ�
 
 ## বৈশিষ্ট্যসমূহ
 
-### Direct Message
+### Live streaming reply
 
-User-রা আপনার bot-এর সাথে একান্তে support conversation করতে পারে।
+Bot-এর reply মিলিসেকেন্ডের মধ্যে পৌঁছে যায় এবং আপনার agent যত ভাবে তত সেখানেই বেড়ে ওঠে — যেখানে সমর্থিত সেখানে Telegram-এর নেটিভ `sendMessageDraft` (Bot API 9.5) ব্যবহার করে, অন্যত্র throttled edit-message fallback সহ। প্রশ্ন ও উত্তরের মাঝে আর ৫–১৫ সেকেন্ডের নীরবতা নেই।
 
-### Group Chat
+### Voice message
+
+Bot-এ পাঠানো voice note Whisper দিয়ে transcribe হয় এবং টাইপ করা হলে যেভাবে উত্তর দেওয়া হতো সেভাবেই উত্তর দেওয়া হয়। Conversation থেকে ভাষা স্বয়ংক্রিয়ভাবে শনাক্ত হয়, তাই যেকোনো ভাষার ছোট ক্লিপও সঠিক থাকে। প্রতি note-এ সর্বোচ্চ ২ মিনিট। ফ্রি ট্রায়াল সহ প্রতিটি plan-এ উপলব্ধ।
+
+### MarkdownV2 formatting
+
+Bold, italic, code block, list ও link ঠিক যেমনটি আপনার agent চেয়েছিল সেভাবেই render হয় — কোনো ভাঙা markdown বা এলোমেলো asterisk নেই। Escaping প্ল্যাটফর্মে কেন্দ্রীভূত, তাই প্রতিটি reply পরিচ্ছন্ন থাকে। MarkdownV2 ডিফল্ট; প্রয়োজনে প্রতি integration-এ HTML mode উপলব্ধ।
+
+### Deep link ও referral campaign
+
+Integration card থেকে `t.me/your-bot?start=your-code` link তৈরি করুন। প্রতিটি code একটি কাস্টম welcome message ও সর্বোচ্চ তিনটি suggested reply বহন করতে পারে। Click-through, unique user, এবং conversation conversion প্রতিটি code অনুযায়ী ট্র্যাক করা হয় — ad campaign, QR code, এবং multi-channel attribution-এর জন্য উপযোগী।
+
+### এক-ট্যাপে emoji reaction
+
+User-রা bot-এর message-এ 👍, ❤, 😡, বা যেকোনো emoji দিয়ে reaction দেয়। Bot সংক্ষিপ্ত reaction-acknowledgement reply-এর মাধ্যমে সঠিক সুরে সাড়া দেয়। একটি বিল্ট-ইন classifier যেকোনো emoji-কে positive, negative, বা neutral signal-এ map করে যা আপনি পরে বিশ্লেষণ করতে পারেন। বর্তমানে DM-এ সক্রিয়।
+
+### Slash command
+
+Integration connect করার সময় Telegram-এ একটি ডিফল্ট command list রেজিস্টার করে, তাই user-রা Telegram-এর নেটিভ autocomplete menu-তে `/start`, `/help`, `/reset`, এবং আপনার লেখা যেকোনো কাস্টম command দেখতে পায়। `/start`, `/help`, `/reset`, এবং `/new` শূন্য AI খরচে inline পরিচালিত হয়। পুনর্বিন্যাস করতে drag করুন; সর্বোচ্চ ৩২টি entry।
+
+### Direct message
+
+User-রা ব্যক্তিগত support conversation-এর জন্য আপনার bot-এর সাথে একান্তে chat করে। প্রতিটি user-এর নিজস্ব session থাকে।
+
+### Group chat
 
 আপনার bot-কে group chat-এ যোগ করুন:
 
 1. Bot-কে একটি group-এ যোগ করুন
-2. এটিকে admin করুন (message access-এর জন্য)
-3. User-রা bot-কে mention করতে বা command ব্যবহার করতে পারে
+2. এটিকে admin করুন (পূর্ণ message access-এর জন্য — নিচে Group Privacy দেখুন)
+3. User-রা bot-কে mention (`@your_bot`) করে বা এর message-এ reply করে
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Group-এ bot শুধুমাত্র mention করলে বা command ব্যবহার করলে respond করে, spam এড়াতে।
+  ডিফল্টভাবে Telegram bot-এ **Group Privacy** mode ON থাকে — bot শুধু সেই message দেখে যেগুলো সরাসরি এটিকে mention করে বা এর নিজের message-এ reply করে। Bot যদি প্রতিটি message দেখুক চান তবে BotFather-এ এটি বন্ধ করুন (My bots → আপনার bot → Bot Settings → Group Privacy → Off)।
 </Callout>
 
-### Rich Formatting
+Group-এ প্রতিটি user-এর নিজস্ব conversation thread থাকে — bot সদস্যদের মধ্যে session মেশায় না। Forum-topic group সমর্থিত; thread তাদের topic-এ scoped থাকে।
 
-আপনার agent-এর response সমর্থন করে:
-- **Bold** এবং *italic* text
-- Link
-- Code block
-- List
+## In-bot Storefront
+
+আপনার সংযুক্ত প্রতিটি Telegram bot-এর সাথে একটি বিল্ট-ইন **Storefront** আসে — একটি পরিপাটি, multipage in-bot website যা end user-রা chat composer-এর পাশের menu button-এ ট্যাপ করলে Telegram-এর ভেতরেই খোলে। Product card, gallery, video, themed page, per-product AI chat, এবং হালকা order-taking যা আপনার inbox-এ একজন আসল মানুষের কাছে হস্তান্তর করে — কোনো app install বা আলাদা website ছাড়াই।
+
+Connect করার সময় স্বয়ংক্রিয়ভাবে যুক্ত হয়: chat-menu button storefront খোলে, আপনি product publish করলে **"Shop"** লেবেল নয়তো **"Open"** লেবেলযুক্ত। ফ্রি ট্রায়াল সহ প্রতিটি plan-এ উপলব্ধ।
+
+সম্পূর্ণ ফিচার গাইড — composer, block, theme, per-product chat, order CTA, tier limit — একটি ডেডিকেটেড পেজে রয়েছে:
+
+→ সম্পূর্ণ সেটআপ, block reference, এবং customer flow-এর জন্য **[Telegram Storefront](/integrations/telegram-mini-app)**।
+
+Ad-hoc FAQ + ask-the-bot শর্টকাটের জন্য storefront-এর page menu-র শেষে একটি ছোট **Help Center** support panel পিন করা থাকে। বেশিরভাগ storefront এটির উপর বেশি নির্ভর করে না — product ও order CTA storefront-এই কেনাকাটা-প্রবাহের প্রশ্নের উত্তর দেয়। Bot card-এর three-dot menu → **Help Center** থেকে entry লিখুন (সর্বোচ্চ ~১০০টি entry, drag-to-reorder, ~৫ মিনিটের server cache)।
+
+## Telegram Premium co-pilot
+
+Premium-tier Telegram user-রা Telegram-এর Business mode-এর মাধ্যমে আপনার bot-কে **তাদের ব্যক্তিগত account-এ** DM-এর উত্তর দেওয়াতে পারে। Bot Premium user-এর `business_connection_id`-এর মাধ্যমে reply করে, তাই contact-রা দেখে যা Premium user-এর নিজের reply বলে মনে হয় — যেসব ফাউন্ডার, ক্রিয়েটর, ও ছোট টিম সারাদিন তাদের ব্যক্তিগত account-এ DM পান তাদের জন্য উপযোগী।
+
+Setup হলো admin panel-এ একটি আলাদা integration ("Telegram Premium co-pilot")। মূল নিয়ম:
+
+- **১ bot = ১ customer agent।** একটি Telegram bot একবারে শুধু একটি webhook-এ point করতে পারে — আপনি একটি bot নিয়মিত Telegram integration বা Saba on Telegram-এর সাথে শেয়ার করতে পারবেন না। Business mode-এর জন্য একটি নতুন BotFather bot তৈরি করুন।
+- **BotFather Business Mode toggle প্রয়োজন।** এটি ছাড়া Premium user-রা bot যোগ করার সময় *"this bot doesn't support Telegram Business yet"* দেখে। Bot Settings → Business Mode-এ এটি চালু করুন।
+- **প্রতি integration-এ N জন Premium user।** প্রত্যেকে নিয়মিত DM-এ bot-এর সাথে `/start <code>` দিয়ে একবার link করে।
+- **শুধু DM।** Business connection group chat কভার করে না।
+- **Manual takeover স্বয়ংক্রিয়।** Premium user যখন নিজে একটি reply টাইপ করেন, তখন bot সেই chat-এ একটি sliding window-এর জন্য থেমে যায় যাতে এটি কোনো লাইভ conversation-এর উপর কথা না বলে।
+- **Connection-লেভেল kill switch।** Disconnect না করেই প্রতিটি linked Premium user জুড়ে bot থামাতে integration card-এ "Disable auto-reply" toggle করুন।
+
+সম্পূর্ণ সেটআপ playbook-এর জন্য admin panel-এর Integrations পেজের Telegram Premium co-pilot section-এর অধীনে **Connect Premium bot** দেখুন।
+
+## Saba on Telegram
+
+অপারেটররা একটি ডেডিকেটেড Telegram bot থেকে **Saba** (প্ল্যাটফর্ম assistant)-এর সাথেও chat করতে পারে। Admin panel-এর মতো একই permission ও data access — যখন আপনি ল্যাপটপ থেকে দূরে আছেন এবং agent stat, billing, বা সাম্প্রতিক activity দেখতে চান তখন উপযোগী।
+
+একই channel-এর উপর দুটি surface:
+
+- **DM bot** — নিয়মিত Telegram DM-এ text reply, সঠিক admin-panel পেজে deep-link করা inline action button সহ (attribution-এর জন্য `?from=saba_telegram`)।
+- **Saba Mini App** — Telegram-এর ভেতরে `saba-mini.cuneiform.chat`-এ একটি সমৃদ্ধ chat surface, যেখানে রয়েছে conversation history, tool-call detail, browser voice input, এবং markdown export। প্রতিটি DM reply-এর সাথে surface বদলানোর জন্য একটি "Open in Mini App" inline button আসে।
+
+Setup admin-পক্ষে: Integrations-এ "Saba on Telegram"-এর অধীনে একটি নতুন BotFather bot সংযুক্ত করুন। এরপর প্রতিটি org সদস্য একটি ১০-মিনিটের code দিয়ে তাদের ব্যক্তিগত account link করে।
+
+ব্যবহারকারী-পক্ষের অভিজ্ঞতার জন্য [Platform Assistant → From Telegram](/getting-started/platform-assistant#from-telegram) দেখুন।
 
 ## Bot Command
 
@@ -92,7 +155,8 @@ import { Callout } from 'nextra/components'
 |---------|-------|
 | `/start` | Conversation শুরু করুন |
 | `/help` | সাহায্য message দেখান |
-| `/ask [প্রশ্ন]` | একটি নির্দিষ্ট প্রশ্ন জিজ্ঞাসা করুন |
+| `/reset` | বর্তমান conversation reset করুন |
+| `/new` | একটি নতুন conversation শুরু করুন (`/reset`-এর alias, inline পরিচালিত) |
 
 ## সমস্যা সমাধান
 
@@ -124,7 +188,7 @@ import { Callout } from 'nextra/components'
 
 Telegram integration সরাতে:
 
-1. **Agents** → agent নির্বাচন করুন → **Integrations**
-2. **Telegram** → **Disconnect**-এ click করুন
+1. সাইডবারে **Integrations**-এ যান
+2. **Telegram** card খুলুন এবং **Disconnect**-এ click করুন
 
 এটি bot-কে respond করা বন্ধ করে কিন্তু Telegram bot নিজে মুছে যায় না। প্রয়োজনে BotFather-এর মাধ্যমে মুছুন।

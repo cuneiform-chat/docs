@@ -41,7 +41,6 @@ Native Google Workspace file import-এর সময় স্বয়ংক্
 | File Type | যেভাবে Export হয় |
 |-----------|------------------|
 | Google Docs | Text content extract করা হয় |
-| Google Sheets | Text content extract করা হয় |
 | Google Slides | Text content extract করা হয় |
 
 import { Callout } from 'nextra/components'
@@ -55,9 +54,12 @@ import { Callout } from 'nextra/components'
 | Format | Extension | নোট |
 |--------|-----------|------|
 | PDF | .pdf | Text ও scanned (OCR) |
-| Word | .docx, .doc | সম্পূর্ণ formatting সমর্থন |
+| Word | .docx, .doc | Microsoft Word ডকুমেন্ট |
+| PowerPoint | .pptx, .ppt | Presentation slide |
 | Text | .txt | Plain text file |
 | Markdown | .md | Markdown formatting |
+| Rich Text | .rtf | Rich Text Format |
+| Web/Data | .html, .htm, .json, .xml | Web page ও structured data |
 
 সম্পূর্ণ তালিকার জন্য [সমর্থিত Format](/knowledge-base/supported-formats) দেখুন।
 

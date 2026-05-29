@@ -27,6 +27,17 @@ Saba আপনাকে সাহায্য করতে পারে:
 | নতুন কথোপকথন | `Cmd + N` | `Ctrl + N` |
 | বন্ধ করুন | `Escape` | `Escape` |
 
+### Telegram থেকে
+
+আপনি Telegram থেকেও Saba-র সাথে chat করতে পারেন — একই permission, একই data access, আপনার ফোনে। দুটি surface, দুটোই প্রতিটি paid tier-এ অন্তর্ভুক্ত:
+
+- **DM bot** — আপনার org admin অ্যাডমিন প্যানেলে একটি ডেডিকেটেড Telegram bot ("Saba on Telegram") সংযুক্ত করে। আপনি একটি ১০-মিনিটের code দিয়ে একবার আপনার account link করেন, তারপর সহকর্মীকে যেভাবে DM করতেন সেভাবে bot-কে DM করেন। Voice note transcribe হয়ে Saba-র কাছে পাঠানো হয়।
+- **Saba Mini App** — প্রতিটি DM reply-এর সাথে একটি "Open in Mini App" inline button আসে যা আপনাকে Telegram-এর ভেতরে একটি সমৃদ্ধ chat surface-এ (`saba-mini.cuneiform.chat`) নিয়ে যায়, যেখানে রয়েছে কথোপকথনের ইতিহাস, tool-call বিবরণ, browser voice input, markdown export, এবং একটি ইন-অ্যাপ ভাষা সুইচার।
+
+Telegram-এ Saba-র উত্তরে প্যানেলের মতো একই ট্যাপযোগ্য action button থাকে — ট্যাপ করুন এবং আপনি সঠিক অ্যাডমিন-প্যানেল পেজে deep-link হয়ে যাবেন।
+
+Setup admin-পক্ষে। সংযোগের প্রবাহের জন্য [Telegram integration → Saba on Telegram](/integrations/telegram) দেখুন।
+
 ## Saba কীভাবে সাহায্য করতে পারে
 
 ### প্ল্যাটফর্ম ফিচার
@@ -85,6 +96,8 @@ Saba স্বয়ংক্রিয়ভাবে আপনার বার�
 | `/billing` | আপনার প্ল্যান ও ক্রেডিটের বিবরণ |
 | `/integrations` | আপনার সক্রিয় চ্যানেল ইন্টিগ্রেশন |
 | `/conversations` | সাম্প্রতিক কথোপকথনের কার্যকলাপ দেখায় |
+| `/new` | একটি নতুন কথোপকথন শুরু করে |
+| `/clear` | বর্তমান চ্যাট মুছে একটি নতুন কথোপকথন শুরু করে |
 | `/help` | উপলব্ধ কমান্ডের তালিকা দেখায় |
 
 ### কথোপকথনের ইতিহাস

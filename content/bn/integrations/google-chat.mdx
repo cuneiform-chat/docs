@@ -103,6 +103,7 @@ DM সবসময় **default agent** দ্বারা পরিচালি
 | `@Cuneiform Chat /set-agent <name>` | এই Space-কে একটি নির্দিষ্ট agent-এর সাথে link করুন |
 | `@Cuneiform Chat /current-agent` | এই Space কোন agent পরিচালনা করে তা দেখুন |
 | `@Cuneiform Chat /reset-agent` | Space-কে default agent-এ ফিরিয়ে দিন |
+| `@Cuneiform Chat /connect` | (শুধু Space manager) Thread history awareness চালু করুন |
 
 **Routing কীভাবে কাজ করে:**
 - **DM** → সবসময় default agent ব্যবহার করে
@@ -112,6 +113,37 @@ DM সবসময় **default agent** দ্বারা পরিচালি
 <Callout type="info">
   Integration card-এর "Space mappings" section-এ admin panel-এ Space-agent mapping দেখতে পারবেন।
 </Callout>
+
+## Thread History Awareness
+
+ডিফল্টভাবে bot শুধু সেই message দেখে যা সরাসরি এটিকে @mention করেছে। Team সদস্যরা যদি আগে context message পাঠায় (অন্য thread-এ বা Space-এ আগে) এবং তারপর bot-কে @mention করে, তবে সেই context bot-এর কাছে থাকবে না — যদি না কোনো Space manager `/connect` চালায়।
+
+### এটি কীভাবে কাজ করে
+
+1. একজন Space manager Space-এ `@Cuneiform Chat /connect` পাঠায়
+2. Bot একটি এক-বারের authorization link পাঠায় (১০ মিনিটে expire হয়)
+3. Manager link-এ click করে তাদের Google Workspace account দিয়ে সাইন ইন করে
+4. Bot এখন প্রতিটি @mention-এর আগের ১৫ মিনিটের মধ্যে Space-এ পাঠানো message পড়তে পারে
+
+Connect হয়ে গেলে, প্রতিটি @mention-এ bot স্বয়ংক্রিয়ভাবে সাম্প্রতিক Space message context হিসেবে পড়ে — @mention হওয়ার আগে team কী নিয়ে আলোচনা করছিল তা বোঝে।
+
+**উদাহরণ:** Team সদস্যরা "what are the pricing plans?" এবং "what's included in starter?" পোস্ট করে এরপর "can you help?" দিয়ে bot-কে @mention করে — bot তিনটি message-ই দেখে এবং পূর্ণ context সহ উত্তর দেয়।
+
+### Requirements ও Privacy
+
+- শুধুমাত্র **Space manager** (নিয়মিত সদস্য নয়) `/connect` চালাতে পারে
+- Authorization প্রতি-Space — প্রতিটি Space-এর নিজস্ব `/connect` প্রয়োজন
+- Space manager-এর Google OAuth token এনক্রিপ্ট করে সুরক্ষিতভাবে সংরক্ষণ করা হয়
+- শুধুমাত্র সেই manager-এর account-এ দৃশ্যমান message পড়া যায়
+- Space থেকে bot সরালে সংরক্ষিত token স্বয়ংক্রিয়ভাবে মুছে যায়
+
+### Re-authorization
+
+Bot access হারালে (যেমন, আপনার Google account-এ token revoke হলে), এটি Space-কে জানাবে:
+
+> ⚠️ Thread history access has expired or been revoked. A space manager should run `/connect` to restore it.
+
+Access পুনরুদ্ধার করতে আবার `/connect` চালান।
 
 ## বৈশিষ্ট্যসমূহ
 
@@ -123,7 +155,7 @@ DM সবসময় **default agent** দ্বারা পরিচালি
 
 Bot একটি session-এর মধ্যে context মনে রাখে, তাই আপনি নিজেকে পুনরাবৃত্তি না করে follow-up প্রশ্ন করতে পারেন।
 
-**Thread context awareness (Spaces):** কোনো Space thread-এ bot-কে @mention করলে, bot উত্তর দেওয়ার আগে পুরো thread history পড়ে — team আগে কী নিয়ে আলোচনা করছিল তা বোঝে। একই thread-এ পরবর্তী @mention গুলো স্বয়ংক্রিয়ভাবে conversational continuity বজায় রাখে।
+**Space context awareness (opt-in):** একজন Space manager `/connect` চালানোর পর, bot প্রতিটি @mention-এর আগের ১৫ মিনিটের মধ্যে Space-এ পাঠানো message পড়ে — তাই আপনার context পুনরাবৃত্তি না করেই এটি বোঝে team আগে থেকে কী নিয়ে আলোচনা করছিল। সেটআপের ধাপের জন্য নিচে [Thread History Awareness](#thread-history-awareness) দেখুন।
 
 ### Message Queuing
 
@@ -212,6 +244,18 @@ Bot শুধুমাত্র text message-এ respond করে। Image, fil
 1. Admin panel-এ সঠিক agent name পরীক্ষা করুন (case-sensitive)
 2. Agent "Active" status-এ আছে কিনা নিশ্চিত করুন
 3. Space সহ agent name সমর্থিত — `/set-agent`-এর পর পূর্ণ নাম টাইপ করুন
+
+### `/connect` বলছে "Only space managers can run /connect"
+
+`/connect` চালানোর জন্য আপনাকে অবশ্যই একজন Space manager হতে হবে। আপনার Space-এর একজন Space manager-কে command-টি চালাতে বলুন।
+
+### `/connect` Authorization Link Expire হয়েছে
+
+Link ১০ মিনিটের জন্য বৈধ। একটি নতুন link পেতে আবার `@Cuneiform Chat /connect` চালান।
+
+### Bot "Thread history access has expired" বলে
+
+পুনরায় authorize করতে একজন Space manager-কে আবার `@Cuneiform Chat /connect` চালাতে হবে। Google OAuth token revoke হলে (যেমন, Google account setting-এ) এটি ঘটে।
 
 ## নিরাপত্তা
 

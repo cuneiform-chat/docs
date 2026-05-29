@@ -2,10 +2,17 @@
 
 আপনার Facebook Page-এর মাধ্যমে agent-কে Facebook Messenger-এ সংযুক্ত করুন।
 
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  প্রতিটি সংযুক্ত Facebook Page একটি বিল্ট-ইন **in-app Storefront**ও পায় যা Page-এর Persistent Menu থেকে চালু হয় — multipage product catalog, per-product AI chat, এবং Messenger-এর ভেতরেই এক-ট্যাপে order intake। দেখুন [Messenger Storefront](/integrations/messenger-mini-app)।
+</Callout>
+
 ## সংক্ষিপ্ত বিবরণ
 
 Meta integration প্রদান করে:
 - আপনার Page-এর মাধ্যমে Facebook Messenger conversation
+- Page-এর Persistent Menu থেকে চালু করা যায় এমন একটি বিল্ট-ইন [Messenger Storefront](/integrations/messenger-mini-app)
 - Typing indicator সহ background processing
 - দীর্ঘ response-এর জন্য স্বয়ংক্রিয় message splitting
 - ২৪ ঘণ্টার messaging window compliance
@@ -50,8 +57,6 @@ User-রা Messenger-এর মাধ্যমে আপনার Facebook Page
 2. Bot প্রক্রিয়ার সময় typing indicator দেখায়
 3. আপনার agent প্রশ্ন প্রক্রিয়া করে
 4. Response Messenger-এর মাধ্যমে ফেরত যায়
-
-import { Callout } from 'nextra/components'
 
 <Callout type="info">
   Message background-এ প্রক্রিয়া হয়। আপনার agent response তৈরি করার সময় bot typing indicator দেখায়।

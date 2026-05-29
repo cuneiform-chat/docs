@@ -19,10 +19,9 @@ Slack integration প্রদান করে:
 
 ### ১. Integration সেটআপ শুরু করুন
 
-1. **Agents** → আপনার agent নির্বাচন করুন
-2. **Integrations** tab-এ navigate করুন
-3. **Slack**-এ click করুন
-4. **Add to Slack**-এ click করুন
+1. সাইডবারে **Integrations**-এ যান
+2. **Slack** card খুলুন
+3. **Add to Slack**-এ click করুন
 
 ### ২. App Authorize করুন
 
@@ -46,7 +45,7 @@ Slack integration প্রদান করে:
 /ask What is our refund policy?
 ```
 
-Response channel-এ দেখা যায় (বা setting অনুযায়ী ephemeral message হিসেবে)।
+Response channel-এ দেখা যায়।
 
 ### Direct Message
 
@@ -90,16 +89,13 @@ import { Callout } from 'nextra/components'
 
 ## Configuration বিকল্পসমূহ
 
-### Response Setting
+Slack integration card থেকে আপনি পারেন:
 
-| Setting | বিবরণ |
-|---------|-------|
-| Response type | In-channel বা ephemeral |
-| Thread behavior | Thread-এ বা main channel-এ reply |
-
-### Channel সীমাবদ্ধতা
-
-নির্দিষ্ট ব্যবহারের জন্য ঐচ্ছিকভাবে bot-কে নির্দিষ্ট channel-এ সীমাবদ্ধ করুন।
+| বিকল্প | বিবরণ |
+|--------|-------|
+| Default agent | কোনো channel-specific mapping প্রযোজ্য না হলে কোন agent reply করবে তা বেছে নিন |
+| Channel mappings | নির্দিষ্ট Slack channel-কে নির্দিষ্ট agent-এ route করুন |
+| Channel commands | আপনার workspace-এ উপলব্ধ slash command পরিচালনা করুন |
 
 ## মাল্টি-Workspace Support
 
@@ -127,10 +123,19 @@ Bot respond না করলে:
 
 ### Permission সমস্যা
 
-প্রয়োজনীয় permission:
+Slack app এই OAuth scope-গুলো অনুরোধ করে (পূর্ব-কনফিগার করা — install-এর সময় **Allow**-এ click করলে আপনি সবগুলো grant করেন):
 - `commands` — Slash command-এর জন্য
 - `chat:write` — Message পাঠানোর জন্য
+- `chat:write.customize` — কাস্টম username/icon সহ message পাঠাতে
 - `app_mentions:read` — @ mention-এর জন্য
+- `im:history` — Context-এর জন্য direct-message history পড়তে
+- `channels:history` — Context-এর জন্য public-channel history পড়তে
+- `channels:read` — Public channel তালিকাভুক্ত করতে
+- `groups:history` — Context-এর জন্য private-channel history পড়তে
+- `mpim:history` — Context-এর জন্য group-DM history পড়তে
+- `users:read` — User name resolve করতে
+- `canvases:write` — Slack canvas তৈরি ও সম্পাদনা করতে
+- `assistant:write` — Agents & AI Apps pane-এ suggested prompt seed করতে
 
 ## নিরাপত্তা
 
@@ -143,7 +148,7 @@ Bot respond না করলে:
 Slack integration সরাতে:
 
 1. **Cuneiform Chat থেকে:**
-   - Agents → agent নির্বাচন → Integrations → Slack → Disconnect
+   - Integrations (সাইডবার) → Slack → Disconnect
 
 2. **Slack থেকে:**
    - Workspace setting-এ যান
