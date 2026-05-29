@@ -6,9 +6,9 @@ const withNextra = nextra({
   unstable_shouldAddLocaleToLinks: true,
 })
 
-// Active locales: en (source), es, pt, fr, ru, bn.
-// Disabled (content/{hi,th}/ directories retained but not built):
-// hi, th. Mirrors the admin panel locale policy. See
+// Active locales: en (source), es, pt, fr, ru, bn, hi.
+// Disabled (content/th/ directory retained but not built):
+// th. Mirrors the admin panel locale policy. See
 // `.claude/references/features/admin-panel-i18n.md` for rationale.
 export default withNextra({
   output: 'export',
@@ -16,7 +16,7 @@ export default withNextra({
     unoptimized: true,
   },
   i18n: {
-    locales: ['en', 'es', 'pt', 'fr', 'ru', 'bn'],
+    locales: ['en', 'es', 'pt', 'fr', 'ru', 'bn', 'hi'],
     defaultLocale: 'en',
   },
 })

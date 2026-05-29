@@ -8,6 +8,7 @@ const meta: MetaRecord = {
   'persona-builder': 'Agent Persona Builder',
   testing: 'Playground में Testing',
   inbox: 'Inbox और Human Handoff',
+  'agent-flows': 'Agent Flows (WhatsApp Forms)',
 }
 
 export default meta

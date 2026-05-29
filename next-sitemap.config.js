@@ -9,9 +9,9 @@ module.exports = {
     // Skip root / page (just a redirect)
     if (path === '/' || path === '') return null
 
-    // Active locales only. hi/th are disabled and not built.
-    const isLocaleRoot = /^\/(en|es|pt|fr|ru|bn)\/?$/.test(path)
-    const isSectionIndex = /^\/(en|es|pt|fr|ru|bn)\/[^/]+$/.test(path)
+    // Active locales only. th is disabled and not built.
+    const isLocaleRoot = /^\/(en|es|pt|fr|ru|bn|hi)\/?$/.test(path)
+    const isSectionIndex = /^\/(en|es|pt|fr|ru|bn|hi)\/[^/]+$/.test(path)
 
     return {
       loc: path,
