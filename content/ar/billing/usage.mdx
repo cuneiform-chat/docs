@@ -1,144 +1,141 @@
-{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
-{/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
+# الاستخدام والأرصدة
 
-# Usage & Credits
+افهم كيف تعمل الأرصدة وراقِب استهلاكك.
 
-Understand how credits work and monitor your consumption.
+## نظام الأرصدة
 
-## Credit System
+يستخدم Cuneiform Chat أرصدة (تُسمّى Platform Credits) لقياس الاستخدام:
+- **استعلامات الـ AI** — عندما تُجيب الـ Agents على الأسئلة
+- **معالجة المستندات** — عند رفع المستندات وفهرستها
+- **Embeddings** — توليد المتّجهات للبحث
 
-Cuneiform Chat uses credits (called Platform Credits) to measure usage:
-- **AI queries** — When your agents answer questions
-- **Document processing** — When documents are uploaded and indexed
-- **Embeddings** — Vector generation for search
+## كيف تُستخدَم الأرصدة
 
-## How Credits Are Used
+### استعلامات الـ AI
 
-### AI Queries
+في كل مرّة يُجيب فيها الـ Agent على سؤال:
+- تُستهلَك الأرصدة بناءً على نموذج الـ AI المستخدَم
+- قد تستهلك الردود الأطول أرصدة أكثر قليلًا
+- لا تستهلك الاستعلامات الفاشلة أرصدة
 
-Each time your agent answers a question:
-- Credits are consumed based on the AI model used
-- Longer responses may use slightly more credits
-- Failed queries don't consume credits
+### معالجة المستندات
 
-### Document Processing
+عندما ترفع المستندات:
+- تُستخدَم الأرصدة لاستخراج المحتوى ومعالجته
+- تستهلك المستندات الأكبر أرصدة أكثر
+- تستهلك إعادة المعالجة أرصدة إضافية
 
-When you upload documents:
-- Credits are used to extract and process content
-- Larger documents use more credits
-- Re-processing uses additional credits
+## عرض الاستخدام
 
-## Viewing Usage
+ادخل إلى استخدامك من **Billing** في الشريط الجانبي:
 
-Access your usage from **Billing** in the sidebar:
+- **استخدام الفترة الحالية** — الأرصدة المستخدَمة في دورة الفوترة هذه
+- **الأرصدة المتبقّية** — الأرصدة المتاحة
+- **نسبة الاستخدام** — شريط تقدّم مرئي يوضّح الاستهلاك
 
-- **Current period usage** — Credits used this billing cycle
-- **Remaining credits** — Available credits
-- **Usage percentage** — Visual progress bar showing consumption
+## مراقبة الاستخدام
 
-## Monitoring Usage
+### عرض الاستخدام
 
-### Usage Display
+تعرض صفحة الفوترة:
+- الأرصدة المستخدَمة مقابل المخصّصة
+- نسبة الاستخدام مع شريط تقدّم مرئي
+- مؤشّر الحالة (normal، warning، exceeded، blocked)
 
-The billing page shows:
-- Credits used vs. allocated
-- Usage percentage with visual progress bar
-- Status indicator (normal, warning, exceeded, blocked)
+### تنبيهات الاستخدام
 
-### Usage Warnings
+تعرض المنصّة تنبيهات تلقائيًّا عند اقترابك من حدودك:
 
-The platform automatically displays warnings as you approach your limits:
-
-| Threshold | What Happens |
+| الحدّ | ما الذي يحدث |
 |-----------|--------------|
-| ~80% used | Warning banner appears in Billing page |
-| 100% used | "Limit Reached" banner with upgrade prompt |
-| Blocked | Service paused until next period or upgrade |
+| ~80% مستخدَم | يظهر شريط تحذير في صفحة Billing |
+| 100% مستخدَم | شريط "Limit Reached" مع مطالبة بالترقية |
+| Blocked | تتوقّف الخدمة حتى الفترة التالية أو الترقية |
 
-These warnings appear automatically — no configuration needed.
+تظهر هذه التنبيهات تلقائيًّا — دون حاجة لأي إعداد.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="important">
-  Review your usage weekly to catch unexpected spikes early and optimize as needed.
+  راجِع استخدامك أسبوعيًّا لرصد الارتفاعات غير المتوقّعة مبكرًا والتحسين حسب الحاجة.
 </Callout>
 
-## Optimizing Credit Usage
+## تحسين استهلاك الأرصدة
 
-### Efficient Agents
+### Agents فعّالة
 
-- Write clear agent personas for accurate first responses
+- اكتب شخصيات Agent واضحة للحصول على ردود أولى دقيقة
 
-### Smart Document Management
+### إدارة ذكية للمستندات
 
-- Upload only necessary documents
-- Remove outdated content
-- Avoid duplicate documents
+- ارفع المستندات الضرورية فقط
+- أزِل المحتوى القديم
+- تجنّب المستندات المكرّرة
 
-### Usage Patterns
+### أنماط الاستخدام
 
-- Monitor which agents use the most credits
-- Identify high-volume time periods
-- Optimize based on patterns
+- راقِب أي الـ Agents تستهلك أكثر الأرصدة
+- حدِّد الفترات الزمنية عالية الحجم
+- حسِّن بناءً على الأنماط
 
-## What Happens at Limits
+## ما الذي يحدث عند الحدود
 
-### Approaching Limits
+### الاقتراب من الحدود
 
-As you near your credit limit, warning banners appear in the Billing page prompting you to upgrade or enable extra usage.
+عند اقترابك من حدّ أرصدتك، تظهر أشرطة تحذير في صفحة Billing تطالبك بالترقية أو تفعيل الاستخدام الإضافي.
 
-### Exceeding Limits
+### تجاوز الحدود
 
-When you exceed your monthly quota:
-- A warning banner indicates "Limit Reached"
-- Enable **Extra Usage** to continue without waiting
-- Or upgrade your plan for more monthly credits
+عند تجاوزك حصّتك الشهرية:
+- يشير شريط تحذير إلى "Limit Reached"
+- فعِّل **Extra Usage** للمتابعة دون انتظار
+- أو رقِّ خطتك للحصول على أرصدة شهرية أكثر
 
-### Blocked State
+### حالة Blocked
 
-If extra usage balance is also depleted:
-- Service pauses until the next billing period
-- Or add funds to your extra usage balance
+إذا نفِد رصيد الاستخدام الإضافي أيضًا:
+- تتوقّف الخدمة حتى فترة الفوترة التالية
+- أو أضِف أموالًا إلى رصيد استخدامك الإضافي
 
-## Extra Usage
+## الاستخدام الإضافي
 
-Extra usage lets you continue using the service when your monthly quota runs out.
+يتيح لك الاستخدام الإضافي مواصلة استخدام الخدمة عند نفاد حصّتك الشهرية.
 
-### Enabling Extra Usage
+### تفعيل الاستخدام الإضافي
 
-1. Go to **Billing**
-2. Find the **Extra Usage** section
-3. Toggle to enable
-4. Complete the initial top-up (minimum $10)
+1. انتقِل إلى **Billing**
+2. ابحث عن قسم **Extra Usage**
+3. بدِّل المفتاح للتفعيل
+4. أكمِل عملية الشحن الأولية (بحدّ أدنى 10$)
 
-### Managing Extra Usage
+### إدارة الاستخدام الإضافي
 
-Once enabled, you can:
+بمجرّد التفعيل، يمكنك:
 
-- **View balance** — See your available extra usage funds
-- **Add funds** — Top up your balance ($10-$500 per transaction)
-- **Set spending cap** — Limit monthly extra usage spending ($10-$500)
+- **عرض الرصيد** — اطّلع على أموال استخدامك الإضافي المتاحة
+- **إضافة أموال** — اشحن رصيدك (10$-500$ لكل معاملة)
+- **تعيين حدّ إنفاق** — حدِّد إنفاق الاستخدام الإضافي الشهري (10$-500$)
 
-### How Extra Usage Works
+### كيف يعمل الاستخدام الإضافي
 
-- Charges are deducted from your extra usage balance
-- Usage stops when you reach your spending cap
-- Balance carries over between billing periods
-- Cannot be disabled once enabled (use spending cap to limit)
+- تُخصَم الرسوم من رصيد استخدامك الإضافي
+- يتوقّف الاستخدام عند بلوغك حدّ الإنفاق
+- يُرحَّل الرصيد بين فترات الفوترة
+- لا يمكن تعطيله بعد تفعيله (استخدم حدّ الإنفاق للتقييد)
 
 <Callout type="info">
-  Extra usage is only available for paid plans (Starter, Plus, and Enterprise).
+  يتوفّر الاستخدام الإضافي فقط للخطط المدفوعة (Starter وPlus وEnterprise).
 </Callout>
 
-## Billing Period
+## فترة الفوترة
 
-- Credits reset at the start of each billing period
-- Your billing date is shown in account settings
-- Unused credits may not roll over (check your plan)
+- يُعاد ضبط الأرصدة في بداية كل فترة فوترة
+- يظهر تاريخ فوترتك في إعدادات الحساب
+- قد لا تُرحَّل الأرصدة غير المستخدَمة (تحقّق من خطتك)
 
-## Questions?
+## أسئلة؟
 
-For usage questions:
-- Review the [Plans & Pricing](/billing/plans) page
-- Check [Manage Subscription](/billing/manage-subscription) for upgrades
-- Contact support for billing inquiries
+لأسئلة الاستخدام:
+- راجِع صفحة [الخطط والأسعار](/billing/plans)
+- اطّلِع على [إدارة الاشتراك](/billing/manage-subscription) للترقيات
+- تواصَل مع الدعم للاستفسارات المتعلّقة بالفوترة
