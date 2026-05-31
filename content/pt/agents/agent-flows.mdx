@@ -1,12 +1,27 @@
 # Agent Flows
 
-Formulários do WhatsApp de várias telas que um agent de IA pode entregar a um cliente no meio de uma conversa. O agent decide quando pedir informações estruturadas — nome, datas, uma foto de documento, um questionário de várias etapas — e o seu cliente preenche tudo em um formulário nativo do WhatsApp, em vez de uma longa troca de mensagens.
+Formulários de várias telas que um agent de IA pode entregar a um cliente no meio de uma conversa. O agent decide quando pedir informações estruturadas — nome, datas, uma foto de documento, um questionário de várias etapas — e o seu cliente preenche tudo em um formulário nativo, em vez de uma longa troca de mensagens.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  O Agent Flows funciona no **WhatsApp** e está disponível em **todos os planos pagos** (com limites por plano; veja a tabela de limites por plano mais abaixo). Os renderizadores para o widget web, Telegram e Messenger estão no roteiro.
+  O Agent Flows funciona no **WhatsApp, no Telegram, no Messenger e no widget de chat do seu site** e está disponível em **todos os planos pagos** (com limites por plano; veja a tabela de limites por plano mais abaixo). Crie um flow uma vez; ele é renderizado de forma nativa em todos os canais compatíveis.
 </Callout>
+
+## Canais compatíveis
+
+Um flow é independente do canal: você o desenha uma vez e ele é renderizado de forma nativa onde quer que o agent rode.
+
+| Canal | Como o formulário abre | Observações |
+|-------|------------------------|-------------|
+| **WhatsApp** | O agent envia um botão nativo de WhatsApp Flow; o formulário abre dentro do WhatsApp | Publica por idioma na Meta; é o único canal com limites de texto rico definidos pelo WhatsApp |
+| **Telegram** | O agent envia um botão inline que abre o formulário como Mini App do Telegram | Texto rico completo (negrito, títulos, listas, tabelas) |
+| **Messenger** | O agent envia um botão que abre o formulário em um Webview do Messenger | Texto rico completo |
+| **Widget de chat do site** | O formulário abre dentro do widget de chat embutido no seu site | Renderizador leve; o texto rico se limita a negrito, itálico, links e listas |
+
+Os mesmos componentes, telas, lógica e traduções funcionam em todos os canais — não há nada por canal para manter. A lógica condicional (**If** / **Switch**) e o roteamento entre telas são avaliados da mesma forma em cada renderizador, então um flow se comporta de modo idêntico não importa onde o seu cliente o preencha.
+
+**Publique um mesmo flow em vários canais de uma vez.** Na aba **Distribuir** do flow, cada canal tem o seu próprio cartão de publicação. Publique em um número de WhatsApp e depois publique o *mesmo* flow em um bot do Telegram e uma página do Messenger: cada cartão permanece publicado de forma independente, e adicionar um canal nunca despublica outro. Despublique um único canal pelo seu cartão sem mexer nos demais. As análises se combinam por padrão entre todos os canais em que o flow está no ar; quando um flow está no ar em dois ou mais canais, aparece um **filtro de canal** nas telas de Envios, Mapa de calor e Diagnóstico para você analisar um canal de cada vez.
 
 ## Quando usar o Agent Flows
 

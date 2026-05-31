@@ -1,12 +1,27 @@
 # Agent Flows
 
-Formularios de WhatsApp de varias pantallas que un agent de IA puede entregar a un cliente en medio de una conversación. El agent decide cuándo solicitar información estructurada —nombre, fechas, una foto de identificación, un cuestionario de varios pasos— y tu cliente lo completa con un formulario nativo de WhatsApp en lugar de un largo intercambio de mensajes.
+Formularios de varias pantallas que un agent de IA puede entregar a un cliente en medio de una conversación. El agent decide cuándo solicitar información estructurada —nombre, fechas, una foto de identificación, un cuestionario de varios pasos— y tu cliente lo completa con un formulario nativo en lugar de un largo intercambio de mensajes.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Agent Flows funciona en **WhatsApp** y está disponible en **todos los planes de pago** (con límites por plan; consulta la tabla de límites por plan más abajo). Los renderizadores para el widget web, Telegram y Messenger están en la hoja de ruta.
+  Agent Flows funciona en **WhatsApp, Telegram, Messenger y el widget de chat de tu sitio web**, y está disponible en **todos los planes de pago** (con límites por plan; consulta la tabla de límites por plan más abajo). Crea un flow una vez; se renderiza de forma nativa en cada canal compatible.
 </Callout>
+
+## Canales compatibles
+
+Un flow es independiente del canal: lo diseñas una vez y se renderiza de forma nativa allí donde corra el agent.
+
+| Canal | Cómo se abre el formulario | Notas |
+|-------|----------------------------|-------|
+| **WhatsApp** | El agent envía un botón nativo de WhatsApp Flow; el formulario se abre dentro de WhatsApp | Se publica por idioma en Meta; es el único canal con límites de texto enriquecido fijados por WhatsApp |
+| **Telegram** | El agent envía un botón inline que abre el formulario como Mini App de Telegram | Texto enriquecido completo (negrita, encabezados, listas, tablas) |
+| **Messenger** | El agent envía un botón que abre el formulario en un Webview de Messenger | Texto enriquecido completo |
+| **Widget de chat web** | El formulario se abre dentro del widget de chat embebido en tu sitio | Renderizador ligero; el texto enriquecido se limita a negrita, cursiva, enlaces y listas |
+
+Los mismos componentes, pantallas, lógica y traducciones funcionan en todos los canales: no hay nada por canal que mantener. La lógica condicional (**If** / **Switch**) y el enrutamiento entre pantallas se evalúan igual en cada renderizador, así que un flow se comporta de forma idéntica sin importar dónde lo complete tu cliente.
+
+**Publica un mismo flow en varios canales a la vez.** En la pestaña **Distribuir** del flow, cada canal tiene su propia tarjeta de publicación. Publica en un número de WhatsApp y luego publica el *mismo* flow en un bot de Telegram y una página de Messenger: cada tarjeta sigue publicada de forma independiente, y añadir un canal nunca despublica otro. Despublica un solo canal desde su tarjeta sin tocar los demás. Las analíticas se combinan por defecto entre todos los canales en los que el flow está activo; cuando un flow está activo en dos o más canales, aparece un **filtro de canal** en las vistas de Envíos, Mapa de calor y Diagnóstico para que puedas analizar un canal a la vez.
 
 ## Cuándo usar Agent Flows
 

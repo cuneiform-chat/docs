@@ -21,6 +21,8 @@ A flow is channel-neutral — you design it once and it renders natively whereve
 
 The same components, screens, logic, and translations work on every channel — there's nothing per-channel to maintain. Conditional logic (**If** / **Switch**) and screen routing are evaluated the same way on every renderer, so a flow behaves identically no matter where your customer fills it in.
 
+**Publish one flow to several channels at once.** On the flow's **Distribute** tab, each channel has its own publish card. Publish to a WhatsApp number, then publish the *same* flow to a Telegram bot and a Messenger page — each card stays published independently, and adding one channel never un-publishes another. Unpublish a single channel from its card without touching the others. Analytics blend across all the channels a flow is live on by default; when a flow is live on two or more channels, a **channel filter** appears on the Submissions, Heatmap, and Diagnose views so you can drill into one channel at a time.
+
 ## When to use Agent Flows
 
 Reach for a flow when chat alone is the wrong shape for the question:

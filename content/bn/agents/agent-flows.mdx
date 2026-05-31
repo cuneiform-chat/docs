@@ -1,12 +1,27 @@
 # Agent Flows
 
-Multi-screen WhatsApp form যা একটি AI agent কথোপকথনের মাঝপথে আপনার customer-কে দিতে পারে। Agent কখন structured তথ্য চাইবে তা নিজেই সিদ্ধান্ত নেয় — নাম, তারিখ, upload করা ID-র ছবি, একটি multi-step questionnaire — এবং আপনার customer দীর্ঘ পাল্টাপাল্টি chat-এর বদলে একটি native WhatsApp form-এ তা পূরণ করে।
+Multi-screen form যা একটি AI agent কথোপকথনের মাঝপথে আপনার customer-কে দিতে পারে। Agent কখন structured তথ্য চাইবে তা নিজেই সিদ্ধান্ত নেয় — নাম, তারিখ, upload করা ID-র ছবি, একটি multi-step questionnaire — এবং আপনার customer দীর্ঘ পাল্টাপাল্টি chat-এর বদলে একটি native form-এ তা পূরণ করে।
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Agent Flows **WhatsApp**-এ চলে এবং **সব paid plan**-এ available (tier-limited — নিচের Tier limits টেবিল দেখুন)। Web widget, Telegram ও Messenger renderer roadmap-এ রয়েছে।
+  Agent Flows **WhatsApp, Telegram, Messenger এবং আপনার ওয়েবসাইটের chat widget**-এ চলে এবং **সব paid plan**-এ available (tier-limited — নিচের Tier limits টেবিল দেখুন)। একবার একটি flow তৈরি করুন; এটি প্রতিটি সমর্থিত channel-এ native ভাবে render হয়।
 </Callout>
+
+## সমর্থিত channel
+
+একটি flow channel-নিরপেক্ষ — আপনি একবার এটি ডিজাইন করেন এবং agent যেখানেই চলুক, সেখানে এটি native ভাবে render হয়।
+
+| Channel | Form কীভাবে খোলে | নোট |
+|---------|------------------|-----|
+| **WhatsApp** | Agent একটি native WhatsApp Flow button পাঠায়; form WhatsApp-এর ভেতরে খোলে | Meta-তে প্রতি-ভাষায় publish হয়; একমাত্র channel যেখানে rich-text সীমা WhatsApp নির্ধারণ করে |
+| **Telegram** | Agent একটি inline button পাঠায় যা form-কে Telegram Mini App হিসেবে খোলে | পূর্ণ rich-text (bold, heading, list, table) |
+| **Messenger** | Agent একটি button পাঠায় যা form-কে Messenger Webview-তে খোলে | পূর্ণ rich-text |
+| **ওয়েবসাইট chat widget** | আপনার সাইটে embed করা chat widget-এর ভেতরেই form খোলে | হালকা renderer; rich-text শুধু bold, italic, link এবং list-এ সীমাবদ্ধ |
+
+একই component, screen, logic এবং translation প্রতিটি channel-এ কাজ করে — প্রতি-channel আলাদা করে maintain করার কিছু নেই। Conditional logic (**If** / **Switch**) এবং screen routing প্রতিটি renderer-এ একইভাবে evaluate হয়, তাই আপনার customer যেখানেই form পূরণ করুক, flow একইরকম আচরণ করে।
+
+**একই flow একসঙ্গে একাধিক channel-এ publish করুন।** Flow-এর **Distribute** ট্যাবে প্রতিটি channel-এর নিজস্ব publish card আছে। একটি WhatsApp নম্বরে publish করুন, তারপর *একই* flow একটি Telegram bot এবং একটি Messenger page-এ publish করুন: প্রতিটি card স্বাধীনভাবে published থাকে, এবং একটি channel যোগ করলে অন্যটি কখনো unpublish হয় না। অন্যগুলোতে হাত না দিয়ে একটিমাত্র channel তার card থেকে unpublish করুন। Flow যে channel-গুলোতে live, সেগুলোর analytics ডিফল্টভাবে একত্রে মিলিত হয়; flow দুই বা তার বেশি channel-এ live থাকলে Submissions, Heatmap এবং Diagnose view-তে একটি **channel filter** আসে, যাতে আপনি একবারে একটি channel বিশ্লেষণ করতে পারেন।
 
 ## কখন Agent Flows ব্যবহার করবেন
 
