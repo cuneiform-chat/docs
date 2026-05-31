@@ -180,7 +180,7 @@ Funnel एक **heuristic view** है जो आपको एक नज़र 
 
 ## Contextual acknowledgments
 
-जब एक customer एक flow पूरा करता है, तो उन्हें WhatsApp की instant completion screen दिखती है जिसमें आपके द्वारा form पर set किया गया confirmation message होता है। थोड़ी देर बाद, agent एक **अलग WhatsApp message भी भेजता है जो उनके द्वारा वास्तव में भरी गई जानकारी का संदर्भ देता है** — "Got it — I've put you down for 2pm Tuesday. Anything else?" — ताकि बातचीत स्वाभाविक रूप से आगे बढ़े बजाय इसके कि customer एक static "thanks" को घूरता रह जाए। Agent पहले से ही submitted values जानता है, इसलिए acknowledgment specific होता है, boilerplate नहीं।
+जब एक customer एक flow पूरा करता है, तो उन्हें वह instant confirmation message दिखता है जो आपने form पर set किया था (WhatsApp पर, यह नेटिव completion screen होती है)। थोड़ी देर बाद, agent एक **अलग message भी भेजता है जो उनके द्वारा वास्तव में भरी गई जानकारी का संदर्भ देता है** — "Got it — I've put you down for 2pm Tuesday. Anything else?" — ताकि बातचीत स्वाभाविक रूप से आगे बढ़े बजाय इसके कि customer एक static "thanks" को घूरता रह जाए। Agent पहले से ही submitted values जानता है, इसलिए acknowledgment specific होता है, boilerplate नहीं। यह follow-up message WhatsApp, Telegram और Messenger पर भेजा जाता है।
 
 यह हर flow के लिए **default रूप से on** है। यदि आप चाहते हैं कि agent किसी submission के बाद चुप रहे, तो flow के **Distribute** tab पर **Acknowledge submissions** को off कर दें। Acknowledgment अपने आप तब भी चुप रहता है जब आपकी team में से किसी ने बातचीत संभाल ली हो — आपको एक AI message किसी इंसानी जवाब पर भारी पड़ता हुआ नहीं मिलेगा।
 
