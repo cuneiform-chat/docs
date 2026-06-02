@@ -7,7 +7,7 @@ Free on every plan, including the trial. Built in the same visual drag-and-drop 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  This page covers the customer-facing storefront Mini App that ships with every **Meta (Facebook)** integration. The storefront engine is shared with the [Telegram Storefront](/integrations/telegram-mini-app) — same composer, same blocks, same themes. Only the launcher and a few Messenger-specific behaviors differ.
+  This page covers the customer-facing storefront Mini App you can publish to any **Meta (Facebook)** integration. The storefront engine is shared with the [Telegram Storefront](/integrations/telegram-mini-app) — same composer, same blocks, same themes — and one storefront can be published to a Facebook Page *and* a Telegram bot at the same time. Only the launcher and a few Messenger-specific behaviors differ.
 </Callout>
 
 ## What you can build
@@ -168,7 +168,7 @@ You're missing Page-management permissions. Go to **Integrations → your Meta i
 
 ## Important notes
 
-- **One storefront per Page**: each Facebook Page has its own draft and published storefront — independent of other Pages in the same org.
+- **One storefront, multiple channels**: a storefront is no longer tied 1:1 to a Page. Build it once and publish it to a Facebook Page *and* a Telegram bot at the same time from the **Distribute** tab — the same pages, products, and theme on both. Unpublish one channel without touching the other.
 - **Pricing is per-org, not per-Page**: adding a second Facebook Page does NOT change your tier price.
-- **Shared composer with Telegram**: if you operate both channels, the same composer builds both — just open each integration's "Configure mini app" link. Themes, blocks, and Help Center entries don't cross-link, but the patterns transfer.
+- **Shared composer with Telegram**: the same composer builds the storefront for every channel it's published on. When a storefront is bound to both a Page and a Telegram bot, they share the same content — edit once, publish to both.
 - **Outer-chat adapter is automatic**: you don't configure it. Every block you publish projects into Generic Templates / Quick Replies / image carousels for the fallback path.

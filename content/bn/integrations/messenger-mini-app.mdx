@@ -7,7 +7,7 @@
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  এই page-টি customer-facing storefront Mini App cover করে যা প্রতিটি **Meta (Facebook)** integration-এর সাথে আসে। storefront engine-টি [Telegram Storefront](/integrations/telegram-mini-app)-এর সাথে shared — একই composer, একই block, একই theme। শুধু launcher ও কয়েকটি Messenger-নির্দিষ্ট আচরণ আলাদা।
+  এই page-টি customer-facing storefront Mini App cover করে যা আপনি যেকোনো **Meta (Facebook)** integration-এ publish করতে পারেন। storefront engine-টি [Telegram Storefront](/integrations/telegram-mini-app)-এর সাথে shared — একই composer, একই block, একই theme — আর একই storefront একসাথে একটি Facebook Page *এবং* একটি Telegram bot-এ publish করা যায়। শুধু launcher ও কয়েকটি Messenger-নির্দিষ্ট আচরণ আলাদা।
 </Callout>
 
 ## আপনি যা তৈরি করতে পারেন
@@ -168,7 +168,7 @@ Check করুন যে:
 
 ## গুরুত্বপূর্ণ নোট
 
-- **প্রতি Page-এ একটি storefront**: প্রতিটি Facebook Page-এর নিজস্ব draft ও published storefront রয়েছে — একই org-এর অন্য Page থেকে স্বাধীন।
+- **একটি storefront, একাধিক channel**: একটি storefront আর কোনো Page-এর সাথে 1:1 বাঁধা নয়। একবার তৈরি করে **Distribute** tab থেকে একসাথে একটি Facebook Page *এবং* একটি Telegram bot-এ publish করুন — দুটোতেই একই page, product ও theme। একটি channel unpublish করুন অন্যটিতে হাত না দিয়ে।
 - **Pricing per-org, per-Page নয়**: একটি দ্বিতীয় Facebook Page যোগ করলে আপনার tier price পরিবর্তন হয় না।
-- **Telegram-এর সাথে shared composer**: আপনি দুটি channel-ই পরিচালনা করলে, একই composer দুটোই তৈরি করে — শুধু প্রতিটি integration-এর "Configure mini app" link খুলুন। Theme, block ও Help Center entry cross-link হয় না, কিন্তু pattern-গুলো transfer হয়।
+- **Telegram-এর সাথে shared composer**: storefront যে যে channel-এ publish হয়, প্রতিটির জন্য একই composer সেটি তৈরি করে। একটি storefront যখন একটি Page ও একটি Telegram bot উভয়ের সাথে bound, তখন তারা একই content share করে — একবার edit করুন, দুটোতেই publish করুন।
 - **Outer-chat adapter স্বয়ংক্রিয়**: আপনি এটি configure করেন না। আপনি যে প্রতিটি block publish করেন তা fallback path-এর জন্য Generic Template / Quick Reply / image carousel-এ project করে।

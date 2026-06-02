@@ -7,7 +7,7 @@
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  यह page उस customer-facing storefront Mini App को कवर करता है जो हर **Meta (Facebook)** integration के साथ आता है। यह storefront engine [Telegram Storefront](/integrations/telegram-mini-app) के साथ shared है — वही composer, वही blocks, वही themes। केवल launcher और कुछ Messenger-specific behaviors में फ़र्क है।
+  यह page उस customer-facing storefront Mini App को कवर करता है जिसे आप किसी भी **Meta (Facebook)** integration पर publish कर सकते हैं। यह storefront engine [Telegram Storefront](/integrations/telegram-mini-app) के साथ shared है — वही composer, वही blocks, वही themes — और एक ही storefront को एक साथ एक Facebook Page *और* एक Telegram bot पर publish किया जा सकता है। केवल launcher और कुछ Messenger-specific behaviors में फ़र्क है।
 </Callout>
 
 ## आप क्या बना सकते हैं
@@ -168,7 +168,7 @@ Telegram Storefront जैसा ही scope:
 
 ## महत्वपूर्ण notes
 
-- **हर Page के लिए एक storefront**: हर Facebook Page का अपना draft और published storefront होता है — उसी org के दूसरे Pages से स्वतंत्र।
+- **एक storefront, कई channels**: storefront अब किसी Page से 1:1 बंधा नहीं है। इसे एक बार बनाएं और **Distribute** tab से एक साथ एक Facebook Page *और* एक Telegram bot पर publish करें — दोनों पर वही pages, products और theme। एक channel unpublish करें बिना दूसरे को छुए।
 - **Pricing per-org है, per-Page नहीं**: दूसरा Facebook Page जोड़ने से आपका tier price नहीं बदलता।
-- **Telegram के साथ shared composer**: अगर आप दोनों channels चलाते हैं, तो वही composer दोनों बनाता है — बस हर integration का "Configure mini app" link खोलें। Themes, blocks, और Help Center entries cross-link नहीं होते, लेकिन patterns transfer हो जाते हैं।
+- **Telegram के साथ shared composer**: storefront जिन-जिन channels पर publish होता है, हर एक के लिए वही composer उसे बनाता है। जब एक storefront एक Page और एक Telegram bot दोनों से bound होता है, तो वे एक ही content share करते हैं — एक बार edit करें, दोनों पर publish करें।
 - **Outer-chat adapter automatic है**: आप इसे configure नहीं करते। आप जो भी block publish करते हैं वह fallback path के लिए Generic Templates / Quick Replies / image carousels में project हो जाता है।
