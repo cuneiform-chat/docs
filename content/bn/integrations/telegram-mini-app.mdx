@@ -25,7 +25,8 @@ production-এ storefront যেসব সাধারণ আকার নেয
 ## কেন এটি গুরুত্বপূর্ণ
 
 - **Customer-রা কখনো Telegram ছাড়ে না।** কোনো app install নেই, মনে রাখার মতো কোনো domain নেই, ছেড়ে দেওয়ার মতো কোনো checkout flow নেই। storefront Telegram-এর WebView-তে খোলে এবং user-এর theme, ভাষা ও login উত্তরাধিকার সূত্রে পায়।
-- **একটি chat থেকে এক tap।** আপনি bot সংযুক্ত করলে composer-এর পাশের menu button স্বয়ংক্রিয়ভাবে আপনার storefront-এ wire হয়। আপনি একটি product publish করার মুহূর্তেই label স্বয়ংক্রিয়ভাবে **"Shop"**-এ flip হয় — কোনো BotFather config প্রয়োজন নেই।
+- **একটি chat থেকে এক tap।** আপনি bot সংযুক্ত করার মুহূর্তেই composer-এর পাশের menu button সেট হয়ে যায়; আপনি একটি storefront তৈরি করে bot-এ publish করলেই button সেটি খোলে। আপনি একটি product publish করার মুহূর্তেই label স্বয়ংক্রিয়ভাবে **"Shop"**-এ flip হয় — কোনো BotFather config প্রয়োজন নেই।
+- **একটি storefront, দুই channel।** storefront একবার তৈরি করুন আর একসাথে একটি Telegram bot *এবং* একটি Facebook Messenger Page-এ publish করুন — দুটোতেই একই page, product ও theme। **Distribute** tab থেকে প্রতিটি channel publish করুন; একটি unpublish করুন অন্যটিতে হাত না দিয়ে।
 - **AI-native product chat।** Per-product chat *আপনি* সেই product-এ attach করা document-এ scope করা — assistant অন্য product-এর তথ্য ফাঁস না করেই আত্মবিশ্বাসের সাথে "এই dress-এ return policy কী?"-এর উত্তর দিতে পারে।
 - **একজন সত্যিকারের মানুষের কাছে order handoff।** Lightweight order form (inquiry বা cart mode) একটি structured handoff হিসেবে আপনার Inbox-এ আসে, follow-up-এর জন্য customer-এর Telegram DM খোলা রাখা অবস্থায়।
 - **প্রতিটি plan-এ free।** Trial একটি ৫-page / প্রতি page-এ ২৫-block / ১০০-product-doc cap পায়; প্রতিটি paid plan cap সরিয়ে দেয়। Pricing per-org — একটি দ্বিতীয় Telegram bot যোগ করলে আপনার tier price পরিবর্তন হয় না।
@@ -81,7 +82,7 @@ storefront URL-এর আকার `https://storefront.cuneiform.chat/{your-org-
 **AI *structure* design করে — কোন page থাকবে, প্রতিটিতে কোন block যাবে, ক্রম, এবং একটি মানানসই theme — এবং প্রতিটি text field-এ একটি "fill me in" placeholder ফেলে** (যেমন *"Add your headline"* বা *"Product name"*)। এটি আপনার আসল copy, price বা product name লেখে না; সেগুলো আপনি পূরণ করেন, ঠিক যেমন আপনি ইতিমধ্যেই নিজের image upload করেন। এটি ফলাফলকে দ্রুত, সৎ এবং শেষ করার জন্য আপনার রাখে।
 
 - **Empty storefront → Generate with AI।** একটি একদম নতুন bot-এর storefront-এ এখনো কোনো page নেই, তাই AI আপনার brief থেকে পুরো জিনিসটি layout করে।
-- **Existing storefront → Enhance with AI।** আপনার storefront-এ content থাকলে (প্রতিটি Telegram/Messenger storefront আপনি bot সংযুক্ত করার মুহূর্তেই একটি page দিয়ে শুরু হয়), button-টি **Enhance with AI** হয়ে যায় — এটি আপনার request-এর ভিত্তিতে **নতুন page ও section যোগ করে** এবং আপনার ইতিমধ্যে যা আছে তা সম্পূর্ণ অস্পর্শিত রাখে। এটি কখনো আপনার বিদ্যমান page পুনর্লিখন বা মুছে দেয় না।
+- **Existing storefront → Enhance with AI।** আপনার storefront-এ content থাকলে button-টি **Enhance with AI** হয়ে যায় — এটি আপনার request-এর ভিত্তিতে **নতুন page ও section যোগ করে** এবং আপনার ইতিমধ্যে যা আছে তা সম্পূর্ণ অস্পর্শিত রাখে। এটি কখনো আপনার বিদ্যমান page পুনর্লিখন বা মুছে দেয় না।
 
 ### Generate (empty storefront)
 
