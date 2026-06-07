@@ -44,7 +44,7 @@ Este endpoint toma `multipart/form-data`, no JSON.
 | `Idempotency-Key` | header | string | No | Key de reintento seguro (consulta [Convenciones](/api-reference/conventions)). |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/documents \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -F "file=@handbook.pdf" \
   -F "title=Employee Handbook" \
@@ -91,7 +91,7 @@ Este endpoint toma `multipart/form-data`.
 | `Idempotency-Key` | header | string | No | Key de reintento seguro. |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/confirm-duplicate \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/documents/confirm-duplicate \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -F "upload_session_id=ups_abc123" \
   -F "folder_id=fold_abc123"
@@ -123,7 +123,7 @@ Lista documentos, paginado por cursor. Los filtros opcionales acotan por carpeta
 | `status` | query | string | No | Restringir a un estado de procesamiento. |
 
 ```bash
-curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents?limit=20&status=ready" \
+curl "https://cuneiform.chat/api/developer/v1/knowledge/documents?limit=20&status=ready" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -172,7 +172,7 @@ Busca documentos por una cadena de consulta. Devuelve una página paginada por c
 | `status` | query | string | No | Restringir a un estado de procesamiento. |
 
 ```bash
-curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/search?q=parental%20leave" \
+curl "https://cuneiform.chat/api/developer/v1/knowledge/documents/search?q=parental%20leave" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -216,7 +216,7 @@ Obtén un solo documento por id.
 | `document_id` | path | string | Sí | El id del documento. |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+curl https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -254,7 +254,7 @@ Sondea el estado de procesamiento asíncrono de un documento. Úsalo para saber 
 | `document_id` | path | string | Sí | El id del documento. |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status \
+curl https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -284,7 +284,7 @@ Un id de documento fuera de tu organización devuelve una envoltura de error `40
 | `document_id` | path | string | Sí | El id del documento. |
 
 ```bash
-curl -N https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status/stream \
+curl -N https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status/stream \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -311,7 +311,7 @@ Elimina un documento.
 | `document_id` | path | string | Sí | El id del documento. |
 
 ```bash
-curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+curl -X DELETE https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -339,7 +339,7 @@ Crea una carpeta.
 | `color` | body | string | No | Un color hexadecimal `#RRGGBB`. Por defecto `#667eea`. |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/folders \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "name": "HR Policies", "color": "#667eea" }'
@@ -373,7 +373,7 @@ Lista carpetas, paginado por cursor.
 | `cursor` | query | string | No | El `next_cursor` de la página anterior. |
 
 ```bash
-curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders?limit=20" \
+curl "https://cuneiform.chat/api/developer/v1/knowledge/folders?limit=20" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -410,7 +410,7 @@ Obtén una carpeta por id.
 | `folder_id` | path | string | Sí | El id de la carpeta. |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+curl https://cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -444,7 +444,7 @@ Actualiza una carpeta. Todos los campos del cuerpo son opcionales; los campos om
 | `color` | body | string | No | Nuevo color hexadecimal `#RRGGBB`. |
 
 ```bash
-curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+curl -X PATCH https://cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "name": "HR & Compliance" }'
@@ -477,7 +477,7 @@ Elimina una carpeta **vacía**. Una carpeta que todavía contiene documentos dev
 | `folder_id` | path | string | Sí | El id de la carpeta. |
 
 ```bash
-curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+curl -X DELETE https://cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -504,7 +504,7 @@ Crea un tag.
 | `color` | body | string | Sí | Un color hexadecimal `#RRGGBB`. |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/tags \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "name": "policy", "color": "#10b981" }'
@@ -536,7 +536,7 @@ Lista tags, paginado por cursor.
 | `cursor` | query | string | No | El `next_cursor` de la página anterior. |
 
 ```bash
-curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags?limit=20" \
+curl "https://cuneiform.chat/api/developer/v1/knowledge/tags?limit=20" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -571,7 +571,7 @@ Obtén un tag por id.
 | `tag_id` | path | string | Sí | El id del tag. |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+curl https://cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -602,7 +602,7 @@ Actualiza un tag. Todos los campos del cuerpo son opcionales.
 | `color` | body | string | No | Nuevo color hexadecimal `#RRGGBB`. |
 
 ```bash
-curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+curl -X PATCH https://cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "color": "#3b82f6" }'
@@ -633,7 +633,7 @@ Elimina un tag. Esto también quita el tag de todos los documentos a los que se 
 | `tag_id` | path | string | Sí | El id del tag a eliminar. |
 
 ```bash
-curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+curl -X DELETE https://cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -660,7 +660,7 @@ Mueve un documento a una carpeta, o quítalo de su carpeta pasando `folder_id: n
 | `folder_id` | body | string \| null | No | El id de la carpeta destino, o `null` para quitarlo de la carpeta. |
 
 ```bash
-curl -X PUT https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/folder \
+curl -X PUT https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/folder \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "folder_id": "fold_abc123" }'
@@ -689,7 +689,7 @@ Agrega uno o más tags a un documento. La respuesta es el conjunto **completo** 
 | `tag_ids` | body | array of string | Sí | Los ids de tags a agregar (1–20). |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "tag_ids": ["tag_hr", "tag_policy"] }'
@@ -718,7 +718,7 @@ Quita un solo tag de un documento. La respuesta es el conjunto **restante** de t
 | `tag_id` | path | string | Sí | El id del tag a quitar. |
 
 ```bash
-curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags/tag_policy \
+curl -X DELETE https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags/tag_policy \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 

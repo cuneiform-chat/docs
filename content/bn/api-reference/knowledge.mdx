@@ -44,7 +44,7 @@ knowledge বেসে একটি ফাইল আপলোড করুন।
 | `Idempotency-Key` | header | string | না | রিপ্লে-নিরাপদ পুনঃচেষ্টা key ([কনভেনশন](/api-reference/conventions) দেখুন)। |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/documents \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -F "file=@handbook.pdf" \
   -F "title=Employee Handbook" \
@@ -91,7 +91,7 @@ curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/document
 | `Idempotency-Key` | header | string | না | রিপ্লে-নিরাপদ পুনঃচেষ্টা key। |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/confirm-duplicate \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/documents/confirm-duplicate \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -F "upload_session_id=ups_abc123" \
   -F "folder_id=fold_abc123"
@@ -123,7 +123,7 @@ curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/document
 | `status` | query | string | না | একটি প্রসেসিং স্ট্যাটাসে সীমাবদ্ধ। |
 
 ```bash
-curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents?limit=20&status=ready" \
+curl "https://cuneiform.chat/api/developer/v1/knowledge/documents?limit=20&status=ready" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -172,7 +172,7 @@ curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents?limit
 | `status` | query | string | না | একটি প্রসেসিং স্ট্যাটাসে সীমাবদ্ধ। |
 
 ```bash
-curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/search?q=parental%20leave" \
+curl "https://cuneiform.chat/api/developer/v1/knowledge/documents/search?q=parental%20leave" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -216,7 +216,7 @@ id দিয়ে একটি একক ডকুমেন্ট আনয়�
 | `document_id` | path | string | হ্যাঁ | ডকুমেন্ট id। |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+curl https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -254,7 +254,7 @@ curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f
 | `document_id` | path | string | হ্যাঁ | ডকুমেন্ট id। |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status \
+curl https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -284,7 +284,7 @@ curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f
 | `document_id` | path | string | হ্যাঁ | ডকুমেন্ট id। |
 
 ```bash
-curl -N https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status/stream \
+curl -N https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status/stream \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -311,7 +311,7 @@ data: {"document_id": "doc_9f2a7b", "status": "ready", "progress": 100, "error_m
 | `document_id` | path | string | হ্যাঁ | ডকুমেন্ট id। |
 
 ```bash
-curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+curl -X DELETE https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -339,7 +339,7 @@ curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/docume
 | `color` | body | string | না | একটি `#RRGGBB` হেক্স রঙ। ডিফল্ট `#667eea`। |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/folders \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "name": "HR Policies", "color": "#667eea" }'
@@ -373,7 +373,7 @@ curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders 
 | `cursor` | query | string | না | পূর্ববর্তী পৃষ্ঠার `next_cursor`। |
 
 ```bash
-curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders?limit=20" \
+curl "https://cuneiform.chat/api/developer/v1/knowledge/folders?limit=20" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -410,7 +410,7 @@ id দিয়ে একটি ফোল্ডার আনয়ন করু�
 | `folder_id` | path | string | হ্যাঁ | ফোল্ডার id। |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+curl https://cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -444,7 +444,7 @@ curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc
 | `color` | body | string | না | নতুন `#RRGGBB` হেক্স রঙ। |
 
 ```bash
-curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+curl -X PATCH https://cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "name": "HR & Compliance" }'
@@ -477,7 +477,7 @@ curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders
 | `folder_id` | path | string | হ্যাঁ | ফোল্ডার id। |
 
 ```bash
-curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+curl -X DELETE https://cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -504,7 +504,7 @@ curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/folder
 | `color` | body | string | হ্যাঁ | একটি `#RRGGBB` হেক্স রঙ। |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/tags \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "name": "policy", "color": "#10b981" }'
@@ -536,7 +536,7 @@ tags তালিকাভুক্ত করুন, কার্সর-পে�
 | `cursor` | query | string | না | পূর্ববর্তী পৃষ্ঠার `next_cursor`। |
 
 ```bash
-curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags?limit=20" \
+curl "https://cuneiform.chat/api/developer/v1/knowledge/tags?limit=20" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -571,7 +571,7 @@ id দিয়ে একটি tag আনয়ন করুন।
 | `tag_id` | path | string | হ্যাঁ | tag id। |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+curl https://cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -602,7 +602,7 @@ curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy 
 | `color` | body | string | না | নতুন `#RRGGBB` হেক্স রঙ। |
 
 ```bash
-curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+curl -X PATCH https://cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "color": "#3b82f6" }'
@@ -633,7 +633,7 @@ curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/ta
 | `tag_id` | path | string | হ্যাঁ | মুছে ফেলার tag id। |
 
 ```bash
-curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+curl -X DELETE https://cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -660,7 +660,7 @@ curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/t
 | `folder_id` | body | string \| null | না | লক্ষ্য ফোল্ডার id, অথবা আনফাইল করতে `null`। |
 
 ```bash
-curl -X PUT https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/folder \
+curl -X PUT https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/folder \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "folder_id": "fold_abc123" }'
@@ -689,7 +689,7 @@ curl -X PUT https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents
 | `tag_ids` | body | array of string | হ্যাঁ | যোগ করার tag ids (1–20)। |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "tag_ids": ["tag_hr", "tag_policy"] }'
@@ -718,7 +718,7 @@ curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/document
 | `tag_id` | path | string | হ্যাঁ | সরানোর tag id। |
 
 ```bash
-curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags/tag_policy \
+curl -X DELETE https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags/tag_policy \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 

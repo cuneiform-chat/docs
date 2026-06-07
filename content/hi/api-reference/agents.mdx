@@ -92,7 +92,7 @@ agent ऑब्जेक्ट केवल tenant-मुखी फ़ील्�
 | `show_citations` | boolean | नहीं | डिफ़ॉल्ट `false`। |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents \
+curl -X POST https://cuneiform.chat/api/developer/v1/agents \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -163,7 +163,7 @@ agents सूचीबद्ध करें, कर्सर-पेजिने
 | `search` | query | string | नहीं | एक नाम/विवरण सर्च टर्म के अनुसार फ़िल्टर। |
 
 ```bash
-curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=20&status=active" \
+curl "https://cuneiform.chat/api/developer/v1/agents?limit=20&status=active" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -227,7 +227,7 @@ id से एक एकल agent प्राप्त करें।
 | `agent_id` | path | string | हाँ | agent id। |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+curl https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -253,7 +253,7 @@ curl https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
 | `handoff_config` | body | object | नहीं | नया human handoff कॉन्फ़िगरेशन। |
 
 ```bash
-curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+curl -X PATCH https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "status": "inactive" }'
@@ -276,7 +276,7 @@ curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e
 | `agent_id` | path | string | हाँ | agent id। |
 
 ```bash
-curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+curl -X DELETE https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -303,7 +303,7 @@ curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8
 | `agent_id` | path | string | हाँ | agent id। |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/restore \
+curl -X POST https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/restore \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -324,7 +324,7 @@ curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/
 | `agent_id` | path | string | हाँ | agent id। |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
+curl https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -373,7 +373,7 @@ curl https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configur
 | `save_as_draft` | body | boolean | नहीं | एक नया वर्ज़न प्रकाशित किए बिना सहेजें। डिफ़ॉल्ट `false`। |
 
 ```bash
-curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
+curl -X PATCH https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "temperature": 0.4, "max_tokens": 2000 }'

@@ -44,7 +44,7 @@ This endpoint takes `multipart/form-data`, not JSON.
 | `Idempotency-Key` | header | string | No | Replay-safe retry key (see [Conventions](/api-reference/conventions)). |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/documents \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -F "file=@handbook.pdf" \
   -F "title=Employee Handbook" \
@@ -91,7 +91,7 @@ This endpoint takes `multipart/form-data`.
 | `Idempotency-Key` | header | string | No | Replay-safe retry key. |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/confirm-duplicate \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/documents/confirm-duplicate \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -F "upload_session_id=ups_abc123" \
   -F "folder_id=fold_abc123"
@@ -123,7 +123,7 @@ List documents, cursor-paginated. Optional filters narrow by folder, tag, or pro
 | `status` | query | string | No | Restrict to a processing status. |
 
 ```bash
-curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents?limit=20&status=ready" \
+curl "https://cuneiform.chat/api/developer/v1/knowledge/documents?limit=20&status=ready" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -172,7 +172,7 @@ Search documents by a query string. Returns a cursor-paginated page of `Document
 | `status` | query | string | No | Restrict to a processing status. |
 
 ```bash
-curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/search?q=parental%20leave" \
+curl "https://cuneiform.chat/api/developer/v1/knowledge/documents/search?q=parental%20leave" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -216,7 +216,7 @@ Fetch a single document by id.
 | `document_id` | path | string | Yes | The document id. |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+curl https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -254,7 +254,7 @@ Poll a document's asynchronous processing status. Use this to know when an uploa
 | `document_id` | path | string | Yes | The document id. |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status \
+curl https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -284,7 +284,7 @@ A document id outside your organization returns a `404` error envelope — not a
 | `document_id` | path | string | Yes | The document id. |
 
 ```bash
-curl -N https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status/stream \
+curl -N https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status/stream \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -311,7 +311,7 @@ Delete a document.
 | `document_id` | path | string | Yes | The document id. |
 
 ```bash
-curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+curl -X DELETE https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -339,7 +339,7 @@ Create a folder.
 | `color` | body | string | No | A `#RRGGBB` hex color. Defaults to `#667eea`. |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/folders \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "name": "HR Policies", "color": "#667eea" }'
@@ -373,7 +373,7 @@ List folders, cursor-paginated.
 | `cursor` | query | string | No | The `next_cursor` from the previous page. |
 
 ```bash
-curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders?limit=20" \
+curl "https://cuneiform.chat/api/developer/v1/knowledge/folders?limit=20" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -410,7 +410,7 @@ Fetch a folder by id.
 | `folder_id` | path | string | Yes | The folder id. |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+curl https://cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -444,7 +444,7 @@ Update a folder. All body fields are optional; omitted fields are left unchanged
 | `color` | body | string | No | New `#RRGGBB` hex color. |
 
 ```bash
-curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+curl -X PATCH https://cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "name": "HR & Compliance" }'
@@ -477,7 +477,7 @@ Delete an **empty** folder. A folder that still contains documents returns `400`
 | `folder_id` | path | string | Yes | The folder id. |
 
 ```bash
-curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+curl -X DELETE https://cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -504,7 +504,7 @@ Create a tag.
 | `color` | body | string | Yes | A `#RRGGBB` hex color. |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/tags \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "name": "policy", "color": "#10b981" }'
@@ -536,7 +536,7 @@ List tags, cursor-paginated.
 | `cursor` | query | string | No | The `next_cursor` from the previous page. |
 
 ```bash
-curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags?limit=20" \
+curl "https://cuneiform.chat/api/developer/v1/knowledge/tags?limit=20" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -571,7 +571,7 @@ Fetch a tag by id.
 | `tag_id` | path | string | Yes | The tag id. |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+curl https://cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -602,7 +602,7 @@ Update a tag. All body fields are optional.
 | `color` | body | string | No | New `#RRGGBB` hex color. |
 
 ```bash
-curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+curl -X PATCH https://cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "color": "#3b82f6" }'
@@ -633,7 +633,7 @@ Delete a tag. This also removes the tag from every document it was applied to.
 | `tag_id` | path | string | Yes | The tag id. |
 
 ```bash
-curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+curl -X DELETE https://cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -660,7 +660,7 @@ Move a document into a folder, or unfile it by passing `folder_id: null`.
 | `folder_id` | body | string \| null | No | The target folder id, or `null` to unfile. |
 
 ```bash
-curl -X PUT https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/folder \
+curl -X PUT https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/folder \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "folder_id": "fold_abc123" }'
@@ -689,7 +689,7 @@ Add one or more tags to a document. The response is the document's **full** tag 
 | `tag_ids` | body | array of string | Yes | The tag ids to add (1–20). |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags \
+curl -X POST https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "tag_ids": ["tag_hr", "tag_policy"] }'
@@ -718,7 +718,7 @@ Remove a single tag from a document. The response is the document's **remaining*
 | `tag_id` | path | string | Yes | The tag id to remove. |
 
 ```bash
-curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags/tag_policy \
+curl -X DELETE https://cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags/tag_policy \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 

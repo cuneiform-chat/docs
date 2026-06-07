@@ -92,7 +92,7 @@ description: endpoints الخاصة بـ Agent — إنشاء وعرض وجلب 
 | `show_citations` | boolean | لا | الافتراضي `false`. |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents \
+curl -X POST https://cuneiform.chat/api/developer/v1/agents \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -163,7 +163,7 @@ curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents \
 | `search` | query | string | لا | التصفية حسب مصطلح بحث في الاسم/الوصف. |
 
 ```bash
-curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=20&status=active" \
+curl "https://cuneiform.chat/api/developer/v1/agents?limit=20&status=active" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -227,7 +227,7 @@ curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=20&status=ac
 | `agent_id` | path | string | نعم | معرّف الـ agent. |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+curl https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -253,7 +253,7 @@ curl https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
 | `handoff_config` | body | object | لا | ضبط human handoff جديد. |
 
 ```bash
-curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+curl -X PATCH https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "status": "inactive" }'
@@ -276,7 +276,7 @@ curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e
 | `agent_id` | path | string | نعم | معرّف الـ agent. |
 
 ```bash
-curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+curl -X DELETE https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -303,7 +303,7 @@ curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8
 | `agent_id` | path | string | نعم | معرّف الـ agent. |
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/restore \
+curl -X POST https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/restore \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -324,7 +324,7 @@ curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/
 | `agent_id` | path | string | نعم | معرّف الـ agent. |
 
 ```bash
-curl https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
+curl https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -373,7 +373,7 @@ curl https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configur
 | `save_as_draft` | body | boolean | لا | احفظ دون نشر إصدار جديد. الافتراضي `false`. |
 
 ```bash
-curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
+curl -X PATCH https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "temperature": 0.4, "max_tokens": 2000 }'

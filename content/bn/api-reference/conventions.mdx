@@ -39,11 +39,11 @@ description: ডেভেলপার API জুড়ে ভাগ করা �
 
 ```bash
 # First page
-curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=50" \
+curl "https://cuneiform.chat/api/developer/v1/agents?limit=50" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 
 # Next page
-curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=50&cursor=eyJpZCI6ImFndF8xMjMifQ" \
+curl "https://cuneiform.chat/api/developer/v1/agents?limit=50&cursor=eyJpZCI6ImFndF8xMjMifQ" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -54,7 +54,7 @@ curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=50&cursor=ey
 মিউটেটিং `POST` অনুরোধগুলো একটি ঐচ্ছিক **`Idempotency-Key`** হেডার গ্রহণ করে, যাতে একটি পুনঃচেষ্টা — একটি নেটওয়ার্ক ত্রুটি বা টাইমআউটের পরে — কখনো অপারেশনটি দুবার সম্পাদন না করে।
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents \
+curl -X POST https://cuneiform.chat/api/developer/v1/agents \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -H "Idempotency-Key: 9f1c4b7a-2e3d-4f5a-8b6c-1d2e3f4a5b6c" \

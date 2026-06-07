@@ -39,11 +39,11 @@ Traitez `next_cursor` comme une valeur **opaque** — ne l'analysez, ne le const
 
 ```bash
 # First page
-curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=50" \
+curl "https://cuneiform.chat/api/developer/v1/agents?limit=50" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 
 # Next page
-curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=50&cursor=eyJpZCI6ImFndF8xMjMifQ" \
+curl "https://cuneiform.chat/api/developer/v1/agents?limit=50&cursor=eyJpZCI6ImFndF8xMjMifQ" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -54,7 +54,7 @@ Un curseur malformé renvoie `400` `invalid_request_error` (`invalid_cursor`).
 Les requêtes `POST` mutantes acceptent un en-tête optionnel **`Idempotency-Key`** afin qu'une nouvelle tentative — après une erreur réseau ou un délai dépassé — n'exécute jamais l'opération deux fois.
 
 ```bash
-curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents \
+curl -X POST https://cuneiform.chat/api/developer/v1/agents \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -H "Idempotency-Key: 9f1c4b7a-2e3d-4f5a-8b6c-1d2e3f4a5b6c" \
