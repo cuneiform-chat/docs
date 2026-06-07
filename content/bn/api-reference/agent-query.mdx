@@ -1,0 +1,126 @@
+---
+description: API-এর মাধ্যমে একটি agent চালান — একটি ব্লকিং JSON উত্তর, অথবা v1 ইভেন্ট স্কিমা সহ একটি স্ট্রিমড Server-Sent Events প্রতিক্রিয়া।
+---
+
+# Agent কোয়েরি
+
+একটি কোয়েরির বিপরীতে একটি agent চালান এবং এর উত্তর পান। একক endpoint দুটি মোড সমর্থন করে, যা অনুরোধ বডির `stream` ফিল্ড দ্বারা নির্বাচিত: একটি **ব্লকিং** JSON প্রতিক্রিয়া (ডিফল্ট) অথবা একটি **স্ট্রিমড** Server-Sent Events প্রতিক্রিয়া।
+
+একটি agent চালাতে `agents:query` scope প্রয়োজন। প্রতিটি কোয়েরি সার্ভার-সাইডে আপনার প্ল্যানের কোয়েরি কোটার বিপরীতে পরিমাপ করা হয় — এটি অতিক্রম করলে ব্লকিং পাথে `429`, অথবা স্ট্রিমিং পাথে একটি একক `error` ইভেন্ট ফেরত দেয়।
+
+## `POST /agents/{agent_id}/query`
+
+`agent_id` দ্বারা শনাক্ত agent চালান।
+
+**Scope:** `agents:query` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | হ্যাঁ | চালানোর agent। |
+| `query` | body | string | হ্যাঁ | ব্যবহারকারীর কোয়েরি (1–10000 অক্ষর)। |
+| `stream` | body | boolean | না | `true` হলে, একটি SSE স্ট্রিম ফেরত দেয়। ডিফল্ট `false`। |
+| `conversation_id` | body | string | না | একটি বহু-টার্ন কথোপকথন চালিয়ে যান। `session_id`-এর উপর অগ্রাধিকার নেয়। |
+| `session_id` | body | string | না | একটি বিকল্প বহু-টার্ন key (`conversation_id` সেট থাকলে উপেক্ষিত)। |
+| `Idempotency-Key` | header | string | না | রিপ্লে-নিরাপদ পুনঃচেষ্টা key। ব্লকিং পাথে সম্মানিত; `stream: true` হলে **উপেক্ষিত**। |
+
+### ব্লকিং মোড (ডিফল্ট)
+
+`stream` বাদ দেওয়া বা `false` থাকলে, রান সম্পূর্ণ হলে endpoint একটি একক JSON বডি ফেরত দেয়।
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/query \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "query": "What is the parental leave policy?" }'
+```
+
+```json
+{
+  "agent_id": "agt_7c1d8e",
+  "conversation_id": "conv_4d8a1f",
+  "response": "Eligible employees receive 16 weeks of paid parental leave...",
+  "tools_used": [
+    { "name": "knowledge_search", "status": "complete" }
+  ],
+  "usage": {
+    "prompt_tokens": 820,
+    "completion_tokens": 145,
+    "total_tokens": 965
+  },
+  "latency_ms": 1840,
+  "created_at": "2026-06-07T12:00:00Z"
+}
+```
+
+| ফিল্ড | টাইপ | বিবরণ |
+|-------|------|-------------|
+| `agent_id` | string | যে agent চলেছে। |
+| `conversation_id` | string \| null | কথোপকথন চালিয়ে যেতে এটি `conversation_id` হিসেবে ফেরত পাঠান। |
+| `response` | string | agent-এর উত্তর টেক্সট। |
+| `tools_used` | array | agent যে টুলগুলো invoke করেছে, প্রতিটি `{name, status}` হিসেবে। `status` হলো `complete` বা `error`। |
+| `usage` | object | টোকেন গণনা: `prompt_tokens`, `completion_tokens`, `total_tokens`। কোনো খরচ ফেরত দেওয়া হয় না। |
+| `latency_ms` | integer \| null | মিলিসেকেন্ডে প্রকৃত প্রতিক্রিয়া লেটেন্সি। |
+| `created_at` | string \| null | কখন কোয়েরির উত্তর দেওয়া হয়েছিল (ISO-8601)। |
+
+একটি বহু-টার্ন কথোপকথন চালিয়ে যেতে, পরবর্তী কলে একটি পূর্ববর্তী প্রতিক্রিয়ার `conversation_id` পাঠান।
+
+### স্ট্রিমিং মোড (SSE)
+
+`stream: true` সহ, endpoint Server-Sent Events-এর একটি `text/event-stream` ফেরত দেয়। বডিতে `stream: true` সেট করুন এবং প্রতিক্রিয়াটি ক্রমবর্ধমানভাবে পড়ুন।
+
+```bash
+curl -N -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/query \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "query": "What is the parental leave policy?", "stream": true }'
+```
+
+#### v1 ইভেন্ট স্কিমা
+
+v1 স্ট্রিম ঠিক **ছয়টি** ইভেন্ট নাম নির্গত করে। অন্য যেকোনো অভ্যন্তরীণ ইভেন্ট বাদ দেওয়া হয় — আপনার ক্লায়েন্ট কেবল এগুলোই দেখে:
+
+| ইভেন্ট | কখন | `data:` পেলোড |
+|-------|------|-----------------|
+| `start` | রান শুরু হয়েছে। | `{ "agent_id", "conversation_id" }` |
+| `content` | উত্তর টেক্সটের একটি ক্রমবর্ধমান অংশ। | `{ "delta": "..." }` |
+| `tool_call` | একটি টুল invocation শুরু হয়েছে। | `{ "tool": "...", "status": "running" }` |
+| `tool_result` | একটি টুল invocation শেষ হয়েছে। | `{ "tool": "...", "status": "complete" }` |
+| `done` | রান সম্পূর্ণ হয়েছে। | `{ "tokens_used", "latency_ms", "conversation_id" }` |
+| `error` | রান ব্যর্থ হয়েছে বা প্রত্যাখ্যাত হয়েছে (যেমন কোটা অতিক্রান্ত)। | `{ "error": "..." }` |
+
+কোনো ইভেন্টে কোনো খরচ ফিল্ড উপস্থিত হয় না — `done` কেবল টোকেন গণনা ও লেটেন্সি বহন করে।
+
+#### নমুনা ট্রান্সক্রিপ্ট
+
+একটি সফল স্ট্রিমড রান তারে এমন দেখায়:
+
+```
+event: start
+data: {"agent_id": "agt_7c1d8e", "conversation_id": "conv_4d8a1f"}
+
+event: content
+data: {"delta": "Eligible employees receive "}
+
+event: tool_call
+data: {"tool": "knowledge_search", "status": "running"}
+
+event: tool_result
+data: {"tool": "knowledge_search", "status": "complete"}
+
+event: content
+data: {"delta": "16 weeks of paid parental leave."}
+
+event: done
+data: {"tokens_used": 965, "latency_ms": 1840, "conversation_id": "conv_4d8a1f"}
+```
+
+সম্পূর্ণ উত্তর তৈরি করতে প্রতিটি `content` ইভেন্টের `delta` মান যুক্ত করুন। `done` ইভেন্ট স্ট্রিমের সমাপ্তি নির্দেশ করে।
+
+একটি প্রত্যাখ্যান — উদাহরণস্বরূপ, আপনার কোয়েরি কোটা অতিক্রম করা — একটি একক `error` ইভেন্ট হিসেবে আসে:
+
+```
+event: error
+data: {"error": "Query allowance exceeded."}
+```
+
+**ত্রুটি:** `400`, `401`, `403` (scope), `404` `agent_not_found`, `429` (কোয়েরি কোটা, ব্লকিং পাথ), `500`।

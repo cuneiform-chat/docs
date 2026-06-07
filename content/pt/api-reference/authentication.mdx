@@ -1,0 +1,76 @@
+---
+description: Autentique cada requisição da API para Desenvolvedores com uma key cuk_, enviada como um token Bearer ou um cabeçalho X-API-Key.
+---
+
+# Autenticação
+
+Cada requisição da API para Desenvolvedores deve carregar uma API key de desenvolvedor. Não há uma via pública sem autenticação — uma requisição sem uma key válida é rejeitada com `401`.
+
+## Apresentando sua key
+
+Envie o segredo da sua key (`cuk_<env>_<random>`) de **uma** de duas formas. Ambas são equivalentes; use a que melhor se encaixar no seu cliente HTTP.
+
+### Cabeçalho Authorization (recomendado)
+
+```
+Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx
+```
+
+### Cabeçalho X-API-Key
+
+```
+X-API-Key: cuk_live_xxxxxxxxxxxxxxxx
+```
+
+Requisição de exemplo com cada forma:
+
+```bash
+# Bearer
+curl https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+
+# X-API-Key
+curl https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "X-API-Key: cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+## Para o que uma key é resolvida
+
+Uma key está vinculada a duas coisas, ambas resolvidas automaticamente em cada requisição:
+
+- **Sua organização.** A key identifica a organização em que foi gerada. Cada requisição é restrita a essa organização — você nunca envia um id de organização e nunca pode alcançar os dados de outra organização. Um id de recurso que pertence a uma organização diferente é reportado como `404` (não encontrado), nunca `403`.
+- **Seus scopes.** Uma key carrega um conjunto fixo de [scopes](/api-reference/api-keys) concedidos na criação. Um scope é *também* limitado pelas permissões RBAC do papel que gerou a key — uma key nunca pode fazer mais do que o seu criador poderia no painel. Uma requisição que precisa de um scope que a key não tem é rejeitada com `403` `permission_error`.
+
+## Mantenha as keys em segredo
+
+O segredo completo da key é mostrado **exatamente uma vez**, na criação ou rotação. Trate-o como uma senha:
+
+- Envie-o apenas por HTTPS.
+- Armazene-o em um gerenciador de segredos ou em uma variável de ambiente — nunca no controle de versão, em código do lado do cliente ou em logs.
+- Se uma key for exposta, [rotacione ou revogue](/api-reference/api-keys) imediatamente.
+
+## Quando a autenticação falha
+
+Uma key ausente, malformada, revogada ou desconhecida retorna `401` com o [envelope de erro](/api-reference/errors) padrão:
+
+```json
+{
+  "error": {
+    "type": "authentication_error",
+    "code": "invalid_api_key",
+    "message": "The API key is missing or invalid."
+  }
+}
+```
+
+Uma key bem formada que não tem o scope (ou a permissão subjacente) para uma operação retorna `403`:
+
+```json
+{
+  "error": {
+    "type": "permission_error",
+    "code": "invalid_scope",
+    "message": "This key does not have the required scope for this operation."
+  }
+}
+```

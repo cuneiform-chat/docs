@@ -1,0 +1,58 @@
+---
+description: L'enveloppe d'erreur de l'API pour Développeurs — une forme stable de style Stripe avec sept catégories, chacune associée à un statut HTTP fixe.
+---
+
+# Erreurs
+
+Lorsqu'une requête échoue, l'API renvoie une **enveloppe d'erreur** JSON avec une forme stable. Faites brancher votre gestion d'erreurs sur les champs `type` et `code` lisibles par machine — jamais sur le `message` lisible par l'humain (qui peut changer).
+
+## L'enveloppe d'erreur
+
+```json
+{
+  "error": {
+    "type": "not_found_error",
+    "code": "agent_not_found",
+    "message": "No agent with that id exists.",
+    "param": "agent_id"
+  }
+}
+```
+
+| Champ | Type | Signification |
+|-------|------|---------|
+| `type` | string | L'une des sept **catégories** fixes ci-dessous. S'associe au statut HTTP. |
+| `code` | string | Un identifiant stable et lisible par machine pour chaque échec (p. ex. `agent_not_found`). |
+| `message` | string | Une description lisible par l'humain. Pour l'affichage/le journal uniquement — n'y faites pas de branchement. |
+| `param` | string | *(Optionnel)* Le champ de la requête à l'origine de l'échec, le cas échéant. |
+
+## Catégories
+
+Il existe exactement sept catégories d'erreur. Chacune s'associe à un statut HTTP fixe, de sorte que la catégorie et le code de statut concordent toujours.
+
+| `type` | Statut HTTP | Quand cela arrive | Exemples de `code` |
+|--------|-------------|-----------------|-----------------|
+| `authentication_error` | `401` | L'API key est manquante, malformée, révoquée ou inconnue. | `invalid_api_key` |
+| `permission_error` | `403` | La key ne dispose pas du scope requis, ou le rôle qui l'a générée ne dispose pas de la permission RBAC associée. | `invalid_scope`, `permission_denied` |
+| `tier_error` | `403` | Votre plan n'autorise pas l'opération, ou un réglage enfreint une limite du plan. | `tier_limit` |
+| `invalid_request_error` | `400` | La requête était malformée ou a enfreint une contrainte. | `invalid_cursor`, `invalid_upload`, `folder_name_exists`, `folder_not_empty`, `tag_name_exists` |
+| `not_found_error` | `404` | Aucune ressource avec cet id n'existe dans votre organisation. | `agent_not_found`, `document_not_found` |
+| `rate_limit_error` | `429` | Vous avez dépassé le quota de requêtes ou de requêtes d'agent de votre plan. | `rate_limit_exceeded` |
+| `api_error` | `500` | Une erreur inattendue en amont est survenue — réessayez la requête. | `upstream_error` |
+
+Les catégories sont **additives et jamais réaffectées** — une nouvelle catégorie pourra être ajoutée à l'avenir, mais une catégorie existante ne changera jamais de sens, il est donc sûr de faire un branchement sur `type`.
+
+## Introuvable, jamais entre organisations
+
+Un id de ressource appartenant à une *autre* organisation est signalé comme `404` `not_found_error`, exactement comme s'il n'existait pas — l'API ne révèle jamais l'existence de ressources en dehors de votre organisation avec un `403`.
+
+## L'exception du téléversement en double
+
+Une réponse n'est intentionnellement **pas** une enveloppe d'erreur : lorsque le téléversement d'un document correspond à un document existant, `POST /knowledge/documents` renvoie `409` avec un corps structuré **`DuplicateDetected`** (portant un `upload_session_id`), et non l'enveloppe d'erreur. Reprenez le téléversement avec `POST /knowledge/documents/confirm-duplicate`. Consultez la page des documents de Knowledge pour le flux complet.
+
+```json
+{
+  "upload_session_id": "ups_abc123",
+  "duplicate_of": ["doc_existing456"]
+}
+```

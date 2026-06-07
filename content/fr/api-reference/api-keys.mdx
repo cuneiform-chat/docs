@@ -1,0 +1,67 @@
+---
+description: Créez, faites tourner et révoquez des API keys de développeur ; comprenez les environnements des keys, la révélation unique et les cinq scopes.
+---
+
+# API Keys
+
+Une API key de développeur est l'identifiant que votre code présente à chaque requête. Les keys sont créées et gérées dans le panneau d'administration — **pas** via l'API elle-même — et chaque key porte un environnement, un ensemble de scopes et un secret qui n'est révélé qu'une seule fois.
+
+## Où les keys sont gérées
+
+La gestion des keys se trouve dans la **console de développeur** du panneau, à **`/org/developer-api`**. Créer, lister, faire tourner et révoquer des keys sont des actions d'administration effectuées là avec votre session normale connectée — elles ne font délibérément **pas** partie de la surface `/v1` authentifiée par `cuk_` (une key divulguée ne peut jamais générer ni révoquer une autre key). La console est disponible sur **Starter et au-dessus** ; les organisations en Trial ne peuvent pas créer de keys.
+
+## Format de la key
+
+Le secret d'une key a la forme `cuk_<env>_<random>` — par exemple :
+
+```
+cuk_live_M8s2k...<random>
+```
+
+Il comporte trois parties :
+
+| Partie | Signification |
+|------|---------|
+| `cuk` | Préfixe de marque — toute key de Cuneiform Chat commence par `cuk_`. |
+| `<env>` | L'environnement : `live` ou `test`. |
+| `<random>` | Un long secret aléatoire compatible avec les URL. |
+
+## Environnements
+
+Chaque key est générée pour un environnement :
+
+| Environnement | Préfixe | Usage |
+|-------------|--------|-----|
+| `live` | `cuk_live_` | Trafic de production sur vos données réelles. |
+| `test` | `cuk_test_` | Développement et tests d'intégration. |
+
+## Révélation unique
+
+Le **secret complet est affiché exactement une fois** — au moment où vous créez ou faites tourner une key. Ensuite, seuls le préfixe de la key (`cuk_<env>_`) et ses quatre derniers caractères sont affichés, afin que vous puissiez reconnaître une key dans une liste sans qu'elle soit récupérable.
+
+Si vous perdez un secret, vous ne pouvez pas le récupérer — **faites tourner** la key pour en obtenir un nouveau (ce qui révoque l'ancien secret), ou révoquez-la et créez-en une nouvelle.
+
+## Scopes
+
+Une key reçoit un sous-ensemble de cinq scopes. Chaque scope débloque un groupe d'opérations et est **en outre** borné par les permissions RBAC du rôle qui a créé la key — une key ne peut jamais accorder plus que ce que son créateur détient dans le panneau.
+
+| Scope | Débloque | Plafond RBAC |
+|-------|---------|--------------|
+| `knowledge:read` | Lister, rechercher et récupérer des documents, dossiers et tags. | Nécessite la permission de **lecture** de contenu. |
+| `knowledge:write` | Téléverser, supprimer et organiser des documents ; créer/mettre à jour/supprimer des dossiers et tags. | Nécessite les permissions de **téléversement + mise à jour** de contenu. |
+| `agents:read` | Lister et récupérer des agents et leur configuration. | Nécessite la permission de **lecture** d'agent. |
+| `agents:write` | Créer et mettre à jour des agents ; mettre à jour la configuration ; supprimer et restaurer. | Nécessite les permissions de **création + mise à jour** d'agent (supprimer/restaurer nécessitent aussi la permission de suppression d'agent). |
+| `agents:query` | Exécuter un agent (`POST /agents/{id}/query`). | Nécessite la permission de **lecture** d'agent. |
+
+N'accordez à une key que les scopes dont elle a besoin. Une requête qui appelle un endpoint en dehors de ses scopes est rejetée avec `403` `permission_error` (`invalid_scope`).
+
+## Gérer les keys (dans la console)
+
+La console de développeur à `/org/developer-api` permet :
+
+- **Créer** — choisissez un environnement et des scopes ; le secret est révélé une fois.
+- **Lister** — voyez le préfixe de chaque key, ses quatre derniers caractères, ses scopes et son statut (le secret n'est plus jamais affiché).
+- **Faire tourner** — générez un secret neuf pour une key et révoquez le précédent. Utilisez ceci de façon régulière ou immédiatement si une key a pu être divulguée.
+- **Révoquer** — désactivez une key de façon permanente. Les requêtes présentant une key révoquée sont rejetées avec `401`.
+
+Il n'existe aucun endpoint d'API pour aucune de ces actions — elles sont réservées au panneau par conception.

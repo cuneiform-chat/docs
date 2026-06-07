@@ -1,0 +1,76 @@
+---
+description: हर डेवलपर API अनुरोध को एक cuk_ key से प्रमाणित करें, जिसे एक Bearer टोकन या एक X-API-Key हेडर के रूप में भेजा जाता है।
+---
+
+# प्रमाणीकरण
+
+हर डेवलपर API अनुरोध में एक डेवलपर API key होनी चाहिए। कोई सार्वजनिक, अप्रमाणित लेन नहीं है — बिना वैध key के अनुरोध `401` से अस्वीकृत होता है।
+
+## अपनी key प्रस्तुत करना
+
+अपनी key सीक्रेट (`cuk_<env>_<random>`) को दो में से **किसी एक** तरीके से भेजें। दोनों समतुल्य हैं; जो आपके HTTP क्लाइंट के अनुकूल हो उसका उपयोग करें।
+
+### Authorization हेडर (अनुशंसित)
+
+```
+Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx
+```
+
+### X-API-Key हेडर
+
+```
+X-API-Key: cuk_live_xxxxxxxxxxxxxxxx
+```
+
+प्रत्येक रूप के साथ उदाहरण अनुरोध:
+
+```bash
+# Bearer
+curl https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+
+# X-API-Key
+curl https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "X-API-Key: cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+## एक key किसमें रिज़ॉल्व होती है
+
+एक key दो चीज़ों से बंधी होती है, दोनों हर अनुरोध पर स्वचालित रूप से रिज़ॉल्व होती हैं:
+
+- **आपका organization।** Key उस organization की पहचान करती है जिसमें इसे बनाया गया था। हर अनुरोध उसी organization तक सीमित होता है — आप कभी organization id नहीं भेजते, और आप कभी किसी अन्य organization के डेटा तक नहीं पहुँच सकते। किसी भिन्न organization से संबंधित एक रिसोर्स id `404` (नहीं मिला) के रूप में रिपोर्ट की जाती है, कभी `403` नहीं।
+- **इसके scopes।** एक key निर्माण पर दिए गए scopes का एक निश्चित सेट रखती है। एक scope *अतिरिक्त रूप से* key बनाने वाली रोल की RBAC अनुमतियों से सीमित होता है — एक key कभी इससे अधिक नहीं कर सकती जितना इसका निर्माता पैनल में कर सकता था। एक अनुरोध जिसे एक scope की आवश्यकता है जो key के पास नहीं है, वह `403` `permission_error` से अस्वीकृत होता है।
+
+## keys गोपनीय रखें
+
+पूरा key सीक्रेट **ठीक एक बार** दिखाया जाता है, निर्माण या रोटेशन के समय। इसे एक पासवर्ड की तरह मानें:
+
+- इसे केवल HTTPS पर भेजें।
+- इसे एक सीक्रेट मैनेजर या एनवायरनमेंट वेरिएबल में संग्रहीत करें — कभी सोर्स कंट्रोल, क्लाइंट-साइड कोड या लॉग में नहीं।
+- यदि एक key उजागर हो जाए, तो तुरंत इसे [रोटेट या निरस्त](/api-reference/api-keys) करें।
+
+## जब प्रमाणीकरण विफल होता है
+
+एक अनुपस्थित, विकृत, निरस्त या अज्ञात key मानक [त्रुटि एनवेलप](/api-reference/errors) के साथ `401` लौटाती है:
+
+```json
+{
+  "error": {
+    "type": "authentication_error",
+    "code": "invalid_api_key",
+    "message": "The API key is missing or invalid."
+  }
+}
+```
+
+एक सुगठित key जिसके पास किसी ऑपरेशन के लिए scope (या अंतर्निहित अनुमति) नहीं है, वह `403` लौटाती है:
+
+```json
+{
+  "error": {
+    "type": "permission_error",
+    "code": "invalid_scope",
+    "message": "This key does not have the required scope for this operation."
+  }
+}
+```

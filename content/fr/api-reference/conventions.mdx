@@ -1,0 +1,83 @@
+---
+description: Conventions partagées par toute l'API pour Développeurs — pagination par curseur, requêtes idempotentes, type de contenu JSON et horodatages.
+---
+
+# Conventions
+
+Ces conventions s'appliquent à tous les endpoints de l'API pour Développeurs. Les lire une fois permet à chaque page d'endpoint de rester concentrée sur ses propres paramètres et formes.
+
+## JSON partout
+
+Les corps de requête et de réponse sont en JSON (`Content-Type: application/json`), avec une exception : le téléversement de documents utilise `multipart/form-data` (consultez les endpoints de documents de Knowledge). Tous les horodatages sont des chaînes ISO-8601 en UTC, p. ex. `2026-06-07T12:34:56Z`.
+
+## Pagination par curseur
+
+Les endpoints de liste renvoient une page **paginée par curseur**, jamais un schéma par décalage/numéro de page. L'enveloppe a toujours la même forme :
+
+```json
+{
+  "data": [ /* the items on this page */ ],
+  "has_more": true,
+  "next_cursor": "eyJpZCI6ImFndF8xMjMifQ"
+}
+```
+
+| Champ | Type | Signification |
+|-------|------|---------|
+| `data` | array | Les éléments de cette page. |
+| `has_more` | boolean | S'il existe une autre page. |
+| `next_cursor` | string \| null | Le curseur opaque pour récupérer la page suivante. `null` lorsque `has_more` vaut `false`. |
+
+Contrôlez la pagination avec deux paramètres de query :
+
+| Paramètre | Type | Description |
+|-----------|------|-------------|
+| `limit` | integer | Taille de page, **1–100**. Par défaut **20**. |
+| `cursor` | string | Le `next_cursor` de la page précédente. Omettez-le pour la première page. |
+
+Traitez `next_cursor` comme une valeur **opaque** — ne l'analysez, ne le construisez ni ne le modifiez jamais. Pour parcourir toutes les pages, continuez de requêter avec le `next_cursor` de la réponse précédente jusqu'à ce que `has_more` vaille `false` :
+
+```bash
+# First page
+curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=50" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+
+# Next page
+curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=50&cursor=eyJpZCI6ImFndF8xMjMifQ" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+Un curseur malformé renvoie `400` `invalid_request_error` (`invalid_cursor`).
+
+## Requêtes idempotentes
+
+Les requêtes `POST` mutantes acceptent un en-tête optionnel **`Idempotency-Key`** afin qu'une nouvelle tentative — après une erreur réseau ou un délai dépassé — n'exécute jamais l'opération deux fois.
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -H "Idempotency-Key: 9f1c4b7a-2e3d-4f5a-8b6c-1d2e3f4a5b6c" \
+  -d '{ "name": "Support Bot", "configuration": { "model": "gpt-4o-mini", "system_prompt": "You are helpful." } }'
+```
+
+Comment cela fonctionne :
+
+- Générez une key unique par opération logique (un UUID est idéal) et envoyez-la avec la requête.
+- Une requête répétée portant la **même** key dans les **24 heures** rejoue la réponse d'origine stockée au lieu d'exécuter l'opération à nouveau.
+- Les keys sont limitées à votre organisation.
+- Après 24 heures, la key expire ; une requête avec une key expirée est traitée comme nouvelle.
+
+`Idempotency-Key` est honoré sur la voie bloquante de requête d'agent, mais **ignoré** sur la voie de streaming (`stream: true`).
+
+## Réponses en refus par défaut
+
+Les corps de réponse n'exposent que les champs documentés sur chaque page d'endpoint. Ils n'incluent jamais d'identifiants internes, de détails internes de stockage, de chaînes de fournisseur/modèle de LLM ni de chiffres de coût. Si un champ ne figure pas dans la forme documentée, l'API ne le renvoie pas.
+
+## Journal des modifications
+
+| Version | Statut | Publiée |
+|---------|--------|----------|
+| `v1` | Stable | 2026-06 |
+
+`v1` est le contrat actuel et stable. Les modifications sont additives — de nouveaux champs et de nouveaux endpoints peuvent apparaître, mais les champs existants ne sont jamais supprimés ni réaffectés au sein de `v1`.

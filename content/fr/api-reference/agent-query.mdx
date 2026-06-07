@@ -1,0 +1,126 @@
+---
+description: Exécutez un agent via l'API — une réponse JSON bloquante, ou une réponse Server-Sent Events en streaming avec le schéma d'événements v1.
+---
+
+# Requête d'Agent
+
+Exécutez un agent contre une requête et recevez sa réponse. L'unique endpoint prend en charge deux modes, sélectionnés par le champ `stream` du corps de la requête : une réponse JSON **bloquante** (par défaut) ou une réponse Server-Sent Events en **streaming**.
+
+Exécuter un agent nécessite le scope `agents:query`. Chaque requête est mesurée par rapport au quota de requêtes d'agent de votre plan côté serveur — le dépasser renvoie `429` sur la voie bloquante, ou un unique événement `error` sur la voie de streaming.
+
+## `POST /agents/{agent_id}/query`
+
+Exécutez l'agent identifié par `agent_id`.
+
+**Scope :** `agents:query` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | Oui | L'agent à exécuter. |
+| `query` | body | string | Oui | La requête de l'utilisateur (1–10000 caractères). |
+| `stream` | body | boolean | Non | Lorsque `true`, renvoie un stream SSE. Par défaut `false`. |
+| `conversation_id` | body | string | Non | Continue une conversation à plusieurs tours. Prime sur `session_id`. |
+| `session_id` | body | string | Non | Une key alternative à plusieurs tours (ignorée si `conversation_id` est défini). |
+| `Idempotency-Key` | header | string | Non | Key de nouvelle tentative sûre. Honorée sur la voie bloquante ; **ignorée** quand `stream: true`. |
+
+### Mode bloquant (par défaut)
+
+Avec `stream` omis ou `false`, l'endpoint renvoie un seul corps JSON une fois l'exécution terminée.
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/query \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "query": "What is the parental leave policy?" }'
+```
+
+```json
+{
+  "agent_id": "agt_7c1d8e",
+  "conversation_id": "conv_4d8a1f",
+  "response": "Eligible employees receive 16 weeks of paid parental leave...",
+  "tools_used": [
+    { "name": "knowledge_search", "status": "complete" }
+  ],
+  "usage": {
+    "prompt_tokens": 820,
+    "completion_tokens": 145,
+    "total_tokens": 965
+  },
+  "latency_ms": 1840,
+  "created_at": "2026-06-07T12:00:00Z"
+}
+```
+
+| Champ | Type | Description |
+|-------|------|-------------|
+| `agent_id` | string | L'agent qui a été exécuté. |
+| `conversation_id` | string \| null | Renvoyez-le comme `conversation_id` pour continuer la conversation. |
+| `response` | string | Le texte de la réponse de l'agent. |
+| `tools_used` | array | Les outils que l'agent a invoqués, chacun comme `{name, status}`. `status` vaut `complete` ou `error`. |
+| `usage` | object | Comptages de jetons : `prompt_tokens`, `completion_tokens`, `total_tokens`. Aucun coût n'est renvoyé. |
+| `latency_ms` | integer \| null | Latence de réponse réelle, en millisecondes. |
+| `created_at` | string \| null | Quand la requête a reçu sa réponse (ISO-8601). |
+
+Pour continuer une conversation à plusieurs tours, envoyez le `conversation_id` d'une réponse précédente lors de l'appel suivant.
+
+### Mode streaming (SSE)
+
+Avec `stream: true`, l'endpoint renvoie un `text/event-stream` de Server-Sent Events. Définissez `stream: true` dans le corps et lisez la réponse de façon incrémentale.
+
+```bash
+curl -N -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/query \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "query": "What is the parental leave policy?", "stream": true }'
+```
+
+#### Le schéma d'événements v1
+
+Le stream v1 émet exactement **six** noms d'événements. Tout autre événement interne est supprimé — votre client ne voit jamais que ceux-ci :
+
+| Événement | Quand | Charge utile `data:` |
+|-------|------|-----------------|
+| `start` | L'exécution a commencé. | `{ "agent_id", "conversation_id" }` |
+| `content` | Un fragment incrémental du texte de la réponse. | `{ "delta": "..." }` |
+| `tool_call` | L'invocation d'un outil a commencé. | `{ "tool": "...", "status": "running" }` |
+| `tool_result` | L'invocation d'un outil s'est terminée. | `{ "tool": "...", "status": "complete" }` |
+| `done` | L'exécution s'est terminée. | `{ "tokens_used", "latency_ms", "conversation_id" }` |
+| `error` | L'exécution a échoué ou a été refusée (p. ex. quota dépassé). | `{ "error": "..." }` |
+
+Aucun champ de coût n'apparaît sur aucun événement — `done` ne porte que des comptages de jetons et la latence.
+
+#### Transcription d'exemple
+
+Une exécution en streaming réussie ressemble à ceci sur le fil :
+
+```
+event: start
+data: {"agent_id": "agt_7c1d8e", "conversation_id": "conv_4d8a1f"}
+
+event: content
+data: {"delta": "Eligible employees receive "}
+
+event: tool_call
+data: {"tool": "knowledge_search", "status": "running"}
+
+event: tool_result
+data: {"tool": "knowledge_search", "status": "complete"}
+
+event: content
+data: {"delta": "16 weeks of paid parental leave."}
+
+event: done
+data: {"tokens_used": 965, "latency_ms": 1840, "conversation_id": "conv_4d8a1f"}
+```
+
+Concaténez les valeurs `delta` de chaque événement `content` pour reconstituer la réponse complète. L'événement `done` signale la fin du stream.
+
+Un refus — par exemple, le dépassement de votre quota de requêtes d'agent — arrive sous la forme d'un unique événement `error` :
+
+```
+event: error
+data: {"error": "Query allowance exceeded."}
+```
+
+**Erreurs :** `400`, `401`, `403` (scope), `404` `agent_not_found`, `429` (quota de requêtes d'agent, voie bloquante), `500`.

@@ -1,0 +1,27 @@
+---
+description: Registro de cambios de la API para Desarrolladores — la línea base de la versión v1 y cómo evoluciona el contrato.
+---
+
+# Registro de Cambios
+
+Esta página rastrea los cambios en el contrato de la API para Desarrolladores para que puedas seguir la superficie de la que depende tu integración.
+
+## v1 — Estable (2026-06)
+
+El lanzamiento público inicial de la API para Desarrolladores de Cuneiform Chat. `v1` es el contrato actual y **estable**, y establece la línea base de todo lo documentado en esta referencia:
+
+- **Autenticación** — acceso con credenciales mediante una key `cuk_<env>_<random>`, presentada como `Authorization: Bearer cuk_…` o `X-API-Key: cuk_…`. Cinco scopes: `knowledge:read`, `knowledge:write`, `agents:read`, `agents:write`, `agents:query`.
+- **Knowledge** — subida asíncrona de documentos, listado, búsqueda, obtención, estado (sondeo + SSE) y eliminación; CRUD de carpetas y tags; organización de documentos (mover a carpeta, agregar/quitar tags).
+- **Agents** — crear, listar, obtener, actualizar, archivar (soft-delete) y restaurar; leer y actualizar la configuración de un agent.
+- **Consulta de Agent** — ejecutar un agent en modo JSON bloqueante o en modo SSE de streaming.
+- **Convenciones** — paginación por cursor opaco, el contrato `Idempotency-Key`, la envoltura de error al estilo de Stripe y los encabezados `RateLimit-*`.
+
+## Cómo evoluciona el contrato
+
+`v1` es **aditivo y estable**:
+
+- Pueden introducirse nuevos campos y nuevos endpoints dentro de `v1`.
+- Los campos existentes nunca se eliminan ni se reutilizan dentro de `v1`.
+- Las categorías de error nunca se reutilizan — puede agregarse una nueva categoría, pero una existente mantiene su significado, por lo que es seguro ramificar según el `type` del error.
+
+Un cambio que rompa la compatibilidad se publicaría bajo un nuevo prefijo de versión (`/v2`), nunca de forma silenciosa dentro de `v1`.

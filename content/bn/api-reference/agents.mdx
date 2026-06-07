@@ -1,0 +1,400 @@
+---
+description: Agent endpoints — agents তৈরি, তালিকাভুক্ত, আনয়ন, আপডেট, আর্কাইভ ও পুনরুদ্ধার করুন, এবং একটি agent-এর কনফিগারেশন পড়ুন ও আপডেট করুন।
+---
+
+# Agents
+
+Agent endpoints আপনার organization যে AI agents চালায় সেগুলো পরিচালনা করে। আপনি agents তৈরি, তালিকাভুক্ত, আনয়ন, আপডেট, আর্কাইভ (soft-delete) ও পুনরুদ্ধার করতে পারেন, এবং একটি agent-এর জেনারেশন কনফিগারেশন পড়তে বা আপডেট করতে পারেন। একটি agent প্রকৃতপক্ষে *চালাতে*, [Agent কোয়েরি](/api-reference/agent-query) দেখুন।
+
+রিডের জন্য `agents:read` প্রয়োজন; রাইটের জন্য `agents:write` প্রয়োজন। আর্কাইভ ও পুনরুদ্ধারের জন্য key তৈরিকারী রোলে অতিরিক্তভাবে agent-delete অনুমতি প্রয়োজন।
+
+## agent-এর রূপ
+
+বেশিরভাগ endpoints এই ডিফল্টভাবে-অস্বীকার রূপ সহ একটি **agent অবজেক্ট** ফেরত দেয়:
+
+```json
+{
+  "id": "agt_7c1d8e",
+  "name": "Support Bot",
+  "description": "Answers product questions.",
+  "status": "active",
+  "language": "en",
+  "type": "custom",
+  "configuration": {
+    "temperature": 0.7,
+    "max_tokens": 1500,
+    "system_prompt": "You are a helpful support agent.",
+    "response_format": "conversational",
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "streaming_enabled": true,
+    "max_retrieved_chunks": 10,
+    "show_citations": false
+  },
+  "knowledge_access": {
+    "folder_ids": ["fold_abc123"],
+    "tag_ids": [],
+    "document_ids": [],
+    "access_mode": "inclusive",
+    "document_count_cache": 12
+  },
+  "handoff_config": {
+    "enabled": false
+  },
+  "current_month_usage": {
+    "queries": 134,
+    "tokens_used": 41200,
+    "last_reset_date": "2026-06-01T00:00:00Z"
+  },
+  "created_at": "2026-05-20T11:00:00Z",
+  "updated_at": "2026-06-07T08:30:00Z"
+}
+```
+
+agent অবজেক্ট কেবল tenant-মুখী ফিল্ড প্রকাশ করে। **অন্তর্নিহিত LLM প্রোভাইডার/মডেল শনাক্তকারী ইচ্ছাকৃতভাবে** কোনো agent বা কনফিগারেশন প্রতিক্রিয়ায় ফেরত দেওয়া হয় না — আপনি একটি agent তৈরি করার সময় মডেলটি সেট করেন (একটি অনুরোধ ইনপুট), কিন্তু এটি কখনো ফেরত দেওয়া হয় না। অভ্যন্তরীণ শনাক্তকারী, খরচের পরিসংখ্যান এবং ভার্সন/রিট্রাই বুককিপিংও কখনো উপস্থিত থাকে না।
+
+`status` ফিল্ডটি `active`, `inactive`, `testing` বা `archived`-এর একটি।
+
+---
+
+### `POST /agents`
+
+একটি agent তৈরি করুন। তৈরি করা agent সহ `201` ফেরত দেয়। একটি পুনঃচেষ্টা করা তৈরি কখনো যেন দ্বিতীয় agent না তৈরি করে সেজন্য একটি `Idempotency-Key` গ্রহণ করে।
+
+**Scope:** `agents:write` · **সাফল্য:** `201`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `name` | body | string | হ্যাঁ | agent-এর নাম (1–100 অক্ষর)। |
+| `description` | body | string | না | একটি বিবরণ (≤500 অক্ষর)। |
+| `status` | body | string | না | `active`, `inactive`, `testing` বা `archived`। |
+| `language` | body | string | না | একটি BCP-47 প্রতিক্রিয়া-ভাষা ওভাররাইড। বাদ দিলে org ডিফল্ট ইনহেরিট করে। |
+| `configuration` | body | object | হ্যাঁ | LLM কনফিগারেশন ব্লক (নিচে দেখুন)। |
+| `knowledge_access` | body | object | না | agent কোন ফোল্ডার/tags/ডকুমেন্ট ব্যবহার করতে পারে। |
+| `handoff_config` | body | object | না | Human handoff কনফিগারেশন। |
+| `Idempotency-Key` | header | string | না | রিপ্লে-নিরাপদ পুনঃচেষ্টা key। |
+
+আবশ্যক `configuration` ব্লকটি মডেল ও জেনারেশন সেটিংস বহন করে। `model` ও `system_prompt` আবশ্যক; বাকি সব কিছুর একটি ডিফল্ট আছে:
+
+| ফিল্ড | টাইপ | আবশ্যক | বিবরণ |
+|-------|------|----------|-------------|
+| `model` | string | হ্যাঁ | agent যে মডেল ব্যবহার করবে। **শুধুমাত্র অনুরোধ ইনপুট — কোনো প্রতিক্রিয়ায় কখনো ফেরত দেওয়া হয় না।** |
+| `system_prompt` | string | হ্যাঁ | agent-এর system prompt (1–10000 অক্ষর)। |
+| `temperature` | number | না | 0.0–2.0। ডিফল্ট 0.7। |
+| `max_tokens` | integer | না | 100–4000। ডিফল্ট 1500। |
+| `response_format` | string | না | `conversational` বা `structured`। |
+| `top_p` | number | না | 0.0–1.0। ডিফল্ট 1.0। |
+| `frequency_penalty` | number | না | -2.0–2.0। ডিফল্ট 0.0। |
+| `presence_penalty` | number | না | -2.0–2.0। ডিফল্ট 0.0। |
+| `streaming_enabled` | boolean | না | ডিফল্ট `true`। |
+| `max_retrieved_chunks` | integer | না | 5–20। ডিফল্ট 10। |
+| `show_citations` | boolean | না | ডিফল্ট `false`। |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Support Bot",
+    "description": "Answers product questions.",
+    "configuration": {
+      "model": "gpt-4o-mini",
+      "system_prompt": "You are a helpful support agent."
+    }
+  }'
+```
+
+```json
+{
+  "id": "agt_7c1d8e",
+  "name": "Support Bot",
+  "description": "Answers product questions.",
+  "status": "active",
+  "language": null,
+  "type": "custom",
+  "configuration": {
+    "temperature": 0.7,
+    "max_tokens": 1500,
+    "system_prompt": "You are a helpful support agent.",
+    "response_format": "conversational",
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "streaming_enabled": true,
+    "max_retrieved_chunks": 10,
+    "show_citations": false
+  },
+  "knowledge_access": {
+    "folder_ids": [],
+    "tag_ids": [],
+    "document_ids": [],
+    "access_mode": "inclusive",
+    "document_count_cache": 0
+  },
+  "handoff_config": {
+    "enabled": false
+  },
+  "current_month_usage": {
+    "queries": 0,
+    "tokens_used": 0,
+    "last_reset_date": "2026-06-01T00:00:00Z"
+  },
+  "created_at": "2026-06-07T08:30:00Z",
+  "updated_at": "2026-06-07T08:30:00Z"
+}
+```
+
+**ত্রুটি:** `400`, `401`, `403` (scope বা tier লিমিট), `429`, `500`।
+
+---
+
+### `GET /agents`
+
+agents তালিকাভুক্ত করুন, কার্সর-পেজিনেটেড, ঐচ্ছিক `status` ও `search` ফিল্টার সহ।
+
+**Scope:** `agents:read` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | না | পৃষ্ঠার আকার, 1–100। ডিফল্ট 20। |
+| `cursor` | query | string | না | পূর্ববর্তী পৃষ্ঠার `next_cursor`। |
+| `status` | query | string | না | agent স্ট্যাটাস অনুসারে ফিল্টার। |
+| `search` | query | string | না | একটি নাম/বিবরণ সার্চ টার্ম অনুসারে ফিল্টার। |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=20&status=active" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "agt_7c1d8e",
+      "name": "Support Bot",
+      "description": "Answers product questions.",
+      "status": "active",
+      "language": "en",
+      "type": "custom",
+      "configuration": {
+        "temperature": 0.7,
+        "max_tokens": 1500,
+        "response_format": "conversational",
+        "top_p": 1.0,
+        "frequency_penalty": 0.0,
+        "presence_penalty": 0.0,
+        "streaming_enabled": true,
+        "max_retrieved_chunks": 10,
+        "show_citations": false
+      },
+      "knowledge_access": {
+        "folder_ids": ["fold_abc123"],
+        "tag_ids": [],
+        "document_ids": [],
+        "access_mode": "inclusive",
+        "document_count_cache": 12
+      },
+      "handoff_config": { "enabled": false },
+      "current_month_usage": {
+        "queries": 134,
+        "tokens_used": 41200,
+        "last_reset_date": "2026-06-01T00:00:00Z"
+      },
+      "created_at": "2026-05-20T11:00:00Z",
+      "updated_at": "2026-06-07T08:30:00Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+লিস্ট ভিউ সংক্ষিপ্ততার জন্য প্রতিটি agent-এর `configuration` থেকে `system_prompt` বাদ দেয়; এটি দেখতে একটি একক agent আনয়ন করুন।
+
+**ত্রুটি:** `400` `invalid_cursor`, `401`, `403`, `429`, `500`।
+
+---
+
+### `GET /agents/{agent_id}`
+
+id দিয়ে একটি একক agent আনয়ন করুন।
+
+**Scope:** `agents:read` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | হ্যাঁ | agent id। |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+প্রতিক্রিয়া হলো একটি একক agent অবজেক্ট ([agent-এর রূপ](#agent-এর-রূপ) দেখুন)।
+
+**ত্রুটি:** `401`, `403`, `404` `agent_not_found`, `429`, `500`।
+
+---
+
+### `PATCH /agents/{agent_id}`
+
+একটি agent-এর মৌলিক ফিল্ড আপডেট করুন। সব বডি ফিল্ড ঐচ্ছিক; বাদ দেওয়া ফিল্ড অপরিবর্তিত থাকে। জেনারেশন সেটিংস কনফিগারেশন endpoint-এ থাকে, এখানে নয়।
+
+**Scope:** `agents:write` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | হ্যাঁ | agent id। |
+| `name` | body | string | না | নতুন নাম (1–100 অক্ষর)। |
+| `description` | body | string | না | নতুন বিবরণ (≤500 অক্ষর)। |
+| `status` | body | string | না | নতুন স্ট্যাটাস। |
+| `language` | body | string | না | নতুন BCP-47 ভাষা ওভাররাইড। |
+| `handoff_config` | body | object | না | নতুন human handoff কনফিগারেশন। |
+
+```bash
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "status": "inactive" }'
+```
+
+প্রতিক্রিয়া হলো আপডেট করা agent অবজেক্ট।
+
+**ত্রুটি:** `400`, `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `DELETE /agents/{agent_id}`
+
+একটি agent আর্কাইভ (soft-delete) করুন। agent পুনরুদ্ধার endpoint-এর মাধ্যমে **30 দিন** পুনরুদ্ধারযোগ্য। পুনরুদ্ধারের সময়সীমা বহনকারী একটি আর্কাইভ বডি সহ `200` ফেরত দেয়।
+
+**Scope:** `agents:write` (key তৈরিকারী রোলকে agent-delete অনুমতিও ধারণ করতে হবে) · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | হ্যাঁ | agent id। |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "agt_7c1d8e",
+  "archived": true,
+  "restore_before": "2026-07-07T08:30:00Z"
+}
+```
+
+**ত্রুটি:** `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `POST /agents/{agent_id}/restore`
+
+একটি আর্কাইভ করা agent তার 30-দিনের পুনরুদ্ধার উইন্ডোর মধ্যে পুনরুদ্ধার করুন। পুনরুদ্ধার করা agent ফেরত দেয়। একটি মেয়াদোত্তীর্ণ উইন্ডো বা একটি অ-আর্কাইভ করা agent `400` ফেরত দেয়।
+
+**Scope:** `agents:write` (key তৈরিকারী রোলকে agent-delete অনুমতিও ধারণ করতে হবে) · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | হ্যাঁ | agent id। |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/restore \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+প্রতিক্রিয়া হলো পুনরুদ্ধার করা agent অবজেক্ট।
+
+**ত্রুটি:** `400`, `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `GET /agents/{agent_id}/configuration`
+
+একটি agent-এর কনফিগারেশন আনয়ন করুন। কেবল tenant-মুখী জেনারেশন সেটিংস প্রকাশ করে; অন্তর্নিহিত LLM প্রোভাইডার/মডেল শনাক্তকারী ফেরত দেওয়া হয় না।
+
+**Scope:** `agents:read` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | হ্যাঁ | agent id। |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "agt_7c1d8e",
+  "configuration": {
+    "temperature": 0.7,
+    "max_tokens": 1500,
+    "system_prompt": "You are a helpful support agent.",
+    "response_format": "conversational",
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "streaming_enabled": true,
+    "max_retrieved_chunks": 10,
+    "show_citations": false
+  },
+  "unsaved_changes": false
+}
+```
+
+**ত্রুটি:** `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `PATCH /agents/{agent_id}/configuration`
+
+একটি agent-এর জেনারেশন সেটিংস আপডেট করুন। সব বডি ফিল্ড ঐচ্ছিক। আপনার প্ল্যানের লিমিট লঙ্ঘনকারী একটি সেটিং `403` ফেরত দেয়।
+
+**Scope:** `agents:write` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | হ্যাঁ | agent id। |
+| `system_prompt` | body | string | না | নতুন system prompt (1–10000 অক্ষর)। |
+| `temperature` | body | number | না | 0.0–2.0। |
+| `max_tokens` | body | integer | না | 100–4000। |
+| `response_format` | body | string | না | `conversational` বা `structured`। |
+| `top_p` | body | number | না | 0.0–1.0। |
+| `frequency_penalty` | body | number | না | -2.0–2.0। |
+| `presence_penalty` | body | number | না | -2.0–2.0। |
+| `streaming_enabled` | body | boolean | না | streaming সক্ষম কিনা। |
+| `max_retrieved_chunks` | body | integer | না | 5–20। |
+| `show_citations` | body | boolean | না | উদ্ধৃতি দেখানো হবে কিনা। |
+| `save_as_draft` | body | boolean | না | একটি নতুন ভার্সন প্রকাশ না করে সংরক্ষণ করুন। ডিফল্ট `false`। |
+
+```bash
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "temperature": 0.4, "max_tokens": 2000 }'
+```
+
+```json
+{
+  "id": "agt_7c1d8e",
+  "configuration": {
+    "temperature": 0.4,
+    "max_tokens": 2000,
+    "system_prompt": "You are a helpful support agent.",
+    "response_format": "conversational",
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "streaming_enabled": true,
+    "max_retrieved_chunks": 10,
+    "show_citations": false
+  }
+}
+```
+
+**ত্রুটি:** `400`, `401`, `403` (scope বা tier লিমিট), `404`, `429`, `500`।

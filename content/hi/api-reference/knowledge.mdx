@@ -1,0 +1,732 @@
+---
+description: Knowledge endpoints — डॉक्यूमेंट अपलोड करें, सूचीबद्ध करें, सर्च करें, प्राप्त करें, ट्रैक करें और डिलीट करें, साथ ही फ़ोल्डर और tags संगठन।
+---
+
+# Knowledge
+
+Knowledge endpoints उन डॉक्यूमेंट का प्रबंधन करते हैं जिन पर आपके agents निर्भर करते हैं, साथ ही उन फ़ोल्डर और tags का जो उन्हें संगठित करते हैं। दो समूह हैं:
+
+- **डॉक्यूमेंट** — अपलोड (एसिंक्रोनस), सूचीबद्ध, सर्च, प्राप्त, प्रोसेसिंग ट्रैक और डिलीट।
+- **संगठन** — फ़ोल्डर CRUD, tag CRUD, और डॉक्यूमेंट संगठन (एक फ़ोल्डर में ले जाना, tags जोड़ना या हटाना)।
+
+सभी endpoints `/knowledge` के अंतर्गत हैं और रीड के लिए एक `knowledge:read` scope या राइट के लिए एक `knowledge:write` scope आवश्यक है। हर प्रतिक्रिया यहाँ दस्तावेज़ित डिफ़ॉल्ट-रूप-से-अस्वीकृति वाले रूपों का उपयोग करती है — स्टोरेज इंटरनल (S3 keys, फ़ाइल हैश, MIME टाइप), chunking और embedding इंटरनल, और लागत के आँकड़े कभी नहीं लौटाए जाते।
+
+## डॉक्यूमेंट
+
+### एसिंक्रोनस अपलोड मॉडल
+
+एक डॉक्यूमेंट अपलोड करना **प्रोसेसिंग पर ब्लॉक नहीं होता**। फ़ाइल स्वीकार होते ही `POST /knowledge/documents` `{document_id, status}` के साथ `201` लौटाता है, फिर डॉक्यूमेंट एक एसिंक्रोनस जीवनचक्र से गुज़रता है:
+
+```
+uploaded → validating → stored → processing → ready
+```
+
+(या त्रुटि पर `failed`)। इसका अनुसरण करने के लिए, या तो `GET /knowledge/documents/{document_id}/status` को **पोल** करें या SSE स्ट्रीम `GET /knowledge/documents/{document_id}/status/stream` की **सदस्यता लें**। केवल एक बार जब एक डॉक्यूमेंट `ready` होता है तभी वह सर्च योग्य और एक agent द्वारा उपयोग योग्य होता है।
+
+---
+
+### `POST /knowledge/documents`
+
+knowledge बेस में एक फ़ाइल अपलोड करें। एसिंक्रोनस — नए डॉक्यूमेंट id और उसके प्रारंभिक (गैर-टर्मिनल) स्टेटस के साथ तुरंत `201` लौटाता है। यदि फ़ाइल एक मौजूदा डॉक्यूमेंट से मेल खाती है, तो endpoint एक संरचित डुप्लिकेट बॉडी (नीचे देखें) के साथ `409` लौटाता है, त्रुटि एनवेलप **नहीं**।
+
+**Scope:** `knowledge:write` · **सफलता:** `201`
+
+यह endpoint `multipart/form-data` लेता है, JSON नहीं।
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `file` | form | file | हाँ | अपलोड करने के लिए डॉक्यूमेंट फ़ाइल। |
+| `title` | form | string | नहीं | एक प्रदर्शन शीर्षक। डिफ़ॉल्ट फ़ाइल नाम। |
+| `description` | form | string | नहीं | एक फ़्री-टेक्स्ट विवरण। |
+| `tags` | form | string | नहीं | अपलोड पर लागू करने के लिए कॉमा-पृथक tag ids। |
+| `folder_id` | form | string | नहीं | डॉक्यूमेंट को फ़ाइल करने का फ़ोल्डर। |
+| `visibility` | form | string | नहीं | एक्सेस दृश्यता। डिफ़ॉल्ट `private`। |
+| `Idempotency-Key` | header | string | नहीं | रीप्ले-सुरक्षित पुनः प्रयास key ([कन्वेंशन](/api-reference/conventions) देखें)। |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -F "file=@handbook.pdf" \
+  -F "title=Employee Handbook" \
+  -F "folder_id=fold_abc123" \
+  -F "tags=tag_hr,tag_policy"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "uploaded"
+}
+```
+
+**डुप्लिकेट पाया गया (`409`)।** जब अपलोड की गई फ़ाइल एक मौजूदा डॉक्यूमेंट से मेल खाती है, तो प्रतिक्रिया एक संरचित बॉडी है — त्रुटि एनवेलप नहीं — एक `upload_session_id` ले जाने वाली जिसे आप वैसे भी आगे बढ़ने के लिए `confirm-duplicate` को पास करते हैं:
+
+```json
+{
+  "upload_session_id": "ups_abc123",
+  "duplicate_of": ["doc_existing456"]
+}
+```
+
+**त्रुटियाँ:** `400` `invalid_upload` (खराब फ़ाइल), `401`, `403`, `429`, `500`।
+
+---
+
+### `POST /knowledge/documents/confirm-duplicate`
+
+एक अपलोड फिर से शुरू करें जिसे डुप्लिकेट के रूप में चिह्नित किया गया था, `409` बॉडी के `upload_session_id` द्वारा पहचाना गया। अपलोड की तरह, यह एसिंक्रोनस है और `{document_id, status}` के साथ `201` लौटाता है।
+
+**Scope:** `knowledge:write` · **सफलता:** `201`
+
+यह endpoint `multipart/form-data` लेता है।
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `upload_session_id` | form | string | हाँ | `409` डुप्लिकेट बॉडी का id। |
+| `title` | form | string | नहीं | एक प्रदर्शन शीर्षक। |
+| `description` | form | string | नहीं | एक फ़्री-टेक्स्ट विवरण। |
+| `tags` | form | string | नहीं | कॉमा-पृथक tag ids। |
+| `folder_id` | form | string | नहीं | फ़ाइल करने का फ़ोल्डर। |
+| `visibility` | form | string | नहीं | डिफ़ॉल्ट `private`। |
+| `Idempotency-Key` | header | string | नहीं | रीप्ले-सुरक्षित पुनः प्रयास key। |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/confirm-duplicate \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -F "upload_session_id=ups_abc123" \
+  -F "folder_id=fold_abc123"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "uploaded"
+}
+```
+
+**त्रुटियाँ:** `400`, `401`, `403`, `404` (अज्ञात सेशन), `429`, `500`।
+
+---
+
+### `GET /knowledge/documents`
+
+डॉक्यूमेंट सूचीबद्ध करें, कर्सर-पेजिनेटेड। वैकल्पिक फ़िल्टर फ़ोल्डर, tag या प्रोसेसिंग स्टेटस के अनुसार संकुचित करते हैं।
+
+**Scope:** `knowledge:read` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | नहीं | पृष्ठ का आकार, 1–100। डिफ़ॉल्ट 20। |
+| `cursor` | query | string | नहीं | पिछले पृष्ठ का `next_cursor`। |
+| `folder_id` | query | string | नहीं | एक फ़ोल्डर तक सीमित करें। |
+| `tag` | query | string | नहीं | एक tag id तक सीमित करें। |
+| `status` | query | string | नहीं | एक प्रोसेसिंग स्टेटस तक सीमित करें। |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents?limit=20&status=ready" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "doc_9f2a7b",
+      "filename": "handbook.pdf",
+      "title": "Employee Handbook",
+      "description": null,
+      "file_format": "pdf",
+      "file_size_bytes": 184320,
+      "status": "ready",
+      "folder_id": "fold_abc123",
+      "tags": ["tag_hr", "tag_policy"],
+      "is_duplicate": false,
+      "duplicate_of": [],
+      "total_chunks": 42,
+      "created_at": "2026-06-07T09:12:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**त्रुटियाँ:** `400` `invalid_cursor`, `401`, `403`, `429`, `500`।
+
+---
+
+### `GET /knowledge/documents/search`
+
+एक क्वेरी स्ट्रिंग से डॉक्यूमेंट सर्च करें। प्रासंगिकता के अनुसार रैंक किए गए `Document`s का एक कर्सर-पेजिनेटेड पृष्ठ लौटाता है, लिस्ट endpoint के समान वैकल्पिक फ़िल्टर के साथ।
+
+**Scope:** `knowledge:read` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `q` | query | string | नहीं | सर्च क्वेरी स्ट्रिंग। |
+| `limit` | query | integer | नहीं | पृष्ठ का आकार, 1–100। डिफ़ॉल्ट 20। |
+| `cursor` | query | string | नहीं | पिछले पृष्ठ का `next_cursor`। |
+| `folder_id` | query | string | नहीं | एक फ़ोल्डर तक सीमित करें। |
+| `tag` | query | string | नहीं | एक tag id तक सीमित करें। |
+| `status` | query | string | नहीं | एक प्रोसेसिंग स्टेटस तक सीमित करें। |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/search?q=parental%20leave" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "doc_9f2a7b",
+      "filename": "handbook.pdf",
+      "title": "Employee Handbook",
+      "description": null,
+      "file_format": "pdf",
+      "file_size_bytes": 184320,
+      "status": "ready",
+      "folder_id": "fold_abc123",
+      "tags": ["tag_hr", "tag_policy"],
+      "is_duplicate": false,
+      "duplicate_of": [],
+      "total_chunks": 42,
+      "created_at": "2026-06-07T09:12:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**त्रुटियाँ:** `400`, `401`, `403`, `429`, `500`।
+
+---
+
+### `GET /knowledge/documents/{document_id}`
+
+id से एक एकल डॉक्यूमेंट प्राप्त करें।
+
+**Scope:** `knowledge:read` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | हाँ | डॉक्यूमेंट id। |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "doc_9f2a7b",
+  "filename": "handbook.pdf",
+  "title": "Employee Handbook",
+  "description": null,
+  "file_format": "pdf",
+  "file_size_bytes": 184320,
+  "status": "ready",
+  "folder_id": "fold_abc123",
+  "tags": ["tag_hr", "tag_policy"],
+  "is_duplicate": false,
+  "duplicate_of": [],
+  "total_chunks": 42,
+  "created_at": "2026-06-07T09:12:00Z",
+  "updated_at": "2026-06-07T09:13:20Z"
+}
+```
+
+**त्रुटियाँ:** `401`, `403`, `404` `document_not_found`, `429`, `500`।
+
+---
+
+### `GET /knowledge/documents/{document_id}/status`
+
+एक डॉक्यूमेंट की एसिंक्रोनस प्रोसेसिंग स्टेटस को पोल करें। यह जानने के लिए इसका उपयोग करें कि एक अपलोड कब `ready` पहुँचता है।
+
+**Scope:** `knowledge:read` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | हाँ | डॉक्यूमेंट id। |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "processing",
+  "progress": 60,
+  "error_message": null
+}
+```
+
+**त्रुटियाँ:** `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `GET /knowledge/documents/{document_id}/status/stream`
+
+एक डॉक्यूमेंट की प्रोसेसिंग स्टेटस की एक Server-Sent Events स्ट्रीम की सदस्यता लें। हर इवेंट का `data:` पेलोड एक स्टेटस ऑब्जेक्ट है (पोल endpoint के समान रूप)। स्ट्रीम तुरंत वर्तमान स्टेटस उत्सर्जित करती है, फिर प्रति अपडेट एक इवेंट, और जब स्टेटस एक टर्मिनल स्थिति (`ready` या `failed`) पर पहुँचता है तो बंद हो जाती है।
+
+**Scope:** `knowledge:read` · **सफलता:** `200` (`text/event-stream`)
+
+आपके organization के बाहर का एक डॉक्यूमेंट id एक `404` त्रुटि एनवेलप लौटाता है — एक खाली स्ट्रीम नहीं।
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | हाँ | डॉक्यूमेंट id। |
+
+```bash
+curl -N https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status/stream \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```
+data: {"document_id": "doc_9f2a7b", "status": "processing", "progress": 40, "error_message": null}
+
+data: {"document_id": "doc_9f2a7b", "status": "processing", "progress": 80, "error_message": null}
+
+data: {"document_id": "doc_9f2a7b", "status": "ready", "progress": 100, "error_message": null}
+```
+
+**त्रुटियाँ:** `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `DELETE /knowledge/documents/{document_id}`
+
+एक डॉक्यूमेंट डिलीट करें।
+
+**Scope:** `knowledge:write` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | हाँ | डॉक्यूमेंट id। |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "doc_9f2a7b",
+  "deleted": true
+}
+```
+
+**त्रुटियाँ:** `401`, `403`, `404`, `429`, `500`।
+
+## संगठन
+
+### `POST /knowledge/folders`
+
+एक फ़ोल्डर बनाएँ।
+
+**Scope:** `knowledge:write` · **सफलता:** `201`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `name` | body | string | हाँ | फ़ोल्डर नाम (1–100 वर्ण)। |
+| `description` | body | string | नहीं | एक विवरण (≤500 वर्ण)। |
+| `color` | body | string | नहीं | एक `#RRGGBB` हेक्स रंग। डिफ़ॉल्ट `#667eea`। |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "HR Policies", "color": "#667eea" }'
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR Policies",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 0,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**त्रुटियाँ:** `400` `folder_name_exists`, `401`, `403`, `429`, `500`।
+
+---
+
+### `GET /knowledge/folders`
+
+फ़ोल्डर सूचीबद्ध करें, कर्सर-पेजिनेटेड।
+
+**Scope:** `knowledge:read` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | नहीं | पृष्ठ का आकार, 1–100। डिफ़ॉल्ट 20। |
+| `cursor` | query | string | नहीं | पिछले पृष्ठ का `next_cursor`। |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders?limit=20" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "fold_abc123",
+      "name": "HR Policies",
+      "description": null,
+      "color": "#667eea",
+      "document_count": 12,
+      "created_at": "2026-06-07T09:00:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**त्रुटियाँ:** `400`, `401`, `403`, `429`, `500`।
+
+---
+
+### `GET /knowledge/folders/{folder_id}`
+
+id से एक फ़ोल्डर प्राप्त करें।
+
+**Scope:** `knowledge:read` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | हाँ | फ़ोल्डर id। |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR Policies",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 12,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T09:13:20Z"
+}
+```
+
+**त्रुटियाँ:** `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `PATCH /knowledge/folders/{folder_id}`
+
+एक फ़ोल्डर अपडेट करें। सभी बॉडी फ़ील्ड वैकल्पिक हैं; छोड़े गए फ़ील्ड अपरिवर्तित रहते हैं।
+
+**Scope:** `knowledge:write` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | हाँ | फ़ोल्डर id। |
+| `name` | body | string | नहीं | नया नाम (1–100 वर्ण)। |
+| `description` | body | string | नहीं | नया विवरण (≤500 वर्ण)। |
+| `color` | body | string | नहीं | नया `#RRGGBB` हेक्स रंग। |
+
+```bash
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "HR & Compliance" }'
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR & Compliance",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 12,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T10:01:00Z"
+}
+```
+
+**त्रुटियाँ:** `400` `folder_name_exists`, `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `DELETE /knowledge/folders/{folder_id}`
+
+एक **खाली** फ़ोल्डर डिलीट करें। एक फ़ोल्डर जिसमें अभी भी डॉक्यूमेंट हैं वह `400` `folder_not_empty` लौटाता है — पहले उसके डॉक्यूमेंट ले जाएँ या डिलीट करें।
+
+**Scope:** `knowledge:write` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | हाँ | फ़ोल्डर id। |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "deleted": true
+}
+```
+
+**त्रुटियाँ:** `400` `folder_not_empty`, `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `POST /knowledge/tags`
+
+एक tag बनाएँ।
+
+**Scope:** `knowledge:write` · **सफलता:** `201`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `name` | body | string | हाँ | tag नाम (1–50 वर्ण)। |
+| `color` | body | string | हाँ | एक `#RRGGBB` हेक्स रंग। |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "policy", "color": "#10b981" }'
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#10b981",
+  "document_count": 0,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**त्रुटियाँ:** `400` `tag_name_exists`, `401`, `403`, `429`, `500`।
+
+---
+
+### `GET /knowledge/tags`
+
+tags सूचीबद्ध करें, कर्सर-पेजिनेटेड।
+
+**Scope:** `knowledge:read` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | नहीं | पृष्ठ का आकार, 1–100। डिफ़ॉल्ट 20। |
+| `cursor` | query | string | नहीं | पिछले पृष्ठ का `next_cursor`। |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags?limit=20" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "tag_policy",
+      "name": "policy",
+      "color": "#10b981",
+      "document_count": 7,
+      "created_at": "2026-06-07T09:00:00Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**त्रुटियाँ:** `400`, `401`, `403`, `429`, `500`।
+
+---
+
+### `GET /knowledge/tags/{tag_id}`
+
+id से एक tag प्राप्त करें।
+
+**Scope:** `knowledge:read` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | हाँ | tag id। |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#10b981",
+  "document_count": 7,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**त्रुटियाँ:** `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `PATCH /knowledge/tags/{tag_id}`
+
+एक tag अपडेट करें। सभी बॉडी फ़ील्ड वैकल्पिक हैं।
+
+**Scope:** `knowledge:write` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | हाँ | tag id। |
+| `name` | body | string | नहीं | नया नाम (1–50 वर्ण)। |
+| `color` | body | string | नहीं | नया `#RRGGBB` हेक्स रंग। |
+
+```bash
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "color": "#3b82f6" }'
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#3b82f6",
+  "document_count": 7,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**त्रुटियाँ:** `400` `tag_name_exists`, `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `DELETE /knowledge/tags/{tag_id}`
+
+एक tag डिलीट करें। यह उस tag को हर उस डॉक्यूमेंट से भी हटा देता है जिस पर इसे लागू किया गया था।
+
+**Scope:** `knowledge:write` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | हाँ | हटाने के लिए tag id। |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "tag_policy",
+  "deleted": true
+}
+```
+
+**त्रुटियाँ:** `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `PUT /knowledge/documents/{document_id}/folder`
+
+एक डॉक्यूमेंट को एक फ़ोल्डर में ले जाएँ, या `folder_id: null` पास करके इसे अनफ़ाइल करें।
+
+**Scope:** `knowledge:write` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | हाँ | डॉक्यूमेंट id। |
+| `folder_id` | body | string \| null | नहीं | लक्ष्य फ़ोल्डर id, या अनफ़ाइल करने के लिए `null`। |
+
+```bash
+curl -X PUT https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/folder \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "folder_id": "fold_abc123" }'
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "folder_id": "fold_abc123"
+}
+```
+
+**त्रुटियाँ:** `400`, `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `POST /knowledge/documents/{document_id}/tags`
+
+एक डॉक्यूमेंट में एक या अधिक tags जोड़ें। प्रतिक्रिया जोड़ने के बाद डॉक्यूमेंट का **पूरा** tag सेट है।
+
+**Scope:** `knowledge:write` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | हाँ | डॉक्यूमेंट id। |
+| `tag_ids` | body | array of string | हाँ | जोड़ने के लिए tag ids (1–20)। |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "tag_ids": ["tag_hr", "tag_policy"] }'
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "tag_ids": ["tag_hr", "tag_policy"]
+}
+```
+
+**त्रुटियाँ:** `400`, `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `DELETE /knowledge/documents/{document_id}/tags/{tag_id}`
+
+एक डॉक्यूमेंट से एक एकल tag हटाएँ। प्रतिक्रिया डॉक्यूमेंट का **शेष** tag सेट है।
+
+**Scope:** `knowledge:write` · **सफलता:** `200`
+
+| पैरामीटर | में | टाइप | आवश्यक | विवरण |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | हाँ | डॉक्यूमेंट id। |
+| `tag_id` | path | string | हाँ | हटाने के लिए tag id। |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "tag_ids": ["tag_hr"]
+}
+```
+
+**त्रुटियाँ:** `401`, `403`, `404`, `429`, `500`।

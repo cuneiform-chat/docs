@@ -1,0 +1,27 @@
+---
+description: Journal des modifications de l'API pour Développeurs — la base de référence de la version v1 et comment le contrat évolue.
+---
+
+# Journal des Modifications
+
+Cette page suit les modifications du contrat de l'API pour Développeurs afin que vous puissiez suivre la surface dont dépend votre intégration.
+
+## v1 — Stable (2026-06)
+
+La première version publique de l'API pour Développeurs de Cuneiform Chat. `v1` est le contrat actuel et **stable**, et établit la base de référence de tout ce qui est documenté dans cette référence :
+
+- **Authentification** — accès authentifié avec une key `cuk_<env>_<random>`, présentée comme `Authorization: Bearer cuk_…` ou `X-API-Key: cuk_…`. Cinq scopes : `knowledge:read`, `knowledge:write`, `agents:read`, `agents:write`, `agents:query`.
+- **Knowledge** — téléversement asynchrone de documents, liste, recherche, récupération, statut (interrogation + SSE) et suppression ; CRUD de dossiers et de tags ; organisation de documents (déplacer vers un dossier, ajouter/retirer des tags).
+- **Agents** — créer, lister, récupérer, mettre à jour, archiver (soft-delete) et restaurer ; lire et mettre à jour la configuration d'un agent.
+- **Requête d'Agent** — exécuter un agent en mode JSON bloquant ou en mode SSE de streaming.
+- **Conventions** — pagination par curseur opaque, le contrat `Idempotency-Key`, l'enveloppe d'erreur de style Stripe et les en-têtes `RateLimit-*`.
+
+## Comment le contrat évolue
+
+`v1` est **additif et stable** :
+
+- De nouveaux champs et de nouveaux endpoints peuvent être introduits au sein de `v1`.
+- Les champs existants ne sont jamais supprimés ni réaffectés au sein de `v1`.
+- Les catégories d'erreur ne sont jamais réaffectées — une nouvelle catégorie peut être ajoutée, mais une existante conserve son sens, il est donc sûr de faire un branchement sur le `type` de l'erreur.
+
+Une modification incompatible serait publiée sous un nouveau préfixe de version (`/v2`), jamais en silence au sein de `v1`.

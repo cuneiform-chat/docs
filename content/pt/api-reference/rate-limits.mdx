@@ -1,0 +1,64 @@
+---
+description: Limites de taxa da API para Desenvolvedores — os cabeçalhos de resposta RateLimit-*, o contrato 429 + Retry-After e a janela por organização, por minuto.
+---
+
+# Limites de Taxa
+
+A API para Desenvolvedores tem limite de taxa **por organização, por minuto**, com o orçamento definido pelo seu plano. Cada resposta autenticada com key informa exatamente onde você está, para que possa regular seu tráfego antes de atingir o limite.
+
+## Cabeçalhos de limite de taxa
+
+Cada resposta autenticada com key carrega três cabeçalhos:
+
+| Cabeçalho | Significado |
+|--------|---------|
+| `RateLimit-Limit` | A cota de requisições da sua organização para a janela atual. |
+| `RateLimit-Remaining` | Requisições restantes na janela atual. |
+| `RateLimit-Reset` | Segundos até a janela atual ser reiniciada. |
+
+A janela é uma **janela deslizante de 60 segundos** — o orçamento por plano é expresso por minuto. Leia `RateLimit-Remaining` e diminua a velocidade à medida que ele se aproxima de zero.
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 120
+RateLimit-Remaining: 117
+RateLimit-Reset: 41
+Content-Type: application/json
+```
+
+## Quando você excede o limite
+
+Uma requisição que excede o orçamento retorna `429` com o [envelope de erro](/api-reference/errors) padrão e um cabeçalho **`Retry-After`** que informa quantos segundos esperar:
+
+```
+HTTP/1.1 429 Too Many Requests
+Retry-After: 41
+RateLimit-Limit: 120
+RateLimit-Remaining: 0
+RateLimit-Reset: 41
+Content-Type: application/json
+```
+
+```json
+{
+  "error": {
+    "type": "rate_limit_error",
+    "code": "rate_limit_exceeded",
+    "message": "You have exceeded your plan's request allowance."
+  }
+}
+```
+
+## Lidando com o 429
+
+- Respeite `Retry-After` — espere o número de segundos indicado antes de repetir.
+- Aplique um recuo exponencial se continuar recebendo `429`.
+- Use `RateLimit-Remaining` de forma proativa para limitar rajadas antes que sejam rejeitadas.
+
+## Falha aberta
+
+O limitador de taxa foi projetado para **falhar aberto**: se o próprio limitador estiver indisponível, as requisições passam em vez de serem bloqueadas. Você nunca deve ver `429` espúrios causados por uma queda do limitador — mas também não deve depender do limitador para impor a correção no seu próprio cliente. Regule seu tráfego usando os cabeçalhos `RateLimit-*`.
+
+## Cota de consultas
+
+Executar um agent (`POST /agents/{id}/query`) é adicionalmente medido contra a cota de consultas do seu plano, no lado do servidor. Excedê-la retorna `429` na via bloqueante, ou um único evento `error` na via de streaming. Consulte a página de Consulta de Agent para conhecer os detalhes.

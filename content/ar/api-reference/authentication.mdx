@@ -1,0 +1,76 @@
+---
+description: صادِق كل طلب لواجهة المطورين باستخدام key بصيغة cuk_، يُرسَل كرمز Bearer أو ترويسة X-API-Key.
+---
+
+# المصادقة
+
+يجب أن يحمل كل طلب لواجهة المطورين API key للمطور. لا يوجد مسار عام بلا مصادقة — يُرفَض أي طلب بلا key صالحة بالرمز `401`.
+
+## تقديم الـ key الخاصة بك
+
+أرسل سر الـ key (`cuk_<env>_<random>`) بإحدى **طريقتين**. كلتاهما متكافئتان؛ استخدم ما يناسب عميل HTTP لديك.
+
+### ترويسة Authorization (موصى بها)
+
+```
+Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx
+```
+
+### ترويسة X-API-Key
+
+```
+X-API-Key: cuk_live_xxxxxxxxxxxxxxxx
+```
+
+مثال طلب بكل صيغة:
+
+```bash
+# Bearer
+curl https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+
+# X-API-Key
+curl https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "X-API-Key: cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+## إلى ماذا تُحلّ الـ key
+
+ترتبط الـ key بشيئين، يُحلّان تلقائيًا في كل طلب:
+
+- **organization الخاصة بك.** تُعرّف الـ key الـ organization التي أُنشئت فيها. يُقيَّد كل طلب بتلك الـ organization — لا ترسل أبدًا معرّف organization، ولا يمكنك أبدًا الوصول إلى بيانات organization أخرى. يُبلَّغ عن معرّف مورد ينتمي إلى organization مختلفة بالرمز `404` (غير موجود)، لا `403` أبدًا.
+- **scopes الخاصة بها.** تحمل الـ key مجموعة ثابتة من [scopes](/api-reference/api-keys) المُمنوحة عند الإنشاء. كما يُقيَّد الـ scope *أيضًا* بأذونات RBAC للدور الذي أنشأ الـ key — لا يمكن للـ key أبدًا أن تفعل أكثر مما يستطيع منشئها في اللوحة. يُرفَض أي طلب يحتاج إلى scope لا تملكه الـ key بالرمز `403` `permission_error`.
+
+## احفظ keys سرية
+
+يُعرَض سر الـ key الكامل **مرة واحدة بالضبط**، عند الإنشاء أو التدوير. تعامل معه كأنه كلمة مرور:
+
+- أرسله عبر HTTPS فقط.
+- خزّنه في مدير أسرار أو متغير بيئة — لا في إدارة الإصدارات أو الكود من جهة العميل أو السجلات أبدًا.
+- إذا تسرّبت key، فـ[دوّرها أو ألغِها](/api-reference/api-keys) فورًا.
+
+## عند فشل المصادقة
+
+تُرجع key مفقودة أو مشوّهة أو ملغاة أو غير معروفة الرمز `401` مع [غلاف الخطأ](/api-reference/errors) القياسي:
+
+```json
+{
+  "error": {
+    "type": "authentication_error",
+    "code": "invalid_api_key",
+    "message": "The API key is missing or invalid."
+  }
+}
+```
+
+أما key مُكوَّنة جيدًا تفتقر إلى الـ scope (أو الإذن الأساسي) لعملية ما فتُرجع `403`:
+
+```json
+{
+  "error": {
+    "type": "permission_error",
+    "code": "invalid_scope",
+    "message": "This key does not have the required scope for this operation."
+  }
+}
+```

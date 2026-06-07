@@ -1,0 +1,58 @@
+---
+description: La envoltura de error de la API para Desarrolladores — una forma estable al estilo de Stripe con siete categorías, cada una asignada a un estado HTTP fijo.
+---
+
+# Errores
+
+Cuando una solicitud falla, la API devuelve una **envoltura de error** JSON con una forma estable. Ramifica tu manejo de errores según los campos `type` y `code` legibles por máquina — nunca según el `message` legible por humanos (que puede cambiar).
+
+## La envoltura de error
+
+```json
+{
+  "error": {
+    "type": "not_found_error",
+    "code": "agent_not_found",
+    "message": "No agent with that id exists.",
+    "param": "agent_id"
+  }
+}
+```
+
+| Campo | Tipo | Significado |
+|-------|------|---------|
+| `type` | string | Una de las siete **categorías** fijas de abajo. Se asigna al estado HTTP. |
+| `code` | string | Un identificador estable y legible por máquina por cada fallo (p. ej. `agent_not_found`). |
+| `message` | string | Una descripción legible por humanos. Solo para mostrar/registrar — no ramifiques según él. |
+| `param` | string | *(Opcional)* El campo de la solicitud que causó el fallo, cuando aplica. |
+
+## Categorías
+
+Hay exactamente siete categorías de error. Cada una se asigna a un estado HTTP fijo, por lo que la categoría y el código de estado siempre concuerdan.
+
+| `type` | Estado HTTP | Cuándo ocurre | Ejemplos de `code` |
+|--------|-------------|-----------------|-----------------|
+| `authentication_error` | `401` | La API key falta, está malformada, revocada o es desconocida. | `invalid_api_key` |
+| `permission_error` | `403` | La key carece del scope requerido, o el rol que la generó carece del permiso RBAC asignado. | `invalid_scope`, `permission_denied` |
+| `tier_error` | `403` | Tu plan no permite la operación, o un ajuste infringe un límite del plan. | `tier_limit` |
+| `invalid_request_error` | `400` | La solicitud estaba malformada o violó una restricción. | `invalid_cursor`, `invalid_upload`, `folder_name_exists`, `folder_not_empty`, `tag_name_exists` |
+| `not_found_error` | `404` | No existe ningún recurso con ese id en tu organización. | `agent_not_found`, `document_not_found` |
+| `rate_limit_error` | `429` | Superaste el cupo de solicitudes o consultas de tu plan. | `rate_limit_exceeded` |
+| `api_error` | `500` | Ocurrió un error inesperado en el upstream — reintenta la solicitud. | `upstream_error` |
+
+Las categorías son **aditivas y nunca se reutilizan** — puede agregarse una nueva categoría en el futuro, pero una existente nunca cambiará de significado, por lo que es seguro ramificar según `type`.
+
+## No encontrado, nunca entre organizaciones
+
+Un id de recurso que pertenece a una organización *diferente* se reporta como `404` `not_found_error`, exactamente como si no existiera — la API nunca revela la existencia de recursos fuera de tu organización con un `403`.
+
+## La excepción de subida duplicada
+
+Una respuesta intencionadamente **no** es una envoltura de error: cuando la subida de un documento coincide con un documento existente, `POST /knowledge/documents` devuelve `409` con un cuerpo estructurado de **`DuplicateDetected`** (que lleva un `upload_session_id`), no la envoltura de error. Reanuda la subida con `POST /knowledge/documents/confirm-duplicate`. Consulta la página de documentos de Knowledge para conocer el flujo completo.
+
+```json
+{
+  "upload_session_id": "ups_abc123",
+  "duplicate_of": ["doc_existing456"]
+}
+```

@@ -1,0 +1,86 @@
+---
+description: L'API REST pour Développeurs de Cuneiform Chat — gérez les documents de knowledge, configurez les agents et exécutez des agents par programmation via une surface /v1 authentifiée.
+---
+
+# Référence de l'API
+
+L'**API REST pour Développeurs** de Cuneiform Chat permet à vos développeurs de gérer les documents de knowledge, de créer et configurer des agents, et d'exécuter des agents par programmation — les mêmes capacités que celles exposées par le panneau d'administration, disponibles via une surface HTTP authentifiée et versionnée.
+
+Cette référence documente le contrat public **`/v1`** : chaque endpoint, ses paramètres, une requête d'exemple et la forme exacte de la réponse.
+
+## URL de base
+
+Tous les endpoints se trouvent sous une seule URL de base versionnée :
+
+```
+https://core-api.cuneiform.chat/api/developer/v1
+```
+
+Le chemin complet d'un endpoint est l'URL de base plus le chemin indiqué sur chaque page — par exemple, `GET /agents` est :
+
+```
+https://core-api.cuneiform.chat/api/developer/v1/agents
+```
+
+## Versionnage
+
+L'API est versionnée **dans le préfixe de l'URL** (`/v1`). Il n'y a pas de versionnage basé sur les en-têtes ni sur les dates — la version que vous appelez est la version dans le chemin. Le contrat `/v1` est **stable** : les champs ne sont jamais qu'ajoutés, jamais supprimés ni réaffectés, et une nouvelle version majeure (si jamais elle était nécessaire) serait publiée sous un nouveau préfixe. Consultez la note du [Journal des Modifications](/api-reference/conventions) pour la base de référence de la version.
+
+## Authentification en une ligne
+
+Chaque requête s'authentifie avec une API key de développeur (`cuk_…`), envoyée comme un jeton Bearer :
+
+```
+Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx
+```
+
+La key se résout en votre organisation et en les scopes qui lui ont été accordés — vous ne transmettez jamais d'id d'organisation. Consultez [Authentification](/api-reference/authentication) et [API Keys](/api-reference/api-keys) pour le contrat complet.
+
+## Votre premier appel
+
+1. **Générez une key.** Dans le panneau d'administration, ouvrez la console de développeur à **`/org/developer-api`**, créez une key et copiez le secret (il n'est affiché qu'une seule fois — consultez [API Keys](/api-reference/api-keys)).
+2. **Appelez l'API.** Listez vos agents :
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+Une réponse réussie est une page paginée par curseur :
+
+```json
+{
+  "data": [
+    {
+      "id": "agt_123",
+      "name": "Support Bot",
+      "status": "active"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+## Comment lire cette référence
+
+Chaque endpoint est documenté avec une description d'une ligne, un tableau de **Paramètres** (chemin, query, en-tête et corps), une **requête** `curl` d'exemple et une **réponse** d'exemple. Le scope requis, le statut de succès et les catégories d'erreur pertinentes sont indiqués par endpoint.
+
+| Page | Ce qu'elle couvre |
+|------|----------------|
+| [Authentification](/api-reference/authentication) | Les deux façons de présenter votre key ; en quoi se résout une key |
+| [API Keys](/api-reference/api-keys) | Créer, lister, faire tourner et révoquer des keys ; les environnements ; la taxonomie des scopes |
+| [Conventions](/api-reference/conventions) | Pagination par curseur, requêtes idempotentes, type de contenu, horodatages |
+| [Erreurs](/api-reference/errors) | L'enveloppe d'erreur et les sept catégories d'erreur |
+| [Limites de Débit](/api-reference/rate-limits) | Les en-têtes `RateLimit-*` et le contrat `429` |
+| Knowledge | Documents (téléverser, statut, recherche, suppression) et organisation (dossiers, tags) |
+| Agents | Créer, lister, mettre à jour, supprimer, restaurer et configurer des agents |
+| Requête d'Agent | Exécuter un agent — JSON bloquant ou une réponse SSE en streaming |
+
+## Spécification OpenAPI
+
+Le contrat complet est aussi publié sous forme d'une spécification **OpenAPI 3.1** rédigée à la main, [`openapi.yaml`](/openapi.yaml), téléchargeable aux côtés de cette référence. C'est la source de vérité unique contre laquelle ces pages sont écrites — chaque champ du schéma est un champ que l'API renvoie réellement, et aucun champ interne n'apparaît.
+
+## Éligibilité
+
+L'API REST pour Développeurs est disponible sur **Starter et au-dessus**. Les organisations en Trial ne peuvent pas générer de keys ; une tentative renvoie un `403` `tier_error`.

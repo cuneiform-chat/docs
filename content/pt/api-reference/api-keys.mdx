@@ -1,0 +1,67 @@
+---
+description: Crie, rotacione e revogue API keys de desenvolvedor; entenda os ambientes das keys, a revelação única e os cinco scopes.
+---
+
+# API Keys
+
+Uma API key de desenvolvedor é a credencial que seu código apresenta em cada requisição. As keys são criadas e gerenciadas no painel de administração — **não** pela API em si — e cada key carrega um ambiente, um conjunto de scopes e um segredo que é revelado apenas uma vez.
+
+## Onde as keys são gerenciadas
+
+O gerenciamento de keys fica no **console de desenvolvedor** do painel em **`/org/developer-api`**. Criar, listar, rotacionar e revogar keys são ações administrativas realizadas ali com a sua sessão normal conectada — deliberadamente **não** fazem parte da superfície `/v1` autenticada com `cuk_` (uma key vazada nunca pode gerar ou revogar outra key). O console está disponível no **Starter e superiores**; organizações em Trial não podem criar keys.
+
+## Formato da key
+
+O segredo de uma key tem o formato `cuk_<env>_<random>` — por exemplo:
+
+```
+cuk_live_M8s2k...<random>
+```
+
+Ele tem três partes:
+
+| Parte | Significado |
+|------|---------|
+| `cuk` | Prefixo de marca — toda key da Cuneiform Chat começa com `cuk_`. |
+| `<env>` | O ambiente: `live` ou `test`. |
+| `<random>` | Um segredo aleatório longo e seguro para URLs. |
+
+## Ambientes
+
+Cada key é gerada para um ambiente:
+
+| Ambiente | Prefixo | Uso |
+|-------------|--------|-----|
+| `live` | `cuk_live_` | Tráfego de produção contra seus dados reais. |
+| `test` | `cuk_test_` | Desenvolvimento e testes de integração. |
+
+## Revelação única
+
+O **segredo completo é mostrado exatamente uma vez** — no momento em que você cria ou rotaciona uma key. Depois disso, apenas o prefixo da key (`cuk_<env>_`) e seus quatro últimos caracteres são exibidos, para que você possa reconhecer uma key em uma lista sem que ela seja recuperável.
+
+Se você perder um segredo, não pode recuperá-lo — **rotacione** a key para obter um novo (o que revoga o segredo anterior), ou revogue-a e crie uma nova.
+
+## Scopes
+
+Uma key recebe um subconjunto de cinco scopes. Cada scope desbloqueia um grupo de operações e é **adicionalmente** limitado pelas permissões RBAC do papel que criou a key — uma key nunca pode conceder mais do que o seu criador possui no painel.
+
+| Scope | Desbloqueia | Limite RBAC |
+|-------|---------|--------------|
+| `knowledge:read` | Listar, buscar e obter documentos, pastas e tags. | Requer a permissão de **leitura** de conteúdo. |
+| `knowledge:write` | Fazer upload, excluir e organizar documentos; criar/atualizar/excluir pastas e tags. | Requer as permissões de **upload + atualização** de conteúdo. |
+| `agents:read` | Listar e obter agents e sua configuração. | Requer a permissão de **leitura** de agent. |
+| `agents:write` | Criar e atualizar agents; atualizar a configuração; excluir e restaurar. | Requer as permissões de **criação + atualização** de agent (excluir/restaurar também exigem a permissão de exclusão de agent). |
+| `agents:query` | Executar um agent (`POST /agents/{id}/query`). | Requer a permissão de **leitura** de agent. |
+
+Conceda a uma key apenas os scopes de que ela precisa. Uma requisição que chama um endpoint fora dos seus scopes é rejeitada com `403` `permission_error` (`invalid_scope`).
+
+## Gerenciando as keys (no console)
+
+O console de desenvolvedor em `/org/developer-api` permite:
+
+- **Criar** — escolha um ambiente e scopes; o segredo é revelado uma vez.
+- **Listar** — veja o prefixo de cada key, seus quatro últimos caracteres, scopes e status (o segredo nunca é mostrado novamente).
+- **Rotacionar** — gere um segredo novo para uma key e revogue o anterior. Use isso de forma rotineira ou imediatamente se uma key puder ter vazado.
+- **Revogar** — desative uma key permanentemente. Requisições que apresentam uma key revogada são rejeitadas com `401`.
+
+Não há nenhum endpoint da API para qualquer uma dessas ações — elas são exclusivas do painel por design.

@@ -1,0 +1,732 @@
+---
+description: Endpoints Knowledge — загружайте, перечисляйте, ищите, получайте, отслеживайте и удаляйте документы, а также организуйте их с помощью папок и tags.
+---
+
+# Knowledge
+
+Endpoints Knowledge управляют документами, на которые опираются ваши agents, а также папками и tags, которые их организуют. Есть две группы:
+
+- **Документы** — загрузка (асинхронная), перечисление, поиск, получение, отслеживание обработки и удаление.
+- **Организация** — CRUD папок, CRUD tags и организация документов (перемещение в папку, добавление или удаление tags).
+
+Все endpoints находятся под `/knowledge` и требуют scope `knowledge:read` для чтения или scope `knowledge:write` для записи. Каждый ответ использует описанные здесь формы по принципу запрета по умолчанию — внутренние детали хранилища (ключи S3, хеши файлов, типы MIME), внутренние детали chunking и embedding, а также показатели стоимости никогда не возвращаются.
+
+## Документы
+
+### Модель асинхронной загрузки
+
+Загрузка документа **не блокируется на время обработки**. `POST /knowledge/documents` возвращает `201` с `{document_id, status}` сразу после приёма файла, после чего документ проходит асинхронный жизненный цикл:
+
+```
+uploaded → validating → stored → processing → ready
+```
+
+(или `failed` при ошибке). Чтобы следить за ним, либо **опрашивайте** `GET /knowledge/documents/{document_id}/status`, либо **подпишитесь** на SSE-поток `GET /knowledge/documents/{document_id}/status/stream`. Только когда документ становится `ready`, он доступен для поиска и использования agent.
+
+---
+
+### `POST /knowledge/documents`
+
+Загрузите файл в базу knowledge. Асинхронно — сразу возвращает `201` с id нового документа и его начальным (нетерминальным) статусом. Если файл совпадает с существующим документом, endpoint возвращает `409` со структурированным телом дубликата (см. ниже), а **не** конверт ошибки.
+
+**Scope:** `knowledge:write` · **Успех:** `201`
+
+Этот endpoint принимает `multipart/form-data`, а не JSON.
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `file` | form | file | Да | Файл документа для загрузки. |
+| `title` | form | string | Нет | Отображаемый заголовок. По умолчанию имя файла. |
+| `description` | form | string | Нет | Описание в свободной форме. |
+| `tags` | form | string | Нет | Id tags через запятую для применения при загрузке. |
+| `folder_id` | form | string | Нет | Папка, в которую поместить документ. |
+| `visibility` | form | string | Нет | Видимость доступа. По умолчанию `private`. |
+| `Idempotency-Key` | header | string | Нет | Key безопасного повтора (смотрите [Соглашения](/api-reference/conventions)). |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -F "file=@handbook.pdf" \
+  -F "title=Employee Handbook" \
+  -F "folder_id=fold_abc123" \
+  -F "tags=tag_hr,tag_policy"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "uploaded"
+}
+```
+
+**Обнаружен дубликат (`409`).** Когда загруженный файл совпадает с существующим документом, ответ — это структурированное тело, а не конверт ошибки, несущее `upload_session_id`, который вы передаёте в `confirm-duplicate`, чтобы всё же продолжить:
+
+```json
+{
+  "upload_session_id": "ups_abc123",
+  "duplicate_of": ["doc_existing456"]
+}
+```
+
+**Ошибки:** `400` `invalid_upload` (некорректный файл), `401`, `403`, `429`, `500`.
+
+---
+
+### `POST /knowledge/documents/confirm-duplicate`
+
+Возобновите загрузку, помеченную как дубликат, по `upload_session_id` из тела `409`. Как и загрузка, это асинхронно и возвращает `201` с `{document_id, status}`.
+
+**Scope:** `knowledge:write` · **Успех:** `201`
+
+Этот endpoint принимает `multipart/form-data`.
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `upload_session_id` | form | string | Да | Id из тела дубликата `409`. |
+| `title` | form | string | Нет | Отображаемый заголовок. |
+| `description` | form | string | Нет | Описание в свободной форме. |
+| `tags` | form | string | Нет | Id tags через запятую. |
+| `folder_id` | form | string | Нет | Папка для размещения. |
+| `visibility` | form | string | Нет | По умолчанию `private`. |
+| `Idempotency-Key` | header | string | Нет | Key безопасного повтора. |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/confirm-duplicate \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -F "upload_session_id=ups_abc123" \
+  -F "folder_id=fold_abc123"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "uploaded"
+}
+```
+
+**Ошибки:** `400`, `401`, `403`, `404` (неизвестная сессия), `429`, `500`.
+
+---
+
+### `GET /knowledge/documents`
+
+Перечислите документы с курсорной пагинацией. Необязательные фильтры сужают по папке, tag или статусу обработки.
+
+**Scope:** `knowledge:read` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | Нет | Размер страницы, 1–100. По умолчанию 20. |
+| `cursor` | query | string | Нет | `next_cursor` с предыдущей страницы. |
+| `folder_id` | query | string | Нет | Ограничить папкой. |
+| `tag` | query | string | Нет | Ограничить id tag. |
+| `status` | query | string | Нет | Ограничить статусом обработки. |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents?limit=20&status=ready" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "doc_9f2a7b",
+      "filename": "handbook.pdf",
+      "title": "Employee Handbook",
+      "description": null,
+      "file_format": "pdf",
+      "file_size_bytes": 184320,
+      "status": "ready",
+      "folder_id": "fold_abc123",
+      "tags": ["tag_hr", "tag_policy"],
+      "is_duplicate": false,
+      "duplicate_of": [],
+      "total_chunks": 42,
+      "created_at": "2026-06-07T09:12:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**Ошибки:** `400` `invalid_cursor`, `401`, `403`, `429`, `500`.
+
+---
+
+### `GET /knowledge/documents/search`
+
+Ищите документы по строке запроса. Возвращает страницу с курсорной пагинацией из `Document`s, ранжированных по релевантности, с теми же необязательными фильтрами, что и у endpoint перечисления.
+
+**Scope:** `knowledge:read` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `q` | query | string | Нет | Строка поискового запроса. |
+| `limit` | query | integer | Нет | Размер страницы, 1–100. По умолчанию 20. |
+| `cursor` | query | string | Нет | `next_cursor` с предыдущей страницы. |
+| `folder_id` | query | string | Нет | Ограничить папкой. |
+| `tag` | query | string | Нет | Ограничить id tag. |
+| `status` | query | string | Нет | Ограничить статусом обработки. |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/search?q=parental%20leave" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "doc_9f2a7b",
+      "filename": "handbook.pdf",
+      "title": "Employee Handbook",
+      "description": null,
+      "file_format": "pdf",
+      "file_size_bytes": 184320,
+      "status": "ready",
+      "folder_id": "fold_abc123",
+      "tags": ["tag_hr", "tag_policy"],
+      "is_duplicate": false,
+      "duplicate_of": [],
+      "total_chunks": 42,
+      "created_at": "2026-06-07T09:12:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**Ошибки:** `400`, `401`, `403`, `429`, `500`.
+
+---
+
+### `GET /knowledge/documents/{document_id}`
+
+Получите один документ по id.
+
+**Scope:** `knowledge:read` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | Да | Id документа. |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "doc_9f2a7b",
+  "filename": "handbook.pdf",
+  "title": "Employee Handbook",
+  "description": null,
+  "file_format": "pdf",
+  "file_size_bytes": 184320,
+  "status": "ready",
+  "folder_id": "fold_abc123",
+  "tags": ["tag_hr", "tag_policy"],
+  "is_duplicate": false,
+  "duplicate_of": [],
+  "total_chunks": 42,
+  "created_at": "2026-06-07T09:12:00Z",
+  "updated_at": "2026-06-07T09:13:20Z"
+}
+```
+
+**Ошибки:** `401`, `403`, `404` `document_not_found`, `429`, `500`.
+
+---
+
+### `GET /knowledge/documents/{document_id}/status`
+
+Опрашивайте статус асинхронной обработки документа. Используйте это, чтобы узнать, когда загрузка достигнет `ready`.
+
+**Scope:** `knowledge:read` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | Да | Id документа. |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "processing",
+  "progress": 60,
+  "error_message": null
+}
+```
+
+**Ошибки:** `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `GET /knowledge/documents/{document_id}/status/stream`
+
+Подпишитесь на поток Server-Sent Events со статусом обработки документа. Полезная нагрузка `data:` каждого события — это объект статуса (та же форма, что у endpoint опроса). Поток сразу выдаёт текущий статус, затем по одному событию на обновление и закрывается, когда статус достигает терминального состояния (`ready` или `failed`).
+
+**Scope:** `knowledge:read` · **Успех:** `200` (`text/event-stream`)
+
+Id документа вне вашей организации возвращает конверт ошибки `404` — а не пустой поток.
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | Да | Id документа. |
+
+```bash
+curl -N https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status/stream \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```
+data: {"document_id": "doc_9f2a7b", "status": "processing", "progress": 40, "error_message": null}
+
+data: {"document_id": "doc_9f2a7b", "status": "processing", "progress": 80, "error_message": null}
+
+data: {"document_id": "doc_9f2a7b", "status": "ready", "progress": 100, "error_message": null}
+```
+
+**Ошибки:** `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `DELETE /knowledge/documents/{document_id}`
+
+Удалите документ.
+
+**Scope:** `knowledge:write` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | Да | Id документа. |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "doc_9f2a7b",
+  "deleted": true
+}
+```
+
+**Ошибки:** `401`, `403`, `404`, `429`, `500`.
+
+## Организация
+
+### `POST /knowledge/folders`
+
+Создайте папку.
+
+**Scope:** `knowledge:write` · **Успех:** `201`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `name` | body | string | Да | Имя папки (1–100 символов). |
+| `description` | body | string | Нет | Описание (≤500 символов). |
+| `color` | body | string | Нет | Шестнадцатеричный цвет `#RRGGBB`. По умолчанию `#667eea`. |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "HR Policies", "color": "#667eea" }'
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR Policies",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 0,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**Ошибки:** `400` `folder_name_exists`, `401`, `403`, `429`, `500`.
+
+---
+
+### `GET /knowledge/folders`
+
+Перечислите папки с курсорной пагинацией.
+
+**Scope:** `knowledge:read` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | Нет | Размер страницы, 1–100. По умолчанию 20. |
+| `cursor` | query | string | Нет | `next_cursor` с предыдущей страницы. |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders?limit=20" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "fold_abc123",
+      "name": "HR Policies",
+      "description": null,
+      "color": "#667eea",
+      "document_count": 12,
+      "created_at": "2026-06-07T09:00:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**Ошибки:** `400`, `401`, `403`, `429`, `500`.
+
+---
+
+### `GET /knowledge/folders/{folder_id}`
+
+Получите папку по id.
+
+**Scope:** `knowledge:read` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | Да | Id папки. |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR Policies",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 12,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T09:13:20Z"
+}
+```
+
+**Ошибки:** `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `PATCH /knowledge/folders/{folder_id}`
+
+Обновите папку. Все поля тела необязательны; опущенные поля остаются без изменений.
+
+**Scope:** `knowledge:write` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | Да | Id папки. |
+| `name` | body | string | Нет | Новое имя (1–100 символов). |
+| `description` | body | string | Нет | Новое описание (≤500 символов). |
+| `color` | body | string | Нет | Новый шестнадцатеричный цвет `#RRGGBB`. |
+
+```bash
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "HR & Compliance" }'
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR & Compliance",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 12,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T10:01:00Z"
+}
+```
+
+**Ошибки:** `400` `folder_name_exists`, `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `DELETE /knowledge/folders/{folder_id}`
+
+Удалите **пустую** папку. Папка, которая всё ещё содержит документы, возвращает `400` `folder_not_empty` — сначала переместите или удалите её документы.
+
+**Scope:** `knowledge:write` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | Да | Id папки. |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "deleted": true
+}
+```
+
+**Ошибки:** `400` `folder_not_empty`, `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `POST /knowledge/tags`
+
+Создайте tag.
+
+**Scope:** `knowledge:write` · **Успех:** `201`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `name` | body | string | Да | Имя tag (1–50 символов). |
+| `color` | body | string | Да | Шестнадцатеричный цвет `#RRGGBB`. |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "policy", "color": "#10b981" }'
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#10b981",
+  "document_count": 0,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**Ошибки:** `400` `tag_name_exists`, `401`, `403`, `429`, `500`.
+
+---
+
+### `GET /knowledge/tags`
+
+Перечислите tags с курсорной пагинацией.
+
+**Scope:** `knowledge:read` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | Нет | Размер страницы, 1–100. По умолчанию 20. |
+| `cursor` | query | string | Нет | `next_cursor` с предыдущей страницы. |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags?limit=20" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "tag_policy",
+      "name": "policy",
+      "color": "#10b981",
+      "document_count": 7,
+      "created_at": "2026-06-07T09:00:00Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**Ошибки:** `400`, `401`, `403`, `429`, `500`.
+
+---
+
+### `GET /knowledge/tags/{tag_id}`
+
+Получите tag по id.
+
+**Scope:** `knowledge:read` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | Да | Id tag. |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#10b981",
+  "document_count": 7,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**Ошибки:** `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `PATCH /knowledge/tags/{tag_id}`
+
+Обновите tag. Все поля тела необязательны.
+
+**Scope:** `knowledge:write` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | Да | Id tag. |
+| `name` | body | string | Нет | Новое имя (1–50 символов). |
+| `color` | body | string | Нет | Новый шестнадцатеричный цвет `#RRGGBB`. |
+
+```bash
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "color": "#3b82f6" }'
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#3b82f6",
+  "document_count": 7,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**Ошибки:** `400` `tag_name_exists`, `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `DELETE /knowledge/tags/{tag_id}`
+
+Удалите tag. Это также удаляет tag из каждого документа, к которому он был применён.
+
+**Scope:** `knowledge:write` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | Да | Id tag для удаления. |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "tag_policy",
+  "deleted": true
+}
+```
+
+**Ошибки:** `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `PUT /knowledge/documents/{document_id}/folder`
+
+Переместите документ в папку или извлеките его из папки, передав `folder_id: null`.
+
+**Scope:** `knowledge:write` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | Да | Id документа. |
+| `folder_id` | body | string \| null | Нет | Id целевой папки или `null` для извлечения из папки. |
+
+```bash
+curl -X PUT https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/folder \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "folder_id": "fold_abc123" }'
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "folder_id": "fold_abc123"
+}
+```
+
+**Ошибки:** `400`, `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `POST /knowledge/documents/{document_id}/tags`
+
+Добавьте один или несколько tags к документу. Ответ — это **полный** набор tags документа после добавления.
+
+**Scope:** `knowledge:write` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | Да | Id документа. |
+| `tag_ids` | body | array of string | Да | Id tags для добавления (1–20). |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "tag_ids": ["tag_hr", "tag_policy"] }'
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "tag_ids": ["tag_hr", "tag_policy"]
+}
+```
+
+**Ошибки:** `400`, `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `DELETE /knowledge/documents/{document_id}/tags/{tag_id}`
+
+Удалите один tag из документа. Ответ — это **оставшийся** набор tags документа.
+
+**Scope:** `knowledge:write` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | Да | Id документа. |
+| `tag_id` | path | string | Да | Id tag для удаления. |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "tag_ids": ["tag_hr"]
+}
+```
+
+**Ошибки:** `401`, `403`, `404`, `429`, `500`.

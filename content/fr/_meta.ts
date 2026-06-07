@@ -6,6 +6,7 @@ const meta: MetaRecord = {
   agents: { title: 'Agents', type: 'page' },
   'knowledge-base': { title: 'Contenu', type: 'page' },
   integrations: { title: 'Intégrations', type: 'page' },
+  'api-reference': { title: 'Référence de l\'API', type: 'page' },
   analytics: { title: 'Analytique', type: 'page' },
   billing: { title: 'Facturation et Plans', type: 'page' },
 }

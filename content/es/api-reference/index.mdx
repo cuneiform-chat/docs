@@ -1,0 +1,86 @@
+---
+description: La API REST para Desarrolladores de Cuneiform Chat — gestiona documentos de knowledge, configura agents y ejecuta agents de forma programática sobre una superficie /v1 con credenciales.
+---
+
+# Referencia de la API
+
+La **API REST para Desarrolladores** de Cuneiform Chat permite que tus desarrolladores gestionen documentos de knowledge, creen y configuren agents, y ejecuten agents de forma programática — las mismas capacidades que expone el panel de administración, disponibles sobre una superficie HTTP con credenciales y versionada.
+
+Esta referencia documenta el contrato público **`/v1`**: cada endpoint, sus parámetros, una solicitud de ejemplo y la forma exacta de la respuesta.
+
+## URL base
+
+Todos los endpoints viven bajo una única URL base versionada:
+
+```
+https://core-api.cuneiform.chat/api/developer/v1
+```
+
+La ruta completa de un endpoint es la URL base más la ruta mostrada en cada página — por ejemplo, `GET /agents` es:
+
+```
+https://core-api.cuneiform.chat/api/developer/v1/agents
+```
+
+## Versionado
+
+La API se versiona **en el prefijo de la URL** (`/v1`). No hay versionado basado en encabezados ni en fechas — la versión que llamas es la versión que está en la ruta. El contrato `/v1` es **estable**: los campos solo se agregan, nunca se eliminan ni se reutilizan, y una nueva versión mayor (si alguna vez fuera necesaria) se publicaría bajo un nuevo prefijo. Consulta la nota del [Registro de Cambios](/api-reference/conventions) para conocer la línea base de la versión.
+
+## Autenticación en una línea
+
+Cada solicitud se autentica con una API key de desarrollador (`cuk_…`), enviada como un token Bearer:
+
+```
+Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx
+```
+
+La key se resuelve a tu organización y a los scopes que se le concedieron — nunca pasas un id de organización. Consulta [Autenticación](/api-reference/authentication) y [API Keys](/api-reference/api-keys) para conocer el contrato completo.
+
+## Tu primera llamada
+
+1. **Genera una key.** En el panel de administración, abre la consola de desarrollador en **`/org/developer-api`**, crea una key y copia el secreto (se muestra solo una vez — consulta [API Keys](/api-reference/api-keys)).
+2. **Llama a la API.** Lista tus agents:
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+Una respuesta exitosa es una página paginada por cursor:
+
+```json
+{
+  "data": [
+    {
+      "id": "agt_123",
+      "name": "Support Bot",
+      "status": "active"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+## Cómo leer esta referencia
+
+Cada endpoint se documenta con una descripción de una línea, una tabla de **Parámetros** (ruta, query, encabezado y cuerpo), un ejemplo de **solicitud** `curl` y un ejemplo de **respuesta**. El scope requerido, el estado de éxito y las categorías de error relevantes se indican por endpoint.
+
+| Página | Qué cubre |
+|------|----------------|
+| [Autenticación](/api-reference/authentication) | Las dos formas de presentar tu key; a qué se resuelve una key |
+| [API Keys](/api-reference/api-keys) | Crear, listar, rotar y revocar keys; entornos; la taxonomía de scopes |
+| [Convenciones](/api-reference/conventions) | Paginación por cursor, solicitudes idempotentes, tipo de contenido, marcas de tiempo |
+| [Errores](/api-reference/errors) | La envoltura de error y las siete categorías de error |
+| [Límites de Tasa](/api-reference/rate-limits) | Los encabezados `RateLimit-*` y el contrato `429` |
+| Knowledge | Documentos (subir, estado, buscar, eliminar) y organización (carpetas, tags) |
+| Agents | Crear, listar, actualizar, eliminar, restaurar y configurar agents |
+| Consulta de Agent | Ejecutar un agent — JSON bloqueante o una respuesta SSE en streaming |
+
+## Especificación OpenAPI
+
+El contrato completo también se publica como una especificación **OpenAPI 3.1** redactada a mano, [`openapi.yaml`](/openapi.yaml), descargable junto a esta referencia. Es la única fuente de verdad contra la que se escriben estas páginas — cada campo del esquema es uno que la API realmente devuelve, y ningún campo interno aparece.
+
+## Elegibilidad
+
+La API REST para Desarrolladores está disponible en **Starter y superiores**. Las organizaciones en Trial no pueden generar keys; un intento devuelve un `403` `tier_error`.

@@ -1,0 +1,64 @@
+---
+description: Límites de tasa de la API para Desarrolladores — los encabezados de respuesta RateLimit-*, el contrato 429 + Retry-After y la ventana por organización, por minuto.
+---
+
+# Límites de Tasa
+
+La API para Desarrolladores está limitada por tasa **por organización, por minuto**, con el presupuesto definido por tu plan. Cada respuesta autenticada con key te indica exactamente dónde estás, para que puedas regular tu tráfico antes de alcanzar el límite.
+
+## Encabezados de límite de tasa
+
+Cada respuesta autenticada con key lleva tres encabezados:
+
+| Encabezado | Significado |
+|--------|---------|
+| `RateLimit-Limit` | El cupo de solicitudes de tu organización para la ventana actual. |
+| `RateLimit-Remaining` | Solicitudes restantes en la ventana actual. |
+| `RateLimit-Reset` | Segundos hasta que se reinicie la ventana actual. |
+
+La ventana es una **ventana deslizante de 60 segundos** — el presupuesto por plan se expresa por minuto. Lee `RateLimit-Remaining` y reduce la velocidad a medida que se acerque a cero.
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 120
+RateLimit-Remaining: 117
+RateLimit-Reset: 41
+Content-Type: application/json
+```
+
+## Cuando superas el límite
+
+Una solicitud que excede el presupuesto devuelve `429` con la [envoltura de error](/api-reference/errors) estándar y un encabezado **`Retry-After`** que te indica cuántos segundos esperar:
+
+```
+HTTP/1.1 429 Too Many Requests
+Retry-After: 41
+RateLimit-Limit: 120
+RateLimit-Remaining: 0
+RateLimit-Reset: 41
+Content-Type: application/json
+```
+
+```json
+{
+  "error": {
+    "type": "rate_limit_error",
+    "code": "rate_limit_exceeded",
+    "message": "You have exceeded your plan's request allowance."
+  }
+}
+```
+
+## Manejar el 429
+
+- Respeta `Retry-After` — espera el número de segundos indicado antes de reintentar.
+- Aplica un retroceso exponencial si sigues recibiendo `429`.
+- Usa `RateLimit-Remaining` de forma proactiva para limitar ráfagas antes de que sean rechazadas.
+
+## Fallo abierto
+
+El limitador de tasa está diseñado para **fallar abierto**: si el propio limitador no está disponible, las solicitudes pasan en lugar de bloquearse. Nunca deberías ver `429` espurios causados por una caída del limitador — pero tampoco debes confiar en el limitador para imponer la corrección en tu propio cliente. Regula tu tráfico usando los encabezados `RateLimit-*`.
+
+## Cupo de consultas
+
+Ejecutar un agent (`POST /agents/{id}/query`) se mide además contra el cupo de consultas de tu plan, del lado del servidor. Superarlo devuelve `429` en la vía bloqueante, o un único evento `error` en la vía de streaming. Consulta la página de Consulta de Agent para conocer los detalles.

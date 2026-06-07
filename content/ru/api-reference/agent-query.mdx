@@ -1,0 +1,126 @@
+---
+description: Запускайте agent через API — блокирующий ответ JSON или потоковый ответ Server-Sent Events со схемой событий v1.
+---
+
+# Запрос к Agent
+
+Запустите agent против запроса и получите его ответ. Единственный endpoint поддерживает два режима, выбираемых полем `stream` тела запроса: **блокирующий** ответ JSON (по умолчанию) или **потоковый** ответ Server-Sent Events.
+
+Запуск agent требует scope `agents:query`. Каждый запрос измеряется относительно лимита запросов к agent вашего тарифа на стороне сервера — его превышение возвращает `429` на блокирующем пути или один событие `error` на потоковом пути.
+
+## `POST /agents/{agent_id}/query`
+
+Запустите agent, идентифицированный по `agent_id`.
+
+**Scope:** `agents:query` · **Успех:** `200`
+
+| Параметр | В | Тип | Обязательный | Описание |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | Да | Agent для запуска. |
+| `query` | body | string | Да | Запрос пользователя (1–10000 символов). |
+| `stream` | body | boolean | Нет | Когда `true`, возвращает поток SSE. По умолчанию `false`. |
+| `conversation_id` | body | string | Нет | Продолжает многоходовой разговор. Имеет приоритет над `session_id`. |
+| `session_id` | body | string | Нет | Альтернативный многоходовой key (игнорируется, если задан `conversation_id`). |
+| `Idempotency-Key` | header | string | Нет | Key безопасного повтора. Учитывается на блокирующем пути; **игнорируется** при `stream: true`. |
+
+### Блокирующий режим (по умолчанию)
+
+При `stream`, опущенном или равном `false`, endpoint возвращает одно тело JSON после завершения запуска.
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/query \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "query": "What is the parental leave policy?" }'
+```
+
+```json
+{
+  "agent_id": "agt_7c1d8e",
+  "conversation_id": "conv_4d8a1f",
+  "response": "Eligible employees receive 16 weeks of paid parental leave...",
+  "tools_used": [
+    { "name": "knowledge_search", "status": "complete" }
+  ],
+  "usage": {
+    "prompt_tokens": 820,
+    "completion_tokens": 145,
+    "total_tokens": 965
+  },
+  "latency_ms": 1840,
+  "created_at": "2026-06-07T12:00:00Z"
+}
+```
+
+| Поле | Тип | Описание |
+|-------|------|-------------|
+| `agent_id` | string | Agent, который выполнился. |
+| `conversation_id` | string \| null | Передайте обратно как `conversation_id`, чтобы продолжить разговор. |
+| `response` | string | Текст ответа agent. |
+| `tools_used` | array | Инструменты, которые вызвал agent, каждый как `{name, status}`. `status` — `complete` или `error`. |
+| `usage` | object | Подсчёты токенов: `prompt_tokens`, `completion_tokens`, `total_tokens`. Стоимость не возвращается. |
+| `latency_ms` | integer \| null | Фактическая задержка ответа в миллисекундах. |
+| `created_at` | string \| null | Когда был дан ответ на запрос (ISO-8601). |
+
+Чтобы продолжить многоходовой разговор, отправьте `conversation_id` из предыдущего ответа при следующем вызове.
+
+### Потоковый режим (SSE)
+
+При `stream: true` endpoint возвращает `text/event-stream` из Server-Sent Events. Задайте `stream: true` в теле и читайте ответ инкрементально.
+
+```bash
+curl -N -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/query \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "query": "What is the parental leave policy?", "stream": true }'
+```
+
+#### Схема событий v1
+
+Поток v1 выдаёт ровно **шесть** имён событий. Любое другое внутреннее событие отбрасывается — ваш клиент видит только эти:
+
+| Событие | Когда | Полезная нагрузка `data:` |
+|-------|------|-----------------|
+| `start` | Запуск начался. | `{ "agent_id", "conversation_id" }` |
+| `content` | Инкрементальный фрагмент текста ответа. | `{ "delta": "..." }` |
+| `tool_call` | Началось вызов инструмента. | `{ "tool": "...", "status": "running" }` |
+| `tool_result` | Вызов инструмента завершился. | `{ "tool": "...", "status": "complete" }` |
+| `done` | Запуск завершился. | `{ "tokens_used", "latency_ms", "conversation_id" }` |
+| `error` | Запуск завершился неудачно или был отклонён (например, превышен лимит). | `{ "error": "..." }` |
+
+Поле стоимости не появляется ни в одном событии — `done` несёт только подсчёты токенов и задержку.
+
+#### Пример транскрипта
+
+Успешный потоковый запуск выглядит на проводе так:
+
+```
+event: start
+data: {"agent_id": "agt_7c1d8e", "conversation_id": "conv_4d8a1f"}
+
+event: content
+data: {"delta": "Eligible employees receive "}
+
+event: tool_call
+data: {"tool": "knowledge_search", "status": "running"}
+
+event: tool_result
+data: {"tool": "knowledge_search", "status": "complete"}
+
+event: content
+data: {"delta": "16 weeks of paid parental leave."}
+
+event: done
+data: {"tokens_used": 965, "latency_ms": 1840, "conversation_id": "conv_4d8a1f"}
+```
+
+Соедините значения `delta` из каждого события `content`, чтобы собрать полный ответ. Событие `done` сигнализирует о конце потока.
+
+Отказ — например, превышение лимита запросов к agent — приходит как один событие `error`:
+
+```
+event: error
+data: {"error": "Query allowance exceeded."}
+```
+
+**Ошибки:** `400`, `401`, `403` (scope), `404` `agent_not_found`, `429` (лимит запросов к agent, блокирующий путь), `500`.

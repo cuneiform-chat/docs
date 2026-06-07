@@ -1,0 +1,732 @@
+---
+description: Endpoints de Knowledge — téléverser, lister, rechercher, récupérer, suivre et supprimer des documents, ainsi que l'organisation par dossiers et tags.
+---
+
+# Knowledge
+
+Les endpoints de Knowledge gèrent les documents dont vos agents s'inspirent, ainsi que les dossiers et tags qui les organisent. Il y a deux groupes :
+
+- **Documents** — téléverser (asynchrone), lister, rechercher, récupérer, suivre le traitement et supprimer.
+- **Organisation** — CRUD de dossiers, CRUD de tags et organisation de documents (déplacer vers un dossier, ajouter ou retirer des tags).
+
+Tous les endpoints sont sous `/knowledge` et nécessitent un scope `knowledge:read` pour les lectures ou un scope `knowledge:write` pour les écritures. Chaque réponse utilise les formes en refus par défaut documentées ici — les détails internes de stockage (clés S3, hachages de fichiers, types MIME), les détails internes de chunking et d'embedding, et les chiffres de coût ne sont jamais renvoyés.
+
+## Documents
+
+### Le modèle de téléversement asynchrone
+
+Téléverser un document **ne bloque pas pendant le traitement**. `POST /knowledge/documents` renvoie `201` avec `{document_id, status}` dès que le fichier est accepté, puis le document avance dans un cycle de vie asynchrone :
+
+```
+uploaded → validating → stored → processing → ready
+```
+
+(ou `failed` en cas d'erreur). Pour le suivre, soit **interrogez** `GET /knowledge/documents/{document_id}/status`, soit **abonnez-vous** au stream SSE `GET /knowledge/documents/{document_id}/status/stream`. Ce n'est qu'une fois un document `ready` qu'il devient consultable et utilisable par un agent.
+
+---
+
+### `POST /knowledge/documents`
+
+Téléversez un fichier vers la base de knowledge. Asynchrone — renvoie `201` immédiatement avec l'id du nouveau document et son statut initial (non terminal). Si le fichier correspond à un document existant, l'endpoint renvoie `409` avec un corps de doublon structuré (voir ci-dessous), **et non** l'enveloppe d'erreur.
+
+**Scope :** `knowledge:write` · **Succès :** `201`
+
+Cet endpoint prend `multipart/form-data`, pas du JSON.
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `file` | form | file | Oui | Le fichier du document à téléverser. |
+| `title` | form | string | Non | Un titre d'affichage. Par défaut le nom du fichier. |
+| `description` | form | string | Non | Une description en texte libre. |
+| `tags` | form | string | Non | Ids de tags séparés par des virgules à appliquer au téléversement. |
+| `folder_id` | form | string | Non | Le dossier dans lequel classer le document. |
+| `visibility` | form | string | Non | Visibilité d'accès. Par défaut `private`. |
+| `Idempotency-Key` | header | string | Non | Key de nouvelle tentative sûre (consultez [Conventions](/api-reference/conventions)). |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -F "file=@handbook.pdf" \
+  -F "title=Employee Handbook" \
+  -F "folder_id=fold_abc123" \
+  -F "tags=tag_hr,tag_policy"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "uploaded"
+}
+```
+
+**Doublon détecté (`409`).** Lorsque le fichier téléversé correspond à un document existant, la réponse est un corps structuré — et non l'enveloppe d'erreur — portant un `upload_session_id` que vous transmettez à `confirm-duplicate` pour continuer malgré tout :
+
+```json
+{
+  "upload_session_id": "ups_abc123",
+  "duplicate_of": ["doc_existing456"]
+}
+```
+
+**Erreurs :** `400` `invalid_upload` (fichier invalide), `401`, `403`, `429`, `500`.
+
+---
+
+### `POST /knowledge/documents/confirm-duplicate`
+
+Reprenez un téléversement signalé comme doublon, identifié par le `upload_session_id` du corps `409`. Comme le téléversement, ceci est asynchrone et renvoie `201` avec `{document_id, status}`.
+
+**Scope :** `knowledge:write` · **Succès :** `201`
+
+Cet endpoint prend `multipart/form-data`.
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `upload_session_id` | form | string | Oui | L'id du corps de doublon `409`. |
+| `title` | form | string | Non | Un titre d'affichage. |
+| `description` | form | string | Non | Une description en texte libre. |
+| `tags` | form | string | Non | Ids de tags séparés par des virgules. |
+| `folder_id` | form | string | Non | Le dossier dans lequel classer. |
+| `visibility` | form | string | Non | Par défaut `private`. |
+| `Idempotency-Key` | header | string | Non | Key de nouvelle tentative sûre. |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/confirm-duplicate \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -F "upload_session_id=ups_abc123" \
+  -F "folder_id=fold_abc123"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "uploaded"
+}
+```
+
+**Erreurs :** `400`, `401`, `403`, `404` (session inconnue), `429`, `500`.
+
+---
+
+### `GET /knowledge/documents`
+
+Listez les documents, paginés par curseur. Des filtres optionnels restreignent par dossier, tag ou statut de traitement.
+
+**Scope :** `knowledge:read` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | Non | Taille de page, 1–100. Par défaut 20. |
+| `cursor` | query | string | Non | Le `next_cursor` de la page précédente. |
+| `folder_id` | query | string | Non | Restreindre à un dossier. |
+| `tag` | query | string | Non | Restreindre à un id de tag. |
+| `status` | query | string | Non | Restreindre à un statut de traitement. |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents?limit=20&status=ready" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "doc_9f2a7b",
+      "filename": "handbook.pdf",
+      "title": "Employee Handbook",
+      "description": null,
+      "file_format": "pdf",
+      "file_size_bytes": 184320,
+      "status": "ready",
+      "folder_id": "fold_abc123",
+      "tags": ["tag_hr", "tag_policy"],
+      "is_duplicate": false,
+      "duplicate_of": [],
+      "total_chunks": 42,
+      "created_at": "2026-06-07T09:12:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**Erreurs :** `400` `invalid_cursor`, `401`, `403`, `429`, `500`.
+
+---
+
+### `GET /knowledge/documents/search`
+
+Recherchez des documents par une chaîne de requête. Renvoie une page paginée par curseur de `Document`s classés par pertinence, avec les mêmes filtres optionnels que l'endpoint de liste.
+
+**Scope :** `knowledge:read` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `q` | query | string | Non | La chaîne de requête de recherche. |
+| `limit` | query | integer | Non | Taille de page, 1–100. Par défaut 20. |
+| `cursor` | query | string | Non | Le `next_cursor` de la page précédente. |
+| `folder_id` | query | string | Non | Restreindre à un dossier. |
+| `tag` | query | string | Non | Restreindre à un id de tag. |
+| `status` | query | string | Non | Restreindre à un statut de traitement. |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/search?q=parental%20leave" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "doc_9f2a7b",
+      "filename": "handbook.pdf",
+      "title": "Employee Handbook",
+      "description": null,
+      "file_format": "pdf",
+      "file_size_bytes": 184320,
+      "status": "ready",
+      "folder_id": "fold_abc123",
+      "tags": ["tag_hr", "tag_policy"],
+      "is_duplicate": false,
+      "duplicate_of": [],
+      "total_chunks": 42,
+      "created_at": "2026-06-07T09:12:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**Erreurs :** `400`, `401`, `403`, `429`, `500`.
+
+---
+
+### `GET /knowledge/documents/{document_id}`
+
+Récupérez un seul document par id.
+
+**Scope :** `knowledge:read` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | Oui | L'id du document. |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "doc_9f2a7b",
+  "filename": "handbook.pdf",
+  "title": "Employee Handbook",
+  "description": null,
+  "file_format": "pdf",
+  "file_size_bytes": 184320,
+  "status": "ready",
+  "folder_id": "fold_abc123",
+  "tags": ["tag_hr", "tag_policy"],
+  "is_duplicate": false,
+  "duplicate_of": [],
+  "total_chunks": 42,
+  "created_at": "2026-06-07T09:12:00Z",
+  "updated_at": "2026-06-07T09:13:20Z"
+}
+```
+
+**Erreurs :** `401`, `403`, `404` `document_not_found`, `429`, `500`.
+
+---
+
+### `GET /knowledge/documents/{document_id}/status`
+
+Interrogez le statut de traitement asynchrone d'un document. Utilisez ceci pour savoir quand un téléversement atteint `ready`.
+
+**Scope :** `knowledge:read` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | Oui | L'id du document. |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "processing",
+  "progress": 60,
+  "error_message": null
+}
+```
+
+**Erreurs :** `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `GET /knowledge/documents/{document_id}/status/stream`
+
+Abonnez-vous à un stream de Server-Sent Events du statut de traitement d'un document. La charge utile `data:` de chaque événement est un objet de statut (la même forme que l'endpoint d'interrogation). Le stream émet le statut actuel immédiatement, puis un événement par mise à jour, et se ferme lorsque le statut atteint un état terminal (`ready` ou `failed`).
+
+**Scope :** `knowledge:read` · **Succès :** `200` (`text/event-stream`)
+
+Un id de document en dehors de votre organisation renvoie une enveloppe d'erreur `404` — et non un stream vide.
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | Oui | L'id du document. |
+
+```bash
+curl -N https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status/stream \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```
+data: {"document_id": "doc_9f2a7b", "status": "processing", "progress": 40, "error_message": null}
+
+data: {"document_id": "doc_9f2a7b", "status": "processing", "progress": 80, "error_message": null}
+
+data: {"document_id": "doc_9f2a7b", "status": "ready", "progress": 100, "error_message": null}
+```
+
+**Erreurs :** `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `DELETE /knowledge/documents/{document_id}`
+
+Supprimez un document.
+
+**Scope :** `knowledge:write` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | Oui | L'id du document. |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "doc_9f2a7b",
+  "deleted": true
+}
+```
+
+**Erreurs :** `401`, `403`, `404`, `429`, `500`.
+
+## Organisation
+
+### `POST /knowledge/folders`
+
+Créez un dossier.
+
+**Scope :** `knowledge:write` · **Succès :** `201`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `name` | body | string | Oui | Nom du dossier (1–100 caractères). |
+| `description` | body | string | Non | Une description (≤500 caractères). |
+| `color` | body | string | Non | Une couleur hexadécimale `#RRGGBB`. Par défaut `#667eea`. |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "HR Policies", "color": "#667eea" }'
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR Policies",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 0,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**Erreurs :** `400` `folder_name_exists`, `401`, `403`, `429`, `500`.
+
+---
+
+### `GET /knowledge/folders`
+
+Listez les dossiers, paginés par curseur.
+
+**Scope :** `knowledge:read` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | Non | Taille de page, 1–100. Par défaut 20. |
+| `cursor` | query | string | Non | Le `next_cursor` de la page précédente. |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders?limit=20" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "fold_abc123",
+      "name": "HR Policies",
+      "description": null,
+      "color": "#667eea",
+      "document_count": 12,
+      "created_at": "2026-06-07T09:00:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**Erreurs :** `400`, `401`, `403`, `429`, `500`.
+
+---
+
+### `GET /knowledge/folders/{folder_id}`
+
+Récupérez un dossier par id.
+
+**Scope :** `knowledge:read` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | Oui | L'id du dossier. |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR Policies",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 12,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T09:13:20Z"
+}
+```
+
+**Erreurs :** `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `PATCH /knowledge/folders/{folder_id}`
+
+Mettez à jour un dossier. Tous les champs du corps sont optionnels ; les champs omis restent inchangés.
+
+**Scope :** `knowledge:write` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | Oui | L'id du dossier. |
+| `name` | body | string | Non | Nouveau nom (1–100 caractères). |
+| `description` | body | string | Non | Nouvelle description (≤500 caractères). |
+| `color` | body | string | Non | Nouvelle couleur hexadécimale `#RRGGBB`. |
+
+```bash
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "HR & Compliance" }'
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR & Compliance",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 12,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T10:01:00Z"
+}
+```
+
+**Erreurs :** `400` `folder_name_exists`, `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `DELETE /knowledge/folders/{folder_id}`
+
+Supprimez un dossier **vide**. Un dossier qui contient encore des documents renvoie `400` `folder_not_empty` — déplacez ou supprimez ses documents d'abord.
+
+**Scope :** `knowledge:write` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | Oui | L'id du dossier. |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "deleted": true
+}
+```
+
+**Erreurs :** `400` `folder_not_empty`, `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `POST /knowledge/tags`
+
+Créez un tag.
+
+**Scope :** `knowledge:write` · **Succès :** `201`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `name` | body | string | Oui | Nom du tag (1–50 caractères). |
+| `color` | body | string | Oui | Une couleur hexadécimale `#RRGGBB`. |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "policy", "color": "#10b981" }'
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#10b981",
+  "document_count": 0,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**Erreurs :** `400` `tag_name_exists`, `401`, `403`, `429`, `500`.
+
+---
+
+### `GET /knowledge/tags`
+
+Listez les tags, paginés par curseur.
+
+**Scope :** `knowledge:read` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | Non | Taille de page, 1–100. Par défaut 20. |
+| `cursor` | query | string | Non | Le `next_cursor` de la page précédente. |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags?limit=20" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "tag_policy",
+      "name": "policy",
+      "color": "#10b981",
+      "document_count": 7,
+      "created_at": "2026-06-07T09:00:00Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**Erreurs :** `400`, `401`, `403`, `429`, `500`.
+
+---
+
+### `GET /knowledge/tags/{tag_id}`
+
+Récupérez un tag par id.
+
+**Scope :** `knowledge:read` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | Oui | L'id du tag. |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#10b981",
+  "document_count": 7,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**Erreurs :** `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `PATCH /knowledge/tags/{tag_id}`
+
+Mettez à jour un tag. Tous les champs du corps sont optionnels.
+
+**Scope :** `knowledge:write` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | Oui | L'id du tag. |
+| `name` | body | string | Non | Nouveau nom (1–50 caractères). |
+| `color` | body | string | Non | Nouvelle couleur hexadécimale `#RRGGBB`. |
+
+```bash
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "color": "#3b82f6" }'
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#3b82f6",
+  "document_count": 7,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**Erreurs :** `400` `tag_name_exists`, `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `DELETE /knowledge/tags/{tag_id}`
+
+Supprimez un tag. Ceci retire aussi le tag de chaque document auquel il était appliqué.
+
+**Scope :** `knowledge:write` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | Oui | L'id du tag à supprimer. |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "tag_policy",
+  "deleted": true
+}
+```
+
+**Erreurs :** `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `PUT /knowledge/documents/{document_id}/folder`
+
+Déplacez un document dans un dossier, ou retirez-le de son dossier en transmettant `folder_id: null`.
+
+**Scope :** `knowledge:write` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | Oui | L'id du document. |
+| `folder_id` | body | string \| null | Non | L'id du dossier cible, ou `null` pour le retirer du dossier. |
+
+```bash
+curl -X PUT https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/folder \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "folder_id": "fold_abc123" }'
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "folder_id": "fold_abc123"
+}
+```
+
+**Erreurs :** `400`, `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `POST /knowledge/documents/{document_id}/tags`
+
+Ajoutez un ou plusieurs tags à un document. La réponse est l'ensemble **complet** des tags du document après l'ajout.
+
+**Scope :** `knowledge:write` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | Oui | L'id du document. |
+| `tag_ids` | body | array of string | Oui | Les ids de tags à ajouter (1–20). |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "tag_ids": ["tag_hr", "tag_policy"] }'
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "tag_ids": ["tag_hr", "tag_policy"]
+}
+```
+
+**Erreurs :** `400`, `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `DELETE /knowledge/documents/{document_id}/tags/{tag_id}`
+
+Retirez un seul tag d'un document. La réponse est l'ensemble **restant** des tags du document.
+
+**Scope :** `knowledge:write` · **Succès :** `200`
+
+| Paramètre | Dans | Type | Requis | Description |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | Oui | L'id du document. |
+| `tag_id` | path | string | Oui | L'id du tag à retirer. |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "tag_ids": ["tag_hr"]
+}
+```
+
+**Erreurs :** `401`, `403`, `404`, `429`, `500`.

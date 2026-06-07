@@ -1,0 +1,126 @@
+---
+description: شغّل agent عبر الواجهة — إجابة JSON حاجبة، أو استجابة Server-Sent Events متدفقة بمخطط أحداث v1.
+---
+
+# استعلام Agent
+
+شغّل agent مقابل استعلام واستقبل إجابته. يدعم الـ endpoint الواحد وضعين، يُختاران بحقل `stream` في جسم الطلب: استجابة JSON **حاجبة** (الافتراضي) أو استجابة Server-Sent Events **متدفقة**.
+
+يتطلب تشغيل agent الـ scope بقيمة `agents:query`. يُقاس كل استعلام مقابل حصة استعلام خطتك من جهة الخادم — تجاوزها يُرجع `429` على المسار الحاجب، أو حدث `error` واحد على مسار التدفق.
+
+## `POST /agents/{agent_id}/query`
+
+شغّل الـ agent المُعرَّف بـ `agent_id`.
+
+**Scope:** `agents:query` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | نعم | الـ agent المراد تشغيله. |
+| `query` | body | string | نعم | استعلام المستخدم (1–10000 حرفًا). |
+| `stream` | body | boolean | لا | عندما يكون `true`، يُرجع تدفق SSE. الافتراضي `false`. |
+| `conversation_id` | body | string | لا | متابعة محادثة متعددة الأدوار. له الأسبقية على `session_id`. |
+| `session_id` | body | string | لا | key بديلة متعددة الأدوار (تُتجاهَل إذا كان `conversation_id` مضبوطًا). |
+| `Idempotency-Key` | header | string | لا | key إعادة محاولة آمنة ضد التكرار. تُحترَم على المسار الحاجب؛ و**تُتجاهَل** عندما يكون `stream: true`. |
+
+### الوضع الحاجب (الافتراضي)
+
+مع حذف `stream` أو ضبطه على `false`، يُرجع الـ endpoint جسم JSON واحدًا بمجرد اكتمال التشغيل.
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/query \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "query": "What is the parental leave policy?" }'
+```
+
+```json
+{
+  "agent_id": "agt_7c1d8e",
+  "conversation_id": "conv_4d8a1f",
+  "response": "Eligible employees receive 16 weeks of paid parental leave...",
+  "tools_used": [
+    { "name": "knowledge_search", "status": "complete" }
+  ],
+  "usage": {
+    "prompt_tokens": 820,
+    "completion_tokens": 145,
+    "total_tokens": 965
+  },
+  "latency_ms": 1840,
+  "created_at": "2026-06-07T12:00:00Z"
+}
+```
+
+| الحقل | النوع | الوصف |
+|-------|------|-------------|
+| `agent_id` | string | الـ agent الذي شُغِّل. |
+| `conversation_id` | string \| null | أرسله مجددًا كـ `conversation_id` لمتابعة المحادثة. |
+| `response` | string | نص إجابة الـ agent. |
+| `tools_used` | array | الأدوات التي استدعاها الـ agent، كلٌّ كـ `{name, status}`. `status` هو `complete` أو `error`. |
+| `usage` | object | عدّات الرموز: `prompt_tokens`، `completion_tokens`، `total_tokens`. لا تُرجَع أي تكلفة. |
+| `latency_ms` | integer \| null | زمن استجابة فعلي بالمللي ثانية. |
+| `created_at` | string \| null | متى أُجيب على الاستعلام (ISO-8601). |
+
+لمتابعة محادثة متعددة الأدوار، أرسل الـ `conversation_id` من استجابة سابقة في الاستدعاء التالي.
+
+### وضع التدفق (SSE)
+
+مع `stream: true`، يُرجع الـ endpoint `text/event-stream` من Server-Sent Events. اضبط `stream: true` في الجسم، واقرأ الاستجابة تدريجيًا.
+
+```bash
+curl -N -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/query \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "query": "What is the parental leave policy?", "stream": true }'
+```
+
+#### مخطط أحداث v1
+
+يُصدِر تدفق v1 ستة أسماء أحداث بالضبط. يُسقَط أي حدث داخلي آخر — لا يرى عميلك سوى هذه:
+
+| الحدث | متى | حمولة `data:` |
+|-------|------|-----------------|
+| `start` | بدأ التشغيل. | `{ "agent_id", "conversation_id" }` |
+| `content` | جزء تدريجي من نص الإجابة. | `{ "delta": "..." }` |
+| `tool_call` | بدأ استدعاء أداة. | `{ "tool": "...", "status": "running" }` |
+| `tool_result` | انتهى استدعاء أداة. | `{ "tool": "...", "status": "complete" }` |
+| `done` | اكتمل التشغيل. | `{ "tokens_used", "latency_ms", "conversation_id" }` |
+| `error` | فشل التشغيل أو رُفِض (مثل تجاوز الحصة). | `{ "error": "..." }` |
+
+لا يظهر حقل تكلفة على أي حدث — يحمل `done` عدّات الرموز والزمن فقط.
+
+#### نسخة نموذجية
+
+يبدو التشغيل المتدفق الناجح هكذا على السلك:
+
+```
+event: start
+data: {"agent_id": "agt_7c1d8e", "conversation_id": "conv_4d8a1f"}
+
+event: content
+data: {"delta": "Eligible employees receive "}
+
+event: tool_call
+data: {"tool": "knowledge_search", "status": "running"}
+
+event: tool_result
+data: {"tool": "knowledge_search", "status": "complete"}
+
+event: content
+data: {"delta": "16 weeks of paid parental leave."}
+
+event: done
+data: {"tokens_used": 965, "latency_ms": 1840, "conversation_id": "conv_4d8a1f"}
+```
+
+اجمع قيم `delta` من كل حدث `content` لبناء الإجابة الكاملة. يشير حدث `done` إلى نهاية التدفق.
+
+يصل الرفض — على سبيل المثال، تجاوز حصة استعلامك — كحدث `error` واحد:
+
+```
+event: error
+data: {"error": "Query allowance exceeded."}
+```
+
+**الأخطاء:** `400`، `401`، `403` (scope)، `404` `agent_not_found`، `429` (حصة الاستعلام، المسار الحاجب)، `500`.

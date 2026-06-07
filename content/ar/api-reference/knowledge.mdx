@@ -1,0 +1,732 @@
+---
+description: endpoints الخاصة بـ Knowledge — رفع وعرض وبحث وجلب وتتبّع وحذف المستندات، إضافةً إلى تنظيم المجلدات وtags.
+---
+
+# Knowledge
+
+تدير endpoints الخاصة بـ Knowledge المستندات التي يعتمد عليها agents الخاصون بك، إضافةً إلى المجلدات وtags التي تنظّمها. هناك مجموعتان:
+
+- **المستندات** — الرفع (غير المتزامن)، والعرض، والبحث، والجلب، وتتبّع المعالجة، والحذف.
+- **التنظيم** — CRUD للمجلدات، وCRUD لـ tags، وتنظيم المستندات (النقل إلى مجلد، إضافة أو إزالة tags).
+
+تقع جميع endpoints تحت `/knowledge` وتتطلب scope بقيمة `knowledge:read` للقراءة أو scope بقيمة `knowledge:write` للكتابة. تستخدم كل استجابة أشكال الرفض الافتراضي الموثّقة هنا — لا تُرجَع أبدًا تفاصيل التخزين الداخلية (مفاتيح S3، تجزئات الملفات، أنواع MIME)، ولا تفاصيل chunking وembedding الداخلية، ولا أرقام التكلفة.
+
+## المستندات
+
+### نموذج الرفع غير المتزامن
+
+رفع مستند **لا يُحجَب بانتظار المعالجة**. يُرجع `POST /knowledge/documents` الرمز `201` مع `{document_id, status}` لحظة قبول الملف، ثم يمر المستند عبر دورة حياة غير متزامنة:
+
+```
+uploaded → validating → stored → processing → ready
+```
+
+(أو `failed` عند الخطأ). لمتابعته، إما أن **تستفسر** عن `GET /knowledge/documents/{document_id}/status` أو **تشترك** في تدفق SSE التالي `GET /knowledge/documents/{document_id}/status/stream`. لا يصبح المستند قابلًا للبحث وقابلًا للاستخدام من قبل agent إلا بعد أن يصبح `ready`.
+
+---
+
+### `POST /knowledge/documents`
+
+ارفع ملفًا إلى قاعدة knowledge. غير متزامن — يُرجع `201` فورًا مع معرّف المستند الجديد وحالته الأولية (غير النهائية). إذا طابق الملف مستندًا موجودًا، يُرجع الـ endpoint الرمز `409` مع جسم مكرّر مُهيكَل (انظر أدناه)، **لا** غلاف الخطأ.
+
+**Scope:** `knowledge:write` · **النجاح:** `201`
+
+يأخذ هذا الـ endpoint `multipart/form-data`، لا JSON.
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `file` | form | file | نعم | ملف المستند المراد رفعه. |
+| `title` | form | string | لا | عنوان عرض. الافتراضي اسم الملف. |
+| `description` | form | string | لا | وصف نصي حر. |
+| `tags` | form | string | لا | معرّفات tags مفصولة بفواصل لتطبيقها عند الرفع. |
+| `folder_id` | form | string | لا | المجلد الذي يُحفَظ فيه المستند. |
+| `visibility` | form | string | لا | رؤية الوصول. الافتراضي `private`. |
+| `Idempotency-Key` | header | string | لا | key إعادة محاولة آمنة ضد التكرار (راجع [الاتفاقيات](/api-reference/conventions)). |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -F "file=@handbook.pdf" \
+  -F "title=Employee Handbook" \
+  -F "folder_id=fold_abc123" \
+  -F "tags=tag_hr,tag_policy"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "uploaded"
+}
+```
+
+**تم اكتشاف مكرّر (`409`).** عندما يطابق الملف المرفوع مستندًا موجودًا، تكون الاستجابة جسمًا مُهيكَلًا — لا غلاف الخطأ — يحمل `upload_session_id` تمرّره إلى `confirm-duplicate` للمتابعة على أي حال:
+
+```json
+{
+  "upload_session_id": "ups_abc123",
+  "duplicate_of": ["doc_existing456"]
+}
+```
+
+**الأخطاء:** `400` `invalid_upload` (ملف غير صالح)، `401`، `403`، `429`، `500`.
+
+---
+
+### `POST /knowledge/documents/confirm-duplicate`
+
+استأنف رفعًا وُسِم كمكرّر، مُعرَّفًا بـ `upload_session_id` من جسم الـ `409`. مثل الرفع، هذا غير متزامن ويُرجع `201` مع `{document_id, status}`.
+
+**Scope:** `knowledge:write` · **النجاح:** `201`
+
+يأخذ هذا الـ endpoint `multipart/form-data`.
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `upload_session_id` | form | string | نعم | المعرّف من جسم المكرّر `409`. |
+| `title` | form | string | لا | عنوان عرض. |
+| `description` | form | string | لا | وصف نصي حر. |
+| `tags` | form | string | لا | معرّفات tags مفصولة بفواصل. |
+| `folder_id` | form | string | لا | المجلد الذي يُحفَظ فيه. |
+| `visibility` | form | string | لا | الافتراضي `private`. |
+| `Idempotency-Key` | header | string | لا | key إعادة محاولة آمنة ضد التكرار. |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/confirm-duplicate \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -F "upload_session_id=ups_abc123" \
+  -F "folder_id=fold_abc123"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "uploaded"
+}
+```
+
+**الأخطاء:** `400`، `401`، `403`، `404` (جلسة غير معروفة)، `429`، `500`.
+
+---
+
+### `GET /knowledge/documents`
+
+اعرض المستندات، مُرقّمة بالمؤشر. تضيّق المرشّحات الاختيارية النطاق حسب المجلد أو tag أو حالة المعالجة.
+
+**Scope:** `knowledge:read` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | لا | حجم الصفحة، 1–100. الافتراضي 20. |
+| `cursor` | query | string | لا | الـ `next_cursor` من الصفحة السابقة. |
+| `folder_id` | query | string | لا | التقييد بمجلد. |
+| `tag` | query | string | لا | التقييد بمعرّف tag. |
+| `status` | query | string | لا | التقييد بحالة معالجة. |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents?limit=20&status=ready" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "doc_9f2a7b",
+      "filename": "handbook.pdf",
+      "title": "Employee Handbook",
+      "description": null,
+      "file_format": "pdf",
+      "file_size_bytes": 184320,
+      "status": "ready",
+      "folder_id": "fold_abc123",
+      "tags": ["tag_hr", "tag_policy"],
+      "is_duplicate": false,
+      "duplicate_of": [],
+      "total_chunks": 42,
+      "created_at": "2026-06-07T09:12:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**الأخطاء:** `400` `invalid_cursor`، `401`، `403`، `429`، `500`.
+
+---
+
+### `GET /knowledge/documents/search`
+
+ابحث في المستندات بسلسلة استعلام. يُرجع صفحة مُرقّمة بالمؤشر من `Document`s مرتّبة حسب الصلة، بنفس المرشّحات الاختيارية لـ endpoint العرض.
+
+**Scope:** `knowledge:read` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `q` | query | string | لا | سلسلة استعلام البحث. |
+| `limit` | query | integer | لا | حجم الصفحة، 1–100. الافتراضي 20. |
+| `cursor` | query | string | لا | الـ `next_cursor` من الصفحة السابقة. |
+| `folder_id` | query | string | لا | التقييد بمجلد. |
+| `tag` | query | string | لا | التقييد بمعرّف tag. |
+| `status` | query | string | لا | التقييد بحالة معالجة. |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/search?q=parental%20leave" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "doc_9f2a7b",
+      "filename": "handbook.pdf",
+      "title": "Employee Handbook",
+      "description": null,
+      "file_format": "pdf",
+      "file_size_bytes": 184320,
+      "status": "ready",
+      "folder_id": "fold_abc123",
+      "tags": ["tag_hr", "tag_policy"],
+      "is_duplicate": false,
+      "duplicate_of": [],
+      "total_chunks": 42,
+      "created_at": "2026-06-07T09:12:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**الأخطاء:** `400`، `401`، `403`، `429`، `500`.
+
+---
+
+### `GET /knowledge/documents/{document_id}`
+
+اجلب مستندًا واحدًا بالمعرّف.
+
+**Scope:** `knowledge:read` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | نعم | معرّف المستند. |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "doc_9f2a7b",
+  "filename": "handbook.pdf",
+  "title": "Employee Handbook",
+  "description": null,
+  "file_format": "pdf",
+  "file_size_bytes": 184320,
+  "status": "ready",
+  "folder_id": "fold_abc123",
+  "tags": ["tag_hr", "tag_policy"],
+  "is_duplicate": false,
+  "duplicate_of": [],
+  "total_chunks": 42,
+  "created_at": "2026-06-07T09:12:00Z",
+  "updated_at": "2026-06-07T09:13:20Z"
+}
+```
+
+**الأخطاء:** `401`، `403`، `404` `document_not_found`، `429`، `500`.
+
+---
+
+### `GET /knowledge/documents/{document_id}/status`
+
+استفسر عن حالة المعالجة غير المتزامنة لمستند. استخدم هذا لمعرفة متى يبلغ الرفع `ready`.
+
+**Scope:** `knowledge:read` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | نعم | معرّف المستند. |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "processing",
+  "progress": 60,
+  "error_message": null
+}
+```
+
+**الأخطاء:** `401`، `403`، `404`، `429`، `500`.
+
+---
+
+### `GET /knowledge/documents/{document_id}/status/stream`
+
+اشترك في تدفق Server-Sent Events لحالة معالجة مستند. حمولة `data:` لكل حدث هي كائن حالة (بنفس شكل endpoint الاستفسار). يُصدِر التدفق الحالة الحالية فورًا، ثم حدثًا واحدًا لكل تحديث، ويُغلَق عندما تبلغ الحالة وضعًا نهائيًا (`ready` أو `failed`).
+
+**Scope:** `knowledge:read` · **النجاح:** `200` (`text/event-stream`)
+
+يُرجع معرّف مستند خارج organization الخاصة بك غلاف خطأ `404` — لا تدفقًا فارغًا.
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | نعم | معرّف المستند. |
+
+```bash
+curl -N https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status/stream \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```
+data: {"document_id": "doc_9f2a7b", "status": "processing", "progress": 40, "error_message": null}
+
+data: {"document_id": "doc_9f2a7b", "status": "processing", "progress": 80, "error_message": null}
+
+data: {"document_id": "doc_9f2a7b", "status": "ready", "progress": 100, "error_message": null}
+```
+
+**الأخطاء:** `401`، `403`، `404`، `429`، `500`.
+
+---
+
+### `DELETE /knowledge/documents/{document_id}`
+
+احذف مستندًا.
+
+**Scope:** `knowledge:write` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | نعم | معرّف المستند. |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "doc_9f2a7b",
+  "deleted": true
+}
+```
+
+**الأخطاء:** `401`، `403`، `404`، `429`، `500`.
+
+## التنظيم
+
+### `POST /knowledge/folders`
+
+أنشئ مجلدًا.
+
+**Scope:** `knowledge:write` · **النجاح:** `201`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `name` | body | string | نعم | اسم المجلد (1–100 حرفًا). |
+| `description` | body | string | لا | وصف (≤500 حرفًا). |
+| `color` | body | string | لا | لون سداسي عشري `#RRGGBB`. الافتراضي `#667eea`. |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "HR Policies", "color": "#667eea" }'
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR Policies",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 0,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**الأخطاء:** `400` `folder_name_exists`، `401`، `403`، `429`، `500`.
+
+---
+
+### `GET /knowledge/folders`
+
+اعرض المجلدات، مُرقّمة بالمؤشر.
+
+**Scope:** `knowledge:read` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | لا | حجم الصفحة، 1–100. الافتراضي 20. |
+| `cursor` | query | string | لا | الـ `next_cursor` من الصفحة السابقة. |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders?limit=20" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "fold_abc123",
+      "name": "HR Policies",
+      "description": null,
+      "color": "#667eea",
+      "document_count": 12,
+      "created_at": "2026-06-07T09:00:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**الأخطاء:** `400`، `401`، `403`، `429`، `500`.
+
+---
+
+### `GET /knowledge/folders/{folder_id}`
+
+اجلب مجلدًا بالمعرّف.
+
+**Scope:** `knowledge:read` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | نعم | معرّف المجلد. |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR Policies",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 12,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T09:13:20Z"
+}
+```
+
+**الأخطاء:** `401`، `403`، `404`، `429`، `500`.
+
+---
+
+### `PATCH /knowledge/folders/{folder_id}`
+
+حدّث مجلدًا. جميع حقول الجسم اختيارية؛ تبقى الحقول المحذوفة دون تغيير.
+
+**Scope:** `knowledge:write` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | نعم | معرّف المجلد. |
+| `name` | body | string | لا | اسم جديد (1–100 حرفًا). |
+| `description` | body | string | لا | وصف جديد (≤500 حرفًا). |
+| `color` | body | string | لا | لون سداسي عشري `#RRGGBB` جديد. |
+
+```bash
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "HR & Compliance" }'
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR & Compliance",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 12,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T10:01:00Z"
+}
+```
+
+**الأخطاء:** `400` `folder_name_exists`، `401`، `403`، `404`، `429`، `500`.
+
+---
+
+### `DELETE /knowledge/folders/{folder_id}`
+
+احذف مجلدًا **فارغًا**. يُرجع مجلد لا يزال يحتوي مستندات الرمز `400` `folder_not_empty` — انقل أو احذف مستنداته أولًا.
+
+**Scope:** `knowledge:write` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | نعم | معرّف المجلد. |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "deleted": true
+}
+```
+
+**الأخطاء:** `400` `folder_not_empty`، `401`، `403`، `404`، `429`، `500`.
+
+---
+
+### `POST /knowledge/tags`
+
+أنشئ tag.
+
+**Scope:** `knowledge:write` · **النجاح:** `201`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `name` | body | string | نعم | اسم الـ tag (1–50 حرفًا). |
+| `color` | body | string | نعم | لون سداسي عشري `#RRGGBB`. |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "policy", "color": "#10b981" }'
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#10b981",
+  "document_count": 0,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**الأخطاء:** `400` `tag_name_exists`، `401`، `403`، `429`، `500`.
+
+---
+
+### `GET /knowledge/tags`
+
+اعرض tags، مُرقّمة بالمؤشر.
+
+**Scope:** `knowledge:read` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | لا | حجم الصفحة، 1–100. الافتراضي 20. |
+| `cursor` | query | string | لا | الـ `next_cursor` من الصفحة السابقة. |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags?limit=20" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "tag_policy",
+      "name": "policy",
+      "color": "#10b981",
+      "document_count": 7,
+      "created_at": "2026-06-07T09:00:00Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**الأخطاء:** `400`، `401`، `403`، `429`، `500`.
+
+---
+
+### `GET /knowledge/tags/{tag_id}`
+
+اجلب tag بالمعرّف.
+
+**Scope:** `knowledge:read` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | نعم | معرّف الـ tag. |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#10b981",
+  "document_count": 7,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**الأخطاء:** `401`، `403`، `404`، `429`، `500`.
+
+---
+
+### `PATCH /knowledge/tags/{tag_id}`
+
+حدّث tag. جميع حقول الجسم اختيارية.
+
+**Scope:** `knowledge:write` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | نعم | معرّف الـ tag. |
+| `name` | body | string | لا | اسم جديد (1–50 حرفًا). |
+| `color` | body | string | لا | لون سداسي عشري `#RRGGBB` جديد. |
+
+```bash
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "color": "#3b82f6" }'
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#3b82f6",
+  "document_count": 7,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**الأخطاء:** `400` `tag_name_exists`، `401`، `403`، `404`، `429`، `500`.
+
+---
+
+### `DELETE /knowledge/tags/{tag_id}`
+
+احذف tag. هذا يزيل أيضًا الـ tag من كل مستند طُبِّق عليه.
+
+**Scope:** `knowledge:write` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | نعم | معرّف الـ tag المراد إزالته. |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "tag_policy",
+  "deleted": true
+}
+```
+
+**الأخطاء:** `401`، `403`، `404`، `429`، `500`.
+
+---
+
+### `PUT /knowledge/documents/{document_id}/folder`
+
+انقل مستندًا إلى مجلد، أو أخرجه من ملفّه بتمرير `folder_id: null`.
+
+**Scope:** `knowledge:write` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | نعم | معرّف المستند. |
+| `folder_id` | body | string \| null | لا | معرّف المجلد الهدف، أو `null` للإخراج من الملف. |
+
+```bash
+curl -X PUT https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/folder \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "folder_id": "fold_abc123" }'
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "folder_id": "fold_abc123"
+}
+```
+
+**الأخطاء:** `400`، `401`، `403`، `404`، `429`، `500`.
+
+---
+
+### `POST /knowledge/documents/{document_id}/tags`
+
+أضف tag واحدًا أو أكثر إلى مستند. الاستجابة هي مجموعة tags **الكاملة** للمستند بعد الإضافة.
+
+**Scope:** `knowledge:write` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | نعم | معرّف المستند. |
+| `tag_ids` | body | array of string | نعم | معرّفات tags المراد إضافتها (1–20). |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "tag_ids": ["tag_hr", "tag_policy"] }'
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "tag_ids": ["tag_hr", "tag_policy"]
+}
+```
+
+**الأخطاء:** `400`، `401`، `403`، `404`، `429`، `500`.
+
+---
+
+### `DELETE /knowledge/documents/{document_id}/tags/{tag_id}`
+
+أزِل tag واحدًا من مستند. الاستجابة هي مجموعة tags **المتبقية** للمستند.
+
+**Scope:** `knowledge:write` · **النجاح:** `200`
+
+| المعامل | في | النوع | مطلوب | الوصف |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | نعم | معرّف المستند. |
+| `tag_id` | path | string | نعم | معرّف الـ tag المراد إزالته. |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "tag_ids": ["tag_hr"]
+}
+```
+
+**الأخطاء:** `401`، `403`، `404`، `429`، `500`.

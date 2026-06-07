@@ -1,0 +1,64 @@
+---
+description: Limites de débit de l'API pour Développeurs — les en-têtes de réponse RateLimit-*, le contrat 429 + Retry-After et la fenêtre par organisation, par minute.
+---
+
+# Limites de Débit
+
+L'API pour Développeurs est limitée en débit **par organisation, par minute**, le budget étant défini par votre plan. Chaque réponse authentifiée par key vous indique exactement où vous en êtes, afin que vous puissiez réguler votre trafic avant même d'atteindre la limite.
+
+## En-têtes de limite de débit
+
+Chaque réponse authentifiée par key porte trois en-têtes :
+
+| En-tête | Signification |
+|--------|---------|
+| `RateLimit-Limit` | Le quota de requêtes de votre organisation pour la fenêtre actuelle. |
+| `RateLimit-Remaining` | Requêtes restantes dans la fenêtre actuelle. |
+| `RateLimit-Reset` | Secondes avant la réinitialisation de la fenêtre actuelle. |
+
+La fenêtre est une **fenêtre glissante de 60 secondes** — le budget par plan est exprimé par minute. Lisez `RateLimit-Remaining` et ralentissez à mesure qu'il approche de zéro.
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 120
+RateLimit-Remaining: 117
+RateLimit-Reset: 41
+Content-Type: application/json
+```
+
+## Quand vous dépassez la limite
+
+Une requête au-delà du budget renvoie `429` avec l'[enveloppe d'erreur](/api-reference/errors) standard et un en-tête **`Retry-After`** qui vous indique combien de secondes attendre :
+
+```
+HTTP/1.1 429 Too Many Requests
+Retry-After: 41
+RateLimit-Limit: 120
+RateLimit-Remaining: 0
+RateLimit-Reset: 41
+Content-Type: application/json
+```
+
+```json
+{
+  "error": {
+    "type": "rate_limit_error",
+    "code": "rate_limit_exceeded",
+    "message": "You have exceeded your plan's request allowance."
+  }
+}
+```
+
+## Gérer le 429
+
+- Respectez `Retry-After` — attendez le nombre de secondes indiqué avant de réessayer.
+- Appliquez un repli exponentiel si vous continuez à recevoir des `429`.
+- Utilisez `RateLimit-Remaining` de façon proactive pour limiter les rafales avant qu'elles ne soient rejetées.
+
+## Échec ouvert
+
+Le limiteur de débit est conçu pour **échouer en mode ouvert** : si le limiteur lui-même est indisponible, les requêtes passent au lieu d'être bloquées. Vous ne devriez jamais voir de `429` parasites dus à une panne du limiteur — mais vous ne devez pas non plus compter sur le limiteur pour garantir la justesse dans votre propre client. Régulez votre trafic à l'aide des en-têtes `RateLimit-*`.
+
+## Quota de requêtes d'agent
+
+Exécuter un agent (`POST /agents/{id}/query`) est en outre mesuré par rapport au quota de requêtes d'agent de votre plan, côté serveur. Le dépasser renvoie `429` sur la voie bloquante, ou un unique événement `error` sur la voie de streaming. Consultez la page Requête d'Agent pour les détails.

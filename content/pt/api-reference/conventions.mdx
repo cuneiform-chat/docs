@@ -1,0 +1,83 @@
+---
+description: Convenções compartilhadas em toda a API para Desenvolvedores — paginação por cursor, requisições idempotentes, tipo de conteúdo JSON e carimbos de data/hora.
+---
+
+# Convenções
+
+Estas convenções se aplicam a todos os endpoints da API para Desenvolvedores. Lê-las uma vez permite que cada página de endpoint se mantenha focada nos seus próprios parâmetros e formatos.
+
+## JSON em todo lugar
+
+Os corpos de requisição e resposta são JSON (`Content-Type: application/json`), com uma exceção: o upload de documentos usa `multipart/form-data` (consulte os endpoints de documentos de Knowledge). Todos os carimbos de data/hora são strings ISO-8601 em UTC, p. ex. `2026-06-07T12:34:56Z`.
+
+## Paginação por cursor
+
+Endpoints de listagem retornam uma página **paginada por cursor**, nunca um esquema de deslocamento/número de página. O envelope sempre tem o mesmo formato:
+
+```json
+{
+  "data": [ /* the items on this page */ ],
+  "has_more": true,
+  "next_cursor": "eyJpZCI6ImFndF8xMjMifQ"
+}
+```
+
+| Campo | Tipo | Significado |
+|-------|------|---------|
+| `data` | array | Os itens desta página. |
+| `has_more` | boolean | Se existe outra página. |
+| `next_cursor` | string \| null | O cursor opaco para obter a próxima página. `null` quando `has_more` é `false`. |
+
+Controle a paginação com dois parâmetros de query:
+
+| Parâmetro | Tipo | Descrição |
+|-----------|------|-------------|
+| `limit` | integer | Tamanho da página, **1–100**. Padrão **20**. |
+| `cursor` | string | O `next_cursor` da página anterior. Omita-o para a primeira página. |
+
+Trate `next_cursor` como um valor **opaco** — nunca o analise, construa ou modifique. Para percorrer todas as páginas, continue requisitando com o `next_cursor` da resposta anterior até que `has_more` seja `false`:
+
+```bash
+# First page
+curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=50" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+
+# Next page
+curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=50&cursor=eyJpZCI6ImFndF8xMjMifQ" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+Um cursor malformado retorna `400` `invalid_request_error` (`invalid_cursor`).
+
+## Requisições idempotentes
+
+Requisições `POST` mutáveis aceitam um cabeçalho opcional **`Idempotency-Key`** para que uma nova tentativa — após um erro de rede ou um tempo limite — nunca execute a operação duas vezes.
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -H "Idempotency-Key: 9f1c4b7a-2e3d-4f5a-8b6c-1d2e3f4a5b6c" \
+  -d '{ "name": "Support Bot", "configuration": { "model": "gpt-4o-mini", "system_prompt": "You are helpful." } }'
+```
+
+Como funciona:
+
+- Gere uma key única por operação lógica (um UUID é ideal) e envie-a com a requisição.
+- Uma requisição repetida que carregue a **mesma** key dentro de **24 horas** repete a resposta original armazenada em vez de executar a operação novamente.
+- As keys são restritas à sua organização.
+- Após 24 horas a key expira; uma requisição com uma key expirada é tratada como nova.
+
+`Idempotency-Key` é respeitado na via bloqueante de consulta de agent, mas é **ignorado** na via de streaming (`stream: true`).
+
+## Respostas com negação por padrão
+
+Os corpos de resposta expõem apenas os campos documentados em cada página de endpoint. Eles nunca incluem identificadores internos, detalhes internos de armazenamento, strings de provedor/modelo de LLM ou valores de custo. Se um campo não está no formato documentado, a API não o retorna.
+
+## Registro de alterações
+
+| Versão | Status | Lançada |
+|---------|--------|----------|
+| `v1` | Estável | 2026-06 |
+
+`v1` é o contrato atual e estável. As alterações são aditivas — novos campos e novos endpoints podem aparecer, mas campos existentes nunca são removidos ou reutilizados dentro de `v1`.

@@ -1,0 +1,86 @@
+---
+description: واجهة REST API للمطورين من Cuneiform Chat — أدر مستندات knowledge، واضبط agents، وشغّل agents برمجيًا عبر سطح /v1 محمي بالاعتماد.
+---
+
+# مرجع API
+
+تتيح **واجهة REST API للمطورين** من Cuneiform Chat لمطوريك إدارة مستندات knowledge، وإنشاء agents وضبطها، وتشغيل agents برمجيًا — نفس القدرات التي تكشفها لوحة الإدارة، متاحة عبر سطح HTTP محمي بالاعتماد ومُصدَّر بالإصدار.
+
+يوثّق هذا المرجع العقد العام **`/v1`**: كل endpoint، ومعاملاته، ومثال طلب، والشكل الدقيق للاستجابة.
+
+## عنوان URL الأساسي
+
+تقع جميع endpoints تحت عنوان URL أساسي واحد مُصدَّر بالإصدار:
+
+```
+https://core-api.cuneiform.chat/api/developer/v1
+```
+
+المسار الكامل لأي endpoint هو عنوان URL الأساسي زائد المسار المعروض في كل صفحة — على سبيل المثال، `GET /agents` هو:
+
+```
+https://core-api.cuneiform.chat/api/developer/v1/agents
+```
+
+## الإصدار
+
+تُصدَّر الواجهة بالإصدار **في بادئة URL** (`/v1`). لا يوجد إصدار قائم على الترويسات أو على التواريخ — الإصدار الذي تستدعيه هو الإصدار الموجود في المسار. عقد `/v1` **مستقر**: تُضاف الحقول فقط، ولا تُحذف أو يُعاد توظيفها أبدًا، وأي إصدار رئيسي جديد (إن لزم يومًا) سيصدر تحت بادئة جديدة. راجع ملاحظة [سجل التغييرات](/api-reference/conventions) لخط الأساس للإصدار.
+
+## المصادقة في سطر واحد
+
+يُصادَق كل طلب باستخدام API key للمطور (`cuk_…`)، يُرسَل كرمز Bearer:
+
+```
+Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx
+```
+
+تُحلّ الـ key إلى organization الخاصة بك وإلى الـ scopes الممنوحة لها — لا ترسل أبدًا معرّف organization. راجع [المصادقة](/api-reference/authentication) و[API Keys](/api-reference/api-keys) للعقد الكامل.
+
+## أول استدعاء لك
+
+1. **أنشئ key.** في لوحة الإدارة، افتح وحدة تحكم المطور على **`/org/developer-api`**، وأنشئ key وانسخ السر (يُعرَض مرة واحدة فقط — راجع [API Keys](/api-reference/api-keys)).
+2. **استدعِ الواجهة.** اعرض قائمة agents الخاصة بك:
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+الاستجابة الناجحة هي صفحة مُرقّمة بالمؤشر:
+
+```json
+{
+  "data": [
+    {
+      "id": "agt_123",
+      "name": "Support Bot",
+      "status": "active"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+## كيف تقرأ هذا المرجع
+
+يُوثَّق كل endpoint بوصف من سطر واحد، وجدول **معاملات** (path وquery وheader وbody)، ومثال **طلب** `curl`، ومثال **استجابة**. تُذكر الـ scope المطلوبة وحالة النجاح وفئات الأخطاء ذات الصلة لكل endpoint.
+
+| الصفحة | ما تغطّيه |
+|------|----------------|
+| [المصادقة](/api-reference/authentication) | الطريقتان لتقديم الـ key؛ وإلى ماذا تُحلّ الـ key |
+| [API Keys](/api-reference/api-keys) | إنشاء وعرض وتدوير وإلغاء keys؛ والبيئات؛ وتصنيف scopes |
+| [الاتفاقيات](/api-reference/conventions) | الترقيم بالمؤشر، والطلبات الجامدة (idempotent)، ونوع المحتوى، والطوابع الزمنية |
+| [الأخطاء](/api-reference/errors) | غلاف الخطأ وفئات الأخطاء السبع |
+| [حدود المعدل](/api-reference/rate-limits) | ترويسات `RateLimit-*` وعقد `429` |
+| Knowledge | المستندات (الرفع، الحالة، البحث، الحذف) والتنظيم (المجلدات، tags) |
+| Agents | إنشاء وعرض وتحديث وحذف واستعادة وضبط agents |
+| استعلام Agent | تشغيل agent — JSON حاجب أو استجابة SSE متدفقة |
+
+## مواصفات OpenAPI
+
+يُنشر العقد الكامل أيضًا كمواصفات **OpenAPI 3.1** مكتوبة يدويًا، [`openapi.yaml`](/openapi.yaml)، قابلة للتنزيل بجانب هذا المرجع. وهي المصدر الوحيد للحقيقة الذي كُتبت بناءً عليه الصفحات هنا — كل حقل في المخطط هو حقل تُرجعه الواجهة فعليًا، ولا يظهر أي حقل داخلي.
+
+## الأهلية
+
+تتوفر واجهة REST API للمطورين على **Starter وما فوق**. لا يمكن لـ organizations في Trial إنشاء keys؛ والمحاولة تُرجع `403` `tier_error`.

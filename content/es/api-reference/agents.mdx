@@ -1,0 +1,400 @@
+---
+description: Endpoints de Agent — crear, listar, obtener, actualizar, archivar y restaurar agents, además de leer y actualizar la configuración de un agent.
+---
+
+# Agents
+
+Los endpoints de Agent gestionan los agents de AI que ejecuta tu organización. Puedes crear, listar, obtener, actualizar, archivar (soft-delete) y restaurar agents, y leer o actualizar la configuración de generación de un agent. Para *ejecutar* un agent, consulta [Consulta de Agent](/api-reference/agent-query).
+
+Las lecturas requieren `agents:read`; las escrituras requieren `agents:write`. Archivar y restaurar requieren además el permiso de eliminación de agent en el rol que generó la key.
+
+## La forma del agent
+
+La mayoría de los endpoints devuelven un **objeto agent** con esta forma de denegación por defecto:
+
+```json
+{
+  "id": "agt_7c1d8e",
+  "name": "Support Bot",
+  "description": "Answers product questions.",
+  "status": "active",
+  "language": "en",
+  "type": "custom",
+  "configuration": {
+    "temperature": 0.7,
+    "max_tokens": 1500,
+    "system_prompt": "You are a helpful support agent.",
+    "response_format": "conversational",
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "streaming_enabled": true,
+    "max_retrieved_chunks": 10,
+    "show_citations": false
+  },
+  "knowledge_access": {
+    "folder_ids": ["fold_abc123"],
+    "tag_ids": [],
+    "document_ids": [],
+    "access_mode": "inclusive",
+    "document_count_cache": 12
+  },
+  "handoff_config": {
+    "enabled": false
+  },
+  "current_month_usage": {
+    "queries": 134,
+    "tokens_used": 41200,
+    "last_reset_date": "2026-06-01T00:00:00Z"
+  },
+  "created_at": "2026-05-20T11:00:00Z",
+  "updated_at": "2026-06-07T08:30:00Z"
+}
+```
+
+El objeto agent expone solo campos orientados al tenant. El **identificador subyacente de proveedor/modelo del LLM deliberadamente no se devuelve** en ninguna respuesta de agent o configuración — defines el modelo cuando creas un agent (una entrada de la solicitud), pero nunca se devuelve. Los identificadores internos, las cifras de costo y la contabilidad de versión/reintento tampoco están presentes nunca.
+
+El campo `status` es uno de `active`, `inactive`, `testing` o `archived`.
+
+---
+
+### `POST /agents`
+
+Crea un agent. Devuelve `201` con el agent creado. Acepta un `Idempotency-Key` para que una creación reintentada nunca produzca un segundo agent.
+
+**Scope:** `agents:write` · **Éxito:** `201`
+
+| Parámetro | En | Tipo | Requerido | Descripción |
+|-----------|-----|------|----------|-------------|
+| `name` | body | string | Sí | Nombre del agent (1–100 caracteres). |
+| `description` | body | string | No | Una descripción (≤500 caracteres). |
+| `status` | body | string | No | `active`, `inactive`, `testing` o `archived`. |
+| `language` | body | string | No | Una anulación de idioma de respuesta BCP-47. Hereda el predeterminado de la org cuando se omite. |
+| `configuration` | body | object | Sí | El bloque de configuración del LLM (ver abajo). |
+| `knowledge_access` | body | object | No | Qué carpetas/tags/documentos puede usar el agent. |
+| `handoff_config` | body | object | No | Configuración de human handoff. |
+| `Idempotency-Key` | header | string | No | Key de reintento seguro. |
+
+El bloque `configuration` requerido lleva el modelo y los ajustes de generación. `model` y `system_prompt` son obligatorios; todo lo demás tiene un valor por defecto:
+
+| Campo | Tipo | Requerido | Descripción |
+|-------|------|----------|-------------|
+| `model` | string | Sí | El modelo que debe usar el agent. **Entrada de la solicitud únicamente — nunca se devuelve en ninguna respuesta.** |
+| `system_prompt` | string | Sí | El system prompt del agent (1–10000 caracteres). |
+| `temperature` | number | No | 0.0–2.0. Por defecto 0.7. |
+| `max_tokens` | integer | No | 100–4000. Por defecto 1500. |
+| `response_format` | string | No | `conversational` o `structured`. |
+| `top_p` | number | No | 0.0–1.0. Por defecto 1.0. |
+| `frequency_penalty` | number | No | -2.0–2.0. Por defecto 0.0. |
+| `presence_penalty` | number | No | -2.0–2.0. Por defecto 0.0. |
+| `streaming_enabled` | boolean | No | Por defecto `true`. |
+| `max_retrieved_chunks` | integer | No | 5–20. Por defecto 10. |
+| `show_citations` | boolean | No | Por defecto `false`. |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Support Bot",
+    "description": "Answers product questions.",
+    "configuration": {
+      "model": "gpt-4o-mini",
+      "system_prompt": "You are a helpful support agent."
+    }
+  }'
+```
+
+```json
+{
+  "id": "agt_7c1d8e",
+  "name": "Support Bot",
+  "description": "Answers product questions.",
+  "status": "active",
+  "language": null,
+  "type": "custom",
+  "configuration": {
+    "temperature": 0.7,
+    "max_tokens": 1500,
+    "system_prompt": "You are a helpful support agent.",
+    "response_format": "conversational",
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "streaming_enabled": true,
+    "max_retrieved_chunks": 10,
+    "show_citations": false
+  },
+  "knowledge_access": {
+    "folder_ids": [],
+    "tag_ids": [],
+    "document_ids": [],
+    "access_mode": "inclusive",
+    "document_count_cache": 0
+  },
+  "handoff_config": {
+    "enabled": false
+  },
+  "current_month_usage": {
+    "queries": 0,
+    "tokens_used": 0,
+    "last_reset_date": "2026-06-01T00:00:00Z"
+  },
+  "created_at": "2026-06-07T08:30:00Z",
+  "updated_at": "2026-06-07T08:30:00Z"
+}
+```
+
+**Errores:** `400`, `401`, `403` (scope o límite del plan), `429`, `500`.
+
+---
+
+### `GET /agents`
+
+Lista agents, paginado por cursor, con filtros opcionales `status` y `search`.
+
+**Scope:** `agents:read` · **Éxito:** `200`
+
+| Parámetro | En | Tipo | Requerido | Descripción |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | No | Tamaño de página, 1–100. Por defecto 20. |
+| `cursor` | query | string | No | El `next_cursor` de la página anterior. |
+| `status` | query | string | No | Filtrar por estado del agent. |
+| `search` | query | string | No | Filtrar por un término de búsqueda de nombre/descripción. |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=20&status=active" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "agt_7c1d8e",
+      "name": "Support Bot",
+      "description": "Answers product questions.",
+      "status": "active",
+      "language": "en",
+      "type": "custom",
+      "configuration": {
+        "temperature": 0.7,
+        "max_tokens": 1500,
+        "response_format": "conversational",
+        "top_p": 1.0,
+        "frequency_penalty": 0.0,
+        "presence_penalty": 0.0,
+        "streaming_enabled": true,
+        "max_retrieved_chunks": 10,
+        "show_citations": false
+      },
+      "knowledge_access": {
+        "folder_ids": ["fold_abc123"],
+        "tag_ids": [],
+        "document_ids": [],
+        "access_mode": "inclusive",
+        "document_count_cache": 12
+      },
+      "handoff_config": { "enabled": false },
+      "current_month_usage": {
+        "queries": 134,
+        "tokens_used": 41200,
+        "last_reset_date": "2026-06-01T00:00:00Z"
+      },
+      "created_at": "2026-05-20T11:00:00Z",
+      "updated_at": "2026-06-07T08:30:00Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+La vista de lista omite el `system_prompt` de la `configuration` de cada agent por brevedad; obtén un solo agent para verlo.
+
+**Errores:** `400` `invalid_cursor`, `401`, `403`, `429`, `500`.
+
+---
+
+### `GET /agents/{agent_id}`
+
+Obtén un solo agent por id.
+
+**Scope:** `agents:read` · **Éxito:** `200`
+
+| Parámetro | En | Tipo | Requerido | Descripción |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | Sí | El id del agent. |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+La respuesta es un solo objeto agent (consulta [la forma del agent](#la-forma-del-agent)).
+
+**Errores:** `401`, `403`, `404` `agent_not_found`, `429`, `500`.
+
+---
+
+### `PATCH /agents/{agent_id}`
+
+Actualiza los campos básicos de un agent. Todos los campos del cuerpo son opcionales; los campos omitidos se dejan sin cambios. Los ajustes de generación viven en el endpoint de configuración, no aquí.
+
+**Scope:** `agents:write` · **Éxito:** `200`
+
+| Parámetro | En | Tipo | Requerido | Descripción |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | Sí | El id del agent. |
+| `name` | body | string | No | Nuevo nombre (1–100 caracteres). |
+| `description` | body | string | No | Nueva descripción (≤500 caracteres). |
+| `status` | body | string | No | Nuevo estado. |
+| `language` | body | string | No | Nueva anulación de idioma BCP-47. |
+| `handoff_config` | body | object | No | Nueva configuración de human handoff. |
+
+```bash
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "status": "inactive" }'
+```
+
+La respuesta es el objeto agent actualizado.
+
+**Errores:** `400`, `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `DELETE /agents/{agent_id}`
+
+Archiva (soft-delete) un agent. El agent es recuperable durante **30 días** mediante el endpoint de restauración. Devuelve `200` con un cuerpo de archivado que lleva la fecha límite de restauración.
+
+**Scope:** `agents:write` (el rol que generó la key también debe tener el permiso de eliminación de agent) · **Éxito:** `200`
+
+| Parámetro | En | Tipo | Requerido | Descripción |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | Sí | El id del agent. |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "agt_7c1d8e",
+  "archived": true,
+  "restore_before": "2026-07-07T08:30:00Z"
+}
+```
+
+**Errores:** `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `POST /agents/{agent_id}/restore`
+
+Restaura un agent archivado dentro de su ventana de recuperación de 30 días. Devuelve el agent restaurado. Una ventana expirada o un agent no archivado devuelve `400`.
+
+**Scope:** `agents:write` (el rol que generó la key también debe tener el permiso de eliminación de agent) · **Éxito:** `200`
+
+| Parámetro | En | Tipo | Requerido | Descripción |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | Sí | El id del agent. |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/restore \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+La respuesta es el objeto agent restaurado.
+
+**Errores:** `400`, `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `GET /agents/{agent_id}/configuration`
+
+Obtén la configuración de un agent. Expone solo los ajustes de generación orientados al tenant; el identificador subyacente de proveedor/modelo del LLM no se devuelve.
+
+**Scope:** `agents:read` · **Éxito:** `200`
+
+| Parámetro | En | Tipo | Requerido | Descripción |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | Sí | El id del agent. |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "agt_7c1d8e",
+  "configuration": {
+    "temperature": 0.7,
+    "max_tokens": 1500,
+    "system_prompt": "You are a helpful support agent.",
+    "response_format": "conversational",
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "streaming_enabled": true,
+    "max_retrieved_chunks": 10,
+    "show_citations": false
+  },
+  "unsaved_changes": false
+}
+```
+
+**Errores:** `401`, `403`, `404`, `429`, `500`.
+
+---
+
+### `PATCH /agents/{agent_id}/configuration`
+
+Actualiza los ajustes de generación de un agent. Todos los campos del cuerpo son opcionales. Un ajuste que infrinja los límites de tu plan devuelve `403`.
+
+**Scope:** `agents:write` · **Éxito:** `200`
+
+| Parámetro | En | Tipo | Requerido | Descripción |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | Sí | El id del agent. |
+| `system_prompt` | body | string | No | Nuevo system prompt (1–10000 caracteres). |
+| `temperature` | body | number | No | 0.0–2.0. |
+| `max_tokens` | body | integer | No | 100–4000. |
+| `response_format` | body | string | No | `conversational` o `structured`. |
+| `top_p` | body | number | No | 0.0–1.0. |
+| `frequency_penalty` | body | number | No | -2.0–2.0. |
+| `presence_penalty` | body | number | No | -2.0–2.0. |
+| `streaming_enabled` | body | boolean | No | Si el streaming está habilitado. |
+| `max_retrieved_chunks` | body | integer | No | 5–20. |
+| `show_citations` | body | boolean | No | Si se muestran las citas. |
+| `save_as_draft` | body | boolean | No | Guardar sin publicar una nueva versión. Por defecto `false`. |
+
+```bash
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "temperature": 0.4, "max_tokens": 2000 }'
+```
+
+```json
+{
+  "id": "agt_7c1d8e",
+  "configuration": {
+    "temperature": 0.4,
+    "max_tokens": 2000,
+    "system_prompt": "You are a helpful support agent.",
+    "response_format": "conversational",
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "streaming_enabled": true,
+    "max_retrieved_chunks": 10,
+    "show_citations": false
+  }
+}
+```
+
+**Errores:** `400`, `401`, `403` (scope o límite del plan), `404`, `429`, `500`.

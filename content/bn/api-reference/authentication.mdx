@@ -1,0 +1,76 @@
+---
+description: প্রতিটি ডেভেলপার API অনুরোধ একটি cuk_ key দিয়ে প্রমাণীকরণ করুন, যা একটি Bearer টোকেন বা একটি X-API-Key হেডার হিসেবে পাঠানো হয়।
+---
+
+# প্রমাণীকরণ
+
+প্রতিটি ডেভেলপার API অনুরোধে অবশ্যই একটি ডেভেলপার API key থাকতে হবে। কোনো পাবলিক, প্রমাণীকরণহীন লেন নেই — একটি বৈধ key ছাড়া অনুরোধ `401` দিয়ে প্রত্যাখ্যাত হয়।
+
+## আপনার key উপস্থাপন
+
+আপনার key সিক্রেট (`cuk_<env>_<random>`) দুটি উপায়ের **যেকোনো একটিতে** পাঠান। উভয়ই সমতুল্য; আপনার HTTP ক্লায়েন্টের সাথে যেটি মানানসই সেটি ব্যবহার করুন।
+
+### Authorization হেডার (প্রস্তাবিত)
+
+```
+Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx
+```
+
+### X-API-Key হেডার
+
+```
+X-API-Key: cuk_live_xxxxxxxxxxxxxxxx
+```
+
+প্রতিটি রূপের সাথে উদাহরণ অনুরোধ:
+
+```bash
+# Bearer
+curl https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+
+# X-API-Key
+curl https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "X-API-Key: cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+## একটি key কীসে সমাধান হয়
+
+একটি key দুটি জিনিসের সাথে আবদ্ধ, উভয়ই প্রতিটি অনুরোধে স্বয়ংক্রিয়ভাবে সমাধান হয়:
+
+- **আপনার organization।** Key যে organization-এ এটি তৈরি হয়েছিল তা চিহ্নিত করে। প্রতিটি অনুরোধ সেই organization-এ সীমাবদ্ধ — আপনি কখনো একটি organization id পাঠান না, এবং আপনি কখনো অন্য একটি organization-এর ডেটায় পৌঁছাতে পারেন না। একটি ভিন্ন organization-এর অন্তর্গত একটি রিসোর্স id `404` (পাওয়া যায়নি) হিসেবে রিপোর্ট করা হয়, কখনো `403` নয়।
+- **এর scopes।** একটি key তৈরির সময় দেওয়া scopes-এর একটি নির্দিষ্ট সেট বহন করে। একটি scope *অতিরিক্তভাবে* key তৈরিকারী রোলের RBAC অনুমতি দ্বারা সীমাবদ্ধ — একটি key তার নির্মাতা প্যানেলে যা করতে পারত তার চেয়ে বেশি কখনো করতে পারে না। একটি অনুরোধ যার একটি scope প্রয়োজন যা key-এর নেই, তা `403` `permission_error` দিয়ে প্রত্যাখ্যাত হয়।
+
+## keys গোপন রাখুন
+
+সম্পূর্ণ key সিক্রেট **ঠিক একবার** দেখানো হয়, তৈরি বা রোটেশনের সময়। এটিকে একটি পাসওয়ার্ডের মতো গণ্য করুন:
+
+- এটি শুধুমাত্র HTTPS-এর মাধ্যমে পাঠান।
+- এটি একটি সিক্রেট ম্যানেজার বা এনভায়রনমেন্ট ভেরিয়েবলে সংরক্ষণ করুন — কখনো সোর্স কন্ট্রোল, ক্লায়েন্ট-সাইড কোড বা লগে নয়।
+- একটি key প্রকাশিত হলে, অবিলম্বে এটি [রোটেট বা প্রত্যাহার](/api-reference/api-keys) করুন।
+
+## যখন প্রমাণীকরণ ব্যর্থ হয়
+
+একটি অনুপস্থিত, ত্রুটিপূর্ণ, প্রত্যাহৃত বা অজানা key স্ট্যান্ডার্ড [ত্রুটি এনভেলপ](/api-reference/errors) সহ `401` ফেরত দেয়:
+
+```json
+{
+  "error": {
+    "type": "authentication_error",
+    "code": "invalid_api_key",
+    "message": "The API key is missing or invalid."
+  }
+}
+```
+
+একটি সঠিকভাবে গঠিত key যার একটি অপারেশনের জন্য scope (বা অন্তর্নিহিত অনুমতি) নেই, তা `403` ফেরত দেয়:
+
+```json
+{
+  "error": {
+    "type": "permission_error",
+    "code": "invalid_scope",
+    "message": "This key does not have the required scope for this operation."
+  }
+}
+```

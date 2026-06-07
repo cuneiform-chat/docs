@@ -1,0 +1,732 @@
+---
+description: Knowledge endpoints — ডকুমেন্ট আপলোড, তালিকাভুক্ত, সার্চ, আনয়ন, ট্র্যাক ও মুছে ফেলা, এবং ফোল্ডার ও tags সংগঠন।
+---
+
+# Knowledge
+
+Knowledge endpoints আপনার agents যেসব ডকুমেন্টের উপর নির্ভর করে সেগুলো এবং যে ফোল্ডার ও tags সেগুলোকে সংগঠিত করে তা পরিচালনা করে। দুটি গ্রুপ আছে:
+
+- **ডকুমেন্ট** — আপলোড (অ্যাসিঙ্ক্রোনাস), তালিকাভুক্ত, সার্চ, আনয়ন, প্রসেসিং ট্র্যাক ও মুছে ফেলা।
+- **সংগঠন** — ফোল্ডার CRUD, tag CRUD এবং ডকুমেন্ট সংগঠন (একটি ফোল্ডারে সরানো, tags যোগ বা অপসারণ)।
+
+সব endpoints `/knowledge`-এর অধীনে এবং রিডের জন্য একটি `knowledge:read` scope বা রাইটের জন্য একটি `knowledge:write` scope প্রয়োজন। প্রতিটি প্রতিক্রিয়া এখানে নথিভুক্ত ডিফল্টভাবে-অস্বীকার রূপ ব্যবহার করে — স্টোরেজ ইন্টার্নাল (S3 keys, ফাইল হ্যাশ, MIME টাইপ), chunking ও embedding ইন্টার্নাল এবং খরচের পরিসংখ্যান কখনো ফেরত দেওয়া হয় না।
+
+## ডকুমেন্ট
+
+## অ্যাসিঙ্ক্রোনাস আপলোড মডেল
+
+একটি ডকুমেন্ট আপলোড করা **প্রসেসিংয়ে ব্লক হয় না**। ফাইলটি গৃহীত হওয়ার মুহূর্তে `POST /knowledge/documents` `{document_id, status}` সহ `201` ফেরত দেয়, তারপর ডকুমেন্টটি একটি অ্যাসিঙ্ক্রোনাস লাইফসাইকেলের মধ্য দিয়ে চলে:
+
+```
+uploaded → validating → stored → processing → ready
+```
+
+(অথবা ত্রুটিতে `failed`)। এটি অনুসরণ করতে, হয় `GET /knowledge/documents/{document_id}/status` **পোল** করুন অথবা SSE স্ট্রিম `GET /knowledge/documents/{document_id}/status/stream`-এ **সাবস্ক্রাইব** করুন। কেবল একটি ডকুমেন্ট `ready` হলেই এটি সার্চযোগ্য এবং একটি agent দ্বারা ব্যবহারযোগ্য।
+
+---
+
+### `POST /knowledge/documents`
+
+knowledge বেসে একটি ফাইল আপলোড করুন। অ্যাসিঙ্ক্রোনাস — নতুন ডকুমেন্ট id এবং এর প্রাথমিক (অ-টার্মিনাল) স্ট্যাটাস সহ অবিলম্বে `201` ফেরত দেয়। ফাইলটি একটি বিদ্যমান ডকুমেন্টের সাথে মিললে, endpoint একটি কাঠামোবদ্ধ ডুপ্লিকেট বডি (নিচে দেখুন) সহ `409` ফেরত দেয়, ত্রুটি এনভেলপ **নয়**।
+
+**Scope:** `knowledge:write` · **সাফল্য:** `201`
+
+এই endpoint `multipart/form-data` নেয়, JSON নয়।
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `file` | form | file | হ্যাঁ | আপলোড করার ডকুমেন্ট ফাইল। |
+| `title` | form | string | না | একটি প্রদর্শন শিরোনাম। ডিফল্ট ফাইলের নাম। |
+| `description` | form | string | না | একটি ফ্রি-টেক্সট বিবরণ। |
+| `tags` | form | string | না | আপলোডে প্রয়োগ করার জন্য কমা-পৃথক tag ids। |
+| `folder_id` | form | string | না | ডকুমেন্ট রাখার ফোল্ডার। |
+| `visibility` | form | string | না | অ্যাক্সেস ভিজিবিলিটি। ডিফল্ট `private`। |
+| `Idempotency-Key` | header | string | না | রিপ্লে-নিরাপদ পুনঃচেষ্টা key ([কনভেনশন](/api-reference/conventions) দেখুন)। |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -F "file=@handbook.pdf" \
+  -F "title=Employee Handbook" \
+  -F "folder_id=fold_abc123" \
+  -F "tags=tag_hr,tag_policy"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "uploaded"
+}
+```
+
+**ডুপ্লিকেট শনাক্ত (`409`)।** যখন আপলোড করা ফাইল একটি বিদ্যমান ডকুমেন্টের সাথে মেলে, প্রতিক্রিয়া হলো একটি কাঠামোবদ্ধ বডি — ত্রুটি এনভেলপ নয় — একটি `upload_session_id` বহনকারী যা আপনি যেকোনোভাবে এগিয়ে যেতে `confirm-duplicate`-এ পাস করেন:
+
+```json
+{
+  "upload_session_id": "ups_abc123",
+  "duplicate_of": ["doc_existing456"]
+}
+```
+
+**ত্রুটি:** `400` `invalid_upload` (খারাপ ফাইল), `401`, `403`, `429`, `500`।
+
+---
+
+### `POST /knowledge/documents/confirm-duplicate`
+
+একটি ডুপ্লিকেট হিসেবে চিহ্নিত একটি আপলোড পুনরায় শুরু করুন, `409` বডির `upload_session_id` দ্বারা শনাক্ত। আপলোডের মতো, এটি অ্যাসিঙ্ক্রোনাস এবং `{document_id, status}` সহ `201` ফেরত দেয়।
+
+**Scope:** `knowledge:write` · **সাফল্য:** `201`
+
+এই endpoint `multipart/form-data` নেয়।
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `upload_session_id` | form | string | হ্যাঁ | `409` ডুপ্লিকেট বডির id। |
+| `title` | form | string | না | একটি প্রদর্শন শিরোনাম। |
+| `description` | form | string | না | একটি ফ্রি-টেক্সট বিবরণ। |
+| `tags` | form | string | না | কমা-পৃথক tag ids। |
+| `folder_id` | form | string | না | যে ফোল্ডারে রাখতে হবে। |
+| `visibility` | form | string | না | ডিফল্ট `private`। |
+| `Idempotency-Key` | header | string | না | রিপ্লে-নিরাপদ পুনঃচেষ্টা key। |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/confirm-duplicate \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -F "upload_session_id=ups_abc123" \
+  -F "folder_id=fold_abc123"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "uploaded"
+}
+```
+
+**ত্রুটি:** `400`, `401`, `403`, `404` (অজানা সেশন), `429`, `500`।
+
+---
+
+### `GET /knowledge/documents`
+
+ডকুমেন্ট তালিকাভুক্ত করুন, কার্সর-পেজিনেটেড। ঐচ্ছিক ফিল্টার ফোল্ডার, tag বা প্রসেসিং স্ট্যাটাস অনুসারে সংকুচিত করে।
+
+**Scope:** `knowledge:read` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | না | পৃষ্ঠার আকার, 1–100। ডিফল্ট 20। |
+| `cursor` | query | string | না | পূর্ববর্তী পৃষ্ঠার `next_cursor`। |
+| `folder_id` | query | string | না | একটি ফোল্ডারে সীমাবদ্ধ। |
+| `tag` | query | string | না | একটি tag id-তে সীমাবদ্ধ। |
+| `status` | query | string | না | একটি প্রসেসিং স্ট্যাটাসে সীমাবদ্ধ। |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents?limit=20&status=ready" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "doc_9f2a7b",
+      "filename": "handbook.pdf",
+      "title": "Employee Handbook",
+      "description": null,
+      "file_format": "pdf",
+      "file_size_bytes": 184320,
+      "status": "ready",
+      "folder_id": "fold_abc123",
+      "tags": ["tag_hr", "tag_policy"],
+      "is_duplicate": false,
+      "duplicate_of": [],
+      "total_chunks": 42,
+      "created_at": "2026-06-07T09:12:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**ত্রুটি:** `400` `invalid_cursor`, `401`, `403`, `429`, `500`।
+
+---
+
+### `GET /knowledge/documents/search`
+
+একটি কোয়েরি স্ট্রিং দিয়ে ডকুমেন্ট সার্চ করুন। প্রাসঙ্গিকতা অনুসারে র‍্যাঙ্ক করা `Document`s-এর একটি কার্সর-পেজিনেটেড পৃষ্ঠা ফেরত দেয়, লিস্ট endpoint-এর মতো একই ঐচ্ছিক ফিল্টার সহ।
+
+**Scope:** `knowledge:read` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `q` | query | string | না | সার্চ কোয়েরি স্ট্রিং। |
+| `limit` | query | integer | না | পৃষ্ঠার আকার, 1–100। ডিফল্ট 20। |
+| `cursor` | query | string | না | পূর্ববর্তী পৃষ্ঠার `next_cursor`। |
+| `folder_id` | query | string | না | একটি ফোল্ডারে সীমাবদ্ধ। |
+| `tag` | query | string | না | একটি tag id-তে সীমাবদ্ধ। |
+| `status` | query | string | না | একটি প্রসেসিং স্ট্যাটাসে সীমাবদ্ধ। |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/search?q=parental%20leave" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "doc_9f2a7b",
+      "filename": "handbook.pdf",
+      "title": "Employee Handbook",
+      "description": null,
+      "file_format": "pdf",
+      "file_size_bytes": 184320,
+      "status": "ready",
+      "folder_id": "fold_abc123",
+      "tags": ["tag_hr", "tag_policy"],
+      "is_duplicate": false,
+      "duplicate_of": [],
+      "total_chunks": 42,
+      "created_at": "2026-06-07T09:12:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**ত্রুটি:** `400`, `401`, `403`, `429`, `500`।
+
+---
+
+### `GET /knowledge/documents/{document_id}`
+
+id দিয়ে একটি একক ডকুমেন্ট আনয়ন করুন।
+
+**Scope:** `knowledge:read` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | হ্যাঁ | ডকুমেন্ট id। |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "doc_9f2a7b",
+  "filename": "handbook.pdf",
+  "title": "Employee Handbook",
+  "description": null,
+  "file_format": "pdf",
+  "file_size_bytes": 184320,
+  "status": "ready",
+  "folder_id": "fold_abc123",
+  "tags": ["tag_hr", "tag_policy"],
+  "is_duplicate": false,
+  "duplicate_of": [],
+  "total_chunks": 42,
+  "created_at": "2026-06-07T09:12:00Z",
+  "updated_at": "2026-06-07T09:13:20Z"
+}
+```
+
+**ত্রুটি:** `401`, `403`, `404` `document_not_found`, `429`, `500`।
+
+---
+
+### `GET /knowledge/documents/{document_id}/status`
+
+একটি ডকুমেন্টের অ্যাসিঙ্ক্রোনাস প্রসেসিং স্ট্যাটাস পোল করুন। একটি আপলোড কখন `ready` পৌঁছায় তা জানতে এটি ব্যবহার করুন।
+
+**Scope:** `knowledge:read` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | হ্যাঁ | ডকুমেন্ট id। |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "status": "processing",
+  "progress": 60,
+  "error_message": null
+}
+```
+
+**ত্রুটি:** `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `GET /knowledge/documents/{document_id}/status/stream`
+
+একটি ডকুমেন্টের প্রসেসিং স্ট্যাটাসের একটি Server-Sent Events স্ট্রিমে সাবস্ক্রাইব করুন। প্রতিটি ইভেন্টের `data:` পেলোড একটি স্ট্যাটাস অবজেক্ট (পোল endpoint-এর মতো একই রূপ)। স্ট্রিম অবিলম্বে বর্তমান স্ট্যাটাস নির্গত করে, তারপর প্রতি আপডেটে একটি ইভেন্ট, এবং স্ট্যাটাস একটি টার্মিনাল অবস্থায় (`ready` বা `failed`) পৌঁছালে বন্ধ হয়।
+
+**Scope:** `knowledge:read` · **সাফল্য:** `200` (`text/event-stream`)
+
+আপনার organization-এর বাইরের একটি ডকুমেন্ট id একটি `404` ত্রুটি এনভেলপ ফেরত দেয় — একটি খালি স্ট্রিম নয়।
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | হ্যাঁ | ডকুমেন্ট id। |
+
+```bash
+curl -N https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/status/stream \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```
+data: {"document_id": "doc_9f2a7b", "status": "processing", "progress": 40, "error_message": null}
+
+data: {"document_id": "doc_9f2a7b", "status": "processing", "progress": 80, "error_message": null}
+
+data: {"document_id": "doc_9f2a7b", "status": "ready", "progress": 100, "error_message": null}
+```
+
+**ত্রুটি:** `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `DELETE /knowledge/documents/{document_id}`
+
+একটি ডকুমেন্ট মুছে ফেলুন।
+
+**Scope:** `knowledge:write` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | হ্যাঁ | ডকুমেন্ট id। |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "doc_9f2a7b",
+  "deleted": true
+}
+```
+
+**ত্রুটি:** `401`, `403`, `404`, `429`, `500`।
+
+## সংগঠন
+
+### `POST /knowledge/folders`
+
+একটি ফোল্ডার তৈরি করুন।
+
+**Scope:** `knowledge:write` · **সাফল্য:** `201`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `name` | body | string | হ্যাঁ | ফোল্ডারের নাম (1–100 অক্ষর)। |
+| `description` | body | string | না | একটি বিবরণ (≤500 অক্ষর)। |
+| `color` | body | string | না | একটি `#RRGGBB` হেক্স রঙ। ডিফল্ট `#667eea`। |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "HR Policies", "color": "#667eea" }'
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR Policies",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 0,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**ত্রুটি:** `400` `folder_name_exists`, `401`, `403`, `429`, `500`।
+
+---
+
+### `GET /knowledge/folders`
+
+ফোল্ডার তালিকাভুক্ত করুন, কার্সর-পেজিনেটেড।
+
+**Scope:** `knowledge:read` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | না | পৃষ্ঠার আকার, 1–100। ডিফল্ট 20। |
+| `cursor` | query | string | না | পূর্ববর্তী পৃষ্ঠার `next_cursor`। |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders?limit=20" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "fold_abc123",
+      "name": "HR Policies",
+      "description": null,
+      "color": "#667eea",
+      "document_count": 12,
+      "created_at": "2026-06-07T09:00:00Z",
+      "updated_at": "2026-06-07T09:13:20Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**ত্রুটি:** `400`, `401`, `403`, `429`, `500`।
+
+---
+
+### `GET /knowledge/folders/{folder_id}`
+
+id দিয়ে একটি ফোল্ডার আনয়ন করুন।
+
+**Scope:** `knowledge:read` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | হ্যাঁ | ফোল্ডার id। |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR Policies",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 12,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T09:13:20Z"
+}
+```
+
+**ত্রুটি:** `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `PATCH /knowledge/folders/{folder_id}`
+
+একটি ফোল্ডার আপডেট করুন। সব বডি ফিল্ড ঐচ্ছিক; বাদ দেওয়া ফিল্ড অপরিবর্তিত থাকে।
+
+**Scope:** `knowledge:write` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | হ্যাঁ | ফোল্ডার id। |
+| `name` | body | string | না | নতুন নাম (1–100 অক্ষর)। |
+| `description` | body | string | না | নতুন বিবরণ (≤500 অক্ষর)। |
+| `color` | body | string | না | নতুন `#RRGGBB` হেক্স রঙ। |
+
+```bash
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "HR & Compliance" }'
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "name": "HR & Compliance",
+  "description": null,
+  "color": "#667eea",
+  "document_count": 12,
+  "created_at": "2026-06-07T09:00:00Z",
+  "updated_at": "2026-06-07T10:01:00Z"
+}
+```
+
+**ত্রুটি:** `400` `folder_name_exists`, `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `DELETE /knowledge/folders/{folder_id}`
+
+একটি **খালি** ফোল্ডার মুছে ফেলুন। যে ফোল্ডারে এখনও ডকুমেন্ট আছে তা `400` `folder_not_empty` ফেরত দেয় — প্রথমে এর ডকুমেন্টগুলো সরান বা মুছে ফেলুন।
+
+**Scope:** `knowledge:write` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `folder_id` | path | string | হ্যাঁ | ফোল্ডার id। |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/folders/fold_abc123 \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "fold_abc123",
+  "deleted": true
+}
+```
+
+**ত্রুটি:** `400` `folder_not_empty`, `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `POST /knowledge/tags`
+
+একটি tag তৈরি করুন।
+
+**Scope:** `knowledge:write` · **সাফল্য:** `201`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `name` | body | string | হ্যাঁ | tag-এর নাম (1–50 অক্ষর)। |
+| `color` | body | string | হ্যাঁ | একটি `#RRGGBB` হেক্স রঙ। |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "policy", "color": "#10b981" }'
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#10b981",
+  "document_count": 0,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**ত্রুটি:** `400` `tag_name_exists`, `401`, `403`, `429`, `500`।
+
+---
+
+### `GET /knowledge/tags`
+
+tags তালিকাভুক্ত করুন, কার্সর-পেজিনেটেড।
+
+**Scope:** `knowledge:read` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `limit` | query | integer | না | পৃষ্ঠার আকার, 1–100। ডিফল্ট 20। |
+| `cursor` | query | string | না | পূর্ববর্তী পৃষ্ঠার `next_cursor`। |
+
+```bash
+curl "https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags?limit=20" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "data": [
+    {
+      "id": "tag_policy",
+      "name": "policy",
+      "color": "#10b981",
+      "document_count": 7,
+      "created_at": "2026-06-07T09:00:00Z"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+**ত্রুটি:** `400`, `401`, `403`, `429`, `500`।
+
+---
+
+### `GET /knowledge/tags/{tag_id}`
+
+id দিয়ে একটি tag আনয়ন করুন।
+
+**Scope:** `knowledge:read` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | হ্যাঁ | tag id। |
+
+```bash
+curl https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#10b981",
+  "document_count": 7,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**ত্রুটি:** `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `PATCH /knowledge/tags/{tag_id}`
+
+একটি tag আপডেট করুন। সব বডি ফিল্ড ঐচ্ছিক।
+
+**Scope:** `knowledge:write` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | হ্যাঁ | tag id। |
+| `name` | body | string | না | নতুন নাম (1–50 অক্ষর)। |
+| `color` | body | string | না | নতুন `#RRGGBB` হেক্স রঙ। |
+
+```bash
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "color": "#3b82f6" }'
+```
+
+```json
+{
+  "id": "tag_policy",
+  "name": "policy",
+  "color": "#3b82f6",
+  "document_count": 7,
+  "created_at": "2026-06-07T09:00:00Z"
+}
+```
+
+**ত্রুটি:** `400` `tag_name_exists`, `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `DELETE /knowledge/tags/{tag_id}`
+
+একটি tag মুছে ফেলুন। এটি যে প্রতিটি ডকুমেন্টে প্রয়োগ করা হয়েছিল সেখান থেকেও tag-টি সরিয়ে দেয়।
+
+**Scope:** `knowledge:write` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `tag_id` | path | string | হ্যাঁ | মুছে ফেলার tag id। |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "id": "tag_policy",
+  "deleted": true
+}
+```
+
+**ত্রুটি:** `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `PUT /knowledge/documents/{document_id}/folder`
+
+একটি ডকুমেন্ট একটি ফোল্ডারে সরান, অথবা `folder_id: null` পাস করে এটিকে আনফাইল করুন।
+
+**Scope:** `knowledge:write` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | হ্যাঁ | ডকুমেন্ট id। |
+| `folder_id` | body | string \| null | না | লক্ষ্য ফোল্ডার id, অথবা আনফাইল করতে `null`। |
+
+```bash
+curl -X PUT https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/folder \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "folder_id": "fold_abc123" }'
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "folder_id": "fold_abc123"
+}
+```
+
+**ত্রুটি:** `400`, `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `POST /knowledge/documents/{document_id}/tags`
+
+একটি ডকুমেন্টে এক বা একাধিক tags যোগ করুন। প্রতিক্রিয়া হলো যোগ করার পরে ডকুমেন্টের **সম্পূর্ণ** tag সেট।
+
+**Scope:** `knowledge:write` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | হ্যাঁ | ডকুমেন্ট id। |
+| `tag_ids` | body | array of string | হ্যাঁ | যোগ করার tag ids (1–20)। |
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "tag_ids": ["tag_hr", "tag_policy"] }'
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "tag_ids": ["tag_hr", "tag_policy"]
+}
+```
+
+**ত্রুটি:** `400`, `401`, `403`, `404`, `429`, `500`।
+
+---
+
+### `DELETE /knowledge/documents/{document_id}/tags/{tag_id}`
+
+একটি ডকুমেন্ট থেকে একটি একক tag সরান। প্রতিক্রিয়া হলো ডকুমেন্টের **অবশিষ্ট** tag সেট।
+
+**Scope:** `knowledge:write` · **সাফল্য:** `200`
+
+| প্যারামিটার | অবস্থান | টাইপ | আবশ্যক | বিবরণ |
+|-----------|-----|------|----------|-------------|
+| `document_id` | path | string | হ্যাঁ | ডকুমেন্ট id। |
+| `tag_id` | path | string | হ্যাঁ | সরানোর tag id। |
+
+```bash
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/knowledge/documents/doc_9f2a7b/tags/tag_policy \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+```json
+{
+  "document_id": "doc_9f2a7b",
+  "tag_ids": ["tag_hr"]
+}
+```
+
+**ত্রুটি:** `401`, `403`, `404`, `429`, `500`।

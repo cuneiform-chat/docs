@@ -1,0 +1,83 @@
+---
+description: اتفاقيات مشتركة عبر واجهة المطورين بأكملها — الترقيم بالمؤشر، والطلبات الجامدة، ونوع محتوى JSON، والطوابع الزمنية.
+---
+
+# الاتفاقيات
+
+تنطبق هذه الاتفاقيات على كل endpoint في واجهة المطورين. قراءتها مرة واحدة تتيح لكل صفحة endpoint أن تبقى مركّزة على معاملاتها وأشكالها الخاصة.
+
+## JSON في كل مكان
+
+أجسام الطلب والاستجابة هي JSON (`Content-Type: application/json`)، باستثناء واحد: يستخدم رفع المستندات `multipart/form-data` (راجع endpoints مستندات Knowledge). جميع الطوابع الزمنية سلاسل ISO-8601 بتوقيت UTC، مثل `2026-06-07T12:34:56Z`.
+
+## الترقيم بالمؤشر
+
+تُرجع endpoints القوائم صفحة **مُرقّمة بالمؤشر**، لا مخطط إزاحة/رقم صفحة أبدًا. يكون الغلاف دائمًا بالشكل نفسه:
+
+```json
+{
+  "data": [ /* the items on this page */ ],
+  "has_more": true,
+  "next_cursor": "eyJpZCI6ImFndF8xMjMifQ"
+}
+```
+
+| الحقل | النوع | المعنى |
+|-------|------|---------|
+| `data` | array | العناصر في هذه الصفحة. |
+| `has_more` | boolean | ما إذا كانت توجد صفحة أخرى. |
+| `next_cursor` | string \| null | المؤشر المُبهَم لجلب الصفحة التالية. `null` عندما يكون `has_more` هو `false`. |
+
+تحكّم في الترقيم بمعاملي query:
+
+| المعامل | النوع | الوصف |
+|-----------|------|-------------|
+| `limit` | integer | حجم الصفحة، **1–100**. الافتراضي **20**. |
+| `cursor` | string | الـ `next_cursor` من الصفحة السابقة. احذفه للصفحة الأولى. |
+
+تعامل مع `next_cursor` كقيمة **مُبهَمة** — لا تحلّله أو تبنيه أو تعدّله أبدًا. للمرور على كل الصفحات، استمر في الطلب بـ `next_cursor` من الاستجابة السابقة حتى يصبح `has_more` هو `false`:
+
+```bash
+# First page
+curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=50" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+
+# Next page
+curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=50&cursor=eyJpZCI6ImFndF8xMjMifQ" \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+يُرجع مؤشر مشوّه الرمز `400` `invalid_request_error` (`invalid_cursor`).
+
+## الطلبات الجامدة (Idempotent)
+
+تقبل طلبات `POST` المُعدِّلة ترويسة اختيارية **`Idempotency-Key`** كي لا تنفّذ إعادة المحاولة — بعد خطأ في الشبكة أو انتهاء مهلة — العملية مرتين أبدًا.
+
+```bash
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -H "Idempotency-Key: 9f1c4b7a-2e3d-4f5a-8b6c-1d2e3f4a5b6c" \
+  -d '{ "name": "Support Bot", "configuration": { "model": "gpt-4o-mini", "system_prompt": "You are helpful." } }'
+```
+
+كيف يعمل ذلك:
+
+- أنشئ key فريدة لكل عملية منطقية (الـ UUID مثالي) وأرسلها مع الطلب.
+- يعيد الطلب المتكرر الذي يحمل **الـ key نفسها** خلال **24 ساعة** تشغيل الاستجابة الأصلية المخزّنة بدلًا من تنفيذ العملية مرة أخرى.
+- تُقيَّد keys بـ organization الخاصة بك.
+- بعد 24 ساعة تنتهي صلاحية الـ key؛ ويُعامَل أي طلب بـ key منتهية الصلاحية كطلب جديد.
+
+تُحترَم `Idempotency-Key` على مسار استعلام agent الحاجب، لكن **تُتجاهَل** على مسار التدفق (`stream: true`).
+
+## استجابات الرفض الافتراضي
+
+تكشف أجسام الاستجابة فقط الحقول الموثّقة في كل صفحة endpoint. ولا تتضمّن أبدًا معرّفات داخلية أو تفاصيل تخزين داخلية أو سلاسل مزوّد/نموذج LLM أو أرقام التكلفة. إذا لم يكن حقل ضمن الشكل الموثّق، فإن الواجهة لا تُرجعه.
+
+## سجل التغييرات
+
+| الإصدار | الحالة | صدر |
+|---------|--------|----------|
+| `v1` | مستقر | 2026-06 |
+
+`v1` هو العقد الحالي المستقر. التغييرات إضافية — قد تظهر حقول جديدة وendpoints جديدة، لكن الحقول الموجودة لا تُحذف أو يُعاد توظيفها أبدًا ضمن `v1`.
