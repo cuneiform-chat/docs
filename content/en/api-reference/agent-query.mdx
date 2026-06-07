@@ -1,0 +1,126 @@
+---
+description: Run an agent over the API — a blocking JSON answer, or a streamed Server-Sent Events response with the v1 event schema.
+---
+
+# Agent Query
+
+Run an agent against a query and receive its answer. The single endpoint supports two modes, selected by the `stream` field of the request body: a **blocking** JSON response (the default) or a **streamed** Server-Sent Events response.
+
+Running an agent requires the `agents:query` scope. Each query is metered against your plan's query allowance server-side — exceeding it returns `429` on the blocking path, or a single `error` event on the streaming path.
+
+## `POST /agents/{agent_id}/query`
+
+Run the agent identified by `agent_id`.
+
+**Scope:** `agents:query` · **Success:** `200`
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `agent_id` | path | string | Yes | The agent to run. |
+| `query` | body | string | Yes | The user query (1–10000 chars). |
+| `stream` | body | boolean | No | When `true`, return an SSE stream. Defaults to `false`. |
+| `conversation_id` | body | string | No | Continue a multi-turn conversation. Takes precedence over `session_id`. |
+| `session_id` | body | string | No | An alternative multi-turn key (ignored if `conversation_id` is set). |
+| `Idempotency-Key` | header | string | No | Replay-safe retry key. Honoured on the blocking path; **ignored** when `stream: true`. |
+
+### Blocking mode (default)
+
+With `stream` omitted or `false`, the endpoint returns a single JSON body once the run completes.
+
+```bash
+curl -X POST https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/query \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "query": "What is the parental leave policy?" }'
+```
+
+```json
+{
+  "agent_id": "agt_7c1d8e",
+  "conversation_id": "conv_4d8a1f",
+  "response": "Eligible employees receive 16 weeks of paid parental leave...",
+  "tools_used": [
+    { "name": "knowledge_search", "status": "complete" }
+  ],
+  "usage": {
+    "prompt_tokens": 820,
+    "completion_tokens": 145,
+    "total_tokens": 965
+  },
+  "latency_ms": 1840,
+  "created_at": "2026-06-07T12:00:00Z"
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `agent_id` | string | The agent that ran. |
+| `conversation_id` | string \| null | Pass this back as `conversation_id` to continue the conversation. |
+| `response` | string | The agent's answer text. |
+| `tools_used` | array | The tools the agent invoked, each as `{name, status}`. `status` is `complete` or `error`. |
+| `usage` | object | Token counts: `prompt_tokens`, `completion_tokens`, `total_tokens`. No cost is returned. |
+| `latency_ms` | integer \| null | Wall-clock response latency in milliseconds. |
+| `created_at` | string \| null | When the query was answered (ISO-8601). |
+
+To continue a multi-turn conversation, send the `conversation_id` from a prior response on the next call.
+
+### Streaming mode (SSE)
+
+With `stream: true`, the endpoint returns a `text/event-stream` of Server-Sent Events. Set `stream: true` in the body, and read the response incrementally.
+
+```bash
+curl -N -X POST https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/query \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{ "query": "What is the parental leave policy?", "stream": true }'
+```
+
+#### The v1 event schema
+
+The v1 stream emits exactly **six** event names. Any other internal event is dropped — your client only ever sees these:
+
+| Event | When | `data:` payload |
+|-------|------|-----------------|
+| `start` | The run has begun. | `{ "agent_id", "conversation_id" }` |
+| `content` | An incremental chunk of the answer text. | `{ "delta": "..." }` |
+| `tool_call` | A tool invocation began. | `{ "tool": "...", "status": "running" }` |
+| `tool_result` | A tool invocation finished. | `{ "tool": "...", "status": "complete" }` |
+| `done` | The run completed. | `{ "tokens_used", "latency_ms", "conversation_id" }` |
+| `error` | The run failed or was refused (e.g. quota exceeded). | `{ "error": "..." }` |
+
+No cost field appears on any event — `done` carries token counts and latency only.
+
+#### Sample transcript
+
+A successful streamed run looks like this on the wire:
+
+```
+event: start
+data: {"agent_id": "agt_7c1d8e", "conversation_id": "conv_4d8a1f"}
+
+event: content
+data: {"delta": "Eligible employees receive "}
+
+event: tool_call
+data: {"tool": "knowledge_search", "status": "running"}
+
+event: tool_result
+data: {"tool": "knowledge_search", "status": "complete"}
+
+event: content
+data: {"delta": "16 weeks of paid parental leave."}
+
+event: done
+data: {"tokens_used": 965, "latency_ms": 1840, "conversation_id": "conv_4d8a1f"}
+```
+
+Concatenate the `delta` values from each `content` event to build the full answer. The `done` event signals the end of the stream.
+
+A refusal — for example, exceeding your query allowance — arrives as a single `error` event:
+
+```
+event: error
+data: {"error": "Query allowance exceeded."}
+```
+
+**Errors:** `400`, `401`, `403` (scope), `404` `agent_not_found`, `429` (query allowance, blocking path), `500`.

@@ -7,6 +7,10 @@ const meta: MetaRecord = {
   conventions: 'Conventions',
   errors: 'Errors',
   'rate-limits': 'Rate Limits',
+  knowledge: 'Knowledge',
+  agents: 'Agents',
+  'agent-query': 'Agent Query',
+  changelog: 'Changelog',
 }
 
 export default meta

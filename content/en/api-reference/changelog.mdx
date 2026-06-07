@@ -1,0 +1,27 @@
+---
+description: Developer API changelog — the v1 release baseline and how the contract evolves.
+---
+
+# Changelog
+
+This page tracks changes to the Developer API contract so you can track the surface your integration depends on.
+
+## v1 — Stable (2026-06)
+
+The initial public release of the Cuneiform Chat Developer API. `v1` is the current, **stable** contract and establishes the baseline for everything documented in this reference:
+
+- **Authentication** — credentialed access with a `cuk_<env>_<random>` key, presented as `Authorization: Bearer cuk_…` or `X-API-Key: cuk_…`. Five scopes: `knowledge:read`, `knowledge:write`, `agents:read`, `agents:write`, `agents:query`.
+- **Knowledge** — asynchronous document upload, list, search, fetch, status (poll + SSE), and delete; folder and tag CRUD; document organization (move to folder, add/remove tags).
+- **Agents** — create, list, fetch, update, archive (soft-delete), and restore; read and update an agent's configuration.
+- **Agent query** — run an agent in blocking JSON mode or streaming SSE mode.
+- **Conventions** — opaque cursor pagination, the `Idempotency-Key` contract, the Stripe-style error envelope, and the `RateLimit-*` headers.
+
+## How the contract evolves
+
+`v1` is **additive and stable**:
+
+- New fields and new endpoints may be introduced within `v1`.
+- Existing fields are never removed or repurposed within `v1`.
+- Error categories are never repurposed — a new category may be added, but an existing one keeps its meaning, so it is safe to branch on the error `type`.
+
+A breaking change would ship under a new version prefix (`/v2`), never silently within `v1`.
