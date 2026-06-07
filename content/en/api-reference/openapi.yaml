@@ -1,0 +1,2078 @@
+openapi: 3.1.0
+info:
+  title: Cuneiform Chat Developer API
+  version: 1.0.0
+  description: >-
+    The Cuneiform Chat Developer REST API lets your developers manage knowledge
+    documents, agents, and run agents programmatically over a credentialed,
+    versioned `/v1` surface.
+
+
+    All requests authenticate with a developer API key (`cuk_<env>_<random>`)
+    presented as `Authorization: Bearer cuk_…` or `X-API-Key: cuk_…`. The key
+    resolves to your organization and to the scopes it was granted; every
+    request is scoped to that organization automatically — you never pass an
+    organization id.
+
+
+    Responses are JSON. List endpoints use opaque cursor pagination
+    (`{data, has_more, next_cursor}`). Errors use a stable, Stripe-style
+    envelope (`{error: {type, code, message, param?}}`) with a fixed set of
+    categories. Mutating `POST` requests accept an `Idempotency-Key` header for
+    safe retries. Every key-authenticated response carries `RateLimit-*`
+    headers; over-budget requests return `429` with `Retry-After`.
+
+
+    This specification documents only the public `/v1` contract. Response bodies
+    are deny-by-default: they expose only the fields listed here and never
+    internal identifiers, storage internals, LLM provider/model strings, or
+    cost figures.
+  contact:
+    name: Cuneiform Chat
+    url: https://cuneiform.chat
+
+servers:
+  - url: https://cuneiform.chat/api/developer/v1
+    description: Production
+
+security:
+  - bearerAuth: []
+  - apiKeyHeader: []
+
+tags:
+  - name: Knowledge — Documents
+    description: Upload, list, search, fetch, track, and delete knowledge documents.
+  - name: Knowledge — Organization
+    description: Folder and tag CRUD plus document organization (move-to-folder, add/remove tags).
+  - name: Agents
+    description: Create, list, fetch, update, soft-delete, restore agents, and read/update an agent's configuration.
+  - name: Agent Query
+    description: Run an agent and receive a blocking JSON answer or a streamed SSE response.
+
+paths:
+  # =========================================================================
+  # Knowledge — Documents
+  # =========================================================================
+  /knowledge/documents:
+    post:
+      tags: [Knowledge — Documents]
+      summary: Upload a document (async)
+      operationId: uploadDocument
+      description: >-
+        Upload a file to the knowledge base. Processing is asynchronous: the
+        endpoint returns `201` with `{document_id, status}` immediately and
+        never waits for the document to become `ready`. Poll
+        `GET /knowledge/documents/{document_id}/status` or subscribe to
+        `GET /knowledge/documents/{document_id}/status/stream` to follow
+        processing.
+
+
+        If the uploaded file matches an existing document the endpoint returns
+        `409` with a structured `DuplicateDetected` body (not the error
+        envelope); resume the upload with
+        `POST /knowledge/documents/confirm-duplicate`.
+
+
+        Required scope: `knowledge:write`.
+      x-required-scope: knowledge:write
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DocumentUploadForm'
+      responses:
+        '201':
+          description: Upload accepted; processing has started.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadAccepted'
+        '409':
+          description: A matching document already exists; resume via confirm-duplicate.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DuplicateDetected'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+    get:
+      tags: [Knowledge — Documents]
+      summary: List documents
+      operationId: listDocuments
+      description: >-
+        List documents (cursor-paginated). Optional `folder_id`, `tag`, and
+        `status` filters.
+
+
+        Required scope: `knowledge:read`.
+      x-required-scope: knowledge:read
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+        - name: folder_id
+          in: query
+          description: Restrict results to a folder.
+          required: false
+          schema: { type: string }
+        - name: tag
+          in: query
+          description: Restrict results to a tag id.
+          required: false
+          schema: { type: string }
+        - name: status
+          in: query
+          description: Restrict results to a processing status.
+          required: false
+          schema: { type: string }
+      responses:
+        '200':
+          description: A page of documents.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentPage'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  /knowledge/documents/confirm-duplicate:
+    post:
+      tags: [Knowledge — Documents]
+      summary: Resume a duplicate-flagged upload (async)
+      operationId: confirmDuplicateUpload
+      description: >-
+        Resume an upload that was flagged as a duplicate by `POST
+        /knowledge/documents`, identified by the `upload_session_id` returned in
+        the `409` body. Like upload, processing is asynchronous and the endpoint
+        returns `201` with `{document_id, status}`.
+
+
+        Required scope: `knowledge:write`.
+      x-required-scope: knowledge:write
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConfirmDuplicateForm'
+      responses:
+        '201':
+          description: Upload resumed; processing has started.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadAccepted'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  /knowledge/documents/search:
+    get:
+      tags: [Knowledge — Documents]
+      summary: Search documents
+      operationId: searchDocuments
+      description: >-
+        Search documents by a query string. Returns a cursor-paginated page of
+        documents ranked by relevance.
+
+
+        Required scope: `knowledge:read`.
+      x-required-scope: knowledge:read
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+        - name: q
+          in: query
+          description: Search query string.
+          required: false
+          schema: { type: string }
+        - name: folder_id
+          in: query
+          description: Restrict results to a folder.
+          required: false
+          schema: { type: string }
+        - name: tag
+          in: query
+          description: Restrict results to a tag id.
+          required: false
+          schema: { type: string }
+        - name: status
+          in: query
+          description: Restrict results to a processing status.
+          required: false
+          schema: { type: string }
+      responses:
+        '200':
+          description: A page of matching documents.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentPage'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  /knowledge/documents/{document_id}:
+    get:
+      tags: [Knowledge — Documents]
+      summary: Get a document
+      operationId: getDocument
+      description: >-
+        Fetch a single document by id. Returns `404` if no document with that id
+        exists in your organization.
+
+
+        Required scope: `knowledge:read`.
+      x-required-scope: knowledge:read
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: The document.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+    delete:
+      tags: [Knowledge — Documents]
+      summary: Delete a document
+      operationId: deleteDocument
+      description: >-
+        Delete a document. Returns `404` if no document with that id exists in
+        your organization.
+
+
+        Required scope: `knowledge:write`.
+      x-required-scope: knowledge:write
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: The document was deleted.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletedResource'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  /knowledge/documents/{document_id}/status:
+    get:
+      tags: [Knowledge — Documents]
+      summary: Get document processing status
+      operationId: getDocumentStatus
+      description: >-
+        Poll a document's asynchronous processing status. Returns `404` if no
+        document with that id exists in your organization.
+
+
+        Required scope: `knowledge:read`.
+      x-required-scope: knowledge:read
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: The document's current processing status.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentStatus'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  /knowledge/documents/{document_id}/status/stream:
+    get:
+      tags: [Knowledge — Documents]
+      summary: Stream document processing status (SSE)
+      operationId: streamDocumentStatus
+      description: >-
+        Subscribe to a Server-Sent Events stream of a document's processing
+        status. Each event's `data:` payload is a `DocumentStatus` object. The
+        stream emits the current status immediately, then one event per poll,
+        and closes when the status reaches a terminal state (`ready` or
+        `failed`). Returns `404` (the error envelope, not an empty stream) if no
+        document with that id exists in your organization.
+
+
+        Required scope: `knowledge:read`.
+      x-required-scope: knowledge:read
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: >-
+            An SSE stream of `DocumentStatus` frames. Media type
+            `text/event-stream`; each frame is a `data:` line carrying a
+            `DocumentStatus` JSON object.
+          content:
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/DocumentStatus'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  # =========================================================================
+  # Knowledge — Organization (folders / tags / document organization)
+  # =========================================================================
+  /knowledge/folders:
+    post:
+      tags: [Knowledge — Organization]
+      summary: Create a folder
+      operationId: createFolder
+      description: 'Create a knowledge folder. Required scope: `knowledge:write`.'
+      x-required-scope: knowledge:write
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderCreate'
+      responses:
+        '201':
+          description: The created folder.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+    get:
+      tags: [Knowledge — Organization]
+      summary: List folders
+      operationId: listFolders
+      description: 'List knowledge folders (cursor-paginated). Required scope: `knowledge:read`.'
+      x-required-scope: knowledge:read
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: A page of folders.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FolderPage'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  /knowledge/folders/{folder_id}:
+    get:
+      tags: [Knowledge — Organization]
+      summary: Get a folder
+      operationId: getFolder
+      description: 'Fetch a folder by id. Returns `404` if not in your organization. Required scope: `knowledge:read`.'
+      x-required-scope: knowledge:read
+      parameters:
+        - $ref: '#/components/parameters/FolderId'
+      responses:
+        '200':
+          description: The folder.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+    patch:
+      tags: [Knowledge — Organization]
+      summary: Update a folder
+      operationId: updateFolder
+      description: 'Update a folder. Returns `404` if not in your organization; a name conflict returns `400` `folder_name_exists`. Required scope: `knowledge:write`.'
+      x-required-scope: knowledge:write
+      parameters:
+        - $ref: '#/components/parameters/FolderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderUpdate'
+      responses:
+        '200':
+          description: The updated folder.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+    delete:
+      tags: [Knowledge — Organization]
+      summary: Delete a folder
+      operationId: deleteFolder
+      description: 'Delete an empty folder. Returns `404` if not in your organization; a non-empty folder returns `400` `folder_not_empty`. Required scope: `knowledge:write`.'
+      x-required-scope: knowledge:write
+      parameters:
+        - $ref: '#/components/parameters/FolderId'
+      responses:
+        '200':
+          description: The folder was deleted.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletedResource'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  /knowledge/tags:
+    post:
+      tags: [Knowledge — Organization]
+      summary: Create a tag
+      operationId: createTag
+      description: 'Create a knowledge tag. Required scope: `knowledge:write`.'
+      x-required-scope: knowledge:write
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagCreate'
+      responses:
+        '201':
+          description: The created tag.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+    get:
+      tags: [Knowledge — Organization]
+      summary: List tags
+      operationId: listTags
+      description: 'List knowledge tags (cursor-paginated). Required scope: `knowledge:read`.'
+      x-required-scope: knowledge:read
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: A page of tags.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagPage'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  /knowledge/tags/{tag_id}:
+    get:
+      tags: [Knowledge — Organization]
+      summary: Get a tag
+      operationId: getTag
+      description: 'Fetch a tag by id. Returns `404` if not in your organization. Required scope: `knowledge:read`.'
+      x-required-scope: knowledge:read
+      parameters:
+        - $ref: '#/components/parameters/TagId'
+      responses:
+        '200':
+          description: The tag.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+    patch:
+      tags: [Knowledge — Organization]
+      summary: Update a tag
+      operationId: updateTag
+      description: 'Update a tag. Returns `404` if not in your organization; a name conflict returns `400` `tag_name_exists`. Required scope: `knowledge:write`.'
+      x-required-scope: knowledge:write
+      parameters:
+        - $ref: '#/components/parameters/TagId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagUpdate'
+      responses:
+        '200':
+          description: The updated tag.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+    delete:
+      tags: [Knowledge — Organization]
+      summary: Delete a tag
+      operationId: deleteTag
+      description: 'Delete a tag (also removes it from all documents). Returns `404` if not in your organization. Required scope: `knowledge:write`.'
+      x-required-scope: knowledge:write
+      parameters:
+        - $ref: '#/components/parameters/TagId'
+      responses:
+        '200':
+          description: The tag was deleted.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletedResource'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  /knowledge/documents/{document_id}/folder:
+    put:
+      tags: [Knowledge — Organization]
+      summary: Move a document to a folder
+      operationId: moveDocumentToFolder
+      description: >-
+        Move a document into a folder, or unfile it by passing `folder_id: null`.
+        Returns `404` if the document — or the target folder — is not in your
+        organization.
+
+
+        Required scope: `knowledge:write`.
+      x-required-scope: knowledge:write
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentMove'
+      responses:
+        '200':
+          description: The document's new folder placement.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentFolderPlacement'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  /knowledge/documents/{document_id}/tags:
+    post:
+      tags: [Knowledge — Organization]
+      summary: Add tags to a document
+      operationId: addTagsToDocument
+      description: >-
+        Add one or more tags to a document. The response is the document's full
+        tag set after the addition. Returns `404` if the document is not in your
+        organization.
+
+
+        Required scope: `knowledge:write`.
+      x-required-scope: knowledge:write
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentTagsAdd'
+      responses:
+        '200':
+          description: The document's tag set after the addition.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentTags'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  /knowledge/documents/{document_id}/tags/{tag_id}:
+    delete:
+      tags: [Knowledge — Organization]
+      summary: Remove a tag from a document
+      operationId: removeTagFromDocument
+      description: >-
+        Remove a single tag from a document. The response is the document's
+        remaining tag set. Returns `404` if the document is not in your
+        organization.
+
+
+        Required scope: `knowledge:write`.
+      x-required-scope: knowledge:write
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+        - $ref: '#/components/parameters/TagId'
+      responses:
+        '200':
+          description: The document's remaining tag set.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentTags'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  # =========================================================================
+  # Agents — CRUD + configuration
+  # =========================================================================
+  /agents:
+    post:
+      tags: [Agents]
+      summary: Create an agent
+      operationId: createAgent
+      description: >-
+        Create an agent. Returns `201` with the created `Agent`. Accepts an
+        `Idempotency-Key` so a retried create never produces a second agent.
+
+
+        Required scope: `agents:write`.
+      x-required-scope: agents:write
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentCreate'
+      responses:
+        '201':
+          description: The created agent.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+    get:
+      tags: [Agents]
+      summary: List agents
+      operationId: listAgents
+      description: 'List agents (cursor-paginated). Optional `status` and `search` filters. Required scope: `agents:read`.'
+      x-required-scope: agents:read
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+        - name: status
+          in: query
+          description: Filter by agent status.
+          required: false
+          schema: { $ref: '#/components/schemas/AgentStatus' }
+        - name: search
+          in: query
+          description: Filter by a name/description search term.
+          required: false
+          schema: { type: string }
+      responses:
+        '200':
+          description: A page of agents.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPage'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  /agents/{agent_id}:
+    get:
+      tags: [Agents]
+      summary: Get an agent
+      operationId: getAgent
+      description: 'Fetch a single agent by id. Returns `404` if not in your organization. Required scope: `agents:read`.'
+      x-required-scope: agents:read
+      parameters:
+        - $ref: '#/components/parameters/AgentId'
+      responses:
+        '200':
+          description: The agent.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+    patch:
+      tags: [Agents]
+      summary: Update an agent
+      operationId: updateAgent
+      description: >-
+        Update an agent's basic fields (name, description, status, language,
+        handoff configuration). Returns `404` if not in your organization.
+
+
+        Required scope: `agents:write`.
+      x-required-scope: agents:write
+      parameters:
+        - $ref: '#/components/parameters/AgentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentUpdate'
+      responses:
+        '200':
+          description: The updated agent.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+    delete:
+      tags: [Agents]
+      summary: Delete (archive) an agent
+      operationId: deleteAgent
+      description: >-
+        Soft-delete (archive) an agent. The agent is recoverable for 30 days via
+        `POST /agents/{agent_id}/restore`. Returns `200` with an
+        `AgentDeleted` body carrying the restore deadline. Returns `404` if not
+        in your organization.
+
+
+        Required scope: `agents:write` (the minting role must also hold the
+        agent-delete permission).
+      x-required-scope: agents:write
+      parameters:
+        - $ref: '#/components/parameters/AgentId'
+      responses:
+        '200':
+          description: The agent was archived.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentDeleted'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  /agents/{agent_id}/restore:
+    post:
+      tags: [Agents]
+      summary: Restore an archived agent
+      operationId: restoreAgent
+      description: >-
+        Restore an archived agent within its 30-day recovery window. Returns the
+        restored `Agent`. Returns `404` if not in your organization; an expired
+        window or a not-archived agent returns `400`.
+
+
+        Required scope: `agents:write` (the minting role must also hold the
+        agent-delete permission).
+      x-required-scope: agents:write
+      parameters:
+        - $ref: '#/components/parameters/AgentId'
+      responses:
+        '200':
+          description: The restored agent.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  /agents/{agent_id}/configuration:
+    get:
+      tags: [Agents]
+      summary: Get an agent's configuration
+      operationId: getAgentConfiguration
+      description: >-
+        Fetch an agent's configuration. The response exposes only the
+        tenant-facing generation settings; the underlying LLM provider/model
+        identifier is deliberately not exposed. Returns `404` if not in your
+        organization.
+
+
+        Required scope: `agents:read`.
+      x-required-scope: agents:read
+      parameters:
+        - $ref: '#/components/parameters/AgentId'
+      responses:
+        '200':
+          description: The agent's configuration.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentConfiguration'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+    patch:
+      tags: [Agents]
+      summary: Update an agent's configuration
+      operationId: updateAgentConfiguration
+      description: >-
+        Update an agent's generation settings. Returns the updated
+        configuration. A setting that breaches your plan's limits returns `403`.
+        Returns `404` if the agent is not in your organization.
+
+
+        Required scope: `agents:write`.
+      x-required-scope: agents:write
+      parameters:
+        - $ref: '#/components/parameters/AgentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentConfigurationUpdate'
+      responses:
+        '200':
+          description: The updated configuration.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentConfigurationUpdateResult'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+  # =========================================================================
+  # Agent query (blocking JSON + SSE)
+  # =========================================================================
+  /agents/{agent_id}/query:
+    post:
+      tags: [Agent Query]
+      summary: Run an agent
+      operationId: queryAgent
+      description: >-
+        Run an agent against a query. Two modes, selected by the `stream`
+        field of the request body:
+
+
+        - **Blocking** (`stream: false`, the default): returns `200` with an
+          `AgentQueryResponse` JSON body (the answer text, the tools that ran,
+          token usage, and wall-clock latency). An `Idempotency-Key` is honoured
+          on this path.
+
+        - **Streaming** (`stream: true`): returns a `text/event-stream` of
+          Server-Sent Events. The v1 stream emits a deny-by-default set of
+          events — `start`, `content`, `tool_call`, `tool_result`, `done`,
+          `error` — and drops any other internal event. `Idempotency-Key` is
+          ignored on the streaming path.
+
+
+        Quota is metered server-side; exceeding your plan's query allowance
+        returns `429` (blocking) or a single `error` event (streaming).
+
+
+        Required scope: `agents:query`.
+      x-required-scope: agents:query
+      parameters:
+        - $ref: '#/components/parameters/AgentId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentQueryRequest'
+      responses:
+        '200':
+          description: >-
+            The agent's answer. When `stream: false` the body is an
+            `AgentQueryResponse` JSON object. When `stream: true` the response is
+            a `text/event-stream` whose frames follow the v1 event schema (see
+            `AgentQueryStreamEvent`).
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentQueryResponse'
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/AgentQueryStreamEvent'
+        '400': { $ref: '#/components/responses/InvalidRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Present your developer API key secret (`cuk_<env>_<random>`) as
+        `Authorization: Bearer cuk_…`.
+    apiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: >-
+        Alternatively present your developer API key secret as
+        `X-API-Key: cuk_…`.
+
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Page size, 1–100. Defaults to 20.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    Cursor:
+      name: cursor
+      in: query
+      description: >-
+        Opaque pagination cursor from a previous page's `next_cursor`. Omit for
+        the first page. Treat it as an opaque blob — never parse it.
+      required: false
+      schema:
+        type: string
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      description: >-
+        A client-generated unique key. A repeated request with the same key
+        within 24 hours replays the original response instead of repeating the
+        operation. Scoped to your organization.
+      required: false
+      schema:
+        type: string
+    DocumentId:
+      name: document_id
+      in: path
+      required: true
+      description: The document id.
+      schema:
+        type: string
+    FolderId:
+      name: folder_id
+      in: path
+      required: true
+      description: The folder id.
+      schema:
+        type: string
+    TagId:
+      name: tag_id
+      in: path
+      required: true
+      description: The tag id.
+      schema:
+        type: string
+    AgentId:
+      name: agent_id
+      in: path
+      required: true
+      description: The agent id.
+      schema:
+        type: string
+
+  headers:
+    RateLimit-Limit:
+      description: The per-minute request quota for your organization.
+      schema:
+        type: integer
+    RateLimit-Remaining:
+      description: Requests remaining in the current window.
+      schema:
+        type: integer
+    RateLimit-Reset:
+      description: Seconds until the current rate-limit window resets.
+      schema:
+        type: integer
+    Retry-After:
+      description: Seconds to wait before retrying (sent only on `429`).
+      schema:
+        type: integer
+
+  responses:
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    Forbidden:
+      description: >-
+        The key lacks the required scope, the minting role lacks the mapped
+        permission, or your plan does not allow the operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    NotFound:
+      description: No resource with that id exists in your organization.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    InvalidRequest:
+      description: The request was malformed or violated a constraint.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    RateLimited:
+      description: >-
+        You have exceeded your plan's request or query allowance. The
+        `Retry-After` header indicates when to retry.
+      headers:
+        Retry-After: { $ref: '#/components/headers/Retry-After' }
+        RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+        RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+        RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    ApiError:
+      description: An unexpected upstream error occurred. Retry the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+
+  schemas:
+    # -----------------------------------------------------------------------
+    # Shared — errors, pagination
+    # -----------------------------------------------------------------------
+    ErrorEnvelope:
+      type: object
+      description: >-
+        The stable error envelope. `type` is one of the seven fixed categories;
+        `code` is a stable machine-readable per-failure identifier; `message` is
+        human-readable; `param` (when present) names the offending field.
+      required: [error]
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          required: [type, code, message]
+          additionalProperties: false
+          properties:
+            type:
+              type: string
+              enum:
+                - authentication_error
+                - permission_error
+                - tier_error
+                - invalid_request_error
+                - not_found_error
+                - rate_limit_error
+                - api_error
+            code:
+              type: string
+              examples:
+                - agent_not_found
+                - document_not_found
+                - invalid_scope
+                - permission_denied
+                - tier_limit
+                - rate_limit_exceeded
+                - invalid_cursor
+                - invalid_upload
+                - folder_name_exists
+                - folder_not_empty
+                - upstream_error
+            message:
+              type: string
+            param:
+              type: string
+
+    CursorPage:
+      type: object
+      description: >-
+        The cursor-pagination wrapper. `data` is the page of items; `has_more`
+        indicates whether another page exists; `next_cursor` is the opaque
+        cursor to pass as `?cursor=` for the next page (null when `has_more` is
+        false).
+      required: [data, has_more]
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          items: {}
+        has_more:
+          type: boolean
+        next_cursor:
+          type: [string, "null"]
+
+    DeletedResource:
+      type: object
+      description: The result of deleting a resource.
+      required: [id, deleted]
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        deleted:
+          type: boolean
+          const: true
+
+    # -----------------------------------------------------------------------
+    # Enums
+    # -----------------------------------------------------------------------
+    AgentStatus:
+      type: string
+      enum: [active, inactive, testing, archived]
+    ResponseFormat:
+      type: string
+      enum: [conversational, structured]
+    AccessMode:
+      type: string
+      enum: [inclusive, exclusive]
+
+    # -----------------------------------------------------------------------
+    # Knowledge — request bodies
+    # -----------------------------------------------------------------------
+    DocumentUploadForm:
+      type: object
+      description: The multipart form for uploading a document.
+      required: [file]
+      properties:
+        file:
+          type: string
+          format: binary
+          description: The document file to upload.
+        title:
+          type: string
+        description:
+          type: string
+        tags:
+          type: string
+          description: Comma-separated tag ids.
+        folder_id:
+          type: string
+        visibility:
+          type: string
+          default: private
+
+    ConfirmDuplicateForm:
+      type: object
+      description: The multipart form for resuming a duplicate-flagged upload.
+      required: [upload_session_id]
+      properties:
+        upload_session_id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        tags:
+          type: string
+          description: Comma-separated tag ids.
+        folder_id:
+          type: string
+        visibility:
+          type: string
+          default: private
+
+    FolderCreate:
+      type: object
+      required: [name]
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        description:
+          type: [string, "null"]
+          maxLength: 500
+        color:
+          type: string
+          pattern: '^#[0-9A-Fa-f]{6}$'
+          default: '#667eea'
+
+    FolderUpdate:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: [string, "null"]
+          minLength: 1
+          maxLength: 100
+        description:
+          type: [string, "null"]
+          maxLength: 500
+        color:
+          type: [string, "null"]
+          pattern: '^#[0-9A-Fa-f]{6}$'
+
+    TagCreate:
+      type: object
+      required: [name, color]
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 50
+        color:
+          type: string
+          pattern: '^#[0-9A-Fa-f]{6}$'
+
+    TagUpdate:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: [string, "null"]
+          minLength: 1
+          maxLength: 50
+        color:
+          type: [string, "null"]
+          pattern: '^#[0-9A-Fa-f]{6}$'
+
+    DocumentMove:
+      type: object
+      description: Move a document to a folder, or unfile it with a null folder id.
+      additionalProperties: false
+      properties:
+        folder_id:
+          type: [string, "null"]
+          description: Target folder id, or null to unfile.
+
+    DocumentTagsAdd:
+      type: object
+      required: [tag_ids]
+      additionalProperties: false
+      properties:
+        tag_ids:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 20
+
+    # -----------------------------------------------------------------------
+    # Knowledge — response bodies
+    # -----------------------------------------------------------------------
+    Document:
+      type: object
+      description: A knowledge document.
+      additionalProperties: false
+      required: [id, filename]
+      properties:
+        id:
+          type: string
+        filename:
+          type: string
+        title:
+          type: [string, "null"]
+        description:
+          type: [string, "null"]
+        file_format:
+          type: [string, "null"]
+        file_size_bytes:
+          type: [integer, "null"]
+        status:
+          type: [string, "null"]
+          description: 'Async lifecycle: uploaded, validating, stored, processing, ready, or failed.'
+        folder_id:
+          type: [string, "null"]
+        tags:
+          type: array
+          items:
+            type: string
+        is_duplicate:
+          type: boolean
+          default: false
+        duplicate_of:
+          type: array
+          items:
+            type: string
+        total_chunks:
+          type: [integer, "null"]
+        created_at:
+          type: [string, "null"]
+          format: date-time
+        updated_at:
+          type: [string, "null"]
+          format: date-time
+
+    DocumentStatus:
+      type: object
+      description: A document's asynchronous processing status (also the SSE frame body).
+      additionalProperties: false
+      required: [document_id]
+      properties:
+        document_id:
+          type: string
+        status:
+          type: [string, "null"]
+        progress:
+          type: [integer, "null"]
+          description: Processing progress, 0–100, when available.
+        error_message:
+          type: [string, "null"]
+
+    UploadAccepted:
+      type: object
+      description: The async upload-accepted body.
+      additionalProperties: false
+      required: [document_id]
+      properties:
+        document_id:
+          type: string
+        status:
+          type: [string, "null"]
+
+    DuplicateDetected:
+      type: object
+      description: >-
+        The structured `409` body when an upload matches an existing document.
+        Resume via `POST /knowledge/documents/confirm-duplicate` with the
+        `upload_session_id`.
+      additionalProperties: false
+      required: [upload_session_id]
+      properties:
+        upload_session_id:
+          type: string
+        duplicate_of:
+          type: array
+          items:
+            type: string
+
+    Folder:
+      type: object
+      description: A knowledge folder.
+      additionalProperties: false
+      required: [id, name]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: [string, "null"]
+        color:
+          type: [string, "null"]
+        document_count:
+          type: [integer, "null"]
+        created_at:
+          type: [string, "null"]
+          format: date-time
+        updated_at:
+          type: [string, "null"]
+          format: date-time
+
+    Tag:
+      type: object
+      description: A knowledge tag.
+      additionalProperties: false
+      required: [id, name]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        color:
+          type: [string, "null"]
+        document_count:
+          type: [integer, "null"]
+        created_at:
+          type: [string, "null"]
+          format: date-time
+
+    DocumentFolderPlacement:
+      type: object
+      description: A document's folder placement after a move.
+      additionalProperties: false
+      required: [document_id]
+      properties:
+        document_id:
+          type: string
+        folder_id:
+          type: [string, "null"]
+
+    DocumentTags:
+      type: object
+      description: A document's tag set after an add/remove operation.
+      additionalProperties: false
+      required: [document_id, tag_ids]
+      properties:
+        document_id:
+          type: string
+        tag_ids:
+          type: array
+          items:
+            type: string
+
+    DocumentPage:
+      allOf:
+        - $ref: '#/components/schemas/CursorPage'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Document'
+
+    FolderPage:
+      allOf:
+        - $ref: '#/components/schemas/CursorPage'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Folder'
+
+    TagPage:
+      allOf:
+        - $ref: '#/components/schemas/CursorPage'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Tag'
+
+    # -----------------------------------------------------------------------
+    # Agents — request bodies
+    # -----------------------------------------------------------------------
+    AgentLLMConfig:
+      type: object
+      description: >-
+        The LLM configuration block for creating an agent. The `model` field
+        names the model the agent should use; it is a request input only and is
+        never echoed back in any response.
+      required: [model, system_prompt]
+      properties:
+        model:
+          type: string
+          description: The model the agent should use (request input only).
+        system_prompt:
+          type: string
+          minLength: 1
+          maxLength: 10000
+        temperature:
+          type: number
+          minimum: 0.0
+          maximum: 2.0
+          default: 0.7
+        max_tokens:
+          type: integer
+          minimum: 100
+          maximum: 4000
+          default: 1500
+        response_format:
+          $ref: '#/components/schemas/ResponseFormat'
+        top_p:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+          default: 1.0
+        frequency_penalty:
+          type: number
+          minimum: -2.0
+          maximum: 2.0
+          default: 0.0
+        presence_penalty:
+          type: number
+          minimum: -2.0
+          maximum: 2.0
+          default: 0.0
+        streaming_enabled:
+          type: boolean
+          default: true
+        max_retrieved_chunks:
+          type: integer
+          minimum: 5
+          maximum: 20
+          default: 10
+        show_citations:
+          type: boolean
+          default: false
+
+    KnowledgeAccessInput:
+      type: object
+      description: The agent's knowledge-access settings.
+      properties:
+        access_mode:
+          $ref: '#/components/schemas/AccessMode'
+        folder_ids:
+          type: array
+          items:
+            type: string
+        tag_ids:
+          type: array
+          items:
+            type: string
+        document_ids:
+          type: array
+          items:
+            type: string
+
+    HandoffConfig:
+      type: object
+      description: The agent's human-handoff configuration.
+      properties:
+        enabled:
+          type: boolean
+          default: false
+        auto_message:
+          type: string
+          maxLength: 500
+        accept_message:
+          type: string
+          maxLength: 500
+        resolve_message:
+          type: string
+          maxLength: 500
+        max_wait_minutes:
+          type: integer
+          minimum: 1
+          maximum: 1440
+          default: 30
+
+    AgentCreate:
+      type: object
+      required: [name, configuration]
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        description:
+          type: [string, "null"]
+          maxLength: 500
+        status:
+          $ref: '#/components/schemas/AgentStatus'
+        language:
+          type: [string, "null"]
+          maxLength: 10
+          description: Response language override (BCP-47). Null inherits the organization default.
+        configuration:
+          $ref: '#/components/schemas/AgentLLMConfig'
+        knowledge_access:
+          $ref: '#/components/schemas/KnowledgeAccessInput'
+        handoff_config:
+          $ref: '#/components/schemas/HandoffConfig'
+
+    AgentUpdate:
+      type: object
+      description: All fields optional; omitted fields are left unchanged.
+      properties:
+        name:
+          type: [string, "null"]
+          minLength: 1
+          maxLength: 100
+        description:
+          type: [string, "null"]
+          maxLength: 500
+        status:
+          $ref: '#/components/schemas/AgentStatus'
+        language:
+          type: [string, "null"]
+          maxLength: 10
+        handoff_config:
+          $ref: '#/components/schemas/HandoffConfig'
+
+    AgentConfigurationUpdate:
+      type: object
+      description: >-
+        Update an agent's generation settings. All fields optional. Set
+        `save_as_draft` to save without incrementing the published version.
+      properties:
+        system_prompt:
+          type: [string, "null"]
+          minLength: 1
+          maxLength: 10000
+        temperature:
+          type: [number, "null"]
+          minimum: 0.0
+          maximum: 2.0
+        max_tokens:
+          type: [integer, "null"]
+          minimum: 100
+          maximum: 4000
+        response_format:
+          $ref: '#/components/schemas/ResponseFormat'
+        top_p:
+          type: [number, "null"]
+          minimum: 0.0
+          maximum: 1.0
+        frequency_penalty:
+          type: [number, "null"]
+          minimum: -2.0
+          maximum: 2.0
+        presence_penalty:
+          type: [number, "null"]
+          minimum: -2.0
+          maximum: 2.0
+        streaming_enabled:
+          type: [boolean, "null"]
+        max_retrieved_chunks:
+          type: [integer, "null"]
+          minimum: 5
+          maximum: 20
+        show_citations:
+          type: [boolean, "null"]
+        save_as_draft:
+          type: boolean
+          default: false
+
+    AgentQueryRequest:
+      type: object
+      description: The input for running an agent.
+      required: [query]
+      additionalProperties: false
+      properties:
+        query:
+          type: string
+          minLength: 1
+          maxLength: 10000
+          description: The user query to send to the agent.
+        stream:
+          type: boolean
+          default: false
+          description: When true, return an SSE stream instead of a blocking JSON body.
+        conversation_id:
+          type: [string, "null"]
+          description: Multi-turn continuation key (takes precedence over session_id).
+        session_id:
+          type: [string, "null"]
+          description: Alternative multi-turn key (ignored if conversation_id is set).
+
+    # -----------------------------------------------------------------------
+    # Agents — response bodies (deny-by-default; no internal/provider fields)
+    # -----------------------------------------------------------------------
+    AgentConfig:
+      type: object
+      description: >-
+        The tenant-facing slice of an agent's generation settings. The LLM
+        provider/model identifier and execution/retry internals are never
+        exposed.
+      additionalProperties: false
+      properties:
+        temperature:
+          type: [number, "null"]
+        max_tokens:
+          type: [integer, "null"]
+        system_prompt:
+          type: [string, "null"]
+        response_format:
+          type: [string, "null"]
+        top_p:
+          type: [number, "null"]
+        frequency_penalty:
+          type: [number, "null"]
+        presence_penalty:
+          type: [number, "null"]
+        streaming_enabled:
+          type: [boolean, "null"]
+        max_retrieved_chunks:
+          type: [integer, "null"]
+        show_citations:
+          type: [boolean, "null"]
+
+    AgentKnowledgeAccess:
+      type: object
+      description: An agent's knowledge-access summary.
+      additionalProperties: false
+      properties:
+        folder_ids:
+          type: array
+          items:
+            type: string
+        tag_ids:
+          type: array
+          items:
+            type: string
+        document_ids:
+          type: array
+          items:
+            type: string
+        access_mode:
+          type: [string, "null"]
+        document_count_cache:
+          type: [integer, "null"]
+
+    AgentUsage:
+      type: object
+      description: An agent's current-month usage (token and query counts only).
+      additionalProperties: false
+      properties:
+        queries:
+          type: [integer, "null"]
+        tokens_used:
+          type: [integer, "null"]
+        last_reset_date:
+          type: [string, "null"]
+          format: date-time
+
+    Agent:
+      type: object
+      description: >-
+        An agent. Exposes only tenant-facing fields; internal identifiers, the
+        LLM provider/model identifier, cost figures, and soft-delete bookkeeping
+        are never present.
+      additionalProperties: false
+      required: [id, name]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: [string, "null"]
+        status:
+          type: [string, "null"]
+        language:
+          type: [string, "null"]
+        type:
+          type: [string, "null"]
+        configuration:
+          $ref: '#/components/schemas/AgentConfig'
+        knowledge_access:
+          $ref: '#/components/schemas/AgentKnowledgeAccess'
+        handoff_config:
+          type: [object, "null"]
+          description: The tenant-authored human-handoff configuration.
+          additionalProperties: true
+        current_month_usage:
+          $ref: '#/components/schemas/AgentUsage'
+        created_at:
+          type: [string, "null"]
+          format: date-time
+        updated_at:
+          type: [string, "null"]
+          format: date-time
+
+    AgentConfiguration:
+      type: object
+      description: The configuration GET response.
+      additionalProperties: false
+      required: [id]
+      properties:
+        id:
+          type: string
+        configuration:
+          $ref: '#/components/schemas/AgentConfig'
+        unsaved_changes:
+          type: [boolean, "null"]
+
+    AgentConfigurationUpdateResult:
+      type: object
+      description: The configuration PATCH response.
+      additionalProperties: false
+      required: [id]
+      properties:
+        id:
+          type: string
+        configuration:
+          $ref: '#/components/schemas/AgentConfig'
+
+    AgentDeleted:
+      type: object
+      description: The soft-delete (archive) response.
+      additionalProperties: false
+      required: [id, archived]
+      properties:
+        id:
+          type: string
+        archived:
+          type: boolean
+          const: true
+        restore_before:
+          type: [string, "null"]
+          format: date-time
+          description: The agent is recoverable until this time.
+
+    AgentPage:
+      allOf:
+        - $ref: '#/components/schemas/CursorPage'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Agent'
+
+    # -----------------------------------------------------------------------
+    # Agent query — blocking + SSE response bodies
+    # -----------------------------------------------------------------------
+    ToolUsage:
+      type: object
+      description: One tool invoked during a query — its public name and outcome only.
+      additionalProperties: false
+      required: [name, status]
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+          enum: [complete, error]
+
+    QueryUsage:
+      type: object
+      description: A query's token usage (token counts only; no cost is exposed).
+      additionalProperties: false
+      properties:
+        prompt_tokens:
+          type: [integer, "null"]
+        completion_tokens:
+          type: [integer, "null"]
+        total_tokens:
+          type: [integer, "null"]
+
+    AgentQueryResponse:
+      type: object
+      description: The blocking (non-streaming) agent-query response.
+      additionalProperties: false
+      required: [agent_id, response]
+      properties:
+        agent_id:
+          type: string
+        conversation_id:
+          type: [string, "null"]
+          description: Use this to continue a multi-turn conversation.
+        response:
+          type: string
+          description: The agent's answer text.
+        tools_used:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolUsage'
+        usage:
+          $ref: '#/components/schemas/QueryUsage'
+        latency_ms:
+          type: [integer, "null"]
+          description: Wall-clock response latency in milliseconds.
+        created_at:
+          type: [string, "null"]
+          format: date-time
+
+    AgentQueryStreamEvent:
+      type: object
+      description: >-
+        A single Server-Sent Event from the streaming query mode (`stream:
+        true`). Each frame has an `event:` name and a JSON `data:` payload. The
+        v1 stream emits only the six event names below; any other internal event
+        is dropped.
+
+
+        - `start` — the run has begun.
+
+        - `content` — an incremental chunk of the answer text.
+
+        - `tool_call` — a tool invocation began.
+
+        - `tool_result` — a tool invocation finished.
+
+        - `done` — the run completed (no cost field is included).
+
+        - `error` — the run failed or was refused (e.g. quota exceeded); the
+          payload carries an `error` message.
+      additionalProperties: false
+      properties:
+        event:
+          type: string
+          enum: [start, content, tool_call, tool_result, done, error]
+        data:
+          type: object
+          additionalProperties: true
+          description: The event payload (JSON). Shape varies by event name.
