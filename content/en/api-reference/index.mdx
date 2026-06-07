@@ -1,0 +1,86 @@
+---
+description: The Cuneiform Chat Developer REST API — manage knowledge documents, configure agents, and run agents programmatically over a credentialed /v1 surface.
+---
+
+# API Reference
+
+The Cuneiform Chat **Developer REST API** lets your developers manage knowledge documents, create and configure agents, and run agents programmatically — the same capabilities the admin panel exposes, available over a credentialed, versioned HTTP surface.
+
+This reference documents the public **`/v1`** contract: every endpoint, its parameters, an example request, and the exact response shape.
+
+## Base URL
+
+All endpoints live under a single versioned base URL:
+
+```
+https://cuneiform.chat/api/developer/v1
+```
+
+A full endpoint path is the base URL plus the path shown on each page — for example, `GET /agents` is:
+
+```
+https://cuneiform.chat/api/developer/v1/agents
+```
+
+## Versioning
+
+The API is versioned **in the URL prefix** (`/v1`). There is no header-based or date-based versioning — the version you call is the version in the path. The `/v1` contract is **stable**: fields are only ever added, never removed or repurposed, and a new major version (if ever needed) would ship under a new prefix. See the [Changelog](/api-reference/conventions) note for the release baseline.
+
+## Authentication in one line
+
+Every request authenticates with a developer API key (`cuk_…`), sent as a Bearer token:
+
+```
+Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx
+```
+
+The key resolves to your organization and to the scopes it was granted — you never pass an organization id. See [Authentication](/api-reference/authentication) and [API Keys](/api-reference/api-keys) for the full contract.
+
+## Your first call
+
+1. **Mint a key.** In the admin panel, open the developer console at **`/org/developer-api`**, create a key, and copy the secret (it is shown only once — see [API Keys](/api-reference/api-keys)).
+2. **Call the API.** List your agents:
+
+```bash
+curl https://cuneiform.chat/api/developer/v1/agents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+A successful response is a cursor-paginated page:
+
+```json
+{
+  "data": [
+    {
+      "id": "agt_123",
+      "name": "Support Bot",
+      "status": "active"
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
+```
+
+## How to read this reference
+
+Each endpoint is documented with a one-line description, a **Parameters** table (path, query, header, and body), an example `curl` **request**, and an example **response**. The required scope, the success status, and the relevant error categories are noted per endpoint.
+
+| Page | What it covers |
+|------|----------------|
+| [Authentication](/api-reference/authentication) | The two ways to present your key; what a key resolves to |
+| [API Keys](/api-reference/api-keys) | Creating, listing, rotating, and revoking keys; environments; the scope taxonomy |
+| [Conventions](/api-reference/conventions) | Cursor pagination, idempotent requests, content type, timestamps |
+| [Errors](/api-reference/errors) | The error envelope and the seven error categories |
+| [Rate Limits](/api-reference/rate-limits) | The `RateLimit-*` headers and the `429` contract |
+| Knowledge | Documents (upload, status, search, delete) and organization (folders, tags) |
+| Agents | Create, list, update, delete, restore, and configure agents |
+| Agent Query | Run an agent — blocking JSON or a streamed SSE response |
+
+## OpenAPI specification
+
+The complete contract is also published as a hand-authored **OpenAPI 3.1** specification, `openapi.yaml`, committed alongside this reference. It is the single source of truth the pages here are written against — every schema field is one the API actually returns, and no internal field appears.
+
+## Eligibility
+
+The Developer REST API is available on **Starter and above**. Trial organizations cannot mint keys; an attempt returns a `403` `tier_error`.

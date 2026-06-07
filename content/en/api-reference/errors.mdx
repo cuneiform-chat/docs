@@ -1,0 +1,58 @@
+---
+description: The Developer API error envelope — a stable Stripe-style shape with seven categories, each mapped to a fixed HTTP status.
+---
+
+# Errors
+
+When a request fails, the API returns a JSON **error envelope** with a stable shape. Branch your error handling on the machine-readable `type` and `code` — never on the human-readable `message` (which may change).
+
+## The error envelope
+
+```json
+{
+  "error": {
+    "type": "not_found_error",
+    "code": "agent_not_found",
+    "message": "No agent with that id exists.",
+    "param": "agent_id"
+  }
+}
+```
+
+| Field | Type | Meaning |
+|-------|------|---------|
+| `type` | string | One of the seven fixed **categories** below. Maps to the HTTP status. |
+| `code` | string | A stable, machine-readable per-failure identifier (e.g. `agent_not_found`). |
+| `message` | string | A human-readable description. For display/logging only — do not branch on it. |
+| `param` | string | *(Optional)* The request field that caused the failure, when applicable. |
+
+## Categories
+
+There are exactly seven error categories. Each maps to a fixed HTTP status, so the category and the status code always agree.
+
+| `type` | HTTP status | When it happens | Example `code`s |
+|--------|-------------|-----------------|-----------------|
+| `authentication_error` | `401` | The API key is missing, malformed, revoked, or unknown. | `invalid_api_key` |
+| `permission_error` | `403` | The key lacks the required scope, or the minting role lacks the mapped RBAC permission. | `invalid_scope`, `permission_denied` |
+| `tier_error` | `403` | Your plan does not allow the operation, or a setting breaches a plan limit. | `tier_limit` |
+| `invalid_request_error` | `400` | The request was malformed or violated a constraint. | `invalid_cursor`, `invalid_upload`, `folder_name_exists`, `folder_not_empty`, `tag_name_exists` |
+| `not_found_error` | `404` | No resource with that id exists in your organization. | `agent_not_found`, `document_not_found` |
+| `rate_limit_error` | `429` | You exceeded your plan's request or query allowance. | `rate_limit_exceeded` |
+| `api_error` | `500` | An unexpected upstream error occurred — retry the request. | `upstream_error` |
+
+Categories are **additive and never repurposed** — a new category may be added in the future, but an existing one will never change meaning, so it is safe to branch on `type`.
+
+## Not-found, never cross-organization
+
+A resource id that belongs to a *different* organization is reported as `404` `not_found_error`, exactly as if it did not exist — the API never reveals the existence of resources outside your organization with a `403`.
+
+## The duplicate-upload exception
+
+One response is intentionally **not** an error envelope: when a document upload matches an existing document, `POST /knowledge/documents` returns `409` with a structured **`DuplicateDetected`** body (carrying an `upload_session_id`), not the error envelope. Resume the upload with `POST /knowledge/documents/confirm-duplicate`. See the Knowledge documents page for the full flow.
+
+```json
+{
+  "upload_session_id": "ups_abc123",
+  "duplicate_of": ["doc_existing456"]
+}
+```

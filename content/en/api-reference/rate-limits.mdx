@@ -1,0 +1,64 @@
+---
+description: Developer API rate limits — the RateLimit-* response headers, the 429 + Retry-After contract, and the per-organization, per-minute window.
+---
+
+# Rate Limits
+
+The Developer API is rate-limited **per organization, per minute**, with the budget set by your plan. Every key-authenticated response tells you exactly where you stand, so you can pace your traffic before you ever hit the limit.
+
+## Rate-limit headers
+
+Every key-authenticated response carries three headers:
+
+| Header | Meaning |
+|--------|---------|
+| `RateLimit-Limit` | Your organization's request quota for the current window. |
+| `RateLimit-Remaining` | Requests remaining in the current window. |
+| `RateLimit-Reset` | Seconds until the current window resets. |
+
+The window is a **60-second sliding window** — the per-plan budget is expressed per minute. Read `RateLimit-Remaining` and slow down as it approaches zero.
+
+```
+HTTP/1.1 200 OK
+RateLimit-Limit: 120
+RateLimit-Remaining: 117
+RateLimit-Reset: 41
+Content-Type: application/json
+```
+
+## When you exceed the limit
+
+An over-budget request returns `429` with the standard [error envelope](/api-reference/errors) and a **`Retry-After`** header telling you how many seconds to wait:
+
+```
+HTTP/1.1 429 Too Many Requests
+Retry-After: 41
+RateLimit-Limit: 120
+RateLimit-Remaining: 0
+RateLimit-Reset: 41
+Content-Type: application/json
+```
+
+```json
+{
+  "error": {
+    "type": "rate_limit_error",
+    "code": "rate_limit_exceeded",
+    "message": "You have exceeded your plan's request allowance."
+  }
+}
+```
+
+## Handling 429
+
+- Respect `Retry-After` — wait the indicated number of seconds before retrying.
+- Back off exponentially if you continue to receive `429`.
+- Use `RateLimit-Remaining` proactively to throttle bursts before they are rejected.
+
+## Fail-open
+
+The rate limiter is designed to **fail open**: if the limiter itself is unavailable, requests are allowed through rather than blocked. You should never see spurious `429`s caused by limiter downtime — but you also should not rely on the limiter to enforce correctness in your own client. Pace your traffic using the `RateLimit-*` headers.
+
+## Query allowance
+
+Running an agent (`POST /agents/{id}/query`) is additionally metered against your plan's query allowance, server-side. Exceeding it returns `429` on the blocking path, or a single `error` event on the streaming path. See the Agent Query page for details.

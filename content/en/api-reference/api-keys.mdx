@@ -1,0 +1,67 @@
+---
+description: Create, rotate, and revoke developer API keys; understand key environments, the one-time reveal, and the five scopes.
+---
+
+# API Keys
+
+A developer API key is the credential your code presents on every request. Keys are created and managed in the admin panel — **not** over the API itself — and each key carries an environment, a set of scopes, and a secret that is revealed only once.
+
+## Where keys are managed
+
+Key management lives in the in-panel **developer console** at **`/org/developer-api`**. Creating, listing, rotating, and revoking keys are admin actions performed there with your normal signed-in session — they are deliberately **not** part of the `cuk_`-authenticated `/v1` surface (a leaked key can never mint or revoke another key). The console is available on **Starter and above**; trial organizations cannot create keys.
+
+## Key format
+
+A key secret has the form `cuk_<env>_<random>` — for example:
+
+```
+cuk_live_M8s2k...<random>
+```
+
+It has three parts:
+
+| Part | Meaning |
+|------|---------|
+| `cuk` | Brand prefix — every Cuneiform Chat key starts with `cuk_`. |
+| `<env>` | The environment: `live` or `test`. |
+| `<random>` | A long, URL-safe random secret. |
+
+## Environments
+
+Each key is minted for one environment:
+
+| Environment | Prefix | Use |
+|-------------|--------|-----|
+| `live` | `cuk_live_` | Production traffic against your real data. |
+| `test` | `cuk_test_` | Development and integration testing. |
+
+## One-time reveal
+
+The **full secret is shown exactly once** — at the moment you create or rotate a key. After that, only the key's prefix (`cuk_<env>_`) and its last four characters are ever displayed, so you can recognize a key in a list without it being recoverable.
+
+If you lose a secret, you cannot retrieve it — **rotate** the key to get a new one (which revokes the old secret), or revoke it and create a fresh one.
+
+## Scopes
+
+A key is granted a subset of five scopes. Each scope unlocks a group of operations, and is **additionally** bounded by the RBAC permissions of the role that created the key — a key can never grant more than its creator holds in the panel.
+
+| Scope | Unlocks | RBAC ceiling |
+|-------|---------|--------------|
+| `knowledge:read` | List, search, and fetch documents, folders, and tags. | Requires the content **read** permission. |
+| `knowledge:write` | Upload, delete, and organize documents; create/update/delete folders and tags. | Requires the content **upload + update** permissions. |
+| `agents:read` | List and fetch agents and their configuration. | Requires the agent **read** permission. |
+| `agents:write` | Create and update agents; update configuration; delete and restore. | Requires the agent **create + update** permissions (delete/restore also require the agent-delete permission). |
+| `agents:query` | Run an agent (`POST /agents/{id}/query`). | Requires the agent **read** permission. |
+
+Grant a key only the scopes it needs. A request that calls an endpoint outside its scopes is rejected with `403` `permission_error` (`invalid_scope`).
+
+## Managing keys (in the console)
+
+The developer console at `/org/developer-api` supports:
+
+- **Create** — choose an environment and scopes; the secret is revealed once.
+- **List** — see each key's prefix, last four characters, scopes, and status (the secret is never shown again).
+- **Rotate** — generate a fresh secret for a key and revoke the previous one. Use this on a routine schedule or immediately if a key may have leaked.
+- **Revoke** — permanently disable a key. Requests presenting a revoked key are rejected with `401`.
+
+There is no API endpoint for any of these actions — they are panel-only by design.

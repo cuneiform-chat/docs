@@ -1,0 +1,76 @@
+---
+description: Authenticate every Developer API request with a cuk_ key, sent as a Bearer token or an X-API-Key header.
+---
+
+# Authentication
+
+Every Developer API request must carry a developer API key. There is no public, unauthenticated lane — a request without a valid key is rejected with `401`.
+
+## Presenting your key
+
+Send your key secret (`cuk_<env>_<random>`) in **one** of two ways. Both are equivalent; use whichever fits your HTTP client.
+
+### Authorization header (recommended)
+
+```
+Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx
+```
+
+### X-API-Key header
+
+```
+X-API-Key: cuk_live_xxxxxxxxxxxxxxxx
+```
+
+Example request with each form:
+
+```bash
+# Bearer
+curl https://cuneiform.chat/api/developer/v1/agents \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+
+# X-API-Key
+curl https://cuneiform.chat/api/developer/v1/agents \
+  -H "X-API-Key: cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+## What a key resolves to
+
+A key is bound to two things, both resolved automatically on every request:
+
+- **Your organization.** The key identifies the organization it was minted in. Every request is scoped to that organization — you never send an organization id, and you can never reach another organization's data. A resource id that belongs to a different organization is reported as `404` (not found), never `403`.
+- **Its scopes.** A key carries a fixed set of [scopes](/api-reference/api-keys) granted at creation. A scope is *also* bounded by the RBAC permissions of the role that minted the key — a key can never do more than its creator could in the panel. A request that needs a scope the key lacks is rejected with `403` `permission_error`.
+
+## Keep keys secret
+
+The full key secret is shown **exactly once**, at creation or rotation. Treat it like a password:
+
+- Send it only over HTTPS.
+- Store it in a secret manager or environment variable — never in source control, client-side code, or logs.
+- If a key is exposed, [rotate or revoke](/api-reference/api-keys) it immediately.
+
+## When authentication fails
+
+A missing, malformed, revoked, or unknown key returns `401` with the standard [error envelope](/api-reference/errors):
+
+```json
+{
+  "error": {
+    "type": "authentication_error",
+    "code": "invalid_api_key",
+    "message": "The API key is missing or invalid."
+  }
+}
+```
+
+A well-formed key that lacks the scope (or the underlying permission) for an operation returns `403`:
+
+```json
+{
+  "error": {
+    "type": "permission_error",
+    "code": "invalid_scope",
+    "message": "This key does not have the required scope for this operation."
+  }
+}
+```
