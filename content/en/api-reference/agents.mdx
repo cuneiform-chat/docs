@@ -92,7 +92,7 @@ The required `configuration` block carries the model and generation settings. `m
 | `show_citations` | boolean | No | Defaults to `false`. |
 
 ```bash
-curl -X POST https://cuneiform.chat/api/developer/v1/agents \
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -163,7 +163,7 @@ List agents, cursor-paginated, with optional `status` and `search` filters.
 | `search` | query | string | No | Filter by a name/description search term. |
 
 ```bash
-curl "https://cuneiform.chat/api/developer/v1/agents?limit=20&status=active" \
+curl "https://core-api.cuneiform.chat/api/developer/v1/agents?limit=20&status=active" \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -227,7 +227,7 @@ Fetch a single agent by id.
 | `agent_id` | path | string | Yes | The agent id. |
 
 ```bash
-curl https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+curl https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -253,7 +253,7 @@ Update an agent's basic fields. All body fields are optional; omitted fields are
 | `handoff_config` | body | object | No | New human-handoff configuration. |
 
 ```bash
-curl -X PATCH https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "status": "inactive" }'
@@ -276,7 +276,7 @@ Archive (soft-delete) an agent. The agent is recoverable for **30 days** via the
 | `agent_id` | path | string | Yes | The agent id. |
 
 ```bash
-curl -X DELETE https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
+curl -X DELETE https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -303,7 +303,7 @@ Restore an archived agent within its 30-day recovery window. Returns the restore
 | `agent_id` | path | string | Yes | The agent id. |
 
 ```bash
-curl -X POST https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/restore \
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/restore \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -324,7 +324,7 @@ Fetch an agent's configuration. Exposes only the tenant-facing generation settin
 | `agent_id` | path | string | Yes | The agent id. |
 
 ```bash
-curl https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
+curl https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 
@@ -373,7 +373,7 @@ Update an agent's generation settings. All body fields are optional. A setting t
 | `save_as_draft` | body | boolean | No | Save without publishing a new version. Defaults to `false`. |
 
 ```bash
-curl -X PATCH https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
+curl -X PATCH https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/configuration \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "temperature": 0.4, "max_tokens": 2000 }'

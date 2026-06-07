@@ -28,7 +28,7 @@ Run the agent identified by `agent_id`.
 With `stream` omitted or `false`, the endpoint returns a single JSON body once the run completes.
 
 ```bash
-curl -X POST https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/query \
+curl -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/query \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "query": "What is the parental leave policy?" }'
@@ -69,7 +69,7 @@ To continue a multi-turn conversation, send the `conversation_id` from a prior r
 With `stream: true`, the endpoint returns a `text/event-stream` of Server-Sent Events. Set `stream: true` in the body, and read the response incrementally.
 
 ```bash
-curl -N -X POST https://cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/query \
+curl -N -X POST https://core-api.cuneiform.chat/api/developer/v1/agents/agt_7c1d8e/query \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{ "query": "What is the parental leave policy?", "stream": true }'

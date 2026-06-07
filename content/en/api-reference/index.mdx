@@ -13,13 +13,13 @@ This reference documents the public **`/v1`** contract: every endpoint, its para
 All endpoints live under a single versioned base URL:
 
 ```
-https://cuneiform.chat/api/developer/v1
+https://core-api.cuneiform.chat/api/developer/v1
 ```
 
 A full endpoint path is the base URL plus the path shown on each page — for example, `GET /agents` is:
 
 ```
-https://cuneiform.chat/api/developer/v1/agents
+https://core-api.cuneiform.chat/api/developer/v1/agents
 ```
 
 ## Versioning
@@ -42,7 +42,7 @@ The key resolves to your organization and to the scopes it was granted — you n
 2. **Call the API.** List your agents:
 
 ```bash
-curl https://cuneiform.chat/api/developer/v1/agents \
+curl https://core-api.cuneiform.chat/api/developer/v1/agents \
   -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
 ```
 

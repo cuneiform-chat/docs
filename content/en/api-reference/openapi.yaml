@@ -32,7 +32,7 @@ info:
     url: https://cuneiform.chat
 
 servers:
-  - url: https://cuneiform.chat/api/developer/v1
+  - url: https://core-api.cuneiform.chat/api/developer/v1
     description: Production
 
 security:
