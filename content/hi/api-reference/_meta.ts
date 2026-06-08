@@ -3,6 +3,7 @@ import type { MetaRecord } from 'nextra'
 const meta: MetaRecord = {
   index: 'परिचय',
   authentication: 'प्रमाणीकरण',
+  introspection: 'अपनी Key सत्यापित करें',
   'api-keys': 'API Keys',
   conventions: 'कन्वेंशन',
   errors: 'त्रुटियाँ',

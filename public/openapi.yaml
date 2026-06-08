@@ -40,6 +40,8 @@ security:
   - apiKeyHeader: []
 
 tags:
+  - name: Introspection
+    description: Verify the calling key or session and discover what it can do.
   - name: Knowledge — Documents
     description: Upload, list, search, fetch, track, and delete knowledge documents.
   - name: Knowledge — Organization
@@ -50,6 +52,48 @@ tags:
     description: Run an agent and receive a blocking JSON answer or a streamed SSE response.
 
 paths:
+  # =========================================================================
+  # Introspection
+  # =========================================================================
+  /ping:
+    get:
+      tags: [Introspection]
+      summary: Verify your key (introspection)
+      operationId: ping
+      description: >-
+        Verify the calling credential and discover what it can do — the
+        canonical "is my key working, and what does it act as?" first call.
+
+
+        Reaching a `200` proves the request carried a valid developer API key
+        (or a signed-in session); a missing, malformed, revoked, or unknown key
+        returns `401`. The response echoes the organization the credential acts
+        for, the authenticated role, how the caller authenticated, and — for a
+        key-authenticated request — the calling key's id, name, last four
+        characters, and granted scopes.
+
+
+        Unlike the resource endpoints, `/ping` is **not** scope-gated: a key
+        carrying any single scope (even just `knowledge:read`) can call it to
+        verify itself. The body is built only from the verified request
+        context, so it never returns another organization's data and never
+        exposes an internal key field (the secret, lookup hash, creator, or the
+        role's RBAC permissions).
+      responses:
+        '200':
+          description: The verified developer-API context.
+          headers:
+            RateLimit-Limit: { $ref: '#/components/headers/RateLimit-Limit' }
+            RateLimit-Remaining: { $ref: '#/components/headers/RateLimit-Remaining' }
+            RateLimit-Reset: { $ref: '#/components/headers/RateLimit-Reset' }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeveloperApiContext'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ApiError' }
+
   # =========================================================================
   # Knowledge — Documents
   # =========================================================================
@@ -1309,6 +1353,75 @@ components:
         deleted:
           type: boolean
           const: true
+
+    # -----------------------------------------------------------------------
+    # Introspection
+    # -----------------------------------------------------------------------
+    DeveloperApiContext:
+      type: object
+      description: >-
+        The verified developer-API context returned by `GET /ping`. Built only
+        from the signed request context: it never exposes an internal key field
+        (the secret, lookup hash, creator, raw id, or the role's RBAC
+        permissions).
+      required: [object, organization, authenticated_via]
+      additionalProperties: false
+      properties:
+        object:
+          type: string
+          const: developer_api_context
+        organization:
+          $ref: '#/components/schemas/IntrospectionOrganization'
+        role:
+          type: [string, "null"]
+          description: The role the credential acts as (e.g. `owner`, `admin`, `member`).
+        authenticated_via:
+          type: string
+          enum: [api_key, session]
+          description: >-
+            How the caller authenticated — `api_key` for a `cuk_…` key,
+            `session` for a signed-in admin-panel session.
+        api_key:
+          oneOf:
+            - $ref: '#/components/schemas/IntrospectionApiKey'
+            - type: "null"
+          description: >-
+            The calling key's self-description. `null` on a `session` request
+            (there is no key).
+
+    IntrospectionOrganization:
+      type: object
+      description: The organization the credential acts for — id and display name only.
+      required: [id]
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+
+    IntrospectionApiKey:
+      type: object
+      description: >-
+        The calling key's self-description, recovered from the verified
+        context. Carries only what a developer needs to recognize their own key
+        and see what it can do.
+      required: [id]
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: The human-friendly key label.
+        last4:
+          type: string
+          description: The last four characters of the key secret.
+        scopes:
+          type: array
+          description: The scopes the key was granted.
+          items:
+            type: string
 
     # -----------------------------------------------------------------------
     # Enums

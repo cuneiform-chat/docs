@@ -3,6 +3,7 @@ import type { MetaRecord } from 'nextra'
 const meta: MetaRecord = {
   index: 'Introdução',
   authentication: 'Autenticação',
+  introspection: 'Verifique sua Key',
   'api-keys': 'API Keys',
   conventions: 'Convenções',
   errors: 'Erros',

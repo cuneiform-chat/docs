@@ -1,0 +1,74 @@
+---
+description: Vérifiez votre API key de développeur et découvrez ce qu'elle peut faire avec GET /ping — le premier appel canonique qui renvoie votre organisation, votre rôle et les scopes de la key appelante.
+---
+
+# Vérifiez votre Key
+
+`GET /ping` est le premier appel canonique vers l'API REST pour Développeurs : il confirme que votre key fonctionne et indique exactement ce qu'elle peut faire. Effectuez cet appel juste après avoir généré une key pour vérifier la credential avant de construire sur les endpoints de ressources.
+
+## `GET /ping`
+
+Vérifie la credential appelante et indique le contexte de l'API de développeur auquel elle se résout. Renvoie `200` avec le contexte vérifié, ou `401` si la key est absente, mal formée, révoquée ou inconnue.
+
+**Scope :** aucun — toute key valide (ou session connectée) · **Succès :** `200`
+
+Contrairement à chaque endpoint de ressources, `/ping` n'est **pas** soumis à un scope. Une key portant n'importe quel scope individuel — même seulement `knowledge:read` — peut l'appeler pour se vérifier elle-même. C'est tout l'intérêt : vous devez pouvoir confirmer qu'une key fonctionne, quel que soit ce qu'elle est autorisée à faire.
+
+```bash
+curl https://cuneiform.chat/api/developer/v1/ping \
+  -H "Authorization: Bearer cuk_live_xxxxxxxxxxxxxxxx"
+```
+
+Une requête authentifiée par key renvoie l'organisation pour laquelle la key agit, le rôle authentifié, comment vous vous êtes authentifié, ainsi que l'id de la key appelante, son nom, ses quatre derniers caractères et ses scopes accordés :
+
+```json
+{
+  "object": "developer_api_context",
+  "organization": {
+    "id": "org_8s2k1d",
+    "name": "Acme Inc"
+  },
+  "role": "owner",
+  "authenticated_via": "api_key",
+  "api_key": {
+    "id": "key_4f9a2c",
+    "name": "Production CI",
+    "last4": "ab12",
+    "scopes": ["agents:read", "agents:query", "knowledge:read"]
+  }
+}
+```
+
+Le tableau `scopes` correspond exactement à l'ensemble accordé à la key — utilisez-le pour confirmer qu'une key dispose de l'accès dont votre intégration a besoin avant de vous y fier.
+
+**Erreurs :** `401`, `429`, `500`.
+
+## Ce que la réponse vous indique
+
+| Champ | Signification |
+|-------|---------------|
+| `object` | Toujours `developer_api_context`. |
+| `organization` | L'organisation pour laquelle la credential agit — `id` et `name` d'affichage. Chaque requête est limitée à cette organisation ; vous ne passez jamais d'id d'organisation. |
+| `role` | Le rôle sous lequel la credential agit (par exemple `owner`, `admin` ou `member`). Une key ne peut jamais faire plus que ce rôle ne le pourrait dans le panneau. |
+| `authenticated_via` | `api_key` pour une key `cuk_…`, ou `session` pour une session connectée au panneau d'administration. |
+| `api_key` | L'autodescription de la key appelante — `id`, `name`, `last4` et `scopes` accordés. Vaut `null` lorsque `authenticated_via` est `session` (il n'y a pas de key). |
+
+## Ce qu'elle ne renvoie jamais
+
+La réponse est [deny-by-default](/api-reference/conventions) : elle est construite uniquement à partir du contexte vérifié de la requête, elle ne peut donc jamais renvoyer les données d'une autre organisation ni exposer un champ interne de la key. Le secret complet de la key, le hash de recherche, le créateur, l'id interne brut et les permissions RBAC sous-jacentes du rôle ne sont **jamais** présents — seulement les quatre champs de la key ci-dessus.
+
+## Quand elle échoue
+
+Une key absente, mal formée, révoquée ou inconnue renvoie `401` avec l'[enveloppe d'erreur](/api-reference/errors) standard :
+
+```json
+{
+  "error": {
+    "type": "authentication_error",
+    "code": "invalid_api_key",
+    "message": "The API key is missing or invalid."
+  }
+}
+```
+
+Comme `/ping` n'est pas soumis à un scope, il ne renvoie jamais `403` pour une raison de scope — un `401` signifie que la credential elle-même n'est pas valide.

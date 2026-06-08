@@ -3,6 +3,7 @@ import type { MetaRecord } from 'nextra'
 const meta: MetaRecord = {
   index: 'ভূমিকা',
   authentication: 'প্রমাণীকরণ',
+  introspection: 'আপনার Key যাচাই করুন',
   'api-keys': 'API Keys',
   conventions: 'কনভেনশন',
   errors: 'ত্রুটি',
