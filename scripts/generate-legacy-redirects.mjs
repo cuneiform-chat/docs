@@ -60,6 +60,10 @@ const ORPHAN_REDIRECTS = {
   '/ask': '/en/integrations/saba-on-telegram',
   '/health': '/en/integrations/saba-on-telegram',
   '/help': '/en',
+  // Telegram bot commands (written as code-spans in MDX, crawled as URLs)
+  '/reset': '/en/integrations/telegram',
+  '/command': '/en/integrations/telegram',
+  '/comando': '/es/integrations/telegram',
   // Misc
   '/usage': '/en/billing/usage',
 }
