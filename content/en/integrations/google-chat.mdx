@@ -7,8 +7,11 @@ Connect your agent to Google Chat for seamless communication within Google Works
 Google Chat integration provides:
 - Direct messaging with your bot
 - Google Workspace Spaces support with @mention triggers
+- **Document Q&A** — upload a file and ask the bot about it (paid plans)
+- **Space Knowledge Base** — Spaces remember every document shared in them and answer from the whole collection
+- **Cited answers** — the bot names the document or source it answered from
 - Space-level agent routing — assign different agents to different Spaces
-- Text-based responses with conversation memory and opt-in space context awareness
+- Conversation memory and opt-in space context awareness
 - Async processing with instant acknowledgment
 - Enterprise-ready security with domain-based isolation
 
@@ -104,6 +107,7 @@ Each Space can optionally use a different agent than the default. Use these bot 
 | `@Cuneiform Chat /current-agent` | Show which agent handles this Space |
 | `@Cuneiform Chat /reset-agent` | Revert Space to the default agent |
 | `@Cuneiform Chat /connect` | (Space managers only) Enable thread history awareness |
+| `@Cuneiform Chat /space-memory on\|off` | Turn the Space Knowledge Base on/off for this Space (bare command shows status) |
 
 **How routing works:**
 - **DMs** → always use the default agent
@@ -169,9 +173,59 @@ Type `/help` or `help` to see usage instructions, including available space comm
 
 Only users from your Google Workspace domain can interact with your bot, ensuring enterprise-level security.
 
-### Text-Based Responses
+### Text Replies
 
-The bot responds with text messages only. Images, files, interactive buttons, and card attachments are not supported. Responses are limited to approximately 30,000 characters.
+The bot **replies** in text — it doesn't send images, interactive buttons, or card attachments, and responses are limited to approximately 30,000 characters. You *can* send documents **to** the bot, though — see [Working with Documents](#working-with-documents) below.
+
+## Working with Documents
+
+On paid plans, team members can upload a document and ask the bot about it — in a DM or a Space.
+
+### Attach and Ask
+
+1. In a DM or Space (with an @mention in Spaces), attach a file and ask your question
+2. The bot reads the document and answers from it
+3. Keep asking follow-up questions — the document stays active for the conversation, no re-attaching needed
+
+**Supported file types:** PDF, DOCX, PPTX, TXT, and Markdown.
+
+<Callout type="info">
+  Spreadsheets/CSV, images, audio, and video are not supported. Google Drive links can't be processed — upload the file directly.
+</Callout>
+
+**File size limits:** up to 10 MB on Starter and Plus, 50 MB on Enterprise.
+
+**One document per message:** if you attach several files at once, the bot uses the first and asks you to send the rest one at a time.
+
+### Cited Answers
+
+When the bot answers from a document or your knowledge base, it names the source — for example, *"According to handbook.pdf, …"* — so your team can trust where each answer came from. Citations are on by default.
+
+### Space Knowledge Base
+
+In a Space, the bot can **remember every document shared there** and build a living knowledge base for the team. Once a document is shared in a Space, the bot answers questions about it in **any thread of that Space** — not only the thread where it was uploaded — alongside your organization's main knowledge base.
+
+- **On by default** in Spaces (paid plans) — no setup required
+- **Documents accumulate** — each file shared in the Space is remembered; newer uploads don't replace older ones
+- **Stays within the Space** — documents remembered in one Space are never used to answer in another
+- **Counts toward your document quota** — unlike one-off attachments, documents kept in a Space's knowledge base count against your organization's document allowance
+- **Cleanup** — remembered documents are cleared automatically if the bot is removed from the Space
+
+Manage it per-Space with bot commands:
+
+| Command | Description |
+|---------|-------------|
+| `@Cuneiform Chat /space-memory on` | Start remembering documents shared in this Space |
+| `@Cuneiform Chat /space-memory off` | Stop using shared documents (already-shared files are retained, not deleted) |
+| `@Cuneiform Chat /space-memory` | Show the current status |
+
+<Callout type="info">
+  Scanned or image-only PDFs may come back empty with the standard reader. An admin can enable **premium parsing** on the Google Chat integration to handle complex or scanned documents (a billable option, off by default).
+</Callout>
+
+<Callout type="warning">
+  Document attachments and the Space Knowledge Base are paid-plan features — they are not available on the free trial.
+</Callout>
 
 ## Managing Your Integration
 
@@ -257,6 +311,17 @@ The link is valid for 10 minutes. Run `@Cuneiform Chat /connect` again to get a 
 
 A Space manager needs to run `@Cuneiform Chat /connect` again to re-authorize. This happens when the Google OAuth token is revoked (e.g., in Google account settings).
 
+### Uploaded Document Came Back Empty
+
+1. Scanned or image-only PDFs often can't be read by the standard parser — ask an admin to enable **premium parsing** on the Google Chat integration
+2. Confirm the file type is supported (PDF, DOCX, PPTX, TXT, Markdown) — spreadsheets/CSV, images, and Drive links are not
+3. Check the file is within your plan's size limit (10 MB Starter/Plus, 50 MB Enterprise)
+
+### Can't Upload Documents
+
+1. Document attachments are a paid-plan feature — they aren't available on the free trial
+2. An admin can confirm "Allow document attachments" is enabled on the Google Chat integration card
+
 ## Security
 
 - **Domain ownership verification** — DNS TXT record proves your organization owns the domain before connecting
@@ -280,7 +345,7 @@ To remove the Google Chat integration:
 - **Google Workspace required**: Personal Gmail accounts cannot use this integration. If your org doesn't use Google Workspace, the Google Chat section won't appear.
 - **Domain verification required**: Verify your domain in Settings > Domains before connecting Google Chat.
 - **One integration per organization**: Each organization can have one Google Chat integration
-- **Text only**: The bot does not support images, files, or interactive buttons
+- **Text replies**: The bot replies in text (no images or interactive buttons), but it can receive and answer questions about uploaded documents on paid plans — see [Working with Documents](#working-with-documents)
 - **Managed at org level**: Google Chat is configured on the Integrations page, not per-agent
 - **Space routing**: Use `/set-agent` in Spaces to assign specialized agents to different teams
 - **Default agent**: Change the default agent anytime using the dropdown — no disconnect needed
