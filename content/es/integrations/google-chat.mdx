@@ -7,8 +7,11 @@ Conecta tu agent a Google Chat para una comunicación fluida dentro de Google Wo
 La integración con Google Chat ofrece:
 - Mensajes directos con tu bot
 - Soporte de Spaces de Google Workspace con activación por @menciones
+- **Preguntas y respuestas sobre documentos** — sube un archivo y pregúntale al bot sobre él (planes de pago)
+- **Base de conocimiento del Space** — los Spaces recuerdan cada documento compartido en ellos y responden a partir de toda la colección
+- **Respuestas con citas** — el bot indica el documento o la fuente a partir de la cual respondió
 - Enrutamiento de agent a nivel de Space — asigna distintos agents a distintos Spaces
-- Respuestas en texto con memoria de conversación y conciencia opcional del contexto del Space
+- Memoria de conversación y conciencia opcional del contexto del Space
 - Procesamiento asíncrono con confirmación inmediata
 - Seguridad lista para empresas con aislamiento por dominio
 
@@ -104,6 +107,7 @@ Cada Space puede usar opcionalmente un agent distinto al predeterminado. Usa est
 | `@Cuneiform Chat /current-agent` | Muestra qué agent maneja este Space |
 | `@Cuneiform Chat /reset-agent` | Revierte el Space al agent predeterminado |
 | `@Cuneiform Chat /connect` | (Solo gestores del Space) Habilita la conciencia del historial de threads |
+| `@Cuneiform Chat /space-memory on\|off` | Activa o desactiva la base de conocimiento del Space para este Space (el comando sin argumentos muestra el estado) |
 
 **Cómo funciona el enrutamiento:**
 - **DMs** → siempre usan el agent predeterminado
@@ -169,9 +173,59 @@ Escribe `/help` o `help` para ver las instrucciones de uso, incluidos los comand
 
 Solo los usuarios de tu dominio de Google Workspace pueden interactuar con tu bot, lo que garantiza seguridad de nivel empresarial.
 
-### Respuestas en Texto
+### Respuestas de Texto
 
-El bot responde solo con mensajes de texto. No se admiten imágenes, archivos, botones interactivos ni adjuntos de cards. Las respuestas se limitan a aproximadamente 30.000 caracteres.
+El bot **responde** en texto — no envía imágenes, botones interactivos ni adjuntos de cards, y las respuestas se limitan a aproximadamente 30.000 caracteres. Sin embargo, *sí* puedes enviarle documentos **al** bot — consulta [Trabajar con Documentos](#trabajar-con-documentos) abajo.
+
+## Trabajar con Documentos
+
+En los planes de pago, los miembros del equipo pueden subir un documento y preguntarle al bot sobre él — en un DM o en un Space.
+
+### Adjuntar y Preguntar
+
+1. En un DM o Space (con una @mención en los Spaces), adjunta un archivo y haz tu pregunta
+2. El bot lee el documento y responde a partir de él
+3. Sigue haciendo preguntas de seguimiento — el documento permanece activo durante la conversación, sin necesidad de volver a adjuntarlo
+
+**Tipos de archivo admitidos:** PDF, DOCX, PPTX, TXT y Markdown.
+
+<Callout type="info">
+  Las hojas de cálculo/CSV, las imágenes, el audio y el video no son compatibles. Los enlaces de Google Drive no se pueden procesar — sube el archivo directamente.
+</Callout>
+
+**Límites de tamaño de archivo:** hasta 10 MB en Starter y Plus, 50 MB en Enterprise.
+
+**Un documento por mensaje:** si adjuntas varios archivos a la vez, el bot usa el primero y te pide que envíes el resto de uno en uno.
+
+### Respuestas con Citas
+
+Cuando el bot responde a partir de un documento o de tu base de conocimiento, indica la fuente — por ejemplo, *"Según handbook.pdf, …"* — para que tu equipo pueda confiar en el origen de cada respuesta. Las citas están activadas de forma predeterminada.
+
+### Base de Conocimiento del Space
+
+En un Space, el bot puede **recordar cada documento compartido allí** y construir una base de conocimiento viva para el equipo. Una vez que un documento se comparte en un Space, el bot responde preguntas sobre él en **cualquier thread de ese Space** — no solo en el thread donde se subió — junto con la base de conocimiento principal de tu organización.
+
+- **Activada de forma predeterminada** en los Spaces (planes de pago) — sin configuración necesaria
+- **Los documentos se acumulan** — cada archivo compartido en el Space se recuerda; las subidas más recientes no reemplazan a las anteriores
+- **Permanece dentro del Space** — los documentos recordados en un Space nunca se usan para responder en otro
+- **Cuenta para tu cuota de documentos** — a diferencia de los adjuntos puntuales, los documentos guardados en la base de conocimiento de un Space cuentan para la cuota de documentos de tu organización
+- **Limpieza** — los documentos recordados se borran automáticamente si el bot se elimina del Space
+
+Gestiónala por Space con comandos del bot:
+
+| Comando | Descripción |
+|---------|-------------|
+| `@Cuneiform Chat /space-memory on` | Empieza a recordar los documentos compartidos en este Space |
+| `@Cuneiform Chat /space-memory off` | Deja de usar los documentos compartidos (los archivos ya compartidos se conservan, no se eliminan) |
+| `@Cuneiform Chat /space-memory` | Muestra el estado actual |
+
+<Callout type="info">
+  Los PDF escaneados o que solo contienen imágenes pueden devolver un resultado vacío con el lector estándar. Un administrador puede habilitar el **análisis premium** en la integración con Google Chat para procesar documentos complejos o escaneados (una opción facturable, desactivada de forma predeterminada).
+</Callout>
+
+<Callout type="warning">
+  Los adjuntos de documentos y la base de conocimiento del Space son funciones de los planes de pago — no están disponibles en la prueba gratuita.
+</Callout>
 
 ## Gestionar tu Integración
 
@@ -257,6 +311,17 @@ El enlace es válido por 10 minutos. Vuelve a ejecutar `@Cuneiform Chat /connect
 
 Un gestor del Space debe ejecutar `@Cuneiform Chat /connect` de nuevo para reautorizar. Esto sucede cuando el token de OAuth de Google es revocado (por ejemplo, en la configuración de la cuenta de Google).
 
+### El Documento Subido Devolvió un Resultado Vacío
+
+1. Los PDF escaneados o que solo contienen imágenes a menudo no pueden ser leídos por el analizador estándar — pídele a un administrador que habilite el **análisis premium** en la integración con Google Chat
+2. Confirma que el tipo de archivo sea compatible (PDF, DOCX, PPTX, TXT, Markdown) — las hojas de cálculo/CSV, las imágenes y los enlaces de Drive no lo son
+3. Comprueba que el archivo esté dentro del límite de tamaño de tu plan (10 MB en Starter/Plus, 50 MB en Enterprise)
+
+### No Se Pueden Subir Documentos
+
+1. Los adjuntos de documentos son una función de los planes de pago — no están disponibles en la prueba gratuita
+2. Un administrador puede confirmar que "Allow document attachments" esté habilitado en la tarjeta de la integración con Google Chat
+
 ## Seguridad
 
 - **Verificación de propiedad del dominio** — un TXT record de DNS demuestra que tu organización es dueña del dominio antes de conectar
@@ -280,7 +345,7 @@ Para eliminar la integración con Google Chat:
 - **Se requiere Google Workspace**: Las cuentas personales de Gmail no pueden usar esta integración. Si tu organización no usa Google Workspace, la sección de Google Chat no aparecerá.
 - **Se requiere verificación de dominio**: Verifica tu dominio en Settings > Domains antes de conectar Google Chat.
 - **Una integración por organización**: Cada organización puede tener una integración con Google Chat
-- **Solo texto**: El bot no admite imágenes, archivos ni botones interactivos
+- **Respuestas de texto**: El bot responde en texto (sin imágenes ni botones interactivos), pero puede recibir y responder preguntas sobre documentos subidos en los planes de pago — consulta [Trabajar con Documentos](#trabajar-con-documentos)
 - **Gestionado a nivel de organización**: Google Chat se configura en la página Integrations, no por agent
 - **Enrutamiento de Spaces**: Usa `/set-agent` en los Spaces para asignar agents especializados a distintos equipos
 - **Agent predeterminado**: Cambia el agent predeterminado en cualquier momento usando la lista desplegable — sin necesidad de desconectar

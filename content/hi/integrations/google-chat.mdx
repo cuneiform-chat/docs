@@ -7,8 +7,11 @@ Google Workspace के भीतर seamless communication के लिए अ
 Google Chat integration प्रदान करती है:
 - Bot के साथ direct messaging
 - @mention triggers के साथ Google Workspace Spaces support
+- **Document Q&A** — एक file upload करें और bot से उसके बारे में पूछें (paid plans)
+- **Space Knowledge Base** — Spaces उनमें share किए गए हर document को याद रखती हैं और पूरे collection से answer देती हैं
+- **Cited answers** — bot उस document या source का नाम बताता है जिससे उसने answer दिया
 - Space-level agent routing — अलग-अलग Spaces को अलग-अलग agents assign करें
-- Conversation memory और opt-in space context awareness के साथ text-based responses
+- Conversation memory और opt-in space context awareness
 - Instant acknowledgment के साथ async processing
 - Domain-based isolation के साथ enterprise-ready security
 
@@ -104,6 +107,7 @@ Bot को Space में जोड़ें:
 | `@Cuneiform Chat /current-agent` | दिखाएं कि कौन सा agent इस Space को handle करता है |
 | `@Cuneiform Chat /reset-agent` | Space को default agent पर revert करें |
 | `@Cuneiform Chat /connect` | (केवल Space managers) Thread history awareness enable करें |
+| `@Cuneiform Chat /space-memory on\|off` | इस Space के लिए Space Knowledge Base on/off करें (bare command status दिखाता है) |
 
 **Routing कैसे काम करती है:**
 - **DMs** → हमेशा default agent उपयोग करते हैं
@@ -169,9 +173,59 @@ Usage instructions देखने के लिए `/help` या `help` type �
 
 केवल आपके Google Workspace domain के users ही आपके bot के साथ interact कर सकते हैं, जो enterprise-level security ensure करता है।
 
-### Text-Based Responses
+### Text Replies
 
-Bot केवल text messages से respond करता है। Images, files, interactive buttons, और card attachments supported नहीं हैं। Responses approximately 30,000 characters तक limited हैं।
+Bot text में **reply** करता है — यह images, interactive buttons, या card attachments नहीं भेजता, और responses approximately 30,000 characters तक limited हैं। लेकिन आप bot **को** documents भेज *सकते* हैं — नीचे [Working with Documents](#working-with-documents) देखें।
+
+## Working with Documents
+
+Paid plans पर, team members एक document upload कर सकते हैं और bot से उसके बारे में पूछ सकते हैं — DM में या Space में।
+
+### Attach and Ask
+
+1. किसी DM या Space में (Spaces में @mention के साथ), एक file attach करें और अपना सवाल पूछें
+2. Bot document पढ़ता है और उससे answer देता है
+3. Follow-up questions पूछते रहें — document conversation के लिए active रहता है, दोबारा attach करने की जरूरत नहीं
+
+**Supported file types:** PDF, DOCX, PPTX, TXT, और Markdown।
+
+<Callout type="info">
+  Spreadsheets/CSV, images, audio, और video supported नहीं हैं। Google Drive links process नहीं हो सकते — file सीधे upload करें।
+</Callout>
+
+**File size limits:** Starter और Plus पर 10 MB तक, Enterprise पर 50 MB।
+
+**प्रति message एक document:** अगर आप एक साथ कई files attach करते हैं, तो bot पहली का उपयोग करता है और आपसे बाकी एक-एक करके भेजने को कहता है।
+
+### Cited Answers
+
+जब bot किसी document या आपके knowledge base से answer देता है, तो वह source का नाम बताता है — उदाहरण के लिए, *"According to handbook.pdf, …"* — ताकि आपकी team भरोसा कर सके कि हर answer कहां से आया। Citations by default on हैं।
+
+### Space Knowledge Base
+
+किसी Space में, bot वहां share किए गए **हर document को याद रख सकता है** और team के लिए एक living knowledge base बना सकता है। एक बार किसी document को Space में share कर दिया जाए, तो bot उसके बारे में सवालों का answer उस Space के **किसी भी thread में** देता है — सिर्फ उस thread में नहीं जहां वह upload हुआ था — आपके organization के main knowledge base के साथ-साथ।
+
+- **By default on** Spaces में (paid plans) — कोई setup जरूरी नहीं
+- **Documents जमा होते रहते हैं** — Space में share की गई हर file याद रखी जाती है; नए uploads पुराने को replace नहीं करते
+- **Space के भीतर ही रहते हैं** — एक Space में याद रखे documents कभी दूसरे में answer देने के लिए उपयोग नहीं होते
+- **आपके document quota में गिने जाते हैं** — one-off attachments के विपरीत, किसी Space के knowledge base में रखे documents आपके organization के document allowance में गिने जाते हैं
+- **Cleanup** — अगर bot को Space से हटा दिया जाए तो याद रखे documents automatically clear हो जाते हैं
+
+इसे bot commands से per-Space manage करें:
+
+| Command | विवरण |
+|---------|-------------|
+| `@Cuneiform Chat /space-memory on` | इस Space में share किए गए documents याद रखना शुरू करें |
+| `@Cuneiform Chat /space-memory off` | Shared documents का उपयोग बंद करें (पहले से share की गई files retained रहती हैं, delete नहीं होतीं) |
+| `@Cuneiform Chat /space-memory` | Current status दिखाएं |
+
+<Callout type="info">
+  Scanned या image-only PDFs standard reader के साथ empty आ सकते हैं। Complex या scanned documents handle करने के लिए एक admin Google Chat integration पर **premium parsing** enable कर सकता है (एक billable option, by default off)।
+</Callout>
+
+<Callout type="warning">
+  Document attachments और Space Knowledge Base paid-plan features हैं — ये free trial पर उपलब्ध नहीं हैं।
+</Callout>
 
 ## अपना Integration Manage करना
 
@@ -257,6 +311,17 @@ Link 10 minutes के लिए valid रहता है। एक fresh link 
 
 किसी Space manager को दोबारा `@Cuneiform Chat /connect` चलाकर re-authorize करना होगा। यह तब होता है जब Google OAuth token revoke हो जाता है (जैसे, Google account settings में)।
 
+### Uploaded Document खाली आया
+
+1. Scanned या image-only PDFs अक्सर standard parser से नहीं पढ़े जा सकते — किसी admin से Google Chat integration पर **premium parsing** enable करने को कहें
+2. Confirm करें कि file type supported है (PDF, DOCX, PPTX, TXT, Markdown) — spreadsheets/CSV, images, और Drive links नहीं हैं
+3. Check करें कि file आपके plan की size limit के भीतर है (10 MB Starter/Plus, 50 MB Enterprise)
+
+### Documents Upload नहीं हो रहे
+
+1. Document attachments एक paid-plan feature है — ये free trial पर उपलब्ध नहीं हैं
+2. एक admin confirm कर सकता है कि Google Chat integration card पर "Allow document attachments" enabled है
+
 ## Security
 
 - **Domain ownership verification** — DNS TXT record prove करता है कि आपका organization domain own करता है, connect करने से पहले
@@ -280,7 +345,7 @@ Google Chat integration हटाने के लिए:
 - **Google Workspace जरूरी है**: Personal Gmail accounts इस integration का उपयोग नहीं कर सकते। अगर आपका org Google Workspace उपयोग नहीं करता, तो Google Chat section दिखाई नहीं देगा।
 - **Domain verification जरूरी है**: Google Chat connect करने से पहले Settings > Domains में अपना domain verify करें।
 - **प्रति organization एक integration**: प्रत्येक organization एक Google Chat integration रख सकता है
-- **केवल text**: Bot images, files, या interactive buttons support नहीं करता
+- **Text replies**: Bot text में reply करता है (कोई images या interactive buttons नहीं), लेकिन paid plans पर यह uploaded documents प्राप्त कर सकता है और उनके बारे में सवालों का answer दे सकता है — [Working with Documents](#working-with-documents) देखें
 - **Org level पर manage**: Google Chat Integrations page पर configure होता है, per-agent नहीं
 - **Space routing**: अलग-अलग teams को specialized agents assign करने के लिए Spaces में `/set-agent` उपयोग करें
 - **Default agent**: Dropdown का उपयोग करके कभी भी default agent बदलें — disconnect की जरूरत नहीं

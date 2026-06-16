@@ -7,8 +7,11 @@ Connectez votre agent à Google Chat pour une communication fluide au sein de Go
 L'intégration Google Chat offre :
 - Messagerie directe avec votre bot
 - Prise en charge des Google Workspace Spaces avec déclenchement par @mention
+- **Questions-réponses sur documents** — téléversez un fichier et interrogez le bot à son sujet (plans payants)
+- **Base de connaissances du Space** — les Spaces mémorisent chaque document qui y est partagé et répondent à partir de l'ensemble de la collection
+- **Réponses sourcées** — le bot nomme le document ou la source à partir desquels il a répondu
 - Routage d'agent au niveau du Space — assignez différents agents à différents Spaces
-- Réponses textuelles avec mémoire de conversation et conscience optionnelle du contexte du Space
+- Mémoire de conversation et conscience optionnelle du contexte du Space
 - Traitement asynchrone avec accusé de réception immédiat
 - Sécurité de niveau entreprise avec isolation par domaine
 
@@ -104,6 +107,7 @@ Chaque Space peut éventuellement utiliser un autre agent que celui par défaut.
 | `@Cuneiform Chat /current-agent` | Affiche quel agent gère ce Space |
 | `@Cuneiform Chat /reset-agent` | Rétablit l'agent par défaut pour le Space |
 | `@Cuneiform Chat /connect` | (Gestionnaires de Space uniquement) Active la conscience de l'historique des threads |
+| `@Cuneiform Chat /space-memory on\|off` | Active/désactive la base de connaissances du Space pour ce Space (la commande seule affiche le statut) |
 
 **Comment fonctionne le routage :**
 - **DMs** → utilisent toujours l'agent par défaut
@@ -169,9 +173,59 @@ Tapez `/help` ou `help` pour voir les instructions d'utilisation, y compris les 
 
 Seuls les utilisateurs de votre domaine Google Workspace peuvent interagir avec votre bot, garantissant une sécurité de niveau entreprise.
 
-### Réponses Textuelles
+### Réponses Texte
 
-Le bot ne répond qu'avec des messages texte. Les images, fichiers, boutons interactifs et pièces jointes en cards ne sont pas pris en charge. Les réponses sont limitées à environ 30 000 caractères.
+Le bot **répond** en texte — il n'envoie pas d'images, de boutons interactifs ni de pièces jointes en cards, et les réponses sont limitées à environ 30 000 caractères. Vous *pouvez* en revanche envoyer des documents **au** bot — voir [Travailler avec les Documents](#travailler-avec-les-documents) ci-dessous.
+
+## Travailler avec les Documents
+
+Sur les plans payants, les membres de l'équipe peuvent téléverser un document et interroger le bot à son sujet — en DM ou dans un Space.
+
+### Joindre et Demander
+
+1. En DM ou dans un Space (avec une @mention dans les Spaces), joignez un fichier et posez votre question
+2. Le bot lit le document et y répond
+3. Continuez à poser des questions de suivi — le document reste actif pour la conversation, sans avoir à le joindre à nouveau
+
+**Types de fichiers pris en charge :** PDF, DOCX, PPTX, TXT et Markdown.
+
+<Callout type="info">
+  Les tableurs/CSV, les images, l'audio et la vidéo ne sont pas pris en charge. Les liens Google Drive ne peuvent pas être traités — téléversez le fichier directement.
+</Callout>
+
+**Limites de taille de fichier :** jusqu'à 10 MB sur Starter et Plus, 50 MB sur Enterprise.
+
+**Un document par message :** si vous joignez plusieurs fichiers à la fois, le bot utilise le premier et vous demande d'envoyer les autres un par un.
+
+### Réponses Sourcées
+
+Lorsque le bot répond à partir d'un document ou de votre base de connaissances, il nomme la source — par exemple, *« D'après handbook.pdf, … »* — afin que votre équipe puisse savoir d'où provient chaque réponse. Les citations sont activées par défaut.
+
+### Base de Connaissances du Space
+
+Dans un Space, le bot peut **mémoriser chaque document qui y est partagé** et constituer une base de connaissances vivante pour l'équipe. Une fois qu'un document est partagé dans un Space, le bot répond aux questions à son sujet dans **n'importe quel thread de ce Space** — pas seulement le thread où il a été téléversé — en complément de la base de connaissances principale de votre organisation.
+
+- **Activée par défaut** dans les Spaces (plans payants) — aucune configuration requise
+- **Les documents s'accumulent** — chaque fichier partagé dans le Space est mémorisé ; les nouveaux téléversements ne remplacent pas les anciens
+- **Reste dans le Space** — les documents mémorisés dans un Space ne sont jamais utilisés pour répondre dans un autre
+- **Compte dans votre quota de documents** — contrairement aux pièces jointes ponctuelles, les documents conservés dans la base de connaissances d'un Space sont décomptés du quota de documents de votre organisation
+- **Nettoyage** — les documents mémorisés sont effacés automatiquement si le bot est retiré du Space
+
+Gérez-la par Space avec les commandes de bot :
+
+| Commande | Description |
+|---------|-------------|
+| `@Cuneiform Chat /space-memory on` | Commence à mémoriser les documents partagés dans ce Space |
+| `@Cuneiform Chat /space-memory off` | Arrête d'utiliser les documents partagés (les fichiers déjà partagés sont conservés, pas supprimés) |
+| `@Cuneiform Chat /space-memory` | Affiche le statut actuel |
+
+<Callout type="info">
+  Les PDF scannés ou composés uniquement d'images peuvent revenir vides avec le lecteur standard. Un administrateur peut activer l'**analyse premium** sur l'intégration Google Chat pour traiter les documents complexes ou scannés (une option facturable, désactivée par défaut).
+</Callout>
+
+<Callout type="warning">
+  Les pièces jointes de documents et la base de connaissances du Space sont des fonctionnalités des plans payants — elles ne sont pas disponibles dans l'essai gratuit.
+</Callout>
 
 ## Gérer votre Intégration
 
@@ -257,6 +311,17 @@ Le lien est valable 10 minutes. Exécutez à nouveau `@Cuneiform Chat /connect` 
 
 Un gestionnaire du Space doit exécuter `@Cuneiform Chat /connect` à nouveau pour réautoriser. Cela se produit lorsque le token OAuth Google est révoqué (par exemple, dans les paramètres du compte Google).
 
+### Le Document Téléversé est Revenu Vide
+
+1. Les PDF scannés ou composés uniquement d'images ne peuvent souvent pas être lus par l'analyseur standard — demandez à un administrateur d'activer l'**analyse premium** sur l'intégration Google Chat
+2. Confirmez que le type de fichier est pris en charge (PDF, DOCX, PPTX, TXT, Markdown) — les tableurs/CSV, les images et les liens Drive ne le sont pas
+3. Vérifiez que le fichier respecte la limite de taille de votre plan (10 MB Starter/Plus, 50 MB Enterprise)
+
+### Impossible de Téléverser des Documents
+
+1. Les pièces jointes de documents sont une fonctionnalité des plans payants — elles ne sont pas disponibles dans l'essai gratuit
+2. Un administrateur peut confirmer que « Allow document attachments » est activé sur la carte d'intégration Google Chat
+
 ## Sécurité
 
 - **Vérification de propriété de domaine** — un TXT record DNS prouve que votre organisation possède le domaine avant la connexion
@@ -280,7 +345,7 @@ Pour supprimer l'intégration Google Chat :
 - **Google Workspace requis** : les comptes Gmail personnels ne peuvent pas utiliser cette intégration. Si votre organisation n'utilise pas Google Workspace, la section Google Chat n'apparaîtra pas.
 - **Vérification de domaine requise** : vérifiez votre domaine dans Settings > Domains avant de connecter Google Chat.
 - **Une intégration par organisation** : chaque organisation peut avoir une seule intégration Google Chat
-- **Texte uniquement** : le bot ne prend pas en charge les images, fichiers ni boutons interactifs
+- **Réponses texte** : le bot répond en texte (pas d'images ni de boutons interactifs), mais il peut recevoir des documents téléversés et répondre à des questions à leur sujet sur les plans payants — voir [Travailler avec les Documents](#travailler-avec-les-documents)
 - **Géré au niveau de l'organisation** : Google Chat est configuré sur la page Integrations, pas par agent
 - **Routage des Spaces** : utilisez `/set-agent` dans les Spaces pour assigner des agents spécialisés à différentes équipes
 - **Agent par défaut** : changez l'agent par défaut à tout moment via la liste déroulante — pas besoin de déconnecter
