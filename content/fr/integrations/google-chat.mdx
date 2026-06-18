@@ -127,7 +127,7 @@ Par défaut, le bot ne voit que le message qui l'a directement @mentionné. Si l
 1. Un gestionnaire du Space envoie `@Cuneiform Chat /connect` dans le Space
 2. Le bot envoie un lien d'autorisation à usage unique (expire dans 10 minutes)
 3. Le gestionnaire clique sur le lien et se connecte avec son compte Google Workspace
-4. Le bot peut désormais lire les messages envoyés dans le Space dans les 15 minutes précédant chaque @mention
+4. Le bot peut désormais lire les messages les plus récents du Space (jusqu'à 10) des dernières 24 heures précédant chaque @mention
 
 Une fois connecté, à chaque @mention, le bot lit automatiquement les messages récents du Space en tant que contexte — comprenant ce dont l'équipe discutait avant qu'il ne soit @mentionné.
 
@@ -159,7 +159,7 @@ Lorsque vous envoyez un message, le bot répond immédiatement par un bref accus
 
 Le bot mémorise le contexte au sein d'une session, de sorte que vous pouvez poser des questions de suivi sans avoir à vous répéter.
 
-**Conscience du contexte du Space (opt-in) :** après qu'un gestionnaire du Space exécute `/connect`, le bot lit les messages envoyés dans le Space dans les 15 minutes précédant chaque @mention — il comprend ainsi ce dont l'équipe discutait déjà sans que vous ayez à répéter le contexte. Voir [Conscience de l'Historique des Threads](#conscience-de-lhistorique-des-threads) ci-dessous pour les étapes de configuration.
+**Conscience du contexte du Space (opt-in) :** après qu'un gestionnaire du Space exécute `/connect`, le bot lit les messages les plus récents du Space (jusqu'à 10) des dernières 24 heures précédant chaque @mention — il comprend ainsi ce dont l'équipe discutait déjà sans que vous ayez à répéter le contexte. Voir [Conscience de l'Historique des Threads](#conscience-de-lhistorique-des-threads) ci-dessous pour les étapes de configuration.
 
 ### File d'Attente des Messages
 

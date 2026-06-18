@@ -127,7 +127,7 @@ DM সবসময় **default agent** দ্বারা পরিচালি
 1. একজন Space manager Space-এ `@Cuneiform Chat /connect` পাঠায়
 2. Bot একটি এক-বারের authorization link পাঠায় (১০ মিনিটে expire হয়)
 3. Manager link-এ click করে তাদের Google Workspace account দিয়ে সাইন ইন করে
-4. Bot এখন প্রতিটি @mention-এর আগের ১৫ মিনিটের মধ্যে Space-এ পাঠানো message পড়তে পারে
+4. Bot এখন প্রতিটি @mention-এর আগের ২৪ ঘণ্টায় Space-এ পাঠানো সাম্প্রতিক message (সর্বোচ্চ ১০টি) পড়তে পারে
 
 Connect হয়ে গেলে, প্রতিটি @mention-এ bot স্বয়ংক্রিয়ভাবে সাম্প্রতিক Space message context হিসেবে পড়ে — @mention হওয়ার আগে team কী নিয়ে আলোচনা করছিল তা বোঝে।
 
@@ -159,7 +159,7 @@ Access পুনরুদ্ধার করতে আবার `/connect` চ�
 
 Bot একটি session-এর মধ্যে context মনে রাখে, তাই আপনি নিজেকে পুনরাবৃত্তি না করে follow-up প্রশ্ন করতে পারেন।
 
-**Space context awareness (opt-in):** একজন Space manager `/connect` চালানোর পর, bot প্রতিটি @mention-এর আগের ১৫ মিনিটের মধ্যে Space-এ পাঠানো message পড়ে — তাই আপনার context পুনরাবৃত্তি না করেই এটি বোঝে team আগে থেকে কী নিয়ে আলোচনা করছিল। সেটআপের ধাপের জন্য নিচে [Thread History Awareness](#thread-history-awareness) দেখুন।
+**Space context awareness (opt-in):** একজন Space manager `/connect` চালানোর পর, bot প্রতিটি @mention-এর আগের ২৪ ঘণ্টায় Space-এ পাঠানো সাম্প্রতিক message (সর্বোচ্চ ১০টি) পড়ে — তাই আপনার context পুনরাবৃত্তি না করেই এটি বোঝে team আগে থেকে কী নিয়ে আলোচনা করছিল। সেটআপের ধাপের জন্য নিচে [Thread History Awareness](#thread-history-awareness) দেখুন।
 
 ### Message Queuing
 

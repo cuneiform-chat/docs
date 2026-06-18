@@ -127,7 +127,7 @@ Default रूप से, bot केवल वही message देखता ह
 1. कोई Space manager Space में `@Cuneiform Chat /connect` भेजता है
 2. Bot एक one-time authorization link भेजता है (10 minutes में expire हो जाता है)
 3. Manager link पर क्लिक करता है और अपने Google Workspace account से sign in करता है
-4. अब bot हर @mention से पहले के पिछले 15 minutes के भीतर Space में भेजे गए messages पढ़ सकता है
+4. अब bot हर @mention से पहले के पिछले 24 घंटों में Space में भेजे गए सबसे हाल के messages (अधिकतम 10) पढ़ सकता है
 
 Connect होने के बाद, हर @mention पर bot automatically recent Space messages को context के रूप में पढ़ता है — समझता है कि @mention होने से पहले team क्या discuss कर रही थी।
 
@@ -159,7 +159,7 @@ Access restore करने के लिए दोबारा `/connect` च�
 
 Bot एक session के भीतर context याद रखता है, इसलिए आप follow-up questions बिना खुद को दोहराए पूछ सकते हैं।
 
-**Space context awareness (opt-in):** किसी Space manager के `/connect` चलाने के बाद, bot हर @mention से पहले के पिछले 15 minutes के भीतर Space में भेजे गए messages पढ़ता है — इसलिए वह समझता है कि team पहले से क्या discuss कर रही थी, बिना आपको context दोहराने की जरूरत के। Setup steps के लिए नीचे [Thread History Awareness](#thread-history-awareness) देखें।
+**Space context awareness (opt-in):** किसी Space manager के `/connect` चलाने के बाद, bot हर @mention से पहले के पिछले 24 घंटों में Space में भेजे गए सबसे हाल के messages (अधिकतम 10) पढ़ता है — इसलिए वह समझता है कि team पहले से क्या discuss कर रही थी, बिना आपको context दोहराने की जरूरत के। Setup steps के लिए नीचे [Thread History Awareness](#thread-history-awareness) देखें।
 
 ### Message Queuing
 

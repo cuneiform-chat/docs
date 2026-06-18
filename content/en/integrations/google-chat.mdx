@@ -127,7 +127,7 @@ By default, the bot only sees the message that directly @mentioned it. If team m
 1. A Space manager sends `@Cuneiform Chat /connect` in the Space
 2. The bot sends a one-time authorization link (expires in 10 minutes)
 3. The manager clicks the link and signs in with their Google Workspace account
-4. The bot can now read messages sent in the Space within the last 15 minutes before each @mention
+4. The bot can now read the Space's most recent messages (up to 10) from the past 24 hours before each @mention
 
 Once connected, on every @mention the bot automatically reads recent Space messages as context — understanding what the team was discussing before it was @mentioned.
 
@@ -159,7 +159,7 @@ When you send a message, the bot immediately replies with a brief acknowledgment
 
 The bot remembers context within a session, so you can ask follow-up questions without repeating yourself.
 
-**Space context awareness (opt-in):** After a Space manager runs `/connect`, the bot reads messages sent in the Space within the last 15 minutes before each @mention — so it understands what the team was already discussing without you needing to repeat context. See [Thread History Awareness](#thread-history-awareness) below for setup steps.
+**Space context awareness (opt-in):** After a Space manager runs `/connect`, the bot reads the Space's most recent messages (up to 10) from the past 24 hours before each @mention — so it understands what the team was already discussing without you needing to repeat context. See [Thread History Awareness](#thread-history-awareness) below for setup steps.
 
 ### Message Queuing
 
