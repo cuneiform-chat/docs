@@ -127,7 +127,7 @@ Por defecto, el bot solo ve el mensaje que lo @mencionó directamente. Si los mi
 1. Un gestor del Space envía `@Cuneiform Chat /connect` en el Space
 2. El bot envía un enlace de autorización único (expira en 10 minutos)
 3. El gestor hace clic en el enlace e inicia sesión con su cuenta de Google Workspace
-4. El bot ahora puede leer los mensajes enviados en el Space dentro de los últimos 15 minutos antes de cada @mención
+4. El bot ahora puede leer los mensajes más recientes del Space (hasta 10) de las últimas 24 horas antes de cada @mención
 
 Una vez conectado, en cada @mención el bot lee automáticamente los mensajes recientes del Space como contexto — entendiendo lo que el equipo discutía antes de ser @mencionado.
 
@@ -159,7 +159,7 @@ Cuando envías un mensaje, el bot responde de inmediato con una breve confirmaci
 
 El bot recuerda el contexto dentro de una sesión, por lo que puedes hacer preguntas de seguimiento sin tener que repetirte.
 
-**Conciencia del contexto del Space (opt-in):** Después de que un gestor del Space ejecute `/connect`, el bot lee los mensajes enviados en el Space dentro de los últimos 15 minutos antes de cada @mención — para que entienda lo que el equipo ya estaba discutiendo sin que tengas que repetir el contexto. Consulta [Conciencia del Historial de Threads](#conciencia-del-historial-de-threads) abajo para los pasos de configuración.
+**Conciencia del contexto del Space (opt-in):** Después de que un gestor del Space ejecute `/connect`, el bot lee los mensajes más recientes del Space (hasta 10) de las últimas 24 horas antes de cada @mención — para que entienda lo que el equipo ya estaba discutiendo sin que tengas que repetir el contexto. Consulta [Conciencia del Historial de Threads](#conciencia-del-historial-de-threads) abajo para los pasos de configuración.
 
 ### Cola de Mensajes
 
@@ -193,7 +193,7 @@ En los planes de pago, los miembros del equipo pueden subir un documento y pregu
   Las hojas de cálculo/CSV, las imágenes, el audio y el video no son compatibles. Los enlaces de Google Drive no se pueden procesar — sube el archivo directamente.
 </Callout>
 
-**Límites de tamaño de archivo:** hasta 10 MB en Starter y Plus, 50 MB en Enterprise.
+**Límites de tamaño de archivo:** hasta 10 MB en Starter, 50 MB en Plus y 100 MB en Enterprise.
 
 **Un documento por mensaje:** si adjuntas varios archivos a la vez, el bot usa el primero y te pide que envíes el resto de uno en uno.
 
@@ -315,7 +315,7 @@ Un gestor del Space debe ejecutar `@Cuneiform Chat /connect` de nuevo para reaut
 
 1. Los PDF escaneados o que solo contienen imágenes a menudo no pueden ser leídos por el analizador estándar — pídele a un administrador que habilite el **análisis premium** en la integración con Google Chat
 2. Confirma que el tipo de archivo sea compatible (PDF, DOCX, PPTX, TXT, Markdown) — las hojas de cálculo/CSV, las imágenes y los enlaces de Drive no lo son
-3. Comprueba que el archivo esté dentro del límite de tamaño de tu plan (10 MB en Starter/Plus, 50 MB en Enterprise)
+3. Comprueba que el archivo esté dentro del límite de tamaño de tu plan (10 MB en Starter, 50 MB en Plus, 100 MB en Enterprise)
 
 ### No Se Pueden Subir Documentos
 
