@@ -1,0 +1,143 @@
+---
+description: Connect your self-hosted WooCommerce store so your AI agent can answer product questions, look up orders, recommend in-stock items, and send order-status updates from your live catalog.
+---
+
+# WooCommerce Integration
+
+Connect your self-hosted **WooCommerce** store so your AI agent can answer product questions, look up a shopper's order, recommend in-stock items, and send order-status updates — all from your real, live catalog and order data.
+
+## Overview
+
+The WooCommerce integration links your self-hosted store to your AI agents over the WooCommerce REST API. WooCommerce is your commerce backend; your Cuneiform agent is the conversation layer across every channel you deploy it to. Once connected, the agent can:
+
+- **Catalog Q&A** — answer from your real products, variants, prices, and current availability
+- **Order lookup (WISMO)** — let shoppers check "where is my order?" with their order number plus the email or phone on the order
+- **Recommendations** — suggest products that are actually **in stock**
+- **Order-status updates** — message shoppers who opt in with shipping updates in the same chat
+- **Live inventory** — always read prices and stock fresh at answer time
+- **Checkout handoff** — send a ready-to-buy shopper to your own WooCommerce checkout
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  The WooCommerce integration is available on **every plan, including the free trial** — there's no tier gate.
+</Callout>
+
+## Prerequisites
+
+- A **self-hosted WooCommerce store** you administer
+- Your **store URL** (for example, `https://your-store.com`)
+- At least **one agent** to become your commerce agent (you can create one during the connect flow)
+
+You do **not** need to install a plugin or write any code. The standard connect flow is a one-time approval; a read-only consumer key/secret is only needed if your store sits behind a firewall.
+
+## Setup Steps
+
+### 1. Open Commerce
+
+In the admin panel, go to **Commerce** and choose **WooCommerce**. Commerce is the single home for the integration — the connect card, your Product Library, Settings, and Analytics all live here.
+
+### 2. Connect your store
+
+Enter your store URL and click **Connect**. You'll approve a one-time WooCommerce REST API authorization on your store, then return to Commerce. If your store sits behind a firewall that blocks the redirect, expand **Enter API keys manually** and paste a **read-only** consumer key and secret (generated in WooCommerce → Settings → Advanced → REST API).
+
+### 3. Choose your commerce agent
+
+Commerce is **opt-in per agent** and **off by default**. At connect time, pick the **one** agent that should become your commerce agent — an existing active agent or a new one. Only that agent receives the WooCommerce tools; your other agents are unaffected. You can change this later under **Commerce → Settings**.
+
+### 4. Let your catalog sync
+
+Connecting kicks off a one-time import of your products, variants, prices, images, and stock. After that, changes sync automatically, and a daily reconcile catches anything missed.
+
+### 5. Try it
+
+Open your commerce agent and ask a catalog question ("what sizes does this come in?", "is the blue one in stock?") or look up an order ("where is my order #1001?"). The agent answers from your live WooCommerce data.
+
+## How It Works
+
+```
+Shopper asks a question
+  → Commerce agent reads your live WooCommerce catalog & orders (read-only)
+  → Answers about products, stock, and order status
+  → Hands off to your own WooCommerce checkout to buy
+```
+
+The agent reads your products, prices, inventory, and orders directly through the WooCommerce REST API and keeps prices and stock fresh — no copy-pasting your catalog into a knowledge base.
+
+## Features
+
+### Read-only by design
+
+The integration only **reads** from WooCommerce (products, inventory, orders). It never changes your catalog or inventory, never captures payments, and never places orders. Checkout always happens on your own WooCommerce store.
+
+### One store, one commerce agent
+
+You connect **one WooCommerce store per organization** and grant commerce to **exactly one agent** at connect time. Other agents stay non-commerce unless you turn them on under **Commerce → Settings**.
+
+### Verified order lookup
+
+Shoppers see order details only after providing the exact order number **and** the email or phone on the order. A wrong contact and a non-existent order return the same "couldn't find it" answer with no details — anti-enumeration hardening that protects your customers.
+
+### Live catalog & inventory
+
+The agent reads prices and stock fresh at answer time, so recommendations are limited to items that are actually in stock. A daily reconcile repairs anything a sync misses.
+
+### Opt-in order-status updates
+
+After a shopper verifies their order in chat, they can opt in to receive shipping updates on a supported channel. Updates only fire when you've enabled them in **Commerce → Settings → Notifications** and the shopper has opted in.
+
+## Security
+
+- **Read-only access** — the integration cannot create, edit, or delete anything in your store, change inventory, or capture payments
+- **Tenant isolation** — your catalog and orders are scoped to your organization and never visible to other tenants
+- **Verified order lookup** — order details require the exact order number plus the matching email or phone (anti-enumeration)
+- **Opt-in notifications** — shipping updates require an explicit per-shopper opt-in in chat
+- **Secure checkout** — purchases complete on your own WooCommerce checkout; no card or payment data passes through the agent
+
+## Troubleshooting
+
+### Connecting hangs or fails
+
+Connecting needs the server to reach your store URL and — for the standard flow — needs you to complete the one-time authorization on your store. If it stalls, it's usually a network or firewall issue reaching the store, not your credentials. If your store is firewalled, connect with a **read-only** consumer key/secret instead (**Enter API keys manually**).
+
+### The agent won't answer product questions
+
+Commerce is **off by default** and granted to one agent at connect. If a particular agent isn't answering catalog questions, open **Commerce → Settings** and turn on its commerce toggle.
+
+### The catalog looks empty right after connecting
+
+The first import backfills your whole catalog and can take a few minutes for a large store. Once it finishes, your products are searchable; after that, changes sync automatically.
+
+### A price or stock level looks out of date
+
+The agent reads prices and stock fresh every time, so they shouldn't go stale. In the rare case a sync is missed, the daily reconcile repairs the catalog automatically.
+
+### Order lookup can't find an order
+
+The order-lookup tool is deliberately strict: it returns details only when the shopper provides the exact order number **and** an email or phone that matches the order.
+
+### No order-status updates are sent
+
+Updates require both gates: enable them in **Commerce → Settings → Notifications**, and have the shopper opt in in chat on a supported channel.
+
+## FAQ
+
+### Do I need a paid plan to connect WooCommerce?
+
+No. The WooCommerce integration works on every plan, including the free trial. You can connect a store and use catalog Q&A, order lookup, recommendations, and order-status updates on any plan.
+
+### Do I have to install a plugin?
+
+No plugin. The standard flow is a one-time approval — enter your store URL and approve a read-only WooCommerce REST API authorization. You only paste a **read-only** consumer key/secret if your store's firewall blocks the automatic redirect.
+
+### Can all of my agents use WooCommerce, or just one?
+
+Commerce is opt-in per agent and off by default. At connect you grant commerce to **one** agent; only that agent gets the WooCommerce tools. You can enable commerce for more agents later under **Commerce → Settings**.
+
+### What does the integration do with my store data?
+
+It reads your catalog, inventory, and orders to answer questions and send opted-in updates. It is read-only — it never changes your store, never changes inventory, and never captures payments. Checkout always happens on your own WooCommerce store.
+
+### Does the agent ever change my store or place orders?
+
+No. The integration is strictly read-only. It never edits products, never adjusts inventory, and never places or pays for orders on a shopper's behalf — those actions always happen on your own WooCommerce store.

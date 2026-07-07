@@ -1,0 +1,143 @@
+---
+description: Conecte sua loja WooCommerce auto-hospedada para que seu AI agent responda a perguntas sobre produtos, consulte pedidos, recomende itens em estoque e envie atualizações de status do pedido a partir do seu catálogo ao vivo.
+---
+
+# Integração com WooCommerce
+
+Conecte sua loja **WooCommerce** auto-hospedada para que seu AI agent possa responder a perguntas sobre produtos, consultar o pedido de um cliente, recomendar itens em estoque e enviar atualizações de status do pedido — tudo a partir dos seus dados reais e ao vivo de catálogo e pedidos.
+
+## Visão Geral
+
+A integração com WooCommerce conecta sua loja auto-hospedada aos seus AI agents pela WooCommerce REST API. O WooCommerce é o seu backend de comércio; o seu agent da Cuneiform é a camada de conversa em todos os canais onde você o implanta. Depois de conectado, o agent pode:
+
+- **Catálogo (perguntas e respostas)** — responde a partir dos seus produtos, variações, preços e disponibilidade atual reais
+- **Consulta de pedidos (WISMO)** — permite que os clientes verifiquem "onde está meu pedido?" com o número do pedido mais o e-mail ou telefone do pedido
+- **Recomendações** — sugere produtos que estão realmente **em estoque**
+- **Atualizações de status do pedido** — envia aos clientes que optam por receber atualizações de entrega no mesmo chat
+- **Estoque ao vivo** — sempre lê os preços e o estoque atualizados no momento da resposta
+- **Transferência para o checkout** — envia um cliente pronto para comprar ao seu próprio checkout do WooCommerce
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  A integração com WooCommerce está disponível em **todos os planos, incluindo o teste gratuito** — não há restrição por nível.
+</Callout>
+
+## Pré-requisitos
+
+- Uma **loja WooCommerce auto-hospedada** que você administre
+- A **URL da sua loja** (por exemplo, `https://your-store.com`)
+- Pelo menos **um agent** para se tornar seu agent de comércio (você pode criar um durante o fluxo de conexão)
+
+Você **não** precisa instalar nenhum plugin nem escrever código. O fluxo de conexão padrão é uma aprovação única; uma consumer key/secret somente leitura só é necessária se a sua loja estiver atrás de um firewall.
+
+## Passos de Configuração
+
+### 1. Abra o Commerce
+
+No painel de administração, vá para **Commerce** e escolha **WooCommerce**. O Commerce é a casa única da integração — o cartão de conexão, sua **Product Library**, **Settings** e **Analytics** ficam todos aqui.
+
+### 2. Conecte sua loja
+
+Insira a URL da sua loja e clique em **Connect**. Você aprovará uma autorização única da WooCommerce REST API na sua loja e retornará ao **Commerce**. Se a sua loja estiver atrás de um firewall que bloqueia o redirecionamento, expanda **Enter API keys manually** e cole uma consumer key e secret **somente leitura** (geradas em WooCommerce → Settings → Advanced → REST API).
+
+### 3. Escolha seu agent de comércio
+
+O comércio é **opcional por agent** e **desativado por padrão**. No momento da conexão, escolha o **único** agent que se tornará seu agent de comércio — um agent ativo existente ou um novo. Somente esse agent recebe as ferramentas do WooCommerce; seus outros agents não são afetados. Você pode alterar isso depois em **Commerce → Settings**.
+
+### 4. Deixe seu catálogo sincronizar
+
+A conexão inicia uma importação única dos seus produtos, variações, preços, imagens e estoque. Depois disso, as alterações sincronizam automaticamente, e uma reconciliação diária detecta qualquer coisa que tenha passado.
+
+### 5. Experimente
+
+Abra seu agent de comércio e faça uma pergunta sobre o catálogo ("em quais tamanhos isso vem?", "o azul está em estoque?") ou consulte um pedido ("onde está meu pedido #1001?"). O agent responde a partir dos seus dados ao vivo do WooCommerce.
+
+## Como Funciona
+
+```
+O cliente faz uma pergunta
+  → O agent de comércio lê seu catálogo e pedidos do WooCommerce ao vivo (somente leitura)
+  → Responde sobre produtos, estoque e status do pedido
+  → Transfere para o seu próprio checkout do WooCommerce para comprar
+```
+
+O agent lê seus produtos, preços, estoque e pedidos diretamente pela WooCommerce REST API e mantém os preços e o estoque atualizados — sem copiar e colar seu catálogo em uma base de conhecimento.
+
+## Funcionalidades
+
+### Somente leitura por design
+
+A integração apenas **lê** do WooCommerce (produtos, estoque, pedidos). Nunca altera seu catálogo nem seu estoque, nunca captura pagamentos e nunca cria pedidos. O checkout sempre acontece na sua própria loja WooCommerce.
+
+### Uma loja, um agent de comércio
+
+Você conecta **uma loja WooCommerce por organização** e concede o comércio a **exatamente um agent** no momento da conexão. Os demais agents permanecem sem comércio, a menos que você os ative em **Commerce → Settings**.
+
+### Consulta de pedidos verificada
+
+Os clientes veem os detalhes do pedido somente após fornecer o número exato do pedido **e** o e-mail ou telefone do pedido. Um contato errado e um pedido inexistente retornam a mesma resposta "não foi possível encontrar" sem detalhes — um reforço anti-enumeração que protege seus clientes.
+
+### Catálogo e estoque ao vivo
+
+O agent lê os preços e o estoque atualizados no momento da resposta, então as recomendações se limitam a itens que estão realmente em estoque. Uma reconciliação diária repara qualquer coisa que uma sincronização perca.
+
+### Atualizações de status do pedido por opção
+
+Depois que um cliente verifica seu pedido no chat, ele pode optar por receber atualizações de entrega em um canal compatível. As atualizações só são enviadas quando você as habilitou em **Commerce → Settings → Notifications** e o cliente optou por recebê-las.
+
+## Segurança
+
+- **Acesso somente leitura** — a integração não pode criar, editar ou excluir nada na sua loja, alterar o estoque ou capturar pagamentos
+- **Isolamento por organização** — seu catálogo e seus pedidos pertencem apenas à sua organização e nunca ficam visíveis para outros inquilinos
+- **Consulta de pedidos verificada** — os detalhes do pedido exigem o número exato do pedido mais o e-mail ou telefone correspondente (anti-enumeração)
+- **Notificações por opção** — as atualizações de entrega exigem uma opção explícita por cliente no chat
+- **Checkout seguro** — as compras são concluídas no seu próprio checkout do WooCommerce; nenhum dado de cartão ou pagamento passa pelo agent
+
+## Solução de Problemas
+
+### A conexão trava ou falha
+
+Conectar exige que o servidor consiga alcançar a URL da sua loja e — para o fluxo padrão — que você conclua a autorização única na sua loja. Se travar, geralmente é um problema de rede ou firewall para alcançar a loja, não das suas credenciais. Se a sua loja estiver atrás de um firewall, conecte-se com uma consumer key/secret **somente leitura** (**Enter API keys manually**).
+
+### O agent não responde a perguntas sobre produtos
+
+O comércio é **desativado por padrão** e concedido a um agent na conexão. Se um agent específico não responde a perguntas do catálogo, abra **Commerce → Settings** e ative o botão de comércio dele.
+
+### O catálogo aparece vazio logo após conectar
+
+A primeira importação preenche todo o seu catálogo e pode levar alguns minutos em uma loja grande. Depois que termina, seus produtos ficam pesquisáveis; a partir daí, as alterações sincronizam automaticamente.
+
+### Um preço ou nível de estoque parece desatualizado
+
+O agent lê os preços e o estoque atualizados a cada vez, então eles não deveriam ficar obsoletos. No raro caso de uma sincronização ser perdida, a reconciliação diária repara o catálogo automaticamente.
+
+### A consulta de pedidos não encontra um pedido
+
+A ferramenta de consulta de pedidos é deliberadamente rigorosa: retorna os detalhes somente quando o cliente fornece o número exato do pedido **e** um e-mail ou telefone que corresponde ao pedido.
+
+### Nenhuma atualização de status do pedido é enviada
+
+As atualizações exigem as duas condições: habilite-as em **Commerce → Settings → Notifications** e faça o cliente optar por recebê-las no chat em um canal compatível.
+
+## Perguntas Frequentes
+
+### Preciso de um plano pago para conectar o WooCommerce?
+
+Não. A integração com WooCommerce funciona em todos os planos, incluindo o teste gratuito. Você pode conectar uma loja e usar catálogo (perguntas e respostas), consulta de pedidos, recomendações e atualizações de status do pedido em qualquer plano.
+
+### Preciso instalar um plugin?
+
+Nenhum plugin. O fluxo padrão é uma aprovação única — insira a URL da sua loja e aprove uma autorização somente leitura da WooCommerce REST API. Você só cola uma consumer key/secret **somente leitura** se o firewall da sua loja bloquear o redirecionamento automático.
+
+### Todos os meus agents podem usar o WooCommerce, ou apenas um?
+
+O comércio é opcional por agent e desativado por padrão. Na conexão, você concede o comércio a **um** agent; somente esse agent recebe as ferramentas do WooCommerce. Você pode habilitar o comércio para mais agents depois em **Commerce → Settings**.
+
+### O que a integração faz com os dados da minha loja?
+
+Ela lê seu catálogo, estoque e pedidos para responder a perguntas e enviar atualizações às quais o cliente optou. É somente leitura — nunca altera sua loja, nunca altera o estoque e nunca captura pagamentos. O checkout sempre acontece na sua própria loja WooCommerce.
+
+### O agent alguma vez altera minha loja ou cria pedidos?
+
+Não. A integração é estritamente somente leitura. Nunca edita produtos, nunca ajusta o estoque e nunca cria nem paga pedidos em nome de um cliente — essas ações sempre acontecem na sua própria loja WooCommerce.
