@@ -14,6 +14,7 @@ const meta: MetaRecord = {
   'messenger-mini-app': 'Messenger Storefront',
   'website-widget': 'Website Widget',
   woocommerce: 'WooCommerce',
+  'chatgpt-app': 'ChatGPT App',
 }
 
 export default meta
