@@ -29,7 +29,7 @@ production-এ storefront যেসব সাধারণ আকার নেয
 - **একটি storefront, দুই channel।** storefront একবার তৈরি করুন আর একসাথে একটি Telegram bot *এবং* একটি Facebook Messenger Page-এ publish করুন — দুটোতেই একই page, product ও theme। **Distribute** tab থেকে প্রতিটি channel publish করুন; একটি unpublish করুন অন্যটিতে হাত না দিয়ে।
 - **AI-native product chat।** Per-product chat *আপনি* সেই product-এ attach করা document-এ scope করা — assistant অন্য product-এর তথ্য ফাঁস না করেই আত্মবিশ্বাসের সাথে "এই dress-এ return policy কী?"-এর উত্তর দিতে পারে।
 - **একজন সত্যিকারের মানুষের কাছে order handoff।** Lightweight order form (inquiry বা cart mode) একটি structured handoff হিসেবে আপনার Inbox-এ আসে, follow-up-এর জন্য customer-এর Telegram DM খোলা রাখা অবস্থায়।
-- **প্রতিটি plan-এ free।** Trial একটি ৫-page / প্রতি page-এ ২৫-block / ১০০-product-doc cap পায়; প্রতিটি paid plan cap সরিয়ে দেয়। Pricing per-org — একটি দ্বিতীয় Telegram bot যোগ করলে আপনার tier price পরিবর্তন হয় না।
+- **প্রতিটি plan-এ free।** page, প্রতি page-এ block বা product doc-এ কোনো cap নেই — কোনো plan-এই নয়, free trial সহ। Pricing per-org — একটি দ্বিতীয় Telegram bot যোগ করলে আপনার price পরিবর্তন হয় না।
 
 ## এক নজরে
 
@@ -218,7 +218,7 @@ composer থাকে **Integrations → [আপনার Telegram bot] → Conf
 - **Unlinking per-product।** একটি product card থেকে একটি doc সরালে তা আপনার KB-তে এবং এটি যেসব product-এ link করে সেগুলোতে অক্ষত থাকে। একটি doc সর্বত্র delete করতে, Knowledge page থেকে এটি delete করুন — এর সব product link স্বয়ংক্রিয়ভাবে পরিষ্কার হয়।
 - **picker থেকে inline upload ব্যবহার করলে doc default-ভাবে একটি "Showcase Products" folder-এ আসে**, কিন্তু আপনি এগুলো আপনার KB-তে যেকোনো জায়গায় সংগঠিত করতে স্বাধীন।
 
-আপনি যত product doc attach করতে পারবেন তার মোট সংখ্যায় Tier limit প্রযোজ্য ([Tier limits](#tier-limits) দেখুন)।
+আপনি যত product doc attach করতে পারবেন তার মোট সংখ্যায় কোনো cap নেই ([Tier limits](#tier-limits) দেখুন)।
 
 ## Order inquiry ও cart (ঐচ্ছিক) [#orders-and-cart]
 
@@ -279,22 +279,14 @@ composer থাকে **Integrations → [আপনার Telegram bot] → Conf
 
 ২ MB cap আপনি যে original upload করেন তার উপর, customer-রা যা দেখে তার উপর নয়। একটি 12 MP ফোনের photo বা একটি print-resolution catalog shot যেমন আছে তেমন drop করুন — in-browser cropper দৃশ্যমান quality loss ছাড়াই scale-down সামলায়।
 
-## Tier limit
+## Tier limit [#tier-limits]
 
-প্রতিটি plan-এ available, free trial সহ। composer cap প্রয়োগ করে।
-
-| Tier | Page | প্রতি page-এ block | Product doc (মোট) |
-|------|------|---------------------|--------------------|
-| **Trial** | ৫ | ২৫ | ১০০ |
-| **Starter** | সীমাহীন | সীমাহীন | সীমাহীন |
-| **Plus** | সীমাহীন | সীমাহীন | সীমাহীন |
-| **Enterprise** | সীমাহীন | সীমাহীন | সীমাহীন |
+প্রতিটি plan-এ available, free trial সহ — এবং কোনো plan-এ page, প্রতি page-এ block বা product doc-এর **কোনো cap নেই**, free trial সহ।
 
 নোট:
 
-- একটি product grid বা carousel per-page block limit-এর দিকে **১টি block হিসেবে গণ্য**, এতে যত item বা slide-ই থাকুক না কেন।
-- আপনি একটি limit-এ পৌঁছালে, composer একটি upgrade modal দেখায়।
-- **Pricing per-org, per-bot নয়।** আপনার org-এ একটি দ্বিতীয় (বা পঞ্চম) Telegram bot যোগ করলে আপনার tier price পরিবর্তন **হয় না**। প্রতিটি bot একই plan-এর ভেতরে নিজস্ব storefront পায়; cap এক org-এর অধীনে আপনার সব bot জুড়ে shared।
+- একটি product grid বা carousel composer-এর block তালিকায় **১টি block হিসেবে গণ্য**, এতে যত item বা slide-ই থাকুক না কেন।
+- **Pricing per-org, per-bot নয়।** আপনার org-এ একটি দ্বিতীয় (বা পঞ্চম) Telegram bot যোগ করলে আপনার price পরিবর্তন **হয় না**। প্রতিটি bot একই plan-এর ভেতরে নিজস্ব storefront পায়।
 
 ## Permission
 
