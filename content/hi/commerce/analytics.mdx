@@ -1,0 +1,82 @@
+---
+description: Commerce Analytics और Commerce Analyst — shoppers ने क्या माँगा, उन्हें क्या दिखाया गया, उन्होंने cart में क्या डाला, और वे कहाँ रुक गए।
+---
+
+# Commerce Analytics
+
+**Commerce Analytics उस सवाल का जवाब देता है जो chat की मात्रा दिखाने वाला कोई dashboard नहीं दे सकता: क्या इसमें से कुछ भी कुछ बेच रहा है?** यह ख़ास तौर पर commerce के रास्ते को मापता है — shoppers ने क्या खोजा, agent ने कौन-से products सामने रखे, cart में क्या गया, और उसमें से कितना आपके checkout तक पहुँचा।
+
+इसे **Commerce → Commerce Analytics** पर पाएँ।
+
+## यह क्या समेटता है [#what-it-covers]
+
+| सवाल | जवाब कहाँ से आता है |
+|---|---|
+| shoppers असल में क्या माँग रहे हैं? | आपके agent द्वारा चलाए गए catalog searches और product lookups |
+| agent सबसे ज़्यादा कौन-से products सामने लाता है? | दिखाए गए product cards और दिए गए सुझाव |
+| क्या shoppers उन पर अमल कर रहे हैं? | बनी हुई carts, जोड़ी और हटाई गई चीज़ें |
+| क्या इसमें से कुछ checkout तक पहुँचता है? | शुरू हुए checkout handoffs, और बातचीत से जुड़े orders |
+| लोग कहाँ रुक जाते हैं? | ऊपर के हर चरण के बीच की गिरावट |
+
+चूँकि in-chat orders उस बातचीत को साथ रखते हैं जिससे वे आए, "एक shopper ने एक सवाल पूछा" से "आपके store में एक order है" तक का रास्ता एक ऐसी कड़ी है जिसका आप पीछा कर सकते हैं, न कि दो असंबद्ध संख्याएँ जिन्हें आपको आँख गड़ाकर मिलाना पड़े।
+
+## दोनों stores, एक ही page [#both-stores-one-page]
+
+Shopify और WooCommerce एक ही analytics page साझा करते हैं। आप कौन-सा store देख रहे हैं यह ऊपर दिए एक provider selector से चुना जाता है।
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  **Selector सिर्फ़ तभी दिखता है जब आपके एक से ज़्यादा stores connected हों।** एक ही store होने पर चुनने को कुछ है ही नहीं, इसलिए page सीधे उसी store की संख्याएँ दिखाता है। जो picker है ही नहीं उसे ढूँढने मत जाइए।
+</Callout>
+
+## Commerce Analyst [#the-commerce-analyst]
+
+charts के बग़ल में है **Commerce Analyst** — एक AI विश्लेषक, जिससे आप filters जोड़-जोड़कर सवाल बनाने के बजाय सीधी-सादी भाषा में पूछ सकते हैं:
+
+- *"कौन-से products सबसे ज़्यादा सुझाए जाते हैं पर कभी cart में नहीं जाते?"*
+- *"पिछले महीने quiz ने कुछ बदला क्या?"*
+- *"लोग क्या खोज रहे हैं जो मैं रखता ही नहीं?"*
+
+यह वही commerce डेटा पढ़ता है जिसे page charts में दिखाता है, और जो मिलता है उसी से जवाब देता है। आख़िरी सवाल में यह अप्रत्याशित रूप से अच्छा है: shoppers ऐसी चीज़ें माँगते हैं जो आप बेचते नहीं, और अब तक वे खोजें कहीं नहीं जाती थीं और आपको कुछ बताती भी नहीं थीं।
+
+## इसे कौन देख सकता है [#who-can-see-it]
+
+Commerce Analytics उन सबको दिखता है जिनके पास या तो **analytics पहुँच** है या **integrations पहुँच** — यही दो भूमिकाएँ हैं जिन्हें इसकी सबसे वाजिब ज़रूरत है। इसका मतलब यह कि टीम का जो सदस्य आपका analytics पढ़ सकता है उसे commerce काम कर रहा है या नहीं यह देखने भर के लिए अलग से integration permissions नहीं चाहिए।
+
+<Callout type="info">
+  Commerce Analytics सबके लिए काम करता है, free trial सहित। कोई अलग analytics add-on नहीं है।
+</Callout>
+
+## संख्याओं को ईमानदारी से पढ़ना [#reading-the-numbers-honestly]
+
+नतीजे निकालने से पहले कुछ बातें जान लेना अच्छा है:
+
+- **Storefront inquiries और in-chat carts अलग funnels हैं।** एक Storefront inquiry का अंत आपके Inbox में किसी इंसान के जवाब देने के लिए एक संदेश के रूप में होता है; एक in-chat cart का अंत आपके checkout पर। इन्हें जोड़िए मत। देखें [तीन carts](/commerce/shoppable-chat#three-carts)।
+- **Attribution in-chat orders पर सबसे मज़बूत है**, जो बातचीत को स्पष्ट रूप से साथ रखते हैं। Storefront handoff से शुरू हुआ order अधिक ढीले ढंग से जुड़ता है।
+- **जो सुझाव कभी ख़रीद में नहीं बदलता वह अपने-आप विफलता नहीं है।** shoppers agent का इस्तेमाल जितना चुनने के लिए करते हैं उतना ही चीज़ों को ख़ारिज करने के लिए भी।
+
+## समस्या निवारण [#troubleshooting]
+
+### page ख़ाली है [#the-page-is-empty]
+
+अभी तक कुछ हुआ ही नहीं। Commerce Analytics असली shopper गतिविधि की रिपोर्ट देता है, इसलिए आज सुबह connect हुआ store, जिस पर अभी कोई बातचीत नहीं हुई, उसके पास दिखाने को कुछ नहीं है।
+
+### मुझे provider selector नहीं मिल रहा [#i-cant-find-the-provider-selector]
+
+आपका एक ही store connected है। Selector सिर्फ़ दो होने पर दिखता है।
+
+### मेरे store में orders हैं पर यहाँ नहीं दिखते [#orders-exist-in-my-store-but-dont-appear-here]
+
+सिर्फ़ वही orders जोड़े जाते हैं जो agent से होकर आए। जो order किसी shopper ने सीधे आपकी website देखकर दिया वह commerce-agent order नहीं है और इस funnel में नहीं दिखेगा।
+
+### Analyst कहता है कि किसी चीज़ का डेटा उसके पास नहीं है [#the-analyst-says-it-doesnt-have-data-for-something]
+
+वह commerce गतिविधि से जवाब देता है, आपके store के पूरे order इतिहास से नहीं। जिन orders ने कभी किसी बातचीत को छुआ ही नहीं उनके बारे में सवाल उसकी नज़र से बाहर हैं।
+
+## संबंधित [#related]
+
+- [Shoppable Chat](/commerce/shoppable-chat) — वह in-chat funnel जिसे यह मापता है
+- [Checkout](/commerce/checkout) — उसके सिरे पर मौजूद handoff
+- [Product Tools](/commerce/product-tools) — Product Finder की अपनी submissions, heatmap और diagnostics
+- [Analytics](/analytics) — आपके workspace का बाक़ी analytics

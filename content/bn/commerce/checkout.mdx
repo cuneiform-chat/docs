@@ -1,0 +1,92 @@
+---
+description: কিনতে প্রস্তুত একজন ক্রেতাকে কীভাবে তার cart অক্ষত রেখে একটি storefront থেকে বা chat-এর ভেতর থেকে আপনার নিজের Shopify বা WooCommerce checkout-এ পাঠানো হয়।
+---
+
+# Checkout
+
+**Cuneiform Chat কখনো পেমেন্ট নেয় না।** প্রতিটি কেনাকাটা আপনার নিজের store-এর checkout-এ, আপনার নিজের পেমেন্ট ব্যবস্থার অধীনেই সম্পন্ন হয়। আমরা যা করি তা হলো ক্রেতাকে সেখানে পৌঁছে দেওয়া, তার cart আবার নতুন করে সাজাতে না বাধ্য করে।
+
+Handoff শুরু হতে পারে দুটি জায়গা থেকে:
+
+- একটি **[Storefront](/integrations/telegram-mini-app)** থেকে — একজন ক্রেতা যে in-bot catalog ঘুরে দেখে
+- **[Shoppable chat](/commerce/shoppable-chat)** থেকে — কথোপকথনের ভেতরেই product card ও একটি cart
+
+দুটিরই শেষ একই জায়গায়: আপনার checkout, ক্রেতার browser-এ, জিনিসগুলো আগে থেকেই তাতে রাখা অবস্থায়।
+
+## Shopify: একটি লিঙ্ক, পুরো cart [#shopify-one-link-whole-cart]
+
+একটি Shopify store-এর জন্য handoff হলো **একটিই checkout লিঙ্ক যা পুরো cart বহন করে** — প্রতিটি line, প্রতিটি পরিমাণ — সাথে আপনার সেট করা যেকোনো ডিসকাউন্ট, আর সাথে attribution যাতে ফলাফল হিসেবে আসা order-টিকে যে কথোপকথন থেকে এসেছে তার সাথে মেলানো যায়।
+
+ক্রেতা একবার ট্যাপ করে এবং সবকিছু আগে থেকেই রাখা অবস্থায় আপনার Shopify checkout-এ পৌঁছায়। আবার যোগ করার কিছু নেই, মনে রাখার কিছু নেই।
+
+## WooCommerce: এটি আপনার সংযোগের permission-এর উপর নির্ভর করে [#woocommerce-permission]
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  **এটি WooCommerce-এর কোনো সীমাবদ্ধতা নয় — এটি আপনার সংযোগের একটি permission সেটিং।** গাইডেড পথে যুক্ত হওয়া একটি WooCommerce store-এ পূর্ণ অভিজ্ঞতার জন্য প্রয়োজনীয় permission সবসময়ই থাকে। কেবল একটি read-only key দিয়ে manual-ভাবে যুক্ত হওয়া store-ই সীমিত অভিজ্ঞতাটি পায়।
+</Callout>
+
+| আপনার সংযোগ | ক্রেতা যা পায় |
+|---|---|
+| **`Read/Write`** (প্রতিটি গাইডেড সংযোগ, এবং যেকোনো manual সংযোগ যেখানে আপনি `Read/Write` বেছে নিয়েছেন) | **পুরো cart**, আপনার store-এ তৈরি হওয়া একটি pending order হিসেবে, তার সাথে কথোপকথনটি যুক্ত করা অবস্থায়। ক্রেতা সরাসরি সেই order-টির জন্য টাকা দিতে যায়। |
+| **Read-only** | **একবারে একটি line।** ক্রেতাকে একটি product-এর জন্য একটি add-to-cart লিঙ্ক দেওয়া হয়। তার cart-এ একের বেশি line থাকলে handoff-টি বদলে একটি order inquiry-তে ফিরে যায়, যাতে অনুরোধটি নীরবে বাকি জিনিসগুলো হারিয়ে না ফেলে বরং একটি বার্তা হিসেবে আপনার কাছে পৌঁছায়। |
+
+### Pending order জিনিসটা কী, আর কী নয় [#what-the-pending-order-is-and-isnt]
+
+একটি `Read/Write` সংযোগে checkout করলে WooCommerce-এ একটি **pending order** তৈরি হয় এবং ক্রেতাকে তার জন্য টাকা দিতে পাঠানো হয়। সেই order:
+
+- **পরিশোধিত নয়** এবং **fulfil করা নয়** — এটি ক্রেতার জন্য অপেক্ষা করছে, ঠিক যেমন একটি পরিত্যক্ত cart যেটি পেমেন্টের পাতা পর্যন্ত পৌঁছেছিল
+- **যে কথোপকথন থেকে এসেছে তা বহন করে**, তাই কোন chat order-এ পরিণত হয় তা আপনি দেখতে পান
+- **একমাত্র জিনিস** যা integration কখনো আপনার store-এ তৈরি করে। এটি কখনো কোনো product সম্পাদনা করে না, কখনো stock বদলায় না, আর কখনো বিদ্যমান কোনো order পাল্টায় না
+
+### Multi-line checkout কাজ না করলে [#if-multi-line-checkout-isnt-working]
+
+আপনার WooCommerce সংযোগে লেখা permission-টি দেখুন। সেটি যদি read-only বলে — আপনি একটি `Read/Write` key পেস্ট করেও form-এ permission ঘরটি খালি রেখে দিয়ে থাকলে যা হয়, সেই ক্ষেত্রটিসহ — তাহলে গাইডেড পথ দিয়ে **Reconnect** করুন। দেখুন [Manual সংযোগের পরে](/commerce/woocommerce#after-a-manual-connect)।
+
+## একটি Storefront থেকে checkout [#checkout-from-a-storefront]
+
+একটি [Storefront](/integrations/telegram-mini-app) হাতে তৈরি করা যায়, অথবা একটি যুক্ত store-এর catalog-এর সাথে জোড়া দেওয়া যায়। সেটি কোনটি তার উপরেই নির্ভর করে তার checkout কী করতে পারে:
+
+| Storefront-এর ধরন | Checkout |
+|---|---|
+| **Shopify catalog-এর সাথে জোড়া** | আপনার Shopify checkout-এ পূর্ণ checkout handoff |
+| **WooCommerce catalog-এর সাথে জোড়া** | উপরে বর্ণিত মতো handoff, আপনার সংযোগের permission অনুযায়ী |
+| **হাতে তৈরি** | কোনো পেমেন্ট handoff নেই — order CTA হলো inquiry handoff যা একজন মানুষের হাতে তুলে নেওয়ার জন্য আপনার Inbox-এ পৌঁছায় |
+
+একটি storefront একটি উৎসেই সীমাবদ্ধ থাকে এবং তার উপর product block বসে গেলে সেটিই স্থির হয়ে যায়, তাই হাতে তৈরি একটি storefront নীরবে catalog-এর সাথে জোড়া storefront-এর মতো আচরণ করতে শুরু করতে পারে না (বা উল্টোটা)। catalog-জোড়া আসার আগে তৈরি হওয়া storefront-গুলোর কোনো নির্দিষ্ট উৎস নেই এবং সেগুলো ঠিক আগের মতোই কাজ করে যায়।
+
+## একটি chat-এর ভেতর থেকে checkout [#checkout-from-inside-a-chat]
+
+একজন ক্রেতা যখন কথোপকথনের product card থেকে একটি cart সাজায়, checkout handoff একইভাবে কাজ করে — একবার ট্যাপে আপনার নিজের checkout-এ। cart নিজে কীভাবে কাজ করে ও কোন channel-গুলো এটি সমর্থন করে তার জন্য দেখুন [Shoppable Chat](/commerce/shoppable-chat)।
+
+## আমরা যা কখনো করি না [#what-we-never-do]
+
+- **পেমেন্ট নেওয়া।** কোনো কার্ডের তথ্য, কোনো পেমেন্ট শংসাপত্র বা কোনো পেমেন্ট ডেটা Cuneiform Chat-এর মধ্য দিয়ে যায় না।
+- **কোনো ক্রেতাকে চার্জ করা।** উপরে বর্ণিত pending order ক্রেতা আপনার store-এ টাকা না দেওয়া পর্যন্ত অপরিশোধিত থাকে।
+- **আপনার দাম, stock বা বিদ্যমান order বদলানো।**
+
+## সমস্যা সমাধান [#troubleshooting]
+
+### Checkout লিঙ্কে কেবল একটি product আছে [#the-checkout-link-only-has-one-product-in-it]
+
+সেটিই read-only WooCommerce পথ। আপনার সংযোগের permission দেখুন এবং গাইডেড পথ দিয়ে reconnect করুন।
+
+### একটি multi-line cart checkout-এর বদলে একটি order inquiry হয়ে গেল [#a-multi-line-cart-turned-into-an-order-inquiry-instead-of-a-checkout]
+
+কারণ একই। বাড়তি line-গুলো নীরবে ফেলে দেওয়ার বদলে একটি read-only সংযোগ multi-line cart-কে একটি inquiry হিসেবে আপনার কাছে পাঠায় যাতে কিছুই হারিয়ে না যায়।
+
+### একজন ক্রেতা checkout-এ পৌঁছেছে কিন্তু ডিসকাউন্ট বসেনি [#a-shopper-reached-checkout-but-the-discount-wasnt-applied]
+
+ডিসকাউন্ট Shopify handoff লিঙ্কের সাথে যায়। ডিসকাউন্টটি এখনো বৈধ ও cart-এর product-গুলোর জন্য প্রযোজ্য কি না নিশ্চিত করুন — মেয়াদোত্তীর্ণ বা অপ্রযোজ্য একটি কোড checkout-এ Shopify বাদ দেয়, আমরা নই।
+
+### Order-গুলো কোন কথোপকথন থেকে এসেছে তা দেখাচ্ছে না [#orders-arent-showing-which-conversation-they-came-from]
+
+Attribution handoff-এর সাথেই যায়। WooCommerce-এ সেটি না থাকলে আপনি সম্ভবত read-only একক-line পথে আছেন, যেটি এটি বহন করতে পারে না।
+
+## সম্পর্কিত [#related]
+
+- [Shoppable Chat](/commerce/shoppable-chat) — কথোপকথনের যে cart থেকে এটি handoff করে
+- [WooCommerce](/commerce/woocommerce) — যে সংযোগ-permission ঠিক করে আপনি কোন পথটি পাবেন
+- [Shopify](/commerce/shopify) — একটি Shopify store যুক্ত করা
+- [Analytics](/commerce/analytics) — কতগুলো handoff order-এ পরিণত হয় তা দেখা

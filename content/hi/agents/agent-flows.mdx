@@ -5,7 +5,7 @@ Multi-screen forms जो एक AI agent बातचीत के बीच �
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Agent Flows **WhatsApp, Telegram, Messenger और आपकी वेबसाइट के chat widget** पर चलता है और **सभी paid plans** पर उपलब्ध है (tier-limited — नीचे दी गई Tier limits table देखें)। एक flow एक बार बनाएँ; यह हर समर्थित channel पर native रूप से render होता है।
+  Agent Flows **WhatsApp, Telegram, Messenger और आपकी वेबसाइट के chat widget** पर चलता है, और यह सबके लिए शामिल है — free trial सहित। एक flow एक बार बनाएँ; यह हर समर्थित channel पर native रूप से render होता है।
 </Callout>
 
 ## समर्थित channels
@@ -49,7 +49,7 @@ Flows customer admin panel में **Agent Flows** के अंतर्ग�
 
 आपको खाली composer से शुरू करने की ज़रूरत नहीं है। ready-made flows की एक curated library देखने के लिए Agent Flows list पर **Templates** tab खोलें — lead capture, demo booking, support intake, product feedback, और बहुत कुछ। **Use this template** पर click करें और यह आपके अपने workspace में एक editable draft बना देता है: screens, fields, logic, और translations पहले से भरे आते हैं। Draft को एक WhatsApp number से bind करें, जो चाहें वह बदलें, और publish करें।
 
-एक template बस एक शुरुआती बिंदु है — एक बार जब आप अपनी copy बना लेते हैं, तो यह एक सामान्य flow है जिसका आप पूरी तरह मालिक हैं और जिसे स्वतंत्र रूप से edit कर सकते हैं। Template library हर उस plan के लिए उपलब्ध है जिसमें Agent Flows है।
+एक template बस एक शुरुआती बिंदु है — एक बार जब आप अपनी copy बना लेते हैं, तो यह एक सामान्य flow है जिसका आप पूरी तरह मालिक हैं और जिसे स्वतंत्र रूप से edit कर सकते हैं। पूरी template library सबके लिए खुली है।
 
 ## Component library — 23 variants
 
@@ -143,7 +143,7 @@ Flows प्रति language publish होते हैं। flow को ए
 
 ## AI generation
 
-यदि आपके पास higher-tier plan है, तो composer **AI form generation** प्रदान करता है: एक one-line prompt लिखें ("a hotel booking form with date-range and photo upload"), या किसी मौजूदा form का PDF / image upload करें, और assistant आपके लिए flow का draft बना देता है। Draft पूरी तरह editable है — हर field composer में round-trippable है (कोई opaque AI snapshots नहीं)।
+composer सबको **AI form generation** प्रदान करता है: एक one-line prompt लिखें ("a hotel booking form with date-range and photo upload"), या किसी मौजूदा form का PDF / image upload करें, और assistant आपके लिए flow का draft बना देता है। Draft पूरी तरह editable है — हर field composer में round-trippable है (कोई opaque AI snapshots नहीं)।
 
 ## Submissions और analytics
 
@@ -192,13 +192,22 @@ Published flows केवल उन बातचीतों में नही
 
 हर link में एक **hit counter** होता है ताकि आप देख सकें कि कितने लोगों ने इसके ज़रिए form launch किया, और आप किसी भी समय एक link को **revoke** कर सकते हैं। यदि किसी link का text send करने से पहले edit या strip कर दिया जाता है, या link revoke कर दिया जाता है, तो message बस एक सामान्य AI conversation में fall through हो जाता है — कुछ भी नहीं टूटता।
 
-## Tier limits
+## सीमाएँ [#limits]
 
-| Tier | Published flows | प्रति flow Locales | AI generation |
-|------|-----------------|------------------|---------------|
-| Trial | 1 | 1 | — |
-| Starter | 1 | 1 | — |
-| Plus | Unlimited | Unlimited | ✅ |
-| Enterprise | Unlimited | Unlimited | ✅ |
+Agent Flows ख़ुद सबके लिए शामिल है, free trial सहित — पहला flow बनाने से पहले unlock करने जैसा कुछ नहीं है। आपकी सदस्यता जो तय करती है वह अलग है: एक साथ कितने flows **published** रह सकते हैं, और published हर flow कितनी भाषाओं में प्रकाशित होता है।
 
-सभी 23 component types हर उस tier पर उपलब्ध हैं जो Agent Flows को support करता है — कोई per-component tier-gating नहीं है।
+| सदस्यता | Published flows | प्रति flow Locales |
+|------|-----------------|------------------|
+| Trial | 1 | 1 |
+| Starter | 1 | 1 |
+| Plus | Unlimited | Unlimited |
+| Enterprise | Unlimited | Unlimited |
+
+सीमा कैसे गिनी जाती है:
+
+- **सिर्फ़ published flows गिने जाते हैं।** जितने चाहें drafts रखें — जितने मन हो बनाएँ, और वही publish करें जिसे चलना चाहिए।
+- **दोबारा publish करना मुफ़्त है।** पहले से published किसी flow को update करने पर एक और जगह नहीं लगती।
+- **बदलना हो तो unpublish करें।** सीमा पर पहुँच जाने पर एक flow unpublish करें — जगह तुरंत दूसरे के लिए ख़ाली हो जाती है।
+- **[Product Finder](/commerce/product-tools#product-finder) quiz आपकी सीमा नहीं ख़र्च करती।** जिन flows को platform आपके लिए संभालता है वे आपके अपने कोटे से बाहर हैं।
+
+सभी 23 component types सबके लिए उपलब्ध हैं — कोई component रोका नहीं जाता — और AI form generation भी सबके लिए खुला है।

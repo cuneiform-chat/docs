@@ -1,0 +1,98 @@
+---
+description: shoppers को सत्यापित order lookup के साथ chat में "मेरा order कहाँ है?" पूछने दें, और अपने Shopify या WooCommerce store से opt-in shipping updates भेजें।
+---
+
+# Orders
+
+**"मेरा order कहाँ है?" — किसी भी store को मिलने वाला सबसे आम सवाल यही है।** एक store connected होने पर आपका agent इसका जवाब देता है — असली order से — इसे किसी इंसान तक भेजने के बजाय।
+
+इस page की हर बात **Shopify** और **WooCommerce** दोनों के लिए एक जैसी ही काम करती है।
+
+## Order lookup (WISMO) [#order-lookup-wismo]
+
+एक shopper chat में अपने order के बारे में पूछता है। agent order number और एक संपर्क विवरण माँगता है, दोनों को असली order से मिलाकर देखता है, और जवाब देता है।
+
+### सत्यापन ही पूरा डिज़ाइन है [#verification-is-the-whole-design]
+
+agent order का विवरण तभी बताएगा जब shopper **दोनों** दे:
+
+1. **ठीक-ठीक order number**, और
+2. **उस order पर दर्ज email या phone number से मेल खाता कोई एक**
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  **एक ग़लत संपर्क और एक न मौजूद order — दोनों बिल्कुल एक ही जवाब देते हैं।** agent कहता है कि उसे order नहीं मिला और उससे आगे कुछ नहीं दिखाता — यह नहीं कि "order तो है पर email मेल नहीं खाता", कोई आंशिक विवरण नहीं, कोई इशारा नहीं। यह जानबूझकर है: इसका मतलब कोई order numbers एक-एक करके आज़माकर यह पता नहीं लगा सकता कि कौन-से असली हैं, और न ही किसी ग्राहक के संपर्क विवरण टटोल सकता है।
+</Callout>
+
+मिलान लिखावट को लेकर उदार है, पहचान को लेकर नहीं। email में छोटे-बड़े अक्षरों से फ़र्क़ नहीं पड़ता; phone numbers अंक दर अंक मिलाए जाते हैं, इसलिए `+1 (555) 010-9999` और `15550109999` एक ही number हैं।
+
+### shopper को क्या वापस मिलता है [#what-the-shopper-gets-back]
+
+एक सत्यापित lookup order की स्थिति और उसकी fulfillment प्रगति लौटाता है — क्या भेजा गया, कब, और वह कहाँ है — साथ में आपके अपने store पर उस order का एक link।
+
+जो shopper बातचीत में पहले ही सत्यापित हो चुका है, वह हर order को दोबारा सत्यापित किए बिना अपने **हाल के orders** भी माँग सकता है। वह शॉर्टकट सिर्फ़ उसी को मिलता है जो उस बातचीत में पहले से सत्यापित है; यह कभी अंदर घुसने का रास्ता नहीं है।
+
+### आवश्यकताएँ [#requirements]
+
+Order lookup के लिए ऐसा connected store चाहिए जिसकी order permission ठीक हो। अगर आपके store के credentials रद्द हो गए हों या connection ख़राब हो गया हो, तो agent किसी बातचीत के बीच में विफल होने के बजाय order lookup की पेशकश करना ही बंद कर देता है। **Commerce → Shopify** या **Commerce → WooCommerce** पर connection की स्थिति जाँचें।
+
+## Order-status updates [#order-status-updates]
+
+एक shopper के chat में order सत्यापित करने के बाद agent उसे ख़बर देते रहने की पेशकश कर सकता है। वह मान जाए तो उसे उसी बातचीत में, उसी channel पर shipping updates मिलते हैं जिसे वह पहले से इस्तेमाल कर रहा था।
+
+दो शर्तें खुली होनी चाहिए, और दोनों जानबूझकर हैं:
+
+| शर्त | इसे कौन नियंत्रित करता है |
+|---|---|
+| **connection पर notifications चालू हैं** | आप — **Commerce** में store के page पर |
+| **shopper ने opt in किया** | shopper, बातचीत में, अपना order सत्यापित करने के बाद |
+
+आप किसी shopper की ओर से उसे subscribe नहीं कर सकते, और कोई shopper ऐसे order के लिए subscribe नहीं कर सकता जिसे उसने अपना साबित न किया हो।
+
+<Callout type="info">
+  Notifications चालू करना एक admin काम है; Members देख सकते हैं कि वे चालू हैं या नहीं, पर सेटिंग बदल नहीं सकते।
+</Callout>
+
+### कोई update किससे चलता है [#what-triggers-an-update]
+
+Updates order की fulfillment प्रगति से छूटते हैं — जब वह भेजा जाता है, और जब खेप की स्थिति बदलती है। इस channel से marketing जैसा कुछ कभी नहीं भेजा जाता; यह "मेरा order कहाँ है?" का जवाब देने के लिए है, इससे पहले कि shopper को दोबारा पूछना पड़े।
+
+WooCommerce और Shopify के updates एक ही व्यवस्था से पहुँचते हैं, इसलिए order चाहे किसी भी store से आया हो, अनुभव एक जैसा रहता है।
+
+## दो stores, एक ही अनुभव [#two-stores-one-experience]
+
+अगर आपके पास एक Shopify और एक WooCommerce store दोनों connected हैं, तो order lookup दोनों में चलता है। shopper को यह जानने की ज़रूरत नहीं कि उसने आपके किस store से ख़रीदा था — वह एक order number और एक संपर्क देता है, और agent उसे जहाँ भी हो ढूँढ लेता है।
+
+## पर्दे के पीछे: tools के नाम [#behind-the-scenes-tool-names]
+
+अगर आप किसी बातचीत का trace देखें, तो order tools के नाम `shopify_order_status`, `shopify_list_orders` और `subscribe_order_updates` दिखेंगे।
+
+<Callout type="info">
+  **ये नाम ऐतिहासिक हैं, शाब्दिक नहीं।** वही tools WooCommerce stores को भी सेवा देते हैं। सिर्फ़ WooCommerce इस्तेमाल करने वाले merchant को भी `shopify_order_status` नाम का एक tool WooCommerce की lookup करते दिखेगा। कुछ भी ग़लत जगह नहीं जाता — tools वही stores हल करते हैं जो आपके पास सचमुच connected हैं।
+</Callout>
+
+## समस्या निवारण [#troubleshooting]
+
+### agent कहता है कि उसे ऐसा order नहीं मिल रहा जो निश्चित रूप से मौजूद है [#the-agent-says-it-cant-find-an-order-that-definitely-exists]
+
+लगभग हमेशा संपर्क विवरण ही वजह होती है। shopper जो email या phone दे रहा है वह **उसी order पर दर्ज** विवरण से मेल खाना चाहिए — उस पते से नहीं जो वह आमतौर पर इस्तेमाल करता है, और न ही उससे जो उसके खाते पर है। उससे order confirmation email देखने को कहें।
+
+### agent order lookup की पेशकश ही नहीं करता [#the-agent-wont-offer-order-lookup-at-all]
+
+या तो बातचीत आपके **store agent** के साथ नहीं है (सिर्फ़ वही agent commerce tools रखता है), या store का connection ख़राब है। **Commerce** के नीचे connection की स्थिति जाँचें।
+
+### एक shopper ने opt in किया पर उसे कोई updates नहीं मिलते [#a-shopper-opted-in-but-gets-no-updates]
+
+पक्का करें कि store connection पर notifications चालू हैं — वह शर्त shopper के opt-in से अलग है, और अकेला opt-in काफ़ी नहीं है।
+
+### बाक़ी सही जवाब में shipping का विवरण ग़ायब है [#shipping-details-are-missing-from-an-otherwise-correct-answer]
+
+Order मिल गया और सत्यापित भी हो गया, पर fulfillment के विवरण का कुछ हिस्सा पढ़ा नहीं जा सका। agent पूरी lookup को विफल करने के बजाय उसके पास जो है उसी से जवाब देता है।
+
+## संबंधित [#related]
+
+- [Commerce अवलोकन](/commerce) — एक store connect करने से आपको क्या मिलता है
+- [Catalog और Knowledge](/commerce/catalog-and-knowledge) — order के नहीं, product के सवाल
+- [Checkout](/commerce/checkout) — shopper को खरीदने के लिए भेजना
+- [Analytics](/commerce/analytics) — आपका commerce agent क्या कर रहा है यह मापना

@@ -1,0 +1,211 @@
+---
+description: আপনার সেল্ফ-হোস্টেড WooCommerce store যুক্ত করুন যাতে আপনার AI agent product-এর প্রশ্নের উত্তর দিতে, order খুঁজতে, স্টকে থাকা জিনিস সুপারিশ করতে এবং আপনার লাইভ catalog থেকে order-status আপডেট পাঠাতে পারে।
+---
+
+# WooCommerce
+
+আপনার সেল্ফ-হোস্টেড **WooCommerce** store যুক্ত করুন যাতে আপনার AI agent product-এর প্রশ্নের উত্তর দিতে, একজন ক্রেতার order খুঁজে দিতে, স্টকে থাকা জিনিস সুপারিশ করতে এবং order-status আপডেট পাঠাতে পারে — সবই আপনার আসল, লাইভ catalog ও order ডেটা থেকে।
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  WooCommerce সবার জন্য উন্মুক্ত, ফ্রি ট্রায়াল সহ। একটি store যুক্ত করার আগে কেনার বা upgrade করার মতো কিছুই নেই।
+</Callout>
+
+## আপনি যা পান [#what-you-get]
+
+- **Catalog প্রশ্নোত্তর** — উত্তর আসে আপনার আসল product, variant, দাম ও বর্তমান প্রাপ্যতা থেকে
+- **Order খোঁজা (WISMO)** — ক্রেতারা তাদের order নম্বর এবং order-এ থাকা ইমেইল বা ফোন দিয়ে "আমার order কোথায়?" জানতে পারে
+- **সুপারিশ** — প্রস্তাব শুধু সেই product-এই সীমাবদ্ধ যা আসলে স্টকে আছে
+- **Order-status আপডেট** — একই chat-এ shipping আপডেট, যারা opt-in করে তাদের জন্য
+- **লাইভ inventory** — উত্তর দেওয়ার মুহূর্তে দাম ও stock হালনাগাদ পড়া হয়
+- **Checkout handoff** — কিনতে প্রস্তুত ক্রেতাকে আপনার নিজের WooCommerce checkout-এ পাঠানো
+
+## পূর্বশর্ত [#prerequisites]
+
+- একটি **সেল্ফ-হোস্টেড WooCommerce store** যা আপনি পরিচালনা করেন
+- আপনার **store URL** (যেমন, `https://your-store.com`)
+- আপনার Cuneiform Chat workspace-এ একটি **Owner বা Admin** অ্যাকাউন্ট — একটি store যুক্ত করা একটি admin কাজ
+- অন্তত একটি agent, অথবা নতুন একটি তৈরি করার মতো জায়গা (দেখুন [আপনার store agent](/commerce#your-store-agent))
+
+আপনাকে কোনো plugin install করতে বা কোড লিখতে **হবে না**।
+
+### আপনার store URL, আপনি যেভাবেই লিখুন [#your-store-url-however-you-type-it]
+
+URL-টি আপনার যেভাবে খুশি লিখুন — আমরা সেটি normalize করে নিই। Scheme, শুরুর `www.`, শেষের slash এবং host-এর ছোট-বড় হাতের অক্ষর সবই উপেক্ষা করা হয়। একটি **subdirectory install** (`example.com/shop`) এবং একটি **অস্বাভাবিক port** — দুটিই অক্ষত রাখা হয় ও দুটিই সমর্থিত।
+
+## যুক্ত হওয়া [#connecting]
+
+একই card-এ ভেতরে ঢোকার দুটি পথ আছে। **কিছু আটকে না দিলে গাইডেড পথটিই ব্যবহার করুন।**
+
+### পথ A — গাইডেড অনুমোদন (প্রস্তাবিত) [#path-a--the-guided-authorization-recommended]
+
+1. **Commerce → WooCommerce**-এ যান।
+2. আপনার store URL দিন এবং **Connect** ক্লিক করুন।
+3. আপনার browser আপনার নিজের store-এর WooCommerce অনুমোদনের পাতায় যায়। সেটি অনুমোদন করুন।
+4. WooCommerce key ফেরত পাঠায় এবং আপনি **Commerce**-এ এসে পৌঁছান।
+
+এটুকুই। গাইডেড পথ তিনটি কাজ করে যা manual পথ করে না: এটি আপনার হয়ে সঠিক permission চায়, এটি সেই webhook-গুলো নিবন্ধন করে যা আপনার ডেটা রিয়েল-টাইমে হালনাগাদ রাখে, এবং এটি প্রথম catalog import শুরু করে দেয়।
+
+<Callout type="info">
+  **অনুমোদনের পাতায় `read/write` লেখা থাকবে, আর সেটি ইচ্ছাকৃত।** WooCommerce একটি read-only key দিয়ে কাউকে webhook নিবন্ধন করতে দেয় না — সে অনুরোধটি সরাসরি প্রত্যাখ্যান করে। webhook ছাড়া রিয়েল-টাইম catalog, stock বা order আপডেট বলে কিছু থাকে না। তবুও integration কখনোই আপনার catalog, আপনার inventory বা আপনার বিদ্যমান order-এ লেখে না; write permission-টি আছে যাতে আমরা webhook নিবন্ধন করতে পারি এবং, আপনি in-chat checkout ব্যবহার করলে, ক্রেতা যেটির জন্য টাকা দিতে যাচ্ছে সেই pending order-টি তৈরি করতে পারি।
+</Callout>
+
+### পথ B — নিজে হাতে API key পেস্ট করা [#path-b--pasting-api-keys-manually]
+
+আপনার store যদি এমন একটি firewall-এর পেছনে থাকে যা redirect আটকে দেয়, তাহলে **Enter API keys manually** খুলুন এবং **WooCommerce → Settings → Advanced → REST API**-এ তৈরি করা একটি consumer key ও secret পেস্ট করুন।
+
+**সেগুলো `Read/Write` permission দিয়ে তৈরি করুন, এবং আমাদের form-এও `Read/Write` বেছে নিন।** একটি read-only key আপনাকে স্থায়ীভাবে webhook ছাড়া রেখে দেয় — নিচে দেখুন।
+
+সংরক্ষণের আগে আমরা store-টি health-check করি। কঠিন ব্যর্থতা সংযোগ আটকে দেয়; নরম সতর্কতা (ধীর বা আংশিকভাবে পৌঁছানো যায় এমন store) সত্ত্বেও সংযোগ হয়ে যায় যাতে আপনি পরে ঠিক করে নিতে পারেন।
+
+## Manual সংযোগের পরে [#after-a-manual-connect]
+
+<Callout type="warning">
+  **Manual key পথটি দুটি জিনিস বাদ দেয় যা গাইডেড পথ যুক্ত হওয়ার সময়ই করে: এটি webhook নিবন্ধন করে না, এবং এটি প্রথম catalog import শুরু করে না।** এই দুটি আলাদা সময়সূচিতে ঠিক হয় — আর তার একটি কেবল তখনই ঠিক হয় যদি আপনার key-তে সঠিক permission থাকে। নিচের দুটি অংশই পড়ুন।
+</Callout>
+
+### আপনার catalog — "Resync now" চাপুন [#your-catalog--press-resync-now]
+
+যুক্ত হওয়ার সময় কিছুই import হয় না। একটি ব্যাকগ্রাউন্ড কাজ প্রতিদিন catalog মিলিয়ে দেখে, কিন্তু তার catch-up ধাপটি কেবল সেই store-গুলোর জন্য চলে যারা অন্তত একবার আগে sync হয়েছে — যে store কখনোই sync হয়নি তার তো ধরার মতো *কিছুই* নেই। বাস্তবে এর মানে হলো manual-ভাবে যুক্ত হওয়া একটি store-এর catalog সম্পূর্ণ ভরে **সাপ্তাহিক sweep**-এ, যেটি সাত দিন পর্যন্ত দূরে হতে পারে।
+
+**সেটির জন্য অপেক্ষা করবেন না।** **Commerce → WooCommerce → Catalog** খুলুন এবং **Resync now** ক্লিক করুন। এটি ঠিক সেই import চালায় যা গাইডেড পথ যুক্ত হওয়ার সময় চালাত, আর তা কয়েক মিনিটেই শেষ হয়।
+
+### আপনার webhook — কেবল যদি আপনার key Read/Write হয় [#your-webhooks--only-if-your-key-is-readwrite]
+
+Webhook-ও যুক্ত হওয়ার সময় নিবন্ধিত হয় না, কিন্তু এটি **একটি শর্তে** স্বয়ংক্রিয়ভাবে মেরামত হয়। প্রতি ঘণ্টার একটি কাজ প্রতিটি যুক্ত store-এর জন্য webhook নিবন্ধন আবার চেষ্টা করে, তাই:
+
+- **একটি `Read/Write` store নিজে থেকেই ঠিক হয়ে যায়**, সাধারণত এক ঘণ্টার মধ্যে। আপনাকে কিছু করতে হয় না।
+- **একটি read-only store কখনোই ঠিক হয় না।** WooCommerce একটি read-only key থেকে আসা প্রতিটি নিবন্ধন-চেষ্টা প্রত্যাখ্যান করে। কাজটি প্রতি ঘণ্টায় চেষ্টা করে, প্রতি ঘণ্টায় প্রত্যাখ্যাত হয়, এবং আপনার চোখে পড়ার মতো কিছুই লেখে না। এটি অনির্দিষ্টকাল ব্যর্থ হতেই থাকবে।
+
+একটি read-only store-এর লক্ষণ কোনো error বার্তা নয় — লক্ষণটি হলো catalog, stock ও order-এর পরিবর্তন ঘটার সাথে সাথে না এসে কেবল পরবর্তী নির্ধারিত sync-এই দেখা দেয়।
+
+### Permission সেটিই যা আপনি আমাদের বলেছেন [#the-permission-is-what-you-told-us-it-was]
+
+<Callout type="warning">
+  **আপনি যে permission বেছে দেন আমরা সেটিই লিখে রাখি; কোনটি আসলে আছে তা জানতে আমরা key পরীক্ষা করি না।** আপনি যদি একটি `Read/Write` key পেস্ট করেন কিন্তু permission ঘরটি খালি রেখে দেন, আমরা সেটি **read-only** হিসেবে লিখে রাখি — আর তখন webhook ও multi-line [checkout](/commerce/checkout) দুটিই নীরবে দুর্বল হয়ে যায়। আপনি যদি `Read/Write` বেছে নেন কিন্তু একটি read-only key পেস্ট করেন, আপনার store প্রতিবারই webhook প্রত্যাখ্যান করবে।
+
+  রিয়েল-টাইম আপডেট বা multi-line checkout না থাকলে সবার আগে এই একটি ঘরই দেখা উচিত। সমাধান হলো গাইডেড পথ দিয়ে **Reconnect** করা, যেটি সবসময় সঠিক permission চায়।
+</Callout>
+
+## Integration যা করে আর যা করে না [#what-the-integration-does-and-doesnt-do]
+
+আপনার store-এর ডেটার প্রশ্নে integration-টি **read-only**। এটি কখনো কোনো product সম্পাদনা বা মুছে ফেলে না, কখনো stock বদলায় না, কখনো বিদ্যমান কোনো order পাল্টায় বা বাতিল করে না, এবং কখনো পেমেন্ট নেয় না। পেমেন্ট সবসময় আপনার নিজের WooCommerce checkout-এ হয়।
+
+একটি `Read/Write` সংযোগ কেবল একটি জিনিসই লেখে — একটি **pending order**, আর সেটিও কেবল তখন যখন কোনো ক্রেতা একটি chat-এর ভেতর থেকে checkout করে: একবারে একটি করে product পাঠানোর বদলে পুরো cart-টি আপনার store-এ একটি pending order হয়ে যায় এবং ক্রেতাকে তার জন্য টাকা দিতে পাঠানো হয়। কিছুই চার্জ করা হয় না, কিছুই fulfil করা হয় না, আর order-টি যে কথোপকথন থেকে এসেছে তার সাথে যুক্ত করে রাখা হয় যাতে বিক্রিটি কোথায় শুরু হয়েছিল তা আপনি দেখতে পান। দেখুন [Checkout](/commerce/checkout)।
+
+একটি read-only সংযোগ সেই pending order তৈরি করতে পারে না, তাই সেটি বদলে একবারে একটি করে line পাঠায়। দুটি permission-এর মধ্যে বাস্তব পার্থক্য এটিই, আর এ কারণেই গাইডেড পথ সবসময় `Read/Write` চায়।
+
+## বৈশিষ্ট্য [#features]
+
+### এক store, এক store agent [#one-store-one-store-agent]
+
+আপনি **প্রতি workspace-এ একটি WooCommerce store** যুক্ত করেন — এবং একই সাথে একটি Shopify store যুক্ত থাকতে পারে (দেখুন [Commerce](/commerce#you-can-connect-both-at-once))।
+
+যুক্ত হওয়ার সময় **একটি agent আপনার store agent হয়ে যায়**: হয় আপনার বেছে নেওয়া একটি বিদ্যমান agent, নয়তো আপনার জন্য তৈরি করা নতুন একটি। সেই agent WooCommerce টুল বহন করে; আপনার অন্য agent-রা অপ্রভাবিত থাকে। খুঁজে বের করার মতো কোনো প্রতি-agent সুইচ নেই — সেই agent-এর নিজের পাতায় একটি read-only প্যানেল দেখায় যে এটি আপনার store দ্বারা পরিচালিত।
+
+<Callout type="info">
+  এই পাতার পুরোনো সংস্করণ আপনাকে **Commerce → Settings**-এ গিয়ে আরও agent-এর জন্য commerce চালু করতে বলত। সেই পাতাটি আর নেই, আর তার সাথে প্রতি-agent সুইচটিও চলে গেছে। Commerce এখন যুক্ত হওয়ার সময় বেছে নেওয়া store agent-এর সাথে জোড়া।
+</Callout>
+
+### যাচাইকৃত order খোঁজা [#verified-order-lookup]
+
+ক্রেতারা order-এর বিবরণ দেখে কেবল হুবহু order নম্বর **এবং** order-এ থাকা ইমেইল বা ফোন দেওয়ার পরই। ভুল যোগাযোগ ও অস্তিত্বহীন order — দুটিই একই "খুঁজে পাওয়া গেল না" উত্তর দেয়, কোনো বিবরণ ছাড়াই — এটি অ্যান্টি-এনিউমারেশন সুরক্ষা যা আপনার গ্রাহকদের রক্ষা করে। দেখুন [Order](/commerce/orders)।
+
+### লাইভ catalog ও inventory [#live-catalog-and-inventory]
+
+উত্তর দেওয়ার মুহূর্তে দাম ও stock হালনাগাদ পড়া হয়, তাই সুপারিশ কেবল আসলে যা পাওয়া যায় তাতেই সীমাবদ্ধ থাকে। WooCommerce stock-এর পরিবর্তন আলাদা inventory ইভেন্ট হিসেবে না পাঠিয়ে product আপডেটের সাথে পাঠায়, তাই কেবল stock বদলালে সেটি পরবর্তী product আপডেট বা পরবর্তী sync-এর সাথে আসে। দেখুন [Catalog ও Knowledge](/commerce/catalog-and-knowledge)।
+
+### Opt-in order-status আপডেট [#opt-in-order-status-updates]
+
+একজন ক্রেতা chat-এ তার order যাচাই করার পর একটি সমর্থিত channel-এ shipping আপডেট পেতে opt-in করতে পারে। আপডেটের জন্য দুটি জিনিস লাগে: আপনি WooCommerce সংযোগে সেগুলো চালু করেছেন, এবং ক্রেতা opt-in করেছে। দেখুন [Order](/commerce/orders#order-status-updates)।
+
+### Reconnect [#reconnect]
+
+Shopify-এর বিপরীতে WooCommerce-এ একটি **Reconnect** বোতাম আছে। আপনার store-এর API key বদলালে বা বাতিল করলে, অথবা ভুল permission নিয়ে manual-ভাবে যুক্ত হয়ে থাকলে ও গাইডেড পথে যেতে চাইলে এটি ব্যবহার করুন। এটি আপনার store-এ অনুমোদনটি আবার চালায় এবং সংরক্ষিত key-গুলো জায়গামতো বদলে দেয়।
+
+## নিরাপত্তা [#security]
+
+- **আপনার catalog, stock বা বিদ্যমান order-এ কোনো লেখালেখি নয়** — integration product, inventory ও order পড়ে, কখনো সেগুলো বদলায় না
+- **Key এনক্রিপ্ট করে রাখা হয়** — আপনার consumer key ও secret কখনো প্লেইন টেক্সটে সংরক্ষিত হয় না
+- **Tenant বিচ্ছিন্নতা** — আপনার catalog ও order আপনার workspace-এ সীমাবদ্ধ, অন্য কারো কাছে কখনো দৃশ্যমান নয়
+- **যাচাইকৃত order খোঁজা** — order-এর বিবরণের জন্য হুবহু order নম্বরসহ মিলে যাওয়া ইমেইল বা ফোন লাগে
+- **Opt-in নোটিফিকেশন** — shipping আপডেটের জন্য chat-এ প্রতি ক্রেতার স্পষ্ট opt-in লাগে
+- **নিরাপদ checkout** — পেমেন্ট আপনার নিজের WooCommerce checkout-এ সম্পন্ন হয়; কোনো কার্ড ডেটা agent-এর মধ্য দিয়ে যায় না
+
+## সমস্যা সমাধান [#troubleshooting]
+
+### যুক্ত হওয়া আটকে যায় বা ব্যর্থ হয় [#connecting-hangs-or-fails]
+
+গাইডেড পথের জন্য আপনার browser-কে আপনার store-এর অনুমোদন-পাতায় পৌঁছাতে হয় এবং আপনার store-কে key নিয়ে আমাদের কাছে পৌঁছাতে হয়। আটকে গেলে সেটি সাধারণত নেটওয়ার্ক বা firewall-এর সমস্যা, আপনার শংসাপত্রের নয়। store firewall-এর পেছনে? manual key পথ ব্যবহার করুন — আর তারপর [Manual সংযোগের পরে](#after-a-manual-connect) পড়ুন, কারণ সেটি দুটি জিনিস অসম্পূর্ণ রেখে দেয়।
+
+### যুক্ত হওয়ার ঠিক পরেই catalog খালি [#the-catalog-is-empty-right-after-connecting]
+
+আপনি manual-ভাবে যুক্ত হয়ে থাকলে এটিই প্রত্যাশিত — কিছুই import হয়নি। Catalog ট্যাবে **Resync now** ক্লিক করুন।
+
+গাইডেড পথ ব্যবহার করে থাকলে প্রথম import পুরো catalog ভরে দেয় এবং বড় store-এ কয়েক মিনিট লাগতে পারে।
+
+### Product বা stock-এর পরিবর্তন দেখাতে ঘণ্টার পর ঘণ্টা লাগে [#product-or-stock-changes-take-hours-to-show-up]
+
+আপনার webhook নিবন্ধিত নেই। প্রায় সবসময়ই এর মানে store-টি একটি read-only key দিয়ে manual-ভাবে যুক্ত হয়েছিল। সংযোগে লেখা permission-টি দেখুন, তারপর গাইডেড পথ দিয়ে **Reconnect** করুন।
+
+### "This store is already connected to another account" [#this-store-is-already-connected-to-another-account]
+
+একই store অন্য একটি workspace-এর সাথে যুক্ত। আগে সেখান থেকে disconnect করুন, তারপর এখানে যুক্ত করুন। আমরা নীরবে store সরিয়ে না এনে দখলটি প্রত্যাখ্যান করি।
+
+### agent product-এর প্রশ্নের উত্তর দেয় না [#the-agent-wont-answer-product-questions]
+
+দেখে নিন আপনি **store agent**-এর সাথেই কথা বলছেন কি না — যেটি যুক্ত হওয়ার সময় বেছে নেওয়া হয়েছিল। তার agent পাতায় একটি read-only "আপনার store দ্বারা পরিচালিত" প্যানেল দেখায়। অন্য agent-রা commerce টুল বহন করে না।
+
+### Order খোঁজা কোনো order পায় না [#order-lookup-cant-find-an-order]
+
+খোঁজাটি ইচ্ছাকৃতভাবে কঠোর: এটি কেবল তখনই বিবরণ ফেরত দেয় যখন ক্রেতা হুবহু order নম্বর **এবং** order-এর সাথে মিলে যাওয়া একটি ইমেইল বা ফোন দেয়।
+
+### কোনো order-status আপডেট পাঠানো হয় না [#no-order-status-updates-are-sent]
+
+দুটি শর্তই খোলা থাকতে হবে: WooCommerce সংযোগে নোটিফিকেশন চালু করুন, এবং ক্রেতাকে একটি সমর্থিত channel-এ chat-এ opt-in করান।
+
+## Disconnect করা [#disconnecting]
+
+**Commerce → WooCommerce → Disconnect** থেকে disconnect করুন। Disconnect করলে:
+
+- সংরক্ষিত সংযোগ ও শংসাপত্র, এবং sync করা catalog মুছে যায়
+- সেই catalog থেকে তৈরি product knowledge মুছে যায়
+- store agent-এর commerce বরাদ্দ রিসেট হয় এবং আপনি কখনো সম্পাদনা না করে থাকলে তার commerce persona ফিরিয়ে দেওয়া হয়
+- store-এর সাথে আসা commerce Agent Flows ও product-quiz suggestion আর্কাইভ হয়
+
+আপনার যদি এখনো একটি **Shopify** store যুক্ত থাকে, তাহলে workspace-জুড়ে প্রযোজ্য ধাপগুলো বাদ দেওয়া হয় — একটি store disconnect করলে কখনোই অন্য store-এর commerce সেটআপ ভেঙে পড়ে না।
+
+## সাধারণ প্রশ্ন [#faq]
+
+### WooCommerce যুক্ত করতে কি নির্দিষ্ট কোনো সাবস্ক্রিপশন লাগে?
+
+না। WooCommerce সবার জন্যই কাজ করে, ফ্রি ট্রায়াল সহ — catalog প্রশ্নোত্তর, order খোঁজা, সুপারিশ ও order-status আপডেট সবই অন্তর্ভুক্ত।
+
+### আমাকে কি একটি plugin install করতে হবে? [#do-i-have-to-install-a-plugin]
+
+কোনো plugin নয়। গাইডেড পথ হলো আপনার নিজের store-এ এককালীন একটি অনুমোদন। আপনার firewall redirect আটকে দিলে তবেই আপনি API key পেস্ট করেন।
+
+### অনুমোদনের পাতা কেন write অ্যাক্সেস চায়? [#why-does-the-approval-screen-ask-for-write-access]
+
+কারণ WooCommerce একটি read-only key-এর জন্য webhook নিবন্ধন করতে অস্বীকার করে, আর webhook ছাড়া কিছুই রিয়েল-টাইমে হালনাগাদ হয় না। তবুও integration কখনো আপনার catalog, আপনার stock বা আপনার বিদ্যমান order বদলায় না। এটি কেবল একটি জিনিসই তৈরি করে — একটি chat থেকে checkout করা ক্রেতার জন্য একটি pending order; দেখুন [Checkout](/commerce/checkout)।
+
+### আমি কি তবু একটি read-only key দিয়ে যুক্ত হতে পারি? [#can-i-connect-with-a-read-only-key-anyway]
+
+পারেন, এবং catalog প্রশ্নোত্তর, order খোঁজা, সুপারিশ ও নোটিফিকেশন সবই কাজ করে। আপনি যা হারান তা হলো রিয়েল-টাইম আপডেট (webhook কখনোই নিবন্ধিত হতে পারে না) এবং multi-line in-chat checkout। পরে সেগুলো চাইলে গাইডেড পথ দিয়ে **Reconnect** করুন।
+
+### আমার সব agent কি WooCommerce ব্যবহার করতে পারে, নাকি শুধু একটি? [#can-all-of-my-agents-use-woocommerce-or-just-one]
+
+একটি — যুক্ত হওয়ার সময় বেছে নেওয়া store agent। সেই agent WooCommerce টুল পায়; বাকিরা অপ্রভাবিত থাকে।
+
+### agent কি কখনো আমার store বদলায়? [#does-the-agent-ever-change-my-store]
+
+এটি কখনো product সম্পাদনা করে না, কখনো inventory বদলায় না, কখনো বিদ্যমান order পাল্টায় বা বাতিল করে না, এবং কখনো পেমেন্ট নেয় না। একটি `Read/Write` সংযোগে এটি একটি জিনিসই তৈরি করতে পারে: একটি chat থেকে checkout করা ক্রেতার জন্য একটি pending order, যার জন্য সে পরে আপনার নিজের checkout-এ টাকা দেয়।
+
+## সম্পর্কিত [#related]
+
+- [Commerce সংক্ষিপ্ত বিবরণ](/commerce) — একটি store যুক্ত করলে আপনি যা পান
+- [Shopify](/commerce/shopify) — সমর্থিত অন্য platform
+- [Catalog ও Knowledge](/commerce/catalog-and-knowledge) — catalog কীভাবে sync হয় ও হালনাগাদ থাকে
+- [Order](/commerce/orders) — order খোঁজা ও status আপডেট
+- [Checkout](/commerce/checkout) — permission-নির্ভর পার্থক্যটি সহ

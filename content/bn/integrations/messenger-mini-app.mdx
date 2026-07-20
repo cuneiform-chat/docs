@@ -1,6 +1,6 @@
 # Messenger Storefront (In-app Mini App)
 
-**আপনার Facebook Page-কে একটি সম্পূর্ণ in-app storefront-এ পরিণত করুন।** একটি পরিপাটি, multipage product catalog তৈরি করুন — photo, video, themed page, প্রতি product-এ একটি AI assistant ও lightweight order-taking সহ — যা একজন customer আপনার Page-এর Persistent Menu-তে **"Open Storefront"** button-এ tap করার মুহূর্তেই Messenger-এর *ভেতরে* খোলে। কোনো app store নেই, কোনো আলাদা website নেই, পরিচালনা করার মতো কোনো checkout নেই। শুধু একটি tap, আর আপনার customer browse করছে।
+**আপনার Facebook Page-কে একটি সম্পূর্ণ in-app storefront-এ পরিণত করুন।** একটি পরিপাটি, multipage product catalog তৈরি করুন — photo, video, themed page, প্রতি product-এ একটি AI assistant ও lightweight order-taking সহ — যা একজন customer আপনার Page-এর Persistent Menu-তে **"Open Storefront"** button-এ tap করার মুহূর্তেই Messenger-এর *ভেতরে* খোলে। কোনো app store নেই, কোনো আলাদা website নেই, আর নিজে বানানোর মতো কোনো আলাদা checkout পাতাও নেই: একটি যুক্ত store-এর সাথে জুড়ে দিন — ক্রেতারা আপনার আসল checkout-এ টাকা দেবে; হাতে সাজান — order আপনার inbox-এ অনুরোধ হিসেবে আসবে। শুধু একটি tap, আর আপনার customer browse করছে।
 
 প্রতিটি plan-এ free, trial সহ। Telegram Storefront-এর মতো একই visual drag-and-drop composer-এ তৈরি — একই ১১টি block type, একই ৬টি theme, একই per-product AI chat, একই lightweight order CTA — **Integrations → Facebook Page → Configure mini app**-এ।
 
@@ -22,7 +22,7 @@ Telegram Storefront-এর মতোই একই আকার — প্রত�
 
 ## কেন এটি গুরুত্বপূর্ণ
 
-- **Customer-রা কখনো Messenger ছাড়ে না।** কোনো app install নেই, মনে রাখার মতো কোনো domain নেই, ছেড়ে দেওয়ার মতো কোনো checkout flow নেই। storefront Messenger-এর WebView-তে খোলে এবং user-এর theme ও ভাষা উত্তরাধিকার সূত্রে পায়।
+- **Customer-রা কখনো Messenger ছাড়ে না।** কোনো app install নেই, মনে রাখার মতো কোনো domain নেই, নিজে বানানোর মতো কোনো আলাদা checkout পাতা নেই। storefront Messenger-এর WebView-তে খোলে এবং user-এর theme ও ভাষা উত্তরাধিকার সূত্রে পায়।
 - **আপনার Page-এর chat থেকে এক tap।** আপনি আপনার Page সংযুক্ত করার মুহূর্তেই Persistent Menu-তে একটি একক **"Open Storefront"** entry স্বয়ংক্রিয়ভাবে seed করা হয় — কোনো Meta Business Suite config নেই, কোনো app review নেই, কোনো webhook wiring নেই।
 - **AI-native product chat।** Per-product chat *আপনি* সেই product-এ attach করা document-এ scope করা — assistant অন্য product-এর তথ্য ফাঁস না করেই "এই dress-এ return policy কী?"-এর উত্তর দেয়।
 - **একজন সত্যিকারের মানুষের কাছে order handoff।** Lightweight order form (inquiry বা cart mode) একটি structured handoff হিসেবে আপনার Inbox-এ আসে, follow-up-এর জন্য customer-এর Messenger DM খোলা রাখা অবস্থায়।
@@ -37,7 +37,7 @@ Telegram Storefront-এর মতোই একই আকার — প্রত�
 - **Auto-seeded Persistent Menu** — একক "Open Storefront" button, editable label, locked action।
 - **Outer-chat fallback** — পুরোনো Messenger client-এর জন্য block-গুলো in-chat Generic Template, Quick Reply ও image carousel-এ project করে।
 - **Built-in Help Center** — একটি pinned FAQ surface, সবসময় এক tap দূরে। Telegram-এর মতো একই panel।
-- **কোনো payment নেই, কোনো inventory নেই, কোনো shipping নেই** — এটি একটি পরিপাটি catalog + lead-capture surface, একটি সম্পূর্ণ e-commerce stack নয়।
+- **Product পাওয়ার দুটি উপায়।** **হাতে সাজানো** একটি storefront একটি পরিপাটি catalog + lead-capture surface: product আপনি নিজে লেখেন, আর সেটি কোনো payment, inventory বা shipping করে না। **Catalog-এর সাথে জোড়া** একটি storefront আপনার [যুক্ত Shopify বা WooCommerce store](/commerce) থেকে product নেয় এবং ক্রেতাদের আপনার আসল checkout-এ পাঠায়।
 
 ## Customer-রা কীভাবে এটি খুঁজে পায়
 
@@ -135,13 +135,13 @@ Order CTA Telegram Storefront-এর মতোই একইভাবে কা�
 
 ব্যাস। কোনো customer কখনো একটি login prompt দেখে না।
 
-## এটি যা করে না
+## হাতে সাজানো storefront যা করে না
 
-Telegram Storefront-এর মতোই একই scope:
+Telegram Storefront-এর মতোই একই scope। এই সীমাবদ্ধতাগুলো সেই storefront-এর জন্য যাতে product আপনি নিজে লিখেছেন — [catalog-এর সাথে জোড়া storefront](/integrations/telegram-mini-app#catalog-linked-storefronts) প্রথম তিনটি তুলে দেয়, কারণ সে product, stock ও checkout আপনার যুক্ত store থেকেই নেয়।
 
-- **কোনো payment নেই।** Order CTA inquiry handoff, Checkout API বা Stripe নয়।
-- **কোনো inventory tracking নেই।** Product card-এ availability badge হলো free-text label যা আপনি manually edit করেন ("Sold out", "Pre-order", "Last 3")।
-- **কোনো shipping calculation / address validation নেই।** Delivery address free-form text হিসেবে সংগ্রহ করা হয়।
+- **নিজস্ব কোনো payment নেই।** Order CTA inquiry handoff, Checkout API বা Stripe নয়। (Catalog-জোড়া storefront বদলে আপনার store-এর checkout-এ handoff করে — দেখুন [Checkout](/commerce/checkout)।)
+- **কোনো inventory tracking নেই।** Product card-এ availability badge হলো free-text label যা আপনি manually edit করেন ("Sold out", "Pre-order", "Last 3")। (Catalog-জোড়া storefront আপনার store থেকে আসল stock পড়ে।)
+- **কোনো shipping calculation / address validation নেই।** Delivery address free-form text হিসেবে সংগ্রহ করা হয়। (Catalog-জোড়া storefront-এ shipping আপনার নিজের store-এরই shipping, তার checkout-এ হিসাব করা।)
 - **কোনো customer account নেই।** Customer-দের তাদের Messenger PSID দিয়ে শনাক্ত করা হয়; কোনো login বা signup flow নেই।
 - **কোনো Page comment বা Page post নেই।** এই integration শুধু Messenger thread ও storefront launch সামলায়।
 - **কোনো Instagram DM storefront নেই** (এখনো)। একই Meta integration শুধু Messenger cover করে; Instagram DM শুধু text-conversation।
