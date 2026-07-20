@@ -1,0 +1,92 @@
+---
+description: Connectez une boutique Shopify ou WooCommerce pour que vos agents IA répondent depuis votre catalogue en direct, retrouvent des commandes, recommandent ce qui est réellement en stock et orientent les acheteurs vers le checkout.
+---
+
+# Commerce
+
+**Connectez votre boutique et vos agents cessent de deviner.** Au lieu de répondre à partir d'un document que quelqu'un a pensé à mettre à jour le trimestre dernier, ils lisent votre vrai catalogue, vos vrais niveaux de stock et vos vraies commandes — au moment où l'acheteur pose la question.
+
+Cuneiform Chat se connecte à deux plateformes de commerce, et les traite en égales :
+
+- **[Shopify](/commerce/shopify)** — installée depuis le Shopify App Store et exécutée comme application intégrée dans votre admin Shopify.
+- **[WooCommerce](/commerce/woocommerce)** — connectée à votre boutique auto-hébergée via la WooCommerce REST API.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Commerce est inclus pour tout le monde, essai gratuit compris. Il n'y a rien à acheter, à débloquer ni à améliorer avant de connecter une boutique.
+</Callout>
+
+## Ce que la connexion d'une boutique vous apporte
+
+| Capacité | Ce que vit votre acheteur | En savoir plus |
+|---|---|---|
+| **Catalogue (questions-réponses)** | « La chemise en lin existe-t-elle en bleu marine ? » répondu à partir de vos vrais produits, variantes et prix | [Catalogue et Connaissances](/commerce/catalog-and-knowledge) |
+| **Stock en direct** | Le stock et le prix sont lus au moment de la réponse, donc l'agent ne promet jamais ce que vous avez épuisé | [Catalogue et Connaissances](/commerce/catalog-and-knowledge) |
+| **Recommandations** | « Qu'est-ce qui irait avec ça ? » — des suggestions limitées aux articles réellement en stock | [Catalogue et Connaissances](/commerce/catalog-and-knowledge) |
+| **Suivi de commande (WISMO)** | « Où est ma commande ? » répondu après que l'acheteur a prouvé que la commande est la sienne | [Commandes](/commerce/orders) |
+| **Mises à jour de statut de commande** | Les acheteurs qui s'abonnent reçoivent les mises à jour d'expédition dans le même fil de discussion | [Commandes](/commerce/orders) |
+| **Transfert vers le checkout** | Un acheteur prêt à acheter est transféré vers votre propre checkout, panier intact | [Checkout](/commerce/checkout) |
+| **Chat marchand** | Product cards, un panier et le checkout à l'intérieur même de la conversation | [Chat Marchand](/commerce/shoppable-chat) |
+| **Product Library et Product Finder** | Une surface produits sélectionnée, plus un questionnaire guidé qui recommande des produits à la fin | [Outils Produit](/commerce/product-tools) |
+| **Commerce Analytics** | Ce que les acheteurs ont demandé, ce qu'on leur a montré et où ils ont décroché | [Analytique](/commerce/analytics) |
+
+## Deux plateformes, un même ensemble de fonctionnalités
+
+Shopify et WooCommerce sont ici sur un pied d'égalité — il n'y a pas une principale et une solution de repli. Toutes les capacités du tableau ci-dessus fonctionnent sur les deux. Là où le comportement diffère vraiment, c'est parce que la plateforme sous-jacente diffère, et chaque différence est signalée sur la page qui la couvre :
+
+| Différence | Shopify | WooCommerce |
+|---|---|---|
+| **Comment vous vous connectez** | Installez depuis le Shopify App Store, puis reliez votre espace de travail depuis l'application intégrée | Saisissez l'URL de votre boutique et approuvez une autorisation unique, ou collez des clés d'API manuellement |
+| **Réautoriser plus tard** | Pas d'étape de reconnexion — les changements de permissions voyagent avec l'application elle-même | **Reconnect** relance l'approbation sur votre boutique |
+| **Synchronisation initiale du catalogue** | Démarre automatiquement à la connexion | Démarre automatiquement sur le parcours guidé ; la voie des clés manuelles nécessite un **Resync now** — voir [WooCommerce](/commerce/woocommerce#after-a-manual-connect) |
+| **Fraîcheur du stock** | Mises à jour de stock dédiées, donc les changements de stock arrivent d'eux-mêmes | Les changements de stock arrivent avec les mises à jour de produit |
+| **Transfert vers le checkout** | Un seul lien de panier couvrant toutes les lignes | Dépend de la permission portée par vos clés — voir [Checkout](/commerce/checkout) |
+
+## Vous pouvez connecter les deux en même temps [#you-can-connect-both-at-once]
+
+Une boutique par plateforme et par espace de travail — et **une boutique Shopify et une boutique WooCommerce peuvent être connectées en même temps**. C'est la configuration multiboutique qu'un marchand rencontre réellement : pas cinq boutiques Shopify, mais une boutique Shopify et une boutique Woo côte à côte.
+
+Quand les deux sont connectées, les outils de commerce interrogent **toutes** les boutiques connectées et fusionnent les réponses : la recherche catalogue concatène les résultats, les comptages de produits s'additionnent et la recherche d'un produit se résout vers la boutique qui le possède. L'analytique les garde séparées, avec un sélecteur de fournisseur pour passer de l'une à l'autre.
+
+<Callout type="warning">
+  Une boutique ne peut être connectée qu'à un seul espace de travail à la fois. Si quelqu'un a déjà connecté la même boutique ailleurs, la tentative de connexion est refusée avec un message vous demandant de la déconnecter là-bas d'abord.
+</Callout>
+
+## Où Commerce se trouve dans le panneau d'administration
+
+Tout ce qui touche au commerce se trouve sous **Commerce** dans la navigation de gauche :
+
+| Page | Ce qui s'y trouve |
+|---|---|
+| **Commerce** | La page d'accueil : connecter une boutique, voir l'état de la connexion et reprendre là où vous en étiez |
+| **Shopify** | Votre connexion Shopify — état, synchronisation du catalogue, connaissances produit, notifications |
+| **WooCommerce** | Idem, pour votre boutique WooCommerce |
+| **Products** | Votre [Product Library](/commerce/product-tools) |
+| **Storefront** | Votre [Boutique](/integrations/telegram-mini-app) intégrée au bot, y compris les boutiques reliées au catalogue |
+| **Product Finder** | Le [questionnaire produit](/commerce/product-tools#product-finder), ses envois, sa heatmap et ses diagnostics |
+| **Commerce Analytics** | [Commerce Analytics](/commerce/analytics) et le Commerce Analyst |
+
+## Votre agent de boutique [#your-store-agent]
+
+Le commerce n'est pas activé sur tous les agents d'un coup. Quand vous connectez une boutique, **un agent devient votre agent de boutique** — soit un agent existant que vous choisissez, soit un nouvel agent créé pour vous — et c'est lui qui porte les outils de commerce et lit votre catalogue.
+
+Cela ne se gère pas avec un interrupteur par agent. L'agent de boutique est choisi au moment de la connexion et s'affiche sur sa propre page sous forme d'un panneau en lecture seule indiquant « géré par votre boutique », de sorte qu'il est toujours évident quel agent est relié à quelle boutique.
+
+<Callout type="info">
+  Si votre espace de travail a déjà épuisé son quota d'agents, il n'y a pas de place pour créer un agent de boutique — le parcours de connexion vous le dit et vous demande de choisir un agent existant ou d'en libérer un. C'est le seul endroit où vos limites touchent le commerce, et il s'agit du nombre d'agents, pas du commerce lui-même.
+</Callout>
+
+## Pour commencer
+
+1. **Choisissez votre plateforme.** Suivez [Shopify](/commerce/shopify) ou [WooCommerce](/commerce/woocommerce) — les parcours de connexion sont assez différents, le résultat est le même.
+2. **Laissez le catalogue se synchroniser.** Le premier import récupère vos produits, variantes, prix, images et stocks. Voir [Catalogue et Connaissances](/commerce/catalog-and-knowledge).
+3. **Posez à votre agent de boutique une question de catalogue.** « Quelles tailles existe-t-il pour la chemise en lin ? » est la preuve la plus rapide que ça a marché.
+4. **Activez ce que vous voulez.** [Mises à jour de statut de commande](/commerce/orders#order-status-updates), [chat marchand](/commerce/shoppable-chat), un [questionnaire Product Finder](/commerce/product-tools#product-finder) — chacun est indépendant.
+
+## Lié
+
+- [Shopify](/commerce/shopify) — installation depuis l'App Store et liaison de l'espace de travail
+- [WooCommerce](/commerce/woocommerce) — autorisation guidée et clés d'API manuelles
+- [Boutique Telegram](/integrations/telegram-mini-app) — la boutique intégrée au bot qu'une boutique reliée au catalogue peut alimenter
+- [Analytique](/commerce/analytics) — mesurer ce que le commerce fait pour vous

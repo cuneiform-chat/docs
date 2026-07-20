@@ -1,0 +1,98 @@
+---
+description: Laissez les acheteurs demander « où est ma commande ? » dans la conversation grâce au suivi de commande vérifié, et envoyez des mises à jour d'expédition sur abonnement depuis votre boutique Shopify ou WooCommerce.
+---
+
+# Commandes
+
+**« Où est ma commande ? » est de loin la question la plus fréquente que reçoit une boutique.** Avec une boutique connectée, votre agent y répond — à partir de la vraie commande — au lieu de la renvoyer vers une personne.
+
+Tout ce qui est sur cette page fonctionne à l'identique pour **Shopify** et pour **WooCommerce**.
+
+## Suivi de commande (WISMO)
+
+Un acheteur demande où en est sa commande dans la conversation. L'agent demande le numéro de commande et un élément de contact, vérifie les deux contre la vraie commande, et répond.
+
+### La vérification, c'est toute la conception
+
+L'agent ne révèle les détails d'une commande que lorsque l'acheteur fournit **les deux** :
+
+1. Le **numéro de commande exact**, et
+2. Un **e-mail ou un numéro de téléphone qui correspond à celui de la commande**
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  **Un mauvais contact et une commande inexistante renvoient exactement la même réponse.** L'agent dit qu'il n'a pas trouvé la commande et n'affiche rien d'autre — pas de « cette commande existe mais l'e-mail ne correspond pas », pas de détail partiel, pas d'indice. C'est délibéré : cela signifie que personne ne peut parcourir des numéros de commande pour découvrir lesquels sont réels, ni pêcher les coordonnées d'un client.
+</Callout>
+
+La correspondance est tolérante sur le format, pas sur l'identité. La casse de l'e-mail n'a pas d'importance ; les numéros de téléphone sont comparés chiffre par chiffre, si bien que `+33 6 01 02 99 99` et `33601029999` sont le même numéro.
+
+### Ce que l'acheteur reçoit
+
+Un suivi vérifié renvoie le statut de la commande et l'avancement de son expédition — ce qui est parti, quand, et où c'est — plus un lien vers la commande sur votre propre boutique.
+
+Un acheteur déjà vérifié dans la conversation peut aussi demander ses **commandes récentes** sans re-vérifier chacune d'elles. Ce raccourci n'est jamais accessible qu'à quelqu'un déjà vérifié dans cette conversation ; ce n'est jamais une porte d'entrée.
+
+### Prérequis
+
+Le suivi de commande a besoin d'une boutique connectée dont la permission sur les commandes est saine. Si les identifiants de votre boutique ont été révoqués ou si la connexion est devenue défaillante, l'agent cesse de proposer le suivi de commande plutôt que d'échouer au milieu d'une conversation. Vérifiez l'état de la connexion dans **Commerce → Shopify** ou **Commerce → WooCommerce**.
+
+## Mises à jour de statut de commande [#order-status-updates]
+
+Une fois qu'un acheteur a vérifié une commande dans la conversation, l'agent peut proposer de le tenir informé. S'il accepte, il reçoit les mises à jour d'expédition dans la même conversation, sur le même canal qu'il utilisait déjà.
+
+Deux portes doivent être ouvertes, et les deux sont délibérées :
+
+| Porte | Qui la contrôle |
+|---|---|
+| **Les notifications sont activées sur la connexion** | Vous — sur la page de la boutique, dans **Commerce** |
+| **L'acheteur s'est abonné** | L'acheteur, dans la conversation, après avoir vérifié sa commande |
+
+Vous ne pouvez pas abonner un acheteur à sa place, et un acheteur ne peut pas s'abonner à une commande dont il n'a pas prouvé qu'elle est la sienne.
+
+<Callout type="info">
+  Activer les notifications est une action d'administration ; les Members peuvent voir si elles sont actives mais ne peuvent pas modifier le réglage.
+</Callout>
+
+### Ce qui déclenche une mise à jour
+
+Les mises à jour se déclenchent sur l'avancement de l'expédition de la commande — quand elle part, et quand le statut de l'envoi change. Rien qui ressemble à du marketing n'est jamais envoyé par ce canal ; il existe pour répondre à « où est ma commande ? » avant que l'acheteur ait à le redemander.
+
+Les mises à jour WooCommerce et Shopify sont livrées par le même mécanisme, donc l'expérience est identique quelle que soit la boutique dont vient la commande.
+
+## Deux boutiques, une seule expérience
+
+Si vous avez une boutique Shopify et une boutique WooCommerce connectées, le suivi de commande se résout sur les deux. Un acheteur n'a pas à savoir dans laquelle de vos boutiques il a acheté — il donne un numéro de commande et un contact, et l'agent la trouve là où elle se trouve.
+
+## En coulisses : le nom des outils
+
+Si vous regardez la trace d'une conversation, vous verrez les outils de commande nommés `shopify_order_status`, `shopify_list_orders` et `subscribe_order_updates`.
+
+<Callout type="info">
+  **Ces noms sont historiques, pas littéraux.** Les mêmes outils servent les boutiques WooCommerce. Un marchand uniquement WooCommerce verra quand même un outil appelé `shopify_order_status` effectuer la recherche dans WooCommerce. Rien n'est mal routé — les outils résolvent les boutiques que vous avez réellement connectées.
+</Callout>
+
+## Dépannage
+
+### L'agent dit qu'il ne trouve pas une commande qui existe pourtant
+
+C'est presque toujours l'élément de contact. L'e-mail ou le téléphone que donne l'acheteur doit correspondre à celui qui figure **sur cette commande** — pas à l'adresse qu'il utilise d'habitude, ni à celle de son compte. Demandez-lui de vérifier l'e-mail de confirmation de commande.
+
+### L'agent ne propose pas du tout le suivi de commande
+
+Soit la conversation n'est pas avec votre **agent de boutique** (seul cet agent porte les outils de commerce), soit la connexion à la boutique est défaillante. Vérifiez l'état de la connexion dans **Commerce**.
+
+### Un acheteur s'est abonné mais ne reçoit rien
+
+Confirmez que les notifications sont activées sur la connexion à la boutique — cette porte est indépendante de l'abonnement de l'acheteur, et l'abonnement seul ne suffit pas.
+
+### Des détails d'expédition manquent dans une réponse par ailleurs correcte
+
+La commande a été trouvée et vérifiée, mais une partie du détail d'expédition n'a pas pu être lue. L'agent répond avec ce qu'il a plutôt que de faire échouer tout le suivi.
+
+## Lié
+
+- [Aperçu de Commerce](/commerce) — ce que la connexion d'une boutique vous apporte
+- [Catalogue et Connaissances](/commerce/catalog-and-knowledge) — les questions produit plutôt que les questions de commande
+- [Checkout](/commerce/checkout) — transférer un acheteur vers l'achat
+- [Analytique](/commerce/analytics) — mesurer ce que fait votre agent de commerce

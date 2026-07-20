@@ -1,0 +1,92 @@
+---
+description: Comment un acheteur prêt à acheter est transféré vers votre propre checkout Shopify ou WooCommerce, depuis une boutique ou depuis la conversation, avec son panier intact.
+---
+
+# Checkout
+
+**Cuneiform Chat n'encaisse jamais de paiement.** Chaque achat se conclut sur le checkout de votre propre boutique, avec votre propre configuration de paiement. Ce que nous faisons, c'est y amener l'acheteur sans l'obliger à reconstituer son panier.
+
+Un transfert peut partir de deux endroits :
+
+- D'une **[Boutique](/integrations/telegram-mini-app)** — le catalogue intégré au bot que l'acheteur parcourt
+- Du **[chat marchand](/commerce/shoppable-chat)** — des product cards et un panier à l'intérieur même de la conversation
+
+Les deux se terminent de la même façon : votre checkout, dans le navigateur de l'acheteur, avec les articles déjà dedans.
+
+## Shopify : un lien, tout le panier
+
+Pour une boutique Shopify, le transfert est un **unique lien de checkout qui emporte tout le panier** — chaque ligne, chaque quantité — plus toute remise que vous avez configurée, plus l'attribution pour que la commande qui en résulte puisse être remontée jusqu'à la conversation qui l'a produite.
+
+L'acheteur appuie une fois et arrive sur votre checkout Shopify avec tout déjà en place. Rien à rajouter, rien à retenir.
+
+## WooCommerce : cela dépend de la permission de votre connexion [#woocommerce-permission]
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  **Ce n'est pas une limitation de WooCommerce — c'est un réglage de permission sur votre connexion.** Une boutique WooCommerce connectée via le parcours guidé a toujours la permission nécessaire à l'expérience complète. Seule une boutique connectée manuellement avec une clé en lecture seule reçoit la version réduite.
+</Callout>
+
+| Votre connexion | Ce que reçoit l'acheteur |
+|---|---|
+| **`Read/Write`** (toute connexion guidée, et toute connexion manuelle où vous avez sélectionné `Read/Write`) | Le **panier entier**, sous forme de commande en attente créée dans votre boutique, avec la conversation qui lui est rattachée. L'acheteur passe directement au paiement de cette commande. |
+| **Lecture seule** | **Une ligne à la fois.** L'acheteur reçoit un lien d'ajout au panier pour un seul produit. Si son panier compte plusieurs lignes, le transfert bascule sur une demande de commande, de sorte que la demande vous parvienne sous forme de message plutôt que de perdre silencieusement les autres articles. |
+
+### Ce qu'est, et n'est pas, la commande en attente
+
+Sur une connexion `Read/Write`, passer au checkout crée une **commande en attente** dans WooCommerce et envoie l'acheteur la payer. Cette commande :
+
+- **N'est pas payée** ni **préparée** — elle attend l'acheteur, exactement comme un panier abandonné arrivé jusqu'à la page de paiement
+- **Porte la conversation dont elle est issue**, pour que vous voyiez quelles discussions se transforment en commandes
+- Est la **seule** chose que l'intégration crée dans votre boutique. Elle ne modifie jamais un produit, n'ajuste jamais le stock et ne modifie jamais une commande existante
+
+### Si le checkout multi-lignes ne fonctionne pas
+
+Vérifiez la permission enregistrée sur votre connexion WooCommerce. Si elle indique lecture seule — y compris le cas où vous avez collé une clé `Read/Write` mais laissé le champ de permission vide sur le formulaire — faites **Reconnect** via le parcours guidé. Voir [Après une connexion manuelle](/commerce/woocommerce#after-a-manual-connect).
+
+## Checkout depuis une Boutique
+
+Une [Boutique](/integrations/telegram-mini-app) peut être construite à la main ou reliée au catalogue d'une boutique connectée. Ce qu'elle est décide de ce que son checkout peut faire :
+
+| Type de boutique | Checkout |
+|---|---|
+| **Reliée au catalogue Shopify** | Transfert complet vers votre checkout Shopify |
+| **Reliée au catalogue WooCommerce** | Transfert comme décrit ci-dessus, selon la permission de votre connexion |
+| **Construite à la main** | Pas de transfert de paiement — les Order CTA sont des transferts de demande qui arrivent dans votre Inbox pour qu'un humain les reprenne |
+
+Une boutique est rattachée à une seule source et le reste dès qu'elle porte des blocs produit, si bien qu'une boutique construite à la main ne peut pas se mettre à se comporter en silence comme une boutique reliée au catalogue (ni l'inverse). Les boutiques créées avant l'existence de la liaison au catalogue ne sont rattachées à rien et continuent de fonctionner exactement comme avant.
+
+## Checkout depuis la conversation
+
+Quand un acheteur constitue un panier à partir de product cards dans la conversation, le transfert vers le checkout fonctionne de la même façon — une pression pour sortir vers votre propre checkout. Voir [Chat Marchand](/commerce/shoppable-chat) pour le fonctionnement du panier lui-même et les canaux qui le prennent en charge.
+
+## Ce que nous ne faisons jamais
+
+- **Encaisser un paiement.** Aucune donnée de carte, aucun identifiant de paiement et aucune donnée de paiement ne transitent par Cuneiform Chat.
+- **Débiter un acheteur.** La commande en attente décrite ci-dessus reste impayée tant que l'acheteur ne l'a pas payée sur votre boutique.
+- **Modifier vos prix, votre stock ou vos commandes existantes.**
+
+## Dépannage
+
+### Le lien de checkout ne contient qu'un seul produit
+
+C'est la voie WooCommerce en lecture seule. Vérifiez la permission de votre connexion et reconnectez-vous via le parcours guidé.
+
+### Un panier multi-lignes est devenu une demande de commande au lieu d'un checkout
+
+Même cause. Plutôt que d'abandonner silencieusement les lignes supplémentaires, une connexion en lecture seule vous route les paniers multi-lignes sous forme de demande pour que rien ne soit perdu.
+
+### Un acheteur a atteint le checkout mais la remise n'a pas été appliquée
+
+Les remises voyagent sur le lien de transfert Shopify. Vérifiez que la remise est toujours valide et applicable aux produits du panier — un code expiré ou non applicable est écarté par Shopify au checkout, pas par nous.
+
+### Les commandes n'indiquent pas de quelle conversation elles viennent
+
+L'attribution voyage sur le transfert. Si elle manque sur WooCommerce, vous êtes probablement sur la voie mono-ligne en lecture seule, qui ne peut pas la porter.
+
+## Lié
+
+- [Chat Marchand](/commerce/shoppable-chat) — le panier dans la conversation depuis lequel se fait le transfert
+- [WooCommerce](/commerce/woocommerce) — la permission de connexion qui décide de la voie que vous obtenez
+- [Shopify](/commerce/shopify) — connecter une boutique Shopify
+- [Analytique](/commerce/analytics) — voir combien de transferts se transforment en commandes

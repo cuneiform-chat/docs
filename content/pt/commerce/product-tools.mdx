@@ -1,0 +1,97 @@
+---
+description: A Product Library, o quiz Product Finder e o AI Quiz Suggester — as superfícies de produto curadas que ficam em cima do seu catálogo de comércio sincronizado.
+---
+
+# Ferramentas de Produto
+
+Seu catálogo sincronizado é a matéria-prima. Estas são as superfícies em que você o molda: uma **Product Library** que você pode curar, um quiz **Product Finder** que leva o comprador até o produto certo e um **AI Quiz Suggester** que propõe quizzes que valem a pena montar.
+
+## Product Library [#product-library]
+
+A **Product Library** fica em **Commerce → Products**. É a visão do seu próprio workspace sobre os produtos que você vende — a superfície de onde outros recursos puxam quando precisam de "um produto" em vez de "um resultado de busca no catálogo".
+
+### De onde vêm os produtos dela
+
+- **Da sua loja conectada.** Produtos da Shopify ou do WooCommerce são espelhados na biblioteca e mantidos em dia conforme o catálogo sincroniza. Você não os importa na mão, e não precisa reimportar depois de uma mudança no catálogo.
+- **De você.** Você pode adicionar produtos manualmente — útil para algo que você vende mas não lista, ou para um workspace sem nenhuma loja conectada.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  **Produtos manuais são seus.** Uma sincronização de catálogo só mexe nas linhas que vieram da loja. Produtos que você adicionou à mão nunca são sobrescritos, reordenados ou removidos por uma sincronização.
+</Callout>
+
+Quando um produto é removido na origem, a entrada dele na biblioteca é aposentada em vez de excluída de vez — assim nada que a referenciava quebra, e você consegue ver que ela existiu.
+
+### Quem pode usar
+
+Ver a biblioteca e editá-la são permissões separadas, então você pode deixar as pessoas navegarem pelos produtos sem deixá-las mudar a superfície de catálogo. Members normalmente recebem ver; Owners e Admins recebem os dois.
+
+## Product Finder [#product-finder]
+
+O **Product Finder** é um quiz guiado que termina em uma recomendação. Em vez de esperar que o comprador saiba o que quer, ele faz algumas perguntas — *para que é? qual é o seu orçamento? é para quem?* — e recomenda produtos do seu catálogo com base nas respostas.
+
+Ele fica em **Commerce → Product Finder** e é construído sobre [Agent Flows](/agents/agent-flows), então tudo o que você já sabe sobre flows se aplica: o mesmo editor visual, a mesma biblioteca de componentes, a mesma renderização multicanal e as mesmas analíticas.
+
+### O que você ganha com ele
+
+| Superfície | O que ela mostra |
+|---|---|
+| **Forms** | O quiz em si, no editor de flows |
+| **Submissions** | Cada quiz concluído, com as respostas e o que foi recomendado |
+| **Heatmap** | Em qual pergunta os compradores abandonam |
+| **Diagnose** | Um analista de IA a quem você pode perguntar *"por que ninguém termina esse quiz?"* |
+
+Por ser um flow, o agent pode oferecer o quiz no meio de uma conversa quando decide que um comprador está só olhando em vez de comprando — e quem termina recebe recomendações em vez de um agradecimento genérico.
+
+<Callout type="info">
+  O Agent Flows, e portanto o Product Finder, estão incluídos para todo mundo — avaliação gratuita incluída. E como o Product Finder é um flow que a plataforma gerencia por você, ele não conta contra a [cota de flows publicados](/agents/agent-flows#limits) do seu próprio workspace.
+</Callout>
+
+## AI Quiz Suggester [#quiz-suggester]
+
+Saber que um quiz ajudaria é fácil. Saber *qual* quiz vale a pena montar é a parte difícil.
+
+O **AI Quiz Suggester** olha seu catálogo uma vez por dia e propõe quizzes que combinam com o que você realmente vende — as dimensões de produto sobre as quais vale perguntar, as perguntas que separariam um produto de outro, os perfis de comprador que a sua linha sugere. Você revisa as sugestões e transforma as que gostar em quizzes Product Finder de verdade.
+
+- Ele roda **uma vez por dia**, automaticamente. Não há nada para agendar.
+- Ele não vai rodar sob demanda mais do que ocasionalmente — um curto tempo de espera impede que atualizações repetidas queimem uso para produzir algo quase idêntico.
+- Como todo recurso de IA, ele usa a cota de uso do seu workspace, e confere essa cota antes de rodar em vez de depois.
+
+## De qual delas eu realmente preciso?
+
+| Se você quer… | Use |
+|---|---|
+| Mostrar um conjunto curado de produtos em uma Loja ou na conversa | **Product Library** |
+| Ajudar um comprador que não sabe o que quer | **Product Finder** |
+| Descobrir qual quiz montar, para começar | **AI Quiz Suggester** |
+| Responder perguntas diretas sobre produtos | Nada daqui — isso é [catálogo](/commerce/catalog-and-knowledge) |
+
+## Solução de problemas
+
+### A Product Library está vazia depois de conectar uma loja
+
+A sincronização do catálogo a preenche. Se o próprio catálogo estiver vazio — o mais comum em uma loja WooCommerce conectada manualmente — aperte **Resync now** primeiro. Veja [Depois de uma conexão manual](/commerce/woocommerce#after-a-manual-connect).
+
+### Um produto que excluí da minha loja ainda está na biblioteca
+
+Produtos removidos são aposentados em vez de excluídos, então param de ser oferecidos mas continuam visíveis para você. Isso é intencional.
+
+### Um produto que adicionei à mão sumiu depois de uma sincronização
+
+Não deveria ter sumido — sincronizações nunca mexem em produtos manuais. Confira se ele foi adicionado a outro workspace, ou se foi editado para apontar para um produto da loja.
+
+### Nenhuma sugestão de quiz apareceu
+
+O suggester roda diariamente, então uma loja recém-conectada pode ainda não ter passado por um ciclo. Ele também precisa de catálogo suficiente para ter o que sugerir — um punhado de produtos pode não dar a ele nada relevante sobre o que perguntar.
+
+### Meu quiz não recomenda nada no final
+
+As recomendações saem do seu catálogo, então o quiz precisa de produtos que combinem com as combinações de resposta que ele consegue produzir. Olhe as visões Heatmap e Diagnose para ver onde os compradores estão parando.
+
+## Relacionado
+
+- [Catálogo e Conhecimento](/commerce/catalog-and-knowledge) — o catálogo sobre o qual essas superfícies são construídas
+- [Agent Flows](/agents/agent-flows) — o motor de flows sobre o qual o Product Finder é construído
+- [Chat com Compra](/commerce/shoppable-chat) — mostrar produtos como cards em uma conversa
+- [Analíticas](/commerce/analytics) — medir o que os compradores fazem com tudo isso

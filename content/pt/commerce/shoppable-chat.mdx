@@ -1,0 +1,102 @@
+---
+description: Product cards, um carrinho e checkout dentro da própria conversa — como o chat com compra funciona, quais canais o suportam e como o carrinho dele difere do carrinho da Loja.
+---
+
+# Chat com Compra
+
+**A conversa vira a loja.** Em vez de descrever um produto em um parágrafo e torcer para o comprador ir procurá-lo, o agent mostra o produto de verdade — imagem, preço, disponibilidade — como um card que o comprador pode adicionar a um carrinho e a partir do qual pode pagar, sem nunca sair da conversa.
+
+## O que o comprador vê
+
+1. Ele pede alguma coisa: *"vocês têm algo de linho?"*
+2. O agent responde com **product cards** — produtos reais da sua loja conectada, com imagem, nome, preço e disponibilidade.
+3. Ele adiciona um ao **carrinho** tocando no card, ou simplesmente dizendo.
+4. Ele pode revisar o carrinho, mudar de ideia ou esvaziá-lo — na conversa.
+5. Quando estiver pronto, faz checkout: um toque até **o seu próprio checkout**, com o carrinho intacto. Veja [Checkout](/commerce/checkout).
+
+Nada nesse percurso pede ao comprador abrir um site, lembrar o nome de um produto ou começar do zero.
+
+## Canais suportados
+
+O chat com compra precisa de um canal capaz de renderizar um card rico. Quatro conseguem:
+
+| Canal | Product cards e carrinho |
+|---|---|
+| **Widget de chat do site** | ✅ |
+| **Telegram** | ✅ |
+| **WhatsApp** | ✅ |
+| **Messenger** | ✅ |
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  **Discord, Slack e Google Chat não têm superfície de cards**, então o chat com compra não se aplica lá. Os agents nesses canais continuam respondendo perguntas de catálogo, consultando pedidos e recomendando produtos — só fazem isso em texto.
+</Callout>
+
+## Os três carrinhos, e como diferenciá-los [#three-carts]
+
+O Cuneiform Chat tem três coisas que um comprador poderia razoavelmente chamar de "carrinho". Elas se comportam de formas diferentes, e confundi-las é o jeito mais rápido de ler errado o que seus compradores estão fazendo.
+
+| | Onde ele vive | O que o encerra | Onde você o vê |
+|---|---|---|---|
+| **1. Carrinho de consulta da Loja** | No próprio navegador do comprador, dentro do mini app da [Loja](/integrations/telegram-mini-app) | Um **handoff de consulta** — uma solicitação de pedido estruturada chega na sua Inbox para uma pessoa assumir | Sua Inbox, como solicitação de pedido |
+| **2. Repasse de checkout da Loja** | Nada é guardado — é um link de repasse de uso único que sai da Loja | O comprador chegando **no seu próprio checkout** | Os pedidos da sua própria loja |
+| **3. Carrinho de conversa dentro do chat** | Nos nossos servidores, ligado à conversa | Ou um **repasse de checkout** para a sua loja, ou o comprador abandonando-o | [Commerce Analytics](/commerce/analytics), e os pedidos da sua loja |
+
+O desta página é o **#3**. É o único carrinho que persiste do nosso lado, o único ligado a uma conversa em vez de a um navegador e o único que um comprador pode retomar simplesmente continuando a conversa.
+
+<Callout type="warning">
+  Um comprador que encheu um carrinho da Loja (#1) e um comprador que encheu um carrinho de conversa (#3) não estão no mesmo funil. O primeiro termina como mensagem na sua Inbox para uma pessoa; o segundo termina no seu checkout. Se você está comparando números, tenha certeza de qual dos dois está contando.
+</Callout>
+
+## O que o agent pode fazer com o carrinho
+
+O agent tem um conjunto pequeno e explícito de ações de carrinho, e usa cada uma em resposta ao que o comprador diz:
+
+| O comprador diz | O que acontece |
+|---|---|
+| "me mostra algo de linho" | Product cards são exibidos |
+| "adiciona o segundo" | Esse produto é adicionado ao carrinho |
+| "o que tem no meu carrinho?" | O carrinho é lido de volta |
+| "na verdade, tira a camisa" | Essa linha é removida |
+| "vamos começar de novo" | O carrinho é esvaziado |
+| "estou pronto para comprar" | O repasse para o checkout dispara |
+
+O comprador também pode tocar nos botões dos próprios cards — falar com o agent é uma opção, não uma exigência.
+
+## O que ele precisa
+
+- Uma **loja conectada** com catálogo sincronizado — os cards são produtos reais, então precisa haver um catálogo de onde tirá-los
+- Um **canal capaz de exibir cards** da tabela acima
+- Seu **agent de loja** — o agent ligado à loja na hora de conectar
+
+Tanto Shopify quanto WooCommerce são suportados. No WooCommerce, o que acontece na etapa de checkout depende da permissão da sua conexão — veja [Checkout](/commerce/checkout#woocommerce-permission).
+
+## Atribuição
+
+Um pedido que começa em uma conversa fica **atribuído àquela conversa**. É isso que torna o chat com compra mensurável em vez de anedótico: você consegue ver quais conversas geraram carrinhos, quais carrinhos geraram checkouts e quais checkouts geraram pedidos. Veja [Analíticas](/commerce/analytics).
+
+## Solução de problemas
+
+### O agent descreve produtos em vez de mostrar cards
+
+Ou o canal não tem superfície de cards (Discord, Slack, Google Chat), ou você não está falando com o agent de loja. Confira em **Commerce** qual agent está ligado à sua loja.
+
+### Os cards aparecem mas o carrinho fica vazio depois de adicionar algo
+
+O carrinho é por conversa. Se o comprador começou uma conversa nova — uma sessão nova, ou um canal diferente — ele começou um carrinho novo junto.
+
+### O carrinho de um comprador voltou depois
+
+Isso é intencional. O carrinho de conversa persiste junto com a conversa, então um comprador que se distraiu no meio pode retomar de onde parou em vez de refazer tudo.
+
+### O checkout repassou só um produto
+
+Esse é o caminho do WooCommerce somente leitura, não uma limitação do chat com compra. Veja [Checkout](/commerce/checkout).
+
+## Relacionado
+
+- [Checkout](/commerce/checkout) — para onde o carrinho é repassado
+- [Catálogo e Conhecimento](/commerce/catalog-and-knowledge) — o catálogo de onde os cards são tirados
+- [Loja Telegram](/integrations/telegram-mini-app) — a Loja, e o carrinho de consulta separado dela
+- [Analíticas](/commerce/analytics) — cards exibidos, carrinhos montados, checkouts iniciados

@@ -1,6 +1,6 @@
 # Loja no Telegram (Mini App dentro do bot)
 
-**Transforme seu bot do Telegram em uma loja completa dentro do aplicativo.** Monte um catálogo de produtos sofisticado e com várias páginas — com fotos, vídeos, páginas temáticas, um assistente de IA por produto e captação leve de pedidos — que abre *dentro* do Telegram no momento em que o cliente toca no botão de menu do seu bot. Sem loja de aplicativos, sem site separado, sem checkout para gerenciar. Basta um toque e seu cliente está navegando.
+**Transforme seu bot do Telegram em uma loja completa dentro do aplicativo.** Monte um catálogo de produtos sofisticado e com várias páginas — com fotos, vídeos, páginas temáticas, um assistente de IA por produto e captação leve de pedidos — que abre *dentro* do Telegram no momento em que o cliente toca no botão de menu do seu bot. Sem loja de aplicativos, sem site separado e sem página de checkout para construir — vincule a uma loja conectada e os compradores pagam no seu checkout real; monte à mão e os pedidos chegam na sua caixa de entrada como consultas. Basta um toque e seu cliente está navegando.
 
 Gratuito em todos os planos, inclusive no teste. Construído em um editor visual de arrastar e soltar em **Integrações → Bot do Telegram → Configurar mini app**: 12 tipos de blocos, 6 temas, chat de IA por produto, CTAs de pedido que repassam para uma pessoa real na sua caixa de entrada.
 
@@ -24,7 +24,7 @@ Comece com uma página e cresça para um catálogo de várias páginas quando es
 
 ## Por que isso importa
 
-- **Os clientes nunca saem do Telegram.** Sem instalação de aplicativo, sem domínio para lembrar, sem fluxo de checkout para abandonar. A loja abre no WebView do Telegram e herda o tema, o idioma e o login do usuário.
+- **Os clientes nunca saem do Telegram.** Sem instalação de aplicativo, sem domínio para lembrar e sem página de checkout separada para construir. A loja abre no WebView do Telegram e herda o tema, o idioma e o login do usuário.
 - **Um toque a partir de uma conversa.** O botão de menu ao lado do campo de mensagem é configurado no momento em que você conecta o bot; assim que você cria uma loja e a publica no bot, o botão a abre. O rótulo muda automaticamente para **"Shop"** no momento em que você publica um produto — sem precisar configurar nada no BotFather.
 - **Uma loja, os dois canais.** Crie a loja uma única vez e publique-a em um bot do Telegram *e* em uma Página do Facebook Messenger ao mesmo tempo — as mesmas páginas, produtos e tema nos dois. Publique cada canal pela aba **Distribute**; despublique um sem mexer no outro.
 - **Chat de produto nativo de IA.** O chat por produto fica restrito aos documentos que *você* anexa àquele produto — o assistente consegue responder "qual é a política de devolução desse vestido?" com confiança, sem vazar informações de outros produtos.
@@ -40,7 +40,7 @@ Comece com uma página e cresça para um catálogo de várias páginas quando es
 - **Botão liga/desliga por integração** — desligue e o menu do bot volta ao seletor de comandos `/` do Telegram; a URL pública retorna `410 Gone` para que bookmarks antigos não vazem conteúdo.
 - **Loja multilíngue** — escreva o conteúdo da sua loja em qualquer um dos idiomas suportados pelo WhatsApp (com tradução por IA em um clique para preencher as lacunas), e um seletor de idioma embutido deixa cada visitante escolher o seu. Idiomas da direita para a esquerda (árabe, hebraico, persa, urdu) são exibidos corretamente. A chrome do próprio shell segue o idioma do dispositivo do visitante.
 - **Help Center embutido** — uma superfície de FAQ fixada para perguntas pontuais, sempre a um toque de distância. [Veja abaixo](#help-center-embutido).
-- **Sem pagamentos, sem estoque, sem frete** — esta é uma superfície de catálogo sofisticada + captura de leads, não uma stack completa de e-commerce. Combine com uma pessoa na sua caixa de entrada e você terá um ciclo de vendas completo.
+- **Duas formas de obter os produtos.** Uma loja **montada à mão** é uma superfície de catálogo sofisticada + captura de leads — você digita os produtos, e ela não faz pagamentos, nem rastreamento de estoque, nem frete; combine com uma pessoa na sua caixa de entrada e você terá um ciclo de vendas completo. Uma loja **vinculada ao catálogo** puxa os produtos de uma loja Shopify ou WooCommerce conectada e leva os compradores ao seu checkout real. [Veja abaixo](#catalog-linked-storefronts).
 
 ## Como os clientes encontram a loja
 
@@ -181,7 +181,7 @@ Os limites de plano se aplicam ao número total de documentos de produto que voc
 
 ## Consultas de pedido e carrinho (opcional) [#orders-and-cart]
 
-Você pode anexar um **Order CTA** a qualquer product card ou product grid. Isso é puramente um handoff de mensagem estruturada — **sem pagamentos, sem estoque, sem fulfillment**.
+Você pode anexar um **Order CTA** a qualquer product card ou product grid. Em uma loja **montada à mão** isso é puramente um handoff de mensagem estruturada — **sem pagamentos, sem estoque, sem fulfillment** — e chega na sua caixa de entrada para uma pessoa assumir. Em uma loja **vinculada ao catálogo** o mesmo CTA pode levar o comprador até o checkout real da sua loja; veja [Lojas vinculadas ao catálogo](#catalog-linked-storefronts).
 
 ### Dois modos
 
@@ -203,6 +203,21 @@ Escolha qualquer subconjunto de `name`, `phone`, `email`, `notes`, `delivery_add
 
 - Cada cliente pode enviar no máximo **10 pedidos por minuto**; cada tenant no máximo **100 por minuto**.
 - Toques duplos em até 60 segundos no **mesmo pedido exato** são deduplicados; dois pedidos *diferentes* em até 60 segundos passam.
+
+## Lojas vinculadas ao catálogo [#catalog-linked-storefronts]
+
+Tudo acima descreve uma loja que você monta à mão: você digita os produtos, os preços e a disponibilidade, e os pedidos chegam como consultas. Esse ainda é o formato certo para um folheto, um catálogo de serviços ou um cardápio.
+
+Se você tem uma **[loja Shopify ou WooCommerce conectada](/commerce)**, uma loja pode em vez disso ser **vinculada àquele catálogo**. Os blocos de produto dela vêm do seu catálogo real, preços e estoque vêm da loja em vez de algo que você edita à mão, e os Order CTAs dela podem levar um comprador pronto para comprar até o checkout da sua própria loja com o carrinho intacto — veja [Checkout](/commerce/checkout).
+
+| | Montada à mão | Vinculada ao catálogo |
+|---|---|---|
+| **Produtos** | Você os digita | Puxados da sua loja conectada |
+| **Preço e disponibilidade** | Campos de texto livre que você mantém | Lidos da sua loja |
+| **Order CTA** | Handoff de consulta para sua Inbox | Handoff para o checkout da sua loja |
+| **Precisa de uma loja conectada** | Não | Sim |
+
+Uma loja fica restrita a uma única origem e, assim que tiver blocos de produto nela, esse escopo fica fixo — então uma loja montada à mão não pode passar a se comportar silenciosamente como uma vinculada ao catálogo, nem o contrário. Lojas criadas antes de a vinculação ao catálogo existir ficam sem restrição e continuam funcionando exatamente como sempre.
 
 ## Help Center embutido
 
@@ -259,11 +274,13 @@ Um papel granular "Editor de Integração" está no roadmap.
 - **Suporte a ETag** — o shell usa HTTP `If-None-Match` e recebe um `304 Not Modified` rápido se nada mudou, mantendo o uso de dados móveis baixo.
 - **URLs de imagens** são válidas por 15 minutos; o shell as busca novamente de forma automática antes que expirem.
 
-## O que NÃO faz
+## O que uma loja montada à mão NÃO faz
 
-- **Sem pagamentos.** Os Order CTAs são handoffs de consulta, não checkouts Stripe / WhatsApp Pay / Telegram Stars.
-- **Sem rastreamento de estoque.** Badges de disponibilidade são rótulos de texto livre que você edita manualmente.
-- **Sem cálculos de frete / validação de endereço.** O endereço de entrega é coletado como texto livre.
+Estes limites valem para uma loja cujos produtos você mesmo digitou. Uma [loja vinculada ao catálogo](#catalog-linked-storefronts) elimina os três primeiros ao puxar seus produtos — e seu checkout — da sua loja conectada.
+
+- **Sem pagamentos próprios.** Os Order CTAs são handoffs de consulta, não checkouts Stripe / WhatsApp Pay / Telegram Stars. (Uma loja vinculada ao catálogo repassa para o checkout da sua loja em vez de cobrar aqui.)
+- **Sem rastreamento de estoque.** Badges de disponibilidade são rótulos de texto livre que você edita manualmente. (Uma loja vinculada ao catálogo lê o estoque real da sua loja.)
+- **Sem cálculos de frete / validação de endereço.** O endereço de entrega é coletado como texto livre. (O frete em uma loja vinculada ao catálogo é o da sua própria loja, calculado no checkout dela.)
 - **Sem contas de cliente.** Os clientes são identificados pelo ID de usuário do Telegram; não há fluxo de login ou cadastro.
 - **Sem formulários além de Order Inquiry / Cart Checkout.** O bloco de contato é exibição estática; o bloco de rich text não renderiza formulários.
 - **Os caminhos "perguntar ao bot" e de pedido do Help Center recusam aberturas em grupo / canal** com um erro educado.

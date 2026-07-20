@@ -1,0 +1,102 @@
+---
+description: Product cards, un carrito y checkout dentro de la propia conversación — cómo funciona el chat con compra, qué canales lo admiten y en qué se diferencia su carrito del carrito de la Tienda.
+---
+
+# Chat con Compra
+
+**La conversación se convierte en la tienda.** En lugar de describir un producto en un párrafo y esperar que el comprador vaya a buscarlo, el agent muestra el producto real — imagen, precio, disponibilidad — como una card que el comprador puede añadir a un carrito y desde la que puede pagar, sin salir nunca del chat.
+
+## Qué ve el comprador
+
+1. Pide algo: *«¿tenéis algo de lino?»*
+2. El agent responde con **product cards** — productos reales de tu tienda conectada, con imagen, nombre, precio y disponibilidad.
+3. Añade uno a su **carrito** tocando la card, o simplemente diciéndolo.
+4. Puede revisar el carrito, cambiar de idea o vaciarlo — en la conversación.
+5. Cuando está listo, hace checkout: un toque hacia **tu propio checkout**, con el carrito intacto. Consulta [Checkout](/commerce/checkout).
+
+Nada de ese recorrido pide al comprador abrir una web, recordar el nombre de un producto ni empezar de cero.
+
+## Canales compatibles
+
+El chat con compra necesita un canal capaz de renderizar una card rica. Cuatro pueden:
+
+| Canal | Product cards y carrito |
+|---|---|
+| **Widget de chat del sitio web** | ✅ |
+| **Telegram** | ✅ |
+| **WhatsApp** | ✅ |
+| **Messenger** | ✅ |
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  **Discord, Slack y Google Chat no tienen superficie de cards**, así que el chat con compra no aplica ahí. Los agents en esos canales siguen respondiendo preguntas de catálogo, consultando pedidos y recomendando productos — simplemente lo hacen en texto.
+</Callout>
+
+## Los tres carritos, y cómo distinguirlos [#three-carts]
+
+Cuneiform Chat tiene tres cosas que un comprador podría llamar razonablemente «un carrito». Se comportan de forma distinta, y confundirlas es la forma más rápida de malinterpretar lo que hacen tus compradores.
+
+| | Dónde vive | Qué lo termina | Dónde lo ves |
+|---|---|---|---|
+| **1. Carrito de consulta de la Tienda** | En el propio navegador del comprador, dentro de la mini app de la [Tienda](/integrations/telegram-mini-app) | Una **transferencia de consulta** — una petición de pedido estructurada aterriza en tu Inbox para que la recoja una persona | Tu Inbox, como petición de pedido |
+| **2. Transferencia al checkout desde la Tienda** | No se guarda nada — es un enlace de transferencia de un solo uso que sale de la Tienda | El comprador llegando a **tu propio checkout** | Los pedidos de tu propia tienda |
+| **3. Carrito de conversación dentro del chat** | En nuestros servidores, asociado a la conversación | O una **transferencia al checkout** hacia tu tienda, o el comprador abandonándolo | [Commerce Analytics](/commerce/analytics), y los pedidos de tu tienda |
+
+El que trata esta página es el **#3**. Es el único carrito que persiste de nuestro lado, el único ligado a una conversación en lugar de a un navegador y el único que un comprador puede retomar simplemente siguiendo el chat.
+
+<Callout type="warning">
+  Un comprador que llenó un carrito de la Tienda (#1) y un comprador que llenó un carrito de conversación (#3) no están en el mismo embudo. El primero termina como mensaje en tu Inbox para una persona; el segundo termina en tu checkout. Si estás comparando números, asegúrate de saber cuál estás contando.
+</Callout>
+
+## Qué puede hacer el agent con el carrito
+
+El agent tiene un conjunto pequeño y explícito de acciones de carrito, y las usa en respuesta a lo que dice el comprador:
+
+| El comprador dice | Qué pasa |
+|---|---|
+| «enséñame algo de lino» | Se muestran product cards |
+| «añade el segundo» | Ese producto se añade al carrito |
+| «¿qué tengo en el carrito?» | Se lee el carrito de vuelta |
+| «quita la camisa» | Esa línea se elimina |
+| «empecemos de nuevo» | Se vacía el carrito |
+| «ya estoy listo para comprar» | Se dispara la transferencia al checkout |
+
+El comprador también puede tocar los botones de las propias cards — hablar con el agent es una opción, no un requisito.
+
+## Qué necesita
+
+- Una **tienda conectada** con catálogo sincronizado — las cards son productos reales, así que tiene que haber un catálogo del que sacarlas
+- Un **canal capaz de mostrar cards** de la tabla de arriba
+- Tu **agent de tienda** — el agent que quedó conectado a la tienda al conectar
+
+Tanto Shopify como WooCommerce son compatibles. En WooCommerce, lo que pasa en el paso del checkout depende del permiso de tu conexión — consulta [Checkout](/commerce/checkout#woocommerce-permission).
+
+## Atribución
+
+Un pedido que empieza en un chat queda **atribuido a esa conversación**. Eso es lo que hace que el chat con compra sea medible en lugar de anecdótico: puedes ver qué conversaciones produjeron carritos, qué carritos produjeron checkouts y qué checkouts produjeron pedidos. Consulta [Analíticas](/commerce/analytics).
+
+## Solución de problemas
+
+### El agent describe productos en lugar de mostrar cards
+
+O el canal no tiene superficie de cards (Discord, Slack, Google Chat), o no estás hablando con el agent de tienda. Comprueba en **Commerce** qué agent está conectado a tu tienda.
+
+### Aparecen cards pero el carrito está vacío después de añadir algo
+
+El carrito es por conversación. Si el comprador empezó una conversación nueva — una sesión nueva, o un canal distinto — empezó un carrito nuevo con ella.
+
+### El carrito de un comprador volvió a aparecer más tarde
+
+Es lo previsto. El carrito de conversación persiste con la conversación, así que un comprador que se despistó a mitad puede retomar donde lo dejó en lugar de reconstruirlo.
+
+### El checkout solo transfirió un producto
+
+Esa es la vía de WooCommerce de solo lectura, no una limitación del chat con compra. Consulta [Checkout](/commerce/checkout).
+
+## Relacionado
+
+- [Checkout](/commerce/checkout) — a dónde transfiere el carrito
+- [Catálogo y Conocimiento](/commerce/catalog-and-knowledge) — el catálogo del que se sacan las cards
+- [Tienda Telegram](/integrations/telegram-mini-app) — la Tienda, y su carrito de consulta aparte
+- [Analíticas](/commerce/analytics) — cards mostradas, carritos construidos, checkouts iniciados

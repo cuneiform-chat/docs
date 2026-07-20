@@ -1,6 +1,6 @@
 # Boutique Telegram (Mini App intégrée au bot)
 
-**Transformez votre bot Telegram en véritable boutique intégrée.** Construisez un catalogue produits multipage soigné — avec photos, vidéos, pages thématiques, un assistant IA par produit et une prise de commande légère — qui s'ouvre *à l'intérieur* de Telegram dès que votre client appuie sur le bouton menu de votre bot. Pas d'app store, pas de site séparé, pas de checkout à gérer. Une simple pression, et votre client parcourt déjà votre boutique.
+**Transformez votre bot Telegram en véritable boutique intégrée.** Construisez un catalogue produits multipage soigné — avec photos, vidéos, pages thématiques, un assistant IA par produit et une prise de commande légère — qui s'ouvre *à l'intérieur* de Telegram dès que votre client appuie sur le bouton menu de votre bot. Pas d'app store, pas de site séparé et pas de page de checkout à construire — reliez-la à une boutique connectée et les acheteurs paient sur votre vrai checkout ; construisez-la à la main et les commandes arrivent dans votre inbox sous forme de demandes. Une simple pression, et votre client parcourt déjà votre boutique.
 
 Gratuit sur tous les plans, y compris l'essai. Construit dans un compositeur visuel par glisser-déposer disponible dans **Intégrations → bot Telegram → Configurer la mini app** : 12 types de blocs, 6 thèmes, chat IA par produit, CTA de commande qui transfèrent à un humain dans votre inbox.
 
@@ -24,7 +24,7 @@ Commencez avec une seule page, et faites évoluer vers un catalogue multipage qu
 
 ## Pourquoi ça compte
 
-- **Vos clients ne quittent jamais Telegram.** Pas d'installation d'app, pas de domaine à retenir, pas de tunnel de checkout à abandonner. La boutique s'ouvre dans la WebView de Telegram et hérite du thème, de la langue et de la connexion de l'utilisateur.
+- **Vos clients ne quittent jamais Telegram.** Pas d'installation d'app, pas de domaine à retenir et pas de page de checkout séparée à construire. La boutique s'ouvre dans la WebView de Telegram et hérite du thème, de la langue et de la connexion de l'utilisateur.
 - **Une seule pression depuis une conversation.** Le bouton menu à côté du compositeur est mis en place dès que vous connectez le bot ; une fois que vous avez créé une boutique et que vous la publiez sur le bot, le bouton l'ouvre. Le libellé bascule automatiquement sur **« Shop »** dès que vous publiez un produit — aucune configuration BotFather requise.
 - **Une boutique, les deux canaux.** Créez la boutique une seule fois et publiez-la sur un bot Telegram *et* une Page Facebook Messenger en même temps — les mêmes pages, produits et thème sur les deux. Publiez chaque canal depuis l'onglet **Distribute** ; dépubliez l'un sans toucher à l'autre.
 - **Chat produit nativement IA.** Le chat par produit est limité aux documents *que vous* attachez à ce produit — l'assistant peut répondre en toute confiance à « quelle est la politique de retour de cette robe ? » sans laisser fuiter d'informations provenant d'autres produits.
@@ -40,7 +40,7 @@ Commencez avec une seule page, et faites évoluer vers un catalogue multipage qu
 - **Toggle on/off par intégration** — désactivez-le et le menu du bot revient au sélecteur de commandes `/` de Telegram ; l'URL publique renvoie `410 Gone` pour que les marque-pages obsolètes ne laissent pas fuiter de contenu.
 - **Boutique multilingue** — rédigez le contenu de votre boutique dans n'importe quelle langue prise en charge par WhatsApp (avec une traduction par IA en un clic pour combler les manques), et un sélecteur de langue intégré laisse chaque visiteur choisir la sienne. Les langues de droite à gauche (arabe, hébreu, persan, ourdou) s'affichent correctement. Le chrome de la coquille suit, lui, la langue de l'appareil du visiteur.
 - **Help Center intégré** — une surface FAQ épinglée pour les questions ponctuelles, toujours à une pression. [Voir ci-dessous](#built-in-help-center).
-- **Pas de paiements, pas de stocks, pas de livraison** — c'est une surface catalogue + capture de leads soignée, pas une stack e-commerce complète. Associez-la à un humain dans votre inbox et vous avez une boucle de vente complète.
+- **Deux façons d'alimenter les produits.** Une boutique **construite à la main** est une surface catalogue + capture de leads soignée — vous saisissez les produits vous-même, et elle ne fait ni paiements, ni suivi des stocks, ni livraison ; associez-la à un humain dans votre inbox et vous avez une boucle de vente complète. Une boutique **reliée au catalogue** tire ses produits d'une boutique Shopify ou WooCommerce connectée et transfère les acheteurs vers votre vrai checkout. [Voir ci-dessous](#catalog-linked-storefronts).
 
 ## Comment les clients la trouvent
 
@@ -181,7 +181,7 @@ Des limites de palier s'appliquent au nombre total de docs produit que vous pouv
 
 ## Demandes de commande & panier (optionnel) [#orders-and-cart]
 
-Vous pouvez attacher un **Order CTA** à n'importe quelle product card ou product grid. C'est purement un transfert de message structuré — **pas de paiements, pas de stocks, pas de fulfillment**.
+Vous pouvez attacher un **Order CTA** à n'importe quelle product card ou product grid. Sur une boutique **construite à la main**, c'est purement un transfert de message structuré — **pas de paiements, pas de stocks, pas de fulfillment** — et il arrive dans votre inbox pour qu'un humain le reprenne. Sur une boutique **reliée au catalogue**, le même CTA peut transférer l'acheteur vers le vrai checkout de votre boutique ; voir [Boutiques reliées au catalogue](#catalog-linked-storefronts).
 
 ### Deux modes
 
@@ -203,6 +203,21 @@ Choisissez n'importe quel sous-ensemble de `name`, `phone`, `email`, `notes`, `d
 
 - Chaque client peut soumettre au maximum **10 commandes par minute** ; chaque tenant au maximum **100 par minute**.
 - Les doubles pressions dans les 60 secondes sur la **même commande exacte** sont dédupliquées ; deux commandes *différentes* dans les 60 secondes passent.
+
+## Boutiques reliées au catalogue [#catalog-linked-storefronts]
+
+Tout ce qui précède décrit une boutique que vous construisez à la main : vous saisissez les produits, les prix et la disponibilité, et les commandes arrivent sous forme de demandes. C'est toujours la bonne forme pour une plaquette, un catalogue de services ou une carte.
+
+Si vous avez une **[boutique Shopify ou WooCommerce connectée](/commerce)**, une boutique peut à la place être **reliée à ce catalogue**. Ses blocs produit sont tirés de votre vrai catalogue, les prix et le stock viennent de la boutique plutôt que d'un champ que vous tenez à la main, et ses Order CTA peuvent transférer un acheteur prêt à acheter vers le checkout de votre propre boutique avec son panier intact — voir [Checkout](/commerce/checkout).
+
+| | Construite à la main | Reliée au catalogue |
+|---|---|---|
+| **Produits** | Vous les saisissez | Tirés de votre boutique connectée |
+| **Prix et disponibilité** | Des champs texte libre que vous entretenez | Lus depuis votre boutique |
+| **Order CTA** | Transfert de demande vers votre Inbox | Transfert vers le checkout de votre boutique |
+| **Nécessite une boutique connectée** | Non | Oui |
+
+Une boutique est rattachée à une seule source et, dès qu'elle porte des blocs produit, ce rattachement est figé — une boutique construite à la main ne peut donc pas se mettre à se comporter en silence comme une boutique reliée au catalogue, ni l'inverse. Les boutiques créées avant l'existence de la liaison au catalogue ne sont rattachées à rien et continuent de fonctionner exactement comme avant.
 
 ## Help Center intégré
 
@@ -259,11 +274,13 @@ Un rôle granulaire « Integration Editor » est dans la feuille de route.
 - **Support ETag** — la coquille utilise HTTP `If-None-Match` et reçoit un `304 Not Modified` rapide si rien n'a changé, ce qui maintient la consommation de données mobile basse.
 - **Les URL d'images** sont valides pendant 15 minutes ; la coquille les re-récupère automatiquement avant leur expiration.
 
-## Ce que ça NE fait PAS
+## Ce qu'une boutique construite à la main NE fait PAS
 
-- **Pas de paiements.** Les Order CTA sont des transferts de demande, pas des checkouts Stripe / WhatsApp Pay / Telegram Stars.
-- **Pas de suivi des stocks.** Les badges de disponibilité sont des libellés texte libre que vous éditez manuellement.
-- **Pas de calculs de livraison / validation d'adresse.** L'adresse de livraison est collectée en tant que texte libre.
+Ces limites s'appliquent à une boutique dont vous avez saisi les produits vous-même. Une [boutique reliée au catalogue](#catalog-linked-storefronts) lève les trois premières en tirant ses produits — et son checkout — de votre boutique connectée.
+
+- **Pas de paiements en propre.** Les Order CTA sont des transferts de demande, pas des checkouts Stripe / WhatsApp Pay / Telegram Stars. (Une boutique reliée au catalogue transfère vers le checkout de votre boutique au lieu d'encaisser ici.)
+- **Pas de suivi des stocks.** Les badges de disponibilité sont des libellés texte libre que vous éditez manuellement. (Une boutique reliée au catalogue lit le vrai stock de votre boutique.)
+- **Pas de calculs de livraison / validation d'adresse.** L'adresse de livraison est collectée en tant que texte libre. (La livraison sur une boutique reliée au catalogue est celle de votre propre boutique, calculée à son checkout.)
 - **Pas de comptes clients.** Les clients sont identifiés par leur ID utilisateur Telegram ; il n'y a pas de flux de connexion ou d'inscription.
 - **Pas de formulaires au-delà de Order Inquiry / Cart Checkout.** Le bloc contact est un affichage statique ; le bloc rich-text ne rend pas de formulaires.
 - **Les chemins « ask the bot » du Help Center et de commande refusent les lancements depuis des groupes / canaux** avec une erreur polie.

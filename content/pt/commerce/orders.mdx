@@ -1,0 +1,98 @@
+---
+description: Deixe os compradores perguntarem "cadê meu pedido?" na conversa com consulta de pedidos verificada, e envie atualizações de envio por opção a partir da sua loja Shopify ou WooCommerce.
+---
+
+# Pedidos
+
+**"Cadê meu pedido?" é a pergunta mais comum que uma loja recebe.** Com uma loja conectada, seu agent responde — a partir do pedido real — em vez de encaminhar para uma pessoa.
+
+Tudo nesta página funciona igual para **Shopify** e para **WooCommerce**.
+
+## Consulta de pedidos (WISMO)
+
+Um comprador pergunta sobre o pedido dele na conversa. O agent pede o número do pedido e um dado de contato, confere os dois contra o pedido real e responde.
+
+### A verificação é o projeto inteiro
+
+O agent só revela os detalhes do pedido quando o comprador informa **as duas coisas**:
+
+1. O **número exato do pedido**, e
+2. Um **e-mail ou telefone que confira com o que está naquele pedido**
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  **Um contato errado e um pedido inexistente devolvem exatamente a mesma resposta.** O agent diz que não conseguiu encontrar o pedido e não mostra mais nada — nada de "esse pedido existe, mas o e-mail não confere", nenhum detalhe parcial, nenhuma pista. Isso é proposital: significa que ninguém pode percorrer números de pedido para descobrir quais são reais, nem pescar os dados de contato de um cliente.
+</Callout>
+
+A comparação é tolerante com formato, não com identidade. Maiúsculas no e-mail não importam; telefones são comparados dígito a dígito, então `+55 (11) 90101-9999` e `5511901019999` são o mesmo número.
+
+### O que o comprador recebe
+
+Uma consulta verificada devolve o status do pedido e o andamento do envio — o que saiu, quando e onde está — mais um link para o pedido na sua própria loja.
+
+Um comprador que já foi verificado na conversa também pode pedir os **pedidos recentes** dele sem verificar cada um de novo. Esse atalho só fica disponível para alguém já verificado naquela conversa; ele nunca é uma porta de entrada.
+
+### Requisitos
+
+A consulta de pedidos precisa de uma loja conectada cuja permissão de pedidos esteja saudável. Se as credenciais da sua loja foram revogadas ou a conexão ficou insalubre, o agent para de oferecer a consulta de pedidos em vez de falhar no meio de uma conversa. Confira o status da conexão em **Commerce → Shopify** ou **Commerce → WooCommerce**.
+
+## Atualizações de status do pedido [#order-status-updates]
+
+Depois que um comprador verificou um pedido na conversa, o agent pode se oferecer para mantê-lo informado. Se ele aceitar, recebe atualizações de envio na mesma conversa, no mesmo canal que já estava usando.
+
+Duas portas precisam estar abertas, e as duas são propositais:
+
+| Porta | Quem controla |
+|---|---|
+| **As notificações estão habilitadas na conexão** | Você — na página da loja, dentro de **Commerce** |
+| **O comprador optou por receber** | O comprador, na conversa, depois de verificar o pedido dele |
+
+Você não pode inscrever um comprador no lugar dele, e um comprador não pode se inscrever em um pedido que ele não provou ser dele.
+
+<Callout type="info">
+  Habilitar as notificações é uma ação de administração; Members podem ver se elas estão ligadas, mas não podem mudar o ajuste.
+</Callout>
+
+### O que dispara uma atualização
+
+As atualizações disparam a partir do andamento do envio do pedido — quando ele sai e quando o status do envio muda. Nada com cara de marketing é enviado por este canal; ele existe para responder "cadê meu pedido?" antes que o comprador precise perguntar de novo.
+
+As atualizações do WooCommerce e da Shopify são entregues pelo mesmo mecanismo, então a experiência é idêntica venha o pedido da loja que vier.
+
+## Duas lojas, uma experiência
+
+Se você tem uma loja Shopify e uma WooCommerce conectadas, a consulta de pedidos resolve nas duas. O comprador não precisa saber em qual das suas lojas comprou — ele dá um número de pedido e um contato, e o agent encontra onde quer que esteja.
+
+## Nos bastidores: os nomes das ferramentas
+
+Se você olhar o trace de uma conversa, vai ver as ferramentas de pedido com os nomes `shopify_order_status`, `shopify_list_orders` e `subscribe_order_updates`.
+
+<Callout type="info">
+  **Esses nomes são históricos, não literais.** As mesmas ferramentas atendem lojas WooCommerce. Um lojista que só usa WooCommerce ainda vai ver uma ferramenta chamada `shopify_order_status` fazendo a consulta no WooCommerce. Nada é roteado errado — as ferramentas resolvem as lojas que você realmente tem conectadas.
+</Callout>
+
+## Solução de problemas
+
+### O agent diz que não encontra um pedido que com certeza existe
+
+Quase sempre é o dado de contato. O e-mail ou telefone que o comprador está dando precisa conferir com o que está **naquele pedido** — não com o endereço que ele costuma usar, nem com o da conta dele. Peça para ele checar o e-mail de confirmação do pedido.
+
+### O agent não oferece consulta de pedidos de jeito nenhum
+
+Ou a conversa não é com o seu **agent de loja** (só esse agent carrega as ferramentas de comércio), ou a conexão com a loja está insalubre. Confira o status da conexão em **Commerce**.
+
+### Um comprador optou por receber mas não recebe atualizações
+
+Confirme que as notificações estão habilitadas na conexão da loja — essa porta é separada da opção do comprador, e a opção sozinha não basta.
+
+### Faltam detalhes de envio em uma resposta que no resto está correta
+
+O pedido foi encontrado e verificado, mas parte do detalhe de envio não pôde ser lida. O agent responde com o que tem em vez de derrubar a consulta inteira.
+
+## Relacionado
+
+- [Visão geral do Commerce](/commerce) — o que conectar uma loja te dá
+- [Catálogo e Conhecimento](/commerce/catalog-and-knowledge) — perguntas de produto em vez de perguntas de pedido
+- [Checkout](/commerce/checkout) — levar um comprador a comprar
+- [Analíticas](/commerce/analytics) — medir o que seu agent de comércio está fazendo

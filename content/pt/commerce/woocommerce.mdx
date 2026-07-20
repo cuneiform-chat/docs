@@ -1,0 +1,211 @@
+---
+description: Conecte sua loja WooCommerce auto-hospedada para que seu agent de IA possa responder perguntas sobre produtos, consultar pedidos, recomendar itens em estoque e enviar atualizações de status do pedido a partir do seu catálogo ao vivo.
+---
+
+# WooCommerce
+
+Conecte sua loja **WooCommerce** auto-hospedada para que seu agent de IA possa responder perguntas sobre produtos, consultar o pedido de um comprador, recomendar itens em estoque e enviar atualizações de status do pedido — tudo a partir dos seus dados reais e ao vivo de catálogo e pedidos.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  O WooCommerce está incluído para todo mundo, avaliação gratuita incluída. Não há nada para comprar ou fazer upgrade antes de conectar uma loja.
+</Callout>
+
+## O que você ganha
+
+- **Catálogo (perguntas e respostas)** — respostas a partir dos seus produtos, variações, preços e disponibilidade atual reais
+- **Consulta de pedidos (WISMO)** — compradores checam "cadê meu pedido?" com o número do pedido mais o e-mail ou telefone do pedido
+- **Recomendações** — sugestões limitadas a produtos que realmente estão em estoque
+- **Atualizações de status do pedido** — atualizações de envio na mesma conversa, para compradores que optam por receber
+- **Estoque ao vivo** — preços e estoque lidos na hora da resposta
+- **Handoff para o checkout** — leve um comprador pronto para comprar ao seu próprio checkout do WooCommerce
+
+## Pré-requisitos
+
+- Uma **loja WooCommerce auto-hospedada** que você administra
+- A **URL da sua loja** (por exemplo, `https://sua-loja.com`)
+- Uma conta de **Owner ou Admin** no seu workspace do Cuneiform Chat — conectar uma loja é uma ação de administração
+- Pelo menos um agent, ou espaço para criar um (veja [Seu agent de loja](/commerce#your-store-agent))
+
+Você **não** precisa instalar nenhum plugin nem escrever código.
+
+### A URL da sua loja, do jeito que você digitar
+
+Digite a URL como preferir — nós normalizamos. O esquema, um `www.` no início, uma barra no final e as maiúsculas do host são todos ignorados. Uma **instalação em subdiretório** (`exemplo.com/loja`) e uma **porta não padrão** são preservadas e ambas são suportadas.
+
+## Conectando
+
+Há dois caminhos, no mesmo card. **Use o fluxo guiado, a menos que algo o impeça.**
+
+### Caminho A — a autorização guiada (recomendado)
+
+1. Vá em **Commerce → WooCommerce**.
+2. Informe a URL da sua loja e clique em **Connect**.
+3. Seu navegador vai até a tela de aprovação do WooCommerce da sua própria loja. Aprove.
+4. O WooCommerce devolve as chaves e você chega em **Commerce**.
+
+É isso. O fluxo guiado faz três coisas que o caminho manual não faz: ele solicita a permissão certa por você, registra os webhooks que mantêm seus dados atualizados em tempo real e dispara a importação inicial do catálogo.
+
+<Callout type="info">
+  **A tela de aprovação vai dizer `read/write`, e isso é intencional.** O WooCommerce não deixa nada registrar webhooks com uma chave somente leitura — ele recusa o pedido na hora. Sem webhooks não há atualizações de catálogo, estoque ou pedidos em tempo real. A integração continua nunca escrevendo no seu catálogo, no seu estoque ou nos seus pedidos existentes; a permissão de escrita existe para que possamos registrar webhooks e, se você usar o checkout dentro do chat, criar o pedido pendente que o comprador está prestes a pagar.
+</Callout>
+
+### Caminho B — colar chaves de API manualmente
+
+Se sua loja está atrás de um firewall que bloqueia o redirecionamento, expanda **Enter API keys manually** e cole uma consumer key e um secret gerados em **WooCommerce → Settings → Advanced → REST API**.
+
+**Gere-as com permissão `Read/Write` e selecione `Read/Write` no nosso formulário também.** Uma chave somente leitura deixa você permanentemente sem webhooks — veja abaixo.
+
+Fazemos uma verificação de saúde da loja antes de salvar. Uma falha grave bloqueia a conexão; um aviso leve (uma loja lenta ou parcialmente acessível) conecta mesmo assim, para que você possa corrigir depois.
+
+## Depois de uma conexão manual [#after-a-manual-connect]
+
+<Callout type="warning">
+  **O caminho de chaves manuais pula duas coisas que o fluxo guiado faz ao conectar: ele não registra webhooks e não inicia a importação inicial do catálogo.** As duas se recuperam em prazos diferentes — e uma delas só se recupera se sua chave carregar a permissão certa. Leia as duas metades abaixo.
+</Callout>
+
+### Seu catálogo — aperte "Resync now"
+
+Nada é importado ao conectar. Um job em segundo plano reconcilia catálogos diariamente, mas a passada de recuperação dele só roda para lojas que já sincronizaram pelo menos uma vez — uma loja que nunca sincronizou não tem *de onde* recuperar. Na prática isso significa que o catálogo de uma loja conectada manualmente só fica totalmente populado na **varredura semanal**, que pode estar a até sete dias de distância.
+
+**Não espere por isso.** Abra **Commerce → WooCommerce → Catalog** e clique em **Resync now**. Isso roda a mesma importação que o fluxo guiado teria rodado ao conectar, e termina em minutos.
+
+### Seus webhooks — só se sua chave for Read/Write
+
+Os webhooks também não são registrados ao conectar, mas esse ponto é reparado automaticamente **sob uma condição**. Um job de hora em hora tenta registrar os webhooks de novo em todas as lojas conectadas, então:
+
+- **Uma loja `Read/Write` se recupera sozinha**, normalmente dentro de uma hora. Você não precisa fazer nada.
+- **Uma loja somente leitura nunca se recupera.** O WooCommerce recusa toda tentativa de registro vinda de uma chave somente leitura. O job tenta de hora em hora, é recusado de hora em hora e não registra nada que você vá ver. Ele vai continuar falhando indefinidamente.
+
+O sintoma de uma loja somente leitura não é uma mensagem de erro — é que mudanças de catálogo, estoque e pedidos só aparecem na próxima sincronização agendada, em vez de chegarem no momento em que acontecem.
+
+### A permissão é a que você nos disse que era
+
+<Callout type="warning">
+  **Nós registramos a permissão que você seleciona; não testamos a chave para descobrir.** Se você colar uma chave `Read/Write` mas deixar o campo de permissão em branco, registramos como **somente leitura** — e tanto os webhooks quanto o [checkout](/commerce/checkout) de várias linhas se degradam silenciosamente. Se você selecionar `Read/Write` mas colar uma chave somente leitura, sua loja recusa os webhooks toda vez.
+
+  Se as atualizações em tempo real ou o checkout de várias linhas estiverem faltando, esse único campo é a primeira coisa a conferir. A correção é fazer **Reconnect** pelo fluxo guiado, que sempre solicita a permissão certa.
+</Callout>
+
+## O que a integração faz e o que não faz
+
+A integração é **somente leitura no que diz respeito aos dados da sua loja**. Ela nunca edita nem exclui um produto, nunca ajusta estoque, nunca modifica nem cancela um pedido existente e nunca captura um pagamento. O pagamento sempre acontece no seu próprio checkout do WooCommerce.
+
+A única coisa que uma conexão `Read/Write` escreve é um **pedido pendente**, e só quando um comprador faz checkout de dentro de uma conversa: em vez de repassar um produto por vez, o carrinho inteiro vira um pedido pendente na sua loja e o comprador é enviado para pagá-lo. Nada é cobrado, nada é preparado, e o pedido fica atribuído à conversa de onde veio, para que você possa ver onde a venda começou. Veja [Checkout](/commerce/checkout).
+
+Uma conexão somente leitura não consegue criar esse pedido pendente, então ela repassa uma linha por vez. Essa é a diferença prática entre as duas permissões, e a razão pela qual o fluxo guiado sempre pede `Read/Write`.
+
+## Recursos
+
+### Uma loja, um agent de loja
+
+Você conecta **uma loja WooCommerce por workspace** — e pode ter uma loja Shopify conectada ao mesmo tempo (veja [Commerce](/commerce#you-can-connect-both-at-once)).
+
+Na hora de conectar, **um agent vira seu agent de loja**: um agent existente que você escolhe ou um novo criado para você. Esse agent carrega as ferramentas do WooCommerce; seus outros agents não são afetados. Não há chave por agent para caçar — a própria página do agent mostra um painel somente leitura dizendo que ele é gerenciado pela sua loja.
+
+<Callout type="info">
+  Versões anteriores desta página diziam para habilitar o comércio para mais agents em **Commerce → Settings**. Aquela página não existe mais, e a chave por agent foi junto. O comércio fica ligado ao agent de loja escolhido na hora de conectar.
+</Callout>
+
+### Consulta de pedidos verificada
+
+Compradores veem detalhes do pedido só depois de informar o número exato do pedido **e** o e-mail ou telefone do pedido. Um contato errado e um pedido inexistente devolvem a mesma resposta de "não encontrei", sem nenhum detalhe — um endurecimento antienumeração que protege seus clientes. Veja [Pedidos](/commerce/orders).
+
+### Catálogo e estoque ao vivo
+
+Preços e estoque são lidos na hora da resposta, então as recomendações ficam limitadas ao que está realmente disponível. O WooCommerce envia mudanças de estoque junto com as atualizações de produto, em vez de como eventos de estoque separados, então uma mudança só de estoque chega com a próxima atualização do produto ou com a próxima sincronização. Veja [Catálogo e Conhecimento](/commerce/catalog-and-knowledge).
+
+### Atualizações de status do pedido por opção
+
+Depois que um comprador verifica o pedido dele na conversa, ele pode optar por receber atualizações de envio em um canal suportado. As atualizações exigem duas coisas: que você as tenha habilitado na conexão do WooCommerce e que o comprador tenha optado por recebê-las. Veja [Pedidos](/commerce/orders#order-status-updates).
+
+### Reconnect
+
+Diferente da Shopify, o WooCommerce tem um botão **Reconnect**. Use quando você rotacionar ou revogar as chaves de API da sua loja, ou quando tiver conectado manualmente com a permissão errada e quiser mudar para o fluxo guiado. Ele roda a aprovação de novo na sua loja e substitui as chaves salvas no lugar.
+
+## Segurança
+
+- **Nenhuma escrita no seu catálogo, estoque ou pedidos existentes** — a integração lê produtos, estoque e pedidos, e nunca os modifica
+- **As chaves são criptografadas em repouso** — sua consumer key e seu secret nunca são guardados em texto puro
+- **Isolamento por tenant** — seu catálogo e seus pedidos ficam restritos ao seu workspace e nunca são visíveis para ninguém mais
+- **Consulta de pedidos verificada** — detalhes do pedido exigem o número exato mais um e-mail ou telefone que confira
+- **Notificações por opção** — atualizações de envio exigem uma opção explícita do comprador na conversa
+- **Checkout seguro** — o pagamento é concluído no seu próprio checkout do WooCommerce; nenhum dado de cartão passa pelo agent
+
+## Solução de problemas
+
+### A conexão trava ou falha
+
+O fluxo guiado precisa que seu navegador alcance a tela de aprovação da sua loja e que sua loja nos alcance com as chaves. Se travar, normalmente é um problema de rede ou firewall, não das suas credenciais. Loja atrás de firewall? Use o caminho de chaves manuais — e depois leia [Depois de uma conexão manual](#after-a-manual-connect), porque ele deixa duas coisas por fazer.
+
+### O catálogo está vazio logo depois de conectar
+
+Se você conectou manualmente, isso é esperado — nada foi importado. Clique em **Resync now** na aba Catalog.
+
+Se você usou o fluxo guiado, a primeira importação traz o catálogo inteiro e pode levar alguns minutos em uma loja grande.
+
+### Mudanças de produto ou estoque demoram horas para aparecer
+
+Seus webhooks não estão registrados. Quase sempre isso significa que a loja foi conectada manualmente com uma chave somente leitura. Confira a permissão registrada na conexão e depois faça **Reconnect** pelo fluxo guiado.
+
+### "Esta loja já está conectada a outra conta"
+
+A mesma loja está conectada a outro workspace. Desconecte lá primeiro e depois conecte aqui. Nós recusamos a tomada em vez de mover a loja silenciosamente.
+
+### O agent não responde perguntas sobre produtos
+
+Confira se você está falando com o **agent de loja** — o que foi escolhido na hora de conectar. A página dele mostra um painel somente leitura dizendo "gerenciado pela sua loja". Os outros agents não carregam as ferramentas de comércio.
+
+### A consulta de pedidos não encontra um pedido
+
+A consulta é deliberadamente rígida: ela devolve detalhes só quando o comprador informa o número exato do pedido **e** um e-mail ou telefone que confere com o pedido.
+
+### Nenhuma atualização de status do pedido é enviada
+
+As duas portas precisam estar abertas: habilite as notificações na conexão do WooCommerce e faça o comprador optar por recebê-las na conversa, em um canal suportado.
+
+## Desconectando
+
+Desconecte em **Commerce → WooCommerce → Disconnect**. Ao desconectar:
+
+- A conexão salva e as credenciais são removidas, junto com o catálogo sincronizado
+- O conhecimento de produto construído a partir desse catálogo é apagado
+- A permissão de comércio do agent de loja é redefinida e a persona de comércio dele volta ao original se você nunca a editou
+- Os Agent Flows de comércio e as sugestões de quiz de produto que vieram com a loja são arquivados
+
+Se você ainda tiver uma loja **Shopify** conectada, os passos que afetam o workspace inteiro são pulados — desconectar uma loja nunca desmonta a configuração de comércio da outra.
+
+## Perguntas frequentes
+
+### Preciso de algo específico para conectar o WooCommerce?
+
+Não. O WooCommerce está incluído para todo mundo, avaliação gratuita incluída — catálogo, consulta de pedidos, recomendações e atualizações de status do pedido, tudo junto.
+
+### Preciso instalar um plugin?
+
+Nenhum plugin. O fluxo guiado é uma aprovação única na sua própria loja. Você só cola chaves de API se o seu firewall bloquear o redirecionamento.
+
+### Por que a tela de aprovação pede acesso de escrita?
+
+Porque o WooCommerce se recusa a registrar webhooks para uma chave somente leitura, e sem webhooks nada é atualizado em tempo real. A integração continua nunca mudando seu catálogo, seu estoque ou seus pedidos existentes. A única coisa que ela cria é um pedido pendente para um comprador fazendo checkout de dentro de uma conversa — veja [Checkout](/commerce/checkout).
+
+### Posso conectar com uma chave somente leitura mesmo assim?
+
+Pode, e catálogo, consulta de pedidos, recomendações e notificações funcionam todos. O que você abre mão são as atualizações em tempo real (os webhooks nunca vão conseguir se registrar) e o checkout de várias linhas dentro da conversa. Se depois você quiser isso, faça **Reconnect** pelo fluxo guiado.
+
+### Todos os meus agents podem usar o WooCommerce, ou apenas um?
+
+Um — o agent de loja escolhido na hora de conectar. Esse agent recebe as ferramentas do WooCommerce; os outros não são afetados.
+
+### O agent alguma vez altera minha loja?
+
+Ele nunca edita produtos, nunca ajusta estoque, nunca modifica nem cancela pedidos existentes e nunca cobra. Em uma conexão `Read/Write` ele pode criar uma única coisa: um pedido pendente para um comprador que está fazendo checkout de dentro de uma conversa, que ele então paga no seu próprio checkout.
+
+## Relacionado
+
+- [Visão geral do Commerce](/commerce) — o que conectar uma loja te dá
+- [Shopify](/commerce/shopify) — a outra plataforma suportada
+- [Catálogo e Conhecimento](/commerce/catalog-and-knowledge) — como o catálogo sincroniza e se mantém atualizado
+- [Pedidos](/commerce/orders) — consulta de pedidos e atualizações de status
+- [Checkout](/commerce/checkout) — incluindo a diferença que depende da permissão

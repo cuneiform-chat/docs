@@ -1,6 +1,6 @@
 # Boutique Messenger (Mini App intégrée à l'application)
 
-**Transformez votre Page Facebook en véritable boutique intégrée.** Construisez un catalogue produits multipage soigné — avec photos, vidéos, pages thématiques, un assistant IA par produit et une prise de commande légère — qui s'ouvre *à l'intérieur* de Messenger dès que votre client appuie sur le bouton **« Open Storefront »** du Persistent Menu de votre Page. Pas d'app store, pas de site séparé, pas de checkout à gérer. Une simple pression, et votre client parcourt déjà votre boutique.
+**Transformez votre Page Facebook en véritable boutique intégrée.** Construisez un catalogue produits multipage soigné — avec photos, vidéos, pages thématiques, un assistant IA par produit et une prise de commande légère — qui s'ouvre *à l'intérieur* de Messenger dès que votre client appuie sur le bouton **« Open Storefront »** du Persistent Menu de votre Page. Pas d'app store, pas de site séparé et pas de page de checkout à construire — reliez-la à une boutique connectée et les acheteurs paient sur votre vrai checkout ; construisez-la à la main et les commandes arrivent dans votre inbox sous forme de demandes. Une simple pression, et votre client parcourt déjà votre boutique.
 
 Gratuit sur tous les plans, y compris l'essai. Construit dans le même compositeur visuel par glisser-déposer que la Boutique Telegram — les mêmes 11 types de blocs, les mêmes 6 thèmes, le même chat IA par produit, les mêmes CTA de commande légers — disponible dans **Intégrations → Page Facebook → Configurer la mini app**.
 
@@ -22,7 +22,7 @@ Les mêmes formes que la Boutique Telegram — chaque type de bloc et chaque th�
 
 ## Pourquoi ça compte
 
-- **Vos clients ne quittent jamais Messenger.** Pas d'installation d'app, pas de domaine à retenir, pas de tunnel de checkout à abandonner. La boutique s'ouvre dans la WebView de Messenger et hérite du thème et de la langue de l'utilisateur.
+- **Vos clients ne quittent jamais Messenger.** Pas d'installation d'app, pas de domaine à retenir et pas de page de checkout séparée à construire. La boutique s'ouvre dans la WebView de Messenger et hérite du thème et de la langue de l'utilisateur.
 - **Une seule pression depuis le chat de votre Page.** Une seule entrée **« Open Storefront »** est automatiquement injectée dans le Persistent Menu dès que vous connectez votre Page — aucune configuration Meta Business Suite, aucune app review, aucun câblage de webhook.
 - **Chat produit nativement IA.** Le chat par produit est limité aux documents *que vous* attachez à ce produit — l'assistant répond « quelle est la politique de retour de cette robe ? » sans laisser fuiter d'informations provenant d'autres produits.
 - **Transfert de commande à un humain réel.** Les formulaires de commande légers (mode inquiry ou cart) arrivent dans votre Inbox sous forme de transfert structuré, en gardant la DM Messenger du client ouverte pour le suivi.
@@ -37,7 +37,7 @@ Les mêmes formes que la Boutique Telegram — chaque type de bloc et chaque th�
 - **Persistent Menu injecté automatiquement** — bouton unique « Open Storefront », libellé éditable, action verrouillée.
 - **Repli sur le chat externe** — les blocs sont projetés en Generic Templates dans le chat, en Quick Replies et en carrousels d'images pour les clients Messenger plus anciens.
 - **Help Center intégré** — une surface FAQ épinglée, toujours à une pression. Le même panneau que sur Telegram.
-- **Pas de paiements, pas de stocks, pas de livraison** — c'est une surface catalogue + capture de leads soignée, pas une stack e-commerce complète.
+- **Deux façons d'alimenter les produits.** Une boutique **construite à la main** est une surface catalogue + capture de leads soignée — vous saisissez les produits vous-même, et elle ne fait ni paiements, ni suivi des stocks, ni livraison. Une boutique **reliée au catalogue** tire ses produits d'une [boutique Shopify ou WooCommerce connectée](/commerce) et transfère les acheteurs vers votre vrai checkout.
 
 ## Comment les clients la trouvent
 
@@ -135,13 +135,13 @@ Vous n'avez pas besoin d'y penser — la plateforme s'en occupe. Mais si vous ê
 
 C'est tout. Aucun client ne voit de prompt de connexion.
 
-## Ce que ça NE fait PAS
+## Ce qu'une boutique construite à la main NE fait PAS
 
-La même portée que la Boutique Telegram :
+La même portée que la Boutique Telegram. Ces limites s'appliquent à une boutique dont vous avez saisi les produits vous-même — une [boutique reliée au catalogue](/integrations/telegram-mini-app#catalog-linked-storefronts) lève les trois premières en tirant ses produits, son stock et son checkout de votre boutique connectée.
 
-- **Pas de paiements.** Les Order CTA sont des transferts de demande, pas des Checkout API ni Stripe.
-- **Pas de suivi des stocks.** Les badges de disponibilité sur les product cards sont des libellés texte libre que vous éditez manuellement (« Sold out », « Pre-order », « Last 3 »).
-- **Pas de calculs de livraison / validation d'adresse.** L'adresse de livraison est collectée en tant que texte libre.
+- **Pas de paiements en propre.** Les Order CTA sont des transferts de demande, pas des Checkout API ni Stripe. (Une boutique reliée au catalogue transfère vers le checkout de votre boutique — voir [Checkout](/commerce/checkout).)
+- **Pas de suivi des stocks.** Les badges de disponibilité sur les product cards sont des libellés texte libre que vous éditez manuellement (« Sold out », « Pre-order », « Last 3 »). (Une boutique reliée au catalogue lit le vrai stock de votre boutique.)
+- **Pas de calculs de livraison / validation d'adresse.** L'adresse de livraison est collectée en tant que texte libre. (La livraison sur une boutique reliée au catalogue est celle de votre propre boutique, calculée à son checkout.)
 - **Pas de comptes clients.** Les clients sont identifiés par leur PSID Messenger ; il n'y a pas de flux de connexion ou d'inscription.
 - **Pas de commentaires de Page ni de publications de Page.** Cette intégration ne gère que les fils Messenger et les lancements de boutique.
 - **Pas de boutique pour les DM Instagram** (encore). La même intégration Meta ne couvre que Messenger ; les DM Instagram restent en conversation texte uniquement.

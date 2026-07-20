@@ -1,0 +1,102 @@
+---
+description: Des product cards, un panier et le checkout à l'intérieur même de la conversation — comment fonctionne le chat marchand, quels canaux le prennent en charge et en quoi son panier diffère de celui de la Boutique.
+---
+
+# Chat Marchand
+
+**La conversation devient la boutique.** Au lieu de décrire un produit en un paragraphe et d'espérer que l'acheteur aille le chercher, l'agent montre le produit réel — image, prix, disponibilité — sous forme d'une card que l'acheteur peut ajouter à un panier et depuis laquelle il peut payer, sans jamais quitter la conversation.
+
+## Ce que voit l'acheteur
+
+1. Il demande quelque chose : *« vous avez quelque chose en lin ? »*
+2. L'agent répond avec des **product cards** — de vrais produits de votre boutique connectée, avec image, nom, prix et disponibilité.
+3. Il en ajoute un à son **panier** en appuyant sur la card, ou simplement en le disant.
+4. Il peut revoir son panier, changer d'avis ou le vider — dans la conversation.
+5. Quand il est prêt, il passe au checkout : une pression pour sortir vers **votre propre checkout**, panier intact. Voir [Checkout](/commerce/checkout).
+
+Rien dans ce parcours ne demande à l'acheteur d'ouvrir un site web, de retenir un nom de produit ou de tout recommencer.
+
+## Canaux pris en charge
+
+Le chat marchand a besoin d'un canal capable d'afficher une card riche. Quatre le peuvent :
+
+| Canal | Product cards et panier |
+|---|---|
+| **Widget de chat du site web** | ✅ |
+| **Telegram** | ✅ |
+| **WhatsApp** | ✅ |
+| **Messenger** | ✅ |
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  **Discord, Slack et Google Chat n'ont pas de surface de cards**, le chat marchand ne s'y applique donc pas. Les agents sur ces canaux continuent de répondre aux questions de catalogue, de retrouver des commandes et de recommander des produits — ils le font simplement en texte.
+</Callout>
+
+## Les trois paniers, et comment les distinguer [#three-carts]
+
+Cuneiform Chat comporte trois choses qu'un acheteur pourrait raisonnablement appeler « un panier ». Elles se comportent différemment, et les confondre est la façon la plus rapide de mal lire ce que font vos acheteurs.
+
+| | Où il vit | Ce qui y met fin | Où vous le voyez |
+|---|---|---|---|
+| **1. Panier de demande de la Boutique** | Dans le propre navigateur de l'acheteur, à l'intérieur de la mini app [Boutique](/integrations/telegram-mini-app) | Un **transfert de demande** — une demande de commande structurée arrive dans votre Inbox pour qu'un humain la reprenne | Votre Inbox, sous forme de demande de commande |
+| **2. Transfert de checkout depuis la Boutique** | Rien n'est stocké — c'est un lien de transfert à usage unique qui sort de la Boutique | L'acheteur arrivant sur **votre propre checkout** | Les commandes de votre propre boutique |
+| **3. Panier de conversation dans le chat** | Sur nos serveurs, rattaché à la conversation | Soit un **transfert de checkout** vers votre boutique, soit l'abandon par l'acheteur | [Commerce Analytics](/commerce/analytics), et les commandes de votre boutique |
+
+Celui dont parle cette page est le **n°3**. C'est le seul panier qui persiste de notre côté, le seul lié à une conversation plutôt qu'à un navigateur, et le seul qu'un acheteur peut reprendre en poursuivant simplement la discussion.
+
+<Callout type="warning">
+  Un acheteur qui a rempli un panier de la Boutique (n°1) et un acheteur qui a rempli un panier de conversation (n°3) ne sont pas dans le même entonnoir. Le premier se termine par un message dans votre Inbox pour un humain ; le second se termine sur votre checkout. Si vous comparez des chiffres, assurez-vous de savoir lequel vous comptez.
+</Callout>
+
+## Ce que l'agent peut faire du panier
+
+L'agent dispose d'un petit ensemble explicite d'actions sur le panier, et il les utilise en réponse à ce que dit l'acheteur :
+
+| L'acheteur dit | Ce qui se passe |
+|---|---|
+| « montrez-moi quelque chose en lin » | Des product cards s'affichent |
+| « ajoutez le deuxième » | Ce produit est ajouté au panier |
+| « qu'est-ce qu'il y a dans mon panier ? » | Le panier est relu |
+| « en fait, enlevez la chemise » | Cette ligne est retirée |
+| « on recommence » | Le panier est vidé |
+| « je suis prêt à acheter » | Le transfert vers le checkout se déclenche |
+
+L'acheteur peut aussi appuyer sur les boutons des cards elles-mêmes — parler à l'agent est une option, pas une obligation.
+
+## Ce qu'il lui faut
+
+- Une **boutique connectée** avec un catalogue synchronisé — les cards sont de vrais produits, il faut donc un catalogue d'où les tirer
+- Un **canal capable d'afficher des cards** parmi ceux du tableau ci-dessus
+- Votre **agent de boutique** — l'agent relié à la boutique au moment de la connexion
+
+Shopify et WooCommerce sont tous deux pris en charge. Sur WooCommerce, ce qui se passe à l'étape du checkout dépend de la permission de votre connexion — voir [Checkout](/commerce/checkout#woocommerce-permission).
+
+## Attribution
+
+Une commande qui démarre dans une conversation est **rattachée à cette conversation**. C'est ce qui rend le chat marchand mesurable plutôt qu'anecdotique : vous voyez quelles conversations ont produit des paniers, quels paniers ont produit des checkouts et quels checkouts ont produit des commandes. Voir [Analytique](/commerce/analytics).
+
+## Dépannage
+
+### L'agent décrit les produits au lieu d'afficher des cards
+
+Soit le canal n'a pas de surface de cards (Discord, Slack, Google Chat), soit vous ne parlez pas à l'agent de boutique. Vérifiez dans **Commerce** quel agent est relié à votre boutique.
+
+### Les cards s'affichent mais le panier est vide après un ajout
+
+Le panier est par conversation. Si l'acheteur a démarré une nouvelle conversation — une nouvelle session, ou un canal différent — il a démarré un nouveau panier avec.
+
+### Le panier d'un acheteur est réapparu plus tard
+
+C'est voulu. Le panier de conversation persiste avec la conversation, si bien qu'un acheteur parti en cours de route peut reprendre là où il s'était arrêté au lieu de tout refaire.
+
+### Le checkout n'a transféré qu'un seul produit
+
+C'est la voie WooCommerce en lecture seule, pas une limite du chat marchand. Voir [Checkout](/commerce/checkout).
+
+## Lié
+
+- [Checkout](/commerce/checkout) — là où le panier est transféré
+- [Catalogue et Connaissances](/commerce/catalog-and-knowledge) — le catalogue d'où sont tirées les cards
+- [Boutique Telegram](/integrations/telegram-mini-app) — la Boutique, et son panier de demande distinct
+- [Analytique](/commerce/analytics) — cards affichées, paniers constitués, checkouts démarrés
