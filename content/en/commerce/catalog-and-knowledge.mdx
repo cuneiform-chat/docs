@@ -1,0 +1,111 @@
+---
+description: How your Shopify or WooCommerce catalog syncs into Cuneiform Chat, how product knowledge powers catalog Q&A, and how live inventory keeps recommendations honest.
+---
+
+# Catalog & Knowledge
+
+**Your catalog is the agent's product knowledge.** You don't paste product descriptions into a knowledge base and remember to update them — the agent reads your store.
+
+## How the catalog gets in
+
+### The first import
+
+Connecting a store starts a full import of your products: names, descriptions, variants and their options, prices, images, and stock.
+
+| Platform | When the first import runs |
+|---|---|
+| **Shopify** | Automatically, the moment you link your workspace |
+| **WooCommerce** (guided flow) | Automatically, as part of the approval callback |
+| **WooCommerce** (manual API keys) | **Not automatically** — press **Resync now**. See [After a manual connect](/commerce/woocommerce#after-a-manual-connect) |
+
+A large catalog takes a few minutes. You can watch progress on the connection's Catalog tab.
+
+### Keeping up afterwards
+
+Once the store is connected, changes flow in three ways:
+
+- **Webhooks** — your store notifies us the moment a product is created, updated, or deleted. This is the fast path and it's how the catalog normally stays current.
+- **Scheduled reconciles** — a background job periodically compares what we hold against what your store reports, repairing anything a webhook missed and clearing products you've deleted upstream.
+- **Re-sync on demand** — the **Re-sync now** button on the connection's Catalog tab re-imports everything. Use it after a bulk edit, a CSV import, or a migration, when you don't want to wait.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  **Re-sync is an admin action.** Owners and Admins can trigger it; Members can view the catalog's status but not re-import it.
+</Callout>
+
+<Callout type="warning">
+  **WooCommerce webhooks only register on a `Read/Write` connection.** If your store was connected manually with a read-only key, webhooks never register — the catalog then only ever changes on a scheduled reconcile or a manual re-sync. See [After a manual connect](/commerce/woocommerce#after-a-manual-connect).
+</Callout>
+
+## Product knowledge and catalog Q&A
+
+The imported catalog is turned into **product knowledge** the store agent searches when a shopper asks about products. That's what lets it answer questions no product title contains — "which of these is machine washable?", "what's the difference between the Pro and the Standard?" — rather than only matching keywords.
+
+You'll find product knowledge on the connection's page, with its own status and a **Rebuild** action.
+
+- **Viewing** status is available to anyone who can see integrations, including Members.
+- **Rebuilding** is an admin action. Rebuild after a large catalog change if answers feel stale, or after a re-sync that pulled in a lot of new products.
+
+### With two stores connected
+
+If you have both a Shopify and a WooCommerce store connected, the commerce tools resolve **every** connected store at the moment they're called and merge the results:
+
+| The agent does | Across two stores |
+|---|---|
+| **Catalog search** | Results from both stores, concatenated and capped |
+| **Product count** | The totals added together |
+| **Catalog overview** | Category and price distributions folded into one picture |
+| **Product lookup** | Resolves to whichever store actually owns the product |
+
+Your shoppers never see the seam — they get one answer covering everything you sell.
+
+## Live inventory
+
+Stock and price are read **fresh, at the moment the agent answers** — not from a cached snapshot. That's what stops the agent recommending something you sold out of an hour ago.
+
+How quickly a stock change becomes visible depends on the platform:
+
+| Platform | How stock changes arrive |
+|---|---|
+| **Shopify** | Dedicated inventory updates. A stock change with no other product edit still arrives on its own. |
+| **WooCommerce** | Along with product updates. A stock-only change is picked up when the product next updates, or on the next scheduled reconcile. |
+
+<Callout type="info">
+  This is a difference in how the two platforms notify us, not a difference in how the agent reads stock. In both cases the number the agent quotes is read at answer time.
+</Callout>
+
+## Recommendations
+
+The agent can suggest products rather than just look them up: "what would go with this?", "something similar but cheaper", "what do you have for a beginner?"
+
+Recommendations are drawn from the same synced catalog, and are **restricted to products that are actually in stock** — the agent will not build a shopper's enthusiasm around something they can't buy. They work across both connected stores and, like everything else, are read fresh.
+
+## Troubleshooting
+
+### The catalog looks empty
+
+If you connected WooCommerce with manual API keys, nothing was imported at connect — press **Resync now** (see [After a manual connect](/commerce/woocommerce#after-a-manual-connect)). Otherwise the first import may still be running; give a large catalog a few minutes.
+
+### A product I just added isn't there
+
+Normally a webhook delivers new products in seconds. If it doesn't, a scheduled reconcile picks it up; **Re-sync now** does it immediately. If new products *consistently* only appear after a reconcile, your webhooks aren't registered — for WooCommerce, that's usually a read-only key.
+
+### A product I deleted is still being offered
+
+Deletions arrive by webhook like any other change, and the scheduled reconcile clears anything missed. If a deleted product is still coming up, run **Re-sync now** and then **Rebuild** product knowledge.
+
+### Answers are vague, or miss details in the description
+
+Run **Rebuild** on product knowledge. A large import followed by heavy editing can leave the knowledge behind the catalog.
+
+### Prices or stock look out of date
+
+They shouldn't be — both are read at answer time. If they're wrong, the underlying product record is stale rather than the price lookup: re-sync the catalog.
+
+## Related
+
+- [Shopify](/commerce/shopify) — connecting a Shopify store
+- [WooCommerce](/commerce/woocommerce) — connecting a WooCommerce store
+- [Product Tools](/commerce/product-tools) — the Product Library and the Product Finder quiz
+- [Shoppable Chat](/commerce/shoppable-chat) — showing products as cards in the conversation

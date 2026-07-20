@@ -1,0 +1,97 @@
+---
+description: The Product Library, the Product Finder quiz, and the AI Quiz Suggester — the curated product surfaces that sit on top of your synced commerce catalog.
+---
+
+# Product Tools
+
+Your synced catalog is the raw material. These are the surfaces you shape it into: a **Product Library** you can curate, a **Product Finder** quiz that walks a shopper to the right product, and an **AI Quiz Suggester** that proposes quizzes worth building.
+
+## Product Library [#product-library]
+
+The **Product Library** lives at **Commerce → Products**. It's your workspace's own view of the products you sell — the surface other features draw from when they need "a product" rather than "a catalog search result".
+
+### Where its products come from
+
+- **From your connected store.** Products from Shopify or WooCommerce are mirrored into the library and kept in step as the catalog syncs. You don't import them by hand, and you don't have to re-import after a catalog change.
+- **From you.** You can add products manually — useful for something you sell but don't list, or for a workspace with no store connected at all.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  **Manual products are yours.** A catalog sync only ever touches the rows that came from the store. Products you added by hand are never overwritten, reordered, or removed by a sync.
+</Callout>
+
+When a product is removed upstream, its library entry is retired rather than deleted outright — so nothing that referenced it breaks, and you can see that it used to exist.
+
+### Who can use it
+
+Viewing the library and editing it are separate permissions, so you can let people browse products without letting them change the catalog surface. Members typically get view; Owners and Admins get both.
+
+## Product Finder [#product-finder]
+
+The **Product Finder** is a guided quiz that ends in a recommendation. Rather than expecting a shopper to know what they want, it asks a few questions — *what's it for? what's your budget? who is it for?* — and recommends products from your catalog based on the answers.
+
+It lives at **Commerce → Product Finder** and it is built on [Agent Flows](/agents/agent-flows), so everything you already know about flows applies: the same visual composer, the same component library, the same multi-channel rendering, and the same analytics.
+
+### What you get with it
+
+| Surface | What it shows |
+|---|---|
+| **Forms** | The quiz itself, in the flow composer |
+| **Submissions** | Every completed quiz, with the answers and what was recommended |
+| **Heatmap** | Which question shoppers abandon on |
+| **Diagnose** | An AI analyst you can ask *"why is nobody finishing this quiz?"* |
+
+Because it's a flow, the agent can offer the quiz mid-conversation when it decides a shopper is browsing rather than buying — and a shopper who finishes gets recommendations instead of a generic thank-you.
+
+<Callout type="info">
+  Agent Flows, and therefore the Product Finder, are included for everyone — free trial included. And because the Product Finder is a flow the platform manages for you, it doesn't count against your workspace's own [published-flow allowance](/agents/agent-flows#limits).
+</Callout>
+
+## AI Quiz Suggester [#quiz-suggester]
+
+Knowing that a quiz would help is easy. Knowing *which* quiz is worth building is the hard part.
+
+The **AI Quiz Suggester** looks at your catalog once a day and proposes quizzes that fit what you actually sell — the product dimensions worth asking about, the questions that would separate one product from another, the shapes of shopper that your range implies. You review the suggestions and turn the ones you like into real Product Finder quizzes.
+
+- It runs **once a day**, automatically. There's nothing to schedule.
+- It won't re-run on demand more than occasionally — a short cooldown stops repeated refreshes from burning usage on near-identical output.
+- Like every AI feature, it draws on your workspace's usage allowance, and it checks that allowance before running rather than after.
+
+## Which of these do I actually need?
+
+| If you want to… | Use |
+|---|---|
+| Show a curated set of products in a Storefront or in chat | **Product Library** |
+| Help a shopper who doesn't know what they want | **Product Finder** |
+| Work out what quiz to build in the first place | **AI Quiz Suggester** |
+| Answer direct product questions | Nothing here — that's [catalog Q&A](/commerce/catalog-and-knowledge) |
+
+## Troubleshooting
+
+### The Product Library is empty after connecting a store
+
+The catalog sync populates it. If the catalog itself is empty — most commonly on a manually-connected WooCommerce store — press **Resync now** first. See [After a manual connect](/commerce/woocommerce#after-a-manual-connect).
+
+### A product I deleted from my store is still in the library
+
+Removed products are retired rather than deleted, so they stop being offered but remain visible to you. That's intentional.
+
+### A product I added by hand disappeared after a sync
+
+It shouldn't have — syncs never touch manual products. Check whether it was added to a different workspace, or edited to point at a store product.
+
+### No quiz suggestions have appeared
+
+The suggester runs daily, so a freshly-connected store may not have been through a cycle yet. It also needs enough catalog to have something to suggest — a handful of products may not give it anything meaningful to ask about.
+
+### My quiz doesn't recommend anything at the end
+
+Recommendations come from your catalog, so the quiz needs products that match the answer combinations it can produce. Check the Heatmap and Diagnose views to see where shoppers are landing.
+
+## Related
+
+- [Catalog & Knowledge](/commerce/catalog-and-knowledge) — the catalog these surfaces are built on
+- [Agent Flows](/agents/agent-flows) — the flow engine the Product Finder is built on
+- [Shoppable Chat](/commerce/shoppable-chat) — showing products as cards in a conversation
+- [Analytics](/commerce/analytics) — measuring what shoppers do with all of it

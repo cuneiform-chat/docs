@@ -1,0 +1,102 @@
+---
+description: Product cards, a cart, and checkout inside the conversation itself — how shoppable chat works, which channels support it, and how its cart differs from the Storefront cart.
+---
+
+# Shoppable Chat
+
+**The conversation becomes the shop.** Instead of describing a product in a paragraph and hoping the shopper goes and finds it, the agent shows the actual product — image, price, availability — as a card the shopper can add to a cart and check out from, without ever leaving the chat.
+
+## What the shopper sees
+
+1. They ask for something: *"do you have anything in linen?"*
+2. The agent replies with **product cards** — real products from your connected store, with image, name, price, and availability.
+3. They add one to their **cart** by tapping the card, or by simply saying so.
+4. They can review the cart, change their mind, or clear it — in conversation.
+5. When they're ready, they check out: one tap out to **your own checkout**, cart intact. See [Checkout](/commerce/checkout).
+
+Nothing about that flow asks the shopper to open a website, remember a product name, or start over.
+
+## Supported channels
+
+Shoppable chat needs a channel that can render a rich card. Four can:
+
+| Channel | Product cards & cart |
+|---|---|
+| **Website chat widget** | ✅ |
+| **Telegram** | ✅ |
+| **WhatsApp** | ✅ |
+| **Messenger** | ✅ |
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  **Discord, Slack, and Google Chat have no card surface**, so shoppable chat doesn't apply there. Agents on those channels still answer catalog questions, look up orders, and recommend products — they just do it in text.
+</Callout>
+
+## The three carts, and how to tell them apart [#three-carts]
+
+Cuneiform Chat has three things a shopper could reasonably call "a cart". They behave differently, and conflating them is the fastest way to misread what your shoppers are doing.
+
+| | Where it lives | What ends it | Where you see it |
+|---|---|---|---|
+| **1. Storefront inquiry cart** | In the shopper's own browser, inside the [Storefront](/integrations/telegram-mini-app) mini app | An **inquiry handoff** — a structured order request lands in your Inbox for a human to pick up | Your Inbox, as an order request |
+| **2. Storefront checkout handoff** | Nothing is stored — it's a one-shot handoff link out of the Storefront | The shopper arriving at **your own checkout** | Your store's own orders |
+| **3. In-chat conversation cart** | On our servers, attached to the conversation | Either a **checkout handoff** to your store, or the shopper abandoning it | [Commerce Analytics](/commerce/analytics), and your store's orders |
+
+The one this page is about is **#3**. It's the only cart that persists on our side, the only one tied to a conversation rather than a browser, and the only one a shopper can pick back up by simply carrying on the chat.
+
+<Callout type="warning">
+  A shopper who filled a Storefront cart (#1) and a shopper who filled a conversation cart (#3) are not in the same funnel. The first ends as a message in your Inbox for a human; the second ends at your checkout. If you're comparing numbers, make sure you know which one you're counting.
+</Callout>
+
+## What the agent can do with the cart
+
+The agent has a small, explicit set of cart actions, and it uses them in response to what the shopper says:
+
+| The shopper says | What happens |
+|---|---|
+| "show me something in linen" | Product cards are shown |
+| "add the second one" | That product is added to the cart |
+| "what's in my cart?" | The cart is read back |
+| "actually drop the shirt" | That line is removed |
+| "start over" | The cart is cleared |
+| "I'm ready to buy" | The checkout handoff fires |
+
+The shopper can also tap the buttons on the cards themselves — talking to the agent is an option, not a requirement.
+
+## What it needs
+
+- A **connected store** with a synced catalog — the cards are real products, so there has to be a catalog to draw them from
+- A **card-capable channel** from the table above
+- Your **store agent** — the agent wired to the store at connect time
+
+Both Shopify and WooCommerce are supported. On WooCommerce, what happens at the checkout step depends on your connection's permission — see [Checkout](/commerce/checkout#woocommerce-permission).
+
+## Attribution
+
+An order that starts in a chat is **attributed to that conversation**. That's what makes shoppable chat measurable rather than anecdotal: you can see which conversations produced carts, which carts produced checkouts, and which checkouts produced orders. See [Analytics](/commerce/analytics).
+
+## Troubleshooting
+
+### The agent describes products instead of showing cards
+
+Either the channel has no card surface (Discord, Slack, Google Chat), or you're not talking to the store agent. Check which agent is wired to your store on **Commerce**.
+
+### Cards appear but the cart is empty after adding something
+
+The cart is per conversation. If the shopper started a new conversation — a new session, or a different channel — they started a new cart with it.
+
+### A shopper's cart came back later
+
+That's intended. The conversation cart persists with the conversation, so a shopper who wandered off mid-thought can pick up where they left off rather than rebuilding it.
+
+### Checkout only handed off one product
+
+That's the read-only WooCommerce path, not a shoppable-chat limitation. See [Checkout](/commerce/checkout).
+
+## Related
+
+- [Checkout](/commerce/checkout) — where the cart hands off to
+- [Catalog & Knowledge](/commerce/catalog-and-knowledge) — the catalog the cards are drawn from
+- [Telegram Storefront](/integrations/telegram-mini-app) — the Storefront, and its separate inquiry cart
+- [Analytics](/commerce/analytics) — cards shown, carts built, checkouts started

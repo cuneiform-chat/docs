@@ -1,0 +1,145 @@
+---
+description: Install Cuneiform Chat from the Shopify App Store and link it to your workspace so your AI agents answer from your live Shopify catalog, orders, and inventory.
+---
+
+# Shopify
+
+**Install once from the Shopify App Store, link it to your workspace, and your agents are reading your live store.** No API keys to generate, no redirect URLs to configure, no plugin to install.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Shopify works on every plan, including the free trial. Connecting a store costs nothing extra.
+</Callout>
+
+## What you get
+
+Once your store is linked, your store agent can:
+
+- **Answer catalog questions** from your real products, variants, options, and prices
+- **Read stock and price fresh** at the moment it answers, so it never sells something you're out of
+- **Recommend in-stock products** rather than whatever it remembers
+- **Look up orders** for shoppers who can prove the order is theirs
+- **Send order-status updates** to shoppers who opt in, in the same chat
+- **Hand a ready-to-buy shopper to your Shopify checkout** with their whole cart intact
+
+## Prerequisites
+
+- A **Shopify store** you administer
+- A Cuneiform Chat workspace, and an **Owner or Admin** account on it — linking a store is an admin action
+- At least one agent, or room in your plan to create one (see [Your store agent](/commerce#your-store-agent))
+
+## How connecting works
+
+Connecting Shopify is a two-part handshake: Shopify installs the app, then **you** link that installed app to your Cuneiform Chat workspace. Shopify knows which store you are; only you know which workspace it belongs to.
+
+### 1. Install from the Shopify App Store
+
+Find **Cuneiform Chat - AI Commerce** in the Shopify App Store and install it. Shopify handles the installation itself and asks you to approve the permissions below. Nothing on our side is involved yet.
+
+### 2. Open the app in your Shopify admin
+
+The app opens **inside `admin.shopify.com`** as an embedded app. This is your Shopify-side home for the integration — setup, connection status, configuration, a dashboard, and billing all live here.
+
+### 3. Click "Link your workspace"
+
+Until the store is linked, the embedded app shows a **"Link your workspace"** banner. Clicking it opens Cuneiform Chat in a **new top-level browser tab** rather than inside the Shopify frame. That is deliberate: signing in cannot happen inside another site's iframe, so the linking step has to break out.
+
+### 4. Approve the link
+
+You land on the claim page in Cuneiform Chat with your store already identified. Confirm, and the store is attached to your workspace. You're redirected to **Commerce**, and the initial catalog sync starts.
+
+What you can see on that page:
+
+| What you see | What it means |
+|---|---|
+| **Sign-in prompt** | You weren't signed in. Sign in and the link picks up where it left off. |
+| **Confirm the link** | You're an Owner or Admin — this is the normal path. |
+| **Ask an admin to finish this** | You're a Member. Members can't connect integrations; send the link to an Owner or Admin. |
+| **Store linked** | Done. The catalog sync is already running. |
+| **This link has expired** | The linking ticket is short-lived. Go back to the app in your Shopify admin and click **Link your workspace** again. |
+| **This store is connected elsewhere** | The store is already linked to a different workspace. Disconnect it there first. |
+| **This workspace already has a store** | One Shopify store per workspace. Disconnect the current one before linking a new one. |
+
+## Permissions we ask for
+
+Cuneiform Chat requests **five read-only permissions**. There is no write permission in the set — the app cannot change anything in your store.
+
+| Permission | Why we need it |
+|---|---|
+| `read_products` | Read your catalog: products, variants, options, prices, images |
+| `read_inventory` | Read stock levels so the agent only recommends what's available |
+| `read_orders` | Look up a shopper's order and send them status updates |
+| `read_fulfillments` | Report shipping progress on those orders |
+| `read_customers` | Match a shopper's phone number against the order they're asking about |
+
+<Callout type="info">
+  **Read-only means read-only.** The app cannot create, edit, or delete products; cannot adjust inventory; cannot create, edit, or cancel orders; and cannot capture payments. Every purchase completes on your own Shopify checkout.
+</Callout>
+
+## One store per workspace
+
+A workspace connects **one Shopify store**. It can also connect one WooCommerce store at the same time — see [Commerce](/commerce#you-can-connect-both-at-once).
+
+If someone tries to link a store that's already connected to a different workspace, the attempt is refused rather than silently taking it over.
+
+## There is no "Reconnect" button
+
+Shopify has no reconnect step, and you should never go looking for one. Permission changes ride the app itself: when the app's permission set changes, Shopify prompts you to approve the update the next time you open it. There is nothing to re-authorize by hand.
+
+<Callout type="warning">
+  This is the main way the Shopify and WooCommerce flows differ. WooCommerce **does** have a **Reconnect** button, because a self-hosted store's API keys can be revoked from inside the store. Shopify's cannot.
+</Callout>
+
+## After you connect
+
+- **Your catalog starts syncing immediately.** See [Catalog & Knowledge](/commerce/catalog-and-knowledge) for what the sync covers and how it stays current.
+- **One agent becomes your store agent.** See [Your store agent](/commerce#your-store-agent).
+- **Order-status updates stay off until you turn them on.** See [Orders](/commerce/orders#order-status-updates).
+
+## Troubleshooting
+
+### The "Link your workspace" banner won't go away
+
+The link hasn't completed. Click it again — it opens a fresh linking ticket in a new tab. If it opens and immediately says the link expired, the ticket sat unused too long; just start it again.
+
+### The link opened but nothing happened
+
+The linking step must open in a **top-level tab**, not inside the Shopify frame. If your browser blocked the new tab, allow pop-ups for `admin.shopify.com` and try again.
+
+### "This store is connected elsewhere"
+
+The store is linked to another Cuneiform Chat workspace — often a trial workspace created earlier. Sign in to that workspace, disconnect the store there, then link it here.
+
+### A Member can't finish the link
+
+Linking a store requires the **Integration connect** permission, which Owners and Admins have and Members don't. Forward the link to an Owner or Admin.
+
+### The catalog is empty right after linking
+
+The first import backfills the whole catalog and takes a few minutes on a large store. If it still looks empty afterwards, run **Re-sync now** from **Commerce → Shopify**.
+
+### The agent isn't answering product questions
+
+Check that you're talking to the **store agent** — the one wired to the store at connect time. Its agent page shows a read-only panel saying it's managed by your store. Other agents don't carry the commerce tools.
+
+## Disconnecting
+
+Disconnect from **Commerce → Shopify → Disconnect**. Disconnecting:
+
+- Removes the stored connection and the synced catalog
+- Clears the product knowledge built from that catalog, so agents stop answering from it
+- Resets the store agent's commerce grant and reverts its commerce persona if you never edited it
+- Archives the commerce Agent Flows and product-quiz suggestions that came with the store
+
+If you still have a **WooCommerce** store connected, the workspace-wide steps are skipped — disconnecting one store never tears down the other store's commerce setup.
+
+Uninstalling the app from your Shopify admin ends Shopify's side of the relationship as well.
+
+## Related
+
+- [Commerce overview](/commerce) — what connecting a store gives you
+- [WooCommerce](/commerce/woocommerce) — the other supported platform
+- [Catalog & Knowledge](/commerce/catalog-and-knowledge) — how the catalog syncs and stays fresh
+- [Orders](/commerce/orders) — order lookup and status updates
+- [Checkout](/commerce/checkout) — handing a shopper off to buy

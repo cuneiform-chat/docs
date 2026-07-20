@@ -1,0 +1,92 @@
+---
+description: How a ready-to-buy shopper is handed off to your own Shopify or WooCommerce checkout, from a storefront or from inside the chat, with their cart intact.
+---
+
+# Checkout
+
+**Cuneiform Chat never takes a payment.** Every purchase completes on your own store's checkout, under your own payment setup. What we do is get the shopper there without making them rebuild their cart.
+
+There are two places a handoff can start:
+
+- From a **[Storefront](/integrations/telegram-mini-app)** — the in-bot catalog a shopper browses
+- From **[shoppable chat](/commerce/shoppable-chat)** — product cards and a cart inside the conversation itself
+
+Both end the same way: your checkout, in the shopper's browser, with the items already in it.
+
+## Shopify: one link, whole cart
+
+For a Shopify store, the handoff is a **single checkout link that carries the entire cart** — every line, every quantity — plus any discount you've configured, plus attribution so the resulting order can be traced back to the conversation that produced it.
+
+The shopper taps once and lands on your Shopify checkout with everything already there. Nothing to re-add, nothing to remember.
+
+## WooCommerce: it depends on your connection's permission [#woocommerce-permission]
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  **This is not a WooCommerce limitation — it's a permission setting on your connection.** A WooCommerce store connected through the guided flow always has the permission needed for the full experience. Only a store connected manually with a read-only key gets the reduced one.
+</Callout>
+
+| Your connection | What a shopper gets |
+|---|---|
+| **`Read/Write`** (every guided connection, and any manual connection where you selected `Read/Write`) | The **whole cart**, as a pending order created in your store, with the conversation attributed to it. The shopper goes straight to paying for that order. |
+| **Read-only** | **One line at a time.** The shopper is handed an add-to-cart link for a single product. If their cart has more than one line, the handoff falls back to an order inquiry instead, so the request reaches you as a message rather than silently dropping the other items. |
+
+### What the pending order is, and isn't
+
+On a `Read/Write` connection, checking out creates a **pending order** in WooCommerce and sends the shopper to pay for it. That order:
+
+- Is **not paid** and **not fulfilled** — it's waiting for the shopper, exactly like an abandoned cart that got as far as the payment page
+- **Carries the conversation it came from**, so you can see which chats turn into orders
+- Is the **only thing** the integration ever creates in your store. It never edits a product, never adjusts stock, and never modifies an existing order
+
+### If multi-line checkout isn't working
+
+Check the permission recorded on your WooCommerce connection. If it says read-only — including the case where you pasted a `Read/Write` key but left the permission field blank on the form — **Reconnect** through the guided flow. See [After a manual connect](/commerce/woocommerce#after-a-manual-connect).
+
+## Checkout from a Storefront
+
+A [Storefront](/integrations/telegram-mini-app) can be built by hand or linked to a connected store's catalog. Which one it is decides what its checkout can do:
+
+| Storefront kind | Checkout |
+|---|---|
+| **Catalog-linked to Shopify** | Full checkout handoff to your Shopify checkout |
+| **Catalog-linked to WooCommerce** | Handoff as described above, according to your connection's permission |
+| **Built by hand** | No payment handoff — order CTAs are inquiry handoffs that land in your Inbox for a human to pick up |
+
+A storefront is scoped to one source and stays that way once it has product blocks on it, so a hand-built storefront can't quietly start behaving like a catalog-linked one (or vice versa). Storefronts created before catalog linking existed are unscoped and keep working exactly as they did.
+
+## Checkout from inside a chat
+
+When a shopper builds a cart from product cards in the conversation, the checkout handoff works the same way — one tap out to your own checkout. See [Shoppable Chat](/commerce/shoppable-chat) for how the cart itself works and which channels support it.
+
+## What we never do
+
+- **Take a payment.** No card details, no payment credentials, and no payment data pass through Cuneiform Chat.
+- **Charge a shopper.** The pending order described above is unpaid until the shopper pays for it on your store.
+- **Change your prices, stock, or existing orders.**
+
+## Troubleshooting
+
+### The checkout link only has one product in it
+
+That's the read-only WooCommerce path. Check your connection's permission and reconnect through the guided flow.
+
+### A multi-line cart turned into an order inquiry instead of a checkout
+
+Same cause. Rather than dropping the extra lines silently, a read-only connection routes multi-line carts to you as an inquiry so nothing is lost.
+
+### A shopper reached checkout but the discount wasn't applied
+
+Discounts ride the Shopify handoff link. Confirm the discount is still valid and applicable to the products in the cart — an expired or non-applicable code is dropped by Shopify at checkout, not by us.
+
+### Orders aren't showing which conversation they came from
+
+Attribution is carried on the handoff. If it's missing on WooCommerce, you're probably on the read-only single-line path, which can't carry it.
+
+## Related
+
+- [Shoppable Chat](/commerce/shoppable-chat) — the in-conversation cart this hands off from
+- [WooCommerce](/commerce/woocommerce) — the connection permission that decides which path you get
+- [Shopify](/commerce/shopify) — connecting a Shopify store
+- [Analytics](/commerce/analytics) — seeing how many handoffs turn into orders

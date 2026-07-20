@@ -1,6 +1,6 @@
 # Telegram Storefront (In-bot Mini App)
 
-**Turn your Telegram bot into a full in-app storefront.** Build a polished, multipage product catalog — with photos, videos, themed pages, an AI assistant per product, and lightweight order-taking — that opens *inside* Telegram the moment a customer taps your bot's menu button. No app store, no separate website, no checkout to manage. Just a tap, and your customer is browsing.
+**Turn your Telegram bot into a full in-app storefront.** Build a polished, multipage product catalog — with photos, videos, themed pages, an AI assistant per product, and lightweight order-taking — that opens *inside* Telegram the moment a customer taps your bot's menu button. No app store, no separate website, and no checkout page to build — link it to a connected store and shoppers check out on your real checkout; build it by hand and orders arrive in your inbox as inquiries. Just a tap, and your customer is browsing.
 
 Free on every plan, including the trial. Built in a visual drag-and-drop composer at **Integrations → Telegram bot → Configure mini app**: 11 block types, 6 themes, per-product AI chat, order CTAs that hand off to a real human in your inbox.
 
@@ -24,7 +24,7 @@ Start with one page, grow into a multipage catalog when you're ready.
 
 ## Why it matters
 
-- **Customers never leave Telegram.** No app install, no domain to remember, no checkout flow to abandon. The storefront opens in Telegram's WebView and inherits the user's theme, language, and login.
+- **Customers never leave Telegram.** No app install, no domain to remember, and no separate checkout page to build. The storefront opens in Telegram's WebView and inherits the user's theme, language, and login.
 - **One tap from a chat.** The menu button next to the composer is set up the moment you connect the bot; once you build a storefront and publish it to the bot, the button opens it. The label auto-flips to **"Shop"** the moment you publish a product — no BotFather config needed.
 - **One storefront, both channels.** Build a storefront once and publish it to a Telegram bot *and* a Facebook Messenger Page at the same time — the same pages, products, and theme on both. Publish each channel from the **Distribute** tab; unpublish one without touching the other.
 - **AI-native product chat.** Per-product chat is scoped to documents *you* attach to that product — the assistant can answer "what's the return policy on this dress?" with confidence, without leaking facts from other products.
@@ -40,7 +40,7 @@ Start with one page, grow into a multipage catalog when you're ready.
 - **Per-integration on/off toggle** — flip it off and the bot menu reverts to Telegram's `/` command picker; the public URL returns `410 Gone` so stale bookmarks don't leak content.
 - **Multilingual storefront** — author your storefront's content in any of WhatsApp's supported languages (with one-click AI translation to fill in the gaps), and a built-in language switcher lets each visitor pick their own. Right-to-left languages (Arabic, Hebrew, Persian, Urdu) render correctly. The shell's own buttons auto-follow the visitor's device language.
 - **Built-in Help Center** — a pinned FAQ surface for ad-hoc questions, always one tap away. [See below](#built-in-help-center).
-- **No payments, no inventory, no shipping** — this is a polished catalog + lead-capture surface, not a full e-commerce stack. Pair it with a human in your inbox and you have a complete sales loop.
+- **Two ways to source products.** A **hand-built** storefront is a polished catalog + lead-capture surface — you type the products in yourself, and it does no payments, no inventory tracking, and no shipping; pair it with a human in your inbox and you have a complete sales loop. A **catalog-linked** storefront draws its products from a connected Shopify or WooCommerce store and hands shoppers to your real checkout. [See below](#catalog-linked-storefronts).
 
 ## How customers find it
 
@@ -222,7 +222,7 @@ Tier limits apply to the total number of product docs you can attach (see [Tier 
 
 ## Order inquiries & cart (optional) [#orders-and-cart]
 
-You can attach an **Order CTA** to any product card or product grid. This is purely a structured-message handoff — **no payments, no inventory, no fulfillment**.
+You can attach an **Order CTA** to any product card or product grid. On a **hand-built** storefront this is purely a structured-message handoff — **no payments, no inventory, no fulfillment** — and it lands in your inbox for a human to pick up. On a **catalog-linked** storefront the same CTA can hand the shopper to your store's real checkout instead; see [Catalog-linked storefronts](#catalog-linked-storefronts).
 
 ### Two modes
 
@@ -244,6 +244,21 @@ Choose any subset of `name`, `phone`, `email`, `notes`, `delivery_address`. **`n
 
 - Each customer can submit at most **10 orders per minute**; each tenant at most **100 per minute**.
 - Double-taps within 60 seconds on the **same exact order** are dedup'd; two *different* orders within 60 seconds go through.
+
+## Catalog-linked storefronts [#catalog-linked-storefronts]
+
+Everything above describes a storefront you build by hand: you type in the products, prices, and availability, and orders arrive as inquiries. That's still the right shape for a brochure, a service catalog, or a menu.
+
+If you have a **[Shopify or WooCommerce store connected](/commerce)**, a storefront can instead be **linked to that catalog**. Its product blocks are drawn from your real catalog, prices and stock come from the store rather than from something you edit by hand, and its order CTAs can hand a ready-to-buy shopper to your store's own checkout with their cart intact — see [Checkout](/commerce/checkout).
+
+| | Hand-built | Catalog-linked |
+|---|---|---|
+| **Products** | You type them in | Pulled from your connected store |
+| **Price & availability** | Free-text fields you maintain | Read from your store |
+| **Order CTA** | Inquiry handoff to your Inbox | Handoff to your store's checkout |
+| **Needs a connected store** | No | Yes |
+
+A storefront is scoped to one source, and once it has product blocks on it that scope is fixed — so a hand-built storefront can't quietly start behaving like a catalog-linked one, or the reverse. Storefronts created before catalog linking existed are unscoped and keep working exactly as they always did.
 
 ## Built-in Help Center
 
@@ -300,11 +315,13 @@ A granular "Integration Editor" role is on the roadmap.
 - **ETag support** — the shell uses HTTP `If-None-Match` and gets a fast `304 Not Modified` if nothing changed, keeping mobile data usage low.
 - **Image URLs** are valid for 15 minutes; the shell re-fetches automatically before they expire.
 
-## What it does NOT do
+## What a hand-built storefront does NOT do
 
-- **No payments.** Order CTAs are inquiry handoffs, not Stripe / WhatsApp Pay / Telegram Stars checkouts.
-- **No inventory tracking.** Availability badges are free-text labels you edit manually.
-- **No shipping calculations / address validation.** The delivery address is collected as free-form text.
+These limits apply to a storefront whose products you typed in yourself. A [catalog-linked storefront](#catalog-linked-storefronts) lifts the first three by getting its products — and its checkout — from your connected store.
+
+- **No payments of its own.** Order CTAs are inquiry handoffs, not Stripe / WhatsApp Pay / Telegram Stars checkouts. (A catalog-linked storefront hands off to your store's checkout instead of taking payment here.)
+- **No inventory tracking.** Availability badges are free-text labels you edit manually. (A catalog-linked storefront reads real stock from your store.)
+- **No shipping calculations / address validation.** The delivery address is collected as free-form text. (Shipping on a catalog-linked storefront is your store's own, calculated at its checkout.)
 - **No customer accounts.** Customers are identified by their Telegram user ID; there is no login or signup flow.
 - **No forms beyond Order Inquiry / Cart Checkout.** The contact block is static display; the rich-text block doesn't render forms.
 - **Help Center "ask the bot" and order paths refuse group / channel launches** with a polite error.

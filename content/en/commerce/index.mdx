@@ -1,0 +1,92 @@
+---
+description: Connect a Shopify or WooCommerce store so your AI agents answer from your live catalog, look up orders, recommend what is actually in stock, and hand shoppers off to checkout.
+---
+
+# Commerce
+
+**Connect your store and your agents stop guessing.** Instead of answering from a document somebody remembered to update last quarter, they read your real catalog, your real stock levels, and your real orders — at the moment the shopper asks.
+
+Cuneiform Chat connects to two commerce platforms, and treats them as peers:
+
+- **[Shopify](/commerce/shopify)** — installed from the Shopify App Store and run as an embedded app inside your Shopify admin.
+- **[WooCommerce](/commerce/woocommerce)** — connected to your self-hosted store over the WooCommerce REST API.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Commerce works on every plan, including the free trial. There is nothing to buy, unlock, or upgrade to before you connect a store.
+</Callout>
+
+## What connecting a store gives you
+
+| Capability | What your shopper experiences | Read more |
+|---|---|---|
+| **Catalog Q&A** | "Does the linen shirt come in navy?" answered from your actual products, variants, and prices | [Catalog & Knowledge](/commerce/catalog-and-knowledge) |
+| **Live inventory** | Stock and price are read fresh at answer time, so the agent never promises something you sold out of | [Catalog & Knowledge](/commerce/catalog-and-knowledge) |
+| **Recommendations** | "What would go with this?" — suggestions limited to items actually in stock | [Catalog & Knowledge](/commerce/catalog-and-knowledge) |
+| **Order lookup (WISMO)** | "Where is my order?" answered after the shopper proves the order is theirs | [Orders](/commerce/orders) |
+| **Order-status updates** | Shoppers who opt in get shipping updates in the same chat thread | [Orders](/commerce/orders) |
+| **Checkout handoff** | A ready-to-buy shopper is handed to your own checkout with their cart intact | [Checkout](/commerce/checkout) |
+| **Shoppable chat** | Product cards, a cart, and checkout inside the conversation itself | [Shoppable Chat](/commerce/shoppable-chat) |
+| **Product Library & Product Finder** | A curated product surface, plus a guided quiz that recommends products at the end | [Product Tools](/commerce/product-tools) |
+| **Commerce Analytics** | What shoppers asked for, what they were shown, and where they dropped | [Analytics](/commerce/analytics) |
+
+## Two platforms, one set of features
+
+Shopify and WooCommerce are peers here — not a primary and a fallback. Every capability in the table above works on both. Where behavior genuinely differs, it is because the underlying platform differs, and each difference is called out on the page that covers it:
+
+| Difference | Shopify | WooCommerce |
+|---|---|---|
+| **How you connect** | Install from the Shopify App Store, then link your workspace from inside the embedded app | Enter your store URL and approve a one-time authorization, or paste API keys manually |
+| **Re-authorizing later** | No reconnect step — permission changes ride the app itself | **Reconnect** re-runs the approval on your store |
+| **Initial catalog sync** | Starts automatically at connect | Starts automatically on the guided flow; the manual key path needs a **Resync now** — see [WooCommerce](/commerce/woocommerce#after-a-manual-connect) |
+| **Inventory freshness** | Dedicated inventory updates, so stock changes arrive on their own | Stock changes arrive with product updates |
+| **Checkout handoff** | One cart link covering every line | Depends on the permission your keys carry — see [Checkout](/commerce/checkout) |
+
+## You can connect both at once [#you-can-connect-both-at-once]
+
+One store per platform, per workspace — and **a Shopify store and a WooCommerce store can be connected at the same time**. That is the multi-store setup a merchant actually sees: not five Shopify stores, but a Shopify store and a Woo store side by side.
+
+When both are connected, the commerce tools query **every** connected store and merge the answers: catalog search concatenates results, product counts add up, and a product lookup resolves to whichever store owns it. Analytics keeps them separate, with a provider selector to switch between them.
+
+<Callout type="warning">
+  A store can only be connected to one workspace at a time. If someone already connected the same store elsewhere, the connect attempt is refused with a message telling you to disconnect it there first.
+</Callout>
+
+## Where Commerce lives in the admin panel
+
+Everything commerce is under **Commerce** in the left navigation:
+
+| Page | What's there |
+|---|---|
+| **Commerce** | The home page: connect a store, see connection status, and pick up wherever you left off |
+| **Shopify** | Your Shopify connection — status, catalog sync, product knowledge, notifications |
+| **WooCommerce** | The same, for your WooCommerce store |
+| **Products** | Your [Product Library](/commerce/product-tools) |
+| **Storefront** | Your in-bot [Storefront](/integrations/telegram-mini-app), including catalog-linked storefronts |
+| **Product Finder** | The [product quiz](/commerce/product-tools#product-finder), its submissions, heatmap, and diagnostics |
+| **Commerce Analytics** | [Commerce Analytics](/commerce/analytics) and the Commerce Analyst |
+
+## Your store agent [#your-store-agent]
+
+Commerce is not switched on for every agent at once. When you connect a store, **one agent becomes your store agent** — either an existing agent you pick, or a fresh one created for you — and it is the agent that carries the commerce tools and reads your catalog.
+
+You do not manage this with a per-agent switch. The store agent is chosen at connect time and shown on the agent's own page as a read-only "managed by your store" panel, so it is always obvious which agent is wired to which store.
+
+<Callout type="info">
+  If your workspace has already used up its allowance of agents, there is no room to create a store agent — the connect flow tells you so and asks you to pick an existing agent or free one up. This is the one place your plan's limits touch commerce, and it is about agent count, not about commerce itself.
+</Callout>
+
+## Getting started
+
+1. **Pick your platform.** Follow [Shopify](/commerce/shopify) or [WooCommerce](/commerce/woocommerce) — the connect flows are quite different, the results are the same.
+2. **Let the catalog sync.** The first import pulls your products, variants, prices, images, and stock. See [Catalog & Knowledge](/commerce/catalog-and-knowledge).
+3. **Ask your store agent a catalog question.** "What sizes does the linen shirt come in?" is the fastest proof that it worked.
+4. **Turn on what you want.** [Order-status updates](/commerce/orders#order-status-updates), [shoppable chat](/commerce/shoppable-chat), a [Product Finder quiz](/commerce/product-tools#product-finder) — each is independent.
+
+## Related
+
+- [Shopify](/commerce/shopify) — App Store install and workspace linking
+- [WooCommerce](/commerce/woocommerce) — guided authorization and manual API keys
+- [Telegram Storefront](/integrations/telegram-mini-app) — the in-bot storefront a catalog-linked store can feed
+- [Analytics](/commerce/analytics) — measuring what commerce is doing for you

@@ -1,0 +1,211 @@
+---
+description: Connect your self-hosted WooCommerce store so your AI agent can answer product questions, look up orders, recommend in-stock items, and send order-status updates from your live catalog.
+---
+
+# WooCommerce
+
+Connect your self-hosted **WooCommerce** store so your AI agent can answer product questions, look up a shopper's order, recommend in-stock items, and send order-status updates — all from your real, live catalog and order data.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  WooCommerce works on every plan, including the free trial. There is nothing to buy or upgrade to before you connect a store.
+</Callout>
+
+## What you get
+
+- **Catalog Q&A** — answers from your real products, variants, prices, and current availability
+- **Order lookup (WISMO)** — shoppers check "where is my order?" with their order number plus the email or phone on the order
+- **Recommendations** — suggestions limited to products that are actually in stock
+- **Order-status updates** — shipping updates in the same chat, for shoppers who opt in
+- **Live inventory** — prices and stock read fresh at answer time
+- **Checkout handoff** — send a ready-to-buy shopper to your own WooCommerce checkout
+
+## Prerequisites
+
+- A **self-hosted WooCommerce store** you administer
+- Your **store URL** (for example, `https://your-store.com`)
+- An **Owner or Admin** account on your Cuneiform Chat workspace — connecting a store is an admin action
+- At least one agent, or room in your plan to create one (see [Your store agent](/commerce#your-store-agent))
+
+You do **not** need to install a plugin or write any code.
+
+### Your store URL, however you type it
+
+Type the URL any way you like — we normalize it. The scheme, a leading `www.`, a trailing slash, and the capitalization of the host are all ignored. A **subdirectory install** (`example.com/shop`) and a **non-standard port** are both preserved and both supported.
+
+## Connecting
+
+There are two ways in, on the same card. **Use the guided flow unless something blocks it.**
+
+### Path A — the guided authorization (recommended)
+
+1. Go to **Commerce → WooCommerce**.
+2. Enter your store URL and click **Connect**.
+3. Your browser goes to your own store's WooCommerce approval screen. Approve it.
+4. WooCommerce sends the keys back and you land on **Commerce**.
+
+That's it. The guided flow does three things the manual path does not: it requests the right permission for you, it registers the webhooks that keep your data fresh in real time, and it kicks off the initial catalog import.
+
+<Callout type="info">
+  **The approval screen will say `read/write`, and that is intentional.** WooCommerce will not let anything register webhooks with a read-only key — it rejects the request outright. Without webhooks there are no real-time catalog, stock, or order updates. The integration still never writes to your catalog, your inventory, or your existing orders; the write permission exists so we can register webhooks and, if you use in-chat checkout, create the pending order a shopper is about to pay for.
+</Callout>
+
+### Path B — pasting API keys manually
+
+If your store sits behind a firewall that blocks the redirect, expand **Enter API keys manually** and paste a consumer key and secret generated in **WooCommerce → Settings → Advanced → REST API**.
+
+**Generate them with `Read/Write` permission, and select `Read/Write` on our form too.** A read-only key leaves you permanently without webhooks — see below.
+
+We health-check the store before saving. A hard failure blocks the connection; a soft warning (a slow or partially-reachable store) connects anyway so you can fix it afterwards.
+
+## After a manual connect [#after-a-manual-connect]
+
+<Callout type="warning">
+  **The manual key path skips two things the guided flow does at connect: it does not register webhooks, and it does not start the initial catalog import.** They recover on different schedules — and one of them only recovers if your key carries the right permission. Read both halves below.
+</Callout>
+
+### Your catalog — press "Resync now"
+
+Nothing is imported at connect. A background job reconciles catalogs daily, but its catch-up pass only runs for stores that have synced at least once before — a store that has never synced has nothing to catch up *from*. In practice that means a manually-connected store's catalog is fully populated by the **weekly sweep**, which can be up to seven days away.
+
+**Don't wait for it.** Open **Commerce → WooCommerce → Catalog** and click **Resync now**. That runs the same import the guided flow would have run at connect, and it finishes in minutes.
+
+### Your webhooks — only if your key is Read/Write
+
+Webhooks are not registered at connect either, but this one is repaired automatically **on one condition**. An hourly job re-attempts webhook registration for every connected store, so:
+
+- **A `Read/Write` store recovers on its own**, usually within the hour. You don't have to do anything.
+- **A read-only store never recovers.** WooCommerce rejects every registration attempt from a read-only key. The job retries every hour, is rejected every hour, and logs nothing you'll see. It will keep failing indefinitely.
+
+The symptom of a read-only store is not an error message — it's that catalog, stock, and order changes only ever show up on the next scheduled sync instead of arriving as they happen.
+
+### The permission is what you told us it was
+
+<Callout type="warning">
+  **We record the permission you select; we don't test the key to find out.** If you paste a `Read/Write` key but leave the permission field blank, we record it as **read-only** — and both webhooks and multi-line [checkout](/commerce/checkout) quietly degrade. If you select `Read/Write` but paste a read-only key, webhooks are rejected by your store every time.
+
+  If real-time updates or multi-line checkout are missing, this single field is the first thing to check. The fix is to **Reconnect** through the guided flow, which always requests the right permission.
+</Callout>
+
+## What the integration does and doesn't do
+
+The integration is **read-only where your store's data is concerned**. It never edits or deletes a product, never adjusts stock, never modifies or cancels an existing order, and never captures a payment. Payment always happens on your own WooCommerce checkout.
+
+The one thing a `Read/Write` connection does write is a **pending order**, and only when a shopper checks out from inside a chat: instead of handing off one product at a time, the whole cart becomes a pending order in your store and the shopper is sent to pay for it. Nothing is charged, nothing is fulfilled, and the order is attributed to the conversation it came from so you can see where the sale started. See [Checkout](/commerce/checkout).
+
+A read-only connection can't create that pending order, so it hands off one line at a time instead. That is the practical difference between the two permissions, and the reason the guided flow always asks for `Read/Write`.
+
+## Features
+
+### One store, one store agent
+
+You connect **one WooCommerce store per workspace** — and you can have a Shopify store connected at the same time (see [Commerce](/commerce#you-can-connect-both-at-once)).
+
+At connect time, **one agent becomes your store agent**: either an existing agent you pick or a fresh one created for you. That agent carries the WooCommerce tools; your other agents are unaffected. There is no per-agent switch to hunt for — the agent's own page shows a read-only panel saying it's managed by your store.
+
+<Callout type="info">
+  Older versions of this page told you to enable commerce for more agents under **Commerce → Settings**. That page no longer exists, and the per-agent switch went with it. Commerce is wired to the store agent chosen at connect.
+</Callout>
+
+### Verified order lookup
+
+Shoppers see order details only after providing the exact order number **and** the email or phone on the order. A wrong contact and a non-existent order return the same "couldn't find it" answer with no details — anti-enumeration hardening that protects your customers. See [Orders](/commerce/orders).
+
+### Live catalog and inventory
+
+Prices and stock are read fresh at answer time, so recommendations stay limited to what's actually available. WooCommerce sends stock changes along with product updates rather than as separate inventory events, so a stock-only change lands with the next product update or the next sync. See [Catalog & Knowledge](/commerce/catalog-and-knowledge).
+
+### Opt-in order-status updates
+
+After a shopper verifies their order in chat, they can opt in to shipping updates on a supported channel. Updates require two things: that you enabled them on the WooCommerce connection, and that the shopper opted in. See [Orders](/commerce/orders#order-status-updates).
+
+### Reconnect
+
+Unlike Shopify, WooCommerce has a **Reconnect** button. Use it when you rotate or revoke your store's API keys, or when you connected manually with the wrong permission and want to switch to the guided flow. It re-runs the approval on your store and replaces the stored keys in place.
+
+## Security
+
+- **No writes to your catalog, stock, or existing orders** — the integration reads products, inventory, and orders, and never modifies them
+- **Keys are encrypted at rest** — your consumer key and secret are never stored in plain text
+- **Tenant isolation** — your catalog and orders are scoped to your workspace and never visible to anyone else's
+- **Verified order lookup** — order details require the exact order number plus a matching email or phone
+- **Opt-in notifications** — shipping updates require an explicit per-shopper opt-in in chat
+- **Secure checkout** — payment completes on your own WooCommerce checkout; no card data passes through the agent
+
+## Troubleshooting
+
+### Connecting hangs or fails
+
+The guided flow needs your browser to reach your store's approval screen and your store to reach us with the keys. If it stalls, it's usually a network or firewall problem, not your credentials. Firewalled store? Use the manual key path — and then read [After a manual connect](#after-a-manual-connect), because it leaves two things undone.
+
+### The catalog is empty right after connecting
+
+If you connected manually, this is expected — nothing was imported. Click **Resync now** on the Catalog tab.
+
+If you used the guided flow, the first import backfills the whole catalog and can take a few minutes on a large store.
+
+### Product or stock changes take hours to show up
+
+Your webhooks aren't registered. Almost always this means the store was connected manually with a read-only key. Check the permission recorded on the connection, then **Reconnect** through the guided flow.
+
+### "This store is already connected to another account"
+
+The same store is connected to a different workspace. Disconnect it there first, then connect it here. We refuse the takeover rather than silently moving the store.
+
+### The agent won't answer product questions
+
+Check you're talking to the **store agent** — the one chosen at connect. Its agent page shows a read-only "managed by your store" panel. Other agents don't carry the commerce tools.
+
+### Order lookup can't find an order
+
+The lookup is deliberately strict: it returns details only when the shopper gives the exact order number **and** an email or phone that matches the order.
+
+### No order-status updates are sent
+
+Both gates have to be open: enable notifications on the WooCommerce connection, and have the shopper opt in in chat on a supported channel.
+
+## Disconnecting
+
+Disconnect from **Commerce → WooCommerce → Disconnect**. Disconnecting:
+
+- Removes the stored connection and credentials, and the synced catalog
+- Clears the product knowledge built from that catalog
+- Resets the store agent's commerce grant and reverts its commerce persona if you never edited it
+- Archives the commerce Agent Flows and product-quiz suggestions that came with the store
+
+If you still have a **Shopify** store connected, the workspace-wide steps are skipped — disconnecting one store never tears down the other store's commerce setup.
+
+## FAQ
+
+### Do I need to be on a particular plan to connect WooCommerce?
+
+No. WooCommerce works on every plan, including the free trial — catalog Q&A, order lookup, recommendations, and order-status updates all included.
+
+### Do I have to install a plugin?
+
+No plugin. The guided flow is a one-time approval on your own store. You only paste API keys if your firewall blocks the redirect.
+
+### Why does the approval screen ask for write access?
+
+Because WooCommerce refuses to register webhooks for a read-only key, and without webhooks nothing updates in real time. The integration still never changes your catalog, your stock, or your existing orders. The only thing it ever creates is a pending order for a shopper checking out from a chat — see [Checkout](/commerce/checkout).
+
+### Can I connect with a read-only key anyway?
+
+You can, and catalog Q&A, order lookup, recommendations, and notifications all work. What you give up is real-time updates (webhooks can never register) and multi-line in-chat checkout. If you later want them, **Reconnect** through the guided flow.
+
+### Can all of my agents use WooCommerce, or just one?
+
+One — the store agent chosen at connect time. That agent gets the WooCommerce tools; the others are unaffected.
+
+### Does the agent ever change my store?
+
+It never edits products, never adjusts inventory, never modifies or cancels existing orders, and never takes payment. On a `Read/Write` connection it can create one thing: a pending order for a shopper who is checking out from a chat, which they then pay for on your own checkout.
+
+## Related
+
+- [Commerce overview](/commerce) — what connecting a store gives you
+- [Shopify](/commerce/shopify) — the other supported platform
+- [Catalog & Knowledge](/commerce/catalog-and-knowledge) — how the catalog syncs and stays fresh
+- [Orders](/commerce/orders) — order lookup and status updates
+- [Checkout](/commerce/checkout) — including the permission-dependent difference
