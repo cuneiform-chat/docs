@@ -47,7 +47,7 @@ Shopify and WooCommerce are peers here — not a primary and a fallback. Every c
 
 One store per platform, per workspace — and **a Shopify store and a WooCommerce store can be connected at the same time**. That is the multi-store setup a merchant actually sees: not five Shopify stores, but a Shopify store and a Woo store side by side.
 
-When both are connected, the commerce tools query **every** connected store and merge the answers: catalog search concatenates results, product counts add up, and a product lookup resolves to whichever store owns it. Analytics keeps them separate, with a provider selector to switch between them.
+When both are connected, **each store gets its own store agent**, and each agent answers from its own store. A shopper talking to your Shopify store agent gets Shopify products and Shopify orders; the WooCommerce agent answers from WooCommerce. The two are not merged into one combined catalog. Analytics keeps them separate too, with a provider selector to switch between them.
 
 <Callout type="warning">
   A store can only be connected to one workspace at a time. If someone already connected the same store elsewhere, the connect attempt is refused with a message telling you to disconnect it there first.

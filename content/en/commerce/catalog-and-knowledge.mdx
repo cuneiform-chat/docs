@@ -49,16 +49,13 @@ You'll find product knowledge on the connection's page, with its own status and 
 
 ### With two stores connected
 
-If you have both a Shopify and a WooCommerce store connected, the commerce tools resolve **every** connected store at the moment they're called and merge the results:
+Connecting a second store does **not** merge the two catalogs. Each store gets its own store agent at connect, and each agent is wired to that one store — so a shopper talking to your Shopify agent gets Shopify products, and the WooCommerce agent answers from WooCommerce.
 
-| The agent does | Across two stores |
-|---|---|
-| **Catalog search** | Results from both stores, concatenated and capped |
-| **Product count** | The totals added together |
-| **Catalog overview** | Category and price distributions folded into one picture |
-| **Product lookup** | Resolves to whichever store actually owns the product |
+That means a single conversation covers one store, not your whole business. If you want shoppers to reach the right catalog, point each channel at the store agent that owns it.
 
-Your shoppers never see the seam — they get one answer covering everything you sell.
+<Callout type="info">
+  Product knowledge is built per store as well, so a Rebuild on one connection never touches the other's answers.
+</Callout>
 
 ## Current inventory [#live-inventory]
 
@@ -79,7 +76,7 @@ How quickly a stock change reaches the agent depends on the platform:
 
 The agent can suggest products rather than just look them up: "what would go with this?", "something similar but cheaper", "what do you have for a beginner?"
 
-Recommendations are drawn from the same synced catalog, and are **restricted to products that are actually in stock** — the agent will not build a shopper's enthusiasm around something they can't buy. They work across both connected stores.
+Recommendations are drawn from the same synced catalog, and are **restricted to products that are actually in stock** — the agent will not build a shopper's enthusiasm around something they can't buy. Like every other commerce answer, they come from that store agent's own store.
 
 ## Troubleshooting
 

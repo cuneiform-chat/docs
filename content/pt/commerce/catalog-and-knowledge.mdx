@@ -49,16 +49,13 @@ Você encontra o conhecimento de produto na página da conexão, com status pró
 
 ### Com duas lojas conectadas
 
-Se você tem uma loja Shopify e uma WooCommerce conectadas, as ferramentas de comércio resolvem **todas** as lojas conectadas no momento em que são chamadas e combinam os resultados:
+Conectar uma segunda loja **não** combina os dois catálogos. Cada loja ganha seu próprio agent de loja ao conectar, e cada agent está ligado àquela única loja — então um comprador que fala com o agent da Shopify recebe produtos da Shopify, e o agent do WooCommerce responde a partir do WooCommerce.
 
-| O agent faz | Com duas lojas |
-|---|---|
-| **Busca de catálogo** | Resultados das duas lojas, concatenados e limitados |
-| **Contagem de produtos** | Os totais somados |
-| **Visão geral do catálogo** | Distribuições de categoria e preço unificadas em um só quadro |
-| **Busca de produto** | Resolve para a loja que realmente tem o produto |
+Isso significa que uma mesma conversa cobre uma loja, e não o seu negócio inteiro. Se você quer que os compradores cheguem ao catálogo certo, aponte cada canal para o agent de loja dono daquele catálogo.
 
-Seus compradores nunca veem a emenda — eles recebem uma única resposta cobrindo tudo o que você vende.
+<Callout type="info">
+  O conhecimento de produto também é construído por loja, então um **Rebuild** em uma conexão nunca mexe nas respostas da outra.
+</Callout>
 
 ## Estoque atual [#live-inventory]
 
@@ -79,7 +76,7 @@ A rapidez com que uma mudança de estoque chega ao agent depende da plataforma:
 
 O agent pode sugerir produtos, e não só procurá-los: "o que combinaria com isso?", "algo parecido, mas mais barato", "o que você tem para quem está começando?".
 
-As recomendações saem do mesmo catálogo sincronizado e são **restritas a produtos que realmente estão em estoque** — o agent não vai animar um comprador com algo que ele não pode comprar. Elas funcionam nas duas lojas conectadas.
+As recomendações saem do mesmo catálogo sincronizado e são **restritas a produtos que realmente estão em estoque** — o agent não vai animar um comprador com algo que ele não pode comprar. Como qualquer outra resposta de commerce, elas vêm da loja do próprio agent de loja.
 
 ## Solução de problemas
 

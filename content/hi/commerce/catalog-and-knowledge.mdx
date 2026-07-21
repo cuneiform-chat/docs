@@ -49,16 +49,13 @@ Product knowledge आपको connection के page पर मिलेगी,
 
 ### जब दो stores connected हों [#with-two-stores-connected]
 
-अगर आपके पास एक Shopify और एक WooCommerce store दोनों connected हैं, तो commerce tools बुलाए जाने के क्षण **हर** connected store को हल करते हैं और नतीजों को मिला देते हैं:
+दूसरा store connect करने से दोनों catalogs मिल **नहीं** जाते। connect करते समय हर store को अपना अलग store agent मिलता है, और हर agent उसी एक store से जुड़ा होता है — इसलिए आपके Shopify agent से बात करने वाले shopper को Shopify के products मिलते हैं, और WooCommerce agent WooCommerce से जवाब देता है।
 
-| agent क्या करता है | दो stores में |
-|---|---|
-| **Catalog search** | दोनों stores के नतीजे, जुड़े हुए और सीमित |
-| **Product गिनती** | कुल जोड़ दिए जाते हैं |
-| **Catalog अवलोकन** | श्रेणी और कीमत का वितरण एक ही तस्वीर में मिला दिया जाता है |
-| **Product lookup** | उसी store पर हल होता है जिसका वह product है |
+इसका मतलब है कि एक बातचीत एक store को समेटती है, आपके पूरे कारोबार को नहीं। आप चाहते हैं कि shoppers सही catalog तक पहुँचें, तो हर channel को उसी store agent की तरफ़ मोड़ें जिसका वह store है।
 
-आपके shoppers जोड़ कभी नहीं देखते — उन्हें एक ही जवाब मिलता है जो आपकी बेची जाने वाली हर चीज़ को समेटता है।
+<Callout type="info">
+  Product knowledge भी हर store के लिए अलग बनती है, इसलिए एक connection पर Rebuild दूसरे के जवाबों को कभी नहीं छूता।
+</Callout>
 
 ## Current inventory [#live-inventory]
 
@@ -79,7 +76,7 @@ Stock का बदलाव agent तक कितनी जल्दी पह
 
 agent सिर्फ़ ढूँढकर देने के बजाय products सुझा भी सकता है: "इसके साथ क्या जँचेगा?", "कुछ ऐसा ही पर सस्ता", "किसी शुरुआती के लिए आपके पास क्या है?"
 
-सुझाव उसी sync किए गए catalog से आते हैं, और **सिर्फ़ उन्हीं products तक सीमित रहते हैं जो सचमुच stock में हैं** — agent किसी shopper का उत्साह ऐसी चीज़ के इर्द-गिर्द नहीं बढ़ाएगा जो वह ख़रीद ही नहीं सकता। ये दोनों connected stores में काम करते हैं।
+सुझाव उसी sync किए गए catalog से आते हैं, और **सिर्फ़ उन्हीं products तक सीमित रहते हैं जो सचमुच stock में हैं** — agent किसी shopper का उत्साह ऐसी चीज़ के इर्द-गिर्द नहीं बढ़ाएगा जो वह ख़रीद ही नहीं सकता। बाक़ी हर commerce जवाब की तरह, ये उसी store agent के अपने store से आते हैं।
 
 ## समस्या निवारण [#troubleshooting]
 

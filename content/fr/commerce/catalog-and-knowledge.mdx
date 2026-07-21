@@ -49,16 +49,13 @@ Vous trouverez les connaissances produit sur la page de la connexion, avec leur 
 
 ### Avec deux boutiques connectées
 
-Si vous avez une boutique Shopify et une boutique WooCommerce connectées, les outils de commerce résolvent **toutes** les boutiques connectées au moment où ils sont appelés et fusionnent les résultats :
+Connecter une seconde boutique ne fusionne **pas** les deux catalogues. Chaque boutique reçoit son propre agent de boutique à la connexion, et chaque agent est relié à cette seule boutique — un acheteur qui parle à votre agent Shopify obtient donc des produits Shopify, et l'agent WooCommerce répond depuis WooCommerce.
 
-| L'agent fait | Sur deux boutiques |
-|---|---|
-| **Recherche catalogue** | Des résultats des deux boutiques, concaténés et plafonnés |
-| **Comptage de produits** | Les totaux additionnés |
-| **Aperçu du catalogue** | Les répartitions par catégorie et par prix regroupées en une seule image |
-| **Recherche de produit** | Se résout vers la boutique qui détient réellement le produit |
+Cela veut dire qu'une même conversation couvre une boutique, pas l'ensemble de votre activité. Si vous voulez que les acheteurs atteignent le bon catalogue, dirigez chaque canal vers l'agent de boutique propriétaire de ce catalogue.
 
-Vos acheteurs ne voient jamais la couture — ils obtiennent une seule réponse couvrant tout ce que vous vendez.
+<Callout type="info">
+  Les connaissances produit sont elles aussi construites par boutique : un **Rebuild** sur une connexion ne touche jamais les réponses de l'autre.
+</Callout>
 
 ## Stock à jour [#live-inventory]
 
@@ -79,7 +76,7 @@ La vitesse à laquelle un changement de stock parvient à l'agent dépend de la 
 
 L'agent peut suggérer des produits et pas seulement les retrouver : « qu'est-ce qui irait avec ça ? », « quelque chose de similaire mais moins cher », « qu'avez-vous pour un débutant ? ».
 
-Les recommandations sont tirées du même catalogue synchronisé, et sont **limitées aux produits réellement en stock** — l'agent ne va pas enthousiasmer un acheteur pour quelque chose qu'il ne peut pas acheter. Elles fonctionnent sur les deux boutiques connectées.
+Les recommandations sont tirées du même catalogue synchronisé, et sont **limitées aux produits réellement en stock** — l'agent ne va pas enthousiasmer un acheteur pour quelque chose qu'il ne peut pas acheter. Comme toute autre réponse commerce, elles proviennent de la boutique propre à cet agent de boutique.
 
 ## Dépannage
 

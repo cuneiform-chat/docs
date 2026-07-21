@@ -47,7 +47,7 @@ import { Callout } from 'nextra/components'
 
 हर platform का एक store, हर workspace में — और **एक Shopify store और एक WooCommerce store एक ही समय पर connected रह सकते हैं**। असल में एक merchant यही multi-store सेटअप देखता है: पाँच Shopify stores नहीं, बल्कि एक Shopify store और एक Woo store साथ-साथ।
 
-जब दोनों connected हों, commerce tools **हर** connected store से query करते हैं और जवाबों को मिला देते हैं: catalog search के नतीजे जुड़ जाते हैं, product की गिनती जुड़ जाती है, और एक product lookup उसी store पर हल हो जाता है जिसका वह product है। Analytics उन्हें अलग रखता है, बीच में बदलने के लिए एक provider selector के साथ।
+जब दोनों connected हों, **हर store को अपना अलग store agent मिलता है**, और हर agent अपने ही store से जवाब देता है। आपके Shopify store agent से बात करने वाले shopper को Shopify के products और Shopify के orders मिलते हैं; WooCommerce agent WooCommerce से जवाब देता है। दोनों को मिलाकर एक साझा catalog नहीं बनाया जाता। Analytics भी उन्हें अलग रखता है, बीच में बदलने के लिए एक provider selector के साथ।
 
 <Callout type="warning">
   एक store एक समय पर सिर्फ़ एक ही workspace से connected रह सकता है। अगर किसी ने वही store कहीं और पहले से connect कर रखा है, तो connect करने की कोशिश ठुकरा दी जाती है और आपसे कहा जाता है कि पहले उसे वहाँ से disconnect करें।
