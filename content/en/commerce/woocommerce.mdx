@@ -1,10 +1,10 @@
 ---
-description: Connect your self-hosted WooCommerce store so your AI agent can answer product questions, look up orders, recommend in-stock items, and send order-status updates from your live catalog.
+description: Connect your self-hosted WooCommerce store so your AI agent can answer product questions, look up orders, recommend in-stock items, and send order-status updates from your synced catalog.
 ---
 
 # WooCommerce
 
-Connect your self-hosted **WooCommerce** store so your AI agent can answer product questions, look up a shopper's order, recommend in-stock items, and send order-status updates — all from your real, live catalog and order data.
+Connect your self-hosted **WooCommerce** store so your AI agent can answer product questions, look up a shopper's order, recommend in-stock items, and send order-status updates — all from your synced catalog and order data.
 
 import { Callout } from 'nextra/components'
 
@@ -118,7 +118,7 @@ Prices and stock come from your synced catalog, so recommendations stay limited 
 
 ### Opt-in order-status updates
 
-After a shopper verifies their order in chat, they can opt in to shipping updates on a supported channel. Updates require two things: that you enabled them on the WooCommerce connection, and that the shopper opted in. See [Orders](/commerce/orders#order-status-updates).
+After a shopper verifies their order in chat, they can opt in to shipping updates on a supported channel. The shopper's opt-in is the only gate — the update types are on by default on the WooCommerce connection, so there's nothing to switch on first. See [Orders](/commerce/orders#order-status-updates).
 
 ### Reconnect
 
@@ -163,7 +163,7 @@ The lookup is deliberately strict: it returns details only when the shopper give
 
 ### No order-status updates are sent
 
-Both gates have to be open: enable notifications on the WooCommerce connection, and have the shopper opt in in chat on a supported channel.
+The shopper has to opt in, in chat, on a supported channel. If they did, check the notification toggles on the WooCommerce connection — they're on by default, but if the matching update type was switched off at some point, the opt-in alone won't produce a message.
 
 ## Disconnecting
 
