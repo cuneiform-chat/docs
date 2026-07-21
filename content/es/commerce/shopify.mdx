@@ -1,10 +1,10 @@
 ---
-description: Instala Cuneiform Chat desde la Shopify App Store y vincúlalo a tu workspace para que tus agents de IA respondan desde tu catálogo, pedidos e inventario de Shopify en vivo.
+description: Instala Cuneiform Chat desde la Shopify App Store y vincúlalo a tu workspace para que tus agents de IA respondan desde tu catálogo, pedidos e inventario de Shopify sincronizados.
 ---
 
 # Shopify
 
-**Instala una vez desde la Shopify App Store, vincúlalo a tu workspace y tus agents ya están leyendo tu tienda en vivo.** Sin claves de API que generar, sin URLs de redirección que configurar, sin plugin que instalar.
+**Instala una vez desde la Shopify App Store, vincúlalo a tu workspace y tus agents ya responden desde el catálogo, los pedidos y el inventario de tu tienda.** Sin claves de API que generar, sin URLs de redirección que configurar, sin plugin que instalar.
 
 import { Callout } from 'nextra/components'
 
@@ -17,7 +17,7 @@ import { Callout } from 'nextra/components'
 Una vez vinculada tu tienda, tu agent de tienda puede:
 
 - **Responder preguntas de catálogo** a partir de tus productos, variantes, opciones y precios reales
-- **Leer stock y precio en el momento** de responder, así que nunca vende algo que ya se agotó
+- **Leer stock y precio de tu catálogo sincronizado**, que los webhooks mantienen al día para que no ofrezca lo que acabas de agotar
 - **Recomendar productos en stock** en lugar de lo que recuerde
 - **Consultar pedidos** para compradores que puedan demostrar que el pedido es suyo
 - **Enviar actualizaciones de estado del pedido** a los compradores que se suscriben, en el mismo chat
@@ -57,9 +57,11 @@ Lo que puedes ver en esa página:
 | **Confirmar la vinculación** | Eres Owner o Admin — esta es la vía normal. |
 | **Pide a un administrador que lo termine** | Eres Member. Los Members no pueden conectar integraciones; envía el enlace a un Owner o Admin. |
 | **Tienda vinculada** | Listo. La sincronización del catálogo ya está en marcha. |
-| **Este enlace ha caducado** | El ticket de vinculación dura poco. Vuelve a la app en tu panel de Shopify y haz clic otra vez en **Link your workspace**. |
+| **Este enlace de conexión ha caducado** | El ticket de vinculación está obsoleto, ya se usó o ya no se reconoce. Vuelve a la app en tu panel de Shopify y haz clic otra vez en **Link your workspace**. |
 | **Esta tienda está conectada en otro sitio** | La tienda ya está vinculada a otro workspace. Desconéctala allí primero. |
 | **Este workspace ya tiene una tienda** | Una tienda Shopify por workspace. Desconecta la actual antes de vincular otra. |
+| **No se pudo conectar tu tienda** | Algo falló de nuestro lado. Un botón **Try again** lo reintenta ahí mismo — no hace falta que empieces de nuevo desde Shopify. |
+| **No pudimos completar la conexión** | La vinculación falló antes de llegar hasta nosotros. Vuelve a abrir la app en tu panel de Shopify y empieza la vinculación otra vez. |
 
 ## Permisos que pedimos
 
@@ -94,7 +96,7 @@ Shopify no tiene paso de reconexión, y nunca deberías salir a buscarlo. Los ca
 ## Después de conectar
 
 - **Tu catálogo empieza a sincronizarse de inmediato.** Consulta [Catálogo y Conocimiento](/commerce/catalog-and-knowledge) para saber qué cubre la sincronización y cómo se mantiene al día.
-- **Un agent se convierte en tu agent de tienda.** Consulta [Tu agent de tienda](/commerce#your-store-agent).
+- **Un agent se convierte en tu agent de tienda**, que elegimos nosotros por ti al conectar. Consulta [Tu agent de tienda](/commerce#your-store-agent).
 - **Las actualizaciones de estado del pedido siguen desactivadas hasta que las actives.** Consulta [Pedidos](/commerce/orders#order-status-updates).
 
 ## Solución de problemas
@@ -117,7 +119,7 @@ Vincular una tienda requiere el permiso **Integration connect**, que tienen los 
 
 ### El catálogo está vacío justo después de vincular
 
-La primera importación rellena todo el catálogo y tarda unos minutos en una tienda grande. Si después sigue pareciendo vacío, ejecuta **Re-sync now** desde **Commerce → Shopify**.
+La primera importación rellena todo el catálogo y tarda unos minutos en una tienda grande. Si después sigue pareciendo vacío, ejecuta **Re-sync now** desde **Commerce → Shopify → Catalog & Data**. Mientras el catálogo siga vacío, la checklist de la pestaña Overview también ofrece un **Sync now** de un solo clic.
 
 ### El agent no responde preguntas de producto
 
@@ -129,10 +131,14 @@ Desconecta desde **Commerce → Shopify → Disconnect**. Al desconectar:
 
 - Se elimina la conexión guardada y el catálogo sincronizado
 - Se borra el conocimiento de producto construido a partir de ese catálogo, así que los agents dejan de responder con él
-- Se restablece el permiso de comercio del agent de tienda y se revierte su persona de comercio si nunca la editaste
-- Se archivan los Agent Flows de comercio y las sugerencias de cuestionario de producto que vinieron con la tienda
+- Se restablece el permiso de comercio del agent de tienda, se revierte su persona de comercio si nunca la editaste y **se archiva el propio agent** — volver a conectar la misma tienda lo recupera con su ajuste fino y su historial de versiones intactos
+- **Se elimina permanentemente cualquier Tienda acotada a tu tienda de Shopify**, junto con su historial de analíticas. Las Tiendas que construiste a mano no se tocan
+- Se archivan los Agent Flows de comercio que vinieron con la tienda
+- Se eliminan del todo las sugerencias de cuestionario de la IA, así que una futura reconexión empieza de cero
 
-Si todavía tienes una tienda **WooCommerce** conectada, los pasos que afectan a todo el workspace se omiten — desconectar una tienda nunca desmonta la configuración de comercio de la otra.
+<Callout type="warning">
+  Si todavía tienes una tienda **WooCommerce** conectada, solo se omiten los pasos que afectan a todo el workspace — archivar los Agent Flows de comercio y eliminar las sugerencias de cuestionario. El catálogo, el conocimiento de producto, las Tiendas, las analíticas y el agent de tienda propios de la tienda Shopify se desmontan siempre.
+</Callout>
 
 Desinstalar la app desde tu panel de Shopify también termina la relación del lado de Shopify.
 

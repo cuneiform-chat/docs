@@ -15,9 +15,11 @@ Les deux se terminent de la même façon : votre checkout, dans le navigateur de
 
 ## Shopify : un lien, tout le panier
 
-Pour une boutique Shopify, le transfert est un **unique lien de checkout qui emporte tout le panier** — chaque ligne, chaque quantité — plus toute remise que vous avez configurée, plus l'attribution pour que la commande qui en résulte puisse être remontée jusqu'à la conversation qui l'a produite.
+Pour une boutique Shopify, le transfert est un **unique lien de checkout qui emporte tout le panier** — chaque ligne, chaque quantité — plus l'attribution pour que la commande qui en résulte puisse être remontée jusqu'à la conversation qui l'a produite.
 
 L'acheteur appuie une fois et arrive sur votre checkout Shopify avec tout déjà en place. Rien à rajouter, rien à retenir.
+
+Un **code de remise** voyage sur ce lien lorsque le transfert part d'une [Boutique](/integrations/telegram-mini-app) sur laquelle une remise est configurée. Un panier constitué à partir de product cards dans une conversation ne porte aucun code de remise.
 
 ## WooCommerce : cela dépend de la permission de votre connexion [#woocommerce-permission]
 
@@ -30,7 +32,7 @@ import { Callout } from 'nextra/components'
 | Votre connexion | Ce que reçoit l'acheteur |
 |---|---|
 | **`Read/Write`** (toute connexion guidée, et toute connexion manuelle où vous avez sélectionné `Read/Write`) | Le **panier entier**, sous forme de commande en attente créée dans votre boutique, avec la conversation qui lui est rattachée. L'acheteur passe directement au paiement de cette commande. |
-| **Lecture seule** | **Une ligne à la fois.** L'acheteur reçoit un lien d'ajout au panier pour un seul produit. Si son panier compte plusieurs lignes, le transfert bascule sur une demande de commande, de sorte que la demande vous parvienne sous forme de message plutôt que de perdre silencieusement les autres articles. |
+| **Lecture seule** | **Une ligne à la fois.** L'acheteur reçoit un lien d'ajout au panier pour un seul produit. Si son panier compte plusieurs lignes, aucun lien de checkout n'est construit. Rien n'est perdu — le panier reste intact — mais la suite dépend de l'endroit où se trouve l'acheteur : depuis une **Boutique**, le transfert devient une demande de commande qui arrive dans votre Inbox ; **à l'intérieur d'une conversation**, l'agent lui dit qu'il ne peut pas construire le lien et propose de l'aider à finaliser autrement, sans créer d'élément dans l'Inbox. |
 
 ### Ce qu'est, et n'est pas, la commande en attente
 
@@ -38,7 +40,9 @@ Sur une connexion `Read/Write`, passer au checkout crée une **commande en atten
 
 - **N'est pas payée** ni **préparée** — elle attend l'acheteur, exactement comme un panier abandonné arrivé jusqu'à la page de paiement
 - **Porte la conversation dont elle est issue**, pour que vous voyiez quelles discussions se transforment en commandes
-- Est la **seule** chose que l'intégration crée dans votre boutique. Elle ne modifie jamais un produit, n'ajuste jamais le stock et ne modifie jamais une commande existante
+- Est la **seule commande** que l'intégration crée. Elle ne modifie jamais un produit, n'ajuste jamais le stock et ne modifie jamais une commande existante
+
+L'intégration enregistre aussi un petit ensemble de **webhooks** sur votre boutique au moment de la connexion — c'est ainsi qu'elle est informée des nouvelles commandes et des changements de produit au moment où ils se produisent. Ils portent des noms commençant par `Cuneiform …`, et la déconnexion les supprime.
 
 ### Si le checkout multi-lignes ne fonctionne pas
 
@@ -70,15 +74,15 @@ Quand un acheteur constitue un panier à partir de product cards dans la convers
 
 ### Le lien de checkout ne contient qu'un seul produit
 
-C'est la voie WooCommerce en lecture seule. Vérifiez la permission de votre connexion et reconnectez-vous via le parcours guidé.
+C'est la voie WooCommerce en lecture seule. Vérifiez la permission de votre connexion et faites **Reconnect** via le parcours guidé.
 
-### Un panier multi-lignes est devenu une demande de commande au lieu d'un checkout
+### Un panier multi-lignes n'a pas produit de lien de checkout
 
-Même cause. Plutôt que d'abandonner silencieusement les lignes supplémentaires, une connexion en lecture seule vous route les paniers multi-lignes sous forme de demande pour que rien ne soit perdu.
+Même cause. Rien n'est abandonné — le panier est préservé dans les deux cas. Depuis une Boutique, la demande vous parvient sous forme de demande de commande ; à l'intérieur d'une conversation, l'agent la traite dans l'échange plutôt que de créer un élément dans l'Inbox.
 
 ### Un acheteur a atteint le checkout mais la remise n'a pas été appliquée
 
-Les remises voyagent sur le lien de transfert Shopify. Vérifiez que la remise est toujours valide et applicable aux produits du panier — un code expiré ou non applicable est écarté par Shopify au checkout, pas par nous.
+Les remises voyagent sur le lien de transfert Shopify **uniquement depuis une Boutique** — un panier constitué dans la conversation n'en porte jamais. Si le transfert venait bien d'une Boutique, vérifiez que la remise est toujours valide et applicable aux produits du panier ; un code expiré ou non applicable est écarté par Shopify au checkout, pas par nous.
 
 ### Les commandes n'indiquent pas de quelle conversation elles viennent
 

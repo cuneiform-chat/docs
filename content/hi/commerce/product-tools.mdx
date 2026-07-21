@@ -25,7 +25,7 @@ import { Callout } from 'nextra/components'
 
 ### इसे कौन इस्तेमाल कर सकता है [#who-can-use-it]
 
-Library देखना और उसे बदलना अलग-अलग permissions हैं, इसलिए आप किसी को products देखने दे सकते हैं बिना उसे यह surface बदलने दिए। Members को आमतौर पर देखने की अनुमति मिलती है; Owners और Admins को दोनों।
+Library देखना और उसे बदलना अलग-अलग permissions हैं, इसलिए आप किसी को products देखने दे सकते हैं बिना उसे यह surface बदलने दिए। Members को सिर्फ़ देखने की अनुमति मिलती है; Owners, Admins और Team Admins देख भी सकते हैं और बदल भी सकते हैं।
 
 ## Product Finder [#product-finder]
 
@@ -37,7 +37,8 @@ Library देखना और उसे बदलना अलग-अलग per
 
 | Surface | यह क्या दिखाता है |
 |---|---|
-| **Forms** | quiz ख़ुद, flow composer में |
+| **Quiz ideas** | आपके catalog से निकाली गई AI-सुझाई quizzes, असली quiz में बदलने को तैयार |
+| **Quiz forms** | quiz ख़ुद, flow composer में |
 | **Submissions** | हर पूरी हुई quiz, जवाबों और क्या सुझाया गया इसके साथ |
 | **Heatmap** | shoppers किस सवाल पर छोड़ देते हैं |
 | **Diagnose** | एक AI विश्लेषक जिससे आप पूछ सकते हैं *"इस quiz को कोई पूरा क्यों नहीं कर रहा?"* |
@@ -45,7 +46,7 @@ Library देखना और उसे बदलना अलग-अलग per
 चूँकि यह एक flow है, agent बातचीत के बीच में ही quiz की पेशकश कर सकता है जब उसे लगे कि shopper ख़रीद नहीं रहा बल्कि सिर्फ़ देख रहा है — और जो इसे पूरा करता है उसे एक सामान्य धन्यवाद के बजाय सुझाव मिलते हैं।
 
 <Callout type="info">
-  Agent Flows, और इसीलिए Product Finder, सबके लिए शामिल हैं — free trial सहित। और चूँकि Product Finder ऐसा flow है जिसे platform आपके लिए संभालता है, यह आपके workspace के अपने [published-flow कोटे](/agents/agent-flows#limits) में नहीं गिना जाता।
+  Agent Flows, और इसीलिए Product Finder, सबके लिए शामिल हैं — free trial सहित। और चूँकि Product Finder आमतौर पर ऐसा flow है जिसे platform आपके लिए संभालता है, यह आपके workspace के अपने [published-flow कोटे](/agents/agent-flows#limits) में नहीं गिना जाता। एक अपवाद: किसी store के connect होने से पहले quiz बनाएँ और उसे रखने वाला कोई store agent ही न हो — तो वह quiz आपकी अपनी है, और उसे publish करने पर एक slot ख़र्च होता है।
 </Callout>
 
 ## AI Quiz Suggester [#quiz-suggester]
@@ -55,7 +56,7 @@ Library देखना और उसे बदलना अलग-अलग per
 **AI Quiz Suggester** दिन में एक बार आपका catalog देखता है और ऐसी quizzes सुझाता है जो आप सचमुच जो बेचते हैं उससे मेल खाती हैं — वे product आयाम जिनके बारे में पूछना सार्थक है, वे सवाल जो एक product को दूसरे से अलग करेंगे, और वे shopper-रूप जिनका आपकी शृंखला संकेत देती है। आप सुझाव देखते हैं और जो पसंद आएँ उन्हें असली Product Finder quizzes में बदल देते हैं।
 
 - यह **दिन में एक बार** चलता है, अपने-आप। तय करने को कुछ नहीं है।
-- माँग पर यह कभी-कभार से ज़्यादा दोबारा नहीं चलेगा — एक छोटा cooldown बार-बार refresh करके लगभग एक जैसे नतीजों पर खपत ख़र्च होने से रोकता है।
+- यह हर **15 मिनट** में एक बार से ज़्यादा दोबारा नहीं चलेगा। वह खिड़की साझा है — रोज़ाना चलना, कोई catalog sync और कोई manual refresh, सब उसी cooldown से लेते हैं — इसलिए बार-बार refresh करके लगभग एक जैसे नतीजों पर खपत ख़र्च नहीं हो सकती।
 - हर दूसरी AI feature की तरह यह आपके workspace के उपयोग कोटे से लेता है, और उस कोटे को चलने के बाद नहीं, चलने से पहले जाँचता है।
 
 ## इनमें से मुझे असल में कौन-सा चाहिए? [#which-of-these-do-i-actually-need]
@@ -71,7 +72,7 @@ Library देखना और उसे बदलना अलग-अलग per
 
 ### एक store connect करने के बाद भी Product Library ख़ाली है [#the-product-library-is-empty-after-connecting-a-store]
 
-Catalog sync ही उसे भरता है। अगर catalog ख़ुद ख़ाली है — सबसे आम तौर पर manual तरीक़े से जुड़े WooCommerce store पर — तो पहले **Resync now** दबाएँ। देखें [Manual connect के बाद](/commerce/woocommerce#after-a-manual-connect)।
+Catalog sync ही उसे भरता है। अगर catalog ख़ुद ख़ाली है — सबसे आम तौर पर manual तरीक़े से जुड़े WooCommerce store पर — तो पहले **Re-sync now** दबाएँ। देखें [Manual connect के बाद](/commerce/woocommerce#after-a-manual-connect)।
 
 ### मेरे store से हटाया गया product अब भी library में है [#a-product-i-deleted-from-my-store-is-still-in-the-library]
 

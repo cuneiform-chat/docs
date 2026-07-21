@@ -15,9 +15,11 @@ As duas terminam do mesmo jeito: seu checkout, no navegador do comprador, com os
 
 ## Shopify: um link, o carrinho inteiro
 
-Em uma loja Shopify, o repasse é um **único link de checkout que leva o carrinho inteiro** — todas as linhas, todas as quantidades — mais qualquer desconto que você tenha configurado, mais a atribuição para que o pedido resultante possa ser rastreado até a conversa que o gerou.
+Em uma loja Shopify, o repasse é um **único link de checkout que leva o carrinho inteiro** — todas as linhas, todas as quantidades — mais a atribuição para que o pedido resultante possa ser rastreado até a conversa que o gerou.
 
 O comprador toca uma vez e chega no seu checkout da Shopify com tudo já lá. Nada para adicionar de novo, nada para lembrar.
+
+Um **código de desconto** viaja nesse link quando o repasse começa em uma [Loja](/integrations/telegram-mini-app) que tenha um configurado. Um carrinho montado a partir de product cards dentro de uma conversa não leva código de desconto.
 
 ## WooCommerce: depende da permissão da sua conexão [#woocommerce-permission]
 
@@ -30,7 +32,7 @@ import { Callout } from 'nextra/components'
 | Sua conexão | O que o comprador recebe |
 |---|---|
 | **`Read/Write`** (toda conexão guiada, e qualquer conexão manual em que você selecionou `Read/Write`) | O **carrinho inteiro**, como um pedido pendente criado na sua loja, com a conversa atribuída a ele. O comprador vai direto pagar esse pedido. |
-| **Somente leitura** | **Uma linha por vez.** O comprador recebe um link de adicionar-ao-carrinho de um único produto. Se o carrinho dele tiver mais de uma linha, o repasse cai para uma consulta de pedido, para que a solicitação chegue até você como mensagem em vez de descartar os outros itens silenciosamente. |
+| **Somente leitura** | **Uma linha por vez.** O comprador recebe um link de adicionar-ao-carrinho de um único produto. Se o carrinho dele tiver mais de uma linha, nenhum link de checkout é montado. Nada se perde — o carrinho continua intacto — mas o que acontece depois depende de onde o comprador está: a partir de uma **Loja**, o repasse vira uma consulta de pedido que chega na sua Inbox; **dentro de uma conversa**, o agent avisa ao comprador que não consegue montar o link e se oferece para ajudá-lo a concluir de outro jeito, sem criar um item na Inbox. |
 
 ### O que o pedido pendente é, e o que não é
 
@@ -38,7 +40,9 @@ Em uma conexão `Read/Write`, fazer checkout cria um **pedido pendente** no WooC
 
 - **Não está pago** nem **preparado** — está esperando o comprador, exatamente como um carrinho abandonado que chegou até a página de pagamento
 - **Carrega a conversa de onde veio**, para que você veja quais conversas viram pedidos
-- É a **única** coisa que a integração cria na sua loja. Ela nunca edita um produto, nunca ajusta estoque e nunca modifica um pedido existente
+- É o **único pedido** que a integração cria. Ela nunca edita um produto, nunca ajusta estoque e nunca modifica um pedido existente
+
+A integração também registra um pequeno conjunto de **webhooks** na sua loja quando você conecta — é assim que ela fica sabendo de pedidos novos e de mudanças de produto no momento em que acontecem. Eles se chamam `Cuneiform …`, e desconectar os remove.
 
 ### Se o checkout de várias linhas não estiver funcionando
 
@@ -70,15 +74,15 @@ Quando um comprador monta um carrinho a partir de product cards na conversa, o r
 
 ### O link de checkout só tem um produto
 
-Esse é o caminho do WooCommerce somente leitura. Confira a permissão da sua conexão e reconecte pelo fluxo guiado.
+Esse é o caminho do WooCommerce somente leitura. Confira a permissão da sua conexão e faça **Reconnect** pelo fluxo guiado.
 
-### Um carrinho de várias linhas virou uma consulta de pedido em vez de um checkout
+### Um carrinho de várias linhas não gerou link de checkout
 
-A mesma causa. Em vez de descartar as linhas extras silenciosamente, uma conexão somente leitura roteia carrinhos de várias linhas até você como consulta, para que nada se perca.
+A mesma causa. Nada é descartado — o carrinho é preservado nos dois casos. A partir de uma Loja, a solicitação chega até você como consulta de pedido; dentro de uma conversa, o agent resolve conversando, em vez de criar um item na Inbox.
 
 ### Um comprador chegou ao checkout mas o desconto não foi aplicado
 
-Descontos viajam no link de repasse da Shopify. Confirme que o desconto ainda é válido e aplicável aos produtos do carrinho — um código expirado ou não aplicável é descartado pela Shopify no checkout, não por nós.
+Descontos viajam no link de repasse da Shopify **só a partir de uma Loja** — um carrinho de dentro da conversa nunca leva um. Se o repasse veio mesmo de uma Loja, confirme que o desconto ainda é válido e aplicável aos produtos do carrinho; um código expirado ou não aplicável é descartado pela Shopify no checkout, não por nós.
 
 ### Os pedidos não mostram de qual conversa vieram
 

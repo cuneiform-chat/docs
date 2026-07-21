@@ -1,5 +1,5 @@
 ---
-description: Conecta una tienda Shopify o WooCommerce para que tus agents de IA respondan desde tu catálogo en vivo, consulten pedidos, recomienden lo que realmente hay en stock y lleven a los compradores al checkout.
+description: Conecta una tienda Shopify o WooCommerce para que tus agents de IA respondan desde tu catálogo sincronizado, consulten pedidos, recomienden lo que realmente hay en stock y lleven a los compradores al checkout.
 ---
 
 # Commerce
@@ -22,7 +22,7 @@ import { Callout } from 'nextra/components'
 | Capacidad | Qué experimenta tu comprador | Más información |
 |---|---|---|
 | **Catálogo (preguntas y respuestas)** | «¿La camisa de lino viene en azul marino?» respondido a partir de tus productos, variantes y precios reales | [Catálogo y Conocimiento](/commerce/catalog-and-knowledge) |
-| **Inventario en vivo** | El stock y el precio se leen en el momento de responder, así que el agent nunca promete algo que ya se agotó | [Catálogo y Conocimiento](/commerce/catalog-and-knowledge) |
+| **Inventario actualizado** | El stock y el precio vienen de tu catálogo sincronizado, que los webhooks mantienen al día, así que el agent no promete lo que acabas de agotar | [Catálogo y Conocimiento](/commerce/catalog-and-knowledge) |
 | **Recomendaciones** | «¿Qué combinaría con esto?» — sugerencias limitadas a artículos que realmente están en stock | [Catálogo y Conocimiento](/commerce/catalog-and-knowledge) |
 | **Consulta de pedidos (WISMO)** | «¿Dónde está mi pedido?» respondido después de que el comprador demuestre que el pedido es suyo | [Pedidos](/commerce/orders) |
 | **Actualizaciones de estado del pedido** | Los compradores que se suscriben reciben actualizaciones de envío en el mismo hilo de chat | [Pedidos](/commerce/orders) |
@@ -39,8 +39,8 @@ Shopify y WooCommerce son iguales aquí — no hay una principal y una alternati
 |---|---|---|
 | **Cómo te conectas** | Instala desde la Shopify App Store y luego vincula tu workspace desde dentro de la app integrada | Introduce la URL de tu tienda y aprueba una autorización única, o pega claves de API manualmente |
 | **Volver a autorizar más tarde** | No hay paso de reconexión — los cambios de permisos viajan con la propia app | **Reconnect** vuelve a ejecutar la aprobación en tu tienda |
-| **Sincronización inicial del catálogo** | Empieza automáticamente al conectar | Empieza automáticamente en el flujo guiado; la vía de claves manuales necesita un **Resync now** — consulta [WooCommerce](/commerce/woocommerce#after-a-manual-connect) |
-| **Frescura del inventario** | Actualizaciones de inventario dedicadas, así que los cambios de stock llegan por su cuenta | Los cambios de stock llegan junto con las actualizaciones de producto |
+| **Sincronización inicial del catálogo** | Empieza automáticamente al conectar | Empieza automáticamente en el flujo guiado; la vía de claves manuales necesita un **Re-sync now** — consulta [WooCommerce](/commerce/woocommerce#after-a-manual-connect) |
+| **Frescura del inventario** | Actualizaciones de inventario dedicadas, así que un cambio solo de stock llega por su cuenta en segundos | Los cambios de stock llegan junto con las actualizaciones de producto, así que un cambio solo de stock espera a la siguiente edición del producto o a la siguiente reconciliación |
 | **Transferencia al checkout** | Un único enlace de carrito que cubre todas las líneas | Depende del permiso que lleven tus claves — consulta [Checkout](/commerce/checkout) |
 
 ## Puedes conectar ambas a la vez [#you-can-connect-both-at-once]
@@ -69,12 +69,12 @@ Todo lo relacionado con comercio está bajo **Commerce** en la navegación izqui
 
 ## Tu agent de tienda [#your-store-agent]
 
-Commerce no se activa en todos los agents a la vez. Cuando conectas una tienda, **un agent se convierte en tu agent de tienda** — o bien un agent existente que elijas, o bien uno nuevo creado para ti — y es el agent que lleva las herramientas de comercio y lee tu catálogo.
+Commerce no se activa en todos los agents a la vez. Cuando conectas una tienda, **un agent se convierte en tu agent de tienda** — y es el agent que lleva las herramientas de comercio y lee tu catálogo.
 
-Esto no se gestiona con un interruptor por agent. El agent de tienda se elige en el momento de conectar y aparece en la propia página del agent como un panel de solo lectura que dice «gestionado por tu tienda», así que siempre resulta obvio qué agent está conectado a qué tienda.
+Ese agent lo elegimos nosotros, no lo eliges tú. Si ya habías conectado esta misma tienda antes, se recupera su agent de tienda anterior con su ajuste fino y su historial de versiones intactos; si no, se crea uno nuevo. Esto no se gestiona con un interruptor por agent: el agent de tienda aparece en su propia página como un panel de solo lectura que dice «gestionado por tu tienda», así que siempre resulta obvio qué agent está conectado a qué tienda.
 
 <Callout type="info">
-  Si tu workspace ya agotó su cupo de agents, no hay espacio para crear un agent de tienda — el flujo de conexión te lo dice y te pide que elijas un agent existente o liberes uno. Este es el único punto en el que tus límites tocan el comercio, y tiene que ver con el número de agents, no con el comercio en sí.
+  Si tu workspace ya agotó su cupo de agents, no hay espacio para crear un agent de tienda. El flujo de conexión te lo dice y te pide que **mejores tu plan, o archives un agent que no uses y vuelvas a conectar tu tienda** para terminar la configuración. Este es el único punto en el que tus límites tocan el comercio, y tiene que ver con el número de agents, no con el comercio en sí.
 </Callout>
 
 ## Cómo empezar

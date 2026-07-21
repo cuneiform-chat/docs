@@ -1,10 +1,10 @@
 ---
-description: अपना self-hosted WooCommerce store connect करें ताकि आपका AI agent product के सवालों के जवाब दे, orders ढूँढे, stock में मौजूद चीज़ें सुझाए, और आपके live catalog से order-status updates भेजे।
+description: अपना self-hosted WooCommerce store connect करें ताकि आपका AI agent product के सवालों के जवाब दे, orders ढूँढे, stock में मौजूद चीज़ें सुझाए, और आपके sync किए गए catalog से order-status updates भेजे।
 ---
 
 # WooCommerce
 
-अपना self-hosted **WooCommerce** store connect करें ताकि आपका AI agent product के सवालों के जवाब दे सके, किसी shopper का order ढूँढ सके, stock में मौजूद चीज़ें सुझा सके, और order-status updates भेज सके — यह सब आपके असली, live catalog और order डेटा से।
+अपना self-hosted **WooCommerce** store connect करें ताकि आपका AI agent product के सवालों के जवाब दे सके, किसी shopper का order ढूँढ सके, stock में मौजूद चीज़ें सुझा सके, और order-status updates भेज सके — यह सब आपके sync किए गए catalog और order डेटा से।
 
 import { Callout } from 'nextra/components'
 
@@ -18,7 +18,7 @@ import { Callout } from 'nextra/components'
 - **Order lookup (WISMO)** — shoppers अपने order number और order पर दर्ज email या phone के साथ "मेरा order कहाँ है?" पूछ लेते हैं
 - **सुझाव** — सुझाव सिर्फ़ उन्हीं products तक सीमित जो सचमुच stock में हैं
 - **Order-status updates** — उसी chat में shipping updates, उन shoppers के लिए जो opt in करते हैं
-- **Live inventory** — जवाब देते समय ही कीमतें और stock ताज़ा पढ़े जाते हैं
+- **Current inventory** — कीमतें और stock आपके sync किए गए catalog से, जिसे webhooks ताज़ा रखते हैं
 - **Checkout handoff** — खरीदने को तैयार shopper को आपके अपने WooCommerce checkout पर भेजना
 
 ## पूर्वापेक्षाएँ [#prerequisites]
@@ -65,20 +65,20 @@ URL जैसे चाहें वैसे लिखें — हम उस�
   **Manual key वाला रास्ता दो चीज़ें छोड़ देता है जो guided रास्ता connect करते समय ही कर देता है: यह webhooks register नहीं करता, और यह पहला catalog import शुरू नहीं करता।** ये दोनों अलग-अलग समय पर ठीक होती हैं — और उनमें से एक तभी ठीक होती है जब आपकी key में सही permission हो। नीचे दोनों हिस्से पढ़ें।
 </Callout>
 
-### आपका catalog — "Resync now" दबाएँ [#your-catalog--press-resync-now]
+### आपका catalog — "Re-sync now" दबाएँ [#your-catalog--press-resync-now]
 
-connect करते समय कुछ भी import नहीं होता। एक background job रोज़ catalogs का मिलान करता है, लेकिन उसका catch-up चरण सिर्फ़ उन stores के लिए चलता है जो कम से कम एक बार पहले sync हो चुके हों — जो store कभी sync ही नहीं हुआ उसके पास पकड़ने को *कुछ* है ही नहीं। व्यवहार में इसका मतलब है कि manual तरीक़े से जुड़े store का catalog पूरी तरह **साप्ताहिक sweep** में भरता है, जो सात दिन तक दूर हो सकता है।
+connect करते समय कुछ भी import नहीं होता। एक background job रोज़ catalogs का मिलान करता है, लेकिन वह रोज़ाना चरण सिर्फ़ उन्हीं products को लाता है जो *उसके अपने पिछले चक्कर के बाद* बदले हों — और जिस store का कभी import ही नहीं हुआ उसके पास लाने को कोई पुराना बकाया नहीं होता, सिर्फ़ नए बदलाव होते हैं। पूरा import **साप्ताहिक sweep** के साथ आता है, जो सात दिन तक दूर हो सकता है।
 
-**उसका इंतज़ार मत कीजिए।** **Commerce → WooCommerce → Catalog** खोलें और **Resync now** पर click करें। यह ठीक वही import चलाता है जो guided रास्ता connect करते समय चलाता, और वह कुछ ही मिनटों में पूरा हो जाता है।
+**उसका इंतज़ार मत कीजिए।** **Commerce → WooCommerce → Catalog & Data** खोलें और **Re-sync now** पर click करें। यह ठीक वही import चलाता है जो guided रास्ता connect करते समय चलाता, और वह कुछ ही मिनटों में पूरा हो जाता है।
 
 ### आपके webhooks — सिर्फ़ तभी जब आपकी key Read/Write हो [#your-webhooks--only-if-your-key-is-readwrite]
 
 Webhooks भी connect करते समय register नहीं होते, लेकिन यह **एक शर्त पर** अपने-आप ठीक हो जाता है। हर घंटे चलने वाला एक job हर connected store के लिए webhook registration दोबारा आज़माता है, इसलिए:
 
 - **एक `Read/Write` store अपने-आप ठीक हो जाता है**, आमतौर पर घंटे भर में। आपको कुछ नहीं करना पड़ता।
-- **एक read-only store कभी ठीक नहीं होता।** WooCommerce read-only key से आने वाली हर registration कोशिश ठुकरा देता है। job हर घंटे कोशिश करता है, हर घंटे ठुकरा दिया जाता है, और ऐसा कुछ नहीं लिखता जो आपको दिखे। यह अनिश्चित काल तक विफल होता रहेगा।
+- **एक read-only store कभी ठीक नहीं होता।** WooCommerce read-only key से आने वाली हर registration कोशिश ठुकरा देता है। job हर घंटे कोशिश करता है और हर घंटे ठुकरा दिया जाता है, अनिश्चित काल तक।
 
-read-only store का लक्षण कोई error संदेश नहीं है — लक्षण यह है कि catalog, stock और order के बदलाव होते ही आने के बजाय सिर्फ़ अगले निर्धारित sync पर दिखते हैं।
+यह आपको अंदाज़ा लगाने की ज़रूरत नहीं — यह दिखता है: **Commerce → WooCommerce → Connection** पर एक **Webhook health** panel है, जिस पर **"Subscriptions drifted"** और **"No events received yet."** लिखा मिलेगा। दूसरा लक्षण व्यवहार में है — catalog, stock और order के बदलाव होते ही आने के बजाय सिर्फ़ अगले निर्धारित sync पर दिखते हैं।
 
 ### Permission वही है जो आपने हमें बताई [#the-permission-is-what-you-told-us-it-was]
 
@@ -102,7 +102,7 @@ read-only store का लक्षण कोई error संदेश नही
 
 आप **हर workspace में एक WooCommerce store** connect करते हैं — और उसी समय एक Shopify store भी connected रह सकता है (देखें [Commerce](/commerce#you-can-connect-both-at-once))।
 
-connect करते समय **एक agent आपका store agent बन जाता है**: या तो कोई मौजूदा agent जिसे आप चुनते हैं, या आपके लिए बनाया गया एक नया। वही agent WooCommerce tools रखता है; आपके दूसरे agents अछूते रहते हैं। ढूँढने के लिए कोई per-agent switch नहीं है — उसी agent के page पर एक read-only panel दिखाता है कि यह आपके store द्वारा प्रबंधित है।
+connect करते समय **एक agent आपका store agent बन जाता है** — जिसे आपके लिए चुना जाता है, आपके द्वारा नहीं। अगर आपने यही store पहले connect किया था, तो उसका पुराना store agent अपनी tuning और version history के साथ ज्यों का त्यों वापस ले लिया जाता है; वरना एक नया बना दिया जाता है। वही agent WooCommerce tools रखता है; आपके दूसरे agents अछूते रहते हैं। ढूँढने के लिए कोई per-agent switch नहीं है — उसी agent के page पर एक read-only panel दिखाता है कि यह आपके store द्वारा प्रबंधित है।
 
 <Callout type="info">
   इस page के पुराने संस्करण आपसे कहते थे कि **Commerce → Settings** में जाकर और agents के लिए commerce चालू करें। वह page अब मौजूद नहीं है, और उसके साथ per-agent switch भी चला गया। Commerce अब connect करते समय चुने गए store agent से जुड़ा होता है।
@@ -112,13 +112,13 @@ connect करते समय **एक agent आपका store agent बन �
 
 Shoppers को order का विवरण तभी दिखता है जब वे ठीक-ठीक order number **और** order पर दर्ज email या phone दें। ग़लत संपर्क और न मौजूद order — दोनों वही "नहीं मिला" जवाब देते हैं, बिना किसी विवरण के — यह anti-enumeration सुरक्षा है जो आपके ग्राहकों की रक्षा करती है। देखें [Orders](/commerce/orders)।
 
-### Live catalog और inventory [#live-catalog-and-inventory]
+### Current catalog और inventory [#live-catalog-and-inventory]
 
-जवाब देते समय ही कीमतें और stock ताज़ा पढ़े जाते हैं, इसलिए सुझाव सिर्फ़ उन्हीं तक सीमित रहते हैं जो सचमुच उपलब्ध हैं। WooCommerce stock के बदलाव अलग inventory events के बजाय product updates के साथ भेजता है, इसलिए सिर्फ़-stock वाला बदलाव तब पकड़ा जाता है जब product अगली बार update हो, या अगले निर्धारित reconcile पर। देखें [Catalog और Knowledge](/commerce/catalog-and-knowledge)।
+कीमतें और stock आपके sync किए गए catalog से आते हैं, इसलिए सुझाव सिर्फ़ उन्हीं तक सीमित रहते हैं जो सचमुच उपलब्ध हैं। WooCommerce stock के बदलाव अलग inventory events के बजाय product updates के साथ भेजता है, इसलिए सिर्फ़-stock वाला बदलाव तब पकड़ा जाता है जब product अगली बार update हो, या अगले निर्धारित reconcile पर। देखें [Catalog और Knowledge](/commerce/catalog-and-knowledge)।
 
 ### Opt-in order-status updates [#opt-in-order-status-updates]
 
-एक shopper के chat में अपना order सत्यापित करने के बाद वह किसी समर्थित channel पर shipping updates के लिए opt in कर सकता है। updates के लिए दो चीज़ें चाहिए: आपने WooCommerce connection पर उन्हें चालू किया हो, और shopper ने opt in किया हो। देखें [Orders](/commerce/orders#order-status-updates)।
+एक shopper के chat में अपना order सत्यापित करने के बाद वह किसी समर्थित channel पर shipping updates के लिए opt in कर सकता है। shopper का opt-in ही एकमात्र शर्त है — update प्रकार WooCommerce connection पर डिफ़ॉल्ट रूप से चालू रहते हैं, इसलिए पहले कुछ चालू करने की ज़रूरत नहीं। देखें [Orders](/commerce/orders#order-status-updates)।
 
 ### Reconnect [#reconnect]
 
@@ -141,7 +141,7 @@ guided रास्ते के लिए आपके browser को आपक
 
 ### connect करते ही catalog ख़ाली है [#the-catalog-is-empty-right-after-connecting]
 
-अगर आपने manual तरीक़े से connect किया है, तो यही अपेक्षित है — कुछ भी import नहीं हुआ। Catalog tab पर **Resync now** click करें।
+अगर आपने manual तरीक़े से connect किया है, तो यही अपेक्षित है — कुछ भी import नहीं हुआ। **Catalog & Data** tab पर **Re-sync now** click करें।
 
 अगर आपने guided रास्ता इस्तेमाल किया, तो पहला import पूरा catalog भरता है और बड़े store पर कुछ मिनट ले सकता है।
 
@@ -163,7 +163,7 @@ lookup जानबूझकर सख़्त है: यह विवरण �
 
 ### कोई order-status updates नहीं भेजे जा रहे [#no-order-status-updates-are-sent]
 
-दोनों शर्तें खुली होनी चाहिए: WooCommerce connection पर notifications चालू करें, और shopper से किसी समर्थित channel पर chat में opt in करवाएँ।
+shopper को बातचीत में, किसी समर्थित channel पर opt in करना होता है। अगर उसने किया है, तो WooCommerce connection के notification toggles जाँचें — वे डिफ़ॉल्ट रूप से चालू रहते हैं, पर अगर कभी उससे मेल खाता update प्रकार बंद कर दिया गया हो, तो अकेले opt-in से कोई संदेश नहीं जाएगा।
 
 ## Disconnect करना [#disconnecting]
 
@@ -171,10 +171,15 @@ lookup जानबूझकर सख़्त है: यह विवरण �
 
 - सहेजा गया connection और credentials, और sync किया गया catalog हट जाता है
 - उस catalog से बनी product knowledge मिट जाती है
-- store agent का commerce अधिकार रीसेट हो जाता है और अगर आपने कभी उसे बदला न हो तो उसका commerce persona वापस लौटा दिया जाता है
-- store के साथ आए commerce Agent Flows और product-quiz suggestions archive हो जाते हैं
+- उसने आपके store पर जो webhooks register किए थे वे हट जाते हैं
+- store agent का commerce अधिकार रीसेट हो जाता है, अगर आपने कभी उसे बदला न हो तो उसका commerce persona वापस लौटा दिया जाता है, और **ख़ुद वह agent archive हो जाता है** — वही store दोबारा connect करने पर वह अपनी tuning और version history के साथ ज्यों का त्यों वापस मिल जाता है
+- **उस store से जुड़ा कोई भी Storefront हमेशा के लिए मिटा दिया जाता है**, उसके analytics इतिहास समेत। आपके हाथ से बनाए Storefronts अछूते रहते हैं
+- store के साथ आए commerce Agent Flows archive हो जाते हैं
+- AI quiz suggestions पूरी तरह मिटा दिए जाते हैं, ताकि आगे कभी दोबारा connect करने पर शुरुआत साफ़ स्लेट से हो
 
-अगर आपका एक **Shopify** store अब भी connected है, तो workspace-भर के कदम छोड़ दिए जाते हैं — एक store disconnect करने से दूसरे store का commerce सेटअप कभी नहीं टूटता।
+<Callout type="warning">
+  अगर आपका एक **Shopify** store अब भी connected है, तो सिर्फ़ workspace-भर के कदम — commerce Agent Flows archive करना और quiz suggestions मिटाना — छोड़े जाते हैं। WooCommerce store का अपना catalog, product knowledge, Storefronts, analytics और store agent हमेशा हटाए जाते हैं।
+</Callout>
 
 ## अक्सर पूछे जाने वाले सवाल [#faq]
 
@@ -188,7 +193,7 @@ lookup जानबूझकर सख़्त है: यह विवरण �
 
 ### मंज़ूरी वाली screen write access क्यों माँगती है? [#why-does-the-approval-screen-ask-for-write-access]
 
-क्योंकि WooCommerce read-only key के लिए webhooks register करने से इनकार कर देता है, और webhooks के बिना कुछ भी real time में update नहीं होता। फिर भी integration कभी आपका catalog, आपका stock या आपके मौजूदा orders नहीं बदलता। यह सिर्फ़ एक ही चीज़ बनाता है — किसी chat से checkout करते shopper के लिए एक pending order; देखें [Checkout](/commerce/checkout)।
+क्योंकि WooCommerce read-only key के लिए webhooks register करने से इनकार कर देता है, और webhooks के बिना कुछ भी real time में update नहीं होता। फिर भी integration कभी आपका catalog, आपका stock या आपके मौजूदा orders नहीं बदलता। वह जो लिखता है वह बस इतना है — ख़ुद वे webhooks, और किसी chat से checkout करते shopper के लिए एक pending order; देखें [Checkout](/commerce/checkout)।
 
 ### क्या मैं फिर भी read-only key से connect कर सकता हूँ? [#can-i-connect-with-a-read-only-key-anyway]
 

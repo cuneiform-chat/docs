@@ -1,10 +1,10 @@
 ---
-description: Conecta tu tienda WooCommerce autoalojada para que tu agent de IA pueda responder preguntas de producto, consultar pedidos, recomendar artículos en stock y enviar actualizaciones de estado del pedido desde tu catálogo en vivo.
+description: Conecta tu tienda WooCommerce autoalojada para que tu agent de IA pueda responder preguntas de producto, consultar pedidos, recomendar artículos en stock y enviar actualizaciones de estado del pedido desde tu catálogo sincronizado.
 ---
 
 # WooCommerce
 
-Conecta tu tienda **WooCommerce** autoalojada para que tu agent de IA pueda responder preguntas de producto, consultar el pedido de un comprador, recomendar artículos en stock y enviar actualizaciones de estado del pedido — todo a partir de tus datos reales y en vivo de catálogo y pedidos.
+Conecta tu tienda **WooCommerce** autoalojada para que tu agent de IA pueda responder preguntas de producto, consultar el pedido de un comprador, recomendar artículos en stock y enviar actualizaciones de estado del pedido — todo a partir de tus datos sincronizados de catálogo y pedidos.
 
 import { Callout } from 'nextra/components'
 
@@ -18,7 +18,7 @@ import { Callout } from 'nextra/components'
 - **Consulta de pedidos (WISMO)** — los compradores consultan «¿dónde está mi pedido?» con su número de pedido más el correo o teléfono del pedido
 - **Recomendaciones** — sugerencias limitadas a productos que realmente están en stock
 - **Actualizaciones de estado del pedido** — actualizaciones de envío en el mismo chat, para los compradores que se suscriben
-- **Inventario en vivo** — precios y stock leídos en el momento de responder
+- **Inventario actualizado** — precios y stock de tu catálogo sincronizado, mantenido al día por webhooks
 - **Transferencia al checkout** — envía a un comprador listo para comprar a tu propio checkout de WooCommerce
 
 ## Requisitos previos
@@ -65,20 +65,20 @@ Comprobamos la salud de la tienda antes de guardar. Un fallo grave bloquea la co
   **La vía de claves manuales se salta dos cosas que el flujo guiado hace al conectar: no registra webhooks y no arranca la importación inicial del catálogo.** Se recuperan en plazos distintos — y una de ellas solo se recupera si tu clave lleva el permiso adecuado. Lee las dos mitades de abajo.
 </Callout>
 
-### Tu catálogo — pulsa «Resync now»
+### Tu catálogo — pulsa «Re-sync now»
 
-Al conectar no se importa nada. Un trabajo en segundo plano reconcilia catálogos a diario, pero su pasada de recuperación solo se ejecuta para tiendas que se han sincronizado al menos una vez — una tienda que nunca se ha sincronizado no tiene nada *desde donde* recuperar. En la práctica eso significa que el catálogo de una tienda conectada manualmente se rellena del todo en el **barrido semanal**, que puede estar hasta siete días por delante.
+Al conectar no se importa nada. Un trabajo en segundo plano reconcilia catálogos a diario, pero esa pasada diaria solo trae los productos que hayan cambiado *desde su propia última ejecución* — y una tienda que nunca importó nada no tiene atrasos que traer, solo ediciones nuevas. La importación completa llega con el **barrido semanal**, que puede estar hasta siete días por delante.
 
-**No esperes a eso.** Abre **Commerce → WooCommerce → Catalog** y haz clic en **Resync now**. Eso ejecuta la misma importación que el flujo guiado habría hecho al conectar, y termina en minutos.
+**No esperes a eso.** Abre **Commerce → WooCommerce → Catalog & Data** y haz clic en **Re-sync now**. Eso ejecuta la misma importación que el flujo guiado habría hecho al conectar, y termina en minutos.
 
 ### Tus webhooks — solo si tu clave es Read/Write
 
 Los webhooks tampoco se registran al conectar, pero esto sí se repara automáticamente **con una condición**. Un trabajo por hora reintenta el registro de webhooks en todas las tiendas conectadas, así que:
 
 - **Una tienda `Read/Write` se recupera sola**, normalmente en menos de una hora. No tienes que hacer nada.
-- **Una tienda de solo lectura nunca se recupera.** WooCommerce rechaza todos los intentos de registro que vienen de una clave de solo lectura. El trabajo reintenta cada hora, es rechazado cada hora y no registra nada que vayas a ver. Seguirá fallando indefinidamente.
+- **Una tienda de solo lectura nunca se recupera.** WooCommerce rechaza todos los intentos de registro que vienen de una clave de solo lectura. El trabajo lo reintenta cada hora y es rechazado cada hora, indefinidamente.
 
-El síntoma de una tienda de solo lectura no es un mensaje de error — es que los cambios de catálogo, stock y pedidos solo aparecen en la siguiente sincronización programada en lugar de llegar en el momento en que ocurren.
+Esto puedes verlo en lugar de tener que deducirlo: **Commerce → WooCommerce → Connection** tiene un panel **Webhook health**, que dirá **«Subscriptions drifted»** con **«No events received yet.»**. El otro síntoma es de comportamiento — los cambios de catálogo, stock y pedidos solo aparecen en la siguiente sincronización programada en lugar de llegar en el momento en que ocurren.
 
 ### El permiso es el que nos dijiste que era
 
@@ -102,7 +102,7 @@ Una conexión de solo lectura no puede crear ese pedido pendiente, así que tran
 
 Conectas **una tienda WooCommerce por workspace** — y puedes tener una tienda Shopify conectada al mismo tiempo (consulta [Commerce](/commerce#you-can-connect-both-at-once)).
 
-Al conectar, **un agent se convierte en tu agent de tienda**: o bien un agent existente que elijas, o bien uno nuevo creado para ti. Ese agent lleva las herramientas de WooCommerce; tus demás agents no se ven afectados. No hay ningún interruptor por agent que buscar — la propia página del agent muestra un panel de solo lectura que dice que está gestionado por tu tienda.
+Al conectar, **un agent se convierte en tu agent de tienda** — lo elegimos nosotros, no tú. Si ya habías conectado esta misma tienda antes, se recupera su agent de tienda anterior, con su ajuste fino y su historial de versiones intactos; si no, se crea uno nuevo. Ese agent lleva las herramientas de WooCommerce; tus demás agents no se ven afectados. No hay ningún interruptor por agent que buscar — la propia página del agent muestra un panel de solo lectura que dice que está gestionado por tu tienda.
 
 <Callout type="info">
   Versiones anteriores de esta página te decían que activaras el comercio para más agents en **Commerce → Settings**. Esa página ya no existe, y el interruptor por agent se fue con ella. El comercio está conectado al agent de tienda elegido al conectar.
@@ -112,13 +112,13 @@ Al conectar, **un agent se convierte en tu agent de tienda**: o bien un agent ex
 
 Los compradores ven los detalles del pedido solo después de aportar el número de pedido exacto **y** el correo o teléfono del pedido. Un contacto incorrecto y un pedido inexistente devuelven la misma respuesta de «no se encontró», sin ningún detalle — un endurecimiento anti-enumeración que protege a tus clientes. Consulta [Pedidos](/commerce/orders).
 
-### Catálogo e inventario en vivo
+### Catálogo e inventario actualizados
 
-Los precios y el stock se leen en el momento de responder, así que las recomendaciones se limitan a lo que está realmente disponible. WooCommerce envía los cambios de stock junto con las actualizaciones de producto en lugar de como eventos de inventario aparte, así que un cambio solo de stock llega con la siguiente actualización del producto o con la siguiente sincronización. Consulta [Catálogo y Conocimiento](/commerce/catalog-and-knowledge).
+Los precios y el stock vienen de tu catálogo sincronizado, así que las recomendaciones se limitan a lo que está realmente disponible. WooCommerce envía los cambios de stock junto con las actualizaciones de producto en lugar de como eventos de inventario aparte, así que un cambio solo de stock llega con la siguiente actualización del producto o con la siguiente sincronización. Consulta [Catálogo y Conocimiento](/commerce/catalog-and-knowledge).
 
 ### Actualizaciones de estado del pedido con suscripción
 
-Después de que un comprador verifique su pedido en el chat, puede suscribirse a las actualizaciones de envío en un canal compatible. Las actualizaciones requieren dos cosas: que las hayas activado en la conexión de WooCommerce y que el comprador se haya suscrito. Consulta [Pedidos](/commerce/orders#order-status-updates).
+Después de que un comprador verifique su pedido en el chat, puede suscribirse a las actualizaciones de envío en un canal compatible. La suscripción del comprador es la única puerta — los tipos de actualización están activados por defecto en la conexión de WooCommerce, así que no hay nada que activar primero. Consulta [Pedidos](/commerce/orders#order-status-updates).
 
 ### Reconnect
 
@@ -141,7 +141,7 @@ El flujo guiado necesita que tu navegador alcance la pantalla de aprobación de 
 
 ### El catálogo está vacío justo después de conectar
 
-Si te conectaste manualmente, es lo esperado — no se importó nada. Haz clic en **Resync now** en la pestaña Catalog.
+Si te conectaste manualmente, es lo esperado — no se importó nada. Haz clic en **Re-sync now** en la pestaña **Catalog & Data**.
 
 Si usaste el flujo guiado, la primera importación rellena todo el catálogo y puede tardar unos minutos en una tienda grande.
 
@@ -163,7 +163,7 @@ La consulta es deliberadamente estricta: devuelve detalles solo cuando el compra
 
 ### No se envían actualizaciones de estado del pedido
 
-Las dos puertas tienen que estar abiertas: activa las notificaciones en la conexión de WooCommerce y consigue que el comprador se suscriba en el chat en un canal compatible.
+El comprador tiene que suscribirse, en el chat, en un canal compatible. Si lo hizo, revisa los interruptores de notificación de la conexión de WooCommerce — están activados por defecto, pero si en algún momento se desactivó el tipo de actualización correspondiente, la suscripción por sí sola no producirá ningún mensaje.
 
 ## Desconectar
 
@@ -171,10 +171,15 @@ Desconecta desde **Commerce → WooCommerce → Disconnect**. Al desconectar:
 
 - Se elimina la conexión guardada y las credenciales, y el catálogo sincronizado
 - Se borra el conocimiento de producto construido a partir de ese catálogo
-- Se restablece el permiso de comercio del agent de tienda y se revierte su persona de comercio si nunca la editaste
-- Se archivan los Agent Flows de comercio y las sugerencias de cuestionario de producto que vinieron con la tienda
+- Se eliminan los webhooks que registró en tu tienda
+- Se restablece el permiso de comercio del agent de tienda, se revierte su persona de comercio si nunca la editaste y **se archiva el propio agent** — volver a conectar la misma tienda lo recupera con su ajuste fino y su historial de versiones intactos
+- **Se elimina permanentemente cualquier Tienda acotada a tu tienda de WooCommerce**, junto con su historial de analíticas. Las Tiendas que construiste a mano no se tocan
+- Se archivan los Agent Flows de comercio que vinieron con la tienda
+- Se eliminan del todo las sugerencias de cuestionario de la IA, así que una futura reconexión empieza de cero
 
-Si todavía tienes una tienda **Shopify** conectada, los pasos que afectan a todo el workspace se omiten — desconectar una tienda nunca desmonta la configuración de comercio de la otra.
+<Callout type="warning">
+  Si todavía tienes una tienda **Shopify** conectada, solo se omiten los pasos que afectan a todo el workspace — archivar los Agent Flows de comercio y eliminar las sugerencias de cuestionario. El catálogo, el conocimiento de producto, las Tiendas, las analíticas y el agent de tienda propios de la tienda WooCommerce se desmontan siempre.
+</Callout>
 
 ## Preguntas frecuentes
 
@@ -188,7 +193,7 @@ Ningún plugin. El flujo guiado es una aprobación única en tu propia tienda. S
 
 ### ¿Por qué la pantalla de aprobación pide acceso de escritura?
 
-Porque WooCommerce se niega a registrar webhooks para una clave de solo lectura, y sin webhooks nada se actualiza en tiempo real. La integración sigue sin cambiar nunca tu catálogo, tu stock ni tus pedidos existentes. Lo único que crea es un pedido pendiente para un comprador que hace checkout desde un chat — consulta [Checkout](/commerce/checkout).
+Porque WooCommerce se niega a registrar webhooks para una clave de solo lectura, y sin webhooks nada se actualiza en tiempo real. La integración sigue sin cambiar nunca tu catálogo, tu stock ni tus pedidos existentes. Lo que escribe se limita a los propios webhooks y a un pedido pendiente para un comprador que hace checkout desde un chat — consulta [Checkout](/commerce/checkout).
 
 ### ¿Puedo conectar igualmente con una clave de solo lectura?
 

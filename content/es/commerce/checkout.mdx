@@ -15,9 +15,11 @@ Ambas terminan igual: tu checkout, en el navegador del comprador, con los artíc
 
 ## Shopify: un enlace, todo el carrito
 
-En una tienda Shopify, la transferencia es un **único enlace de checkout que lleva el carrito entero** — todas las líneas, todas las cantidades — más cualquier descuento que hayas configurado, más la atribución para que el pedido resultante se pueda rastrear hasta la conversación que lo produjo.
+En una tienda Shopify, la transferencia es un **único enlace de checkout que lleva el carrito entero** — todas las líneas, todas las cantidades — más la atribución para que el pedido resultante se pueda rastrear hasta la conversación que lo produjo.
 
 El comprador toca una vez y aterriza en tu checkout de Shopify con todo ya puesto. Nada que volver a añadir, nada que recordar.
+
+Un **código de descuento** viaja en ese enlace cuando la transferencia empieza desde una [Tienda](/integrations/telegram-mini-app) que tenga uno configurado. Un carrito construido a partir de product cards dentro de un chat no lleva ningún código de descuento.
 
 ## WooCommerce: depende del permiso de tu conexión [#woocommerce-permission]
 
@@ -30,7 +32,7 @@ import { Callout } from 'nextra/components'
 | Tu conexión | Qué recibe el comprador |
 |---|---|
 | **`Read/Write`** (todas las conexiones guiadas, y cualquier conexión manual en la que seleccionaras `Read/Write`) | El **carrito entero**, como un pedido pendiente creado en tu tienda, con la conversación atribuida. El comprador va directo a pagar ese pedido. |
-| **Solo lectura** | **Una línea cada vez.** Al comprador se le entrega un enlace de añadir-al-carrito de un solo producto. Si su carrito tiene más de una línea, la transferencia recae en una consulta de pedido, de modo que la petición te llega como mensaje en lugar de perder en silencio el resto de los artículos. |
+| **Solo lectura** | **Una línea cada vez.** Al comprador se le entrega un enlace de añadir-al-carrito de un solo producto. Si su carrito tiene más de una línea, no se construye ningún enlace de checkout. No se pierde nada — el carrito se mantiene intacto — pero lo que pasa después depende de dónde esté el comprador: desde una **Tienda**, la transferencia se convierte en una consulta de pedido que aterriza en tu Inbox; **dentro de un chat**, el agent le dice al comprador que no puede construir el enlace y se ofrece a ayudarle a terminar de otra manera, sin crear ningún elemento en el Inbox. |
 
 ### Qué es, y qué no es, el pedido pendiente
 
@@ -38,7 +40,9 @@ En una conexión `Read/Write`, hacer checkout crea un **pedido pendiente** en Wo
 
 - **No está pagado** ni **preparado** — está esperando al comprador, exactamente como un carrito abandonado que llegó hasta la página de pago
 - **Lleva la conversación de la que salió**, así que puedes ver qué chats se convierten en pedidos
-- Es lo **único** que la integración crea en tu tienda. Nunca edita un producto, nunca ajusta el stock y nunca modifica un pedido existente
+- Es el **único pedido** que la integración crea. Nunca edita un producto, nunca ajusta el stock y nunca modifica un pedido existente
+
+La integración sí registra además un pequeño conjunto de **webhooks** en tu tienda al conectar — así es como se entera de los pedidos nuevos y de los cambios de producto en el momento en que ocurren. Se llaman `Cuneiform …`, y al desconectar se eliminan.
 
 ### Si el checkout de varias líneas no funciona
 
@@ -70,15 +74,15 @@ Cuando un comprador construye un carrito a partir de product cards en la convers
 
 ### El enlace de checkout solo lleva un producto
 
-Esa es la vía de WooCommerce de solo lectura. Revisa el permiso de tu conexión y reconéctate por el flujo guiado.
+Esa es la vía de WooCommerce de solo lectura. Revisa el permiso de tu conexión y haz **Reconnect** por el flujo guiado.
 
-### Un carrito de varias líneas se convirtió en una consulta de pedido en vez de un checkout
+### Un carrito de varias líneas no produjo ningún enlace de checkout
 
-La misma causa. En lugar de descartar las líneas de más en silencio, una conexión de solo lectura te enruta los carritos de varias líneas como consulta para que no se pierda nada.
+La misma causa. No se descarta nada — el carrito se conserva en cualquier caso. Desde una Tienda, la petición te llega como consulta de pedido; dentro de un chat, el agent lo resuelve conversando en lugar de crear un elemento en el Inbox.
 
 ### Un comprador llegó al checkout pero no se aplicó el descuento
 
-Los descuentos viajan en el enlace de transferencia de Shopify. Confirma que el descuento sigue siendo válido y aplicable a los productos del carrito — un código caducado o no aplicable lo descarta Shopify en el checkout, no nosotros.
+Los descuentos viajan en el enlace de transferencia de Shopify **solo desde una Tienda** — un carrito dentro del chat nunca lleva ninguno. Si la transferencia sí venía de una Tienda, confirma que el descuento sigue siendo válido y aplicable a los productos del carrito; un código caducado o no aplicable lo descarta Shopify en el checkout, no nosotros.
 
 ### Los pedidos no muestran de qué conversación vienen
 

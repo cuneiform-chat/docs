@@ -6,7 +6,7 @@ description: shoppers को सत्यापित order lookup के सा
 
 **"मेरा order कहाँ है?" — किसी भी store को मिलने वाला सबसे आम सवाल यही है।** एक store connected होने पर आपका agent इसका जवाब देता है — असली order से — इसे किसी इंसान तक भेजने के बजाय।
 
-इस page की हर बात **Shopify** और **WooCommerce** दोनों के लिए एक जैसी ही काम करती है।
+Order lookup **Shopify** और **WooCommerce** दोनों पर एक ही तरह काम करता है। दो बातें अलग हैं, और दोनों नीचे वहीं बताई गई हैं जहाँ वे मायने रखती हैं: हर platform shipping का कितना विवरण दे सकता है, और — Shopify पर — आपका app ग्राहक के कौन-से fields पढ़ने के लिए मंज़ूर है।
 
 ## Order lookup (WISMO) [#order-lookup-wismo]
 
@@ -29,9 +29,11 @@ import { Callout } from 'nextra/components'
 
 ### shopper को क्या वापस मिलता है [#what-the-shopper-gets-back]
 
-एक सत्यापित lookup order की स्थिति और उसकी fulfillment प्रगति लौटाता है — क्या भेजा गया, कब, और वह कहाँ है — साथ में आपके अपने store पर उस order का एक link।
+एक सत्यापित lookup order की स्थिति, fulfillment का जितना विवरण store दे सकता है, और — जहाँ उपलब्ध हो — आपके अपने store पर उस order का एक link लौटाता है।
 
-जो shopper बातचीत में पहले ही सत्यापित हो चुका है, वह हर order को दोबारा सत्यापित किए बिना अपने **हाल के orders** भी माँग सकता है। वह शॉर्टकट सिर्फ़ उसी को मिलता है जो उस बातचीत में पहले से सत्यापित है; यह कभी अंदर घुसने का रास्ता नहीं है।
+shipping का कितना विवरण वापस आता है यह platform पर निर्भर करता है। Shopify हर fulfillment के लिए carrier, tracking और डिलीवरी की तारीख़ें देता है। WooCommerce के पास fulfillment का अपना कोई record नहीं होता: carrier और tracking किसी shipment-tracking plugin से आते हैं। उसके बिना WooCommerce के जवाब में order की स्थिति तो रहती है पर कोई carrier या tracking number नहीं।
+
+जो shopper बातचीत में पहले ही कोई order सत्यापित कर चुका है, वह हर order को दोबारा सत्यापित किए बिना अपने **हाल के orders** भी माँग सकता है। **WhatsApp** पर यह शॉर्टकट शुरू से ही उपलब्ध रहता है, क्योंकि WhatsApp shopper का phone number पहले ही सत्यापित कर चुका होता है और orders उसी number से मिलाए जाते हैं — किसी shopper को सिर्फ़ उसके अपने सत्यापित number पर दिए गए orders ही दिखते हैं। बाक़ी हर channel पर यह तब तक बंद रहता है जब तक वह उस बातचीत में कोई order सत्यापित न कर ले। दोनों ही सूरतों में यह किसी और के orders तक पहुँचने का रास्ता कभी नहीं है।
 
 ### आवश्यकताएँ [#requirements]
 
@@ -41,22 +43,17 @@ Order lookup के लिए ऐसा connected store चाहिए जि�
 
 एक shopper के chat में order सत्यापित करने के बाद agent उसे ख़बर देते रहने की पेशकश कर सकता है। वह मान जाए तो उसे उसी बातचीत में, उसी channel पर shipping updates मिलते हैं जिसे वह पहले से इस्तेमाल कर रहा था।
 
-दो शर्तें खुली होनी चाहिए, और दोनों जानबूझकर हैं:
+सिर्फ़ एक शर्त खुलनी चाहिए, और वह shopper के हाथ में है: उसे बातचीत में, अपना order सत्यापित करने के बाद, opt in करना होता है। आप किसी shopper की ओर से उसे subscribe नहीं कर सकते, और कोई shopper ऐसे order के लिए subscribe नहीं कर सकता जिसे उसने अपना साबित न किया हो।
 
-| शर्त | इसे कौन नियंत्रित करता है |
-|---|---|
-| **connection पर notifications चालू हैं** | आप — **Commerce** में store के page पर |
-| **shopper ने opt in किया** | shopper, बातचीत में, अपना order सत्यापित करने के बाद |
-
-आप किसी shopper की ओर से उसे subscribe नहीं कर सकते, और कोई shopper ऐसे order के लिए subscribe नहीं कर सकता जिसे उसने अपना साबित न किया हो।
+आपकी तरफ़, store connect होते ही तीनों update प्रकार **डिफ़ॉल्ट रूप से चालू** रहते हैं — पहले कुछ चालू करने की ज़रूरत नहीं। **Commerce** में store के page पर आप उनमें से किसी को भी अलग-अलग बंद कर सकते हैं; किसी एक को बंद करने पर वह update हर shopper के लिए रुक जाता है, उनके लिए भी जिन्होंने पहले opt in कर रखा है।
 
 <Callout type="info">
-  Notifications चालू करना एक admin काम है; Members देख सकते हैं कि वे चालू हैं या नहीं, पर सेटिंग बदल नहीं सकते।
+  उन toggles को बदलना एक admin काम है; Members उन्हें देख सकते हैं पर बदल नहीं सकते।
 </Callout>
 
 ### कोई update किससे चलता है [#what-triggers-an-update]
 
-Updates order की fulfillment प्रगति से छूटते हैं — जब वह भेजा जाता है, और जब खेप की स्थिति बदलती है। इस channel से marketing जैसा कुछ कभी नहीं भेजा जाता; यह "मेरा order कहाँ है?" का जवाब देने के लिए है, इससे पहले कि shopper को दोबारा पूछना पड़े।
+Updates order की प्रगति पर छूटते हैं: जब order का **भुगतान पक्का हो जाता है**, जब वह **भेजा जाता है**, और जब **खेप की स्थिति बदलती** है। इस channel से marketing जैसा कुछ कभी नहीं भेजा जाता; यह "मेरा order कहाँ है?" का जवाब देने के लिए है, इससे पहले कि shopper को दोबारा पूछना पड़े।
 
 WooCommerce और Shopify के updates एक ही व्यवस्था से पहुँचते हैं, इसलिए order चाहे किसी भी store से आया हो, अनुभव एक जैसा रहता है।
 
@@ -84,11 +81,15 @@ WooCommerce और Shopify के updates एक ही व्यवस्था
 
 ### एक shopper ने opt in किया पर उसे कोई updates नहीं मिलते [#a-shopper-opted-in-but-gets-no-updates]
 
-पक्का करें कि store connection पर notifications चालू हैं — वह शर्त shopper के opt-in से अलग है, और अकेला opt-in काफ़ी नहीं है।
+store connection के notification toggles जाँचें। वे डिफ़ॉल्ट रूप से चालू रहते हैं, पर अगर कभी उससे मेल खाता update प्रकार बंद कर दिया गया हो, तो अकेले shopper के opt-in से कोई संदेश नहीं जाएगा।
 
 ### बाक़ी सही जवाब में shipping का विवरण ग़ायब है [#shipping-details-are-missing-from-an-otherwise-correct-answer]
 
-Order मिल गया और सत्यापित भी हो गया, पर fulfillment के विवरण का कुछ हिस्सा पढ़ा नहीं जा सका। agent पूरी lookup को विफल करने के बजाय उसके पास जो है उसी से जवाब देता है।
+Order मिल गया और सत्यापित भी हो गया, पर fulfillment के विवरण का कुछ हिस्सा पढ़ा नहीं जा सका। agent पूरी lookup को विफल करने के बजाय उसके पास जो है उसी से जवाब देता है। **WooCommerce** पर इसका मतलब आमतौर पर यह होता है कि कोई shipment-tracking plugin install ही नहीं है, इसलिए बताने को कोई carrier या tracking number है ही नहीं।
+
+### Shopify पर order तो मिल जाता है पर phone से सत्यापन विफल होता है या order का link ग़ायब है [#on-shopify-the-order-is-found-but-phone-verification-fails-or-the-order-link-is-missing]
+
+ग्राहक के कुछ fields — order पर दर्ज phone number, और order के status page का link — Protected Customer Data हैं, और Shopify उन्हें तब तक रोके रखता है जब तक आपका app उन्हें पढ़ने के लिए मंज़ूर न हो जाए। agent lookup को विफल करने के बजाय जितना पढ़ सकता है उतने से जवाब देता है। जब तक कोई field रोका हुआ है, phone से सत्यापन मेल नहीं खा सकता: shopper से कहें कि वह order पर दर्ज email इस्तेमाल करे।
 
 ## संबंधित [#related]
 

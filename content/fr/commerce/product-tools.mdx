@@ -25,7 +25,7 @@ Quand un produit est retiré en amont, son entrée dans la bibliothèque est mis
 
 ### Qui peut l'utiliser
 
-Consulter la bibliothèque et la modifier sont deux permissions distinctes, vous pouvez donc laisser des personnes parcourir les produits sans les laisser modifier la surface catalogue. Les Members reçoivent en général la consultation ; les Owners et les Admins reçoivent les deux.
+Consulter la bibliothèque et la modifier sont deux permissions distinctes, vous pouvez donc laisser des personnes parcourir les produits sans les laisser modifier la surface catalogue. Les Members n'ont que la consultation ; les Owners, les Admins et les Team Admins peuvent consulter et modifier.
 
 ## Product Finder [#product-finder]
 
@@ -37,7 +37,8 @@ Il se trouve dans **Commerce → Product Finder** et il est construit sur les [A
 
 | Surface | Ce qu'elle montre |
 |---|---|
-| **Forms** | Le questionnaire lui-même, dans le compositeur de flows |
+| **Quiz ideas** | Des questionnaires suggérés par l'IA à partir de votre catalogue, prêts à être transformés en vrais questionnaires |
+| **Quiz forms** | Le questionnaire lui-même, dans le compositeur de flows |
 | **Submissions** | Chaque questionnaire complété, avec les réponses et ce qui a été recommandé |
 | **Heatmap** | La question sur laquelle les acheteurs abandonnent |
 | **Diagnose** | Un analyste IA à qui vous pouvez demander *« pourquoi personne ne termine ce questionnaire ? »* |
@@ -45,7 +46,7 @@ Il se trouve dans **Commerce → Product Finder** et il est construit sur les [A
 Parce que c'est un flow, l'agent peut proposer le questionnaire en pleine conversation quand il estime qu'un acheteur explore plutôt qu'il n'achète — et celui qui le termine reçoit des recommandations au lieu d'un remerciement générique.
 
 <Callout type="info">
-  Les Agent Flows, et donc le Product Finder, sont inclus pour tout le monde — essai gratuit compris. Et comme le Product Finder est un flow que la plateforme gère pour vous, il ne compte pas dans le [quota de flows publiés](/agents/agent-flows#limits) propre à votre espace de travail.
+  Les Agent Flows, et donc le Product Finder, sont inclus pour tout le monde — essai gratuit compris. Et comme le Product Finder est normalement un flow que la plateforme gère pour vous, il ne compte pas dans le [quota de flows publiés](/agents/agent-flows#limits) propre à votre espace de travail. Une exception : si vous construisez un questionnaire avant qu'aucune boutique ne soit connectée, il n'y a pas d'agent de boutique pour le porter — ce questionnaire est alors le vôtre, et le publier consomme bien une place.
 </Callout>
 
 ## AI Quiz Suggester [#quiz-suggester]
@@ -55,7 +56,7 @@ Savoir qu'un questionnaire aiderait, c'est facile. Savoir *lequel* vaut la peine
 L'**AI Quiz Suggester** examine votre catalogue une fois par jour et propose des questionnaires adaptés à ce que vous vendez réellement — les dimensions produit qui méritent une question, les questions qui distingueraient un produit d'un autre, les profils d'acheteurs que votre gamme suppose. Vous passez les suggestions en revue et transformez celles qui vous plaisent en véritables questionnaires Product Finder.
 
 - Il s'exécute **une fois par jour**, automatiquement. Il n'y a rien à planifier.
-- Il ne se relancera à la demande qu'occasionnellement — un court délai d'attente empêche des actualisations répétées de consommer de l'usage pour un résultat quasi identique.
+- Il ne se relance pas plus d'une fois toutes les **15 minutes**. Ce délai est partagé — une exécution quotidienne, une synchronisation du catalogue et une actualisation manuelle puisent dans le même compteur — si bien que des actualisations répétées ne peuvent pas consommer de l'usage pour un résultat quasi identique.
 - Comme toute fonctionnalité IA, il puise dans le quota d'usage de votre espace de travail, et il le vérifie avant de s'exécuter plutôt qu'après.
 
 ## De laquelle ai-je vraiment besoin ?
@@ -71,7 +72,7 @@ L'**AI Quiz Suggester** examine votre catalogue une fois par jour et propose des
 
 ### La Product Library est vide après la connexion d'une boutique
 
-C'est la synchronisation du catalogue qui la remplit. Si le catalogue lui-même est vide — le plus souvent sur une boutique WooCommerce connectée manuellement — appuyez d'abord sur **Resync now**. Voir [Après une connexion manuelle](/commerce/woocommerce#after-a-manual-connect).
+C'est la synchronisation du catalogue qui la remplit. Si le catalogue lui-même est vide — le plus souvent sur une boutique WooCommerce connectée manuellement — appuyez d'abord sur **Re-sync now**. Voir [Après une connexion manuelle](/commerce/woocommerce#after-a-manual-connect).
 
 ### Un produit que j'ai supprimé de ma boutique est encore dans la bibliothèque
 

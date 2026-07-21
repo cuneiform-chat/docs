@@ -1,10 +1,10 @@
 ---
-description: Shopify App Store से Cuneiform Chat install करें और उसे अपने workspace से जोड़ें ताकि आपके AI agents आपके live Shopify catalog, orders और inventory से जवाब दें।
+description: Shopify App Store से Cuneiform Chat install करें और उसे अपने workspace से जोड़ें ताकि आपके AI agents आपके sync किए गए Shopify catalog, orders और inventory से जवाब दें।
 ---
 
 # Shopify
 
-**Shopify App Store से एक बार install करें, उसे अपने workspace से जोड़ें, और आपके agents आपका live store पढ़ने लगेंगे।** न कोई API key बनानी है, न कोई redirect URL configure करना है, न कोई plugin install करना है।
+**Shopify App Store से एक बार install करें, उसे अपने workspace से जोड़ें, और आपके agents आपके store के catalog, orders और inventory से जवाब देने लगेंगे।** न कोई API key बनानी है, न कोई redirect URL configure करना है, न कोई plugin install करना है।
 
 import { Callout } from 'nextra/components'
 
@@ -17,7 +17,7 @@ import { Callout } from 'nextra/components'
 एक बार आपका store जुड़ जाने पर आपका store agent यह कर सकता है:
 
 - **Catalog के सवालों के जवाब देना** आपके असली products, variants, options और कीमतों से
-- **Stock और कीमत ताज़ा पढ़ना** ठीक उसी क्षण जब वह जवाब देता है, ताकि जो ख़त्म हो चुका है वह कभी न बेचे
+- **Stock और कीमत आपके sync किए गए catalog से पढ़ना**, जिसे webhooks ताज़ा रखते हैं, ताकि वह ऐसी चीज़ न सुझाए जो आपके यहाँ अभी-अभी ख़त्म हुई है
 - **stock में मौजूद products सुझाना**, न कि जो उसे याद है वह
 - **Orders ढूँढना** उन shoppers के लिए जो साबित कर सकें कि order उन्हीं का है
 - **Order-status updates भेजना** उन shoppers को जो opt in करते हैं, उसी chat में
@@ -57,9 +57,11 @@ App एक embedded app के रूप में **`admin.shopify.com` के 
 | **Confirm the link** | आप एक Owner या Admin हैं — यही सामान्य रास्ता है। |
 | **Ask an admin to finish this** | आप एक Member हैं। Members integrations connect नहीं कर सकते; link किसी Owner या Admin को भेजें। |
 | **Store linked** | हो गया। catalog sync पहले से चल रहा है। |
-| **This link has expired** | जोड़ने वाला ticket अल्पजीवी है। अपने Shopify admin में app पर लौटें और फिर से **Link your workspace** पर click करें। |
+| **This connection link expired** | जोड़ने वाला ticket बासी है, पहले ही इस्तेमाल हो चुका है, या अब पहचाना नहीं जाता। अपने Shopify admin में app पर लौटें और फिर से **Link your workspace** पर click करें। |
 | **This store is connected elsewhere** | store पहले से किसी दूसरे workspace से जुड़ा है। पहले उसे वहाँ से disconnect करें। |
 | **This workspace already has a store** | हर workspace में एक Shopify store। नया जोड़ने से पहले मौजूदा को disconnect करें। |
+| **Couldn't connect your store** | हमारी तरफ़ कुछ गड़बड़ हो गई। एक **Try again** बटन वहीं से दोबारा कोशिश करता है — आपको Shopify से फिर शुरू करने की ज़रूरत नहीं। |
+| **We couldn't complete the connection** | link हम तक पहुँचने से पहले ही विफल हो गया। अपने Shopify admin में app दोबारा खोलें और जोड़ना फिर से शुरू करें। |
 
 ## हम कौन-सी permissions माँगते हैं [#permissions-we-ask-for]
 
@@ -94,7 +96,7 @@ Shopify में कोई reconnect कदम नहीं है, और आ�
 ## Connect करने के बाद [#after-you-connect]
 
 - **आपका catalog तुरंत sync होने लगता है।** sync क्या-क्या लेता है और कैसे ताज़ा रहता है, इसके लिए देखें [Catalog और Knowledge](/commerce/catalog-and-knowledge)।
-- **एक agent आपका store agent बन जाता है।** देखें [आपका store agent](/commerce#your-store-agent)।
+- **एक agent आपका store agent बन जाता है**, जिसे connect करते समय आपके लिए चुना जाता है। देखें [आपका store agent](/commerce#your-store-agent)।
 - **Order-status updates तब तक बंद रहते हैं जब तक आप उन्हें चालू न करें।** देखें [Orders](/commerce/orders#order-status-updates)।
 
 ## समस्या निवारण [#troubleshooting]
@@ -117,7 +119,7 @@ store किसी दूसरे Cuneiform Chat workspace से जुड़�
 
 ### जोड़ते ही catalog ख़ाली है [#the-catalog-is-empty-right-after-linking]
 
-पहला import पूरा catalog भरता है और बड़े store पर कुछ मिनट लेता है। उसके बाद भी ख़ाली दिखे तो **Commerce → Shopify** से **Re-sync now** चलाएँ।
+पहला import पूरा catalog भरता है और बड़े store पर कुछ मिनट लेता है। उसके बाद भी ख़ाली दिखे तो **Commerce → Shopify → Catalog & Data** से **Re-sync now** चलाएँ। जब तक catalog ख़ाली है, Overview tab की checklist एक-click वाला **Sync now** भी देती है।
 
 ### agent product के सवालों के जवाब नहीं दे रहा [#the-agent-isnt-answering-product-questions]
 
@@ -129,10 +131,14 @@ store किसी दूसरे Cuneiform Chat workspace से जुड़�
 
 - सहेजा गया connection और sync किया गया catalog हट जाता है
 - उस catalog से बनी product knowledge मिट जाती है, इसलिए agents उससे जवाब देना बंद कर देते हैं
-- store agent का commerce अधिकार रीसेट हो जाता है और अगर आपने कभी उसे बदला न हो तो उसका commerce persona वापस लौटा दिया जाता है
-- store के साथ आए commerce Agent Flows और product-quiz suggestions archive हो जाते हैं
+- store agent का commerce अधिकार रीसेट हो जाता है, अगर आपने कभी उसे बदला न हो तो उसका commerce persona वापस लौटा दिया जाता है, और **ख़ुद वह agent archive हो जाता है** — वही store दोबारा connect करने पर वह अपनी tuning और version history के साथ ज्यों का त्यों वापस मिल जाता है
+- **उस store से जुड़ा कोई भी Storefront हमेशा के लिए मिटा दिया जाता है**, उसके analytics इतिहास समेत। आपके हाथ से बनाए Storefronts अछूते रहते हैं
+- store के साथ आए commerce Agent Flows archive हो जाते हैं
+- AI quiz suggestions पूरी तरह मिटा दिए जाते हैं, ताकि आगे कभी दोबारा connect करने पर शुरुआत साफ़ स्लेट से हो
 
-अगर आपका एक **WooCommerce** store अब भी connected है, तो workspace-भर के कदम छोड़ दिए जाते हैं — एक store disconnect करने से दूसरे store का commerce सेटअप कभी नहीं टूटता।
+<Callout type="warning">
+  अगर आपका एक **WooCommerce** store अब भी connected है, तो सिर्फ़ workspace-भर के कदम — commerce Agent Flows archive करना और quiz suggestions मिटाना — छोड़े जाते हैं। Shopify store का अपना catalog, product knowledge, Storefronts, analytics और store agent हमेशा हटाए जाते हैं।
+</Callout>
 
 अपने Shopify admin से app uninstall करने पर Shopify की तरफ़ का रिश्ता भी ख़त्म हो जाता है।
 

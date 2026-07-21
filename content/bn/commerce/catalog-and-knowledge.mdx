@@ -1,5 +1,5 @@
 ---
-description: আপনার Shopify বা WooCommerce catalog কীভাবে Cuneiform Chat-এ sync হয়, product knowledge কীভাবে catalog প্রশ্নোত্তর চালায়, আর লাইভ inventory কীভাবে সুপারিশগুলোকে সৎ রাখে।
+description: আপনার Shopify বা WooCommerce catalog কীভাবে Cuneiform Chat-এ sync হয়, product knowledge কীভাবে catalog প্রশ্নোত্তর চালায়, আর বর্তমান inventory কীভাবে সুপারিশগুলোকে সৎ রাখে।
 ---
 
 # Catalog ও Knowledge
@@ -16,7 +16,7 @@ description: আপনার Shopify বা WooCommerce catalog কীভাব�
 |---|---|
 | **Shopify** | স্বয়ংক্রিয়ভাবে, আপনি workspace যুক্ত করার মুহূর্তেই |
 | **WooCommerce** (গাইডেড পথ) | স্বয়ংক্রিয়ভাবে, অনুমোদনের callback-এর অংশ হিসেবে |
-| **WooCommerce** (manual API key) | **স্বয়ংক্রিয়ভাবে নয়** — **Resync now** চাপুন। দেখুন [Manual সংযোগের পরে](/commerce/woocommerce#after-a-manual-connect) |
+| **WooCommerce** (manual API key) | **স্বয়ংক্রিয়ভাবে নয়** — **Re-sync now** চাপুন। দেখুন [Manual সংযোগের পরে](/commerce/woocommerce#after-a-manual-connect) |
 
 একটি বড় catalog-এ কয়েক মিনিট লাগে। সংযোগের Catalog ট্যাবে আপনি অগ্রগতি দেখতে পারেন।
 
@@ -25,17 +25,17 @@ description: আপনার Shopify বা WooCommerce catalog কীভাব�
 store যুক্ত হয়ে গেলে পরিবর্তনগুলো তিনভাবে ভেতরে আসে:
 
 - **Webhook** — একটি product তৈরি, হালনাগাদ বা মুছে ফেলার মুহূর্তেই আপনার store আমাদের জানায়। এটিই দ্রুততম পথ এবং সাধারণত এভাবেই catalog হালনাগাদ থাকে।
-- **নির্ধারিত reconcile** — একটি ব্যাকগ্রাউন্ড কাজ নিয়মিতভাবে আমাদের কাছে যা আছে তার সাথে আপনার store যা জানায় তা মিলিয়ে দেখে, কোনো webhook বাদ পড়লে তা মেরামত করে এবং আপনি উৎসে যেসব product মুছেছেন সেগুলো সরিয়ে দেয়।
+- **নির্ধারিত reconcile** — একটি ব্যাকগ্রাউন্ড কাজ প্রতি রাতে আমাদের কাছে যা আছে তার সাথে আপনার store যা জানায় তা মিলিয়ে দেখে এবং কোনো webhook বাদ পড়লে তা মেরামত করে। আপনি উৎসে যেসব product মুছেছেন সেগুলো সরানো হয় রাতের পাসে নয়, বরং একটি **সাপ্তাহিক** পাসে — তাই কোনো webhook বাদ পড়া একটি মুছে ফেলা অদৃশ্য হতে এক সপ্তাহ পর্যন্ত সময় নিতে পারে।
 - **চাহিদামতো re-sync** — সংযোগের Catalog ট্যাবের **Re-sync now** বোতামটি সবকিছু আবার import করে। একটি বড় সম্পাদনা, একটি CSV import বা একটি migration-এর পরে, যখন আপনি অপেক্ষা করতে চান না, তখন এটি ব্যবহার করুন।
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  **Re-sync একটি admin কাজ।** Owner ও Admin-রা এটি চালাতে পারেন; Member-রা catalog-এর অবস্থা দেখতে পারেন কিন্তু আবার import করতে পারেন না।
+  **Re-sync একটি admin কাজ।** Owner ও Admin-রা এটি চালাতে পারেন। Team Admin ও Member-রা catalog-এর অবস্থা দেখতে পারেন কিন্তু আবার import করতে পারেন না।
 </Callout>
 
 <Callout type="warning">
-  **WooCommerce webhook কেবল একটি `Read/Write` সংযোগেই নিবন্ধিত হয়।** আপনার store যদি একটি read-only key দিয়ে manual-ভাবে যুক্ত হয়ে থাকে, তাহলে webhook কখনোই নিবন্ধিত হয় না — তখন catalog কেবল একটি নির্ধারিত reconcile বা একটি manual re-sync-এই বদলায়। দেখুন [Manual সংযোগের পরে](/commerce/woocommerce#after-a-manual-connect)।
+  **একটি manual WooCommerce সংযোগ যুক্ত হওয়ার সময় কোনো webhook নিবন্ধন করে না**, আপনার key যে permission-ই বহন করুক। একটি ঘণ্টাভিত্তিক ব্যাকগ্রাউন্ড কাজ এটি মেরামত করে: একটি `Read/Write` key থাকলে webhook নিজে থেকেই নিবন্ধিত হয়, সাধারণত এক ঘণ্টার মধ্যে। একটি **read-only** key থাকলে সেগুলো কখনোই নিবন্ধিত হতে পারে না — কাজটি প্রতি ঘণ্টায় আবার চেষ্টা করে এবং প্রতিবারই প্রত্যাখ্যাত হয় — আর তখন catalog কেবল একটি নির্ধারিত reconcile বা একটি manual re-sync-এই বদলায়। দেখুন [Manual সংযোগের পরে](/commerce/woocommerce#after-a-manual-connect)।
 </Callout>
 
 ## Product knowledge ও catalog প্রশ্নোত্তর [#product-knowledge-and-catalog-qa]
@@ -44,8 +44,8 @@ Import করা catalog-কে **product knowledge**-এ পরিণত কর
 
 Product knowledge আপনি সংযোগের পাতায় পাবেন, তার নিজস্ব অবস্থা ও একটি **Rebuild** ক্রিয়া সহ।
 
-- **দেখা** যায় যে কেউ integration দেখতে পান তার পক্ষেই, Member-রাসহ।
-- **Rebuild করা** একটি admin কাজ। একটি বড় catalog পরিবর্তনের পর উত্তর পুরোনো মনে হলে, বা অনেক নতুন product টেনে আনা একটি re-sync-এর পরে rebuild করুন।
+- **দেখা** যায় যে কেউ integration দেখতে পান তার পক্ষেই, Team Admin ও Member-রাসহ।
+- **Rebuild করার** জন্য একটি integration যুক্ত করার মতোই permission লাগে, তাই Owner ও Admin-রা এটি করতে পারেন কিন্তু Team Admin ও Member-রা পারেন না। একটি বড় catalog পরিবর্তনের পর উত্তর পুরোনো মনে হলে, বা অনেক নতুন product টেনে আনা একটি re-sync-এর পরে rebuild করুন।
 
 ### দুটি store যুক্ত থাকলে [#with-two-stores-connected]
 
@@ -60,32 +60,32 @@ Product knowledge আপনি সংযোগের পাতায় পা�
 
 আপনার ক্রেতারা জোড়াটি কখনো দেখতে পায় না — তারা আপনি যা বিক্রি করেন তার সবকিছু ঢেকে একটিই উত্তর পায়।
 
-## লাইভ inventory [#live-inventory]
+## বর্তমান inventory [#live-inventory]
 
-Stock ও দাম পড়া হয় **হালনাগাদভাবে, ঠিক যে মুহূর্তে agent উত্তর দেয়** — কোনো জমিয়ে রাখা snapshot থেকে নয়। এটিই agent-কে এক ঘণ্টা আগে ফুরিয়ে যাওয়া কিছু সুপারিশ করা থেকে আটকায়।
+Stock ও দাম আসে আপনার sync করা catalog থেকে, যা webhook দিয়ে হালনাগাদ রাখা হয় — stock নড়াচড়া করার মুহূর্তেই আপনার store আমাদের জানায়, সাধারণত কয়েক সেকেন্ডের মধ্যে। এটিই agent-কে এক ঘণ্টা আগে ফুরিয়ে যাওয়া কিছু সুপারিশ করা থেকে আটকায়।
 
-একটি stock পরিবর্তন কত দ্রুত দৃশ্যমান হয় তা platform-এর উপর নির্ভর করে:
+একটি stock পরিবর্তন কত দ্রুত agent পর্যন্ত পৌঁছায় তা platform-এর উপর নির্ভর করে:
 
 | Platform | Stock পরিবর্তন কীভাবে আসে |
 |---|---|
-| **Shopify** | আলাদা inventory আপডেট। product-এ অন্য কোনো সম্পাদনা ছাড়াই একটি stock পরিবর্তন নিজে থেকেই আসে। |
+| **Shopify** | আলাদা inventory আপডেট। product-এ অন্য কোনো সম্পাদনা ছাড়াই একটি stock পরিবর্তন নিজে থেকেই আসে, কয়েক সেকেন্ডের মধ্যে। |
 | **WooCommerce** | Product আপডেটের সাথে। কেবল stock বদলালে সেটি product পরবর্তী বার হালনাগাদ হলে, বা পরবর্তী নির্ধারিত reconcile-এ ধরা পড়ে। |
 
 <Callout type="info">
-  এটি দুটি platform আমাদের কীভাবে জানায় তার পার্থক্য, agent কীভাবে stock পড়ে তার নয়। দুটি ক্ষেত্রেই agent যে সংখ্যাটি বলে তা উত্তর দেওয়ার মুহূর্তেই পড়া হয়।
+  তাই দুটির মধ্যে Shopify store-এ stock-এর হালনাগাদ বেশি আঁটসাঁট। WooCommerce-এ কেবল stock বদলালে সেটি product পরবর্তী বার বদলানোর আগ পর্যন্ত পিছিয়ে থাকতে পারে — অন্য কিছু না ছুঁয়ে কেবল stock সমন্বয় করলে এটি জানা দরকার।
 </Callout>
 
 ## সুপারিশ [#recommendations]
 
 agent কেবল খুঁজে দেওয়ার বদলে product প্রস্তাবও করতে পারে: "এর সাথে কী মানাবে?", "একই রকম কিন্তু সস্তা কিছু", "শুরু করা কারো জন্য আপনার কাছে কী আছে?"
 
-সুপারিশ সেই একই sync করা catalog থেকেই আসে, এবং **কেবল সেই product-এই সীমাবদ্ধ যা আসলে স্টকে আছে** — agent এমন কিছুকে ঘিরে ক্রেতার আগ্রহ বাড়াবে না যা সে কিনতে পারবে না। এগুলো দুটি যুক্ত store জুড়েই কাজ করে এবং, বাকি সবকিছুর মতোই, হালনাগাদভাবে পড়া হয়।
+সুপারিশ সেই একই sync করা catalog থেকেই আসে, এবং **কেবল সেই product-এই সীমাবদ্ধ যা আসলে স্টকে আছে** — agent এমন কিছুকে ঘিরে ক্রেতার আগ্রহ বাড়াবে না যা সে কিনতে পারবে না। এগুলো দুটি যুক্ত store জুড়েই কাজ করে।
 
 ## সমস্যা সমাধান [#troubleshooting]
 
 ### Catalog খালি দেখাচ্ছে [#the-catalog-looks-empty]
 
-আপনি যদি manual API key দিয়ে WooCommerce যুক্ত করে থাকেন, তাহলে যুক্ত হওয়ার সময় কিছুই import হয়নি — **Resync now** চাপুন (দেখুন [Manual সংযোগের পরে](/commerce/woocommerce#after-a-manual-connect))। নয়তো প্রথম import হয়তো এখনো চলছে; একটি বড় catalog-কে কয়েক মিনিট সময় দিন।
+আপনি যদি manual API key দিয়ে WooCommerce যুক্ত করে থাকেন, তাহলে যুক্ত হওয়ার সময় কিছুই import হয়নি — **Re-sync now** চাপুন (দেখুন [Manual সংযোগের পরে](/commerce/woocommerce#after-a-manual-connect))। নয়তো প্রথম import হয়তো এখনো চলছে; একটি বড় catalog-কে কয়েক মিনিট সময় দিন।
 
 ### সদ্য যোগ করা একটি product নেই [#a-product-i-just-added-isnt-there]
 
@@ -93,7 +93,11 @@ agent কেবল খুঁজে দেওয়ার বদলে product �
 
 ### মুছে ফেলা একটি product এখনো দেখানো হচ্ছে [#a-product-i-deleted-is-still-being-offered]
 
-মুছে ফেলা অন্য যেকোনো পরিবর্তনের মতোই webhook-এ আসে, আর নির্ধারিত reconcile বাদ পড়া যেকোনো কিছু সরিয়ে দেয়। মুছে ফেলা একটি product তবুও উঠে এলে **Re-sync now** চালান এবং তারপর product knowledge **Rebuild** করুন।
+মুছে ফেলা অন্য যেকোনো পরিবর্তনের মতোই webhook-এ আসে। কোনোটি বাদ পড়লে সাপ্তাহিক reconcile সেটি সরিয়ে দেয় — সেই পাসটি সপ্তাহে একবার চলে, প্রতি রাতে নয়, তাই বাদ পড়া একটি মুছে ফেলা কয়েক দিন টিকে থাকতে পারে। এখনই সরাতে **Re-sync now** চালান এবং তারপর product knowledge **Rebuild** করুন।
+
+### উৎসে মুছে ফেলা একটি product আবার তালিকাভুক্ত করার পর ফিরে এসেছে [#a-product-i-deleted-upstream-came-back-after-i-re-listed-it]
+
+আসবে না। একবার কোনো product মুছে ফেলা হিসেবে সরিয়ে দেওয়া হলে সেটি সেরকমই থাকে, এমনকি আপনি একই ID-তে সেটি আবার আপনার store-এ যোগ করলেও — একটি re-sync সেটিকে ফিরিয়ে আনে না। এটিকে একটি নতুন product হিসেবে তৈরি করুন, অথবা নিজে হাতে আপনার [Product Library](/commerce/product-tools#product-library)-তে যোগ করুন।
 
 ### উত্তর অস্পষ্ট, বা বর্ণনার বিবরণ বাদ পড়ছে [#answers-are-vague-or-miss-details-in-the-description]
 
@@ -101,7 +105,7 @@ Product knowledge-এ **Rebuild** চালান। একটি বড় impo
 
 ### দাম বা stock পুরোনো দেখাচ্ছে [#prices-or-stock-look-out-of-date]
 
-সেগুলোর পুরোনো হওয়ার কথা নয় — দুটিই উত্তর দেওয়ার মুহূর্তে পড়া হয়। ভুল দেখালে দাম-খোঁজার বদলে অন্তর্নিহিত product রেকর্ডটিই বাসি: catalog আবার sync করুন।
+দুটিই আসে sync করা catalog থেকে, তাই একটি ভুল সংখ্যার মানে হলো জমা থাকা product রেকর্ডটি আপনার store-এর পেছনে পড়ে আছে। WooCommerce-এ কেবল stock বদলানোর ক্ষেত্রে এটিই স্বাভাবিক — সেটি পরবর্তী product আপডেট বা reconcile-এর জন্য অপেক্ষা করে। নয়তো আপনার webhook হয়তো আসছে না: সংযোগটি দেখুন, তারপর **Re-sync now** চালান।
 
 ## সম্পর্কিত [#related]
 

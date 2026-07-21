@@ -1,5 +1,5 @@
 ---
-description: एक Shopify या WooCommerce store connect करें ताकि आपके AI agents आपके live catalog से जवाब दें, orders ढूँढें, वही सुझाएँ जो सचमुच stock में है, और shoppers को checkout तक पहुँचाएँ।
+description: एक Shopify या WooCommerce store connect करें ताकि आपके AI agents आपके sync किए गए catalog से जवाब दें, orders ढूँढें, वही सुझाएँ जो सचमुच stock में है, और shoppers को checkout तक पहुँचाएँ।
 ---
 
 # Commerce
@@ -22,7 +22,7 @@ import { Callout } from 'nextra/components'
 | क्षमता | आपका shopper क्या अनुभव करता है | और पढ़ें |
 |---|---|---|
 | **Catalog Q&A** | "क्या linen shirt navy रंग में आती है?" — जवाब आपके असली products, variants और कीमतों से | [Catalog और Knowledge](/commerce/catalog-and-knowledge) |
-| **Live inventory** | जवाब देते समय ही stock और कीमत पढ़ी जाती है, इसलिए agent कभी उस चीज़ का वादा नहीं करता जो ख़त्म हो चुकी है | [Catalog और Knowledge](/commerce/catalog-and-knowledge) |
+| **Current inventory** | stock और कीमत आपके sync किए गए catalog से आती हैं, जिसे webhooks ताज़ा रखते हैं, इसलिए agent ऐसी चीज़ का वादा नहीं करता जो आपके यहाँ अभी-अभी ख़त्म हुई है | [Catalog और Knowledge](/commerce/catalog-and-knowledge) |
 | **सुझाव** | "इसके साथ क्या जँचेगा?" — सुझाव सिर्फ़ उन्हीं तक सीमित जो सचमुच stock में हैं | [Catalog और Knowledge](/commerce/catalog-and-knowledge) |
 | **Order lookup (WISMO)** | "मेरा order कहाँ है?" — जवाब तब, जब shopper साबित कर दे कि order उसी का है | [Orders](/commerce/orders) |
 | **Order-status updates** | जो shoppers opt in करते हैं उन्हें उसी chat thread में shipping updates मिलते हैं | [Orders](/commerce/orders) |
@@ -39,8 +39,8 @@ import { Callout } from 'nextra/components'
 |---|---|---|
 | **आप कैसे connect करते हैं** | Shopify App Store से install करें, फिर embedded app के अंदर से अपना workspace जोड़ें | अपना store URL डालें और एक बार का authorization मंज़ूर करें, या API keys ख़ुद paste करें |
 | **बाद में दोबारा authorize करना** | कोई reconnect कदम नहीं — permission बदलाव app के साथ ही आते हैं | **Reconnect** आपके store पर मंज़ूरी दोबारा चलाता है |
-| **पहला catalog sync** | connect करते ही अपने-आप शुरू | guided रास्ते पर अपने-आप शुरू; manual key वाले रास्ते पर एक **Resync now** चाहिए — देखें [WooCommerce](/commerce/woocommerce#after-a-manual-connect) |
-| **Inventory कितनी ताज़ा** | अलग inventory updates, इसलिए stock बदलाव अपने-आप आते हैं | stock बदलाव product updates के साथ आते हैं |
+| **पहला catalog sync** | connect करते ही अपने-आप शुरू | guided रास्ते पर अपने-आप शुरू; manual key वाले रास्ते पर एक **Re-sync now** चाहिए — देखें [WooCommerce](/commerce/woocommerce#after-a-manual-connect) |
+| **Inventory कितनी ताज़ा** | अलग inventory updates, इसलिए सिर्फ़-stock वाला बदलाव भी कुछ ही सेकंड में अपने-आप आ जाता है | stock बदलाव product updates के साथ आते हैं, इसलिए सिर्फ़-stock वाला बदलाव अगले product edit या reconcile का इंतज़ार करता है |
 | **Checkout handoff** | एक ही cart link में हर line | आपकी keys जो permission रखती हैं उस पर निर्भर — देखें [Checkout](/commerce/checkout) |
 
 ## आप दोनों एक साथ connect कर सकते हैं [#you-can-connect-both-at-once]
@@ -69,12 +69,12 @@ commerce से जुड़ा सब कुछ बाईं navigation मे�
 
 ## आपका store agent [#your-store-agent]
 
-Commerce एक साथ हर agent के लिए चालू नहीं होता। जब आप एक store connect करते हैं, **एक agent आपका store agent बन जाता है** — या तो कोई मौजूदा agent जिसे आप चुनते हैं, या आपके लिए बनाया गया एक नया — और वही agent commerce tools रखता है और आपका catalog पढ़ता है।
+Commerce एक साथ हर agent के लिए चालू नहीं होता। जब आप एक store connect करते हैं, **एक agent आपका store agent बन जाता है** — और वही agent commerce tools रखता है और आपका catalog पढ़ता है।
 
-आप इसे per-agent switch से नहीं चलाते। store agent connect करते समय ही चुना जाता है और उसी agent के page पर एक read-only "आपके store द्वारा प्रबंधित" panel के रूप में दिखता है, ताकि हमेशा साफ़ रहे कि कौन-सा agent किस store से जुड़ा है।
+वह agent आपके लिए चुना जाता है, आपके द्वारा नहीं। अगर आपने यही store पहले भी connect किया था, तो उसका पिछला store agent अपनी tuning और version history के साथ ज्यों का त्यों वापस ले लिया जाता है; वरना एक नया बना दिया जाता है। आप इसे per-agent switch से नहीं चलाते: store agent उसी agent के page पर एक read-only "आपके store द्वारा प्रबंधित" panel के रूप में दिखता है, ताकि हमेशा साफ़ रहे कि कौन-सा agent किस store से जुड़ा है।
 
 <Callout type="info">
-  अगर आपके workspace ने अपने agents का कोटा पहले ही ख़र्च कर दिया है, तो नया store agent बनाने की जगह नहीं बचती — connect flow आपको यह बता देता है और कहता है कि कोई मौजूदा agent चुनें या जगह ख़ाली करें। यही एकमात्र जगह है जहाँ आपकी सीमाएँ commerce को छूती हैं, और वह agents की गिनती की बात है, ख़ुद commerce की नहीं।
+  अगर आपके workspace ने अपने agents का कोटा पहले ही ख़र्च कर दिया है, तो नया store agent बनाने की जगह नहीं बचती। connect flow आपको यह बता देता है और सेटअप पूरा करने के लिए कहता है कि **अपना plan upgrade करें, या किसी बेकार पड़े agent को archive करके अपना store दोबारा connect करें**। यही एकमात्र जगह है जहाँ आपकी सीमाएँ commerce को छूती हैं, और वह agents की गिनती की बात है, ख़ुद commerce की नहीं।
 </Callout>
 
 ## शुरुआत करना [#getting-started]
