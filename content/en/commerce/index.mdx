@@ -22,7 +22,7 @@ import { Callout } from 'nextra/components'
 | Capability | What your shopper experiences | Read more |
 |---|---|---|
 | **Catalog Q&A** | "Does the linen shirt come in navy?" answered from your actual products, variants, and prices | [Catalog & Knowledge](/commerce/catalog-and-knowledge) |
-| **Live inventory** | Stock and price are read fresh at answer time, so the agent never promises something you sold out of | [Catalog & Knowledge](/commerce/catalog-and-knowledge) |
+| **Current inventory** | Stock and price come from your synced catalog, kept current by webhooks, so the agent isn't promising what you just sold out of | [Catalog & Knowledge](/commerce/catalog-and-knowledge) |
 | **Recommendations** | "What would go with this?" — suggestions limited to items actually in stock | [Catalog & Knowledge](/commerce/catalog-and-knowledge) |
 | **Order lookup (WISMO)** | "Where is my order?" answered after the shopper proves the order is theirs | [Orders](/commerce/orders) |
 | **Order-status updates** | Shoppers who opt in get shipping updates in the same chat thread | [Orders](/commerce/orders) |
@@ -39,8 +39,8 @@ Shopify and WooCommerce are peers here — not a primary and a fallback. Every c
 |---|---|---|
 | **How you connect** | Install from the Shopify App Store, then link your workspace from inside the embedded app | Enter your store URL and approve a one-time authorization, or paste API keys manually |
 | **Re-authorizing later** | No reconnect step — permission changes ride the app itself | **Reconnect** re-runs the approval on your store |
-| **Initial catalog sync** | Starts automatically at connect | Starts automatically on the guided flow; the manual key path needs a **Resync now** — see [WooCommerce](/commerce/woocommerce#after-a-manual-connect) |
-| **Inventory freshness** | Dedicated inventory updates, so stock changes arrive on their own | Stock changes arrive with product updates |
+| **Initial catalog sync** | Starts automatically at connect | Starts automatically on the guided flow; the manual key path needs a **Re-sync now** — see [WooCommerce](/commerce/woocommerce#after-a-manual-connect) |
+| **Inventory freshness** | Dedicated inventory updates, so a stock-only change arrives on its own within seconds | Stock changes arrive with product updates, so a stock-only change waits for the next product edit or reconcile |
 | **Checkout handoff** | One cart link covering every line | Depends on the permission your keys carry — see [Checkout](/commerce/checkout) |
 
 ## You can connect both at once [#you-can-connect-both-at-once]
@@ -69,12 +69,12 @@ Everything commerce is under **Commerce** in the left navigation:
 
 ## Your store agent [#your-store-agent]
 
-Commerce is not switched on for every agent at once. When you connect a store, **one agent becomes your store agent** — either an existing agent you pick, or a fresh one created for you — and it is the agent that carries the commerce tools and reads your catalog.
+Commerce is not switched on for every agent at once. When you connect a store, **one agent becomes your store agent** — and it is the agent that carries the commerce tools and reads your catalog.
 
-You do not manage this with a per-agent switch. The store agent is chosen at connect time and shown on the agent's own page as a read-only "managed by your store" panel, so it is always obvious which agent is wired to which store.
+That agent is chosen for you, not by you. If you have connected this same store before, its previous store agent is reclaimed with its tuning and version history intact; otherwise a fresh one is created. You do not manage this with a per-agent switch: the store agent is shown on the agent's own page as a read-only "managed by your store" panel, so it is always obvious which agent is wired to which store.
 
 <Callout type="info">
-  If your workspace has already used up its allowance of agents, there is no room to create a store agent — the connect flow tells you so and asks you to pick an existing agent or free one up. This is the one place your plan's limits touch commerce, and it is about agent count, not about commerce itself.
+  If your workspace has already used up its allowance of agents, there is no room to create a store agent. The connect flow tells you so and asks you to **upgrade your plan, or archive an unused agent and reconnect your store** to finish setup. This is the one place your plan's limits touch commerce, and it is about agent count, not about commerce itself.
 </Callout>
 
 ## Getting started

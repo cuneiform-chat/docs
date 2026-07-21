@@ -18,7 +18,7 @@ import { Callout } from 'nextra/components'
 - **Order lookup (WISMO)** — shoppers check "where is my order?" with their order number plus the email or phone on the order
 - **Recommendations** — suggestions limited to products that are actually in stock
 - **Order-status updates** — shipping updates in the same chat, for shoppers who opt in
-- **Live inventory** — prices and stock read fresh at answer time
+- **Current inventory** — prices and stock from your synced catalog, kept up to date by webhooks
 - **Checkout handoff** — send a ready-to-buy shopper to your own WooCommerce checkout
 
 ## Prerequisites
@@ -65,20 +65,20 @@ We health-check the store before saving. A hard failure blocks the connection; a
   **The manual key path skips two things the guided flow does at connect: it does not register webhooks, and it does not start the initial catalog import.** They recover on different schedules — and one of them only recovers if your key carries the right permission. Read both halves below.
 </Callout>
 
-### Your catalog — press "Resync now"
+### Your catalog — press "Re-sync now"
 
-Nothing is imported at connect. A background job reconciles catalogs daily, but its catch-up pass only runs for stores that have synced at least once before — a store that has never synced has nothing to catch up *from*. In practice that means a manually-connected store's catalog is fully populated by the **weekly sweep**, which can be up to seven days away.
+Nothing is imported at connect. A background job reconciles catalogs daily, but that daily pass only fetches products changed *since its own last run* — and a store that never imported has no backlog to fetch, only new edits. The full import arrives with the **weekly sweep**, which can be up to seven days away.
 
-**Don't wait for it.** Open **Commerce → WooCommerce → Catalog** and click **Resync now**. That runs the same import the guided flow would have run at connect, and it finishes in minutes.
+**Don't wait for it.** Open **Commerce → WooCommerce → Catalog & Data** and click **Re-sync now**. That runs the same import the guided flow would have run at connect, and it finishes in minutes.
 
 ### Your webhooks — only if your key is Read/Write
 
 Webhooks are not registered at connect either, but this one is repaired automatically **on one condition**. An hourly job re-attempts webhook registration for every connected store, so:
 
 - **A `Read/Write` store recovers on its own**, usually within the hour. You don't have to do anything.
-- **A read-only store never recovers.** WooCommerce rejects every registration attempt from a read-only key. The job retries every hour, is rejected every hour, and logs nothing you'll see. It will keep failing indefinitely.
+- **A read-only store never recovers.** WooCommerce rejects every registration attempt from a read-only key. The job retries every hour and is refused every hour, indefinitely.
 
-The symptom of a read-only store is not an error message — it's that catalog, stock, and order changes only ever show up on the next scheduled sync instead of arriving as they happen.
+You can see this rather than having to infer it: **Commerce → WooCommerce → Connection** has a **Webhook health** panel, which will read **"Subscriptions drifted"** with **"No events received yet."** The other symptom is behavioral — catalog, stock, and order changes only ever show up on the next scheduled sync instead of arriving as they happen.
 
 ### The permission is what you told us it was
 
@@ -102,7 +102,7 @@ A read-only connection can't create that pending order, so it hands off one line
 
 You connect **one WooCommerce store per workspace** — and you can have a Shopify store connected at the same time (see [Commerce](/commerce#you-can-connect-both-at-once)).
 
-At connect time, **one agent becomes your store agent**: either an existing agent you pick or a fresh one created for you. That agent carries the WooCommerce tools; your other agents are unaffected. There is no per-agent switch to hunt for — the agent's own page shows a read-only panel saying it's managed by your store.
+At connect time, **one agent becomes your store agent** — chosen for you rather than by you. If you previously connected this same store, its old store agent is reclaimed, tuning and version history intact; otherwise a fresh one is created. That agent carries the WooCommerce tools; your other agents are unaffected. There is no per-agent switch to hunt for — the agent's own page shows a read-only panel saying it's managed by your store.
 
 <Callout type="info">
   Older versions of this page told you to enable commerce for more agents under **Commerce → Settings**. That page no longer exists, and the per-agent switch went with it. Commerce is wired to the store agent chosen at connect.
@@ -112,9 +112,9 @@ At connect time, **one agent becomes your store agent**: either an existing agen
 
 Shoppers see order details only after providing the exact order number **and** the email or phone on the order. A wrong contact and a non-existent order return the same "couldn't find it" answer with no details — anti-enumeration hardening that protects your customers. See [Orders](/commerce/orders).
 
-### Live catalog and inventory
+### Current catalog and inventory
 
-Prices and stock are read fresh at answer time, so recommendations stay limited to what's actually available. WooCommerce sends stock changes along with product updates rather than as separate inventory events, so a stock-only change lands with the next product update or the next sync. See [Catalog & Knowledge](/commerce/catalog-and-knowledge).
+Prices and stock come from your synced catalog, so recommendations stay limited to what's actually available. WooCommerce sends stock changes along with product updates rather than as separate inventory events, so a stock-only change lands with the next product update or the next sync. See [Catalog & Knowledge](/commerce/catalog-and-knowledge).
 
 ### Opt-in order-status updates
 
@@ -141,7 +141,7 @@ The guided flow needs your browser to reach your store's approval screen and you
 
 ### The catalog is empty right after connecting
 
-If you connected manually, this is expected — nothing was imported. Click **Resync now** on the Catalog tab.
+If you connected manually, this is expected — nothing was imported. Click **Re-sync now** on the **Catalog & Data** tab.
 
 If you used the guided flow, the first import backfills the whole catalog and can take a few minutes on a large store.
 
@@ -171,10 +171,15 @@ Disconnect from **Commerce → WooCommerce → Disconnect**. Disconnecting:
 
 - Removes the stored connection and credentials, and the synced catalog
 - Clears the product knowledge built from that catalog
-- Resets the store agent's commerce grant and reverts its commerce persona if you never edited it
-- Archives the commerce Agent Flows and product-quiz suggestions that came with the store
+- Removes the webhooks it registered on your store
+- Resets the store agent's commerce grant, reverts its commerce persona if you never edited it, and **archives the agent itself** — reconnecting the same store reclaims it with its tuning and version history intact
+- **Permanently deletes any Storefront scoped to that store**, along with its analytics history. Storefronts you built by hand are untouched
+- Archives the commerce Agent Flows that came with the store
+- Deletes the AI quiz suggestions outright, so a future reconnect starts from a clean slate
 
-If you still have a **Shopify** store connected, the workspace-wide steps are skipped — disconnecting one store never tears down the other store's commerce setup.
+<Callout type="warning">
+  If you still have a **Shopify** store connected, only the workspace-wide steps — archiving commerce Agent Flows and deleting quiz suggestions — are skipped. The WooCommerce store's own catalog, product knowledge, Storefronts, analytics and store agent are always torn down.
+</Callout>
 
 ## FAQ
 
@@ -188,7 +193,7 @@ No plugin. The guided flow is a one-time approval on your own store. You only pa
 
 ### Why does the approval screen ask for write access?
 
-Because WooCommerce refuses to register webhooks for a read-only key, and without webhooks nothing updates in real time. The integration still never changes your catalog, your stock, or your existing orders. The only thing it ever creates is a pending order for a shopper checking out from a chat — see [Checkout](/commerce/checkout).
+Because WooCommerce refuses to register webhooks for a read-only key, and without webhooks nothing updates in real time. The integration still never changes your catalog, your stock, or your existing orders. What it writes is limited to the webhooks themselves, and one pending order for a shopper checking out from a chat — see [Checkout](/commerce/checkout).
 
 ### Can I connect with a read-only key anyway?
 

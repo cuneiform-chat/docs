@@ -17,7 +17,7 @@ import { Callout } from 'nextra/components'
 Once your store is linked, your store agent can:
 
 - **Answer catalog questions** from your real products, variants, options, and prices
-- **Read stock and price fresh** at the moment it answers, so it never sells something you're out of
+- **Read stock and price from your synced catalog**, kept current by webhooks so it isn't offering what you just sold out of
 - **Recommend in-stock products** rather than whatever it remembers
 - **Look up orders** for shoppers who can prove the order is theirs
 - **Send order-status updates** to shoppers who opt in, in the same chat
@@ -57,9 +57,11 @@ What you can see on that page:
 | **Confirm the link** | You're an Owner or Admin — this is the normal path. |
 | **Ask an admin to finish this** | You're a Member. Members can't connect integrations; send the link to an Owner or Admin. |
 | **Store linked** | Done. The catalog sync is already running. |
-| **This link has expired** | The linking ticket is short-lived. Go back to the app in your Shopify admin and click **Link your workspace** again. |
+| **This connection link expired** | The linking ticket is stale, already used, or no longer recognized. Go back to the app in your Shopify admin and click **Link your workspace** again. |
 | **This store is connected elsewhere** | The store is already linked to a different workspace. Disconnect it there first. |
 | **This workspace already has a store** | One Shopify store per workspace. Disconnect the current one before linking a new one. |
+| **Couldn't connect your store** | Something went wrong on our side. A **Try again** button retries in place — you don't need to start over from Shopify. |
+| **We couldn't complete the connection** | The link failed before it reached us. Re-open the app in your Shopify admin and start the link again. |
 
 ## Permissions we ask for
 
@@ -94,7 +96,7 @@ Shopify has no reconnect step, and you should never go looking for one. Permissi
 ## After you connect
 
 - **Your catalog starts syncing immediately.** See [Catalog & Knowledge](/commerce/catalog-and-knowledge) for what the sync covers and how it stays current.
-- **One agent becomes your store agent.** See [Your store agent](/commerce#your-store-agent).
+- **One agent becomes your store agent**, chosen for you at connect. See [Your store agent](/commerce#your-store-agent).
 - **Order-status updates stay off until you turn them on.** See [Orders](/commerce/orders#order-status-updates).
 
 ## Troubleshooting
@@ -117,7 +119,7 @@ Linking a store requires the **Integration connect** permission, which Owners an
 
 ### The catalog is empty right after linking
 
-The first import backfills the whole catalog and takes a few minutes on a large store. If it still looks empty afterwards, run **Re-sync now** from **Commerce → Shopify**.
+The first import backfills the whole catalog and takes a few minutes on a large store. If it still looks empty afterwards, run **Re-sync now** from **Commerce → Shopify → Catalog & Data**. While the catalog is still empty, the checklist on the Overview tab also offers a one-click **Sync now**.
 
 ### The agent isn't answering product questions
 
@@ -129,10 +131,14 @@ Disconnect from **Commerce → Shopify → Disconnect**. Disconnecting:
 
 - Removes the stored connection and the synced catalog
 - Clears the product knowledge built from that catalog, so agents stop answering from it
-- Resets the store agent's commerce grant and reverts its commerce persona if you never edited it
-- Archives the commerce Agent Flows and product-quiz suggestions that came with the store
+- Resets the store agent's commerce grant, reverts its commerce persona if you never edited it, and **archives the agent itself** — reconnecting the same store reclaims it with its tuning and version history intact
+- **Permanently deletes any Storefront scoped to that store**, along with its analytics history. Storefronts you built by hand are untouched
+- Archives the commerce Agent Flows that came with the store
+- Deletes the AI quiz suggestions outright, so a future reconnect starts from a clean slate
 
-If you still have a **WooCommerce** store connected, the workspace-wide steps are skipped — disconnecting one store never tears down the other store's commerce setup.
+<Callout type="warning">
+  If you still have a **WooCommerce** store connected, only the workspace-wide steps — archiving commerce Agent Flows and deleting quiz suggestions — are skipped. The Shopify store's own catalog, product knowledge, Storefronts, analytics and store agent are always torn down.
+</Callout>
 
 Uninstalling the app from your Shopify admin ends Shopify's side of the relationship as well.
 

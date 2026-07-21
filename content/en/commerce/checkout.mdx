@@ -15,9 +15,11 @@ Both end the same way: your checkout, in the shopper's browser, with the items a
 
 ## Shopify: one link, whole cart
 
-For a Shopify store, the handoff is a **single checkout link that carries the entire cart** — every line, every quantity — plus any discount you've configured, plus attribution so the resulting order can be traced back to the conversation that produced it.
+For a Shopify store, the handoff is a **single checkout link that carries the entire cart** — every line, every quantity — plus attribution so the resulting order can be traced back to the conversation that produced it.
 
 The shopper taps once and lands on your Shopify checkout with everything already there. Nothing to re-add, nothing to remember.
+
+A **discount code** rides that link when the handoff starts from a [Storefront](/integrations/telegram-mini-app) with one configured. A cart built from product cards inside a chat carries no discount code.
 
 ## WooCommerce: it depends on your connection's permission [#woocommerce-permission]
 
@@ -30,7 +32,7 @@ import { Callout } from 'nextra/components'
 | Your connection | What a shopper gets |
 |---|---|
 | **`Read/Write`** (every guided connection, and any manual connection where you selected `Read/Write`) | The **whole cart**, as a pending order created in your store, with the conversation attributed to it. The shopper goes straight to paying for that order. |
-| **Read-only** | **One line at a time.** The shopper is handed an add-to-cart link for a single product. If their cart has more than one line, the handoff falls back to an order inquiry instead, so the request reaches you as a message rather than silently dropping the other items. |
+| **Read-only** | **One line at a time.** The shopper is handed an add-to-cart link for a single product. If their cart has more than one line, no checkout link is built. Nothing is lost — the cart stays intact — but what happens next depends on where the shopper is: from a **Storefront** the handoff becomes an order inquiry that lands in your Inbox; **inside a chat** the agent tells the shopper it can't build the link and offers to help them finish another way, without creating an Inbox item. |
 
 ### What the pending order is, and isn't
 
@@ -38,7 +40,9 @@ On a `Read/Write` connection, checking out creates a **pending order** in WooCom
 
 - Is **not paid** and **not fulfilled** — it's waiting for the shopper, exactly like an abandoned cart that got as far as the payment page
 - **Carries the conversation it came from**, so you can see which chats turn into orders
-- Is the **only thing** the integration ever creates in your store. It never edits a product, never adjusts stock, and never modifies an existing order
+- Is the **only order** the integration ever creates. It never edits a product, never adjusts stock, and never modifies an existing order
+
+The integration does also register a small set of **webhooks** on your store when you connect — that's how it hears about new orders and product changes as they happen. They're named `Cuneiform …`, and disconnecting removes them.
 
 ### If multi-line checkout isn't working
 
@@ -70,15 +74,15 @@ When a shopper builds a cart from product cards in the conversation, the checkou
 
 ### The checkout link only has one product in it
 
-That's the read-only WooCommerce path. Check your connection's permission and reconnect through the guided flow.
+That's the read-only WooCommerce path. Check your connection's permission and **Reconnect** through the guided flow.
 
-### A multi-line cart turned into an order inquiry instead of a checkout
+### A multi-line cart didn't produce a checkout link
 
-Same cause. Rather than dropping the extra lines silently, a read-only connection routes multi-line carts to you as an inquiry so nothing is lost.
+Same cause. Nothing is dropped — the cart is preserved either way. From a Storefront the request reaches you as an order inquiry; inside a chat the agent handles it conversationally rather than creating an Inbox item.
 
 ### A shopper reached checkout but the discount wasn't applied
 
-Discounts ride the Shopify handoff link. Confirm the discount is still valid and applicable to the products in the cart — an expired or non-applicable code is dropped by Shopify at checkout, not by us.
+Discounts ride the Shopify handoff link **from a Storefront only** — an in-chat cart never carries one. If the handoff did come from a Storefront, confirm the discount is still valid and applicable to the products in the cart; an expired or non-applicable code is dropped by Shopify at checkout, not by us.
 
 ### Orders aren't showing which conversation they came from
 
