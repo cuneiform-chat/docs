@@ -1,11 +1,11 @@
-# Agent Flows
+# Agent Forms
 
 Multi-screen forms जो एक AI agent बातचीत के बीच में किसी customer को सौंप सकता है। Agent तय करता है कि structured information कब मांगनी है — नाम, dates, एक uploaded ID photo, एक multi-step questionnaire — और आपका customer लंबी back-and-forth chat के बजाय एक native form में इसे भर देता है।
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Agent Flows **WhatsApp, Telegram, Messenger और आपकी वेबसाइट के chat widget** पर चलता है, और यह सबके लिए शामिल है — free trial सहित। एक flow एक बार बनाएँ; यह हर समर्थित channel पर native रूप से render होता है।
+  Agent Forms **WhatsApp, Telegram, Messenger और आपकी वेबसाइट के chat widget** पर चलता है, और यह सबके लिए शामिल है — free trial सहित। एक flow एक बार बनाएँ; यह हर समर्थित channel पर native रूप से render होता है।
 </Callout>
 
 ## समर्थित channels
@@ -23,7 +23,7 @@ import { Callout } from 'nextra/components'
 
 **एक ही flow को एक साथ कई channels पर publish करें।** Flow के **Distribute** टैब में हर channel का अपना publish card होता है। एक WhatsApp नंबर पर publish करें, फिर *वही* flow एक Telegram bot और एक Messenger page पर publish करें: हर card स्वतंत्र रूप से published रहता है, और एक channel जोड़ने से दूसरा कभी unpublish नहीं होता। बाकी को छुए बिना किसी एक channel को उसके card से unpublish करें। Flow जिन channels पर live है उन सबके analytics डिफ़ॉल्ट रूप से मिल जाते हैं; जब कोई flow दो या अधिक channels पर live हो, तो Submissions, Heatmap और Diagnose views में एक **channel filter** दिखता है ताकि आप एक बार में एक channel का विश्लेषण कर सकें।
 
-## Agent Flows का उपयोग कब करें
+## Agent Forms का उपयोग कब करें
 
 जब अकेली chat किसी सवाल के लिए गलत आकार हो, तब एक flow का सहारा लें:
 
@@ -37,7 +37,7 @@ import { Callout } from 'nextra/components'
 
 ## एक flow बनाना
 
-Flows customer admin panel में **Agent Flows** के अंतर्गत रहते हैं। हर flow में होता है:
+Flows customer admin panel में **Agent Forms** के अंतर्गत रहते हैं। हर flow में होता है:
 
 - एक **name और description** जिसे agent पढ़कर तय करता है कि इसका उपयोग कब करना है
 - एक या अधिक **screens**, जिनमें से हर एक में **components** (fields) होते हैं
@@ -47,7 +47,7 @@ Flows customer admin panel में **Agent Flows** के अंतर्ग�
 
 ## एक template से शुरुआत करना
 
-आपको खाली composer से शुरू करने की ज़रूरत नहीं है। ready-made flows की एक curated library देखने के लिए Agent Flows list पर **Templates** tab खोलें — lead capture, demo booking, support intake, product feedback, और बहुत कुछ। **Use this template** पर click करें और यह आपके अपने workspace में एक editable draft बना देता है: screens, fields, logic, और translations पहले से भरे आते हैं। Draft को एक WhatsApp number से bind करें, जो चाहें वह बदलें, और publish करें।
+आपको खाली composer से शुरू करने की ज़रूरत नहीं है। ready-made flows की एक curated library देखने के लिए Agent Forms list पर **Templates** tab खोलें — lead capture, demo booking, support intake, product feedback, और बहुत कुछ। **Use this template** पर click करें और यह आपके अपने workspace में एक editable draft बना देता है: screens, fields, logic, और translations पहले से भरे आते हैं। Draft को एक WhatsApp number से bind करें, जो चाहें वह बदलें, और publish करें।
 
 एक template बस एक शुरुआती बिंदु है — एक बार जब आप अपनी copy बना लेते हैं, तो यह एक सामान्य flow है जिसका आप पूरी तरह मालिक हैं और जिसे स्वतंत्र रूप से edit कर सकते हैं। पूरी template library सबके लिए खुली है।
 
@@ -194,7 +194,7 @@ Published flows केवल उन बातचीतों में नही
 
 ## सीमाएँ [#limits]
 
-Agent Flows ख़ुद सबके लिए शामिल है, free trial सहित — पहला flow बनाने से पहले unlock करने जैसा कुछ नहीं है। आपकी सदस्यता जो तय करती है वह अलग है: एक साथ कितने flows **published** रह सकते हैं, और published हर flow कितनी भाषाओं में प्रकाशित होता है।
+Agent Forms ख़ुद सबके लिए शामिल है, free trial सहित — पहला flow बनाने से पहले unlock करने जैसा कुछ नहीं है। आपकी सदस्यता जो तय करती है वह अलग है: एक साथ कितने flows **published** रह सकते हैं, और published हर flow कितनी भाषाओं में प्रकाशित होता है।
 
 | सदस्यता | Published flows | प्रति flow Locales |
 |------|-----------------|------------------|

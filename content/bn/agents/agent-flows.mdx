@@ -1,11 +1,11 @@
-# Agent Flows
+# Agent Forms
 
 Multi-screen form যা একটি AI agent কথোপকথনের মাঝপথে আপনার customer-কে দিতে পারে। Agent কখন structured তথ্য চাইবে তা নিজেই সিদ্ধান্ত নেয় — নাম, তারিখ, upload করা ID-র ছবি, একটি multi-step questionnaire — এবং আপনার customer দীর্ঘ পাল্টাপাল্টি chat-এর বদলে একটি native form-এ তা পূরণ করে।
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Agent Flows **WhatsApp, Telegram, Messenger এবং আপনার ওয়েবসাইটের chat widget**-এ চলে, এবং এটি সবার জন্যই উন্মুক্ত — ফ্রি ট্রায়াল সহ। একবার একটি flow তৈরি করুন; এটি প্রতিটি সমর্থিত channel-এ native ভাবে render হয়।
+  Agent Forms **WhatsApp, Telegram, Messenger এবং আপনার ওয়েবসাইটের chat widget**-এ চলে, এবং এটি সবার জন্যই উন্মুক্ত — ফ্রি ট্রায়াল সহ। একবার একটি flow তৈরি করুন; এটি প্রতিটি সমর্থিত channel-এ native ভাবে render হয়।
 </Callout>
 
 ## সমর্থিত channel
@@ -23,7 +23,7 @@ import { Callout } from 'nextra/components'
 
 **একই flow একসঙ্গে একাধিক channel-এ publish করুন।** Flow-এর **Distribute** ট্যাবে প্রতিটি channel-এর নিজস্ব publish card আছে। একটি WhatsApp নম্বরে publish করুন, তারপর *একই* flow একটি Telegram bot এবং একটি Messenger page-এ publish করুন: প্রতিটি card স্বাধীনভাবে published থাকে, এবং একটি channel যোগ করলে অন্যটি কখনো unpublish হয় না। অন্যগুলোতে হাত না দিয়ে একটিমাত্র channel তার card থেকে unpublish করুন। Flow যে channel-গুলোতে live, সেগুলোর analytics ডিফল্টভাবে একত্রে মিলিত হয়; flow দুই বা তার বেশি channel-এ live থাকলে Submissions, Heatmap এবং Diagnose view-তে একটি **channel filter** আসে, যাতে আপনি একবারে একটি channel বিশ্লেষণ করতে পারেন।
 
-## কখন Agent Flows ব্যবহার করবেন
+## কখন Agent Forms ব্যবহার করবেন
 
 যখন প্রশ্নের জন্য শুধু chat সঠিক আকার নয়, তখন একটি flow ব্যবহার করুন:
 
@@ -37,7 +37,7 @@ Agent-এর system prompt + কথোপকথনের context মিলে �
 
 ## একটি flow তৈরি করা
 
-Flow-গুলো customer admin panel-এ **Agent Flows**-এর অধীনে থাকে। প্রতিটি flow-এ রয়েছে:
+Flow-গুলো customer admin panel-এ **Agent Forms**-এর অধীনে থাকে। প্রতিটি flow-এ রয়েছে:
 
 - একটি **name ও description** যা পড়ে agent কখন তা ব্যবহার করবে সিদ্ধান্ত নেয়
 - এক বা একাধিক **screen**, প্রতিটিতে **component** (field) থাকে
@@ -47,7 +47,7 @@ Flow-গুলো customer admin panel-এ **Agent Flows**-এর অধীন�
 
 ## একটি template থেকে শুরু করা
 
-আপনাকে একটি খালি composer থেকে শুরু করতে হবে না। ready-made flow-এর একটি curated library দেখতে Agent Flows তালিকায় **Templates** tab খুলুন — lead capture, demo booking, support intake, product feedback এবং আরও অনেক কিছু। **Use this template**-এ click করুন এবং এটি আপনার নিজের workspace-এ একটি editable draft তৈরি করে: screen, field, logic ও translation আগে থেকেই পূরণ করা থাকে। Draft-টিকে একটি WhatsApp number-এর সাথে bind করুন, যা ইচ্ছা পরিবর্তন করুন এবং publish করুন।
+আপনাকে একটি খালি composer থেকে শুরু করতে হবে না। ready-made flow-এর একটি curated library দেখতে Agent Forms তালিকায় **Templates** tab খুলুন — lead capture, demo booking, support intake, product feedback এবং আরও অনেক কিছু। **Use this template**-এ click করুন এবং এটি আপনার নিজের workspace-এ একটি editable draft তৈরি করে: screen, field, logic ও translation আগে থেকেই পূরণ করা থাকে। Draft-টিকে একটি WhatsApp number-এর সাথে bind করুন, যা ইচ্ছা পরিবর্তন করুন এবং publish করুন।
 
 একটি template শুধুই একটি শুরুর বিন্দু — একবার আপনার copy তৈরি হয়ে গেলে, এটি একটি সাধারণ flow যার সম্পূর্ণ মালিকানা আপনার এবং যা আপনি অবাধে edit করতে পারেন। পুরো template library সবার জন্যই খোলা।
 
@@ -194,7 +194,7 @@ Published flow কেবল agent শুরু করা কথোপকথন�
 
 ## সীমা [#limits]
 
-Agent Flows নিজে সবার জন্যই উন্মুক্ত, ফ্রি ট্রায়াল সহ — প্রথম flow বানানোর আগে unlock করার মতো কিছু নেই। আপনার সাবস্ক্রিপশন যেটি নিয়ন্ত্রণ করে তা আলাদা: একসাথে কতগুলো flow **published** থাকতে পারে, আর published প্রতিটি flow কতগুলো ভাষায় প্রকাশ পায়।
+Agent Forms নিজে সবার জন্যই উন্মুক্ত, ফ্রি ট্রায়াল সহ — প্রথম flow বানানোর আগে unlock করার মতো কিছু নেই। আপনার সাবস্ক্রিপশন যেটি নিয়ন্ত্রণ করে তা আলাদা: একসাথে কতগুলো flow **published** থাকতে পারে, আর published প্রতিটি flow কতগুলো ভাষায় প্রকাশ পায়।
 
 | সাবস্ক্রিপশন | Published flow | প্রতি flow-এ locale |
 |------|----------------|----------------------|
