@@ -7,16 +7,20 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { LocaleSwitcher } from '../../components/locale-switcher'
 
-// Active locales: en (source), es, pt, fr, ru, bn, hi, ar (RTL).
-// Disabled: th — content/th/ retained on disk, not built.
+// Active locales: en (source), es, pt, fr, bn.
+// Disabled: th (frozen long-term) + ru, hi, ar (TEMPORARILY disabled Jul 2026).
+// Disabled-locale content dirs are retained on disk but not built or routed.
 // Mirrors the admin panel locale policy. See
 // `.claude/references/features/admin-panel-i18n.md` for rationale.
-const LOCALES = ['en', 'es', 'pt', 'fr', 'ru', 'bn', 'hi', 'ar'] as const
+const LOCALES = ['en', 'es', 'pt', 'fr', 'bn'] as const
 type Locale = (typeof LOCALES)[number]
-const RTL_LOCALES: Locale[] = ['ar']
+// Includes the temporarily-disabled codes so their UI strings and RTL wiring
+// below survive the disable — re-enabling is a one-line change to LOCALES.
+type RetainedLocale = Locale | 'ru' | 'hi' | 'ar'
+const RTL_LOCALES: RetainedLocale[] = ['ar']
 
 const UI_STRINGS: Record<
-  Locale,
+  RetainedLocale,
   {
     editLink: string
     feedbackContent: string

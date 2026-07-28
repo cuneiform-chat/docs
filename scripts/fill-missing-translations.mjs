@@ -14,8 +14,8 @@ const CONTENT_DIR = new URL('../content', import.meta.url).pathname
 const SOURCE_LOCALE = 'en'
 
 // Active non-source locales — keep in sync with next.config.mjs i18n.locales.
-// Disabled (frozen on disk, do NOT include): th.
-const LOCALES = ['es', 'pt', 'fr', 'ru', 'bn', 'hi', 'ar']
+// Disabled (frozen on disk, do NOT include): th, ru, hi, ar.
+const LOCALES = ['es', 'pt', 'fr', 'bn']
 
 const NOTICE_BANNER = `{/* ⚠️ This page has not been translated yet. You are viewing the English version. */}
 {/* Translation contributions welcome: https://github.com/cuneiform-chat/docs */}
