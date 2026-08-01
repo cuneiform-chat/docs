@@ -1,6 +1,6 @@
 # Messenger Storefront (In-app Mini App)
 
-**अपने Facebook Page को एक पूरे in-app storefront में बदलें।** एक polished, multipage product catalog बनाएँ — photos, videos, themed pages, हर product के लिए एक AI assistant, और lightweight order-taking के साथ — जो *Messenger के अंदर* तभी खुल जाता है जब कोई customer आपके Page के Persistent Menu पर **"Open Storefront"** button टैप करता है। कोई app store नहीं, कोई अलग website नहीं, manage करने के लिए कोई checkout नहीं। बस एक टैप, और आपका customer browse कर रहा है।
+**अपने Facebook Page को एक पूरे in-app storefront में बदलें।** एक polished, multipage product catalog बनाएँ — photos, videos, themed pages, हर product के लिए एक AI assistant, और lightweight order-taking के साथ — जो *Messenger के अंदर* तभी खुल जाता है जब कोई customer आपके Page के Persistent Menu पर **"Open Storefront"** button टैप करता है। कोई app store नहीं, कोई अलग website नहीं, और ख़ुद बनाने के लिए कोई अलग checkout page भी नहीं: इसे किसी connected store से जोड़ दें — shoppers आपके असली checkout पर भुगतान करेंगे; इसे हाथ से बनाएँ — orders आपके inbox में अनुरोध के रूप में आएँगे। बस एक टैप, और आपका customer browse कर रहा है।
 
 हर plan पर मुफ़्त, trial सहित। उसी visual drag-and-drop composer में बना है जिसमें Telegram Storefront — वही 11 block types, वही 6 themes, वही per-product AI chat, वही lightweight order CTAs — **Integrations → Facebook Page → Configure mini app** पर।
 
@@ -22,11 +22,11 @@ Telegram Storefront जैसी ही shapes — हर block type और them
 
 ## यह क्यों मायने रखता है
 
-- **Customers कभी Messenger नहीं छोड़ते।** कोई app install नहीं, याद रखने के लिए कोई domain नहीं, छोड़ने के लिए कोई checkout flow नहीं। storefront Messenger के WebView में खुलता है और user की theme व language को inherit करता है।
+- **Customers कभी Messenger नहीं छोड़ते।** कोई app install नहीं, याद रखने के लिए कोई domain नहीं, ख़ुद बनाने के लिए कोई अलग checkout page नहीं। storefront Messenger के WebView में खुलता है और user की theme व language को inherit करता है।
 - **आपके Page के chat से एक टैप।** जैसे ही आप अपना Page connect करते हैं, एक ही **"Open Storefront"** entry अपने-आप Persistent Menu में seed हो जाती है — कोई Meta Business Suite config नहीं, कोई app review नहीं, कोई webhook wiring नहीं।
 - **AI-native product chat।** Per-product chat उन्हीं documents तक scoped है जिन्हें *आप* उस product से attach करते हैं — assistant "इस dress पर return policy क्या है?" का जवाब देता है, बिना दूसरे products के facts leak किए।
 - **एक असली इंसान को order handoffs।** Lightweight order forms (inquiry या cart mode) आपके Inbox में एक structured handoff के रूप में आते हैं, और follow-up के लिए customer का Messenger DM खुला रखा जाता है।
-- **हर plan पर मुफ़्त।** Trial cap (5 pages / 25 blocks प्रति page / 100 product docs) हर paid plan पर हट जाती है। Pricing per-org है — दूसरा Facebook Page जोड़ने से आपका tier price नहीं बदलता।
+- **हर plan पर मुफ़्त।** pages, blocks प्रति page या product docs पर कोई cap नहीं — किसी भी plan पर नहीं, free trial सहित। Pricing per-org है — दूसरा Facebook Page जोड़ने से आपकी price नहीं बदलती।
 
 ## एक नज़र में
 
@@ -37,7 +37,7 @@ Telegram Storefront जैसी ही shapes — हर block type और them
 - **Auto-seeded Persistent Menu** — एक ही "Open Storefront" button, editable label, locked action।
 - **Outer-chat fallback** — पुराने Messenger clients के लिए blocks in-chat Generic Templates, Quick Replies, और image carousels में project होते हैं।
 - **Built-in Help Center** — एक pinned FAQ surface, हमेशा एक टैप दूर। Telegram जैसा ही panel।
-- **कोई payments नहीं, कोई inventory नहीं, कोई shipping नहीं** — यह एक polished catalog + lead-capture surface है, पूरा e-commerce stack नहीं।
+- **Products पाने के दो तरीक़े।** **हाथ से बनाया गया** storefront एक polished catalog + lead-capture surface है: products आप ख़ुद लिखते हैं, और वह न payments करता है, न inventory, न shipping। **Catalog से जुड़ा** storefront आपके [connected Shopify या WooCommerce store](/commerce) से products लेता है और shoppers को आपके असली checkout पर भेजता है।
 
 ## Customers इसे कैसे ढूँढते हैं
 
@@ -135,13 +135,13 @@ Order CTAs Telegram Storefront की तरह ही काम करते �
 
 बस इतना ही। कोई भी customer कभी login prompt नहीं देखता।
 
-## यह क्या नहीं करता
+## हाथ से बनाया गया storefront क्या नहीं करता
 
-Telegram Storefront जैसा ही scope:
+Telegram Storefront जैसा ही scope। ये सीमाएँ उस storefront पर लागू होती हैं जिसमें products आपने ख़ुद लिखे हैं — [catalog से जुड़ा storefront](/integrations/telegram-mini-app#catalog-linked-storefronts) पहली तीन हटा देता है, क्योंकि वह products, stock और checkout आपके connected store से लेता है।
 
-- **कोई payments नहीं।** Order CTAs inquiry handoffs हैं, Checkout API या Stripe नहीं।
-- **कोई inventory tracking नहीं।** product cards पर availability badges free-text labels हैं जिन्हें आप manually edit करते हैं ("Sold out", "Pre-order", "Last 3")।
-- **कोई shipping calculations / address validation नहीं।** Delivery address free-form text के रूप में collect होता है।
+- **अपना कोई payment नहीं।** Order CTAs inquiry handoffs हैं, Checkout API या Stripe नहीं। (Catalog से जुड़ा storefront उसके बदले आपके store के checkout पर handoff करता है — देखें [Checkout](/commerce/checkout)।)
+- **कोई inventory tracking नहीं।** product cards पर availability badges free-text labels हैं जिन्हें आप manually edit करते हैं ("Sold out", "Pre-order", "Last 3")। (Catalog से जुड़ा storefront आपके store से असली stock पढ़ता है।)
+- **कोई shipping calculations / address validation नहीं।** Delivery address free-form text के रूप में collect होता है। (Catalog से जुड़े storefront में shipping आपके अपने store की ही shipping है, जो उसके checkout पर गिनी जाती है।)
 - **कोई customer accounts नहीं।** Customers को उनके Messenger PSID से पहचाना जाता है; कोई login या signup flow नहीं है।
 - **कोई Page comments या Page posts नहीं।** यह integration केवल Messenger threads और storefront launches को handle करता है।
 - **कोई Instagram DM storefront नहीं** (अभी)। वही Meta integration केवल Messenger को कवर करता है; Instagram DM केवल text-conversation है।

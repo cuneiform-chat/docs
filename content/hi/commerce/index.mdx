@@ -1,0 +1,92 @@
+---
+description: एक Shopify या WooCommerce store connect करें ताकि आपके AI agents आपके sync किए गए catalog से जवाब दें, orders ढूँढें, वही सुझाएँ जो सचमुच stock में है, और shoppers को checkout तक पहुँचाएँ।
+---
+
+# Commerce
+
+**अपना store connect करें और आपके agents अंदाज़ा लगाना बंद कर देंगे।** पिछली तिमाही में किसी को update करना याद रहा हो — ऐसे किसी document से जवाब देने के बजाय वे आपका असली catalog, आपके असली stock levels और आपके असली orders पढ़ते हैं — ठीक उसी क्षण जब shopper पूछता है।
+
+Cuneiform Chat दो commerce platforms से जुड़ता है, और दोनों को बराबर मानता है:
+
+- **[Shopify](/commerce/shopify)** — Shopify App Store से install होता है और आपके Shopify admin के अंदर एक embedded app के रूप में चलता है।
+- **[WooCommerce](/commerce/woocommerce)** — WooCommerce REST API के ज़रिए आपके self-hosted store से जुड़ता है।
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Commerce सबके लिए उपलब्ध है, free trial सहित। store connect करने से पहले खरीदने, unlock करने या upgrade करने जैसा कुछ नहीं है।
+</Callout>
+
+## एक store connect करने से आपको क्या मिलता है [#what-connecting-a-store-gives-you]
+
+| क्षमता | आपका shopper क्या अनुभव करता है | और पढ़ें |
+|---|---|---|
+| **Catalog Q&A** | "क्या linen shirt navy रंग में आती है?" — जवाब आपके असली products, variants और कीमतों से | [Catalog और Knowledge](/commerce/catalog-and-knowledge) |
+| **Current inventory** | stock और कीमत आपके sync किए गए catalog से आती हैं, जिसे webhooks ताज़ा रखते हैं, इसलिए agent ऐसी चीज़ का वादा नहीं करता जो आपके यहाँ अभी-अभी ख़त्म हुई है | [Catalog और Knowledge](/commerce/catalog-and-knowledge) |
+| **सुझाव** | "इसके साथ क्या जँचेगा?" — सुझाव सिर्फ़ उन्हीं तक सीमित जो सचमुच stock में हैं | [Catalog और Knowledge](/commerce/catalog-and-knowledge) |
+| **Order lookup (WISMO)** | "मेरा order कहाँ है?" — जवाब तब, जब shopper साबित कर दे कि order उसी का है | [Orders](/commerce/orders) |
+| **Order-status updates** | जो shoppers opt in करते हैं उन्हें उसी chat thread में shipping updates मिलते हैं | [Orders](/commerce/orders) |
+| **Checkout handoff** | खरीदने को तैयार shopper को उसकी cart ज्यों की त्यों रखते हुए आपके अपने checkout पर भेजा जाता है | [Checkout](/commerce/checkout) |
+| **Shoppable chat** | बातचीत के अंदर ही product cards, एक cart, और checkout | [Shoppable Chat](/commerce/shoppable-chat) |
+| **Product Library और Product Finder** | एक चुनी हुई product surface, साथ में एक guided quiz जो अंत में products सुझाती है | [Product Tools](/commerce/product-tools) |
+| **Commerce Analytics** | shoppers ने क्या माँगा, उन्हें क्या दिखाया गया, और वे कहाँ छूट गए | [Analytics](/commerce/analytics) |
+
+## दो platforms, एक ही feature सेट [#two-platforms-one-set-of-features]
+
+यहाँ Shopify और WooCommerce बराबर हैं — एक मुख्य और दूसरा विकल्प नहीं। ऊपर की table की हर क्षमता दोनों पर काम करती है। जहाँ व्यवहार सचमुच अलग है, वह इसलिए कि नीचे का platform ही अलग है, और हर अंतर उसी page पर बताया गया है जो उसे कवर करता है:
+
+| अंतर | Shopify | WooCommerce |
+|---|---|---|
+| **आप कैसे connect करते हैं** | Shopify App Store से install करें, फिर embedded app के अंदर से अपना workspace जोड़ें | अपना store URL डालें और एक बार का authorization मंज़ूर करें, या API keys ख़ुद paste करें |
+| **बाद में दोबारा authorize करना** | कोई reconnect कदम नहीं — permission बदलाव app के साथ ही आते हैं | **Reconnect** आपके store पर मंज़ूरी दोबारा चलाता है |
+| **पहला catalog sync** | connect करते ही अपने-आप शुरू | guided रास्ते पर अपने-आप शुरू; manual key वाले रास्ते पर एक **Re-sync now** चाहिए — देखें [WooCommerce](/commerce/woocommerce#after-a-manual-connect) |
+| **Inventory कितनी ताज़ा** | अलग inventory updates, इसलिए सिर्फ़-stock वाला बदलाव भी अपने-आप आ जाता है, आमतौर पर कुछ ही सेकंड में | stock बदलाव product updates के साथ आते हैं, इसलिए सिर्फ़-stock वाला बदलाव अगले product edit या reconcile का इंतज़ार करता है |
+| **Checkout handoff** | एक ही cart link में हर line | आपकी keys जो permission रखती हैं उस पर निर्भर — देखें [Checkout](/commerce/checkout) |
+
+## आप दोनों एक साथ connect कर सकते हैं [#you-can-connect-both-at-once]
+
+हर platform का एक store, हर workspace में — और **एक Shopify store और एक WooCommerce store एक ही समय पर connected रह सकते हैं**। असल में एक merchant यही multi-store सेटअप देखता है: पाँच Shopify stores नहीं, बल्कि एक Shopify store और एक Woo store साथ-साथ।
+
+जब दोनों connected हों, **हर store को अपना अलग store agent मिलता है**, और हर agent अपने ही store से जवाब देता है। आपके Shopify store agent से बात करने वाले shopper को Shopify के products और Shopify के orders मिलते हैं; WooCommerce agent WooCommerce से जवाब देता है। दोनों को मिलाकर एक साझा catalog नहीं बनाया जाता। Analytics भी उन्हें अलग रखता है, बीच में बदलने के लिए एक provider selector के साथ।
+
+<Callout type="warning">
+  एक store एक समय पर सिर्फ़ एक ही workspace से connected रह सकता है। अगर किसी ने वही store कहीं और पहले से connect कर रखा है, तो connect करने की कोशिश ठुकरा दी जाती है और आपसे कहा जाता है कि पहले उसे वहाँ से disconnect करें।
+</Callout>
+
+## Admin panel में Commerce कहाँ रहता है [#where-commerce-lives-in-the-admin-panel]
+
+commerce से जुड़ा सब कुछ बाईं navigation में **Commerce** के नीचे है:
+
+| Page | वहाँ क्या है |
+|---|---|
+| **Commerce** | मुख्य page: एक store connect करें, connection की स्थिति देखें, और जहाँ छोड़ा था वहीं से आगे बढ़ें |
+| **Shopify** | आपका Shopify connection — स्थिति, catalog sync, product knowledge, notifications |
+| **WooCommerce** | आपके WooCommerce store के लिए वही सब |
+| **Products** | आपकी [Product Library](/commerce/product-tools) |
+| **Storefront** | आपका in-bot [Storefront](/integrations/telegram-mini-app), catalog-linked storefronts सहित |
+| **Product Finder** | [product quiz](/commerce/product-tools#product-finder), उसकी submissions, heatmap और diagnostics |
+| **Commerce Analytics** | [Commerce Analytics](/commerce/analytics) और Commerce Analyst |
+
+## आपका store agent [#your-store-agent]
+
+Commerce एक साथ हर agent के लिए चालू नहीं होता। जब आप एक store connect करते हैं, **एक agent आपका store agent बन जाता है** — और वही agent commerce tools रखता है और आपका catalog पढ़ता है।
+
+वह agent आपके लिए चुना जाता है, आपके द्वारा नहीं। अगर आपने यही store पहले भी connect किया था, तो उसका पिछला store agent अपनी tuning और version history के साथ ज्यों का त्यों वापस ले लिया जाता है; वरना एक नया बना दिया जाता है। आप इसे per-agent switch से नहीं चलाते: store agent उसी agent के page पर एक read-only "आपके store द्वारा प्रबंधित" panel के रूप में दिखता है, ताकि हमेशा साफ़ रहे कि कौन-सा agent किस store से जुड़ा है।
+
+<Callout type="info">
+  अगर आपके workspace ने अपने agents का कोटा पहले ही ख़र्च कर दिया है, तो नया store agent बनाने की जगह नहीं बचती। connect flow आपको यह बता देता है और सेटअप पूरा करने के लिए कहता है कि **अपना plan upgrade करें, या किसी बेकार पड़े agent को archive करके अपना store दोबारा connect करें**। यही एकमात्र जगह है जहाँ आपकी सीमाएँ commerce को छूती हैं, और वह agents की गिनती की बात है, ख़ुद commerce की नहीं।
+</Callout>
+
+## शुरुआत करना [#getting-started]
+
+1. **अपना platform चुनें।** [Shopify](/commerce/shopify) या [WooCommerce](/commerce/woocommerce) का अनुसरण करें — connect करने के रास्ते काफ़ी अलग हैं, नतीजे वही हैं।
+2. **catalog को sync होने दें।** पहला import आपके products, variants, कीमतें, images और stock खींच लाता है। देखें [Catalog और Knowledge](/commerce/catalog-and-knowledge)।
+3. **अपने store agent से एक catalog सवाल पूछें।** "linen shirt किन sizes में आती है?" — यह सबसे तेज़ सबूत है कि सब काम कर गया।
+4. **जो चाहिए वह चालू करें।** [Order-status updates](/commerce/orders#order-status-updates), [shoppable chat](/commerce/shoppable-chat), एक [Product Finder quiz](/commerce/product-tools#product-finder) — हर एक स्वतंत्र है।
+
+## संबंधित [#related]
+
+- [Shopify](/commerce/shopify) — App Store install और workspace जोड़ना
+- [WooCommerce](/commerce/woocommerce) — guided authorization और manual API keys
+- [Telegram Storefront](/integrations/telegram-mini-app) — वह in-bot storefront जिसे एक catalog-linked store भर सकता है
+- [Analytics](/commerce/analytics) — commerce आपके लिए क्या कर रहा है यह मापना

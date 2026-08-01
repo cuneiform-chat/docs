@@ -1,6 +1,6 @@
 # Tienda de Messenger (Mini App dentro de la app)
 
-**Convierte tu página de Facebook en una tienda completa dentro de la app.** Construye un catálogo de productos multipágina y pulido — con fotos, videos, páginas con temas, un asistente de IA por producto y toma de pedidos ligera — que se abre *dentro* de Messenger en el momento en que un cliente toca el botón **"Open Storefront"** en el Persistent Menu de tu Página. Sin tienda de aplicaciones, sin sitio web aparte, sin checkout que gestionar. Solo un toque, y tu cliente ya está navegando.
+**Convierte tu página de Facebook en una tienda completa dentro de la app.** Construye un catálogo de productos multipágina y pulido — con fotos, videos, páginas con temas, un asistente de IA por producto y toma de pedidos ligera — que se abre *dentro* de Messenger en el momento en que un cliente toca el botón **"Open Storefront"** en el Persistent Menu de tu Página. Sin tienda de aplicaciones, sin sitio web aparte y sin página de checkout que construir — vincúlala a una tienda conectada y los compradores pagan en tu checkout real; constrúyela a mano y los pedidos llegan a tu inbox como consultas. Solo un toque, y tu cliente ya está navegando.
 
 Gratis en todos los planes, incluida la prueba. Construido en el mismo compositor visual de arrastrar y soltar que la Tienda de Telegram — los mismos 11 tipos de bloque, los mismos 6 temas, el mismo chat de IA por producto, las mismas CTAs de pedido ligeras — en **Integrations → Facebook Page → Configure mini app**.
 
@@ -22,11 +22,11 @@ Las mismas formas que la Tienda de Telegram — cada tipo de bloque y tema se tr
 
 ## Por qué importa
 
-- **Los clientes nunca salen de Messenger.** Sin instalación de app, sin dominio que recordar, sin flujo de checkout que abandonar. La tienda se abre en el WebView de Messenger y hereda el tema y el idioma del usuario.
+- **Los clientes nunca salen de Messenger.** Sin instalación de app, sin dominio que recordar y sin página de checkout aparte que construir. La tienda se abre en el WebView de Messenger y hereda el tema y el idioma del usuario.
 - **A un toque desde el chat de tu Página.** Una sola entrada **"Open Storefront"** se siembra automáticamente en el Persistent Menu en el momento en que conectas tu Página — sin configuración de Meta Business Suite, sin app review, sin cableado de webhooks.
 - **Chat de producto nativo de IA.** El chat por producto está acotado a los documentos que *tú* adjuntas a ese producto — el asistente responde "¿cuál es la política de devolución de este vestido?" sin filtrar datos de otros productos.
 - **Transferencia de pedidos a un humano real.** Los formularios de pedido ligeros (modo consulta o carrito) llegan a tu Inbox como una transferencia estructurada, con el DM de Messenger del cliente abierto para hacer seguimiento.
-- **Gratis en todos los planes.** El tope de la prueba (5 páginas / 25 bloques por página / 100 documentos de producto) se levanta en cada plan pagado. El precio es por organización — agregar una segunda página de Facebook no cambia el precio de tu plan.
+- **Gratis en todos los planes.** Sin topes de páginas, bloques por página ni documentos de producto — en ningún plan, incluida la prueba gratuita. El precio es por organización — agregar una segunda página de Facebook no cambia tu precio.
 
 ## De un vistazo
 
@@ -37,7 +37,7 @@ Las mismas formas que la Tienda de Telegram — cada tipo de bloque y tema se tr
 - **Persistent Menu auto-sembrado** — botón único "Open Storefront", etiqueta editable, acción bloqueada.
 - **Fallback de chat externo** — los bloques se proyectan a Generic Templates en el chat, Quick Replies y carruseles de imágenes para clientes de Messenger más antiguos.
 - **Help Center integrado** — una superficie de FAQ fija, siempre a un toque de distancia. El mismo panel que en Telegram.
-- **Sin pagos, sin inventario, sin envíos** — esto es una superficie pulida de catálogo + captura de leads, no un stack completo de e-commerce.
+- **Dos formas de obtener los productos.** Una tienda **construida a mano** es una superficie pulida de catálogo + captura de leads — tú escribes los productos, y no hace pagos, ni seguimiento de inventario, ni envíos. Una tienda **vinculada al catálogo** saca sus productos de una [tienda Shopify o WooCommerce conectada](/commerce) y lleva a los compradores a tu checkout real.
 
 ## Cómo lo encuentran los clientes
 
@@ -135,13 +135,13 @@ No necesitas pensar en esto — la plataforma lo maneja. Pero si tienes curiosid
 
 Eso es todo. Ningún cliente ve un prompt de login.
 
-## Lo que NO hace
+## Lo que NO hace una tienda construida a mano
 
-El mismo alcance que la Tienda de Telegram:
+El mismo alcance que la Tienda de Telegram. Estos límites se aplican a una tienda cuyos productos escribiste tú — una [tienda vinculada al catálogo](/integrations/telegram-mini-app#catalog-linked-storefronts) levanta los tres primeros al obtener sus productos, su stock y su checkout de tu tienda conectada.
 
-- **Sin pagos.** Las CTAs de pedido son transferencias de consulta, no Checkout API ni Stripe.
-- **Sin seguimiento de inventario.** Las insignias de disponibilidad en las product cards son etiquetas de texto libre que editas manualmente ("Agotado", "Pre-venta", "Quedan 3").
-- **Sin cálculos de envío / validación de direcciones.** La dirección de entrega se recoge como texto libre.
+- **Sin pagos propios.** Las CTAs de pedido son transferencias de consulta, no Checkout API ni Stripe. (Una tienda vinculada al catálogo transfiere al checkout de tu tienda — consulta [Checkout](/commerce/checkout).)
+- **Sin seguimiento de inventario.** Las insignias de disponibilidad en las product cards son etiquetas de texto libre que editas manualmente ("Agotado", "Pre-venta", "Quedan 3"). (Una tienda vinculada al catálogo lee el stock real de tu tienda.)
+- **Sin cálculos de envío / validación de direcciones.** La dirección de entrega se recoge como texto libre. (El envío en una tienda vinculada al catálogo es el de tu propia tienda, calculado en su checkout.)
 - **Sin cuentas de cliente.** Los clientes se identifican por su PSID de Messenger; no hay flujo de login o registro.
 - **Sin comentarios de Página ni publicaciones de Página.** Esta integración solo maneja hilos de Messenger y lanzamientos de la tienda.
 - **Sin tienda para DMs de Instagram** (aún). La misma integración de Meta cubre solo Messenger; el DM de Instagram es solo conversación de texto.

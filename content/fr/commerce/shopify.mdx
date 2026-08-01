@@ -1,0 +1,151 @@
+---
+description: Installez Cuneiform Chat depuis le Shopify App Store et reliez-le à votre espace de travail pour que vos agents IA répondent depuis votre catalogue Shopify synchronisé, vos commandes et votre stock.
+---
+
+# Shopify
+
+**Installez une fois depuis le Shopify App Store, reliez-le à votre espace de travail, et vos agents répondent à partir du catalogue, des commandes et du stock de votre boutique.** Aucune clé d'API à générer, aucune URL de redirection à configurer, aucun plugin à installer.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Shopify est inclus pour tout le monde, essai gratuit compris. Connecter une boutique ne coûte rien de plus.
+</Callout>
+
+## Ce que vous obtenez
+
+Une fois votre boutique reliée, votre agent de boutique peut :
+
+- **Répondre aux questions de catalogue** à partir de vos vrais produits, variantes, options et prix
+- **Lire le stock et le prix depuis votre catalogue synchronisé**, tenu à jour par les webhooks pour ne pas proposer ce que vous venez d'épuiser
+- **Recommander des produits en stock** plutôt que ce dont il se souvient
+- **Retrouver des commandes** pour les acheteurs qui peuvent prouver que la commande est la leur
+- **Envoyer des mises à jour de statut de commande** aux acheteurs qui s'abonnent, dans la même conversation
+- **Transférer un acheteur prêt à acheter vers votre checkout Shopify** avec l'intégralité de son panier
+
+## Prérequis
+
+- Une **boutique Shopify** que vous administrez
+- Un espace de travail Cuneiform Chat, et un compte **Owner ou Admin** dessus — relier une boutique est une action d'administration
+- Au moins un agent, ou de la place pour en créer un (voir [Votre agent de boutique](/commerce#your-store-agent))
+
+## Comment fonctionne la connexion
+
+Connecter Shopify est une poignée de main en deux temps : Shopify installe l'application, puis **vous** reliez cette application installée à votre espace de travail Cuneiform Chat. Shopify sait quelle boutique vous êtes ; vous seul savez à quel espace de travail elle appartient.
+
+### 1. Installez depuis le Shopify App Store
+
+Cherchez **Cuneiform Chat - AI Commerce** dans le Shopify App Store et installez-la. Shopify gère l'installation elle-même et vous demande d'approuver les permissions ci-dessous. Rien de notre côté n'est encore impliqué.
+
+### 2. Ouvrez l'application dans votre admin Shopify
+
+L'application s'ouvre **à l'intérieur de `admin.shopify.com`** en tant qu'application intégrée. C'est votre point d'entrée côté Shopify pour l'intégration — configuration, état de la connexion, réglages, tableau de bord et facturation vivent tous ici.
+
+### 3. Cliquez sur « Link your workspace »
+
+Tant que la boutique n'est pas reliée, l'application intégrée affiche une bannière **« Link your workspace »**. Cliquer dessus ouvre Cuneiform Chat dans un **nouvel onglet de premier niveau** plutôt qu'à l'intérieur du cadre Shopify. C'est délibéré : la connexion ne peut pas se faire dans l'iframe d'un autre site, donc l'étape de liaison doit en sortir.
+
+### 4. Approuvez la liaison
+
+Vous arrivez sur la page de liaison dans Cuneiform Chat, votre boutique déjà identifiée. Confirmez, et la boutique est rattachée à votre espace de travail. Vous êtes redirigé vers **Commerce**, et la synchronisation initiale du catalogue démarre.
+
+Ce que vous pouvez voir sur cette page :
+
+| Ce que vous voyez | Ce que ça veut dire |
+|---|---|
+| **Invitation à se connecter** | Vous n'étiez pas connecté. Connectez-vous et la liaison reprend là où elle s'était arrêtée. |
+| **Confirmer la liaison** | Vous êtes Owner ou Admin — c'est le parcours normal. |
+| **Demandez à un admin de terminer** | Vous êtes Member. Les Members ne peuvent pas connecter d'intégrations ; envoyez le lien à un Owner ou un Admin. |
+| **Boutique reliée** | C'est fait. La synchronisation du catalogue tourne déjà. |
+| **Ce lien de connexion a expiré** | Le ticket de liaison est périmé, déjà utilisé ou n'est plus reconnu. Retournez à l'application dans votre admin Shopify et cliquez à nouveau sur **Link your workspace**. |
+| **Cette boutique est connectée ailleurs** | La boutique est déjà reliée à un autre espace de travail. Déconnectez-la là-bas d'abord. |
+| **Cet espace de travail a déjà une boutique** | Une boutique Shopify par espace de travail. Déconnectez l'actuelle avant d'en relier une autre. |
+| **Impossible de connecter votre boutique** | Quelque chose s'est mal passé de notre côté. Un bouton **Try again** relance la tentative sur place — vous n'avez pas besoin de tout reprendre depuis Shopify. |
+| **Nous n'avons pas pu terminer la connexion** | La liaison a échoué avant de nous parvenir. Rouvrez l'application dans votre admin Shopify et relancez la liaison. |
+
+## Les permissions que nous demandons
+
+Cuneiform Chat demande **cinq permissions en lecture seule**. Il n'y a aucune permission d'écriture dans l'ensemble — l'application ne peut rien modifier dans votre boutique.
+
+| Permission | Pourquoi nous en avons besoin |
+|---|---|
+| `read_products` | Lire votre catalogue : produits, variantes, options, prix, images |
+| `read_inventory` | Lire les niveaux de stock pour que l'agent ne recommande que ce qui est disponible |
+| `read_orders` | Retrouver la commande d'un acheteur et lui envoyer des mises à jour de statut |
+| `read_fulfillments` | Rendre compte de l'avancement de l'expédition de ces commandes |
+| `read_customers` | Rapprocher le numéro de téléphone d'un acheteur de la commande dont il parle |
+
+<Callout type="info">
+  **Lecture seule veut dire lecture seule.** L'application ne peut pas créer, modifier ni supprimer de produits ; ne peut pas ajuster le stock ; ne peut pas créer, modifier ni annuler de commandes ; et ne peut pas encaisser de paiements. Chaque achat se conclut sur votre propre checkout Shopify.
+</Callout>
+
+## Une boutique par espace de travail
+
+Un espace de travail connecte **une boutique Shopify**. Il peut aussi connecter une boutique WooCommerce en même temps — voir [Commerce](/commerce#you-can-connect-both-at-once).
+
+Si quelqu'un tente de relier une boutique déjà connectée à un autre espace de travail, la tentative est refusée plutôt que de la récupérer en silence.
+
+## Il n'y a pas de bouton « Reconnect »
+
+Shopify n'a pas d'étape de reconnexion, et vous ne devriez jamais en chercher une. Les changements de permissions voyagent avec l'application elle-même : quand l'ensemble des permissions change, Shopify vous invite à approuver la mise à jour la prochaine fois que vous l'ouvrez. Il n'y a rien à réautoriser à la main.
+
+<Callout type="warning">
+  C'est la principale différence entre les parcours Shopify et WooCommerce. WooCommerce, lui, **a** un bouton **Reconnect**, parce que les clés d'API d'une boutique auto-hébergée peuvent être révoquées depuis la boutique. Celles de Shopify ne le peuvent pas.
+</Callout>
+
+## Après la connexion
+
+- **Votre catalogue commence à se synchroniser immédiatement.** Voir [Catalogue et Connaissances](/commerce/catalog-and-knowledge) pour ce que couvre la synchronisation et comment elle reste à jour.
+- **Un agent devient votre agent de boutique**, choisi pour vous au moment de la connexion. Voir [Votre agent de boutique](/commerce#your-store-agent).
+- **Les mises à jour de statut de commande sont actives par défaut**, et la seule porte appartient à l'acheteur : il s'abonne après avoir vérifié sa commande. Voir [Commandes](/commerce/orders#order-status-updates).
+
+## Dépannage
+
+### La bannière « Link your workspace » ne disparaît pas
+
+La liaison n'est pas allée au bout. Recliquez dessus — elle ouvre un nouveau ticket de liaison dans un nouvel onglet. Si elle s'ouvre et annonce aussitôt que le lien a expiré, c'est que le ticket est resté trop longtemps inutilisé ; recommencez simplement.
+
+### Le lien s'est ouvert mais rien ne s'est passé
+
+L'étape de liaison doit s'ouvrir dans un **onglet de premier niveau**, pas dans le cadre Shopify. Si votre navigateur a bloqué le nouvel onglet, autorisez les fenêtres surgissantes pour `admin.shopify.com` et réessayez.
+
+### « Cette boutique est connectée ailleurs »
+
+La boutique est reliée à un autre espace de travail Cuneiform Chat — souvent un espace d'essai créé plus tôt. Connectez-vous à cet espace, déconnectez-y la boutique, puis reliez-la ici.
+
+### Un Member n'arrive pas à terminer la liaison
+
+Relier une boutique nécessite la permission **Integration connect**, que les Owners et les Admins possèdent et pas les Members. Transmettez le lien à un Owner ou un Admin.
+
+### Le catalogue est vide juste après la liaison
+
+Le premier import récupère tout le catalogue et prend quelques minutes sur une grande boutique. S'il paraît toujours vide ensuite, lancez **Re-sync now** depuis **Commerce → Shopify → Catalog & Data**. Tant que le catalogue est vide, la checklist de l'onglet Overview propose aussi un **Sync now** en un clic.
+
+### L'agent ne répond pas aux questions sur les produits
+
+Vérifiez que vous parlez bien à l'**agent de boutique** — celui qui a été relié à la boutique au moment de la connexion. Sa page affiche un panneau en lecture seule indiquant qu'il est géré par votre boutique. Les autres agents ne portent pas les outils de commerce.
+
+## Déconnexion
+
+Déconnectez depuis **Commerce → Shopify → Disconnect**. La déconnexion :
+
+- Supprime la connexion enregistrée et le catalogue synchronisé
+- Efface les connaissances produit construites à partir de ce catalogue, si bien que les agents cessent d'y répondre
+- Réinitialise l'autorisation de commerce de l'agent de boutique, rétablit sa persona de commerce si vous ne l'avez jamais modifiée, et **archive l'agent lui-même** — reconnecter la même boutique le récupère, avec ses réglages et son historique de versions intacts
+- **Supprime définitivement toute [Boutique](/integrations/telegram-mini-app) rattachée à cette boutique Shopify**, ainsi que son historique d'analytique. Les Boutiques que vous avez construites à la main ne sont pas touchées
+- Archive les Agent Forms de commerce venus avec la boutique
+- Supprime purement et simplement les suggestions de questionnaire de l'IA, pour qu'une future reconnexion reparte d'une page blanche
+
+<Callout type="warning">
+  Si vous avez encore une boutique **WooCommerce** connectée, seules les étapes valables pour tout l'espace de travail — l'archivage des Agent Forms de commerce et la suppression des suggestions de questionnaire — sont ignorées. Le catalogue, les connaissances produit, les Boutiques, l'analytique et l'agent de boutique propres à la boutique Shopify sont, eux, toujours démontés.
+</Callout>
+
+Désinstaller l'application depuis votre admin Shopify met aussi fin au côté Shopify de la relation.
+
+## Lié
+
+- [Aperçu de Commerce](/commerce) — ce que la connexion d'une boutique vous apporte
+- [WooCommerce](/commerce/woocommerce) — l'autre plateforme prise en charge
+- [Catalogue et Connaissances](/commerce/catalog-and-knowledge) — comment le catalogue se synchronise et reste frais
+- [Commandes](/commerce/orders) — suivi de commande et mises à jour de statut
+- [Checkout](/commerce/checkout) — transférer un acheteur vers l'achat

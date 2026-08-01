@@ -1,0 +1,98 @@
+---
+description: La Product Library, le questionnaire Product Finder et l'AI Quiz Suggester — les surfaces produit sélectionnées qui se posent sur votre catalogue de commerce synchronisé.
+---
+
+# Outils Produit
+
+Votre catalogue synchronisé est la matière première. Voici les surfaces dans lesquelles vous le façonnez : une **Product Library** que vous pouvez organiser, un questionnaire **Product Finder** qui mène l'acheteur au bon produit, et un **AI Quiz Suggester** qui propose les questionnaires qui valent la peine d'être construits.
+
+## Product Library [#product-library]
+
+La **Product Library** se trouve dans **Commerce → Products**. C'est la vue propre à votre espace de travail sur les produits que vous vendez — la surface dans laquelle puisent les autres fonctionnalités quand elles ont besoin d'« un produit » plutôt que d'« un résultat de recherche catalogue ».
+
+### D'où viennent ses produits
+
+- **De votre boutique connectée.** Les produits Shopify ou WooCommerce sont reflétés dans la bibliothèque et tenus à jour au fil des synchronisations du catalogue. Vous ne les importez pas à la main, et vous n'avez pas à réimporter après un changement de catalogue.
+- **De vous.** Vous pouvez ajouter des produits manuellement — pratique pour quelque chose que vous vendez sans le référencer, ou pour un espace de travail sans aucune boutique connectée.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  **Les produits manuels sont à vous.** Une synchronisation de catalogue ne touche jamais que les lignes venues de la boutique. Les produits que vous avez ajoutés à la main ne sont jamais écrasés, réordonnés ni supprimés par une synchronisation.
+</Callout>
+
+Quand un produit est retiré en amont, son entrée dans la bibliothèque est mise à la retraite plutôt que supprimée d'emblée — ainsi rien de ce qui y faisait référence ne casse, et vous voyez qu'il a existé.
+
+### Qui peut l'utiliser
+
+Consulter la bibliothèque et la modifier sont deux permissions distinctes, vous pouvez donc laisser des personnes parcourir les produits sans les laisser modifier la surface catalogue. Les Members n'ont que la consultation ; les Owners, les Admins et les Team Admins peuvent consulter et modifier.
+
+## Product Finder [#product-finder]
+
+Le **Product Finder** est un questionnaire guidé qui se termine par une recommandation. Plutôt que d'attendre de l'acheteur qu'il sache ce qu'il veut, il pose quelques questions — *c'est pour quoi ? quel est votre budget ? c'est pour qui ?* — et recommande des produits de votre catalogue à partir des réponses.
+
+Il se trouve dans **Commerce → Product Finder** et il est construit sur les [Agent Forms](/agents/agent-flows), donc tout ce que vous savez déjà des flows s'applique : le même compositeur visuel, la même bibliothèque de composants, le même rendu multicanal et la même analytique.
+
+### Ce que vous obtenez avec lui
+
+| Surface | Ce qu'elle montre |
+|---|---|
+| **Quiz ideas** | Des questionnaires suggérés par l'IA à partir de votre catalogue, prêts à être transformés en vrais questionnaires |
+| **Quiz forms** | Le questionnaire lui-même, dans le compositeur de flows |
+| **Submissions** | Chaque questionnaire complété, avec les réponses et ce qui a été recommandé |
+| **Heatmap** | La question sur laquelle les acheteurs abandonnent |
+| **Diagnose** | Un analyste IA à qui vous pouvez demander *« pourquoi personne ne termine ce questionnaire ? »* |
+
+Parce que c'est un flow, l'agent peut proposer le questionnaire en pleine conversation quand il estime qu'un acheteur explore plutôt qu'il n'achète — et celui qui le termine reçoit des recommandations au lieu d'un remerciement générique.
+
+<Callout type="info">
+  Les Agent Forms, et donc le Product Finder, sont inclus pour tout le monde — essai gratuit compris. Et comme le Product Finder est normalement un flow que la plateforme gère pour vous, il ne compte pas dans le [quota de flows publiés](/agents/agent-flows#limits) propre à votre espace de travail. Une exception : si vous construisez un questionnaire avant qu'aucune boutique ne soit connectée, il n'y a pas d'agent de boutique pour le porter — ce questionnaire est alors le vôtre, et le publier consomme bien une place.
+</Callout>
+
+## AI Quiz Suggester [#quiz-suggester]
+
+Savoir qu'un questionnaire aiderait, c'est facile. Savoir *lequel* vaut la peine d'être construit, c'est la partie difficile.
+
+L'**AI Quiz Suggester** examine votre catalogue une fois par jour et propose des questionnaires adaptés à ce que vous vendez réellement — les dimensions produit qui méritent une question, les questions qui distingueraient un produit d'un autre, les profils d'acheteurs que votre gamme suppose. Vous passez les suggestions en revue et transformez celles qui vous plaisent en véritables questionnaires Product Finder.
+
+- Il s'exécute **une fois par jour**, automatiquement. Il n'y a rien à planifier.
+- Il ne se relance pas plus d'une fois toutes les **15 minutes**. Ce délai est partagé — une exécution quotidienne, une synchronisation du catalogue et une actualisation manuelle puisent dans le même compteur — si bien que des actualisations répétées ne peuvent pas consommer de l'usage pour un résultat quasi identique.
+- Comme toute fonctionnalité IA, il puise dans le quota d'usage de votre espace de travail, et il le vérifie avant de s'exécuter plutôt qu'après.
+
+## De laquelle ai-je vraiment besoin ?
+
+| Si vous voulez… | Utilisez |
+|---|---|
+| Montrer un ensemble sélectionné de produits dans une Boutique ou dans la conversation | **Product Library** |
+| Aider un acheteur qui ne sait pas ce qu'il veut | **Product Finder** |
+| Trouver quel questionnaire construire, pour commencer | **AI Quiz Suggester** |
+| Répondre à des questions produit directes | Rien d'ici — c'est le [catalogue](/commerce/catalog-and-knowledge) |
+
+## Dépannage
+
+### La Product Library est vide après la connexion d'une boutique
+
+C'est la synchronisation du catalogue qui la remplit. Si le catalogue lui-même est vide — le plus souvent sur une boutique WooCommerce connectée manuellement — appuyez d'abord sur **Re-sync now**. Voir [Après une connexion manuelle](/commerce/woocommerce#after-a-manual-connect).
+
+### Un produit que j'ai supprimé de ma boutique est encore dans la bibliothèque
+
+Les produits retirés sont mis à la retraite plutôt que supprimés, ils cessent donc d'être proposés mais restent visibles pour vous. C'est intentionnel.
+
+### Un produit que j'avais ajouté à la main a disparu après une synchronisation
+
+Cela n'aurait pas dû — les synchronisations ne touchent jamais aux produits manuels. Vérifiez s'il a été ajouté dans un autre espace de travail, ou modifié pour pointer vers un produit de la boutique.
+
+### Aucune suggestion de questionnaire n'est apparue
+
+Le suggester s'exécute chaque jour, une boutique connectée récemment n'a donc peut-être pas encore passé un cycle. Il lui faut aussi assez de catalogue pour avoir quelque chose à suggérer — une poignée de produits peut ne rien lui donner de significatif à demander.
+
+### Mon questionnaire ne recommande rien à la fin
+
+Les recommandations viennent de votre catalogue, le questionnaire a donc besoin de produits qui correspondent aux combinaisons de réponses qu'il peut produire. Regardez les vues Heatmap et Diagnose pour voir où les acheteurs atterrissent.
+
+## Lié
+
+- [Catalogue et Connaissances](/commerce/catalog-and-knowledge) — le catalogue sur lequel ces surfaces sont bâties
+- [Agent Forms](/agents/agent-flows) — le moteur de flows sur lequel le Product Finder est bâti
+- [Chat Marchand](/commerce/shoppable-chat) — montrer des produits sous forme de cards dans une conversation
+- [Analytique](/commerce/analytics) — mesurer ce que les acheteurs font de tout cela

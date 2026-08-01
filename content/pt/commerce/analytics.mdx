@@ -1,0 +1,82 @@
+---
+description: Commerce Analytics e o Commerce Analyst — o que os compradores pediram, o que foi mostrado a eles, o que foi para o carrinho e onde eles pararam.
+---
+
+# Commerce Analytics
+
+**O Commerce Analytics responde à pergunta que um painel de volume de conversas não consegue: alguma coisa disso está vendendo?** Ele acompanha especificamente o percurso de comércio — o que os compradores buscaram, quais produtos o agent trouxe à tona, o que foi para carrinhos e quantos desses chegaram ao seu checkout.
+
+Encontre em **Commerce → Commerce Analytics**.
+
+## O que ele cobre
+
+| Pergunta | De onde vem a resposta |
+|---|---|
+| O que os compradores estão realmente pedindo? | Buscas de catálogo e consultas de produto que o seu agent executou |
+| Quais produtos o agent mais traz à tona? | Product cards exibidos e recomendações feitas |
+| Os compradores agem sobre elas? | Carrinhos montados, itens adicionados e removidos |
+| Alguma coisa disso chega ao checkout? | Repasses de checkout iniciados, e os pedidos atribuídos a conversas |
+| Onde as pessoas param? | A queda entre cada uma das etapas acima |
+
+Como os pedidos feitos dentro da conversa carregam a conversa de onde vieram, o caminho de "um comprador fez uma pergunta" até "existe um pedido na sua loja" é uma corrente que você pode seguir, em vez de dois números sem relação que você precisa olhar no olho.
+
+## As duas lojas, uma página
+
+Shopify e WooCommerce compartilham uma única página de analíticas. Qual loja você está olhando é escolhido com um seletor de provedor no topo.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  **O seletor só aparece quando você tem mais de uma loja conectada.** Com uma loja só não há nada entre o que escolher, então a página mostra os números daquela loja diretamente. Não saia procurando um seletor que não está lá.
+</Callout>
+
+## O Commerce Analyst
+
+Ao lado dos gráficos está o **Commerce Analyst** — um analista de IA a quem você pode fazer perguntas em linguagem natural em vez de montá-las a partir de filtros:
+
+- *"Quais produtos são mais recomendados mas nunca vão para o carrinho?"*
+- *"O quiz mudou alguma coisa no mês passado?"*
+- *"O que as pessoas estão procurando que eu não tenho?"*
+
+Ele lê os mesmos dados de comércio que a página grafica e responde com o que encontra. Essa última pergunta é aquela em que ele é surpreendentemente bom: compradores pedem coisas que você não vende, e até agora essas buscas não iam a lugar nenhum e não te contavam nada.
+
+## Quem pode ver
+
+O Commerce Analytics fica visível para qualquer pessoa com **acesso a analíticas** ou **acesso a integrações** — os dois papéis que mais plausivelmente precisam dele. Isso significa que alguém do time que pode ler suas analíticas não precisa também de permissões de integração só para ver se o comércio está funcionando.
+
+<Callout type="info">
+  O Commerce Analytics está incluído para todo mundo, avaliação gratuita incluída. Não há nenhum complemento de analíticas separado.
+</Callout>
+
+## Lendo os números com honestidade
+
+Algumas coisas que vale saber antes de tirar conclusões:
+
+- **Consultas vindas da Loja e carrinhos dentro da conversa são funis diferentes.** Uma consulta da Loja termina como mensagem na sua Inbox para uma pessoa responder; um carrinho dentro da conversa termina no seu checkout. Não some os dois. Veja [os três carrinhos](/commerce/shoppable-chat#three-carts).
+- **A atribuição é mais forte nos pedidos feitos dentro da conversa**, que carregam a conversa explicitamente. Um pedido que começou com um repasse da Loja é atribuído de forma mais frouxa.
+- **Uma recomendação que nunca converte não é automaticamente um fracasso.** Compradores usam um agent tanto para descartar coisas quanto para escolher.
+
+## Solução de problemas
+
+### A página está vazia
+
+Ainda não aconteceu nada. O Commerce Analytics reporta atividade real de compradores, então uma loja conectada hoje de manhã e ainda sem conversas não tem nada para mostrar.
+
+### Não encontro o seletor de provedor
+
+Você tem uma loja só conectada. O seletor só aparece com duas.
+
+### Existem pedidos na minha loja mas eles não aparecem aqui
+
+Só pedidos que vieram pelo agent são atribuídos. Um pedido que um comprador fez navegando diretamente no seu site não é um pedido do agent de comércio e não vai aparecer neste funil.
+
+### O Analyst diz que não tem dados sobre algo
+
+Ele responde a partir da atividade de comércio, não do histórico completo de pedidos da sua loja. Perguntas sobre pedidos que nunca tocaram uma conversa estão fora do que ele consegue ver.
+
+## Relacionado
+
+- [Chat com Compra](/commerce/shoppable-chat) — o funil dentro da conversa que isso mede
+- [Checkout](/commerce/checkout) — o repasse no final dele
+- [Ferramentas de Produto](/commerce/product-tools) — os envios, o heatmap e os diagnósticos próprios do Product Finder
+- [Analíticas](/analytics) — o resto das analíticas do seu workspace

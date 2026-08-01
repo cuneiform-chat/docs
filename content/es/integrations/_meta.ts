@@ -13,7 +13,7 @@ const meta: MetaRecord = {
   facebook: 'Meta (Facebook)',
   'messenger-mini-app': 'Tienda Messenger',
   'website-widget': 'Website Widget',
-  woocommerce: 'WooCommerce',
+  'chatgpt-app': 'ChatGPT App',
 }
 
 export default meta

@@ -1,0 +1,101 @@
+---
+description: shoppers को सत्यापित order lookup के साथ chat में "मेरा order कहाँ है?" पूछने दें, और अपने Shopify या WooCommerce store से opt-in shipping updates भेजें।
+---
+
+# Orders
+
+**"मेरा order कहाँ है?" — किसी भी store को मिलने वाले सबसे आम सवालों में से एक यही है।** एक store connected होने पर आपका agent इसका जवाब देता है — असली order से — इसे किसी इंसान तक भेजने के बजाय।
+
+Order lookup **Shopify** और **WooCommerce** दोनों पर एक ही तरह काम करता है। दो बातें अलग हैं, और दोनों नीचे वहीं बताई गई हैं जहाँ वे मायने रखती हैं: हर platform shipping का कितना विवरण दे सकता है, और — Shopify पर — आपका app ग्राहक के कौन-से fields पढ़ने के लिए मंज़ूर है।
+
+## Order lookup (WISMO) [#order-lookup-wismo]
+
+एक shopper chat में अपने order के बारे में पूछता है। agent order number और एक संपर्क विवरण माँगता है, दोनों को असली order से मिलाकर देखता है, और जवाब देता है।
+
+### सत्यापन ही पूरा डिज़ाइन है [#verification-is-the-whole-design]
+
+agent order का विवरण तभी बताएगा जब shopper **दोनों** दे:
+
+1. **ठीक-ठीक order number**, और
+2. **उस order पर दर्ज email या phone number से मेल खाता कोई एक**
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  **एक ग़लत संपर्क और एक न मौजूद order — दोनों बिल्कुल एक ही जवाब देते हैं।** agent कहता है कि उसे order नहीं मिला और उससे आगे कुछ नहीं दिखाता — यह नहीं कि "order तो है पर email मेल नहीं खाता", कोई आंशिक विवरण नहीं, कोई इशारा नहीं। यह जानबूझकर है: इसका मतलब कोई order numbers एक-एक करके आज़माकर यह पता नहीं लगा सकता कि कौन-से असली हैं, और न ही किसी ग्राहक के संपर्क विवरण टटोल सकता है।
+</Callout>
+
+मिलान लिखावट को लेकर उदार है, पहचान को लेकर नहीं। email में छोटे-बड़े अक्षरों से फ़र्क़ नहीं पड़ता; phone numbers अंक दर अंक मिलाए जाते हैं, इसलिए `+1 (555) 010-9999` और `15550109999` एक ही number हैं।
+
+### shopper को क्या वापस मिलता है [#what-the-shopper-gets-back]
+
+एक सत्यापित lookup order की स्थिति, fulfillment का जितना विवरण store दे सकता है, और — जहाँ उपलब्ध हो — आपके अपने store पर उस order का एक link लौटाता है।
+
+shipping का कितना विवरण वापस आता है यह platform पर निर्भर करता है। Shopify हर fulfillment के लिए carrier, tracking और डिलीवरी की तारीख़ें देता है। WooCommerce के पास fulfillment का अपना कोई record नहीं होता: carrier और tracking किसी shipment-tracking plugin से आते हैं। उसके बिना WooCommerce के जवाब में order की स्थिति तो रहती है पर कोई carrier या tracking number नहीं।
+
+जो shopper बातचीत में पहले ही कोई order सत्यापित कर चुका है, वह हर order को दोबारा सत्यापित किए बिना अपने **हाल के orders** भी माँग सकता है। **WhatsApp** पर यह शॉर्टकट शुरू से ही उपलब्ध रहता है, क्योंकि WhatsApp shopper का phone number पहले ही सत्यापित कर चुका होता है और orders उसी number से मिलाए जाते हैं — किसी shopper को सिर्फ़ उसके अपने सत्यापित number पर दिए गए orders ही दिखते हैं। बाक़ी हर channel पर यह तब तक बंद रहता है जब तक वह उस बातचीत में कोई order सत्यापित न कर ले। दोनों ही सूरतों में यह किसी और के orders तक पहुँचने का रास्ता कभी नहीं है।
+
+### आवश्यकताएँ [#requirements]
+
+Order lookup के लिए ऐसा connected store चाहिए जिसकी order permission ठीक हो। अगर आपके store के credentials रद्द हो गए हों या connection ख़राब हो गया हो, तो agent किसी बातचीत के बीच में विफल होने के बजाय order lookup की पेशकश करना ही बंद कर देता है। **Commerce → Shopify** या **Commerce → WooCommerce** पर connection की स्थिति जाँचें।
+
+## Order-status updates [#order-status-updates]
+
+एक shopper के chat में order सत्यापित करने के बाद agent उसे ख़बर देते रहने की पेशकश कर सकता है। वह मान जाए तो उसे उसी बातचीत में, उसी channel पर shipping updates मिलते हैं जिसे वह पहले से इस्तेमाल कर रहा था।
+
+सिर्फ़ एक शर्त खुलनी चाहिए, और वह shopper के हाथ में है: उसे बातचीत में, अपना order सत्यापित करने के बाद, opt in करना होता है। आप किसी shopper की ओर से उसे subscribe नहीं कर सकते, और कोई shopper ऐसे order के लिए subscribe नहीं कर सकता जिसे उसने अपना साबित न किया हो।
+
+आपकी तरफ़, store connect होते ही तीनों update प्रकार **डिफ़ॉल्ट रूप से चालू** रहते हैं — पहले कुछ चालू करने की ज़रूरत नहीं। **Commerce** में store के page पर आप उनमें से किसी को भी अलग-अलग बंद कर सकते हैं; किसी एक को बंद करने पर वह update हर shopper के लिए रुक जाता है, उनके लिए भी जिन्होंने पहले opt in कर रखा है।
+
+<Callout type="info">
+  उन toggles को बदलना एक admin काम है; Members उन्हें देख सकते हैं पर बदल नहीं सकते।
+</Callout>
+
+### कोई update किससे चलता है [#what-triggers-an-update]
+
+Updates order की प्रगति पर छूटते हैं: जब order का **भुगतान पक्का हो जाता है**, जब वह **भेजा जाता है**, और जब **खेप की स्थिति बदलती** है। इस channel से marketing जैसा कुछ कभी नहीं भेजा जाता; यह "मेरा order कहाँ है?" का जवाब देने के लिए है, इससे पहले कि shopper को दोबारा पूछना पड़े।
+
+WooCommerce और Shopify के updates एक ही व्यवस्था से पहुँचते हैं, इसलिए order चाहे किसी भी store से आया हो, अनुभव एक जैसा रहता है।
+
+## जब दो stores connected हों [#two-stores-one-experience]
+
+हर store का अपना store agent होता है, और order lookup उसी agent के अपने store पर चलता है। आपके Shopify store agent से किसी WooCommerce order के बारे में पूछा जाए तो वह नहीं मिलेगा — दोनों में एक साथ नहीं खोजा जाता।
+
+अगर आप दोनों पर बेचते हैं, तो shoppers को उसी store agent तक भेजें जहाँ से उन्होंने ख़रीदा था, या हर store को अपने अलग channel पर रखें ताकि सवाल शुरू से ही सही जगह पहुँचे।
+
+## पर्दे के पीछे: tools के नाम [#behind-the-scenes-tool-names]
+
+अगर आप किसी बातचीत का trace देखें, तो order tools के नाम `shopify_order_status`, `shopify_list_orders` और `subscribe_order_updates` दिखेंगे।
+
+<Callout type="info">
+  **ये नाम ऐतिहासिक हैं, शाब्दिक नहीं।** वही tools WooCommerce stores को भी सेवा देते हैं। सिर्फ़ WooCommerce इस्तेमाल करने वाले merchant को भी `shopify_order_status` नाम का एक tool WooCommerce की lookup करते दिखेगा। कुछ भी ग़लत जगह नहीं जाता — tools वही stores हल करते हैं जो आपके पास सचमुच connected हैं।
+</Callout>
+
+## समस्या निवारण [#troubleshooting]
+
+### agent कहता है कि उसे ऐसा order नहीं मिल रहा जो निश्चित रूप से मौजूद है [#the-agent-says-it-cant-find-an-order-that-definitely-exists]
+
+लगभग हमेशा संपर्क विवरण ही वजह होती है। shopper जो email या phone दे रहा है वह **उसी order पर दर्ज** विवरण से मेल खाना चाहिए — उस पते से नहीं जो वह आमतौर पर इस्तेमाल करता है, और न ही उससे जो उसके खाते पर है। उससे order confirmation email देखने को कहें।
+
+### agent order lookup की पेशकश ही नहीं करता [#the-agent-wont-offer-order-lookup-at-all]
+
+या तो बातचीत आपके **store agent** के साथ नहीं है (सिर्फ़ वही agent commerce tools रखता है), या store का connection ख़राब है। **Commerce** के नीचे connection की स्थिति जाँचें।
+
+### एक shopper ने opt in किया पर उसे कोई updates नहीं मिलते [#a-shopper-opted-in-but-gets-no-updates]
+
+store connection के notification toggles जाँचें। वे डिफ़ॉल्ट रूप से चालू रहते हैं, पर अगर कभी उससे मेल खाता update प्रकार बंद कर दिया गया हो, तो अकेले shopper के opt-in से कोई संदेश नहीं जाएगा।
+
+### बाक़ी सही जवाब में shipping का विवरण ग़ायब है [#shipping-details-are-missing-from-an-otherwise-correct-answer]
+
+Order मिल गया और सत्यापित भी हो गया, पर fulfillment के विवरण का कुछ हिस्सा पढ़ा नहीं जा सका। agent पूरी lookup को विफल करने के बजाय उसके पास जो है उसी से जवाब देता है। **WooCommerce** पर इसका मतलब आमतौर पर यह होता है कि कोई shipment-tracking plugin install ही नहीं है, इसलिए बताने को कोई carrier या tracking number है ही नहीं।
+
+### Shopify पर order तो मिल जाता है पर phone से सत्यापन विफल होता है या order का link ग़ायब है [#on-shopify-the-order-is-found-but-phone-verification-fails-or-the-order-link-is-missing]
+
+ग्राहक के कुछ fields — order पर दर्ज phone number, और order के status page का link — Protected Customer Data हैं, और Shopify उन्हें तब तक रोके रखता है जब तक आपका app उन्हें पढ़ने के लिए मंज़ूर न हो जाए। agent lookup को विफल करने के बजाय जितना पढ़ सकता है उतने से जवाब देता है। जब तक कोई field रोका हुआ है, phone से सत्यापन मेल नहीं खा सकता: shopper से कहें कि वह order पर दर्ज email इस्तेमाल करे।
+
+## संबंधित [#related]
+
+- [Commerce अवलोकन](/commerce) — एक store connect करने से आपको क्या मिलता है
+- [Catalog और Knowledge](/commerce/catalog-and-knowledge) — order के नहीं, product के सवाल
+- [Checkout](/commerce/checkout) — shopper को खरीदने के लिए भेजना
+- [Analytics](/commerce/analytics) — आपका commerce agent क्या कर रहा है यह मापना

@@ -1,11 +1,11 @@
-# Agent Flows
+# Agent Forms
 
 Multi-screen forms an AI agent can hand to a customer mid-conversation. The agent decides when to ask for structured information — name, dates, an uploaded ID photo, a multi-step questionnaire — and your customer fills it in with a native form rather than a long back-and-forth chat.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Agent Flows runs on **WhatsApp, Telegram, Messenger, and your website chat widget** and is available on **all paid plans** (tier-limited — see the Tier limits table below). Build a flow once; it renders natively on every supported channel.
+  Agent Forms runs on **WhatsApp, Telegram, Messenger, and your website chat widget**, and it's included for everyone — free trial included. Build a flow once; it renders natively on every supported channel.
 </Callout>
 
 ## Supported channels
@@ -23,7 +23,7 @@ The same components, screens, logic, and translations work on every channel — 
 
 **Publish one flow to several channels at once.** On the flow's **Distribute** tab, each channel has its own publish card. Publish to a WhatsApp number, then publish the *same* flow to a Telegram bot and a Messenger page — each card stays published independently, and adding one channel never un-publishes another. Unpublish a single channel from its card without touching the others. Analytics blend across all the channels a flow is live on by default; when a flow is live on two or more channels, a **channel filter** appears on the Submissions, Heatmap, and Diagnose views so you can drill into one channel at a time.
 
-## When to use Agent Flows
+## When to use Agent Forms
 
 Reach for a flow when chat alone is the wrong shape for the question:
 
@@ -37,7 +37,7 @@ The agent recommends a flow when its system prompt + the conversation context ma
 
 ## Building a flow
 
-Flows live under **Agent Flows** in the customer admin panel. Each flow has:
+Flows live under **Agent Forms** in the customer admin panel. Each flow has:
 
 - A **name and description** the agent reads to decide when to use it
 - One or more **screens**, each containing **components** (fields)
@@ -47,9 +47,9 @@ Flows live under **Agent Flows** in the customer admin panel. Each flow has:
 
 ## Starting from a template
 
-You don't have to start from a blank composer. Open the **Templates** tab on the Agent Flows list to browse a curated library of ready-made flows — lead capture, demo booking, support intake, product feedback, and more. Click **Use this template** and it creates an editable draft in your own workspace: the screens, fields, logic, and translations come pre-filled. Bind the draft to a WhatsApp number, tweak anything you want, and publish.
+You don't have to start from a blank composer. Open the **Templates** tab on the Agent Forms list to browse a curated library of ready-made flows — lead capture, demo booking, support intake, product feedback, and more. Click **Use this template** and it creates an editable draft in your own workspace: the screens, fields, logic, and translations come pre-filled. Bind the draft to a WhatsApp number, tweak anything you want, and publish.
 
-A template is just a starting point — once you've created your copy, it's a normal flow you fully own and can edit freely. The template library is available to every plan that has Agent Flows.
+A template is just a starting point — once you've created your copy, it's a normal flow you fully own and can edit freely. The whole template library is open to everyone.
 
 ## Component library — 24 variants
 
@@ -144,7 +144,7 @@ If you want to test two versions of a flow against each other, configure them as
 
 ## AI generation
 
-If you have a higher-tier plan, the composer offers **AI form generation**: write a one-line prompt ("a hotel booking form with date-range and photo upload"), or upload a PDF / image of an existing form, and the assistant drafts the flow for you. The draft is fully editable — every field is round-trippable in the composer (no opaque AI snapshots).
+The composer offers **AI form generation** to everyone: write a one-line prompt ("a hotel booking form with date-range and photo upload"), or upload a PDF / image of an existing form, and the assistant drafts the flow for you. The draft is fully editable — every field is round-trippable in the composer (no opaque AI snapshots).
 
 ## Submissions and analytics
 
@@ -193,13 +193,22 @@ When someone clicks the link, WhatsApp opens a chat with your number and a prefi
 
 Each link has a **hit counter** so you can see how many people launched the form through it, and you can **revoke** a link at any time. If a link's text is edited or stripped before sending, or the link is revoked, the message simply falls through to a normal AI conversation — nothing breaks.
 
-## Tier limits
+## Limits
 
-| Tier | Published flows | Locales per flow | AI generation |
-|------|-----------------|------------------|---------------|
-| Trial | 1 | 1 | — |
-| Starter | 1 | 1 | — |
-| Plus | Unlimited | Unlimited | ✅ |
-| Enterprise | Unlimited | Unlimited | ✅ |
+Agent Forms itself is included for everyone, free trial included — there's nothing to unlock before you build your first flow. What your plan governs is how many flows can be **live at once**, and how many languages each live flow is published in.
 
-All 24 component types are available on every tier that supports Agent Flows — there is no per-component tier-gating.
+| Plan | Published flows | Locales per flow |
+|------|-----------------|------------------|
+| Trial | 1 | 1 |
+| Starter | 1 | 1 |
+| Plus | Unlimited | Unlimited |
+| Enterprise | Unlimited | Unlimited |
+
+How the count is applied:
+
+- **Only live flows count.** Drafts are unlimited — build as many as you like, publish the one you want live.
+- **Republishing is free.** Updating a flow that's already published doesn't consume another slot.
+- **Unpublish to swap.** At the limit, unpublish one flow and the slot is immediately free for another.
+- **The [Product Finder](/commerce/product-tools#product-finder) quiz doesn't count against you.** Flows the platform manages on your behalf sit outside your own allowance.
+
+All 24 component types are available on every plan — no component is held back — and AI form generation is open to everyone.

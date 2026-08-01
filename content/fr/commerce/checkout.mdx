@@ -1,0 +1,96 @@
+---
+description: Comment un acheteur prêt à acheter est transféré vers votre propre checkout Shopify ou WooCommerce, depuis une boutique ou depuis la conversation, avec son panier intact.
+---
+
+# Checkout
+
+**Cuneiform Chat n'encaisse jamais de paiement.** Chaque achat se conclut sur le checkout de votre propre boutique, avec votre propre configuration de paiement. Ce que nous faisons, c'est y amener l'acheteur sans l'obliger à reconstituer son panier.
+
+Un transfert peut partir de deux endroits :
+
+- D'une **[Boutique](/integrations/telegram-mini-app)** — le catalogue intégré au bot que l'acheteur parcourt
+- Du **[chat marchand](/commerce/shoppable-chat)** — des product cards et un panier à l'intérieur même de la conversation
+
+Les deux se terminent de la même façon : votre checkout, dans le navigateur de l'acheteur, avec les articles déjà dedans.
+
+## Shopify : un lien, tout le panier
+
+Pour une boutique Shopify, le transfert est un **unique lien de checkout qui emporte tout le panier** — chaque ligne, chaque quantité — plus l'attribution pour que la commande qui en résulte puisse être remontée jusqu'à la conversation qui l'a produite.
+
+L'acheteur appuie une fois et arrive sur votre checkout Shopify avec tout déjà en place. Rien à rajouter, rien à retenir.
+
+Un **code de remise** voyage sur ce lien lorsque le transfert part d'une [Boutique](/integrations/telegram-mini-app) sur laquelle une remise est configurée. Un panier constitué à partir de product cards dans une conversation ne porte aucun code de remise.
+
+## WooCommerce : cela dépend de la permission de votre connexion [#woocommerce-permission]
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  **Ce n'est pas une limitation de WooCommerce — c'est un réglage de permission sur votre connexion.** Une boutique WooCommerce connectée via le parcours guidé a toujours la permission nécessaire à l'expérience complète. Seule une boutique connectée manuellement avec une clé en lecture seule reçoit la version réduite.
+</Callout>
+
+| Votre connexion | Ce que reçoit l'acheteur |
+|---|---|
+| **`Read/Write`** (toute connexion guidée, et toute connexion manuelle où vous avez sélectionné `Read/Write`) | Le **panier entier**, sous forme de commande en attente créée dans votre boutique, avec la conversation qui lui est rattachée. L'acheteur passe directement au paiement de cette commande. |
+| **Lecture seule** | **Une ligne à la fois.** L'acheteur reçoit un lien d'ajout au panier pour un seul produit. Si son panier compte plusieurs lignes, aucun lien de checkout n'est construit. Rien n'est perdu — le panier reste intact — mais la suite dépend de l'endroit où se trouve l'acheteur : depuis une **Boutique**, le transfert devient une demande de commande qui arrive dans votre Inbox ; **à l'intérieur d'une conversation**, l'agent lui dit qu'il ne peut pas construire le lien et propose de l'aider à finaliser autrement, sans créer d'élément dans l'Inbox. |
+
+### Ce qu'est, et n'est pas, la commande en attente
+
+Sur une connexion `Read/Write`, passer au checkout crée une **commande en attente** dans WooCommerce et envoie l'acheteur la payer. Cette commande :
+
+- **N'est pas payée** ni **préparée** — elle attend l'acheteur, exactement comme un panier abandonné arrivé jusqu'à la page de paiement
+- **Porte la conversation dont elle est issue**, pour que vous voyiez quelles discussions se transforment en commandes
+- Est la **seule commande** que l'intégration crée. Elle ne modifie jamais un produit, n'ajuste jamais le stock et ne modifie jamais une commande existante
+
+L'intégration enregistre aussi un petit ensemble de **webhooks** sur votre boutique au moment de la connexion — c'est ainsi qu'elle est informée des nouvelles commandes et des changements de produit au moment où ils se produisent. Ils portent des noms commençant par `Cuneiform …`, et la déconnexion les supprime.
+
+### Si le checkout multi-lignes ne fonctionne pas
+
+Vérifiez la permission enregistrée sur votre connexion WooCommerce. Si elle indique lecture seule — y compris le cas où vous avez collé une clé `Read/Write` mais laissé le champ de permission vide sur le formulaire — faites **Reconnect** via le parcours guidé. Voir [Après une connexion manuelle](/commerce/woocommerce#after-a-manual-connect).
+
+## Checkout depuis une Boutique
+
+Une [Boutique](/integrations/telegram-mini-app) peut être construite à la main ou reliée au catalogue d'une boutique connectée. Ce qu'elle est décide de ce que son checkout peut faire :
+
+| Type de boutique | Checkout |
+|---|---|
+| **Reliée au catalogue Shopify** | Transfert complet vers votre checkout Shopify |
+| **Reliée au catalogue WooCommerce** | Transfert comme décrit ci-dessus, selon la permission de votre connexion |
+| **Construite à la main** | Pas de transfert de paiement — les Order CTA sont des transferts de demande qui arrivent dans votre Inbox pour qu'un humain les reprenne |
+
+Une boutique est rattachée à une seule source et le reste dès qu'elle porte des blocs produit, si bien qu'une boutique construite à la main ne peut pas se mettre à se comporter en silence comme une boutique reliée au catalogue (ni l'inverse). Les boutiques créées avant l'existence de la liaison au catalogue ne sont rattachées à rien et continuent de fonctionner exactement comme avant.
+
+## Checkout depuis la conversation
+
+Quand un acheteur constitue un panier à partir de product cards dans la conversation, le transfert vers le checkout fonctionne de la même façon — une pression pour sortir vers votre propre checkout. Voir [Chat Marchand](/commerce/shoppable-chat) pour le fonctionnement du panier lui-même et les canaux qui le prennent en charge.
+
+## Ce que nous ne faisons jamais
+
+- **Encaisser un paiement.** Aucune donnée de carte, aucun identifiant de paiement et aucune donnée de paiement ne transitent par Cuneiform Chat.
+- **Débiter un acheteur.** La commande en attente décrite ci-dessus reste impayée tant que l'acheteur ne l'a pas payée sur votre boutique.
+- **Modifier vos prix, votre stock ou vos commandes existantes.**
+
+## Dépannage
+
+### Le lien de checkout ne contient qu'un seul produit
+
+C'est la voie WooCommerce en lecture seule. Vérifiez la permission de votre connexion et faites **Reconnect** via le parcours guidé.
+
+### Un panier multi-lignes n'a pas produit de lien de checkout
+
+Même cause. Rien n'est abandonné — le panier est préservé dans les deux cas. Depuis une Boutique, la demande vous parvient sous forme de demande de commande ; à l'intérieur d'une conversation, l'agent la traite dans l'échange plutôt que de créer un élément dans l'Inbox.
+
+### Un acheteur a atteint le checkout mais la remise n'a pas été appliquée
+
+Les remises voyagent sur le lien de transfert Shopify **uniquement depuis une Boutique** — un panier constitué dans la conversation n'en porte jamais. Si le transfert venait bien d'une Boutique, vérifiez que la remise est toujours valide et applicable aux produits du panier ; un code expiré ou non applicable est écarté par Shopify au checkout, pas par nous.
+
+### Les commandes n'indiquent pas de quelle conversation elles viennent
+
+L'attribution voyage sur le transfert. Si elle manque sur WooCommerce, vous êtes probablement sur la voie mono-ligne en lecture seule, qui ne peut pas la porter.
+
+## Lié
+
+- [Chat Marchand](/commerce/shoppable-chat) — le panier dans la conversation depuis lequel se fait le transfert
+- [WooCommerce](/commerce/woocommerce) — la permission de connexion qui décide de la voie que vous obtenez
+- [Shopify](/commerce/shopify) — connecter une boutique Shopify
+- [Analytique](/commerce/analytics) — voir combien de transferts se transforment en commandes

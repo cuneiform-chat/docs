@@ -1,0 +1,96 @@
+---
+description: Cómo se transfiere un comprador listo para comprar a tu propio checkout de Shopify o WooCommerce, desde una tienda o desde dentro del chat, con su carrito intacto.
+---
+
+# Checkout
+
+**Cuneiform Chat nunca cobra un pago.** Cada compra se completa en el checkout de tu propia tienda, con tu propia configuración de pagos. Lo que nosotros hacemos es llevar allí al comprador sin obligarle a reconstruir su carrito.
+
+Hay dos sitios donde puede empezar una transferencia:
+
+- Desde una **[Tienda](/integrations/telegram-mini-app)** — el catálogo dentro del bot que el comprador explora
+- Desde el **[chat con compra](/commerce/shoppable-chat)** — product cards y un carrito dentro de la propia conversación
+
+Ambas terminan igual: tu checkout, en el navegador del comprador, con los artículos ya dentro.
+
+## Shopify: un enlace, todo el carrito
+
+En una tienda Shopify, la transferencia es un **único enlace de checkout que lleva el carrito entero** — todas las líneas, todas las cantidades — más la atribución para que el pedido resultante se pueda rastrear hasta la conversación que lo produjo.
+
+El comprador toca una vez y aterriza en tu checkout de Shopify con todo ya puesto. Nada que volver a añadir, nada que recordar.
+
+Un **código de descuento** viaja en ese enlace cuando la transferencia empieza desde una [Tienda](/integrations/telegram-mini-app) que tenga uno configurado. Un carrito construido a partir de product cards dentro de un chat no lleva ningún código de descuento.
+
+## WooCommerce: depende del permiso de tu conexión [#woocommerce-permission]
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  **Esto no es una limitación de WooCommerce — es un ajuste de permiso en tu conexión.** Una tienda WooCommerce conectada por el flujo guiado siempre tiene el permiso necesario para la experiencia completa. Solo una tienda conectada manualmente con una clave de solo lectura recibe la versión reducida.
+</Callout>
+
+| Tu conexión | Qué recibe el comprador |
+|---|---|
+| **`Read/Write`** (todas las conexiones guiadas, y cualquier conexión manual en la que seleccionaras `Read/Write`) | El **carrito entero**, como un pedido pendiente creado en tu tienda, con la conversación atribuida. El comprador va directo a pagar ese pedido. |
+| **Solo lectura** | **Una línea cada vez.** Al comprador se le entrega un enlace de añadir-al-carrito de un solo producto. Si su carrito tiene más de una línea, no se construye ningún enlace de checkout. No se pierde nada — el carrito se mantiene intacto — pero lo que pasa después depende de dónde esté el comprador: desde una **Tienda**, la transferencia se convierte en una consulta de pedido que aterriza en tu Inbox; **dentro de un chat**, el agent le dice al comprador que no puede construir el enlace y se ofrece a ayudarle a terminar de otra manera, sin crear ningún elemento en el Inbox. |
+
+### Qué es, y qué no es, el pedido pendiente
+
+En una conexión `Read/Write`, hacer checkout crea un **pedido pendiente** en WooCommerce y envía al comprador a pagarlo. Ese pedido:
+
+- **No está pagado** ni **preparado** — está esperando al comprador, exactamente como un carrito abandonado que llegó hasta la página de pago
+- **Lleva la conversación de la que salió**, así que puedes ver qué chats se convierten en pedidos
+- Es el **único pedido** que la integración crea. Nunca edita un producto, nunca ajusta el stock y nunca modifica un pedido existente
+
+La integración sí registra además un pequeño conjunto de **webhooks** en tu tienda al conectar — así es como se entera de los pedidos nuevos y de los cambios de producto en el momento en que ocurren. Se llaman `Cuneiform …`, y al desconectar se eliminan.
+
+### Si el checkout de varias líneas no funciona
+
+Revisa el permiso registrado en tu conexión de WooCommerce. Si dice solo lectura — incluido el caso en el que pegaste una clave `Read/Write` pero dejaste el campo de permiso en blanco en el formulario — haz **Reconnect** por el flujo guiado. Consulta [Después de una conexión manual](/commerce/woocommerce#after-a-manual-connect).
+
+## Checkout desde una Tienda
+
+Una [Tienda](/integrations/telegram-mini-app) se puede construir a mano o vincular al catálogo de una tienda conectada. Cuál de las dos sea decide qué puede hacer su checkout:
+
+| Tipo de tienda | Checkout |
+|---|---|
+| **Vinculada al catálogo de Shopify** | Transferencia completa al checkout a tu checkout de Shopify |
+| **Vinculada al catálogo de WooCommerce** | Transferencia como se ha descrito arriba, según el permiso de tu conexión |
+| **Construida a mano** | Sin transferencia de pago — las order CTAs son transferencias de consulta que aterrizan en tu Inbox para que las recoja una persona |
+
+Una tienda está acotada a un único origen y se queda así en cuanto tiene bloques de producto encima, de modo que una tienda construida a mano no puede empezar a comportarse en silencio como una vinculada al catálogo (ni al revés). Las tiendas creadas antes de que existiera la vinculación al catálogo no están acotadas y siguen funcionando exactamente igual.
+
+## Checkout desde dentro de un chat
+
+Cuando un comprador construye un carrito a partir de product cards en la conversación, la transferencia al checkout funciona igual — un toque hacia tu propio checkout. Consulta [Chat con Compra](/commerce/shoppable-chat) para ver cómo funciona el carrito en sí y qué canales lo admiten.
+
+## Lo que nunca hacemos
+
+- **Cobrar un pago.** Ningún dato de tarjeta, ninguna credencial de pago y ningún dato de pago pasan por Cuneiform Chat.
+- **Cargar a un comprador.** El pedido pendiente descrito arriba está sin pagar hasta que el comprador lo pague en tu tienda.
+- **Cambiar tus precios, tu stock o tus pedidos existentes.**
+
+## Solución de problemas
+
+### El enlace de checkout solo lleva un producto
+
+Esa es la vía de WooCommerce de solo lectura. Revisa el permiso de tu conexión y haz **Reconnect** por el flujo guiado.
+
+### Un carrito de varias líneas no produjo ningún enlace de checkout
+
+La misma causa. No se descarta nada — el carrito se conserva en cualquier caso. Desde una Tienda, la petición te llega como consulta de pedido; dentro de un chat, el agent lo resuelve conversando en lugar de crear un elemento en el Inbox.
+
+### Un comprador llegó al checkout pero no se aplicó el descuento
+
+Los descuentos viajan en el enlace de transferencia de Shopify **solo desde una Tienda** — un carrito dentro del chat nunca lleva ninguno. Si la transferencia sí venía de una Tienda, confirma que el descuento sigue siendo válido y aplicable a los productos del carrito; un código caducado o no aplicable lo descarta Shopify en el checkout, no nosotros.
+
+### Los pedidos no muestran de qué conversación vienen
+
+La atribución viaja en la transferencia. Si falta en WooCommerce, seguramente estás en la vía de una sola línea de solo lectura, que no puede llevarla.
+
+## Relacionado
+
+- [Chat con Compra](/commerce/shoppable-chat) — el carrito dentro de la conversación desde el que se transfiere
+- [WooCommerce](/commerce/woocommerce) — el permiso de conexión que decide qué vía te toca
+- [Shopify](/commerce/shopify) — conectar una tienda Shopify
+- [Analíticas](/commerce/analytics) — ver cuántas transferencias se convierten en pedidos

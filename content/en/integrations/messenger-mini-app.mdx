@@ -1,6 +1,6 @@
 # Messenger Storefront (In-app Mini App)
 
-**Turn your Facebook Page into a full in-app storefront.** Build a polished, multipage product catalog — with photos, videos, themed pages, an AI assistant per product, and lightweight order-taking — that opens *inside* Messenger the moment a customer taps the **"Open Storefront"** button on your Page's Persistent Menu. No app store, no separate website, no checkout to manage. Just a tap, and your customer is browsing.
+**Turn your Facebook Page into a full in-app storefront.** Build a polished, multipage product catalog — with photos, videos, themed pages, an AI assistant per product, and lightweight order-taking — that opens *inside* Messenger the moment a customer taps the **"Open Storefront"** button on your Page's Persistent Menu. No app store, no separate website, and no checkout page to build — link it to a connected store and shoppers check out on your real checkout; build it by hand and orders arrive in your inbox as inquiries. Just a tap, and your customer is browsing.
 
 Free on every plan, including the trial. Built in the same visual drag-and-drop composer as the Telegram Storefront — same 11 block types, same 6 themes, same per-product AI chat, same lightweight order CTAs — at **Integrations → Facebook Page → Configure mini app**.
 
@@ -22,11 +22,11 @@ Same shapes as the Telegram Storefront — every block type and theme ports over
 
 ## Why it matters
 
-- **Customers never leave Messenger.** No app install, no domain to remember, no checkout flow to abandon. The storefront opens in Messenger's WebView and inherits the user's theme and language.
+- **Customers never leave Messenger.** No app install, no domain to remember, and no separate checkout page to build. The storefront opens in Messenger's WebView and inherits the user's theme and language.
 - **One tap from your Page's chat.** A single **"Open Storefront"** entry is auto-seeded into the Persistent Menu the moment you connect your Page — no Meta Business Suite config, no app review, no webhook wiring.
 - **AI-native product chat.** Per-product chat is scoped to documents *you* attach to that product — the assistant answers "what's the return policy on this dress?" without leaking facts from other products.
 - **Order handoffs to a real human.** Lightweight order forms (inquiry or cart mode) land in your Inbox as a structured handoff, with the customer's Messenger DM held open for follow-up.
-- **Free on every plan.** Trial cap (5 pages / 25 blocks per page / 100 product docs) lifts on every paid plan. Pricing is per-org — adding a second Facebook Page doesn't change your tier price.
+- **Free on every plan.** No caps on pages, blocks per page, or product docs — on any plan, free trial included. Pricing is per-org — adding a second Facebook Page doesn't change your price.
 
 ## At a glance
 
@@ -37,7 +37,7 @@ Same shapes as the Telegram Storefront — every block type and theme ports over
 - **Auto-seeded Persistent Menu** — single "Open Storefront" button, editable label, locked action.
 - **Outer-chat fallback** — blocks project to in-chat Generic Templates, Quick Replies, and image carousels for older Messenger clients.
 - **Built-in Help Center** — a pinned FAQ surface, always one tap away. Same panel as Telegram.
-- **No payments, no inventory, no shipping** — this is a polished catalog + lead-capture surface, not a full e-commerce stack.
+- **Two ways to source products.** A **hand-built** storefront is a polished catalog + lead-capture surface — you type the products in yourself, and it does no payments, no inventory tracking, and no shipping. A **catalog-linked** storefront draws its products from a connected [Shopify or WooCommerce store](/commerce) and hands shoppers to your real checkout.
 
 ## How customers find it
 
@@ -80,7 +80,7 @@ That's the minimum-viable Messenger Storefront. Add more pages, more products, t
 
 ## The composer
 
-The composer is the **same editor** as the Telegram Storefront — see [Telegram Storefront: The composer](/integrations/telegram-mini-app#the-composer) for the full tour (3-pane layout, draft/publish lifecycle, image cropper, tier limits). The only channel-specific surface is the **Distribute** tab.
+The composer is the **same editor** as the Telegram Storefront — see [Telegram Storefront: The composer](/integrations/telegram-mini-app#the-composer) for the full tour (3-pane layout, draft/publish lifecycle, image cropper). The only channel-specific surface is the **Distribute** tab.
 
 ## The Distribute tab (Messenger)
 
@@ -135,13 +135,13 @@ You don't need to think about this — the platform handles it. But if you're cu
 
 That's it. No customer ever sees a login prompt.
 
-## What it does NOT do
+## What a hand-built storefront does NOT do
 
-Same scope as the Telegram Storefront:
+Same scope as the Telegram Storefront. These limits apply to a storefront whose products you typed in yourself — a [catalog-linked storefront](/integrations/telegram-mini-app#catalog-linked-storefronts) lifts the first three by getting its products, its stock, and its checkout from your connected store.
 
-- **No payments.** Order CTAs are inquiry handoffs, not Checkout API or Stripe.
-- **No inventory tracking.** Availability badges on product cards are free-text labels you edit manually ("Sold out", "Pre-order", "Last 3").
-- **No shipping calculations / address validation.** Delivery address is collected as free-form text.
+- **No payments of its own.** Order CTAs are inquiry handoffs, not Checkout API or Stripe. (A catalog-linked storefront hands off to your store's checkout instead — see [Checkout](/commerce/checkout).)
+- **No inventory tracking.** Availability badges on product cards are free-text labels you edit manually ("Sold out", "Pre-order", "Last 3"). (A catalog-linked storefront reads real stock from your store.)
+- **No shipping calculations / address validation.** Delivery address is collected as free-form text. (Shipping on a catalog-linked storefront is your store's own, calculated at its checkout.)
 - **No customer accounts.** Customers are identified by their Messenger PSID; there's no login or signup flow.
 - **No Page comments or Page posts.** This integration only handles Messenger threads and storefront launches.
 - **No Instagram DM storefront** (yet). The same Meta integration covers Messenger only; Instagram DM is text-conversation only.

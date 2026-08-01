@@ -1,0 +1,96 @@
+---
+description: खरीदने को तैयार shopper को उसकी cart ज्यों की त्यों रखते हुए किसी storefront से या chat के अंदर से आपके अपने Shopify या WooCommerce checkout पर कैसे भेजा जाता है।
+---
+
+# Checkout
+
+**Cuneiform Chat कभी भुगतान नहीं लेता।** हर खरीद आपके अपने store के checkout पर, आपकी अपनी payment व्यवस्था के तहत पूरी होती है। हम जो करते हैं वह है shopper को वहाँ तक पहुँचाना, बिना उससे उसकी cart दोबारा बनवाए।
+
+Handoff दो जगहों से शुरू हो सकता है:
+
+- किसी **[Storefront](/integrations/telegram-mini-app)** से — वह in-bot catalog जिसे shopper देखता है
+- **[Shoppable chat](/commerce/shoppable-chat)** से — बातचीत के अंदर ही product cards और एक cart
+
+दोनों का अंत एक ही तरह होता है: आपका checkout, shopper के browser में, चीज़ें पहले से उसमें रखी हुई।
+
+## Shopify: एक link, पूरी cart [#shopify-one-link-whole-cart]
+
+Shopify store के लिए handoff **एक ही checkout link है जो पूरी cart साथ ले जाता है** — हर line, हर मात्रा — साथ में attribution ताकि बनने वाले order को उस बातचीत तक वापस जोड़ा जा सके जिससे वह निकला।
+
+shopper एक बार tap करता है और सब कुछ पहले से मौजूद रहते हुए आपके Shopify checkout पर पहुँच जाता है। दोबारा जोड़ने को कुछ नहीं, याद रखने को कुछ नहीं।
+
+एक **discount code** उस link के साथ तभी जाता है जब handoff किसी ऐसे [Storefront](/integrations/telegram-mini-app) से शुरू हो जिस पर एक discount सेट किया गया हो। किसी chat के अंदर product cards से बनी cart कोई discount code साथ नहीं ले जाती।
+
+## WooCommerce: यह आपके connection की permission पर निर्भर करता है [#woocommerce-permission]
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  **यह WooCommerce की कोई सीमा नहीं है — यह आपके connection की एक permission सेटिंग है।** guided रास्ते से जुड़े WooCommerce store के पास पूरे अनुभव के लिए ज़रूरी permission हमेशा होती है। सिर्फ़ read-only key के साथ manual तरीक़े से जुड़े store को ही सीमित अनुभव मिलता है।
+</Callout>
+
+| आपका connection | shopper को क्या मिलता है |
+|---|---|
+| **`Read/Write`** (हर guided connection, और कोई भी manual connection जिसमें आपने `Read/Write` चुना) | **पूरी cart**, आपके store में बने एक pending order के रूप में, उससे बातचीत जुड़ी हुई। shopper सीधे उसी order का भुगतान करने जाता है। |
+| **Read-only** | **एक बार में एक line।** shopper को एक product के लिए एक add-to-cart link दिया जाता है। अगर उसकी cart में एक से ज़्यादा line हैं, तो कोई checkout link बनता ही नहीं। कुछ खोता नहीं — cart ज्यों की त्यों बनी रहती है — पर आगे क्या होगा यह इस पर निर्भर करता है कि shopper कहाँ है: किसी **Storefront** से handoff बदलकर एक order inquiry बन जाता है जो आपके Inbox में आती है; **किसी chat के अंदर** agent shopper को बता देता है कि वह link नहीं बना सकता और किसी और तरीक़े से काम पूरा करने में मदद की पेशकश करता है, बिना कोई Inbox item बनाए। |
+
+### Pending order क्या है, और क्या नहीं [#what-the-pending-order-is-and-isnt]
+
+एक `Read/Write` connection पर checkout करने से WooCommerce में एक **pending order** बनता है और shopper को उसका भुगतान करने भेजा जाता है। वह order:
+
+- **भुगतान किया हुआ नहीं** और **fulfil किया हुआ नहीं** है — वह shopper का इंतज़ार कर रहा है, ठीक उस छोड़ी हुई cart की तरह जो payment page तक पहुँच गई थी
+- **जिस बातचीत से आया उसे साथ रखता है**, ताकि आप देख सकें कि कौन-सी chats orders में बदलती हैं
+- **वही एकमात्र order** है जो integration कभी बनाता है। यह कभी कोई product नहीं बदलता, कभी stock नहीं बदलता, और कभी किसी मौजूदा order को नहीं छेड़ता
+
+connect करते समय integration आपके store पर कुछ थोड़े-से **webhooks** भी register करता है — नए orders और product बदलावों की ख़बर उसे इसी से होते ही मिलती है। उनके नाम `Cuneiform …` होते हैं, और disconnect करने पर वे हट जाते हैं।
+
+### अगर multi-line checkout काम नहीं कर रहा [#if-multi-line-checkout-isnt-working]
+
+अपने WooCommerce connection पर दर्ज permission जाँचें। अगर वह read-only कहती है — उस सूरत सहित जहाँ आपने `Read/Write` key paste की पर form पर permission वाला खाना ख़ाली छोड़ दिया — तो guided रास्ते से **Reconnect** करें। देखें [Manual connect के बाद](/commerce/woocommerce#after-a-manual-connect)।
+
+## किसी Storefront से checkout [#checkout-from-a-storefront]
+
+एक [Storefront](/integrations/telegram-mini-app) हाथ से बनाया जा सकता है या किसी connected store के catalog से जोड़ा जा सकता है। वह कौन-सा है, यही तय करता है कि उसका checkout क्या कर सकता है:
+
+| Storefront का प्रकार | Checkout |
+|---|---|
+| **Shopify catalog से जुड़ा** | आपके Shopify checkout पर पूरा checkout handoff |
+| **WooCommerce catalog से जुड़ा** | ऊपर बताए अनुसार handoff, आपके connection की permission के मुताबिक़ |
+| **हाथ से बनाया गया** | कोई payment handoff नहीं — order CTAs inquiry handoffs हैं जो किसी इंसान के उठाने के लिए आपके Inbox में आते हैं |
+
+एक storefront एक ही स्रोत तक सीमित रहता है और उस पर product blocks आ जाने के बाद वही तय हो जाता है, इसलिए हाथ से बना storefront चुपचाप catalog से जुड़े storefront जैसा बर्ताव करना शुरू नहीं कर सकता (या उल्टा)। catalog linking आने से पहले बने storefronts किसी स्रोत तक सीमित नहीं हैं और ठीक पहले की तरह काम करते रहते हैं।
+
+## किसी chat के अंदर से checkout [#checkout-from-inside-a-chat]
+
+जब कोई shopper बातचीत के product cards से एक cart बनाता है, तो checkout handoff उसी तरह काम करता है — एक tap में आपके अपने checkout पर। cart ख़ुद कैसे काम करती है और कौन-से channels इसे समर्थन करते हैं, इसके लिए देखें [Shoppable Chat](/commerce/shoppable-chat)।
+
+## हम कभी क्या नहीं करते [#what-we-never-do]
+
+- **भुगतान लेना।** कोई card विवरण, कोई payment credentials, और कोई payment डेटा Cuneiform Chat से होकर नहीं गुज़रता।
+- **किसी shopper से पैसे लेना।** ऊपर बताया गया pending order तब तक अवैतनिक रहता है जब तक shopper आपके store पर उसका भुगतान न कर दे।
+- **आपकी कीमतें, stock या मौजूदा orders बदलना।**
+
+## समस्या निवारण [#troubleshooting]
+
+### Checkout link में सिर्फ़ एक ही product है [#the-checkout-link-only-has-one-product-in-it]
+
+वही read-only WooCommerce रास्ता है। अपने connection की permission जाँचें और guided रास्ते से **Reconnect** करें।
+
+### एक multi-line cart ने कोई checkout link नहीं बनाया [#a-multi-line-cart-turned-into-an-order-inquiry-instead-of-a-checkout]
+
+वजह वही है। कुछ भी गिराया नहीं जाता — cart दोनों ही सूरतों में बची रहती है। किसी Storefront से अनुरोध आप तक एक order inquiry के रूप में पहुँचता है; किसी chat के अंदर agent कोई Inbox item बनाने के बजाय उसे बातचीत में ही संभाल लेता है।
+
+### एक shopper checkout तक पहुँचा पर discount नहीं लगा [#a-shopper-reached-checkout-but-the-discount-wasnt-applied]
+
+Discounts Shopify handoff link के साथ **सिर्फ़ किसी Storefront से** जाते हैं — किसी in-chat cart में कभी कोई discount नहीं होता। अगर handoff सचमुच किसी Storefront से आया था, तो पक्का करें कि discount अब भी वैध है और cart के products पर लागू होता है; कोई समय-सीमा पार या लागू न होने वाला code checkout पर Shopify हटाता है, हम नहीं।
+
+### Orders यह नहीं दिखा रहे कि वे किस बातचीत से आए [#orders-arent-showing-which-conversation-they-came-from]
+
+Attribution handoff के साथ ही जाता है। अगर वह WooCommerce पर ग़ायब है, तो आप शायद read-only एकल-line रास्ते पर हैं, जो इसे साथ नहीं ले जा सकता।
+
+## संबंधित [#related]
+
+- [Shoppable Chat](/commerce/shoppable-chat) — बातचीत की वह cart जिससे यह handoff करता है
+- [WooCommerce](/commerce/woocommerce) — वह connection permission जो तय करती है कि आपको कौन-सा रास्ता मिलेगा
+- [Shopify](/commerce/shopify) — एक Shopify store connect करना
+- [Analytics](/commerce/analytics) — कितने handoffs orders में बदलते हैं यह देखना

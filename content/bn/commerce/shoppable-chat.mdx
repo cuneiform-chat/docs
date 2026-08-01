@@ -1,0 +1,102 @@
+---
+description: কথোপকথনের ভেতরেই product card, একটি cart ও checkout — shoppable chat কীভাবে কাজ করে, কোন channel-গুলো এটি সমর্থন করে, আর এর cart কীভাবে Storefront-এর cart থেকে আলাদা।
+---
+
+# Shoppable Chat
+
+**কথোপকথনটিই দোকান হয়ে ওঠে।** একটি অনুচ্ছেদে product-এর বর্ণনা দিয়ে ক্রেতা গিয়ে সেটি খুঁজে নেবে বলে আশা করার বদলে agent আসল product-টিই দেখায় — ছবি, দাম, প্রাপ্যতা — একটি card হিসেবে যা থেকে ক্রেতা cart-এ যোগ করতে ও checkout করতে পারে, chat না ছেড়েই।
+
+## ক্রেতা যা দেখে [#what-the-shopper-sees]
+
+1. সে কিছু একটা চায়: *"আপনাদের কাছে linen-এর কিছু আছে?"*
+2. agent **product card** দিয়ে উত্তর দেয় — আপনার যুক্ত store-এর আসল product, ছবি, নাম, দাম ও প্রাপ্যতা সহ।
+3. সে card-এ ট্যাপ করে, বা কেবল মুখে বলেই, একটি product তার **cart**-এ যোগ করে।
+4. সে cart দেখতে, মত বদলাতে, বা সেটি খালি করতে পারে — কথোপকথনের ভেতরেই।
+5. প্রস্তুত হলে সে checkout করে: একবার ট্যাপে **আপনার নিজের checkout**-এ, cart অক্ষত। দেখুন [Checkout](/commerce/checkout)।
+
+সেই পুরো পথের কোথাও ক্রেতাকে একটি website খুলতে, একটি product-এর নাম মনে রাখতে বা নতুন করে শুরু করতে বলা হয় না।
+
+## সমর্থিত channel [#supported-channels]
+
+Shoppable chat-এর জন্য এমন একটি channel দরকার যা একটি rich card দেখাতে পারে। চারটি পারে:
+
+| Channel | Product card ও cart |
+|---|---|
+| **Website chat widget** | ✅ |
+| **Telegram** | ✅ |
+| **WhatsApp** | ✅ |
+| **Messenger** | ✅ |
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  **Discord, Slack ও Google Chat-এ কোনো card surface নেই**, তাই shoppable chat সেখানে প্রযোজ্য নয়। সেই channel-গুলোর agent-রা তবুও catalog-এর প্রশ্নের উত্তর দেয়, order খুঁজে দেয় ও product সুপারিশ করে — কেবল সেটি করে লেখায়।
+</Callout>
+
+## তিনটি cart, আর কীভাবে সেগুলো আলাদা করবেন [#three-carts]
+
+Cuneiform Chat-এ তিনটি জিনিস আছে যাকে একজন ক্রেতা যুক্তিসঙ্গতভাবেই "একটি cart" বলতে পারেন। সেগুলোর আচরণ আলাদা, আর সেগুলোকে গুলিয়ে ফেলাই আপনার ক্রেতারা কী করছেন তা ভুল বোঝার দ্রুততম উপায়।
+
+| | কোথায় থাকে | কী দিয়ে শেষ হয় | আপনি কোথায় দেখেন |
+|---|---|---|---|
+| **১. Storefront inquiry cart** | ক্রেতার নিজের browser-এ, [Storefront](/integrations/telegram-mini-app) mini app-এর ভেতরে | একটি **inquiry handoff** — একটি কাঠামোবদ্ধ order অনুরোধ আপনার Inbox-এ পৌঁছায়, একজন মানুষের তুলে নেওয়ার জন্য | আপনার Inbox-এ, একটি order অনুরোধ হিসেবে |
+| **২. Storefront checkout handoff** | কিছুই জমা রাখা হয় না — এটি Storefront থেকে বেরিয়ে যাওয়া এককালীন একটি handoff লিঙ্ক | ক্রেতার **আপনার নিজের checkout**-এ পৌঁছানো | আপনার store-এর নিজের order-এ |
+| **৩. In-chat কথোপকথনের cart** | আমাদের সার্ভারে, কথোপকথনের সাথে যুক্ত | হয় আপনার store-এ একটি **checkout handoff**, নয়তো ক্রেতার সেটি ছেড়ে যাওয়া | [Commerce Analytics](/commerce/analytics), এবং আপনার store-এর order |
+
+এই পাতাটি যেটি নিয়ে সেটি হলো **#৩**। এটিই একমাত্র cart যা আমাদের দিকে টিকে থাকে, একমাত্র যেটি একটি browser নয় বরং একটি কথোপকথনের সাথে বাঁধা, আর একমাত্র যেটি একজন ক্রেতা কেবল chat চালিয়ে গিয়েই আবার তুলে নিতে পারে।
+
+<Callout type="warning">
+  একজন ক্রেতা যিনি একটি Storefront cart (#১) ভরেছেন আর একজন যিনি একটি কথোপকথনের cart (#৩) ভরেছেন — তারা একই funnel-এ নেই। প্রথমটির শেষ আপনার Inbox-এ একজন মানুষের জন্য একটি বার্তা হিসেবে; দ্বিতীয়টির শেষ আপনার checkout-এ। সংখ্যা তুলনা করলে নিশ্চিত হয়ে নিন আপনি কোনটি গুনছেন।
+</Callout>
+
+## Cart নিয়ে agent যা করতে পারে [#what-the-agent-can-do-with-the-cart]
+
+agent-এর হাতে cart-সংক্রান্ত ছোট, সুনির্দিষ্ট কিছু ক্রিয়া আছে, আর ক্রেতা যা বলে তার জবাবেই সে সেগুলো ব্যবহার করে:
+
+| ক্রেতা যা বলে | যা ঘটে |
+|---|---|
+| "linen-এর কিছু দেখান" | Product card দেখানো হয় |
+| "দ্বিতীয়টা যোগ করুন" | সেই product cart-এ যোগ হয় |
+| "আমার cart-এ কী আছে?" | cart পড়ে শোনানো হয় |
+| "আসলে shirt-টা বাদ দিন" | সেই line-টি সরানো হয় |
+| "নতুন করে শুরু করি" | cart খালি করা হয় |
+| "আমি কিনতে প্রস্তুত" | Checkout handoff চালু হয় |
+
+ক্রেতা card-এর বোতামগুলোতেও ট্যাপ করতে পারে — agent-এর সাথে কথা বলা একটি বিকল্প, বাধ্যবাধকতা নয়।
+
+## এর যা দরকার [#what-it-needs]
+
+- একটি **যুক্ত store** যার catalog sync হয়েছে — card-গুলো আসল product, তাই সেগুলো টেনে আনার মতো একটি catalog থাকতেই হবে
+- উপরের টেবিলের একটি **card-সক্ষম channel**
+- আপনার **store agent** — আপনি যখন store যুক্ত করেছিলেন তখন তার সাথে জোড়া agent-টি
+
+Shopify ও WooCommerce দুটিই সমর্থিত। WooCommerce-এ checkout ধাপে কী ঘটে তা আপনার সংযোগের permission-এর উপর নির্ভর করে — দেখুন [Checkout](/commerce/checkout#woocommerce-permission)।
+
+## Attribution [#attribution]
+
+একটি chat-এ শুরু হওয়া order **সেই কথোপকথনের সাথে যুক্ত করা হয়**। এটিই shoppable chat-কে গল্পের বদলে পরিমাপযোগ্য করে তোলে: কোন কথোপকথন cart তৈরি করল, কোন cart checkout তৈরি করল, আর কোন checkout order তৈরি করল তা আপনি দেখতে পারেন। দেখুন [Analytics](/commerce/analytics)।
+
+## সমস্যা সমাধান [#troubleshooting]
+
+### agent card দেখানোর বদলে product-এর বর্ণনা দিচ্ছে [#the-agent-describes-products-instead-of-showing-cards]
+
+হয় channel-টিতে কোনো card surface নেই (Discord, Slack, Google Chat), নয়তো আপনি store agent-এর সাথে কথা বলছেন না। **Commerce**-এ দেখুন কোন agent আপনার store-এর সাথে জোড়া।
+
+### card আসছে কিন্তু কিছু যোগ করার পর cart খালি [#cards-appear-but-the-cart-is-empty-after-adding-something]
+
+cart প্রতি কথোপকথনে আলাদা। ক্রেতা যদি একটি নতুন কথোপকথন শুরু করে থাকেন — একটি নতুন session, বা একটি আলাদা channel — তাহলে তার সাথে একটি নতুন cart-ও শুরু হয়েছে।
+
+### একজন ক্রেতার cart পরে আবার ফিরে এল [#a-shoppers-cart-came-back-later]
+
+এটিই উদ্দেশ্য। কথোপকথনের cart কথোপকথনের সাথেই টিকে থাকে, তাই ভাবনার মাঝপথে সরে যাওয়া একজন ক্রেতা নতুন করে না সাজিয়ে যেখানে ছিলেন সেখান থেকেই শুরু করতে পারেন।
+
+### Checkout কেবল একটি product পাঠাল [#checkout-only-handed-off-one-product]
+
+সেটি read-only WooCommerce পথ, shoppable chat-এর কোনো সীমাবদ্ধতা নয়। দেখুন [Checkout](/commerce/checkout)।
+
+## সম্পর্কিত [#related]
+
+- [Checkout](/commerce/checkout) — cart যেখানে handoff করে
+- [Catalog ও Knowledge](/commerce/catalog-and-knowledge) — যে catalog থেকে card-গুলো আসে
+- [Telegram Storefront](/integrations/telegram-mini-app) — Storefront, আর তার আলাদা inquiry cart
+- [Analytics](/commerce/analytics) — কত card দেখানো হলো, কত cart তৈরি হলো, কত checkout শুরু হলো

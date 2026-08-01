@@ -1,0 +1,112 @@
+---
+description: Comment votre catalogue Shopify ou WooCommerce se synchronise dans Cuneiform Chat, comment les connaissances produit alimentent les questions de catalogue et comment le stock à jour garde les recommandations honnêtes.
+---
+
+# Catalogue et Connaissances
+
+**Votre catalogue est la connaissance produit de l'agent.** Vous ne collez pas des descriptions de produits dans une base de connaissances en pensant à les mettre à jour — l'agent lit votre boutique.
+
+## Comment le catalogue entre
+
+### Le premier import
+
+Connecter une boutique déclenche un import complet de vos produits : noms, descriptions, variantes et leurs options, prix, images et stock.
+
+| Plateforme | Quand le premier import s'exécute |
+|---|---|
+| **Shopify** | Automatiquement, dès que vous reliez votre espace de travail |
+| **WooCommerce** (parcours guidé) | Automatiquement, dans le cadre du callback d'approbation |
+| **WooCommerce** (clés d'API manuelles) | **Pas automatiquement** — appuyez sur **Re-sync now**. Voir [Après une connexion manuelle](/commerce/woocommerce#after-a-manual-connect) |
+
+Un grand catalogue prend quelques minutes. Vous pouvez suivre la progression dans l'onglet Catalog de la connexion.
+
+### Comment il reste à jour ensuite
+
+Une fois la boutique connectée, les changements arrivent de trois façons :
+
+- **Webhooks** — votre boutique nous prévient dès qu'un produit est créé, mis à jour ou supprimé. C'est la voie rapide, et c'est ainsi que le catalogue reste normalement à jour.
+- **Réconciliations planifiées** — une tâche de fond compare chaque nuit ce que nous détenons à ce que votre boutique déclare, réparant ce qu'un webhook aurait manqué. Le retrait des produits que vous avez supprimés en amont se fait, lui, lors d'une passe **hebdomadaire** et non lors de la passe nocturne : une suppression qu'un webhook a manquée peut donc mettre jusqu'à une semaine à disparaître.
+- **Resynchronisation à la demande** — le bouton **Re-sync now** de l'onglet Catalog réimporte tout. Utilisez-le après une modification en masse, un import CSV ou une migration, quand vous ne voulez pas attendre.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  **La resynchronisation est une action d'administration.** Les Owners et les Admins peuvent la déclencher. Les Team Admins et les Members peuvent voir l'état du catalogue mais pas le réimporter.
+</Callout>
+
+<Callout type="warning">
+  **Une connexion WooCommerce manuelle n'enregistre aucun webhook au moment de la connexion**, quelle que soit la permission portée par votre clé. Une tâche de fond horaire répare cela : avec une clé `Read/Write`, les webhooks s'enregistrent d'eux-mêmes, généralement dans l'heure. Avec une clé en **lecture seule**, ils ne peuvent jamais s'enregistrer — la tâche retente chaque heure et se fait refuser à chaque fois — et le catalogue ne change alors qu'à une réconciliation planifiée ou à une resynchronisation manuelle. Voir [Après une connexion manuelle](/commerce/woocommerce#after-a-manual-connect).
+</Callout>
+
+## Connaissances produit et questions de catalogue
+
+Le catalogue importé est transformé en **connaissances produit** que l'agent de boutique interroge quand un acheteur pose une question sur les produits. C'est ce qui lui permet de répondre à des questions qu'aucun titre de produit ne contient — « lequel de ceux-ci passe en machine ? », « quelle est la différence entre le Pro et le Standard ? » — plutôt que de se contenter de faire correspondre des mots-clés.
+
+Vous trouverez les connaissances produit sur la page de la connexion, avec leur propre état et une action **Rebuild**.
+
+- **Consulter** l'état est accessible à quiconque peut voir les intégrations, y compris les Team Admins et les Members.
+- **Reconstruire** exige la même permission que la connexion d'une intégration : les Owners et les Admins peuvent le faire, les Team Admins et les Members non. Reconstruisez après un gros changement de catalogue si les réponses semblent dépassées, ou après une resynchronisation qui a fait entrer beaucoup de nouveaux produits.
+
+### Avec deux boutiques connectées
+
+Connecter une seconde boutique ne fusionne **pas** les deux catalogues. Chaque boutique reçoit son propre agent de boutique à la connexion, et chaque agent est relié à cette seule boutique — un acheteur qui parle à votre agent Shopify obtient donc des produits Shopify, et l'agent WooCommerce répond depuis WooCommerce.
+
+Cela veut dire qu'une même conversation couvre une boutique, pas l'ensemble de votre activité. Si vous voulez que les acheteurs atteignent le bon catalogue, dirigez chaque canal vers l'agent de boutique propriétaire de ce catalogue.
+
+<Callout type="info">
+  Les connaissances produit sont elles aussi construites par boutique : un **Rebuild** sur une connexion ne touche jamais les réponses de l'autre.
+</Callout>
+
+## Stock à jour [#live-inventory]
+
+Le stock et le prix proviennent de votre catalogue synchronisé, tenu à jour par les webhooks — votre boutique nous prévient dès que le stock bouge, généralement en quelques secondes. C'est ce qui empêche l'agent de recommander quelque chose que vous avez épuisé il y a une heure.
+
+La vitesse à laquelle un changement de stock parvient à l'agent dépend de la plateforme :
+
+| Plateforme | Comment arrivent les changements de stock |
+|---|---|
+| **Shopify** | Des mises à jour de stock dédiées. Un changement de stock sans autre modification du produit arrive quand même de lui-même, en quelques secondes. |
+| **WooCommerce** | Avec les mises à jour de produit. Un changement de stock seul est capté à la prochaine mise à jour du produit, ou à la prochaine réconciliation planifiée. |
+
+<Callout type="info">
+  Les boutiques Shopify ont donc la meilleure fraîcheur de stock des deux. Sur WooCommerce, un changement de stock seul peut traîner jusqu'à la prochaine modification du produit — bon à savoir si vous ajustez le stock sans toucher à rien d'autre.
+</Callout>
+
+## Recommandations
+
+L'agent peut suggérer des produits et pas seulement les retrouver : « qu'est-ce qui irait avec ça ? », « quelque chose de similaire mais moins cher », « qu'avez-vous pour un débutant ? ».
+
+Les recommandations sont tirées du même catalogue synchronisé, et sont **limitées aux produits réellement en stock** — l'agent ne va pas enthousiasmer un acheteur pour quelque chose qu'il ne peut pas acheter. Comme toute autre réponse commerce, elles proviennent de la boutique propre à cet agent de boutique.
+
+## Dépannage
+
+### Le catalogue semble vide
+
+Si vous avez connecté WooCommerce avec des clés d'API manuelles, rien n'a été importé à la connexion — appuyez sur **Re-sync now** (voir [Après une connexion manuelle](/commerce/woocommerce#after-a-manual-connect)). Sinon, le premier import est peut-être encore en cours ; laissez quelques minutes à un grand catalogue.
+
+### Un produit que je viens d'ajouter n'y est pas
+
+Normalement, un webhook livre les nouveaux produits en quelques secondes. Sinon, une réconciliation planifiée le récupère ; **Re-sync now** le fait immédiatement. Si les nouveaux produits n'apparaissent *systématiquement* qu'après une réconciliation, vos webhooks ne sont pas enregistrés — pour WooCommerce, c'est généralement une clé en lecture seule.
+
+### Un produit que j'ai supprimé est encore proposé
+
+Les suppressions arrivent par webhook comme tout autre changement. Si l'une d'elles est manquée, c'est la réconciliation hebdomadaire qui la retire — cette passe ne s'exécute qu'une fois par semaine, pas chaque nuit, si bien qu'une suppression manquée peut traîner jusqu'à une semaine. Pour la retirer tout de suite, lancez **Re-sync now** puis **Rebuild** des connaissances produit.
+
+### Un produit supprimé en amont est revenu après que je l'ai remis en vente
+
+Il ne reviendra pas. Une fois qu'un produit a été retiré comme supprimé, il le reste, même si vous le rajoutez à votre boutique sous le même identifiant — une resynchronisation ne le ressuscite pas. Recréez-le comme un nouveau produit, ou ajoutez-le à la main à votre [Product Library](/commerce/product-tools#product-library).
+
+### Les réponses sont vagues ou manquent des détails de la description
+
+Lancez **Rebuild** des connaissances produit. Un gros import suivi de beaucoup d'édition peut laisser les connaissances en retard sur le catalogue.
+
+### Les prix ou le stock semblent dépassés
+
+Les deux proviennent du catalogue synchronisé : un chiffre faux signifie donc que la fiche produit enregistrée est en retard sur votre boutique. Sur WooCommerce, c'est attendu pour un changement de stock seul — il attend la prochaine mise à jour du produit ou la prochaine réconciliation. Sinon, c'est peut-être que vos webhooks n'arrivent pas : vérifiez la connexion, puis lancez **Re-sync now**.
+
+## Lié
+
+- [Shopify](/commerce/shopify) — connecter une boutique Shopify
+- [WooCommerce](/commerce/woocommerce) — connecter une boutique WooCommerce
+- [Outils Produit](/commerce/product-tools) — la Product Library et le questionnaire Product Finder
+- [Chat Marchand](/commerce/shoppable-chat) — montrer des produits sous forme de cards dans la conversation

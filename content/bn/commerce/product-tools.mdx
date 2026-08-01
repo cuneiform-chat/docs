@@ -1,0 +1,98 @@
+---
+description: Product Library, Product Finder quiz ও AI Quiz Suggester — যে বাছাই করা product surface-গুলো আপনার sync করা commerce catalog-এর উপরে বসে।
+---
+
+# Product Tools
+
+আপনার sync করা catalog হলো কাঁচামাল। এগুলো সেই রূপ যা আপনি তাকে দেন: একটি **Product Library** যা আপনি সাজাতে পারেন, একটি **Product Finder** quiz যা একজন ক্রেতাকে সঠিক product পর্যন্ত নিয়ে যায়, আর একটি **AI Quiz Suggester** যা তৈরি করার মতো quiz প্রস্তাব করে।
+
+## Product Library [#product-library]
+
+**Product Library** থাকে **Commerce → Products**-এ। এটি আপনি যেসব product বিক্রি করেন তার উপর আপনার workspace-এর নিজস্ব দৃষ্টি — অন্য feature-গুলো যখন "একটি catalog search-এর ফলাফল" নয় বরং "একটি product" চায়, তখন তারা এখান থেকেই নেয়।
+
+### এর product কোথা থেকে আসে [#where-its-products-come-from]
+
+- **আপনার যুক্ত store থেকে।** Shopify বা WooCommerce-এর product library-তে প্রতিফলিত হয় এবং catalog sync হওয়ার সাথে সাথে তাল মিলিয়ে থাকে। আপনি সেগুলো হাতে import করেন না, আর একটি catalog পরিবর্তনের পর আবার import করারও দরকার নেই।
+- **আপনার কাছ থেকে।** আপনি হাতে product যোগ করতে পারেন — এমন কিছুর জন্য যা আপনি বিক্রি করেন কিন্তু তালিকাভুক্ত করেন না, বা এমন একটি workspace-এর জন্য যেখানে কোনো store যুক্তই নেই।
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  **হাতে যোগ করা product আপনার নিজের।** একটি catalog sync কেবল সেই সারিগুলোই স্পর্শ করে যা store থেকে এসেছে। আপনার হাতে যোগ করা product কখনো sync-এর দ্বারা মুছে যায় না, ক্রম বদলায় না, বা সরে যায় না।
+</Callout>
+
+উৎসে একটি product সরিয়ে ফেলা হলে তার library এন্ট্রি একেবারে মুছে না দিয়ে অবসরে পাঠানো হয় — তাই যা কিছু সেটির উল্লেখ করেছিল তা ভেঙে পড়ে না, আর সেটি যে একসময় ছিল তা আপনি দেখতে পান।
+
+### কারা এটি ব্যবহার করতে পারেন [#who-can-use-it]
+
+Library দেখা ও সম্পাদনা করা আলাদা permission, তাই আপনি চাইলে কাউকে product ঘেঁটে দেখতে দিতে পারেন এই surface বদলাতে না দিয়েই। Member-রা কেবল দেখার অনুমতি পান; Owner, Admin ও Team Admin-রা দেখতে ও সম্পাদনা করতে পারেন।
+
+## Product Finder [#product-finder]
+
+**Product Finder** হলো একটি গাইডেড quiz যার শেষ হয় একটি সুপারিশে। একজন ক্রেতা কী চান তা তিনি জানেন বলে ধরে নেওয়ার বদলে এটি কয়েকটি প্রশ্ন করে — *এটি কীসের জন্য? আপনার বাজেট কত? এটি কার জন্য?* — এবং উত্তরের ভিত্তিতে আপনার catalog থেকে product সুপারিশ করে।
+
+এটি থাকে **Commerce → Product Finder**-এ এবং এটি [Agent Forms](/agents/agent-flows)-এর উপর তৈরি, তাই flow সম্পর্কে আপনি যা জানেন তার সবই এখানে প্রযোজ্য: সেই একই ভিজ্যুয়াল composer, সেই একই component library, সেই একই multi-channel rendering, আর সেই একই analytics।
+
+### এর সাথে আপনি যা পান [#what-you-get-with-it]
+
+| Surface | যা দেখায় |
+|---|---|
+| **Quiz ideas** | আপনার catalog থেকে নেওয়া AI-প্রস্তাবিত quiz, সত্যিকারের quiz-এ পরিণত করার জন্য তৈরি |
+| **Quiz forms** | quiz-টি নিজেই, flow composer-এ |
+| **Submissions** | সম্পন্ন হওয়া প্রতিটি quiz, উত্তর ও কী সুপারিশ করা হয়েছিল তা সহ |
+| **Heatmap** | ক্রেতারা কোন প্রশ্নে ছেড়ে চলে যায় |
+| **Diagnose** | একজন AI বিশ্লেষক, যাকে জিজ্ঞাসা করা যায় *"এই quiz-টা কেউ শেষ করছে না কেন?"* |
+
+যেহেতু এটি একটি flow, agent কথোপকথনের মাঝপথেই quiz-টি দিতে পারে যখন সে বুঝতে পারে ক্রেতা কিনছেন না, কেবল ঘুরে দেখছেন — আর যিনি শেষ করেন তিনি একটি সাদামাটা ধন্যবাদের বদলে সুপারিশ পান।
+
+<Callout type="info">
+  Agent Forms, আর সেই সূত্রে Product Finder, সবার জন্যই অন্তর্ভুক্ত — ফ্রি ট্রায়াল সহ। আর যেহেতু Product Finder সাধারণত এমন একটি flow যা platform আপনার হয়ে পরিচালনা করে, এটি আপনার workspace-এর নিজস্ব [published-flow বরাদ্দের](/agents/agent-flows#limits) হিসাবে ধরা হয় না। একটি ব্যতিক্রম: কোনো store যুক্ত হওয়ার আগেই একটি quiz তৈরি করলে সেটির মালিকানা নেওয়ার মতো কোনো store agent থাকে না — সেই quiz আপনার নিজের, আর সেটি publish করলে একটি slot খরচ হয়।
+</Callout>
+
+## AI Quiz Suggester [#quiz-suggester]
+
+একটি quiz কাজে লাগবে তা বোঝা সহজ। *কোন* quiz তৈরি করার মতো, সেটি বোঝাই কঠিন অংশ।
+
+**AI Quiz Suggester** দিনে একবার আপনার catalog দেখে এবং আপনি আসলে যা বিক্রি করেন তার সাথে মানানসই quiz প্রস্তাব করে — যেসব product-বৈশিষ্ট্য নিয়ে প্রশ্ন করা মূল্যবান, যেসব প্রশ্ন এক product-কে আরেকটি থেকে আলাদা করবে, আর আপনার পণ্যসম্ভার যে ধরনের ক্রেতার ইঙ্গিত দেয়। আপনি প্রস্তাবগুলো দেখে যেগুলো পছন্দ হয় সেগুলোকে সত্যিকারের Product Finder quiz-এ পরিণত করেন।
+
+- এটি **দিনে একবার** চলে, স্বয়ংক্রিয়ভাবে। কিছু নির্ধারণ করার নেই।
+- এটি প্রতি **১৫ মিনিটে** একবারের বেশি আবার চলবে না। সেই সময়সীমাটি ভাগ করা — দৈনিক একটি চালানো, একটি catalog sync আর হাতে দেওয়া একটি refresh সবাই একই cooldown থেকেই টানে — তাই বারবার refresh করে প্রায় একই আউটপুটের পেছনে ব্যবহার খরচ করা যায় না।
+- অন্য প্রতিটি AI feature-এর মতোই এটি আপনার workspace-এর ব্যবহারের বরাদ্দ থেকেই নেয়, আর সেই বরাদ্দ চলার পরে নয়, চলার আগেই যাচাই করে।
+
+## এগুলোর মধ্যে আসলে আমার কোনটি দরকার? [#which-of-these-do-i-actually-need]
+
+| আপনি যদি চান… | ব্যবহার করুন |
+|---|---|
+| একটি Storefront-এ বা chat-এ বাছাই করা কিছু product দেখাতে | **Product Library** |
+| এমন একজন ক্রেতাকে সাহায্য করতে যিনি জানেন না তিনি কী চান | **Product Finder** |
+| প্রথমে কোন quiz তৈরি করবেন তা বের করতে | **AI Quiz Suggester** |
+| Product নিয়ে সরাসরি প্রশ্নের উত্তর দিতে | এখানে কিছুই নয় — সেটি [catalog প্রশ্নোত্তর](/commerce/catalog-and-knowledge) |
+
+## সমস্যা সমাধান [#troubleshooting]
+
+### একটি store যুক্ত করার পরও Product Library খালি [#the-product-library-is-empty-after-connecting-a-store]
+
+Catalog sync-ই এটি ভরে দেয়। catalog নিজেই খালি হলে — সবচেয়ে সাধারণভাবে manual-ভাবে যুক্ত হওয়া একটি WooCommerce store-এ — আগে **Re-sync now** চাপুন। দেখুন [Manual সংযোগের পরে](/commerce/woocommerce#after-a-manual-connect)।
+
+### আমার store থেকে মুছে ফেলা একটি product এখনো library-তে আছে [#a-product-i-deleted-from-my-store-is-still-in-the-library]
+
+সরিয়ে ফেলা product একেবারে মুছে না গিয়ে অবসরে যায়, তাই সেগুলো আর দেখানো হয় না কিন্তু আপনার কাছে দৃশ্যমান থাকে। এটি ইচ্ছাকৃত।
+
+### হাতে যোগ করা একটি product একটি sync-এর পর হারিয়ে গেছে [#a-product-i-added-by-hand-disappeared-after-a-sync]
+
+হারানোর কথা নয় — sync কখনো হাতে যোগ করা product স্পর্শ করে না। দেখুন সেটি অন্য কোনো workspace-এ যোগ হয়েছিল কি না, বা কোনো store product-এর দিকে নির্দেশ করতে সম্পাদনা করা হয়েছিল কি না।
+
+### কোনো quiz প্রস্তাব আসেনি [#no-quiz-suggestions-have-appeared]
+
+Suggester দিনে একবার চলে, তাই সদ্য যুক্ত হওয়া একটি store হয়তো এখনো একটি চক্রের মধ্য দিয়ে যায়নি। প্রস্তাব করার মতো কিছু থাকতে হলে তার যথেষ্ট catalog-ও দরকার — মুষ্টিমেয় কয়েকটি product হয়তো তাকে প্রশ্ন করার মতো অর্থবহ কিছুই দেবে না।
+
+### আমার quiz শেষে কিছুই সুপারিশ করে না [#my-quiz-doesnt-recommend-anything-at-the-end]
+
+সুপারিশ আপনার catalog থেকেই আসে, তাই quiz-টি যেসব উত্তরের সমাহার তৈরি করতে পারে তার সাথে মেলে এমন product দরকার। ক্রেতারা কোথায় গিয়ে পৌঁছাচ্ছেন তা দেখতে Heatmap ও Diagnose ভিউ দেখুন।
+
+## সম্পর্কিত [#related]
+
+- [Catalog ও Knowledge](/commerce/catalog-and-knowledge) — যে catalog-এর উপর এই surface-গুলো তৈরি
+- [Agent Forms](/agents/agent-flows) — যে flow engine-এর উপর Product Finder তৈরি
+- [Shoppable Chat](/commerce/shoppable-chat) — একটি কথোপকথনে product-কে card হিসেবে দেখানো
+- [Analytics](/commerce/analytics) — ক্রেতারা এই সবকিছু দিয়ে কী করেন তা মাপা

@@ -1,0 +1,112 @@
+---
+description: Como seu catálogo da Shopify ou do WooCommerce sincroniza para dentro do Cuneiform Chat, como o conhecimento de produto alimenta as perguntas de catálogo e como o estoque atual mantém as recomendações honestas.
+---
+
+# Catálogo e Conhecimento
+
+**Seu catálogo é o conhecimento de produto do agent.** Você não cola descrições de produto em uma base de conhecimento e lembra de atualizá-las — o agent lê a sua loja.
+
+## Como o catálogo entra
+
+### A primeira importação
+
+Conectar uma loja inicia uma importação completa dos seus produtos: nomes, descrições, variações e suas opções, preços, imagens e estoque.
+
+| Plataforma | Quando a primeira importação roda |
+|---|---|
+| **Shopify** | Automaticamente, no momento em que você vincula seu workspace |
+| **WooCommerce** (fluxo guiado) | Automaticamente, como parte do callback de aprovação |
+| **WooCommerce** (chaves de API manuais) | **Não automaticamente** — aperte **Re-sync now**. Veja [Depois de uma conexão manual](/commerce/woocommerce#after-a-manual-connect) |
+
+Um catálogo grande leva alguns minutos. Você pode acompanhar o progresso na aba Catalog da conexão.
+
+### Como ele se mantém em dia depois
+
+Depois que a loja está conectada, as mudanças entram de três formas:
+
+- **Webhooks** — sua loja nos avisa no momento em que um produto é criado, atualizado ou excluído. Este é o caminho rápido e é como o catálogo normalmente se mantém atualizado.
+- **Reconciliações agendadas** — um job em segundo plano compara toda noite o que temos com o que sua loja informa, consertando qualquer coisa que um webhook tenha perdido. A limpeza dos produtos que você excluiu na origem acontece em uma passada **semanal**, e não na noturna, então uma exclusão que um webhook perdeu pode levar até uma semana para sumir.
+- **Ressincronização sob demanda** — o botão **Re-sync now** na aba Catalog da conexão reimporta tudo. Use depois de uma edição em massa, uma importação por CSV ou uma migração, quando você não quiser esperar.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  **A ressincronização é uma ação de administração.** Owners e Admins podem dispará-la. Team Admins e Members podem ver o status do catálogo, mas não reimportá-lo.
+</Callout>
+
+<Callout type="warning">
+  **Uma conexão manual do WooCommerce não registra nenhum webhook na hora de conectar**, qualquer que seja a permissão da sua chave. Um job de hora em hora conserta isso: com uma chave `Read/Write`, os webhooks se registram sozinhos, normalmente dentro de uma hora. Com uma chave **somente leitura** eles nunca conseguem se registrar — o job tenta de hora em hora e é recusado toda vez — e o catálogo então só muda em uma reconciliação agendada ou em uma ressincronização manual. Veja [Depois de uma conexão manual](/commerce/woocommerce#after-a-manual-connect).
+</Callout>
+
+## Conhecimento de produto e perguntas de catálogo
+
+O catálogo importado vira **conhecimento de produto** que o agent de loja pesquisa quando um comprador pergunta sobre produtos. É isso que permite responder perguntas que nenhum título de produto contém — "qual destes pode ir na máquina?", "qual a diferença entre o Pro e o Standard?" — em vez de só casar palavras-chave.
+
+Você encontra o conhecimento de produto na página da conexão, com status próprio e uma ação **Rebuild**.
+
+- **Ver** o status está disponível para qualquer pessoa que possa ver integrações, incluindo Team Admins e Members.
+- **Reconstruir** exige a mesma permissão de conectar uma integração, então Owners e Admins podem fazer, mas Team Admins e Members não. Reconstrua depois de uma mudança grande de catálogo se as respostas parecerem desatualizadas, ou depois de uma ressincronização que trouxe muitos produtos novos.
+
+### Com duas lojas conectadas
+
+Conectar uma segunda loja **não** combina os dois catálogos. Cada loja ganha seu próprio agent de loja ao conectar, e cada agent está ligado àquela única loja — então um comprador que fala com o agent da Shopify recebe produtos da Shopify, e o agent do WooCommerce responde a partir do WooCommerce.
+
+Isso significa que uma mesma conversa cobre uma loja, e não o seu negócio inteiro. Se você quer que os compradores cheguem ao catálogo certo, aponte cada canal para o agent de loja dono daquele catálogo.
+
+<Callout type="info">
+  O conhecimento de produto também é construído por loja, então um **Rebuild** em uma conexão nunca mexe nas respostas da outra.
+</Callout>
+
+## Estoque atual [#live-inventory]
+
+Estoque e preço vêm do seu catálogo sincronizado, mantido em dia pelos webhooks — sua loja nos avisa no momento em que o estoque muda, normalmente em segundos. É isso que impede o agent de recomendar algo que esgotou uma hora atrás.
+
+A rapidez com que uma mudança de estoque chega ao agent depende da plataforma:
+
+| Plataforma | Como as mudanças de estoque chegam |
+|---|---|
+| **Shopify** | Atualizações de estoque dedicadas. Uma mudança de estoque sem nenhuma outra edição do produto chega mesmo assim, por conta própria, em segundos. |
+| **WooCommerce** | Junto com as atualizações de produto. Uma mudança só de estoque é capturada quando o produto for atualizado da próxima vez, ou na próxima reconciliação agendada. |
+
+<Callout type="info">
+  Lojas Shopify têm, portanto, a atualidade de estoque mais apertada das duas. No WooCommerce, uma mudança só de estoque pode atrasar até o produto mudar de novo — vale saber se você ajusta estoque sem mexer em mais nada.
+</Callout>
+
+## Recomendações
+
+O agent pode sugerir produtos, e não só procurá-los: "o que combinaria com isso?", "algo parecido, mas mais barato", "o que você tem para quem está começando?".
+
+As recomendações saem do mesmo catálogo sincronizado e são **restritas a produtos que realmente estão em estoque** — o agent não vai animar um comprador com algo que ele não pode comprar. Como qualquer outra resposta de commerce, elas vêm da loja do próprio agent de loja.
+
+## Solução de problemas
+
+### O catálogo parece vazio
+
+Se você conectou o WooCommerce com chaves de API manuais, nada foi importado ao conectar — aperte **Re-sync now** (veja [Depois de uma conexão manual](/commerce/woocommerce#after-a-manual-connect)). Caso contrário, a primeira importação pode ainda estar rodando; dê alguns minutos a um catálogo grande.
+
+### Um produto que acabei de adicionar não está lá
+
+Normalmente um webhook entrega produtos novos em segundos. Se não entregar, uma reconciliação agendada captura; **Re-sync now** faz na hora. Se produtos novos *sempre* aparecem só depois de uma reconciliação, seus webhooks não estão registrados — no WooCommerce, isso costuma ser uma chave somente leitura.
+
+### Um produto que excluí ainda está sendo oferecido
+
+Exclusões chegam por webhook como qualquer outra mudança. Se uma passar batido, a reconciliação semanal limpa — essa passada roda uma vez por semana, não toda noite, então uma exclusão perdida pode ficar por até uma semana. Para limpar agora, rode **Re-sync now** e depois **Rebuild** do conhecimento de produto.
+
+### Um produto que excluí na origem voltou depois que eu o relistei
+
+Ele não volta. Uma vez que um produto é limpo como excluído, ele fica assim, mesmo que você o adicione de novo à sua loja com o mesmo ID — uma ressincronização não o revive. Crie-o como um produto novo, ou adicione-o à sua [Product Library](/commerce/product-tools#product-library) à mão.
+
+### As respostas são vagas ou perdem detalhes da descrição
+
+Rode **Rebuild** do conhecimento de produto. Uma importação grande seguida de muita edição pode deixar o conhecimento atrás do catálogo.
+
+### Preços ou estoque parecem desatualizados
+
+Os dois vêm do catálogo sincronizado, então um número errado significa que o registro do produto guardado está atrás da sua loja. No WooCommerce isso é esperado para uma mudança só de estoque — ela espera a próxima atualização do produto ou a próxima reconciliação. Fora isso, seus webhooks podem não estar chegando: confira a conexão e depois rode **Re-sync now**.
+
+## Relacionado
+
+- [Shopify](/commerce/shopify) — conectar uma loja Shopify
+- [WooCommerce](/commerce/woocommerce) — conectar uma loja WooCommerce
+- [Ferramentas de Produto](/commerce/product-tools) — a Product Library e o quiz Product Finder
+- [Chat com Compra](/commerce/shoppable-chat) — mostrar produtos como cards na conversa

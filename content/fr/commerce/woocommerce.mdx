@@ -1,0 +1,216 @@
+---
+description: Connectez votre boutique WooCommerce auto-hébergée pour que votre agent IA puisse répondre aux questions produit, retrouver des commandes, recommander des articles en stock et envoyer des mises à jour de statut de commande depuis votre catalogue synchronisé.
+---
+
+# WooCommerce
+
+Connectez votre boutique **WooCommerce** auto-hébergée pour que votre agent IA puisse répondre aux questions produit, retrouver la commande d'un acheteur, recommander des articles en stock et envoyer des mises à jour de statut de commande — le tout à partir de votre catalogue synchronisé et de vos données de commandes.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  WooCommerce est inclus pour tout le monde, essai gratuit compris. Il n'y a rien à acheter ni à améliorer avant de connecter une boutique.
+</Callout>
+
+## Ce que vous obtenez
+
+- **Catalogue (questions-réponses)** — des réponses à partir de vos vrais produits, variantes, prix et disponibilité actuelle
+- **Suivi de commande (WISMO)** — les acheteurs vérifient « où est ma commande ? » avec leur numéro de commande plus l'e-mail ou le téléphone figurant sur la commande
+- **Recommandations** — des suggestions limitées aux produits réellement en stock
+- **Mises à jour de statut de commande** — des mises à jour d'expédition dans la même conversation, pour les acheteurs qui s'abonnent
+- **Stock à jour** — prix et stock issus de votre catalogue synchronisé, tenu à jour par les webhooks
+- **Transfert vers le checkout** — envoyez un acheteur prêt à acheter vers votre propre checkout WooCommerce
+
+## Prérequis
+
+- Une **boutique WooCommerce auto-hébergée** que vous administrez
+- L'**URL de votre boutique** (par exemple, `https://votre-boutique.com`)
+- Un compte **Owner ou Admin** sur votre espace de travail Cuneiform Chat — connecter une boutique est une action d'administration
+- Au moins un agent, ou de la place pour en créer un (voir [Votre agent de boutique](/commerce#your-store-agent))
+
+Vous n'avez **pas** besoin d'installer un plugin ni d'écrire du code.
+
+### L'URL de votre boutique, quelle que soit la façon dont vous la saisissez
+
+Saisissez l'URL comme vous voulez — nous la normalisons. Le schéma, un `www.` en tête, une barre oblique finale et la casse de l'hôte sont tous ignorés. Une **installation en sous-répertoire** (`exemple.com/boutique`) et un **port non standard** sont tous deux conservés et pris en charge.
+
+## Connexion
+
+Il y a deux voies, sur la même carte. **Utilisez le parcours guidé sauf si quelque chose l'empêche.**
+
+### Voie A — l'autorisation guidée (recommandée)
+
+1. Allez dans **Commerce → WooCommerce**.
+2. Saisissez l'URL de votre boutique et cliquez sur **Connect**.
+3. Votre navigateur se rend sur l'écran d'approbation WooCommerce de votre propre boutique. Approuvez-le.
+4. WooCommerce renvoie les clés et vous arrivez sur **Commerce**.
+
+C'est tout. Le parcours guidé fait trois choses que la voie manuelle ne fait pas : il demande la bonne permission à votre place, il enregistre les webhooks qui gardent vos données fraîches en temps réel, et il lance l'import initial du catalogue.
+
+<Callout type="info">
+  **L'écran d'approbation indiquera `read/write`, et c'est intentionnel.** WooCommerce ne laisse rien enregistrer de webhooks avec une clé en lecture seule — il rejette la demande d'emblée. Sans webhooks, aucune mise à jour de catalogue, de stock ni de commandes en temps réel. L'intégration continue de ne jamais écrire dans votre catalogue, votre stock ou vos commandes existantes ; la permission d'écriture existe pour que nous puissions enregistrer les webhooks et, si vous utilisez le checkout dans la conversation, créer la commande en attente que l'acheteur s'apprête à payer.
+</Callout>
+
+### Voie B — coller des clés d'API manuellement
+
+Si votre boutique est derrière un pare-feu qui bloque la redirection, dépliez **Enter API keys manually** et collez une consumer key et un secret générés dans **WooCommerce → Settings → Advanced → REST API**.
+
+**Générez-les avec la permission `Read/Write`, et sélectionnez `Read/Write` sur notre formulaire aussi.** Une clé en lecture seule vous laisse définitivement sans webhooks — voir ci-dessous.
+
+Nous vérifions la santé de la boutique avant d'enregistrer. Un échec dur bloque la connexion ; un avertissement léger (une boutique lente ou partiellement joignable) se connecte quand même pour que vous puissiez corriger ensuite.
+
+## Après une connexion manuelle [#after-a-manual-connect]
+
+<Callout type="warning">
+  **La voie des clés manuelles saute deux choses que le parcours guidé fait à la connexion : elle n'enregistre pas les webhooks, et elle ne lance pas l'import initial du catalogue.** Les deux se rattrapent selon des rythmes différents — et l'une d'elles ne se rattrape que si votre clé porte la bonne permission. Lisez les deux moitiés ci-dessous.
+</Callout>
+
+### Votre catalogue — appuyez sur « Re-sync now »
+
+Rien n'est importé à la connexion. Une tâche de fond réconcilie les catalogues chaque jour, mais cette passe quotidienne ne récupère que les produits modifiés *depuis sa propre dernière exécution* — et une boutique qui n'a jamais importé n'a pas d'arriéré à récupérer, seulement de nouvelles modifications. L'import complet arrive avec le **balayage hebdomadaire**, qui peut être à sept jours de là.
+
+**N'attendez pas.** Ouvrez **Commerce → WooCommerce → Catalog & Data** et cliquez sur **Re-sync now**. Cela exécute le même import que le parcours guidé aurait lancé à la connexion, et il se termine en quelques minutes.
+
+### Vos webhooks — seulement si votre clé est Read/Write
+
+Les webhooks ne sont pas non plus enregistrés à la connexion, mais ce point-là se répare automatiquement **à une condition**. Une tâche horaire retente l'enregistrement des webhooks pour toutes les boutiques connectées, donc :
+
+- **Une boutique `Read/Write` se rétablit toute seule**, généralement dans l'heure. Vous n'avez rien à faire.
+- **Une boutique en lecture seule ne se rétablit jamais.** WooCommerce rejette chaque tentative d'enregistrement venant d'une clé en lecture seule. La tâche retente chaque heure et se fait refuser chaque heure, indéfiniment.
+
+Vous pouvez le constater plutôt que d'avoir à le deviner : **Commerce → WooCommerce → Connection** comporte un panneau **Webhook health**, qui affichera alors **« Subscriptions drifted »** et **« No events received yet. »**. L'autre symptôme est comportemental — les changements de catalogue, de stock et de commandes n'apparaissent qu'à la prochaine synchronisation planifiée au lieu d'arriver au moment où ils se produisent.
+
+### La permission est celle que vous nous avez déclarée
+
+<Callout type="warning">
+  **Nous enregistrons la permission que vous sélectionnez ; nous ne testons pas la clé pour la découvrir.** Si vous collez une clé `Read/Write` mais laissez le champ de permission vide, nous l'enregistrons comme **lecture seule** — et les webhooks comme le [checkout](/commerce/checkout) multi-lignes se dégradent en silence. Si vous sélectionnez `Read/Write` mais collez une clé en lecture seule, votre boutique rejette les webhooks à chaque fois.
+
+  Si les mises à jour en temps réel ou le checkout multi-lignes manquent, ce seul champ est la première chose à vérifier. La correction consiste à faire **Reconnect** via le parcours guidé, qui demande toujours la bonne permission.
+</Callout>
+
+## Ce que l'intégration fait et ne fait pas
+
+L'intégration est **en lecture seule pour ce qui touche aux données de votre boutique**. Elle ne modifie ni ne supprime jamais un produit, n'ajuste jamais le stock, ne modifie ni n'annule jamais une commande existante, et n'encaisse jamais un paiement. Le paiement se fait toujours sur votre propre checkout WooCommerce.
+
+La seule chose qu'une connexion `Read/Write` écrit est une **commande en attente**, et uniquement quand un acheteur passe au checkout depuis une conversation : au lieu de transférer un produit à la fois, tout le panier devient une commande en attente dans votre boutique et l'acheteur est envoyé la payer. Rien n'est débité, rien n'est préparé, et la commande est rattachée à la conversation dont elle est issue pour que vous voyiez où la vente a commencé. Voir [Checkout](/commerce/checkout).
+
+Une connexion en lecture seule ne peut pas créer cette commande en attente, elle transfère donc une ligne à la fois. C'est la différence pratique entre les deux permissions, et la raison pour laquelle le parcours guidé demande toujours `Read/Write`.
+
+## Fonctionnalités
+
+### Une boutique, un agent de boutique
+
+Vous connectez **une boutique WooCommerce par espace de travail** — et vous pouvez avoir une boutique Shopify connectée en même temps (voir [Commerce](/commerce#you-can-connect-both-at-once)).
+
+Au moment de la connexion, **un agent devient votre agent de boutique** — choisi pour vous, et non par vous. Si vous aviez déjà connecté cette même boutique, son ancien agent de boutique est récupéré, avec ses réglages et son historique de versions intacts ; sinon, un nouveau est créé. Cet agent porte les outils WooCommerce ; vos autres agents ne sont pas affectés. Il n'y a pas d'interrupteur par agent à chercher — la page de l'agent affiche un panneau en lecture seule indiquant qu'il est géré par votre boutique.
+
+<Callout type="info">
+  Les versions antérieures de cette page vous disaient d'activer le commerce pour d'autres agents dans **Commerce → Settings**. Cette page n'existe plus, et l'interrupteur par agent est parti avec elle. Le commerce est relié à l'agent de boutique choisi à la connexion.
+</Callout>
+
+### Suivi de commande vérifié
+
+Les acheteurs ne voient les détails de leur commande qu'après avoir fourni le numéro de commande exact **et** l'e-mail ou le téléphone figurant sur la commande. Un mauvais contact et une commande inexistante renvoient la même réponse « introuvable » sans aucun détail — un durcissement anti-énumération qui protège vos clients. Voir [Commandes](/commerce/orders).
+
+### Catalogue et stock à jour
+
+Les prix et le stock proviennent de votre catalogue synchronisé, si bien que les recommandations restent limitées à ce qui est réellement disponible. WooCommerce envoie les changements de stock avec les mises à jour de produit plutôt que comme des événements de stock distincts, donc un changement de stock seul arrive avec la prochaine mise à jour du produit ou la prochaine synchronisation. Voir [Catalogue et Connaissances](/commerce/catalog-and-knowledge).
+
+### Mises à jour de statut de commande sur abonnement
+
+Après qu'un acheteur a vérifié sa commande dans la conversation, il peut s'abonner aux mises à jour d'expédition sur un canal pris en charge. L'abonnement de l'acheteur est la seule porte — les types de mise à jour sont actifs par défaut sur la connexion WooCommerce, il n'y a donc rien à activer au préalable. Voir [Commandes](/commerce/orders#order-status-updates).
+
+### Reconnect
+
+Contrairement à Shopify, WooCommerce dispose d'un bouton **Reconnect**. Utilisez-le quand vous faites tourner ou révoquez les clés d'API de votre boutique, ou quand vous vous êtes connecté manuellement avec la mauvaise permission et souhaitez passer au parcours guidé. Il relance l'approbation sur votre boutique et remplace les clés enregistrées sur place.
+
+## Sécurité
+
+- **Aucune écriture dans votre catalogue, votre stock ou vos commandes existantes** — l'intégration lit produits, stock et commandes, et ne les modifie jamais
+- **Les clés sont chiffrées au repos** — votre consumer key et votre secret ne sont jamais stockés en clair
+- **Isolation par tenant** — votre catalogue et vos commandes sont cantonnés à votre espace de travail et ne sont jamais visibles par quiconque d'autre
+- **Suivi de commande vérifié** — les détails d'une commande exigent le numéro exact plus un e-mail ou un téléphone correspondant
+- **Notifications sur abonnement** — les mises à jour d'expédition exigent un abonnement explicite de l'acheteur dans la conversation
+- **Checkout sécurisé** — le paiement se conclut sur votre propre checkout WooCommerce ; aucune donnée de carte ne passe par l'agent
+
+## Dépannage
+
+### La connexion se bloque ou échoue
+
+Le parcours guidé a besoin que votre navigateur atteigne l'écran d'approbation de votre boutique et que votre boutique nous atteigne avec les clés. Si ça bloque, c'est en général un problème de réseau ou de pare-feu, pas vos identifiants. Boutique derrière un pare-feu ? Utilisez la voie des clés manuelles — puis lisez [Après une connexion manuelle](#after-a-manual-connect), car elle laisse deux choses en suspens.
+
+### Le catalogue est vide juste après la connexion
+
+Si vous vous êtes connecté manuellement, c'est attendu — rien n'a été importé. Cliquez sur **Re-sync now** dans l'onglet **Catalog & Data**.
+
+Si vous avez utilisé le parcours guidé, le premier import récupère tout le catalogue et peut prendre quelques minutes sur une grande boutique.
+
+### Les changements de produit ou de stock mettent des heures à apparaître
+
+Vos webhooks ne sont pas enregistrés. Presque toujours, cela signifie que la boutique a été connectée manuellement avec une clé en lecture seule. Vérifiez la permission enregistrée sur la connexion, puis faites **Reconnect** via le parcours guidé.
+
+### « Cette boutique est déjà connectée à un autre compte »
+
+La même boutique est connectée à un autre espace de travail. Déconnectez-la là-bas d'abord, puis connectez-la ici. Nous refusons la reprise plutôt que de déplacer la boutique en silence.
+
+### L'agent ne répond pas aux questions sur les produits
+
+Vérifiez que vous parlez à l'**agent de boutique** — celui choisi à la connexion. Sa page affiche un panneau en lecture seule « géré par votre boutique ». Les autres agents ne portent pas les outils de commerce.
+
+### Le suivi de commande ne trouve pas une commande
+
+Le suivi est délibérément strict : il ne renvoie des détails que lorsque l'acheteur donne le numéro de commande exact **et** un e-mail ou un téléphone correspondant à la commande.
+
+### Aucune mise à jour de statut de commande n'est envoyée
+
+L'acheteur doit s'abonner, dans la conversation, sur un canal pris en charge. S'il l'a fait, vérifiez les réglages de notification de la connexion WooCommerce — ils sont actifs par défaut, mais si le type de mise à jour concerné a été désactivé à un moment, l'abonnement de l'acheteur seul ne produira aucun message.
+
+## Déconnexion
+
+Déconnectez depuis **Commerce → WooCommerce → Disconnect**. La déconnexion :
+
+- Supprime la connexion enregistrée et les identifiants, ainsi que le catalogue synchronisé
+- Efface les connaissances produit construites à partir de ce catalogue
+- Supprime les webhooks qu'elle avait enregistrés sur votre boutique
+- Réinitialise l'autorisation de commerce de l'agent de boutique, rétablit sa persona de commerce si vous ne l'avez jamais modifiée, et **archive l'agent lui-même** — reconnecter la même boutique le récupère, avec ses réglages et son historique de versions intacts
+- **Supprime définitivement toute [Boutique](/integrations/telegram-mini-app) rattachée à cette boutique WooCommerce**, ainsi que son historique d'analytique. Les Boutiques que vous avez construites à la main ne sont pas touchées
+- Archive les Agent Forms de commerce venus avec la boutique
+- Supprime purement et simplement les suggestions de questionnaire de l'IA, pour qu'une future reconnexion reparte d'une page blanche
+
+<Callout type="warning">
+  Si vous avez encore une boutique **Shopify** connectée, seules les étapes valables pour tout l'espace de travail — l'archivage des Agent Forms de commerce et la suppression des suggestions de questionnaire — sont ignorées. Le catalogue, les connaissances produit, les Boutiques, l'analytique et l'agent de boutique propres à la boutique WooCommerce sont, eux, toujours démontés.
+</Callout>
+
+## FAQ
+
+### Ai-je besoin de quelque chose de particulier pour connecter WooCommerce ?
+
+Non. WooCommerce est inclus pour tout le monde, essai gratuit compris — catalogue, suivi de commande, recommandations et mises à jour de statut de commande, tout est là.
+
+### Dois-je installer un plugin ?
+
+Aucun plugin. Le parcours guidé est une approbation unique sur votre propre boutique. Vous ne collez des clés d'API que si votre pare-feu bloque la redirection.
+
+### Pourquoi l'écran d'approbation demande-t-il un accès en écriture ?
+
+Parce que WooCommerce refuse d'enregistrer des webhooks pour une clé en lecture seule, et sans webhooks rien ne se met à jour en temps réel. L'intégration continue de ne jamais modifier votre catalogue, votre stock ni vos commandes existantes. Ce qu'elle écrit se limite aux webhooks eux-mêmes, et à une commande en attente pour un acheteur qui passe au checkout depuis une conversation — voir [Checkout](/commerce/checkout).
+
+### Puis-je quand même me connecter avec une clé en lecture seule ?
+
+Oui, et le catalogue, le suivi de commande, les recommandations et les notifications fonctionnent tous. Ce à quoi vous renoncez, ce sont les mises à jour en temps réel (les webhooks ne pourront jamais s'enregistrer) et le checkout multi-lignes dans la conversation. Si vous les voulez plus tard, faites **Reconnect** via le parcours guidé.
+
+### Tous mes agents peuvent-ils utiliser WooCommerce, ou un seul ?
+
+Un seul — l'agent de boutique choisi à la connexion. Cet agent reçoit les outils WooCommerce ; les autres ne sont pas affectés.
+
+### L'agent modifie-t-il un jour ma boutique ?
+
+Il ne modifie jamais de produits, n'ajuste jamais le stock, ne modifie ni n'annule jamais de commandes existantes, et n'encaisse jamais. Sur une connexion `Read/Write`, il peut créer une seule chose : une commande en attente pour un acheteur qui passe au checkout depuis une conversation, et qu'il paie ensuite sur votre propre checkout.
+
+## Lié
+
+- [Aperçu de Commerce](/commerce) — ce que la connexion d'une boutique vous apporte
+- [Shopify](/commerce/shopify) — l'autre plateforme prise en charge
+- [Catalogue et Connaissances](/commerce/catalog-and-knowledge) — comment le catalogue se synchronise et reste frais
+- [Commandes](/commerce/orders) — suivi de commande et mises à jour de statut
+- [Checkout](/commerce/checkout) — y compris la différence qui dépend de la permission

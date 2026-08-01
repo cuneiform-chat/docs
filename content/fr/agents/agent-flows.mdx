@@ -1,11 +1,11 @@
-# Agent Flows
+# Agent Forms
 
 Des formulaires multi-écrans qu'un agent IA peut présenter à un client en pleine conversation. L'agent décide quand demander des informations structurées — nom, dates, photo d'une pièce d'identité, questionnaire en plusieurs étapes — et votre client les saisit dans un formulaire natif plutôt qu'au fil d'un long échange de messages.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Agent Flows fonctionne sur **WhatsApp, Telegram, Messenger et le widget de chat de votre site web** et est disponible sur **toutes les formules payantes** (avec des limites selon la formule ; voir le tableau des limites par formule plus bas). Concevez un flow une fois ; il s'affiche nativement sur chaque canal pris en charge.
+  Agent Forms fonctionne sur **WhatsApp, Telegram, Messenger et le widget de chat de votre site web**, et il est inclus pour tout le monde, essai gratuit compris. Concevez un flow une fois ; il s'affiche nativement sur chaque canal pris en charge.
 </Callout>
 
 ## Canaux pris en charge
@@ -23,7 +23,7 @@ Les mêmes composants, écrans, logique et traductions fonctionnent sur tous les
 
 **Publiez un même flow sur plusieurs canaux à la fois.** Dans l'onglet **Distribuer** du flow, chaque canal a sa propre carte de publication. Publiez sur un numéro WhatsApp, puis publiez le *même* flow sur un bot Telegram et une page Messenger : chaque carte reste publiée indépendamment, et ajouter un canal n'en dépublie jamais un autre. Dépubliez un seul canal depuis sa carte sans toucher aux autres. Les statistiques se combinent par défaut sur tous les canaux où le flow est en ligne ; lorsqu'un flow est en ligne sur deux canaux ou plus, un **filtre de canal** apparaît dans les vues Envois, Carte de chaleur et Diagnostic pour analyser un canal à la fois.
 
-## Quand utiliser Agent Flows
+## Quand utiliser Agent Forms
 
 Optez pour un flow lorsque le chat seul n'est pas la bonne forme pour la question :
 
@@ -37,7 +37,7 @@ L'agent recommande un flow lorsque son prompt système + le contexte de la conve
 
 ## Créer un flow
 
-Les flows se trouvent sous **Agent Flows** dans le panneau d'administration du client. Chaque flow comporte :
+Les flows se trouvent sous **Agent Forms** dans le panneau d'administration du client. Chaque flow comporte :
 
 - Un **nom et une description** que l'agent lit pour décider quand l'utiliser
 - Un ou plusieurs **écrans**, chacun contenant des **composants** (champs)
@@ -47,9 +47,9 @@ Les flows se trouvent sous **Agent Flows** dans le panneau d'administration du c
 
 ## Partir d'un modèle
 
-Vous n'êtes pas obligé de partir d'un éditeur vierge. Ouvrez l'onglet **Modèles** dans la liste Agent Flows pour parcourir une bibliothèque sélectionnée de flows prêts à l'emploi : captation de leads, réservation de démo, prise en charge du support, retours produit, et plus encore. Cliquez sur **Utiliser ce modèle** et un brouillon modifiable est créé dans votre propre espace de travail : les écrans, les champs, la logique et les traductions sont pré-remplis. Reliez le brouillon à un numéro WhatsApp, ajustez ce que vous voulez, puis publiez.
+Vous n'êtes pas obligé de partir d'un éditeur vierge. Ouvrez l'onglet **Modèles** dans la liste Agent Forms pour parcourir une bibliothèque sélectionnée de flows prêts à l'emploi : captation de leads, réservation de démo, prise en charge du support, retours produit, et plus encore. Cliquez sur **Utiliser ce modèle** et un brouillon modifiable est créé dans votre propre espace de travail : les écrans, les champs, la logique et les traductions sont pré-remplis. Reliez le brouillon à un numéro WhatsApp, ajustez ce que vous voulez, puis publiez.
 
-Un modèle n'est qu'un point de départ : une fois votre copie créée, c'est un flow normal qui vous appartient entièrement et que vous pouvez modifier librement. La bibliothèque de modèles est disponible sur tous les forfaits qui incluent Agent Flows.
+Un modèle n'est qu'un point de départ : une fois votre copie créée, c'est un flow normal qui vous appartient entièrement et que vous pouvez modifier librement. Toute la bibliothèque de modèles est ouverte à tout le monde.
 
 ## Bibliothèque de composants — 23 variantes
 
@@ -143,7 +143,7 @@ Si vous souhaitez comparer deux versions d'un flow, configurez-les comme **varia
 
 ## Génération par IA
 
-Si vous disposez d'une formule de niveau supérieur, l'éditeur propose la **génération de formulaires par IA** : écrivez un prompt d'une ligne (« un formulaire de réservation d'hôtel avec plage de dates et téléversement de photo »), ou téléversez un PDF / une image d'un formulaire existant, et l'assistant rédige le flow pour vous. Le brouillon est entièrement modifiable — chaque champ est réversible dans l'éditeur (pas d'instantanés IA opaques).
+L'éditeur propose la **génération de formulaires par IA** à tout le monde : écrivez un prompt d'une ligne (« un formulaire de réservation d'hôtel avec plage de dates et téléversement de photo »), ou téléversez un PDF / une image d'un formulaire existant, et l'assistant rédige le flow pour vous. Le brouillon est entièrement modifiable — chaque champ est réversible dans l'éditeur (pas d'instantanés IA opaques).
 
 ## Envois et analytique
 
@@ -192,13 +192,22 @@ Quand quelqu'un clique sur le lien, WhatsApp ouvre une discussion avec votre num
 
 Chaque lien dispose d'un **compteur de clics** pour voir combien de personnes ont ouvert le formulaire par son intermédiaire, et vous pouvez **révoquer** un lien à tout moment. Si le texte d'un lien est modifié ou supprimé avant l'envoi, ou si le lien est révoqué, le message bascule simplement vers une conversation IA normale — rien ne casse.
 
-## Limites par formule
+## Limites [#limits]
 
-| Formule | Flows publiés | Langues par flow | Génération par IA |
-|------|-----------------|------------------|---------------|
-| Trial | 1 | 1 | — |
-| Starter | 1 | 1 | — |
-| Plus | Illimité | Illimité | ✅ |
-| Enterprise | Illimité | Illimité | ✅ |
+Agent Forms lui-même est inclus pour tout le monde, essai gratuit compris : il n'y a rien à débloquer avant de créer votre premier flow. Ce que votre forfait détermine, c'est le nombre de flows qui peuvent être **publiés en même temps** et le nombre de langues dans lesquelles chaque flow publié paraît.
 
-Les 23 types de composants sont disponibles sur toutes les formules qui prennent en charge Agent Flows — il n'y a pas de restriction par composant selon la formule.
+| Forfait | Flows publiés | Langues par flow |
+|------|-----------------|------------------|
+| Trial | 1 | 1 |
+| Starter | 1 | 1 |
+| Plus | Illimité | Illimité |
+| Enterprise | Illimité | Illimité |
+
+Comment le décompte s'applique :
+
+- **Seuls les flows publiés comptent.** Les brouillons sont illimités — créez-en autant que vous voulez, publiez celui que vous voulez en ligne.
+- **Republier est gratuit.** Mettre à jour un flow déjà publié ne consomme pas une place de plus.
+- **Dépubliez pour permuter.** À la limite, dépubliez un flow et la place se libère aussitôt pour un autre.
+- **Le questionnaire [Product Finder](/commerce/product-tools#product-finder) ne compte pas.** Les flows que la plateforme gère pour vous restent en dehors de votre propre quota.
+
+Les 23 types de composants sont disponibles pour tout le monde — aucun composant n'est réservé — et la génération de formulaires par IA est ouverte à tous.

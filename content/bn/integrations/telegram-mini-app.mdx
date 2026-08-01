@@ -1,6 +1,6 @@
 # Telegram Storefront (In-bot Mini App)
 
-**আপনার Telegram bot-কে একটি সম্পূর্ণ in-app storefront-এ পরিণত করুন।** একটি পরিপাটি, multipage product catalog তৈরি করুন — photo, video, themed page, প্রতি product-এ একটি AI assistant ও lightweight order-taking সহ — যা একজন customer আপনার bot-এর menu button-এ tap করার মুহূর্তেই Telegram-এর *ভেতরে* খোলে। কোনো app store নেই, কোনো আলাদা website নেই, পরিচালনা করার মতো কোনো checkout নেই। শুধু একটি tap, আর আপনার customer browse করছে।
+**আপনার Telegram bot-কে একটি সম্পূর্ণ in-app storefront-এ পরিণত করুন।** একটি পরিপাটি, multipage product catalog তৈরি করুন — photo, video, themed page, প্রতি product-এ একটি AI assistant ও lightweight order-taking সহ — যা একজন customer আপনার bot-এর menu button-এ tap করার মুহূর্তেই Telegram-এর *ভেতরে* খোলে। কোনো app store নেই, কোনো আলাদা website নেই, আর নিজে বানানোর মতো কোনো আলাদা checkout পাতাও নেই: একটি যুক্ত store-এর সাথে জুড়ে দিন — ক্রেতারা আপনার আসল checkout-এ টাকা দেবে; হাতে সাজান — order আপনার inbox-এ অনুরোধ হিসেবে আসবে। শুধু একটি tap, আর আপনার customer browse করছে।
 
 প্রতিটি plan-এ free, trial সহ। **Integrations → Telegram bot → Configure mini app**-এ একটি visual drag-and-drop composer-এ তৈরি: ১১টি block type, ৬টি theme, per-product AI chat, order CTA যা আপনার inbox-এ একজন সত্যিকারের মানুষের কাছে handoff করে।
 
@@ -24,12 +24,12 @@ production-এ storefront যেসব সাধারণ আকার নেয
 
 ## কেন এটি গুরুত্বপূর্ণ
 
-- **Customer-রা কখনো Telegram ছাড়ে না।** কোনো app install নেই, মনে রাখার মতো কোনো domain নেই, ছেড়ে দেওয়ার মতো কোনো checkout flow নেই। storefront Telegram-এর WebView-তে খোলে এবং user-এর theme, ভাষা ও login উত্তরাধিকার সূত্রে পায়।
+- **Customer-রা কখনো Telegram ছাড়ে না।** কোনো app install নেই, মনে রাখার মতো কোনো domain নেই, নিজে বানানোর মতো কোনো আলাদা checkout পাতা নেই। storefront Telegram-এর WebView-তে খোলে এবং user-এর theme, ভাষা ও login উত্তরাধিকার সূত্রে পায়।
 - **একটি chat থেকে এক tap।** আপনি bot সংযুক্ত করার মুহূর্তেই composer-এর পাশের menu button সেট হয়ে যায়; আপনি একটি storefront তৈরি করে bot-এ publish করলেই button সেটি খোলে। আপনি একটি product publish করার মুহূর্তেই label স্বয়ংক্রিয়ভাবে **"Shop"**-এ flip হয় — কোনো BotFather config প্রয়োজন নেই।
 - **একটি storefront, দুই channel।** storefront একবার তৈরি করুন আর একসাথে একটি Telegram bot *এবং* একটি Facebook Messenger Page-এ publish করুন — দুটোতেই একই page, product ও theme। **Distribute** tab থেকে প্রতিটি channel publish করুন; একটি unpublish করুন অন্যটিতে হাত না দিয়ে।
 - **AI-native product chat।** Per-product chat *আপনি* সেই product-এ attach করা document-এ scope করা — assistant অন্য product-এর তথ্য ফাঁস না করেই আত্মবিশ্বাসের সাথে "এই dress-এ return policy কী?"-এর উত্তর দিতে পারে।
 - **একজন সত্যিকারের মানুষের কাছে order handoff।** Lightweight order form (inquiry বা cart mode) একটি structured handoff হিসেবে আপনার Inbox-এ আসে, follow-up-এর জন্য customer-এর Telegram DM খোলা রাখা অবস্থায়।
-- **প্রতিটি plan-এ free।** Trial একটি ৫-page / প্রতি page-এ ২৫-block / ১০০-product-doc cap পায়; প্রতিটি paid plan cap সরিয়ে দেয়। Pricing per-org — একটি দ্বিতীয় Telegram bot যোগ করলে আপনার tier price পরিবর্তন হয় না।
+- **প্রতিটি plan-এ free।** page, প্রতি page-এ block বা product doc-এ কোনো cap নেই — কোনো plan-এই নয়, free trial সহ। Pricing per-org — একটি দ্বিতীয় Telegram bot যোগ করলে আপনার price পরিবর্তন হয় না।
 
 ## এক নজরে
 
@@ -40,7 +40,7 @@ production-এ storefront যেসব সাধারণ আকার নেয
 - **Per-integration on/off toggle** — এটি off করলে bot menu Telegram-এর `/` command picker-এ ফিরে যায়; public URL `410 Gone` ফেরত দেয় যাতে stale bookmark content ফাঁস না করে।
 - **Multilingual storefront** — আপনার storefront-এর content WhatsApp-এর সমর্থিত যেকোনো ভাষায় author করুন (ফাঁক পূরণ করতে এক-click AI translation সহ), এবং একটি built-in language switcher প্রতিটি visitor-কে নিজেরটি বেছে নিতে দেয়। Right-to-left ভাষা (Arabic, Hebrew, Persian, Urdu) সঠিকভাবে render হয়। shell-এর নিজস্ব button স্বয়ংক্রিয়ভাবে visitor-এর device ভাষা অনুসরণ করে।
 - **Built-in Help Center** — তাৎক্ষণিক প্রশ্নের জন্য একটি pinned FAQ surface, সবসময় এক tap দূরে। [নিচে দেখুন](#built-in-help-center)।
-- **কোনো payment নেই, কোনো inventory নেই, কোনো shipping নেই** — এটি একটি পরিপাটি catalog + lead-capture surface, একটি সম্পূর্ণ e-commerce stack নয়। আপনার inbox-এ একজন মানুষের সাথে এটিকে যুক্ত করুন এবং আপনার একটি সম্পূর্ণ sales loop হয়ে যাবে।
+- **Product পাওয়ার দুটি উপায়।** **হাতে সাজানো** একটি storefront একটি পরিপাটি catalog + lead-capture surface: product আপনি নিজে লেখেন, আর সেটি কোনো payment, inventory বা shipping করে না; আপনার inbox-এ একজন মানুষের সাথে এটিকে যুক্ত করুন এবং আপনার একটি সম্পূর্ণ sales loop হয়ে যাবে। **Catalog-এর সাথে জোড়া** একটি storefront আপনার যুক্ত Shopify বা WooCommerce store থেকে product নেয় এবং ক্রেতাদের আপনার আসল checkout-এ পাঠায়। [নিচে দেখুন](#catalog-linked-storefronts)।
 
 ## Customer-রা কীভাবে এটি খুঁজে পায়
 
@@ -218,11 +218,11 @@ composer থাকে **Integrations → [আপনার Telegram bot] → Conf
 - **Unlinking per-product।** একটি product card থেকে একটি doc সরালে তা আপনার KB-তে এবং এটি যেসব product-এ link করে সেগুলোতে অক্ষত থাকে। একটি doc সর্বত্র delete করতে, Knowledge page থেকে এটি delete করুন — এর সব product link স্বয়ংক্রিয়ভাবে পরিষ্কার হয়।
 - **picker থেকে inline upload ব্যবহার করলে doc default-ভাবে একটি "Showcase Products" folder-এ আসে**, কিন্তু আপনি এগুলো আপনার KB-তে যেকোনো জায়গায় সংগঠিত করতে স্বাধীন।
 
-আপনি যত product doc attach করতে পারবেন তার মোট সংখ্যায় Tier limit প্রযোজ্য ([Tier limits](#tier-limits) দেখুন)।
+আপনি যত product doc attach করতে পারবেন তার মোট সংখ্যায় কোনো cap নেই ([Tier limits](#tier-limits) দেখুন)।
 
 ## Order inquiry ও cart (ঐচ্ছিক) [#orders-and-cart]
 
-আপনি যেকোনো product card বা product grid-এ একটি **Order CTA** attach করতে পারেন। এটি সম্পূর্ণভাবে একটি structured-message handoff — **কোনো payment নেই, কোনো inventory নেই, কোনো fulfillment নেই**।
+আপনি যেকোনো product card বা product grid-এ একটি **Order CTA** attach করতে পারেন। **হাতে সাজানো** একটি storefront-এ এটি সম্পূর্ণভাবে একটি structured-message handoff — **কোনো payment নেই, কোনো inventory নেই, কোনো fulfillment নেই** — আর সেটি একজন মানুষের তুলে নেওয়ার জন্য আপনার inbox-এ আসে। **Catalog-এর সাথে জোড়া** একটি storefront-এ সেই একই CTA বদলে ক্রেতাকে আপনার store-এর আসল checkout-এ নিয়ে যেতে পারে; দেখুন [Catalog-এর সাথে জোড়া storefront](#catalog-linked-storefronts)।
 
 ### দুটি mode
 
@@ -245,6 +245,21 @@ composer থাকে **Integrations → [আপনার Telegram bot] → Conf
 - প্রতিটি customer সর্বোচ্চ **প্রতি মিনিটে ১০টি order** submit করতে পারে; প্রতিটি tenant সর্বোচ্চ প্রতি মিনিটে ১০০টি।
 - **একই হুবহু order**-এ ৬০ সেকেন্ডের মধ্যে double-tap dedup করা হয়; ৬০ সেকেন্ডের মধ্যে দুটি *ভিন্ন* order পার হয়ে যায়।
 
+## Catalog-এর সাথে জোড়া storefront [#catalog-linked-storefronts]
+
+উপরে বর্ণিত সবকিছু সেই storefront-এর জন্য যেটি আপনি হাতে সাজান: product, দাম ও প্রাপ্যতা আপনি নিজে লেখেন, আর order অনুরোধ হিসেবে আসে। একটি brochure, একটি পরিষেবার তালিকা বা একটি মেনুর জন্য এটিই এখনো সঠিক রূপ।
+
+আপনার যদি একটি **[যুক্ত Shopify বা WooCommerce store](/commerce)** থাকে, তাহলে storefront-টি বদলে **সেই catalog-এর সাথে জোড়া** দেওয়া যায়। তার product block আপনার আসল catalog থেকে আসে, দাম ও stock আপনার হাতে লেখা কিছু নয় বরং store থেকে আসে, আর তার order CTA কিনতে প্রস্তুত একজন ক্রেতাকে cart অক্ষত রেখে আপনার নিজের store-এর checkout-এ নিয়ে যেতে পারে — দেখুন [Checkout](/commerce/checkout)।
+
+| | হাতে সাজানো | Catalog-এর সাথে জোড়া |
+|---|---|---|
+| **Product** | আপনি লেখেন | যুক্ত store থেকে আসে |
+| **দাম ও প্রাপ্যতা** | আপনার রক্ষণাবেক্ষণ করা free-text ঘর | আপনার store থেকে পড়া হয় |
+| **Order CTA** | আপনার Inbox-এ inquiry handoff | আপনার store-এর checkout-এ handoff |
+| **যুক্ত store লাগে** | না | হ্যাঁ |
+
+একটি storefront একটি উৎসেই বাঁধা, আর তার উপর product block বসে গেলে সেই বাঁধন স্থির হয়ে যায় — তাই হাতে সাজানো একটি storefront নীরবে catalog-জোড়া storefront-এর মতো আচরণ করতে শুরু করতে পারে না, আর উল্টোটাও নয়। catalog-জোড়া আসার আগে তৈরি হওয়া storefront-গুলো কোনো উৎসে বাঁধা নয় এবং সেগুলো ঠিক আগের মতোই কাজ করে যায়।
+
 ## Built-in Help Center
 
 প্রতিটি storefront একটি ছোট **Help Center** নিয়ে আসে — page menu-র শেষে একটি pinned support page, যেসব customer-এর একটি FAQ প্রয়োজন বা bot-কে একটি প্রশ্ন জিজ্ঞাসা করতে চায় তাদের জন্য সবসময় এক tap দূরে। একটি নিবেদিত panel থেকে author করা (Integrations → bot card → Help Center), এটি drag-to-reorder সহ প্রায় ১০০টি পর্যন্ত entry বহন করে। দুটি entry mode: **curated** (markdown উত্তর inline render হয়, শূন্য LLM cost) ও **agent** (tap করলে একটি পূর্ব-লিখিত প্রশ্ন bot chat-এ fire হয়)। আপনি **FAQ block**-এর মাধ্যমে এই entry-গুলোর একটি subset একটি storefront page-এ inline-ও দেখাতে পারেন — product card-এর পাশে কয়েকটি মূল উত্তর রাখার জন্য উপযোগী।
@@ -264,22 +279,14 @@ composer থাকে **Integrations → [আপনার Telegram bot] → Conf
 
 ২ MB cap আপনি যে original upload করেন তার উপর, customer-রা যা দেখে তার উপর নয়। একটি 12 MP ফোনের photo বা একটি print-resolution catalog shot যেমন আছে তেমন drop করুন — in-browser cropper দৃশ্যমান quality loss ছাড়াই scale-down সামলায়।
 
-## Tier limit
+## Tier limit [#tier-limits]
 
-প্রতিটি plan-এ available, free trial সহ। composer cap প্রয়োগ করে।
-
-| Tier | Page | প্রতি page-এ block | Product doc (মোট) |
-|------|------|---------------------|--------------------|
-| **Trial** | ৫ | ২৫ | ১০০ |
-| **Starter** | সীমাহীন | সীমাহীন | সীমাহীন |
-| **Plus** | সীমাহীন | সীমাহীন | সীমাহীন |
-| **Enterprise** | সীমাহীন | সীমাহীন | সীমাহীন |
+প্রতিটি plan-এ available, free trial সহ — এবং কোনো plan-এ page, প্রতি page-এ block বা product doc-এর **কোনো cap নেই**, free trial সহ।
 
 নোট:
 
-- একটি product grid বা carousel per-page block limit-এর দিকে **১টি block হিসেবে গণ্য**, এতে যত item বা slide-ই থাকুক না কেন।
-- আপনি একটি limit-এ পৌঁছালে, composer একটি upgrade modal দেখায়।
-- **Pricing per-org, per-bot নয়।** আপনার org-এ একটি দ্বিতীয় (বা পঞ্চম) Telegram bot যোগ করলে আপনার tier price পরিবর্তন **হয় না**। প্রতিটি bot একই plan-এর ভেতরে নিজস্ব storefront পায়; cap এক org-এর অধীনে আপনার সব bot জুড়ে shared।
+- একটি product grid বা carousel composer-এর block তালিকায় **১টি block হিসেবে গণ্য**, এতে যত item বা slide-ই থাকুক না কেন।
+- **Pricing per-org, per-bot নয়।** আপনার org-এ একটি দ্বিতীয় (বা পঞ্চম) Telegram bot যোগ করলে আপনার price পরিবর্তন **হয় না**। প্রতিটি bot একই plan-এর ভেতরে নিজস্ব storefront পায়।
 
 ## Permission
 
@@ -300,11 +307,13 @@ composer-এর write action (save, publish, image upload, product doc upload, r
 - **ETag support** — shell HTTP `If-None-Match` ব্যবহার করে এবং কিছু পরিবর্তন না হলে একটি দ্রুত `304 Not Modified` পায়, mobile data usage কম রাখে।
 - **Image URL** ১৫ মিনিটের জন্য valid; shell সেগুলোর মেয়াদ শেষ হওয়ার আগে স্বয়ংক্রিয়ভাবে re-fetch করে।
 
-## এটি যা করে না
+## হাতে সাজানো storefront যা করে না
 
-- **কোনো payment নেই।** Order CTA inquiry handoff, Stripe / WhatsApp Pay / Telegram Stars checkout নয়।
-- **কোনো inventory tracking নেই।** Availability badge হলো free-text label যা আপনি manually edit করেন।
-- **কোনো shipping calculation / address validation নেই।** Delivery address free-form text হিসেবে সংগ্রহ করা হয়।
+এই সীমাবদ্ধতাগুলো সেই storefront-এর জন্য যাতে product আপনি নিজে লিখেছেন। [Catalog-এর সাথে জোড়া storefront](#catalog-linked-storefronts) প্রথম তিনটি তুলে দেয়, কারণ সে product — এবং checkout — আপনার যুক্ত store থেকেই নেয়।
+
+- **নিজস্ব কোনো payment নেই।** Order CTA inquiry handoff, Stripe / WhatsApp Pay / Telegram Stars checkout নয়। (Catalog-জোড়া storefront বদলে আপনার store-এর checkout-এ handoff করে।)
+- **কোনো inventory tracking নেই।** Availability badge হলো free-text label যা আপনি manually edit করেন। (Catalog-জোড়া storefront আপনার store থেকে আসল stock পড়ে।)
+- **কোনো shipping calculation / address validation নেই।** Delivery address free-form text হিসেবে সংগ্রহ করা হয়। (Catalog-জোড়া storefront-এ shipping আপনার নিজের store-এরই shipping, তার checkout-এ হিসাব করা।)
 - **কোনো customer account নেই।** Customer-দের তাদের Telegram user ID দিয়ে শনাক্ত করা হয়; কোনো login বা signup flow নেই।
 - **Order Inquiry / Cart Checkout-এর বাইরে কোনো form নেই।** contact block static display; rich-text block কোনো form render করে না।
 - **Help Center-এর "ask the bot" ও order path একটি ভদ্র error সহ group / channel launch প্রত্যাখ্যান করে।**

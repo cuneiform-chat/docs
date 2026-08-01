@@ -1,0 +1,101 @@
+---
+description: Deja que los compradores pregunten «¿dónde está mi pedido?» en el chat con consulta de pedidos verificada, y envía actualizaciones de envío con suscripción desde tu tienda Shopify o WooCommerce.
+---
+
+# Pedidos
+
+**«¿Dónde está mi pedido?» es una de las preguntas más frecuentes que recibe una tienda.** Con una tienda conectada, tu agent la responde — a partir del pedido real — en lugar de derivarla a una persona.
+
+La consulta de pedidos funciona igual para **Shopify** y para **WooCommerce**. Dos detalles difieren, y ambos se señalan más abajo donde importan: cuánto detalle de envío puede aportar cada plataforma y — en Shopify — qué campos de cliente tiene tu app aprobado leer.
+
+## Consulta de pedidos (WISMO)
+
+Un comprador pregunta por su pedido en el chat. El agent pide el número de pedido y un dato de contacto, comprueba ambos contra el pedido real y responde.
+
+### La verificación es el diseño entero
+
+El agent solo revela los detalles del pedido cuando el comprador aporta **ambas cosas**:
+
+1. El **número de pedido exacto**, y
+2. Un **correo o teléfono que coincida con el del pedido**
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  **Un contacto incorrecto y un pedido inexistente devuelven exactamente la misma respuesta.** El agent dice que no pudo encontrar el pedido y no muestra nada más — ni «ese pedido existe pero el correo no coincide», ni un detalle parcial, ni una pista. Es deliberado: significa que nadie puede recorrer números de pedido para descubrir cuáles son reales, ni pescar los datos de contacto de un cliente.
+</Callout>
+
+La coincidencia es tolerante con el formato, no con la identidad. Las mayúsculas del correo no importan; los teléfonos se comparan dígito a dígito, así que `+34 600 010 999` y `34600010999` son el mismo número.
+
+### Qué recibe el comprador
+
+Una consulta verificada devuelve el estado del pedido, todo el detalle de envío que la tienda pueda aportar y — cuando está disponible — un enlace al pedido en tu propia tienda.
+
+Cuánto detalle de envío vuelve depende de la plataforma. Shopify aporta transportista, seguimiento y fechas de entrega por cada envío. WooCommerce no tiene registro de envíos propio: el transportista y el seguimiento vienen de un plugin de seguimiento de envíos. Sin uno, una respuesta de WooCommerce lleva el estado del pedido pero ningún transportista ni número de seguimiento.
+
+Un comprador que ya ha verificado un pedido en la conversación también puede pedir sus **pedidos recientes** sin volver a verificar cada uno. En **WhatsApp** ese atajo está disponible de inmediato, porque WhatsApp ya ha verificado el número de teléfono del comprador y los pedidos se cotejan con ese mismo número — un comprador solo ve pedidos hechos con su propio número verificado. En los demás canales sigue bloqueado hasta que verifique un pedido en esa conversación. En cualquier caso, nunca es una puerta de entrada a los pedidos de otra persona.
+
+### Requisitos
+
+La consulta de pedidos necesita una tienda conectada cuyo permiso de pedidos esté sano. Si las credenciales de tu tienda se revocaron o la conexión dejó de estar sana, el agent deja de ofrecer la consulta de pedidos en lugar de fallar a mitad de una conversación. Comprueba el estado de la conexión en **Commerce → Shopify** o **Commerce → WooCommerce**.
+
+## Actualizaciones de estado del pedido [#order-status-updates]
+
+Después de que un comprador haya verificado un pedido en el chat, el agent puede ofrecerse a mantenerlo al día. Si acepta, recibe actualizaciones de envío en la misma conversación, en el mismo canal que ya estaba usando.
+
+Solo una puerta tiene que abrirse, y le pertenece al comprador: tiene que suscribirse, en la conversación, después de verificar su pedido. No puedes suscribir a un comprador en su nombre, y un comprador no puede suscribirse a un pedido que no ha demostrado que sea suyo.
+
+Por tu parte, los tres tipos de actualización están **activados por defecto** en cuanto conectas una tienda — no hay nada que activar primero. Puedes desactivar cualquiera de ellos por separado en la página de la tienda, dentro de **Commerce**; desactivar uno detiene esa actualización para todos los compradores, incluidos los que ya se habían suscrito.
+
+<Callout type="info">
+  Cambiar esos interruptores es una acción de administración; los Members pueden verlos pero no cambiarlos.
+</Callout>
+
+### Qué dispara una actualización
+
+Las actualizaciones se disparan con el progreso del pedido: cuando se **confirma como pagado**, cuando **sale** y cuando **cambia el estado del envío**. Por este canal nunca se envía nada con forma de marketing; existe para responder «¿dónde está mi pedido?» antes de que el comprador tenga que volver a preguntar.
+
+Las actualizaciones de WooCommerce y las de Shopify se entregan por el mismo mecanismo, así que la experiencia es idéntica venga el pedido de la tienda que venga.
+
+## Con dos tiendas conectadas
+
+Cada tienda tiene su propio agent de tienda, y la consulta de pedidos se ejecuta contra la tienda de ese agent. Un comprador que le pregunte a tu agent de tienda de Shopify por un pedido de WooCommerce no lo encontrará — las dos no se consultan juntas.
+
+Si vendes en ambas, dirige a los compradores al agent de tienda que corresponda a donde compraron, o mantén cada tienda en su propio canal para que la pregunta llegue al sitio correcto desde el principio.
+
+## Entre bastidores: los nombres de las herramientas
+
+Si miras la traza de una conversación, verás las herramientas de pedidos con los nombres `shopify_order_status`, `shopify_list_orders` y `subscribe_order_updates`.
+
+<Callout type="info">
+  **Esos nombres son históricos, no literales.** Las mismas herramientas sirven a las tiendas WooCommerce. Un comerciante que solo usa WooCommerce seguirá viendo una herramienta llamada `shopify_order_status` haciendo la consulta en WooCommerce. Nada se enruta mal — las herramientas resuelven las tiendas que realmente tienes conectadas.
+</Callout>
+
+## Solución de problemas
+
+### El agent dice que no encuentra un pedido que existe con seguridad
+
+Casi siempre es el dato de contacto. El correo o teléfono que da el comprador tiene que coincidir con el que está **en ese pedido** — no con la dirección que suele usar, ni con la de su cuenta. Pídele que revise el correo de confirmación del pedido.
+
+### El agent no ofrece la consulta de pedidos en absoluto
+
+O la conversación no es con tu **agent de tienda** (solo ese agent lleva las herramientas de comercio), o la conexión con la tienda no está sana. Comprueba el estado de la conexión en **Commerce**.
+
+### Un comprador se suscribió pero no recibe actualizaciones
+
+Revisa los interruptores de notificación de la conexión de la tienda. Están activados por defecto, pero si en algún momento se desactivó el tipo de actualización correspondiente, la suscripción del comprador por sí sola no producirá ningún mensaje.
+
+### Faltan detalles de envío en una respuesta por lo demás correcta
+
+El pedido se encontró y se verificó, pero parte del detalle de envío no se pudo leer. El agent responde con lo que tiene en lugar de hacer fallar toda la consulta. En **WooCommerce** esto suele significar que no hay ningún plugin de seguimiento de envíos instalado, así que no hay transportista ni número de seguimiento que informar.
+
+### En Shopify, el pedido se encuentra pero la verificación por teléfono falla o falta el enlace al pedido
+
+Algunos campos de cliente — el teléfono del pedido y el enlace a su página de estado — son Protected Customer Data, y Shopify los retiene hasta que tu app tenga aprobado leerlos. El agent responde con lo que sí puede leer en lugar de hacer fallar la consulta. Mientras un campo esté retenido, una verificación por teléfono no puede coincidir: pide al comprador que use el correo del pedido en su lugar.
+
+## Relacionado
+
+- [Descripción general de Commerce](/commerce) — qué te da conectar una tienda
+- [Catálogo y Conocimiento](/commerce/catalog-and-knowledge) — preguntas de producto en vez de preguntas de pedido
+- [Checkout](/commerce/checkout) — llevar a un comprador a comprar
+- [Analíticas](/commerce/analytics) — medir qué está haciendo tu agent de comercio

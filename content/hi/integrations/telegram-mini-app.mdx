@@ -1,6 +1,6 @@
 # Telegram Storefront (In-bot Mini App)
 
-**अपने Telegram bot को एक पूरे in-app storefront में बदलें।** एक polished, multipage product catalog बनाएं — photos, videos, themed pages, हर product के लिए एक AI assistant, और lightweight order-taking के साथ — जो *Telegram के अंदर* तभी खुलता है जब कोई customer आपके bot के menu button को tap करता है। कोई app store नहीं, कोई अलग website नहीं, manage करने के लिए कोई checkout नहीं। बस एक tap, और आपका customer browse कर रहा है।
+**अपने Telegram bot को एक पूरे in-app storefront में बदलें।** एक polished, multipage product catalog बनाएं — photos, videos, themed pages, हर product के लिए एक AI assistant, और lightweight order-taking के साथ — जो *Telegram के अंदर* तभी खुलता है जब कोई customer आपके bot के menu button को tap करता है। कोई app store नहीं, कोई अलग website नहीं, और ख़ुद बनाने के लिए कोई अलग checkout page भी नहीं: इसे किसी connected store से जोड़ दें — shoppers आपके असली checkout पर भुगतान करेंगे; इसे हाथ से बनाएँ — orders आपके inbox में अनुरोध के रूप में आएँगे। बस एक tap, और आपका customer browse कर रहा है।
 
 हर plan पर free, trial सहित। एक visual drag-and-drop composer में बना हुआ, **Integrations → Telegram bot → Configure mini app** पर: 11 block types, 6 themes, per-product AI chat, ऐसे order CTAs जो आपके inbox में एक असली इंसान को handoff करते हैं।
 
@@ -24,12 +24,12 @@ production में storefront कुछ आम shapes लेता है:
 
 ## यह क्यों मायने रखता है
 
-- **Customers कभी Telegram नहीं छोड़ते।** कोई app install नहीं, याद रखने के लिए कोई domain नहीं, छोड़ने के लिए कोई checkout flow नहीं। storefront Telegram के WebView में खुलता है और user की theme, language, और login को inherit करता है।
+- **Customers कभी Telegram नहीं छोड़ते।** कोई app install नहीं, याद रखने के लिए कोई domain नहीं, ख़ुद बनाने के लिए कोई अलग checkout page नहीं। storefront Telegram के WebView में खुलता है और user की theme, language, और login को inherit करता है।
 - **एक chat से एक tap।** composer के बगल वाला menu button उसी क्षण सेट हो जाता है जब आप bot connect करते हैं; जैसे ही आप एक storefront बनाकर उसे bot पर publish करते हैं, button उसे खोलने लगता है। जैसे ही आप कोई product publish करते हैं label अपने आप **"Shop"** में बदल जाता है — किसी BotFather config की ज़रूरत नहीं।
 - **एक storefront, दोनों channel।** storefront एक बार बनाएं और उसे एक Telegram bot *और* एक Facebook Messenger Page पर एक साथ publish करें — दोनों पर वही pages, products और theme। हर channel को **Distribute** tab से publish करें; एक को unpublish करें बिना दूसरे को छुए।
 - **AI-native product chat।** Per-product chat उन documents तक scoped होता है जिन्हें *आप* उस product से attach करते हैं — assistant "इस dress पर return policy क्या है?" का जवाब आत्मविश्वास से दे सकता है, बिना दूसरे products के facts leak किए।
 - **एक असली इंसान को order handoffs।** Lightweight order forms (inquiry या cart mode) आपके Inbox में एक structured handoff के रूप में आते हैं, customer का Telegram DM follow-up के लिए खुला रखते हुए।
-- **हर plan पर free।** Trial को 5-page / 25-blocks-per-page / 100-product-docs का cap मिलता है; हर paid plan caps हटा देता है। Pricing per-org है — दूसरा Telegram bot जोड़ने से आपका tier price नहीं बदलता।
+- **हर plan पर free।** pages, blocks per page या product docs पर कोई cap नहीं — किसी भी plan पर नहीं, free trial सहित। Pricing per-org है — दूसरा Telegram bot जोड़ने से आपकी price नहीं बदलती।
 
 ## एक नज़र में
 
@@ -40,7 +40,7 @@ production में storefront कुछ आम shapes लेता है:
 - **Per-integration on/off toggle** — इसे off करें और bot menu Telegram के `/` command picker पर वापस चला जाता है; public URL `410 Gone` लौटाता है ताकि पुराने bookmarks content leak न करें।
 - **Multilingual storefront** — अपने storefront के content को WhatsApp की किसी भी supported language में author करें (gaps भरने के लिए one-click AI translation के साथ), और एक built-in language switcher हर visitor को अपनी खुद की चुनने देता है। Right-to-left languages (Arabic, Hebrew, Persian, Urdu) सही render होती हैं। shell के अपने buttons अपने आप visitor की device language को follow करते हैं।
 - **Built-in Help Center** — ad-hoc सवालों के लिए एक pinned FAQ surface, हमेशा एक tap दूर। [नीचे देखें](#built-in-help-center)।
-- **No payments, no inventory, no shipping** — यह एक polished catalog + lead-capture surface है, कोई पूरा e-commerce stack नहीं। इसे अपने inbox में एक इंसान के साथ pair करें और आपके पास एक पूरा sales loop है।
+- **Products पाने के दो तरीक़े।** **हाथ से बनाया गया** storefront एक polished catalog + lead-capture surface है: products आप ख़ुद लिखते हैं, और वह न payments करता है, न inventory, न shipping; इसे अपने inbox में एक इंसान के साथ pair करें और आपके पास एक पूरा sales loop है। **Catalog से जुड़ा** storefront आपके connected Shopify या WooCommerce store से products लेता है और shoppers को आपके असली checkout पर भेजता है। [नीचे देखें](#catalog-linked-storefronts)।
 
 ## Customers इसे कैसे ढूँढते हैं
 
@@ -218,11 +218,11 @@ composer **Integrations → [your Telegram bot] → Configure mini app** पर 
 - **Unlinking per-product है।** एक product card से एक doc हटाना इसे आपके KB में और इसे link करने वाले किसी भी अन्य products पर बरकरार छोड़ देता है। किसी doc को हर जगह से delete करने के लिए, इसे Knowledge page से delete करें — इसके सभी product links अपने आप clean हो जाते हैं।
 - **Docs default रूप से एक "Showcase Products" folder में आते हैं** जब आप picker से inline upload इस्तेमाल करते हैं, लेकिन आप उन्हें अपने KB में कहीं भी organize करने के लिए स्वतंत्र हैं।
 
-आपके द्वारा attach किए जा सकने वाले product docs की कुल संख्या पर tier limits लागू होते हैं ([Tier limits](#tier-limits) देखें)।
+आपके द्वारा attach किए जा सकने वाले product docs की कुल संख्या पर कोई cap नहीं है ([Tier limits](#tier-limits) देखें)।
 
 ## Order inquiries & cart (optional) [#orders-and-cart]
 
-आप किसी भी product card या product grid पर एक **Order CTA** attach कर सकते हैं। यह विशुद्ध रूप से एक structured-message handoff है — **कोई payments नहीं, कोई inventory नहीं, कोई fulfillment नहीं।**
+आप किसी भी product card या product grid पर एक **Order CTA** attach कर सकते हैं। **हाथ से बनाए गए** storefront में यह विशुद्ध रूप से एक structured-message handoff है — **कोई payments नहीं, कोई inventory नहीं, कोई fulfillment नहीं** — और वह किसी इंसान के उठाने के लिए आपके inbox में आता है। **Catalog से जुड़े** storefront में वही CTA उसके बदले shopper को आपके store के असली checkout तक ले जा सकता है; देखें [Catalog से जुड़े storefronts](#catalog-linked-storefronts)।
 
 ### दो modes
 
@@ -245,6 +245,21 @@ composer **Integrations → [your Telegram bot] → Configure mini app** पर 
 - हर customer अधिकतम **10 orders प्रति minute** submit कर सकता है; हर tenant अधिकतम **100 प्रति minute**।
 - **बिल्कुल एक ही order** पर 60 seconds के अंदर double-taps dedup हो जाते हैं; 60 seconds के अंदर दो *अलग* orders होकर गुज़र जाते हैं।
 
+## Catalog से जुड़े storefronts [#catalog-linked-storefronts]
+
+ऊपर बताया गया सब कुछ उस storefront के लिए है जिसे आप हाथ से बनाते हैं: products, कीमतें और उपलब्धता आप ख़ुद लिखते हैं, और orders अनुरोध के रूप में आते हैं। किसी brochure, सेवाओं की सूची या menu के लिए यही अब भी सही रूप है।
+
+अगर आपके पास एक **[connected Shopify या WooCommerce store](/commerce)** है, तो storefront को उसके बदले **उस catalog से जोड़ा** जा सकता है। इसके product blocks आपके असली catalog से आते हैं, कीमतें और stock आपके हाथ से लिखे किसी विवरण के बजाय store से आते हैं, और इसके order CTAs खरीदने को तैयार shopper को उसकी cart ज्यों की त्यों रखते हुए आपके अपने store के checkout तक ले जा सकते हैं — देखें [Checkout](/commerce/checkout)।
+
+| | हाथ से बनाया गया | Catalog से जुड़ा |
+|---|---|---|
+| **Products** | आप लिखते हैं | connected store से आते हैं |
+| **कीमत और उपलब्धता** | आपके रखे free-text खाने | आपके store से पढ़े जाते हैं |
+| **Order CTA** | आपके Inbox में inquiry handoff | आपके store के checkout पर handoff |
+| **connected store चाहिए** | नहीं | हाँ |
+
+एक storefront एक ही स्रोत से बँधा होता है, और उस पर product blocks आ जाने के बाद वह बँधन तय हो जाता है — इसलिए हाथ से बना storefront चुपचाप catalog से जुड़े storefront जैसा बर्ताव करना शुरू नहीं कर सकता, और न ही उल्टा। catalog linking आने से पहले बने storefronts किसी स्रोत से बँधे नहीं हैं और ठीक पहले की तरह काम करते रहते हैं।
+
 ## Built-in Help Center
 
 हर storefront एक छोटे **Help Center** के साथ आता है — page menu के अंत में एक pinned support page, उन customers के लिए हमेशा एक tap दूर जिन्हें एक FAQ चाहिए या bot से एक सवाल पूछना है। एक dedicated panel से authored (Integrations → bot card → Help Center), यह drag-to-reorder के साथ ~100 तक entries रखता है। दो entry modes: **curated** (markdown answer inline render होता है, zero LLM cost) और **agent** (tap करने पर एक pre-written सवाल bot chat में fire होता है)। आप इनमें से entries का एक subset **FAQ block** के ज़रिए एक storefront page पर inline भी surface कर सकते हैं — product cards के बगल में कुछ key answers रखने के लिए उपयोगी।
@@ -266,20 +281,12 @@ composer **Integrations → [your Telegram bot] → Configure mini app** पर 
 
 ## Tier limits
 
-हर plan पर उपलब्ध, free trial सहित। composer caps enforce करता है।
-
-| Tier | Pages | Blocks per page | Product docs (total) |
-|------|-------|------------------|-----------------------|
-| **Trial** | 5 | 25 | 100 |
-| **Starter** | Unlimited | Unlimited | Unlimited |
-| **Plus** | Unlimited | Unlimited | Unlimited |
-| **Enterprise** | Unlimited | Unlimited | Unlimited |
+हर plan पर उपलब्ध, free trial सहित — और किसी भी plan पर pages, blocks per page या product docs की **कोई cap नहीं** है, free trial सहित।
 
 Notes:
 
-- एक product grid या carousel per-page block limit की ओर **1 block के रूप में गिना जाता है**, चाहे इसमें कितने भी items या slides हों।
-- जब आप किसी limit तक पहुँचते हैं, तो composer एक upgrade modal surface करता है।
-- **Pricing per-org है, per-bot नहीं।** आपके org में दूसरा (या पाँचवाँ) Telegram bot जोड़ना आपके tier price को **नहीं** बदलता। हर bot को उसी plan के अंदर अपना खुद का storefront मिलता है; caps आपके एक org के तहत सभी bots में shared होते हैं।
+- एक product grid या carousel composer की block सूची में **1 block के रूप में गिना जाता है**, चाहे इसमें कितने भी items या slides हों।
+- **Pricing per-org है, per-bot नहीं।** आपके org में दूसरा (या पाँचवाँ) Telegram bot जोड़ना आपकी price को **नहीं** बदलता। हर bot को उसी plan के अंदर अपना खुद का storefront मिलता है।
 
 ## Permissions
 
@@ -300,11 +307,13 @@ composer के write actions (save, publish, image upload, product doc upload, 
 - **ETag support** — shell HTTP `If-None-Match` इस्तेमाल करता है और अगर कुछ नहीं बदला तो एक fast `304 Not Modified` पाता है, mobile data usage कम रखते हुए।
 - **Image URLs** 15 minutes के लिए valid होते हैं; shell expire होने से पहले अपने आप re-fetch करता है।
 
-## यह क्या नहीं करता
+## हाथ से बनाया गया storefront क्या नहीं करता
 
-- **No payments।** Order CTAs inquiry handoffs हैं, Stripe / WhatsApp Pay / Telegram Stars checkouts नहीं।
-- **No inventory tracking।** Availability badges free-text labels हैं जिन्हें आप manually edit करते हैं।
-- **No shipping calculations / address validation।** delivery address free-form text के रूप में collect होता है।
+ये सीमाएँ उस storefront पर लागू होती हैं जिसमें products आपने ख़ुद लिखे हैं। [Catalog से जुड़ा storefront](#catalog-linked-storefronts) पहली तीन हटा देता है, क्योंकि वह products — और checkout — आपके connected store से लेता है।
+
+- **अपना कोई payment नहीं।** Order CTAs inquiry handoffs हैं, Stripe / WhatsApp Pay / Telegram Stars checkouts नहीं। (Catalog से जुड़ा storefront उसके बदले आपके store के checkout पर handoff करता है।)
+- **No inventory tracking।** Availability badges free-text labels हैं जिन्हें आप manually edit करते हैं। (Catalog से जुड़ा storefront आपके store से असली stock पढ़ता है।)
+- **No shipping calculations / address validation।** delivery address free-form text के रूप में collect होता है। (Catalog से जुड़े storefront में shipping आपके अपने store की ही shipping है, जो उसके checkout पर गिनी जाती है।)
 - **No customer accounts।** Customers अपने Telegram user ID से identified होते हैं; कोई login या signup flow नहीं है।
 - **Order Inquiry / Cart Checkout से परे कोई forms नहीं।** contact block static display है; rich-text block forms render नहीं करता।
 - **Help Center "ask the bot" और order paths group / channel launches को अस्वीकार करते हैं** एक विनम्र error के साथ।

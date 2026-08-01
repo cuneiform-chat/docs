@@ -1,0 +1,101 @@
+---
+description: Let shoppers ask "where is my order?" in chat with verified order lookup, and send opt-in shipping updates from your Shopify or WooCommerce store.
+---
+
+# Orders
+
+**"Where is my order?" is one of the most common questions a store gets.** With a store connected, your agent answers it — from the real order — instead of routing it to a person.
+
+Order lookup works the same way for **Shopify** and **WooCommerce**. Two details differ, both called out where they matter below: how much shipping detail each platform can supply, and — on Shopify — which customer fields your app is approved to read.
+
+## Order lookup (WISMO)
+
+A shopper asks about their order in chat. The agent asks for the order number and a contact detail, checks both against the real order, and answers.
+
+### Verification is the whole design
+
+The agent will only reveal order details when the shopper supplies **both**:
+
+1. The **exact order number**, and
+2. An **email or phone number that matches the one on that order**
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  **A wrong contact and a non-existent order return exactly the same answer.** The agent says it couldn't find the order and shows nothing else — no "that order exists but the email doesn't match", no partial detail, no hint. That's deliberate: it means nobody can walk order numbers to discover which ones are real, or fish for a customer's contact details.
+</Callout>
+
+Matching is forgiving about formatting, not about identity. Email case doesn't matter; phone numbers are compared digit by digit, so `+1 (555) 010-9999` and `15550109999` are the same number.
+
+### What the shopper gets back
+
+A verified lookup returns the order's status, whatever fulfillment detail the store can supply, and — where available — a link to the order on your own store.
+
+How much shipping detail comes back depends on the platform. Shopify supplies carrier, tracking, and delivery dates per fulfillment. WooCommerce has no built-in fulfillment record: carrier and tracking come from a shipment-tracking plugin. Without one, a WooCommerce answer carries the order's status but no carrier or tracking number.
+
+A shopper who has already verified an order in the conversation can also ask for their **recent orders** without re-verifying each one. On **WhatsApp** that shortcut is available immediately, because WhatsApp has already verified the shopper's phone number and orders are matched against that same number — a shopper only ever sees orders placed under their own verified number. On every other channel it stays locked until they verify an order in that conversation. Either way it is never a way in to someone else's orders.
+
+### Requirements
+
+Order lookup needs a connected store whose order permission is healthy. If your store's credentials were revoked or the connection went unhealthy, the agent stops offering order lookup rather than failing halfway through a conversation. Check the connection status on **Commerce → Shopify** or **Commerce → WooCommerce**.
+
+## Order-status updates [#order-status-updates]
+
+After a shopper has verified an order in chat, the agent can offer to keep them posted. If they accept, they get shipping updates pushed into the same conversation, on the same channel they were already using.
+
+Only one gate has to open, and it belongs to the shopper: they have to opt in, in the conversation, after verifying their order. You cannot subscribe a shopper on their behalf, and a shopper cannot subscribe to an order they haven't proven is theirs.
+
+On your side, the three update types are **on by default** once a store is connected — there's nothing to switch on first. You can turn any of them off individually on the store's page in **Commerce**; switching one off stops that update for every shopper, including ones who already opted in.
+
+<Callout type="info">
+  Changing those toggles is an admin action; Members can see them but can't change them.
+</Callout>
+
+### What triggers an update
+
+Updates fire on order progress: when the order is **confirmed as paid**, when it **ships**, and when the **shipment's status changes**. Nothing marketing-shaped is ever sent through this channel; it exists to answer "where is my order?" before the shopper has to ask again.
+
+WooCommerce and Shopify updates are delivered through the same mechanism, so the experience is identical whichever store the order came from.
+
+## With two stores connected
+
+Each store has its own store agent, and order lookup runs against that agent's own store. A shopper asking your Shopify store agent about a WooCommerce order won't be found — the two are not searched together.
+
+If you sell across both, route shoppers to the store agent that matches where they bought, or keep each store on its own channel so the question lands in the right place to begin with.
+
+## Behind the scenes: tool names
+
+If you look at a conversation trace, you'll see the order tools named `shopify_order_status`, `shopify_list_orders`, and `subscribe_order_updates`.
+
+<Callout type="info">
+  **Those names are historical, not literal.** The same tools serve WooCommerce stores. A WooCommerce-only merchant will still see a tool called `shopify_order_status` doing the WooCommerce lookup. Nothing is misrouted — the tools resolve whichever stores you actually have connected.
+</Callout>
+
+## Troubleshooting
+
+### The agent says it can't find an order that definitely exists
+
+Almost always the contact detail. The email or phone the shopper is giving has to match the one **on that order** — not the address they usually use, and not the one on their account. Ask them to check the order confirmation email.
+
+### The agent won't offer order lookup at all
+
+Either the conversation isn't with your **store agent** (only that agent carries the commerce tools), or the store connection is unhealthy. Check the connection status under **Commerce**.
+
+### A shopper opted in but gets no updates
+
+Check the store connection's notification toggles. They're on by default, but if the matching update type was switched off at some point, the shopper's opt-in alone won't produce a message.
+
+### Shipping details are missing from an otherwise correct answer
+
+The order was found and verified, but part of the fulfillment detail wasn't readable. The agent answers with what it has rather than failing the whole lookup. On **WooCommerce** this usually means no shipment-tracking plugin is installed, so there is no carrier or tracking number to report.
+
+### On Shopify, the order is found but phone verification fails or the order link is missing
+
+Some customer fields — the phone number on the order, and the order's status page link — are Protected Customer Data, and Shopify withholds them until your app is approved to read them. The agent answers with what it can read rather than failing the lookup. While a field is withheld, a phone-based verification can't match: ask the shopper to use the email on the order instead.
+
+## Related
+
+- [Commerce overview](/commerce) — what connecting a store gives you
+- [Catalog & Knowledge](/commerce/catalog-and-knowledge) — product questions rather than order questions
+- [Checkout](/commerce/checkout) — handing a shopper off to buy
+- [Analytics](/commerce/analytics) — measuring what your commerce agent is doing
