@@ -30,28 +30,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Fill missing translations
-        run: node scripts/fill-missing-translations.mjs
-
+      # `npm run build` runs the full pipeline via package.json hooks:
+      #   prebuild  -> scripts/fill-missing-translations.mjs
+      #   build     -> next build (static export to ./out)
+      #   postbuild -> pagefind (site + one leg per ACTIVE locale)
+      #                next-sitemap
+      #                scripts/generate-legacy-redirects.mjs
+      # Do NOT re-declare those steps here. This workflow used to duplicate the
+      # pagefind + next-sitemap legs "for safety", which made it an untracked
+      # extra copy of the locale list; it drifted (kept the disabled `ru`,
+      # missed the active `bn`) and pagefind hard-failed on the unbuilt out/ru
+      # directory, breaking the deploy. package.json's postbuild is the single
+      # source of truth for the per-locale legs.
       - name: Build
         run: npm run build
-
-      # Note: pagefind + next-sitemap already run via package.json `postbuild`
-      # hook during `npm run build` above. The separate steps below are kept
-      # idempotent for safety but must not reference disabled locales.
-      # Active locales: en, es, pt, fr, ru. Disabled: bn, hi, th. See
-      # .claude/references/features/admin-panel-i18n.md.
-      - name: Generate search indexes (redundant with postbuild, kept for safety)
-        run: |
-          npx pagefind --site out --output-path out/_pagefind
-          npx pagefind --site out/en --output-path out/en/_pagefind
-          npx pagefind --site out/es --output-path out/es/_pagefind
-          npx pagefind --site out/pt --output-path out/pt/_pagefind
-          npx pagefind --site out/fr --output-path out/fr/_pagefind
-          npx pagefind --site out/ru --output-path out/ru/_pagefind
-
-      - name: Generate sitemap
-        run: npx next-sitemap
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

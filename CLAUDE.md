@@ -43,6 +43,11 @@ content site. Claude reaches it through **five doc skills** (`/fix-public-docs`,
   soft-redirect that collapses a disabled prefix to `/en`) — **plus the per-locale `pagefind --site
   out/<locale>` legs in `package.json`'s `postbuild`. Leaving a `pagefind` leg for a locale that is no
   longer built fails the entire build** on the missing directory. Nothing enforces the mirror.
+- **`.github/workflows/deploy.yml` deliberately does NOT re-declare the pagefind / next-sitemap /
+  fill-translations steps — it only runs `npm run build`.** It used to duplicate them "for safety", which
+  made it an untracked EIGHTH copy of the locale list; it drifted (kept the disabled `ru`, missed the
+  active `bn`) and hard-failed the deploy on the unbuilt `out/ru` (run #96, Aug 2026). Adding a locale leg
+  back to the workflow re-creates that failure mode — `postbuild` owns the per-locale legs.
 - **`pt` = Brazilian Portuguese (pt-BR), never European** — applies to `_meta.ts` labels and MDX alike.
 - **Adding a language is `/gen-docs-i18n <code>`, not a manual `content/<code>/` copy** — it wires the
   `_meta.ts` nav, `app/[lang]` config, and locale-switcher together.
