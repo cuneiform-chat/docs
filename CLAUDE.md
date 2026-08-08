@@ -31,9 +31,12 @@ content site. Claude reaches it through **five doc skills** (`/fix-public-docs`,
 ## Gotchas
 
 - **`content/en/` is the source of truth; other locales auto-fill from it.** `fill-missing-translations.mjs`
-  copies any file missing from a non-`en` locale out of `content/en/`, prepending a `<TranslationNotice />`
-  banner to MDX. So a new English page appears (untranslated) in every locale on the next build — translate
-  it, don't assume it's absent.
+  copies any file missing from a non-`en` locale out of `content/en/`, prepending an **MDX-comment**
+  banner to MDX (`NOTICE_BANNER` in that script — `{/* ⚠️ This page has not been translated yet. … */}`;
+  there is no `<TranslationNotice />` component, and that name appears nowhere under `content/`). So a new
+  English page appears (untranslated) in every locale on the next build — translate it, don't assume it's
+  absent. **Detect an autofilled stub by the banner TEXT (`has not been translated`), never by a component
+  name.**
 - **Active locales: `en` (source) `es` `pt` `fr` `bn`. DISABLED: `th` (long-term) + `ru` `hi` `ar` (RTL) —
   TEMPORARILY, Jul 2026.** Their `content/<code>/` dirs stay on disk but are not built, routed or synced;
   never generate/sync them (mirrors the admin-panel locale policy — the two repos must change together).

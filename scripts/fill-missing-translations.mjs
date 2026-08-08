@@ -3,7 +3,7 @@
  *
  * For each non-en locale, scans content/en/ and copies any missing files
  * to content/{locale}/ so Nextra can generate all locale pages.
- * MDX files get a <TranslationNotice /> banner prepended.
+ * MDX files get the `NOTICE_BANNER` MDX comment prepended (not a component).
  * _meta.ts files are copied as-is (English nav titles as fallback).
  */
 
