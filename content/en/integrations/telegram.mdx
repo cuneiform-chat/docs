@@ -12,6 +12,7 @@ Telegram integration provides:
 - One-tap emoji reactions with sentiment classification
 - Built-in slash commands (`/start`, `/help`, `/reset`, `/new`)
 - Direct messages and group chats (per-user sessions in groups)
+- [Document attachments](/integrations/document-attachments) — send a file and ask about it (off by default, paid plans)
 - A built-in [in-bot Storefront](/integrations/telegram-mini-app) — multipage product catalog, per-product AI chat, and lightweight order-taking, all inside Telegram (free on every plan)
 - Optional Telegram Premium co-pilot for Premium users (separate integration)
 - Saba on Telegram for operators (separate integration)
@@ -70,6 +71,12 @@ The bot's reply lands within milliseconds and grows in place as your agent think
 ### Voice messages
 
 Voice notes sent to the bot are transcribed via Whisper and answered as if they'd been typed. Language is auto-detected from the conversation, so short clips in any language stay accurate. Caps at 2 minutes per note. Available on every plan, including the free trial.
+
+### Document attachments
+
+Someone can send a file to the bot and ask about it. **Send an image as a *file*, not as a photo** — a photo sent the usual way isn't read, because Telegram delivers it as a set of resized previews with no filename. One document per message.
+
+This is **off by default** on Telegram: an admin switches on **Allow document attachments** on the integration card, and images or scans also need **Premium parsing for complex documents**. See [Document Attachments](/integrations/document-attachments) for supported types, limits and setup.
 
 ### MarkdownV2 formatting
 

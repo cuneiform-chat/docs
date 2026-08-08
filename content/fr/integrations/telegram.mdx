@@ -12,6 +12,7 @@ L'intégration Telegram offre :
 - Réactions par emoji en un clic avec classification de sentiment
 - Slash commands intégrés (`/start`, `/help`, `/reset`, `/new`)
 - Messages directs et chats de groupe (sessions par utilisateur dans les groupes)
+- [Pièces jointes](/integrations/document-attachments) — envoyez un fichier et posez des questions à son sujet (désactivé par défaut, plans payants)
 - Une [Boutique intégrée](/integrations/telegram-mini-app) — catalogue produits multipage, chat IA par produit et prise de commande légère, le tout dans Telegram (gratuit sur tous les plans)
 - Co-pilot Telegram Premium optionnel pour les utilisateurs Premium (intégration distincte)
 - Saba sur Telegram pour les opérateurs (intégration distincte)
@@ -71,6 +72,12 @@ La réponse du bot apparaît en quelques millisecondes et grandit sur place pend
 ### Messages vocaux
 
 Les notes vocales envoyées au bot sont transcrites via Whisper et traitées comme si elles avaient été tapées. La langue est détectée automatiquement à partir de la conversation, de sorte que les courts clips dans n'importe quelle langue restent précis. Plafond de 2 minutes par note. Disponible sur tous les plans, y compris le trial gratuit.
+
+### Pièces jointes
+
+Quelqu'un peut envoyer un fichier au bot et poser des questions à son sujet. **Envoyez une image en tant que *fichier*, pas en tant que photo** — une photo envoyée normalement n'est pas lue, car Telegram la transmet sous forme d'aperçus redimensionnés, sans nom de fichier. Un document par message.
+
+Sur Telegram, c'est **désactivé par défaut** : un administrateur active **Autoriser les pièces jointes** sur la carte d'intégration, et les images ou les scans nécessitent en plus l'**Analyse premium des documents complexes**. Voir [Pièces Jointes de Documents](/integrations/document-attachments) pour les types pris en charge, les limites et la configuration.
 
 ### Mise en forme MarkdownV2
 

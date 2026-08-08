@@ -7,7 +7,7 @@ Google Workspace-এর মধ্যে নির্বিঘ্ন যোগা
 Google Chat integration প্রদান করে:
 - আপনার bot-এর সাথে সরাসরি messaging
 - @mention trigger সহ Google Workspace Spaces support
-- **Document Q&A** — একটি file আপলোড করুন এবং bot-কে সে সম্পর্কে জিজ্ঞাসা করুন (paid plan)
+- **Document Q&A** — একটি file আপলোড করুন এবং bot-কে সে সম্পর্কে জিজ্ঞাসা করুন (paid plan); দেখুন [নথি সংযুক্তি](/integrations/document-attachments)
 - **Space Knowledge Base** — Space-গুলো তাদের মধ্যে শেয়ার করা প্রতিটি document মনে রাখে এবং পুরো সংগ্রহ থেকে উত্তর দেয়
 - **Cited answer** — bot যে document বা source থেকে উত্তর দিয়েছে তার নাম উল্লেখ করে
 - Space-level agent routing — বিভিন্ন Space-এ বিভিন্ন agent নির্ধারণ
@@ -179,7 +179,7 @@ Bot text-এ **reply** করে — এটি image, interactive button, বা
 
 ## Working with Documents
 
-Paid plan-এ team সদস্যরা একটি document আপলোড করে bot-কে সে সম্পর্কে জিজ্ঞাসা করতে পারে — DM-এ বা Space-এ।
+Paid plan-এ team সদস্যরা একটি document আপলোড করে bot-কে সে সম্পর্কে জিজ্ঞাসা করতে পারে — DM-এ বা Space-এ। একই সুবিধা WhatsApp, Slack, Discord, Telegram এবং Meta (Facebook)-এও আছে; সাধারণ আচরণ [নথি সংযুক্তি](/integrations/document-attachments) পৃষ্ঠায় আছে, আর এই অংশে কেবল Google Chat-এর নিজস্ব বিষয়গুলো আছে।
 
 ### Attach and Ask
 
@@ -187,15 +187,15 @@ Paid plan-এ team সদস্যরা একটি document আপলোড �
 2. Bot document পড়ে এবং সেখান থেকে উত্তর দেয়
 3. Follow-up প্রশ্ন করতে থাকুন — document conversation-এর জন্য active থাকে, পুনরায় attach করার প্রয়োজন নেই
 
-**সমর্থিত file type:** PDF, DOCX, PPTX, TXT, এবং Markdown।
+**সমর্থিত file type:** PDF, DOCX, PPTX, TXT, Markdown, PNG এবং JPEG।
 
 <Callout type="info">
-  Spreadsheet/CSV, image, audio, এবং video সমর্থিত নয়। Google Drive link প্রক্রিয়া করা যায় না — file সরাসরি আপলোড করুন।
+  ছবি (PNG, JPEG) এবং scan করা PDF পৃষ্ঠার লেখা পড়ার জন্য প্রক্রিয়া করা হয়, এবং কেবল তখনই যখন একজন admin integration-এ **premium parsing** চালু করে রেখেছেন। Spreadsheet/CSV, audio, এবং video সমর্থিত নয়। Google Drive link প্রক্রিয়া করা যায় না — file সরাসরি আপলোড করুন।
 </Callout>
 
 **File size সীমা:** Starter-এ ১০ MB, Plus-এ ৫০ MB এবং Enterprise-এ ১০০ MB পর্যন্ত।
 
-**প্রতি message একটি document:** আপনি একসাথে একাধিক file attach করলে, bot প্রথমটি ব্যবহার করে এবং বাকিগুলো একটি একটি করে পাঠাতে বলে।
+**Google Chat-এ একবারে একটি document:** আপনি একসাথে একাধিক file attach করলে, bot প্রথমটি ব্যবহার করে এবং বাকিগুলো একটি একটি করে পাঠাতে বলে। বাকি পাঁচটি channel-এ প্রতি conversation-এ একাধিক file active থাকে।
 
 ### Cited Answers
 
@@ -314,13 +314,14 @@ Link ১০ মিনিটের জন্য বৈধ। একটি নত�
 ### আপলোড করা Document খালি ফিরে এসেছে
 
 1. Scan করা বা image-only PDF প্রায়ই standard parser পড়তে পারে না — একজন admin-কে Google Chat integration-এ **premium parsing** চালু করতে বলুন
-2. File type সমর্থিত কিনা নিশ্চিত করুন (PDF, DOCX, PPTX, TXT, Markdown) — spreadsheet/CSV, image, এবং Drive link নয়
-3. File আপনার plan-এর size সীমার মধ্যে আছে কিনা পরীক্ষা করুন (Starter ১০ MB, Plus ৫০ MB, Enterprise ১০০ MB)
+2. কোনো ছবি খালি ফিরে এসেছে, বা bot তার বদলে একটি document চেয়েছে — ছবি কেবল **premium parsing** চালু থাকলেই পড়া হয়, এবং তখনও শুধু পৃষ্ঠার লেখাটুকু
+3. File type সমর্থিত কিনা নিশ্চিত করুন (PDF, DOCX, PPTX, TXT, Markdown, PNG, JPEG) — spreadsheet/CSV এবং Drive link নয়
+4. File আপনার plan-এর size সীমার মধ্যে আছে কিনা পরীক্ষা করুন (Starter ১০ MB, Plus ৫০ MB, Enterprise ১০০ MB)
 
 ### Document আপলোড করা যাচ্ছে না
 
 1. Document attachment একটি paid-plan বৈশিষ্ট্য — এগুলো free trial-এ উপলব্ধ নয়
-2. একজন admin Google Chat integration card-এ "Allow document attachments" চালু আছে কিনা নিশ্চিত করতে পারেন
+2. একজন admin Google Chat integration card-এ **নথি সংযুক্তির অনুমতি দিন** চালু আছে কিনা নিশ্চিত করতে পারেন
 
 ## নিরাপত্তা
 

@@ -12,6 +12,7 @@ Telegram integration প্রদান করে:
 - Sentiment classification সহ এক-ট্যাপে emoji reaction
 - বিল্ট-ইন slash command (`/start`, `/help`, `/reset`, `/new`)
 - Direct message ও group chat (group-এ per-user session)
+- [নথি সংযুক্তি](/integrations/document-attachments) — একটি file পাঠিয়ে সে সম্পর্কে জিজ্ঞাসা করুন (ডিফল্টে বন্ধ, paid plan)
 - একটি বিল্ট-ইন [in-bot Storefront](/integrations/telegram-mini-app) — multipage product catalog, per-product AI chat, এবং হালকা order-taking, সবই Telegram-এর ভেতরে (প্রতিটি plan-এ ফ্রি)
 - Premium user-দের জন্য ঐচ্ছিক Telegram Premium co-pilot (আলাদা integration)
 - অপারেটরদের জন্য Saba on Telegram (আলাদা integration)
@@ -70,6 +71,12 @@ Bot-এর reply মিলিসেকেন্ডের মধ্যে পৌ�
 ### Voice message
 
 Bot-এ পাঠানো voice note Whisper দিয়ে transcribe হয় এবং টাইপ করা হলে যেভাবে উত্তর দেওয়া হতো সেভাবেই উত্তর দেওয়া হয়। Conversation থেকে ভাষা স্বয়ংক্রিয়ভাবে শনাক্ত হয়, তাই যেকোনো ভাষার ছোট ক্লিপও সঠিক থাকে। প্রতি note-এ সর্বোচ্চ ২ মিনিট। ফ্রি ট্রায়াল সহ প্রতিটি plan-এ উপলব্ধ।
+
+### নথি সংযুক্তি
+
+কেউ bot-এ একটি file পাঠিয়ে সে সম্পর্কে জিজ্ঞাসা করতে পারেন। **ছবি *file হিসেবে* পাঠান, photo হিসেবে নয়** — স্বাভাবিকভাবে পাঠানো photo পড়া হয় না, কারণ Telegram সেটি নাম ছাড়া কয়েকটি resize করা preview হিসেবে পাঠায়। প্রতি message-এ একটি document।
+
+Telegram-এ এটি **ডিফল্টে বন্ধ**: একজন admin integration card-এ **নথি সংযুক্তির অনুমতি দিন** চালু করেন, আর ছবি বা scan-এর জন্য **জটিল নথির জন্য প্রিমিয়াম পার্সিং**-ও লাগে। সমর্থিত type, সীমা ও setup-এর জন্য [নথি সংযুক্তি](/integrations/document-attachments) দেখুন।
 
 ### MarkdownV2 formatting
 

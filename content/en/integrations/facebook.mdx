@@ -17,6 +17,7 @@ Meta integration provides:
 - Automatic message splitting for long responses
 - 24-hour messaging window compliance
 - Conversation memory within sessions
+- [Document attachments](/integrations/document-attachments) — customers can send a file and ask about it (off by default, paid plans)
 
 ## Prerequisites
 
@@ -90,6 +91,12 @@ Facebook's policy allows responses within 24 hours of the last user message. You
 <Callout type="warning">
   Users must message your Page first — you cannot send unsolicited messages. If more than 24 hours pass since their last message, the bot cannot reply until the user messages again.
 </Callout>
+
+### Document Attachments
+
+Customers can send a file or a photo in Messenger and ask your agent about it. Files are recognised **by their file extension**, so one with an unusual or missing extension isn't read and the bot replies as it does today.
+
+This is **off by default** on Messenger: an admin switches on **Allow document attachments** on the Page's integration card, and photos or scans also need **Premium parsing for complex documents**. See [Document Attachments](/integrations/document-attachments) for supported types, limits and setup.
 
 ## Managing Pages
 

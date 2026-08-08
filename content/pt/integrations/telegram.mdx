@@ -12,6 +12,7 @@ A integração com Telegram oferece:
 - Reações com emoji em um toque com classificação de sentimento
 - Slash commands integrados (`/start`, `/help`, `/reset`, `/new`)
 - Mensagens diretas e chats em grupo (sessões por usuário em grupos)
+- [Anexos de documentos](/integrations/document-attachments) — envie um arquivo e pergunte sobre ele (desativado por padrão, planos pagos)
 - Uma [Loja integrada ao bot](/integrations/telegram-mini-app) — catálogo de produtos com várias páginas, chat de IA por produto e captação leve de pedidos, tudo dentro do Telegram (gratuita em todos os planos)
 - Co-pilot opcional do Telegram Premium para usuários Premium (integração separada)
 - Saba no Telegram para operadores (integração separada)
@@ -71,6 +72,12 @@ A resposta do bot aparece em milissegundos e cresce no lugar enquanto seu agent 
 ### Mensagens de voz
 
 As notas de voz enviadas ao bot são transcritas via Whisper e respondidas como se tivessem sido digitadas. O idioma é detectado automaticamente a partir da conversa, então clipes curtos em qualquer idioma continuam precisos. Limite de 2 minutos por nota. Disponível em todos os planos, incluindo o trial gratuito.
+
+### Anexos de documentos
+
+Alguém pode enviar um arquivo ao bot e perguntar sobre ele. **Envie uma imagem como *arquivo*, não como foto** — uma foto enviada do jeito normal não é lida, porque o Telegram a entrega como um conjunto de pré-visualizações redimensionadas e sem nome de arquivo. Um documento por mensagem.
+
+No Telegram isso vem **desativado por padrão**: um admin ativa **Permitir anexos de documentos** no card da integração, e imagens ou digitalizações precisam também do **Processamento premium para documentos complexos**. Veja [Anexos de Documentos](/integrations/document-attachments) para os tipos suportados, os limites e a configuração.
 
 ### Formatação MarkdownV2
 

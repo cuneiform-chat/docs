@@ -7,7 +7,7 @@ Connect your agent to Google Chat for seamless communication within Google Works
 Google Chat integration provides:
 - Direct messaging with your bot
 - Google Workspace Spaces support with @mention triggers
-- **Document Q&A** — upload a file and ask the bot about it (paid plans)
+- **Document Q&A** — upload a file and ask the bot about it (paid plans); see [Document Attachments](/integrations/document-attachments)
 - **Space Knowledge Base** — Spaces remember every document shared in them and answer from the whole collection
 - **Cited answers** — the bot names the document or source it answered from
 - Space-level agent routing — assign different agents to different Spaces
@@ -179,7 +179,7 @@ The bot **replies** in text — it doesn't send images, interactive buttons, or 
 
 ## Working with Documents
 
-On paid plans, team members can upload a document and ask the bot about it — in a DM or a Space.
+On paid plans, team members can upload a document and ask the bot about it — in a DM or a Space. The same capability is available on WhatsApp, Slack, Discord, Telegram and Meta (Facebook); [Document Attachments](/integrations/document-attachments) covers the shared behaviour, and this section covers what is specific to Google Chat.
 
 ### Attach and Ask
 
@@ -187,15 +187,15 @@ On paid plans, team members can upload a document and ask the bot about it — i
 2. The bot reads the document and answers from it
 3. Keep asking follow-up questions — the document stays active for the conversation, no re-attaching needed
 
-**Supported file types:** PDF, DOCX, PPTX, TXT, and Markdown.
+**Supported file types:** PDF, DOCX, PPTX, TXT, Markdown, PNG, and JPEG.
 
 <Callout type="info">
-  Spreadsheets/CSV, images, audio, and video are not supported. Google Drive links can't be processed — upload the file directly.
+  Images (PNG, JPEG) and scanned PDFs are read for the text on the page, and only when an admin has enabled **premium parsing** on the integration. Spreadsheets/CSV, audio, and video are not supported. Google Drive links can't be processed — upload the file directly.
 </Callout>
 
 **File size limits:** up to 10 MB on Starter, 50 MB on Plus, and 100 MB on Enterprise.
 
-**One document per message:** if you attach several files at once, the bot uses the first and asks you to send the rest one at a time.
+**One document at a time on Google Chat:** if you attach several files at once, the bot uses the first and asks you to send the rest one at a time. On the other five channels several files stay active per conversation.
 
 ### Cited Answers
 
@@ -314,8 +314,9 @@ A Space manager needs to run `@Cuneiform Chat /connect` again to re-authorize. T
 ### Uploaded Document Came Back Empty
 
 1. Scanned or image-only PDFs often can't be read by the standard parser — ask an admin to enable **premium parsing** on the Google Chat integration
-2. Confirm the file type is supported (PDF, DOCX, PPTX, TXT, Markdown) — spreadsheets/CSV, images, and Drive links are not
-3. Check the file is within your plan's size limit (10 MB Starter, 50 MB Plus, 100 MB Enterprise)
+2. An image came back empty, or the bot asked for a document instead — images are read only when **premium parsing** is enabled, and then only for the text on the page
+3. Confirm the file type is supported (PDF, DOCX, PPTX, TXT, Markdown, PNG, JPEG) — spreadsheets/CSV and Drive links are not
+4. Check the file is within your plan's size limit (10 MB Starter, 50 MB Plus, 100 MB Enterprise)
 
 ### Can't Upload Documents
 

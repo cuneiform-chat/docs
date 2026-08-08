@@ -11,6 +11,7 @@ L'intégration Discord offre :
 - Réponses spécifiques par canal
 - Mise en forme par embeds enrichis
 - DMs en mode texte facultatifs (pas besoin de préfixe de commande)
+- [Pièces jointes](/integrations/document-attachments) — joignez un fichier et posez des questions à son sujet (désactivé par défaut, plans payants)
 
 ## Prérequis
 
@@ -126,6 +127,12 @@ Le bot peut répondre dans les threads, gardant les conversations bien organisé
 <Callout type="important">
   Fournissez un Guild ID lors de la configuration pour disposer instantanément des slash commands. Vous pourrez ajouter d'autres serveurs plus tard.
 </Callout>
+
+### Pièces Jointes
+
+Quelqu'un peut joindre un fichier à un message et interroger votre agent à son sujet. **Chaque fichier joint à un message est lu**, pas seulement le premier. Un message ne contenant qu'un sticker n'a rien à lire : le bot répond alors comme il le fait aujourd'hui.
+
+Sur Discord, c'est **désactivé par défaut** : un administrateur active **Autoriser les pièces jointes** sur la carte d'intégration. Voir [Pièces Jointes de Documents](/integrations/document-attachments) pour les types pris en charge, les limites et la configuration.
 
 ## Gérer votre Bot
 
