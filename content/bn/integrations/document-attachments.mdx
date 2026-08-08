@@ -1,0 +1,91 @@
+---
+description: আপনার গ্রাহকরা chat-এ একটি PDF, document বা image পাঠিয়ে তার ভেতর থেকে উত্তর পেতে পারেন — Google Chat, WhatsApp, Slack, Discord, Telegram এবং Meta (Facebook)-এ।
+---
+
+# নথি সংযুক্তি
+
+আপনার গ্রাহকরা সরাসরি chat-এ একটি file পাঠাতে পারেন — একটি কোটেশন, একটি চুক্তি, একটি ইনভয়েস, একটি scan করা ফর্ম — এবং সেটি নিয়ে আপনার agent-কে প্রশ্ন করতে পারেন। Agent file-টি পড়ে এবং তার ভেতর থেকেই উত্তর দেয়, কাউকে conversation ছেড়ে কোথাও যেতে হয় না।
+
+এটি ছয়টি channel-এ কাজ করে, এবং একজন admin প্রতিটি channel-এ আলাদাভাবে এটি চালু করেন।
+
+import { Callout } from 'nextra/components'
+
+## এটি কীভাবে কাজ করে
+
+1. **কেউ chat-এ একটি file পাঠান** — প্রশ্নসহ বা প্রশ্ন ছাড়াই
+2. **Agent সেটি load করে** এবং একটি সংক্ষিপ্ত reply দিয়ে নিশ্চিত করে
+3. **তারা সেটি নিয়ে প্রশ্ন করেন** — উত্তর ওই file থেকেই আসে
+4. **Follow-up প্রশ্নে আবার attach করার দরকার নেই** — file-টি বাকি conversation জুড়ে active থাকে
+
+Attach করা file শুধু ওই conversation-এর জন্যই ব্যবহৃত হয় এবং পরে স্বয়ংক্রিয়ভাবে মুছে যায়। এটি আপনার knowledge base-এ যুক্ত হয় না এবং আপনার document quota-এর সাথে গণনাও হয় না। Google Chat-এর Space চাইলে শেয়ার করা file পুরো Space-এর জন্য রাখতে পারে — সেটি একটি আলাদা বৈশিষ্ট্য, যা [Google Chat পৃষ্ঠায়](/integrations/google-chat#space-knowledge-base) বর্ণনা করা আছে।
+
+## সমর্থিত File Type
+
+| File type | মন্তব্য |
+|-----------|---------|
+| **PDF** | Text-ভিত্তিক PDF সরাসরি পড়া হয়; scan করাগুলোর জন্য premium parsing লাগে |
+| **Word** (`.docx`) | |
+| **PowerPoint** (`.pptx`) | |
+| **Text** (`.txt`) | |
+| **Markdown** (`.md`) | |
+| **Image** (`.png`, `.jpg`) | Premium parsing প্রয়োজন |
+
+Spreadsheet ও CSV file সমর্থিত নয়, audio ও video-ও নয়। Google Drive link-ও খোলা যায় না — file সরাসরি chat-এ আপলোড করতে হবে।
+
+<Callout type="info">
+  **Image এবং scan থেকে লেখাটুকু পড়া হয়।** একটি ছবি, screenshot বা scan করা PDF-এ agent পৃষ্ঠার লেখা পড়ে — ছবিটিকে ব্যাখ্যা করে না। এর জন্য আরও উন্নত reader লাগে, তাই image ও scan কেবল তখনই পড়া হয় যখন একজন admin ওই channel-এর integration-এ **জটিল নথির জন্য প্রিমিয়াম পার্সিং** চালু করেছেন। Premium parsing billable।
+</Callout>
+
+## কোথায় কাজ করে
+
+উপরের সবকিছু প্রতিটি channel-এ একই। যে পার্থক্যগুলো আপনার গ্রাহকরা সত্যিই লক্ষ করবেন:
+
+| Channel | ডিফল্টভাবে চালু? | এখানে যা আলাদা |
+|---------|------------------|------------------|
+| [Google Chat](/integrations/google-chat) | **হ্যাঁ** | একবারে একটি file active থাকে। File chat-এ আপলোড করতে হবে — Drive link খোলা যায় না। Space চাইলে একটি স্থায়ী [Space Knowledge Base](/integrations/google-chat#space-knowledge-base)-ও রাখতে পারে। |
+| [WhatsApp](/integrations/whatsapp) | না | Document এবং ছবি দুটোই পড়া হয়; sticker নয়। WhatsApp প্রতি message-এ একটি attachment বহন করে। |
+| [Slack](/integrations/slack) | না | Slack-এ আপলোড করা file পড়া হয়; অন্য কোথাও থেকে link করা file আনা হয় না। এক message-এ একাধিক file থাকলে সবগুলোই পড়া হয়। |
+| [Discord](/integrations/discord) | না | একটি message-এ attach করা প্রতিটি file পড়া হয়। শুধু sticker আছে এমন message-এ পড়ার কিছু নেই। |
+| [Telegram](/integrations/telegram) | না | Image **file হিসেবে** পাঠান, photo হিসেবে নয় — স্বাভাবিকভাবে পাঠানো photo পড়া হয় না। প্রতি message-এ একটি document। |
+| [Meta (Facebook)](/integrations/facebook) | না | File চেনা হয় তার extension দেখে, তাই অস্বাভাবিক বা অনুপস্থিত extension-যুক্ত file পড়া হয় না। |
+
+## কীভাবে চালু করবেন
+
+নথি সংযুক্তি প্রতিটি channel-এ আলাদাভাবে, একজন admin পরিচালনা করেন:
+
+1. Sidebar-এ **Integrations** খুলুন এবং channel-টির card খুঁজুন
+2. এর **নথি সংযুক্তি** সেটিংস খুলুন
+3. **নথি সংযুক্তির অনুমতি দিন** চালু করুন
+4. আপনার গ্রাহকরা scan বা ছবি পাঠালে **জটিল নথির জন্য প্রিমিয়াম পার্সিং**-ও চালু করুন
+
+Google Chat শুরু থেকেই চালু থাকে। WhatsApp, Slack, Discord, Telegram এবং Meta (Facebook)-এ একজন admin চালু না করা পর্যন্ত এটি বন্ধ থাকে — অর্থাৎ আপনি সিদ্ধান্ত না নেওয়া পর্যন্ত আপনার গ্রাহকদের জন্য কিছুই বদলায় না।
+
+<Callout type="warning">
+  নথি সংযুক্তি paid-plan বৈশিষ্ট্য — এটি free trial-এ উপলব্ধ নয়।
+</Callout>
+
+## সীমা
+
+- **কতগুলো file active থাকে** — WhatsApp, Slack, Discord, Telegram এবং Meta (Facebook)-এ প্রতি conversation-এ সর্বোচ্চ পাঁচটি; নতুন একটি এলে সবচেয়ে পুরোনোটি বাদ পড়ে। Google Chat একবারে একটি রাখে।
+- **কতক্ষণ active থাকে** — সেগুলো নিয়ে শেষ message-এর প্রায় দুই ঘণ্টা পর মুছে ফেলা হয়। File আবার পাঠালে নতুন করে শুরু হয়।
+- **কত বড় হতে পারে** — Starter-এ ১০ MB, Plus-এ ৫০ MB এবং Enterprise-এ ১০০ MB পর্যন্ত।
+- **প্রতিদিনের একটি ন্যায্য-ব্যবহার সীমা** প্রতি channel-এ থাকে, যাতে ব্যস্ত একটি দিন অপ্রত্যাশিত parsing খরচ তৈরি না করে। সীমায় পৌঁছালে আপনার agent স্পষ্ট করে জানিয়ে দেয়, এবং পরদিন সীমাটি আবার শূন্য থেকে শুরু হয়।
+
+## File পড়া না গেলে কী হয়
+
+আপনার agent সবসময় উত্তর দেয় — চুপ করে না থেকে সহজ ভাষায় সমস্যাটি ব্যাখ্যা করে:
+
+| যা ঘটেছে | আপনার গ্রাহককে যা বলা হয় |
+|-----------|-----------------------------|
+| ওই channel-এ attachment বন্ধ আছে | এখানে এখন attachment পড়া যাচ্ছে না |
+| File type সমর্থিত নয় | কোন type-গুলো *পড়া যায়* |
+| File-এর বদলে Google Drive link শেয়ার করা হয়েছে | File সরাসরি chat-এ আপলোড করতে |
+| File plan-এর size সীমা ছাড়িয়ে গেছে | এটি অনেক বড়, এবং সীমা কত |
+| Premium parsing বন্ধ থাকা অবস্থায় ছবি বা scan এসেছে | Document-টি PDF, Word, PowerPoint, text বা Markdown হিসেবে পাঠাতে |
+| File থেকে কোনো লেখা বের করা যায়নি | এটি সেখান থেকে কোনো লেখা পড়তে পারেনি |
+| এক turn-এ যতগুলো ধরে তার চেয়ে বেশি file পাঠানো হয়েছে | কতগুলো load হয়েছে, এবং বাকিগুলো অল্প অল্প করে পাঠাতে |
+| প্রতিদিনের ন্যায্য-ব্যবহার সীমায় পৌঁছে গেছে | আজ এটি যতগুলো document পড়তে পারে সব পড়ে ফেলেছে |
+
+<Callout type="info">
+  Scan করা document থেকে খালি উত্তর আসার কারণ প্রায় সবসময়ই standard reader-এর সামনে শুধু-image একটি পৃষ্ঠা পড়া। ওই channel-এ **জটিল নথির জন্য প্রিমিয়াম পার্সিং** চালু করলেই সমস্যাটি মিটে যায়।
+</Callout>
