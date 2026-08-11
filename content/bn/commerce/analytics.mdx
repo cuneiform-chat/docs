@@ -6,7 +6,7 @@ description: Commerce Analytics ও Commerce Analyst — ক্রেতার�
 
 **Commerce Analytics সেই প্রশ্নের উত্তর দেয় যা chat-এর পরিমাণ দেখানো কোনো dashboard পারে না: এসবের কিছু কি আদৌ বিক্রি করছে?** এটি বিশেষভাবে commerce-এর পথটিই মাপে — ক্রেতারা কী খুঁজেছেন, agent কোন product সামনে এনেছে, cart-এ কী গেছে, আর তার কতটা আপনার checkout পর্যন্ত পৌঁছেছে।
 
-এটি পাবেন **Commerce → Commerce Analytics**-এ।
+এটি পাবেন **Commerce → আপনার store → Commerce Analytics**-এ।
 
 ## এটি যা ঢেকে রাখে [#what-it-covers]
 
@@ -20,14 +20,14 @@ description: Commerce Analytics ও Commerce Analyst — ক্রেতার�
 
 যেহেতু in-chat order যে কথোপকথন থেকে এসেছে তা বহন করে, "একজন ক্রেতা একটি প্রশ্ন করেছিলেন" থেকে "আপনার store-এ একটি order আছে" পর্যন্ত পথটি এমন একটি শিকল যা আপনি অনুসরণ করতে পারেন, চোখ কুঁচকে মেলানোর মতো দুটি বিচ্ছিন্ন সংখ্যা নয়।
 
-## দুটি store, একটিই পাতা [#both-stores-one-page]
+## প্রতিটি store, তার নিজের পাতা [#both-stores-one-page]
 
-Shopify ও WooCommerce একটিই analytics পাতা ভাগ করে নেয়। আপনি কোন store দেখছেন তা উপরের একটি provider selector দিয়ে বেছে নেওয়া হয়।
+Shopify ও WooCommerce প্রতিটিই তার নিজের Commerce Analytics পাতা পায়, যেখানে পৌঁছানো যায় Commerce মেনুতে সেই store-এর ভেতর দিয়ে — **Commerce → Shopify → Commerce Analytics**, **Commerce → WooCommerce → Commerce Analytics**। আপনি যে store খুলেছেন সেটিই আপনি দেখছেন, তাই পর্দার সংখ্যাগুলো সব সময় কেবল সেই store-এরই, অন্য কারও নয়।
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  **Selector-টি কেবল তখনই দেখা যায় যখন আপনার একের বেশি store যুক্ত থাকে।** একটিমাত্র store থাকলে বেছে নেওয়ার কিছু নেই, তাই পাতাটি সরাসরি সেই store-এর সংখ্যাগুলোই দেখায়। যে picker-টি নেই সেটি খুঁজতে যাবেন না।
+  **কোনো provider selector নেই।** আগের সংস্করণগুলো দুটি store-কেই একটি পাতায় একটি picker-এর পেছনে রাখত; এখন সেই বাছাইটি মেনুই বহন করে। Store বদলাতে sidebar ব্যবহার করুন — অন্য store বেছে নিয়ে তার Commerce Analytics খুলুন।
 </Callout>
 
 ## Commerce Analyst [#the-commerce-analyst]
@@ -64,7 +64,7 @@ Commerce Analytics দেখতে পারেন যে কেউ, যার �
 
 ### আমি provider selector খুঁজে পাচ্ছি না [#i-cant-find-the-provider-selector]
 
-আপনার একটিই store যুক্ত। Selector কেবল দুটি থাকলেই দেখা যায়।
+সেটি আর নেই। Commerce মেনুতে প্রতিটি store-এর নিজের এন্ট্রির নিচে তার নিজের Commerce Analytics পাতা আছে, তাই পাতার উপরের ড্রপডাউন দিয়ে নয় — sidebar থেকেই আপনি store বদলান।
 
 ### আমার store-এ order আছে কিন্তু এখানে দেখাচ্ছে না [#orders-exist-in-my-store-but-dont-appear-here]
 

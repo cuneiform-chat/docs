@@ -47,7 +47,7 @@ import { Callout } from 'nextra/components'
 
 প্রতি platform-এ একটি store, প্রতি workspace-এ — এবং **একটি Shopify store ও একটি WooCommerce store একই সময়ে যুক্ত থাকতে পারে**। একজন বিক্রেতা বাস্তবে যে multi-store সেটআপ দেখেন সেটি এটিই: পাঁচটি Shopify store নয়, বরং পাশাপাশি একটি Shopify store ও একটি Woo store।
 
-দুটিই যুক্ত থাকলে **প্রতিটি store তার নিজের store agent পায়**, আর প্রতিটি agent তার নিজের store থেকেই উত্তর দেয়। আপনার Shopify store agent-এর সাথে কথা বলা একজন ক্রেতা Shopify-এর product ও Shopify-এর order পান; WooCommerce agent উত্তর দেয় WooCommerce থেকে। দুটিকে মিলিয়ে একটিই যৌথ catalog বানানো হয় না। Analytics-ও দুটিকে আলাদা রাখে, মাঝে বদলানোর জন্য একটি provider selector সহ।
+দুটিই যুক্ত থাকলে **প্রতিটি store তার নিজের store agent পায়**, আর প্রতিটি agent তার নিজের store থেকেই উত্তর দেয়। আপনার Shopify store agent-এর সাথে কথা বলা একজন ক্রেতা Shopify-এর product ও Shopify-এর order পান; WooCommerce agent উত্তর দেয় WooCommerce থেকে। দুটিকে মিলিয়ে একটিই যৌথ catalog বানানো হয় না। Analytics-ও দুটিকে আলাদা রাখে — Commerce মেনুতে প্রতিটি store-এর নিজের এন্ট্রির নিচে তার নিজের Commerce Analytics পাতা আছে।
 
 <Callout type="warning">
   একটি store একসাথে কেবল একটি workspace-এর সাথেই যুক্ত থাকতে পারে। কেউ যদি একই store অন্য কোথাও আগেই যুক্ত করে থাকে, তাহলে যুক্ত করার চেষ্টা প্রত্যাখ্যান করা হয় এবং আগে সেখান থেকে disconnect করতে বলা হয়।
