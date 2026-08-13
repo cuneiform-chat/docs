@@ -7,7 +7,7 @@ Conecte seu agent ao Google Chat para uma comunicação fluida dentro do Google 
 A integração com Google Chat oferece:
 - Mensagens diretas com seu bot
 - Suporte a Spaces do Google Workspace com gatilhos por @menção
-- **Perguntas e respostas sobre documentos** — faça upload de um arquivo e pergunte ao bot sobre ele (planos pagos)
+- **Perguntas e respostas sobre documentos** — faça upload de um arquivo e pergunte ao bot sobre ele (planos pagos); veja [Anexos de Documentos](/integrations/document-attachments)
 - **Base de Conhecimento do Space** — os Spaces lembram de cada documento compartilhado neles e respondem a partir de toda a coleção
 - **Respostas com citação** — o bot informa o documento ou a fonte de onde tirou a resposta
 - Roteamento de agent no nível do Space — atribua agents diferentes a Spaces diferentes
@@ -179,7 +179,7 @@ O bot **responde** em texto — ele não envia imagens, botões interativos nem 
 
 ## Trabalhando com Documentos
 
-Nos planos pagos, os membros da equipe podem fazer upload de um documento e perguntar ao bot sobre ele — em uma DM ou em um Space.
+Nos planos pagos, os membros da equipe podem fazer upload de um documento e perguntar ao bot sobre ele — em uma DM ou em um Space. O mesmo recurso está disponível no WhatsApp, Slack, Discord, Telegram e Meta (Facebook); [Anexos de Documentos](/integrations/document-attachments) cobre o comportamento compartilhado, e esta seção cobre o que é específico do Google Chat.
 
 ### Anexar e Perguntar
 
@@ -187,15 +187,15 @@ Nos planos pagos, os membros da equipe podem fazer upload de um documento e perg
 2. O bot lê o documento e responde a partir dele
 3. Continue fazendo perguntas de acompanhamento — o documento permanece ativo durante a conversa, sem precisar anexar de novo
 
-**Tipos de arquivo suportados:** PDF, DOCX, PPTX, TXT e Markdown.
+**Tipos de arquivo suportados:** PDF, DOCX, PPTX, TXT, Markdown, PNG e JPEG.
 
 <Callout type="info">
-  Planilhas/CSV, imagens, áudio e vídeo não são suportados. Links do Google Drive não podem ser processados — faça upload do arquivo diretamente.
+  Imagens (PNG, JPEG) e PDFs digitalizados são lidos para extrair o texto da página, e somente quando um admin habilitou o **parsing premium** na integração. Planilhas/CSV, áudio e vídeo não são suportados. Links do Google Drive não podem ser processados — faça upload do arquivo diretamente.
 </Callout>
 
 **Limites de tamanho de arquivo:** até 10 MB no plano Starter, 50 MB no Plus e 100 MB no Enterprise.
 
-**Um documento por mensagem:** se você anexar vários arquivos de uma vez, o bot usa o primeiro e pede que você envie os demais um de cada vez.
+**Um documento por vez no Google Chat:** se você anexar vários arquivos de uma vez, o bot usa o primeiro e pede que você envie os demais um de cada vez. Nos outros cinco canais vários arquivos ficam ativos por conversa.
 
 ### Respostas com Citação
 
@@ -314,13 +314,14 @@ Um gerente do Space precisa executar `@Cuneiform Chat /connect` de novo para rea
 ### O Documento Enviado Voltou Vazio
 
 1. PDFs digitalizados ou apenas com imagens muitas vezes não conseguem ser lidos pelo parser padrão — peça a um admin para habilitar o **parsing premium** na integração do Google Chat
-2. Confirme que o tipo de arquivo é suportado (PDF, DOCX, PPTX, TXT, Markdown) — planilhas/CSV, imagens e links do Drive não são
-3. Verifique se o arquivo está dentro do limite de tamanho do seu plano (10 MB Starter, 50 MB Plus, 100 MB Enterprise)
+2. Uma imagem voltou vazia, ou o bot pediu um documento no lugar — imagens só são lidas quando o **parsing premium** está habilitado, e apenas para extrair o texto da página
+3. Confirme que o tipo de arquivo é suportado (PDF, DOCX, PPTX, TXT, Markdown, PNG, JPEG) — planilhas/CSV e links do Drive não são
+4. Verifique se o arquivo está dentro do limite de tamanho do seu plano (10 MB Starter, 50 MB Plus, 100 MB Enterprise)
 
 ### Não Consigo Enviar Documentos
 
 1. Anexos de documentos são um recurso de planos pagos — não estão disponíveis no teste gratuito
-2. Um admin pode confirmar que "Allow document attachments" está habilitado no card da integração do Google Chat
+2. Um admin pode confirmar que **Permitir anexos de documentos** está habilitado no card da integração do Google Chat
 
 ## Segurança
 

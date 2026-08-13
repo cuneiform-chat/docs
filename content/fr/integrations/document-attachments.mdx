@@ -1,0 +1,91 @@
+---
+description: Permettez à vos clients d'envoyer un PDF, un document ou une image dans le chat et d'obtenir des réponses à partir de son contenu — sur Google Chat, WhatsApp, Slack, Discord, Telegram et Meta (Facebook).
+---
+
+# Pièces Jointes de Documents
+
+Vos clients peuvent envoyer un fichier directement dans le chat — un devis, un contrat, une facture, un formulaire scanné — et interroger votre agent à son sujet. L'agent lit le fichier et répond à partir de son contenu, sans que personne ait à quitter la conversation.
+
+Cela fonctionne sur six canaux, et un administrateur l'active canal par canal.
+
+import { Callout } from 'nextra/components'
+
+## Comment Ça Marche
+
+1. **Quelqu'un envoie un fichier** dans le chat, avec ou sans question
+2. **L'agent le charge** et le confirme par une courte réponse
+3. **La personne pose ses questions** — la réponse provient de ce fichier
+4. **Les questions de suivi ne nécessitent pas de le joindre à nouveau** — le fichier reste actif pour le reste de la conversation
+
+Un fichier joint n'est utilisé que pour cette conversation et est effacé automatiquement ensuite. Il n'est pas ajouté à votre base de connaissances et n'est pas décompté de votre quota de documents. Les Spaces Google Chat peuvent, en option, conserver les fichiers partagés pour tout le Space — c'est une fonctionnalité distincte, décrite sur la [page Google Chat](/integrations/google-chat#base-de-connaissances-du-space).
+
+## Types de Fichiers Pris en Charge
+
+| Type de fichier | Remarques |
+|-----------------|-----------|
+| **PDF** | Les PDF textuels sont lus directement ; les PDF scannés nécessitent l'analyse premium |
+| **Word** (`.docx`) | |
+| **PowerPoint** (`.pptx`) | |
+| **Texte** (`.txt`) | |
+| **Markdown** (`.md`) | |
+| **Images** (`.png`, `.jpg`) | Nécessitent l'analyse premium |
+
+Les tableurs et les fichiers CSV ne sont pas pris en charge, ni l'audio ni la vidéo. Les liens Google Drive ne peuvent pas être ouverts non plus — le fichier doit être téléversé dans le chat lui-même.
+
+<Callout type="info">
+  **Des images et des scans, c'est le texte qui est lu.** Sur une photo, une capture d'écran ou un PDF scanné, l'agent lit le texte présent sur la page — il n'interprète pas l'image elle-même. Cela demande un lecteur plus avancé : les images et les scans ne sont donc lus que si un administrateur a activé l'**Analyse premium des documents complexes** sur l'intégration de ce canal. L'analyse premium est facturable.
+</Callout>
+
+## Où Ça Fonctionne
+
+Tout ce qui précède est identique sur tous les canaux. Voici les différences que vos clients remarqueront réellement :
+
+| Canal | Activé par défaut ? | Ce qui change ici |
+|-------|---------------------|--------------------|
+| [Google Chat](/integrations/google-chat) | **Oui** | Un seul fichier reste actif à la fois. Les fichiers doivent être téléversés dans le chat — les liens Drive ne peuvent pas être ouverts. Les Spaces peuvent aussi conserver une [Base de Connaissances du Space](/integrations/google-chat#base-de-connaissances-du-space) durable. |
+| [WhatsApp](/integrations/whatsapp) | Non | Les documents comme les photos sont lus ; les stickers non. WhatsApp transporte une pièce jointe par message. |
+| [Slack](/integrations/slack) | Non | Les fichiers téléversés dans Slack sont lus ; les fichiers simplement liés depuis un autre service ne sont pas récupérés. Plusieurs fichiers dans un même message sont tous lus. |
+| [Discord](/integrations/discord) | Non | Chaque fichier joint à un message est lu. Un message ne contenant qu'un sticker n'a rien à lire. |
+| [Telegram](/integrations/telegram) | Non | Envoyez une image **en tant que fichier**, pas en tant que photo — une photo envoyée normalement n'est pas lue. Un document par message. |
+| [Meta (Facebook)](/integrations/facebook) | Non | Les fichiers sont reconnus à leur extension : un fichier dont l'extension est inhabituelle ou absente n'est pas lu. |
+
+## Comment l'Activer
+
+Les pièces jointes de documents se gèrent canal par canal, par un administrateur :
+
+1. Ouvrez **Intégrations** dans la barre latérale et repérez la carte du canal
+2. Ouvrez ses réglages **Pièces jointes**
+3. Activez **Autoriser les pièces jointes**
+4. Si vos clients envoient des scans ou des photos, activez aussi l'**Analyse premium des documents complexes**
+
+Google Chat est activé d'emblée. Sur WhatsApp, Slack, Discord, Telegram et Meta (Facebook), la fonctionnalité reste désactivée jusqu'à ce qu'un administrateur l'active — rien ne change donc pour vos clients tant que vous n'en décidez pas autrement.
+
+<Callout type="warning">
+  Les pièces jointes de documents sont une fonctionnalité des plans payants — elles ne sont pas disponibles dans l'essai gratuit.
+</Callout>
+
+## Limites
+
+- **Combien de fichiers restent actifs** — jusqu'à cinq par conversation sur WhatsApp, Slack, Discord, Telegram et Meta (Facebook) ; quand un nouveau arrive, le plus ancien est retiré. Google Chat en garde un à la fois.
+- **Combien de temps ils restent actifs** — environ deux heures après le dernier message les concernant, puis ils sont effacés. Renvoyer le fichier repart de zéro.
+- **Quelle taille ils peuvent faire** — jusqu'à 10 MB sur Starter, 50 MB sur Plus et 100 MB sur Enterprise.
+- **Un plafond quotidien d'usage raisonnable** par canal évite qu'une journée chargée n'entraîne un coût d'analyse inattendu. Votre agent le dit clairement lorsqu'il est atteint, et il se réinitialise le lendemain.
+
+## Quand un Fichier Ne Peut Pas Être Lu
+
+Votre agent répond toujours — il explique le problème en langage clair plutôt que de rester silencieux :
+
+| Ce qui s'est passé | Ce que votre client s'entend dire |
+|--------------------|------------------------------------|
+| Les pièces jointes sont désactivées sur ce canal | Qu'il ne peut pas lire de pièces jointes ici pour le moment |
+| Le type de fichier n'est pas pris en charge | Quels types il *peut* lire |
+| Un lien Google Drive a été partagé au lieu d'un fichier | De téléverser le fichier directement dans le chat |
+| Le fichier dépasse la limite de taille du plan | Qu'il est trop volumineux, et quelle est la limite |
+| Une photo ou un scan est arrivé alors que l'analyse premium est désactivée | D'envoyer le document en PDF, Word, PowerPoint, texte ou Markdown |
+| Aucun texte n'a pu être extrait du fichier | Qu'il n'a pu y lire aucun texte |
+| Plus de fichiers ont été envoyés qu'il n'en tient dans un tour | Combien il en a chargés, et d'envoyer le reste par petits groupes |
+| Le plafond quotidien d'usage raisonnable est atteint | Qu'il a lu aujourd'hui tous les documents qu'il pouvait |
+
+<Callout type="info">
+  Une réponse vide à partir d'un document scanné vient presque toujours du lecteur standard face à une page uniquement composée d'images. Activer l'**Analyse premium des documents complexes** sur ce canal résout le problème.
+</Callout>

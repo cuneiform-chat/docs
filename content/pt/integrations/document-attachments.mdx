@@ -1,0 +1,91 @@
+---
+description: Permita que seus clientes enviem um PDF, documento ou imagem no chat e recebam respostas a partir dele — no Google Chat, WhatsApp, Slack, Discord, Telegram e Meta (Facebook).
+---
+
+# Anexos de Documentos
+
+Seus clientes podem enviar um arquivo direto no chat — um orçamento, um contrato, uma nota fiscal, um formulário digitalizado — e perguntar ao seu agent sobre ele. O agent lê o arquivo e responde a partir do conteúdo, sem ninguém precisar sair da conversa.
+
+Funciona em seis canais, e um admin ativa canal por canal.
+
+import { Callout } from 'nextra/components'
+
+## Como Funciona
+
+1. **Alguém envia um arquivo** no chat, com ou sem pergunta
+2. **O agent carrega o arquivo** e confirma com uma resposta curta
+3. **A pessoa pergunta sobre ele** — a resposta vem daquele arquivo
+4. **As perguntas de acompanhamento não exigem anexar de novo** — o arquivo continua ativo pelo resto da conversa
+
+Um arquivo anexado é usado apenas naquela conversa e é apagado automaticamente depois. Ele não é adicionado à sua base de conhecimento e não conta contra a sua cota de documentos. Os Spaces do Google Chat podem, opcionalmente, guardar os arquivos compartilhados para o Space inteiro — esse é um recurso separado, descrito na [página do Google Chat](/integrations/google-chat#base-de-conhecimento-do-space).
+
+## Tipos de Arquivo Suportados
+
+| Tipo de arquivo | Observações |
+|-----------------|-------------|
+| **PDF** | PDFs com texto são lidos diretamente; os digitalizados precisam de parsing premium |
+| **Word** (`.docx`) | |
+| **PowerPoint** (`.pptx`) | |
+| **Texto** (`.txt`) | |
+| **Markdown** (`.md`) | |
+| **Imagens** (`.png`, `.jpg`) | Precisam de parsing premium |
+
+Planilhas e arquivos CSV não são suportados, e áudio e vídeo também não. Links do Google Drive também não podem ser abertos — o arquivo precisa ser enviado no próprio chat.
+
+<Callout type="info">
+  **De imagens e digitalizações é lido o texto.** Em uma foto, uma captura de tela ou um PDF digitalizado, o agent lê o texto da página — ele não interpreta a imagem em si. Isso exige um leitor mais avançado, então imagens e digitalizações só são lidas quando um admin ativou o **Processamento premium para documentos complexos** na integração daquele canal. O processamento premium é cobrado.
+</Callout>
+
+## Onde Funciona
+
+Tudo acima é igual em todos os canais. Estas são as diferenças que seus clientes vão realmente notar:
+
+| Canal | Ativo por padrão? | O que muda aqui |
+|-------|-------------------|------------------|
+| [Google Chat](/integrations/google-chat) | **Sim** | Um arquivo fica ativo por vez. Os arquivos precisam ser enviados no chat — links do Drive não podem ser abertos. Os Spaces também podem manter uma [Base de Conhecimento do Space](/integrations/google-chat#base-de-conhecimento-do-space) duradoura. |
+| [WhatsApp](/integrations/whatsapp) | Não | Documentos e fotos são lidos; figurinhas não. O WhatsApp leva um anexo por mensagem. |
+| [Slack](/integrations/slack) | Não | Arquivos enviados ao Slack são lidos; arquivos apenas vinculados de outro serviço não são baixados. Vários arquivos em uma mesma mensagem são todos lidos. |
+| [Discord](/integrations/discord) | Não | Cada arquivo anexado a uma mensagem é lido. Uma mensagem só com figurinha não tem nada para ler. |
+| [Telegram](/integrations/telegram) | Não | Envie uma imagem **como arquivo**, não como foto — uma foto enviada do jeito normal não é lida. Um documento por mensagem. |
+| [Meta (Facebook)](/integrations/facebook) | Não | Os arquivos são reconhecidos pela extensão, então um arquivo com extensão incomum ou ausente não é lido. |
+
+## Como Ativar
+
+Os anexos de documentos são gerenciados por canal, por um admin:
+
+1. Abra **Integrações** na barra lateral e localize o card do canal
+2. Abra as configurações de **Anexos de documentos**
+3. Ative **Permitir anexos de documentos**
+4. Se seus clientes enviam digitalizações ou fotos, ative também o **Processamento premium para documentos complexos**
+
+O Google Chat já vem ativado. No WhatsApp, Slack, Discord, Telegram e Meta (Facebook) ele fica desativado até um admin ativá-lo — ou seja, nada muda para seus clientes até você decidir.
+
+<Callout type="warning">
+  Anexos de documentos são um recurso de planos pagos — não estão disponíveis no teste gratuito.
+</Callout>
+
+## Limites
+
+- **Quantos arquivos ficam ativos** — até cinco por conversa no WhatsApp, Slack, Discord, Telegram e Meta (Facebook); quando chega outro, o mais antigo sai. O Google Chat mantém um por vez.
+- **Por quanto tempo ficam ativos** — cerca de duas horas depois da última mensagem sobre eles, e então são apagados. Enviar o arquivo de novo recomeça do zero.
+- **Que tamanho podem ter** — até 10 MB no plano Starter, 50 MB no Plus e 100 MB no Enterprise.
+- **Um limite diário de uso justo** por canal evita que um dia movimentado gere um custo de processamento inesperado. Seu agent avisa com clareza quando o limite é atingido, e ele é reiniciado no dia seguinte.
+
+## Quando um Arquivo Não Pode Ser Lido
+
+Seu agent sempre responde — ele explica o problema em linguagem simples em vez de ficar em silêncio:
+
+| O que aconteceu | O que o seu cliente ouve |
+|-----------------|---------------------------|
+| Os anexos estão desativados naquele canal | Que ele não consegue ler anexos aqui no momento |
+| O tipo de arquivo não é suportado | Quais tipos ele *consegue* ler |
+| Foi compartilhado um link do Google Drive em vez de um arquivo | Que envie o arquivo direto no chat |
+| O arquivo passa do limite de tamanho do plano | Que é grande demais, e qual é o limite |
+| Chegou uma foto ou digitalização com o processamento premium desativado | Que envie o documento como PDF, Word, PowerPoint, texto ou Markdown |
+| Nenhum texto pôde ser extraído do arquivo | Que não conseguiu ler nenhum texto nele |
+| Foram enviados mais arquivos do que cabem em um turno | Quantos ele carregou, e que envie o restante aos poucos |
+| O limite diário de uso justo foi atingido | Que já leu hoje todos os documentos que consegue |
+
+<Callout type="info">
+  Uma resposta vazia a partir de um documento digitalizado quase sempre é o leitor padrão esbarrando em uma página só de imagem. Ativar o **Processamento premium para documentos complexos** naquele canal resolve.
+</Callout>

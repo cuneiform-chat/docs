@@ -17,6 +17,7 @@ A integração com Meta oferece:
 - Divisão automática de mensagens para respostas longas
 - Conformidade com a janela de mensageria de 24 horas
 - Memória de conversa dentro das sessões
+- [Anexos de documentos](/integrations/document-attachments) — os clientes podem enviar um arquivo e perguntar sobre ele (desativado por padrão, planos pagos)
 
 ## Pré-requisitos
 
@@ -91,6 +92,12 @@ A política do Facebook permite respostas dentro de 24 horas após a última men
 <Callout type="warning">
   Os usuários precisam enviar mensagem para a sua Page primeiro — você não pode enviar mensagens não solicitadas. Se passarem mais de 24 horas desde a última mensagem deles, o bot não pode responder até que o usuário escreva novamente.
 </Callout>
+
+### Anexos de Documentos
+
+Os clientes podem enviar um arquivo ou uma foto no Messenger e perguntar ao seu agent sobre ele. Os arquivos são reconhecidos **pela extensão**, então um arquivo com extensão incomum ou ausente não é lido e o bot responde como já responde hoje.
+
+No Messenger isso vem **desativado por padrão**: um admin ativa **Permitir anexos de documentos** no card da integração da Page, e fotos ou digitalizações precisam também do **Processamento premium para documentos complexos**. Veja [Anexos de Documentos](/integrations/document-attachments) para os tipos suportados, os limites e a configuração.
 
 ## Gerenciando Pages
 

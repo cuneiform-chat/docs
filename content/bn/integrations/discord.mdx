@@ -11,6 +11,7 @@ Discord integration প্রদান করে:
 - Channel-ভিত্তিক response
 - Rich embed formatting
 - ঐচ্ছিক text-based DM (command prefix প্রয়োজন নেই)
+- [নথি সংযুক্তি](/integrations/document-attachments) — একটি file attach করে সে সম্পর্কে জিজ্ঞাসা করুন (ডিফল্টে বন্ধ, paid plan)
 
 ## পূর্বশর্ত
 
@@ -123,6 +124,12 @@ Bot thread-এ respond করতে পারে, conversation সংগঠি�
 <Callout type="important">
   তাৎক্ষণিক slash command উপলব্ধতার জন্য setup-এর সময় Guild ID দিন। পরে আরও server যোগ করতে পারবেন।
 </Callout>
+
+### নথি সংযুক্তি
+
+কেউ একটি message-এ file attach করে আপনার agent-কে সে সম্পর্কে জিজ্ঞাসা করতে পারেন। **একটি message-এ attach করা প্রতিটি file পড়া হয়**, শুধু প্রথমটি নয়। শুধু sticker আছে এমন message-এ পড়ার কিছু নেই, তাই bot আজ যেভাবে উত্তর দেয় সেভাবেই দেয়।
+
+Discord-এ এটি **ডিফল্টে বন্ধ**: একজন admin integration card-এ **নথি সংযুক্তির অনুমতি দিন** চালু করেন। সমর্থিত type, সীমা ও setup-এর জন্য [নথি সংযুক্তি](/integrations/document-attachments) দেখুন।
 
 ## আপনার Bot পরিচালনা
 

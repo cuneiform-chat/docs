@@ -1,0 +1,91 @@
+---
+description: Permite que tus clientes envíen un PDF, un documento o una imagen en el chat y obtengan respuestas a partir de él — en Google Chat, WhatsApp, Slack, Discord, Telegram y Meta (Facebook).
+---
+
+# Adjuntos de Documentos
+
+Tus clientes pueden enviar un archivo directamente al chat — un presupuesto, un contrato, una factura, un formulario escaneado — y preguntarle a tu agent sobre él. El agent lee el archivo y responde a partir de su contenido, sin que nadie tenga que salir de la conversación.
+
+Funciona en seis canales, y un administrador lo activa canal por canal.
+
+import { Callout } from 'nextra/components'
+
+## Cómo Funciona
+
+1. **Alguien envía un archivo** en el chat, con o sin pregunta
+2. **El agent lo carga** y lo confirma con una respuesta breve
+3. **Preguntan sobre él** — la respuesta sale de ese archivo
+4. **Las preguntas de seguimiento no requieren volver a adjuntarlo** — el archivo permanece activo durante el resto de la conversación
+
+Un archivo adjunto se usa solo para esa conversación y se borra automáticamente después. No se añade a tu base de conocimiento ni cuenta para tu cuota de documentos. Los Spaces de Google Chat pueden, opcionalmente, conservar los archivos compartidos para todo el Space — esa es una función aparte, descrita en la [página de Google Chat](/integrations/google-chat#base-de-conocimiento-del-space).
+
+## Tipos de Archivo Admitidos
+
+| Tipo de archivo | Notas |
+|-----------------|-------|
+| **PDF** | Los PDF con texto se leen directamente; los escaneados necesitan análisis premium |
+| **Word** (`.docx`) | |
+| **PowerPoint** (`.pptx`) | |
+| **Texto** (`.txt`) | |
+| **Markdown** (`.md`) | |
+| **Imágenes** (`.png`, `.jpg`) | Necesitan análisis premium |
+
+Las hojas de cálculo y los archivos CSV no son compatibles, y tampoco el audio ni el video. Los enlaces de Google Drive tampoco se pueden abrir — el archivo debe subirse al propio chat.
+
+<Callout type="info">
+  **De las imágenes y los escaneos se lee el texto.** En una foto, una captura de pantalla o un PDF escaneado, el agent lee el texto de la página — no interpreta la imagen en sí. Eso requiere un lector más avanzado, así que las imágenes y los escaneos solo se leen cuando un administrador ha activado **Análisis premium para documentos complejos** en la integración de ese canal. El análisis premium es facturable.
+</Callout>
+
+## Dónde Funciona
+
+Todo lo anterior es igual en todos los canales. Estas son las diferencias que tus clientes notarán realmente:
+
+| Canal | ¿Activo de forma predeterminada? | Qué cambia aquí |
+|-------|----------------------------------|------------------|
+| [Google Chat](/integrations/google-chat) | **Sí** | Un archivo permanece activo a la vez. Los archivos deben subirse al chat — los enlaces de Drive no se pueden abrir. Los Spaces también pueden mantener una [Base de Conocimiento del Space](/integrations/google-chat#base-de-conocimiento-del-space) duradera. |
+| [WhatsApp](/integrations/whatsapp) | No | Se leen tanto los documentos como las fotos; los stickers no. WhatsApp lleva un adjunto por mensaje. |
+| [Slack](/integrations/slack) | No | Se leen los archivos subidos a Slack; los archivos enlazados desde otro sitio no se descargan. Varios archivos en un mismo mensaje se leen todos. |
+| [Discord](/integrations/discord) | No | Se lee cada archivo adjunto de un mensaje. Un mensaje que solo lleva un sticker no tiene nada que leer. |
+| [Telegram](/integrations/telegram) | No | Envía una imagen **como archivo**, no como foto — una foto enviada de la forma habitual no se lee. Un documento por mensaje. |
+| [Meta (Facebook)](/integrations/facebook) | No | Los archivos se reconocen por su extensión, así que uno con una extensión inusual o ausente no se lee. |
+
+## Cómo Activarlo
+
+Los adjuntos de documentos se gestionan por canal, y los activa un administrador:
+
+1. Abre **Integraciones** en la barra lateral y busca la tarjeta del canal
+2. Abre su configuración de **Archivos adjuntos**
+3. Activa **Permitir archivos adjuntos**
+4. Si tus clientes envían escaneos o fotos, activa también **Análisis premium para documentos complejos**
+
+Google Chat viene activado de fábrica. En WhatsApp, Slack, Discord, Telegram y Meta (Facebook) permanece desactivado hasta que un administrador lo active — así que nada cambia para tus clientes hasta que tú lo decidas.
+
+<Callout type="warning">
+  Los adjuntos de documentos son una función de los planes de pago — no están disponibles en la prueba gratuita.
+</Callout>
+
+## Límites
+
+- **Cuántos archivos permanecen activos** — hasta cinco por conversación en WhatsApp, Slack, Discord, Telegram y Meta (Facebook); cuando llega otro, el más antiguo se descarta. Google Chat mantiene uno a la vez.
+- **Cuánto tiempo permanecen activos** — alrededor de dos horas desde el último mensaje sobre ellos, y luego se borran. Volver a enviar el archivo empieza de nuevo.
+- **Qué tamaño pueden tener** — hasta 10 MB en Starter, 50 MB en Plus y 100 MB en Enterprise.
+- **Un límite diario de uso razonable** por canal evita que un día con mucho movimiento genere un coste de análisis inesperado. Tu agent lo dice con claridad cuando se alcanza, y se restablece al día siguiente.
+
+## Cuando un Archivo No se Puede Leer
+
+Tu agent siempre responde — explica el problema en lenguaje sencillo en lugar de quedarse callado:
+
+| Qué ha pasado | Qué se le dice a tu cliente |
+|---------------|------------------------------|
+| Los adjuntos están desactivados en ese canal | Que ahora mismo no puede leer adjuntos aquí |
+| El tipo de archivo no es compatible | Qué tipos *sí* puede leer |
+| Se compartió un enlace de Google Drive en lugar de un archivo | Que suba el archivo directamente al chat |
+| El archivo supera el límite de tamaño del plan | Que es demasiado grande, y cuál es el límite |
+| Llegó una foto o un escaneo con el análisis premium desactivado | Que envíe el documento como PDF, Word, PowerPoint, texto o Markdown |
+| No se pudo extraer texto del archivo | Que no pudo leer nada de texto en él |
+| Se enviaron más archivos de los que caben en un turno | Cuántos cargó, y que envíe el resto de pocos en pocos |
+| Se ha alcanzado el límite diario de uso razonable | Que hoy ya ha leído todos los documentos que puede |
+
+<Callout type="info">
+  Una respuesta vacía a partir de un documento escaneado casi siempre significa que el lector estándar se ha topado con una página que es solo imagen. Activar **Análisis premium para documentos complejos** en ese canal lo resuelve.
+</Callout>

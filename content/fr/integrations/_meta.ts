@@ -14,6 +14,7 @@ const meta: MetaRecord = {
   'messenger-mini-app': 'Boutique Messenger',
   'website-widget': 'Widget de site web',
   'chatgpt-app': 'ChatGPT App',
+  'document-attachments': 'Pièces jointes',
 }
 
 export default meta

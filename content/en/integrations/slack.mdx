@@ -9,6 +9,7 @@ Slack integration provides:
 - Direct message conversations
 - Channel mentions
 - Workspace-wide availability
+- [Document attachments](/integrations/document-attachments) — upload a file and ask about it (off by default, paid plans)
 
 ## Prerequisites
 
@@ -86,6 +87,12 @@ import { Callout } from 'nextra/components'
 <Callout type="info">
   The bot only responds when explicitly invoked (slash command or mention) to avoid noise.
 </Callout>
+
+### Document Attachments
+
+Someone can upload a file in a DM or channel and ask your agent about it. Only files **uploaded to Slack** are read — a file merely linked from Google Drive, Dropbox or another service isn't fetched. Several files in one message are all read.
+
+This is **off by default** on Slack: an admin switches on **Allow document attachments** on the integration card. See [Document Attachments](/integrations/document-attachments) for supported types, limits and setup.
 
 ## Configuration Options
 

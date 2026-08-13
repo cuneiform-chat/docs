@@ -11,6 +11,7 @@ La integración con Discord ofrece:
 - Respuestas específicas por canal
 - Formato de embeds enriquecidos
 - DMs de texto opcionales (sin necesidad de prefijo de comando)
+- [Adjuntos de documentos](/integrations/document-attachments) — adjunta un archivo y pregunta sobre él (desactivado por defecto, planes de pago)
 
 ## Requisitos Previos
 
@@ -126,6 +127,12 @@ El bot puede responder en threads, manteniendo las conversaciones organizadas.
 <Callout type="important">
   Proporciona un Guild ID durante la configuración para que los slash commands estén disponibles al instante. Puedes agregar más servidores luego.
 </Callout>
+
+### Archivos Adjuntos
+
+Alguien puede adjuntar un archivo a un mensaje y preguntarle a tu agent sobre él. **Se lee cada archivo adjunto de un mensaje**, no solo el primero. Un mensaje que solo lleva un sticker no tiene nada que leer, así que el bot responde como lo hace hoy.
+
+En Discord está **desactivado por defecto**: un administrador activa **Permitir archivos adjuntos** en la tarjeta de la integración. Consulta [Adjuntos de Documentos](/integrations/document-attachments) para los tipos admitidos, los límites y la configuración.
 
 ## Gestionar tu Bot
 

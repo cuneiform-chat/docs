@@ -1,0 +1,91 @@
+---
+description: Let customers send a PDF, document or image in chat and get answers from it — on Google Chat, WhatsApp, Slack, Discord, Telegram and Meta (Facebook).
+---
+
+# Document Attachments
+
+Your customers can send a file straight into the chat — a quotation, a contract, an invoice, a scanned form — and ask your agent about it. The agent reads the file and answers from it, without anyone leaving the conversation.
+
+It works on six channels, and an admin turns it on per channel.
+
+import { Callout } from 'nextra/components'
+
+## How It Works
+
+1. **Someone sends a file** in the chat, with or without a question
+2. **The agent loads it** and confirms with a short reply
+3. **They ask about it** — the answer comes from that file
+4. **Follow-up questions need no re-attaching** — the file stays active for the rest of the conversation
+
+An attached file is used only for that conversation and is cleared automatically afterwards. It isn't added to your knowledge base and doesn't count against your document allowance. Google Chat Spaces can optionally keep shared files for the whole Space — that is a separate feature, described on the [Google Chat page](/integrations/google-chat#space-knowledge-base).
+
+## Supported File Types
+
+| File type | Notes |
+|-----------|-------|
+| **PDF** | Text-based PDFs are read directly; scanned ones need premium parsing |
+| **Word** (`.docx`) | |
+| **PowerPoint** (`.pptx`) | |
+| **Text** (`.txt`) | |
+| **Markdown** (`.md`) | |
+| **Images** (`.png`, `.jpg`) | Need premium parsing |
+
+Spreadsheets and CSV files aren't supported, and neither are audio or video. Google Drive links can't be opened either — the file has to be uploaded into the chat itself.
+
+<Callout type="info">
+  **Images and scans are read for their text.** For a photo, a screenshot or a scanned PDF, the agent reads the text on the page — it doesn't interpret the picture itself. That takes a more capable reader, so images and scans are only read when an admin has switched on **Premium parsing for complex documents** on that channel's integration. Premium parsing is billable.
+</Callout>
+
+## Where It Works
+
+Everything above is the same on every channel. These are the differences your customers will actually notice:
+
+| Channel | On by default? | What's different here |
+|---------|----------------|------------------------|
+| [Google Chat](/integrations/google-chat) | **Yes** | One file stays active at a time. Files must be uploaded into the chat — Drive links can't be opened. Spaces can also keep a lasting [Space Knowledge Base](/integrations/google-chat#space-knowledge-base). |
+| [WhatsApp](/integrations/whatsapp) | No | Documents and photos are both read; stickers aren't. WhatsApp carries one attachment per message. |
+| [Slack](/integrations/slack) | No | Files uploaded to Slack are read; files linked from somewhere else aren't fetched. Several files in one message are all read. |
+| [Discord](/integrations/discord) | No | Every file attached to a message is read. A message carrying only a sticker has nothing to read. |
+| [Telegram](/integrations/telegram) | No | Send an image **as a file**, not as a photo — a photo sent the usual way isn't read. One document per message. |
+| [Meta (Facebook)](/integrations/facebook) | No | Files are recognised by their file extension, so one with an unusual or missing extension isn't read. |
+
+## Turning It On
+
+Document attachments are managed per channel, by an admin:
+
+1. Open **Integrations** in the sidebar and find the channel's card
+2. Open its **Document attachments** settings
+3. Switch on **Allow document attachments**
+4. If your customers send scans or photos, also switch on **Premium parsing for complex documents**
+
+Google Chat is on out of the box. On WhatsApp, Slack, Discord, Telegram and Meta (Facebook) it stays off until an admin turns it on — so nothing changes for your customers until you decide it should.
+
+<Callout type="warning">
+  Document attachments are a paid-plan feature — they aren't available on the free trial.
+</Callout>
+
+## Limits
+
+- **How many files stay active** — up to five per conversation on WhatsApp, Slack, Discord, Telegram and Meta (Facebook); when another arrives, the oldest drops out. Google Chat keeps one at a time.
+- **How long they stay active** — around two hours after the last message about them, then they're cleared. Sending the file again starts fresh.
+- **How large they can be** — up to 10 MB on Starter, 50 MB on Plus and 100 MB on Enterprise.
+- **A daily fair-use cap** per channel keeps one busy day from running up an unexpected parsing bill. Your agent says so plainly when it's reached, and it resets the next day.
+
+## When a File Can't Be Read
+
+Your agent always replies — it explains the problem in plain language instead of going quiet:
+
+| What happened | What your customer is told |
+|---------------|----------------------------|
+| Attachments are switched off for that channel | That it can't read attachments here right now |
+| The file type isn't supported | Which types it *can* read |
+| A Google Drive link was shared instead of a file | To upload the file directly into the chat |
+| The file is over the plan's size limit | That it's too large, and what the limit is |
+| A photo or scan arrived while premium parsing is off | To send the document as a PDF, Word, PowerPoint, text or Markdown file instead |
+| No text could be pulled out of the file | That it couldn't read any text from it |
+| More files were sent than fit in one turn | How many it loaded, and to send the rest a few at a time |
+| The daily fair-use cap has been reached | That it has read as many documents as it can today |
+
+<Callout type="info">
+  An empty answer from a scanned document is almost always the standard reader meeting an image-only page. Switching on **Premium parsing for complex documents** for that channel resolves it.
+</Callout>

@@ -7,7 +7,7 @@ Connectez votre agent à Google Chat pour une communication fluide au sein de Go
 L'intégration Google Chat offre :
 - Messagerie directe avec votre bot
 - Prise en charge des Google Workspace Spaces avec déclenchement par @mention
-- **Questions-réponses sur documents** — téléversez un fichier et interrogez le bot à son sujet (plans payants)
+- **Questions-réponses sur documents** — téléversez un fichier et interrogez le bot à son sujet (plans payants) ; voir [Pièces Jointes de Documents](/integrations/document-attachments)
 - **Base de connaissances du Space** — les Spaces mémorisent chaque document qui y est partagé et répondent à partir de l'ensemble de la collection
 - **Réponses sourcées** — le bot nomme le document ou la source à partir desquels il a répondu
 - Routage d'agent au niveau du Space — assignez différents agents à différents Spaces
@@ -179,7 +179,7 @@ Le bot **répond** en texte — il n'envoie pas d'images, de boutons interactifs
 
 ## Travailler avec les Documents
 
-Sur les plans payants, les membres de l'équipe peuvent téléverser un document et interroger le bot à son sujet — en DM ou dans un Space.
+Sur les plans payants, les membres de l'équipe peuvent téléverser un document et interroger le bot à son sujet — en DM ou dans un Space. La même capacité est disponible sur WhatsApp, Slack, Discord, Telegram et Meta (Facebook) ; [Pièces Jointes de Documents](/integrations/document-attachments) couvre le comportement commun, et cette section couvre ce qui est propre à Google Chat.
 
 ### Joindre et Demander
 
@@ -187,15 +187,15 @@ Sur les plans payants, les membres de l'équipe peuvent téléverser un document
 2. Le bot lit le document et y répond
 3. Continuez à poser des questions de suivi — le document reste actif pour la conversation, sans avoir à le joindre à nouveau
 
-**Types de fichiers pris en charge :** PDF, DOCX, PPTX, TXT et Markdown.
+**Types de fichiers pris en charge :** PDF, DOCX, PPTX, TXT, Markdown, PNG et JPEG.
 
 <Callout type="info">
-  Les tableurs/CSV, les images, l'audio et la vidéo ne sont pas pris en charge. Les liens Google Drive ne peuvent pas être traités — téléversez le fichier directement.
+  Les images (PNG, JPEG) et les PDF scannés sont lus pour le texte présent sur la page, et uniquement lorsqu'un administrateur a activé l'**analyse premium** sur l'intégration. Les tableurs/CSV, l'audio et la vidéo ne sont pas pris en charge. Les liens Google Drive ne peuvent pas être traités — téléversez le fichier directement.
 </Callout>
 
 **Limites de taille de fichier :** jusqu'à 10 MB sur Starter, 50 MB sur Plus et 100 MB sur Enterprise.
 
-**Un document par message :** si vous joignez plusieurs fichiers à la fois, le bot utilise le premier et vous demande d'envoyer les autres un par un.
+**Un document à la fois sur Google Chat :** si vous joignez plusieurs fichiers à la fois, le bot utilise le premier et vous demande d'envoyer les autres un par un. Sur les cinq autres canaux, plusieurs fichiers restent actifs par conversation.
 
 ### Réponses Sourcées
 
@@ -314,13 +314,14 @@ Un gestionnaire du Space doit exécuter `@Cuneiform Chat /connect` à nouveau po
 ### Le Document Téléversé est Revenu Vide
 
 1. Les PDF scannés ou composés uniquement d'images ne peuvent souvent pas être lus par l'analyseur standard — demandez à un administrateur d'activer l'**analyse premium** sur l'intégration Google Chat
-2. Confirmez que le type de fichier est pris en charge (PDF, DOCX, PPTX, TXT, Markdown) — les tableurs/CSV, les images et les liens Drive ne le sont pas
-3. Vérifiez que le fichier respecte la limite de taille de votre plan (10 MB Starter, 50 MB Plus, 100 MB Enterprise)
+2. Une image est revenue vide, ou le bot a demandé un document à la place — les images ne sont lues que si l'**analyse premium** est activée, et uniquement pour le texte présent sur la page
+3. Confirmez que le type de fichier est pris en charge (PDF, DOCX, PPTX, TXT, Markdown, PNG, JPEG) — les tableurs/CSV et les liens Drive ne le sont pas
+4. Vérifiez que le fichier respecte la limite de taille de votre plan (10 MB Starter, 50 MB Plus, 100 MB Enterprise)
 
 ### Impossible de Téléverser des Documents
 
 1. Les pièces jointes de documents sont une fonctionnalité des plans payants — elles ne sont pas disponibles dans l'essai gratuit
-2. Un administrateur peut confirmer que « Allow document attachments » est activé sur la carte d'intégration Google Chat
+2. Un administrateur peut confirmer que **Autoriser les pièces jointes** est activé sur la carte d'intégration Google Chat
 
 ## Sécurité
 
