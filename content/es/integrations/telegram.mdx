@@ -12,7 +12,7 @@ La integración con Telegram ofrece:
 - Reacciones con emoji de un solo toque y clasificación de sentimiento
 - Slash commands integrados (`/start`, `/help`, `/reset`, `/new`)
 - Mensajes directos y chats grupales (sesiones por usuario en grupos)
-- [Adjuntos de documentos](/integrations/document-attachments) — envía un archivo y pregunta sobre él (desactivado por defecto, planes de pago)
+- [Adjuntos de documentos](/integrations/document-attachments) — envía un archivo y pregunta sobre él (activado por defecto, planes de pago)
 - Una [Tienda dentro del bot](/integrations/telegram-mini-app) integrada — catálogo de productos multipágina, chat de IA por producto y toma de pedidos ligera, todo dentro de Telegram (gratis en todos los planes)
 - Co-pilot opcional de Telegram Premium para usuarios Premium (integración separada)
 - Saba en Telegram para operadores (integración separada)
@@ -77,7 +77,7 @@ Las notas de voz enviadas al bot se transcriben mediante Whisper y se responden 
 
 Alguien puede enviarle un archivo al bot y preguntar sobre él. **Envía una imagen como *archivo*, no como foto** — una foto enviada de la forma habitual no se lee, porque Telegram la entrega como un conjunto de vistas previas redimensionadas y sin nombre de archivo. Un documento por mensaje.
 
-En Telegram está **desactivado por defecto**: un administrador activa **Permitir archivos adjuntos** en la tarjeta de la integración, y las imágenes o los escaneos necesitan además **Análisis premium para documentos complejos**. Consulta [Adjuntos de Documentos](/integrations/document-attachments) para los tipos admitidos, los límites y la configuración.
+En Telegram está **activado por defecto**: un administrador puede desactivar **Permitir archivos adjuntos** en la tarjeta de la integración. Las imágenes o los escaneos siguen necesitando **Análisis premium para documentos complejos**, que permanece desactivado hasta que un administrador lo active. Consulta [Adjuntos de Documentos](/integrations/document-attachments) para los tipos admitidos, los límites y la configuración.
 
 ### Formato MarkdownV2
 

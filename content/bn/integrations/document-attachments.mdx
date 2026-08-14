@@ -43,22 +43,22 @@ Spreadsheet ও CSV file সমর্থিত নয়, audio ও video-ও �
 | Channel | ডিফল্টভাবে চালু? | এখানে যা আলাদা |
 |---------|------------------|------------------|
 | [Google Chat](/integrations/google-chat) | **হ্যাঁ** | একবারে একটি file active থাকে। File chat-এ আপলোড করতে হবে — Drive link খোলা যায় না। Space চাইলে একটি স্থায়ী [Space Knowledge Base](/integrations/google-chat#space-knowledge-base)-ও রাখতে পারে। |
-| [WhatsApp](/integrations/whatsapp) | না | Document এবং ছবি দুটোই পড়া হয়; sticker নয়। WhatsApp প্রতি message-এ একটি attachment বহন করে। |
-| [Slack](/integrations/slack) | না | Slack-এ আপলোড করা file পড়া হয়; অন্য কোথাও থেকে link করা file আনা হয় না। এক message-এ একাধিক file থাকলে সবগুলোই পড়া হয়। |
-| [Discord](/integrations/discord) | না | একটি message-এ attach করা প্রতিটি file পড়া হয়। শুধু sticker আছে এমন message-এ পড়ার কিছু নেই। |
-| [Telegram](/integrations/telegram) | না | Image **file হিসেবে** পাঠান, photo হিসেবে নয় — স্বাভাবিকভাবে পাঠানো photo পড়া হয় না। প্রতি message-এ একটি document। |
-| [Meta (Facebook)](/integrations/facebook) | না | File চেনা হয় তার extension দেখে, তাই অস্বাভাবিক বা অনুপস্থিত extension-যুক্ত file পড়া হয় না। |
+| [WhatsApp](/integrations/whatsapp) | **হ্যাঁ** | Document এবং ছবি দুটোই পড়া হয়; sticker নয়। WhatsApp প্রতি message-এ একটি attachment বহন করে। |
+| [Slack](/integrations/slack) | **হ্যাঁ** | Slack-এ আপলোড করা file পড়া হয়; অন্য কোথাও থেকে link করা file আনা হয় না। এক message-এ একাধিক file থাকলে সবগুলোই পড়া হয়। |
+| [Discord](/integrations/discord) | **হ্যাঁ** | একটি message-এ attach করা প্রতিটি file পড়া হয়। শুধু sticker আছে এমন message-এ পড়ার কিছু নেই। |
+| [Telegram](/integrations/telegram) | **হ্যাঁ** | Image **file হিসেবে** পাঠান, photo হিসেবে নয় — স্বাভাবিকভাবে পাঠানো photo পড়া হয় না। প্রতি message-এ একটি document। |
+| [Meta (Facebook)](/integrations/facebook) | **হ্যাঁ** | File চেনা হয় তার extension দেখে, তাই অস্বাভাবিক বা অনুপস্থিত extension-যুক্ত file পড়া হয় না। |
 
-## কীভাবে চালু করবেন
+## কীভাবে বন্ধ করবেন (বা আবার চালু করবেন)
 
-নথি সংযুক্তি প্রতিটি channel-এ আলাদাভাবে, একজন admin পরিচালনা করেন:
+নথি সংযুক্তি প্রতিটি channel-এ শুরু থেকেই চালু থাকে, তাই কিছু সেট আপ না করেই আপনার গ্রাহকরা file পাঠাতে পারেন। একজন admin চাইলে প্রতিটি channel-এ এটি বদলাতে পারেন:
 
 1. Sidebar-এ **Integrations** খুলুন এবং channel-টির card খুঁজুন
 2. এর **নথি সংযুক্তি** সেটিংস খুলুন
-3. **নথি সংযুক্তির অনুমতি দিন** চালু করুন
+3. **নথি সংযুক্তির অনুমতি দিন** বন্ধ করুন — বা আবার চালু করুন
 4. আপনার গ্রাহকরা scan বা ছবি পাঠালে **জটিল নথির জন্য প্রিমিয়াম পার্সিং**-ও চালু করুন
 
-Google Chat শুরু থেকেই চালু থাকে। WhatsApp, Slack, Discord, Telegram এবং Meta (Facebook)-এ একজন admin চালু না করা পর্যন্ত এটি বন্ধ থাকে — অর্থাৎ আপনি সিদ্ধান্ত না নেওয়া পর্যন্ত আপনার গ্রাহকদের জন্য কিছুই বদলায় না।
+প্রিমিয়াম পার্সিং একমাত্র সেটিং যা আপনি চালু না করা পর্যন্ত **বন্ধ** থাকে, কারণ এটি বিলযোগ্য — অর্থাৎ আপনি সম্মতি না দেওয়া পর্যন্ত ছবি ও scan পড়া হয় না।
 
 <Callout type="warning">
   নথি সংযুক্তি paid-plan বৈশিষ্ট্য — এটি free trial-এ উপলব্ধ নয়।

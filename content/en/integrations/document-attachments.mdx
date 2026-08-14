@@ -43,22 +43,22 @@ Everything above is the same on every channel. These are the differences your cu
 | Channel | On by default? | What's different here |
 |---------|----------------|------------------------|
 | [Google Chat](/integrations/google-chat) | **Yes** | One file stays active at a time. Files must be uploaded into the chat — Drive links can't be opened. Spaces can also keep a lasting [Space Knowledge Base](/integrations/google-chat#space-knowledge-base). |
-| [WhatsApp](/integrations/whatsapp) | No | Documents and photos are both read; stickers aren't. WhatsApp carries one attachment per message. |
-| [Slack](/integrations/slack) | No | Files uploaded to Slack are read; files linked from somewhere else aren't fetched. Several files in one message are all read. |
-| [Discord](/integrations/discord) | No | Every file attached to a message is read. A message carrying only a sticker has nothing to read. |
-| [Telegram](/integrations/telegram) | No | Send an image **as a file**, not as a photo — a photo sent the usual way isn't read. One document per message. |
-| [Meta (Facebook)](/integrations/facebook) | No | Files are recognised by their file extension, so one with an unusual or missing extension isn't read. |
+| [WhatsApp](/integrations/whatsapp) | **Yes** | Documents and photos are both read; stickers aren't. WhatsApp carries one attachment per message. |
+| [Slack](/integrations/slack) | **Yes** | Files uploaded to Slack are read; files linked from somewhere else aren't fetched. Several files in one message are all read. |
+| [Discord](/integrations/discord) | **Yes** | Every file attached to a message is read. A message carrying only a sticker has nothing to read. |
+| [Telegram](/integrations/telegram) | **Yes** | Send an image **as a file**, not as a photo — a photo sent the usual way isn't read. One document per message. |
+| [Meta (Facebook)](/integrations/facebook) | **Yes** | Files are recognised by their file extension, so one with an unusual or missing extension isn't read. |
 
-## Turning It On
+## Turning It Off (Or Back On)
 
-Document attachments are managed per channel, by an admin:
+Document attachments are on out of the box on every channel, so your customers can send a file without you setting anything up. An admin can change that per channel:
 
 1. Open **Integrations** in the sidebar and find the channel's card
 2. Open its **Document attachments** settings
-3. Switch on **Allow document attachments**
+3. Switch **Allow document attachments** off — or back on
 4. If your customers send scans or photos, also switch on **Premium parsing for complex documents**
 
-Google Chat is on out of the box. On WhatsApp, Slack, Discord, Telegram and Meta (Facebook) it stays off until an admin turns it on — so nothing changes for your customers until you decide it should.
+Premium parsing is the one setting that stays **off** until you turn it on, because it's billable — so images and scans aren't read until you opt in.
 
 <Callout type="warning">
   Document attachments are a paid-plan feature — they aren't available on the free trial.

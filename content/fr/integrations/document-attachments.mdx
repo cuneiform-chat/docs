@@ -43,22 +43,22 @@ Tout ce qui précède est identique sur tous les canaux. Voici les différences 
 | Canal | Activé par défaut ? | Ce qui change ici |
 |-------|---------------------|--------------------|
 | [Google Chat](/integrations/google-chat) | **Oui** | Un seul fichier reste actif à la fois. Les fichiers doivent être téléversés dans le chat — les liens Drive ne peuvent pas être ouverts. Les Spaces peuvent aussi conserver une [Base de Connaissances du Space](/integrations/google-chat#base-de-connaissances-du-space) durable. |
-| [WhatsApp](/integrations/whatsapp) | Non | Les documents comme les photos sont lus ; les stickers non. WhatsApp transporte une pièce jointe par message. |
-| [Slack](/integrations/slack) | Non | Les fichiers téléversés dans Slack sont lus ; les fichiers simplement liés depuis un autre service ne sont pas récupérés. Plusieurs fichiers dans un même message sont tous lus. |
-| [Discord](/integrations/discord) | Non | Chaque fichier joint à un message est lu. Un message ne contenant qu'un sticker n'a rien à lire. |
-| [Telegram](/integrations/telegram) | Non | Envoyez une image **en tant que fichier**, pas en tant que photo — une photo envoyée normalement n'est pas lue. Un document par message. |
-| [Meta (Facebook)](/integrations/facebook) | Non | Les fichiers sont reconnus à leur extension : un fichier dont l'extension est inhabituelle ou absente n'est pas lu. |
+| [WhatsApp](/integrations/whatsapp) | **Oui** | Les documents comme les photos sont lus ; les stickers non. WhatsApp transporte une pièce jointe par message. |
+| [Slack](/integrations/slack) | **Oui** | Les fichiers téléversés dans Slack sont lus ; les fichiers simplement liés depuis un autre service ne sont pas récupérés. Plusieurs fichiers dans un même message sont tous lus. |
+| [Discord](/integrations/discord) | **Oui** | Chaque fichier joint à un message est lu. Un message ne contenant qu'un sticker n'a rien à lire. |
+| [Telegram](/integrations/telegram) | **Oui** | Envoyez une image **en tant que fichier**, pas en tant que photo — une photo envoyée normalement n'est pas lue. Un document par message. |
+| [Meta (Facebook)](/integrations/facebook) | **Oui** | Les fichiers sont reconnus à leur extension : un fichier dont l'extension est inhabituelle ou absente n'est pas lu. |
 
-## Comment l'Activer
+## Comment la Désactiver (ou la Réactiver)
 
-Les pièces jointes de documents se gèrent canal par canal, par un administrateur :
+Les pièces jointes de documents sont activées d'emblée sur tous les canaux : vos clients peuvent donc envoyer un fichier sans que vous ayez quoi que ce soit à configurer. Un administrateur peut changer cela canal par canal :
 
 1. Ouvrez **Intégrations** dans la barre latérale et repérez la carte du canal
 2. Ouvrez ses réglages **Pièces jointes**
-3. Activez **Autoriser les pièces jointes**
+3. Désactivez **Autoriser les pièces jointes** — ou réactivez-le
 4. Si vos clients envoient des scans ou des photos, activez aussi l'**Analyse premium des documents complexes**
 
-Google Chat est activé d'emblée. Sur WhatsApp, Slack, Discord, Telegram et Meta (Facebook), la fonctionnalité reste désactivée jusqu'à ce qu'un administrateur l'active — rien ne change donc pour vos clients tant que vous n'en décidez pas autrement.
+L'analyse premium est le seul réglage qui reste **désactivé** tant que vous ne l'activez pas, car elle est facturable — les images et les scans ne sont donc pas lus tant que vous n'y avez pas consenti.
 
 <Callout type="warning">
   Les pièces jointes de documents sont une fonctionnalité des plans payants — elles ne sont pas disponibles dans l'essai gratuit.

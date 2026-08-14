@@ -43,22 +43,22 @@ Tudo acima é igual em todos os canais. Estas são as diferenças que seus clien
 | Canal | Ativo por padrão? | O que muda aqui |
 |-------|-------------------|------------------|
 | [Google Chat](/integrations/google-chat) | **Sim** | Um arquivo fica ativo por vez. Os arquivos precisam ser enviados no chat — links do Drive não podem ser abertos. Os Spaces também podem manter uma [Base de Conhecimento do Space](/integrations/google-chat#base-de-conhecimento-do-space) duradoura. |
-| [WhatsApp](/integrations/whatsapp) | Não | Documentos e fotos são lidos; figurinhas não. O WhatsApp leva um anexo por mensagem. |
-| [Slack](/integrations/slack) | Não | Arquivos enviados ao Slack são lidos; arquivos apenas vinculados de outro serviço não são baixados. Vários arquivos em uma mesma mensagem são todos lidos. |
-| [Discord](/integrations/discord) | Não | Cada arquivo anexado a uma mensagem é lido. Uma mensagem só com figurinha não tem nada para ler. |
-| [Telegram](/integrations/telegram) | Não | Envie uma imagem **como arquivo**, não como foto — uma foto enviada do jeito normal não é lida. Um documento por mensagem. |
-| [Meta (Facebook)](/integrations/facebook) | Não | Os arquivos são reconhecidos pela extensão, então um arquivo com extensão incomum ou ausente não é lido. |
+| [WhatsApp](/integrations/whatsapp) | **Sim** | Documentos e fotos são lidos; figurinhas não. O WhatsApp leva um anexo por mensagem. |
+| [Slack](/integrations/slack) | **Sim** | Arquivos enviados ao Slack são lidos; arquivos apenas vinculados de outro serviço não são baixados. Vários arquivos em uma mesma mensagem são todos lidos. |
+| [Discord](/integrations/discord) | **Sim** | Cada arquivo anexado a uma mensagem é lido. Uma mensagem só com figurinha não tem nada para ler. |
+| [Telegram](/integrations/telegram) | **Sim** | Envie uma imagem **como arquivo**, não como foto — uma foto enviada do jeito normal não é lida. Um documento por mensagem. |
+| [Meta (Facebook)](/integrations/facebook) | **Sim** | Os arquivos são reconhecidos pela extensão, então um arquivo com extensão incomum ou ausente não é lido. |
 
-## Como Ativar
+## Como Desativar (ou Reativar)
 
-Os anexos de documentos são gerenciados por canal, por um admin:
+Os anexos de documentos já vêm ativados em todos os canais, então seus clientes podem enviar um arquivo sem que você configure nada. Um admin pode mudar isso canal a canal:
 
 1. Abra **Integrações** na barra lateral e localize o card do canal
 2. Abra as configurações de **Anexos de documentos**
-3. Ative **Permitir anexos de documentos**
+3. Desative **Permitir anexos de documentos** — ou ative de novo
 4. Se seus clientes enviam digitalizações ou fotos, ative também o **Processamento premium para documentos complexos**
 
-O Google Chat já vem ativado. No WhatsApp, Slack, Discord, Telegram e Meta (Facebook) ele fica desativado até um admin ativá-lo — ou seja, nada muda para seus clientes até você decidir.
+O processamento premium é a única configuração que continua **desativada** até você ativá-la, porque é cobrada — ou seja, imagens e digitalizações não são lidas até você optar por isso.
 
 <Callout type="warning">
   Anexos de documentos são um recurso de planos pagos — não estão disponíveis no teste gratuito.

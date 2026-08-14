@@ -12,7 +12,7 @@ Telegram integration প্রদান করে:
 - Sentiment classification সহ এক-ট্যাপে emoji reaction
 - বিল্ট-ইন slash command (`/start`, `/help`, `/reset`, `/new`)
 - Direct message ও group chat (group-এ per-user session)
-- [নথি সংযুক্তি](/integrations/document-attachments) — একটি file পাঠিয়ে সে সম্পর্কে জিজ্ঞাসা করুন (ডিফল্টে বন্ধ, paid plan)
+- [নথি সংযুক্তি](/integrations/document-attachments) — একটি file পাঠিয়ে সে সম্পর্কে জিজ্ঞাসা করুন (ডিফল্টে চালু, paid plan)
 - একটি বিল্ট-ইন [in-bot Storefront](/integrations/telegram-mini-app) — multipage product catalog, per-product AI chat, এবং হালকা order-taking, সবই Telegram-এর ভেতরে (প্রতিটি plan-এ ফ্রি)
 - Premium user-দের জন্য ঐচ্ছিক Telegram Premium co-pilot (আলাদা integration)
 - অপারেটরদের জন্য Saba on Telegram (আলাদা integration)
@@ -76,7 +76,7 @@ Bot-এ পাঠানো voice note Whisper দিয়ে transcribe হয�
 
 কেউ bot-এ একটি file পাঠিয়ে সে সম্পর্কে জিজ্ঞাসা করতে পারেন। **ছবি *file হিসেবে* পাঠান, photo হিসেবে নয়** — স্বাভাবিকভাবে পাঠানো photo পড়া হয় না, কারণ Telegram সেটি নাম ছাড়া কয়েকটি resize করা preview হিসেবে পাঠায়। প্রতি message-এ একটি document।
 
-Telegram-এ এটি **ডিফল্টে বন্ধ**: একজন admin integration card-এ **নথি সংযুক্তির অনুমতি দিন** চালু করেন, আর ছবি বা scan-এর জন্য **জটিল নথির জন্য প্রিমিয়াম পার্সিং**-ও লাগে। সমর্থিত type, সীমা ও setup-এর জন্য [নথি সংযুক্তি](/integrations/document-attachments) দেখুন।
+Telegram-এ এটি **ডিফল্টে চালু**: একজন admin চাইলে integration card-এ **নথি সংযুক্তির অনুমতি দিন** বন্ধ করতে পারেন। ছবি বা scan-এর জন্য এখনও **জটিল নথির জন্য প্রিমিয়াম পার্সিং** লাগে, যা একজন admin চালু না করা পর্যন্ত বন্ধ থাকে। সমর্থিত type, সীমা ও setup-এর জন্য [নথি সংযুক্তি](/integrations/document-attachments) দেখুন।
 
 ### MarkdownV2 formatting
 

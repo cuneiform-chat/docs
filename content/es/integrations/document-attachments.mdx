@@ -43,22 +43,22 @@ Todo lo anterior es igual en todos los canales. Estas son las diferencias que tu
 | Canal | ¿Activo de forma predeterminada? | Qué cambia aquí |
 |-------|----------------------------------|------------------|
 | [Google Chat](/integrations/google-chat) | **Sí** | Un archivo permanece activo a la vez. Los archivos deben subirse al chat — los enlaces de Drive no se pueden abrir. Los Spaces también pueden mantener una [Base de Conocimiento del Space](/integrations/google-chat#base-de-conocimiento-del-space) duradera. |
-| [WhatsApp](/integrations/whatsapp) | No | Se leen tanto los documentos como las fotos; los stickers no. WhatsApp lleva un adjunto por mensaje. |
-| [Slack](/integrations/slack) | No | Se leen los archivos subidos a Slack; los archivos enlazados desde otro sitio no se descargan. Varios archivos en un mismo mensaje se leen todos. |
-| [Discord](/integrations/discord) | No | Se lee cada archivo adjunto de un mensaje. Un mensaje que solo lleva un sticker no tiene nada que leer. |
-| [Telegram](/integrations/telegram) | No | Envía una imagen **como archivo**, no como foto — una foto enviada de la forma habitual no se lee. Un documento por mensaje. |
-| [Meta (Facebook)](/integrations/facebook) | No | Los archivos se reconocen por su extensión, así que uno con una extensión inusual o ausente no se lee. |
+| [WhatsApp](/integrations/whatsapp) | **Sí** | Se leen tanto los documentos como las fotos; los stickers no. WhatsApp lleva un adjunto por mensaje. |
+| [Slack](/integrations/slack) | **Sí** | Se leen los archivos subidos a Slack; los archivos enlazados desde otro sitio no se descargan. Varios archivos en un mismo mensaje se leen todos. |
+| [Discord](/integrations/discord) | **Sí** | Se lee cada archivo adjunto de un mensaje. Un mensaje que solo lleva un sticker no tiene nada que leer. |
+| [Telegram](/integrations/telegram) | **Sí** | Envía una imagen **como archivo**, no como foto — una foto enviada de la forma habitual no se lee. Un documento por mensaje. |
+| [Meta (Facebook)](/integrations/facebook) | **Sí** | Los archivos se reconocen por su extensión, así que uno con una extensión inusual o ausente no se lee. |
 
-## Cómo Activarlo
+## Cómo Desactivarlo (o Volver a Activarlo)
 
-Los adjuntos de documentos se gestionan por canal, y los activa un administrador:
+Los adjuntos de documentos vienen activados de fábrica en todos los canales, así que tus clientes pueden enviar un archivo sin que tengas que configurar nada. Un administrador puede cambiarlo canal por canal:
 
 1. Abre **Integraciones** en la barra lateral y busca la tarjeta del canal
 2. Abre su configuración de **Archivos adjuntos**
-3. Activa **Permitir archivos adjuntos**
+3. Desactiva **Permitir archivos adjuntos** — o vuelve a activarlo
 4. Si tus clientes envían escaneos o fotos, activa también **Análisis premium para documentos complejos**
 
-Google Chat viene activado de fábrica. En WhatsApp, Slack, Discord, Telegram y Meta (Facebook) permanece desactivado hasta que un administrador lo active — así que nada cambia para tus clientes hasta que tú lo decidas.
+El análisis premium es el único ajuste que permanece **desactivado** hasta que tú lo actives, porque es facturable — así que las imágenes y los escaneos no se leen hasta que lo habilites.
 
 <Callout type="warning">
   Los adjuntos de documentos son una función de los planes de pago — no están disponibles en la prueba gratuita.
