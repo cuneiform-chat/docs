@@ -91,7 +91,7 @@ The order was found and verified, but part of the fulfillment detail wasn't read
 
 ### On Shopify, the order is found but phone verification fails or the order link is missing
 
-Some customer fields — the phone number on the order, and the order's status page link — are Protected Customer Data, and Shopify withholds them until your app is approved to read them. The agent answers with what it can read rather than failing the lookup. While a field is withheld, a phone-based verification can't match: ask the shopper to use the email on the order instead.
+Some customer fields — the phone number on the order, and the order's status page link — are Protected Customer Data, and Shopify withholds them unless your app is allowed to read them. Shopify restricts that access on its cheapest plans, so this is most often a store-plan limit rather than a fault. The agent answers with what it can read rather than failing the lookup. While a field is withheld, a phone-based verification can't match: ask the shopper to use the email on the order instead.
 
 ## Related
 

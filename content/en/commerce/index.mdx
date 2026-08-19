@@ -8,7 +8,7 @@ description: Connect a Shopify or WooCommerce store so your AI agents answer fro
 
 Cuneiform Chat connects to two commerce platforms, and treats them as peers:
 
-- **[Shopify](/commerce/shopify)** — installed from the Shopify App Store and run as an embedded app inside your Shopify admin.
+- **[Shopify](/commerce/shopify)** — connected with an app you create in your own Shopify admin, and optionally opened from inside `admin.shopify.com`.
 - **[WooCommerce](/commerce/woocommerce)** — connected to your self-hosted store over the WooCommerce REST API.
 
 import { Callout } from 'nextra/components'
@@ -37,8 +37,8 @@ Shopify and WooCommerce are peers here — not a primary and a fallback. Every c
 
 | Difference | Shopify | WooCommerce |
 |---|---|---|
-| **How you connect** | Install from the Shopify App Store, then link your workspace from inside the embedded app | Enter your store URL and approve a one-time authorization, or paste API keys manually |
-| **Re-authorizing later** | No reconnect step — permission changes ride the app itself | **Reconnect** re-runs the approval on your store |
+| **How you connect** | Create an app in your Shopify admin, install it, and paste its credentials into Cuneiform Chat | Enter your store URL and approve a one-time authorization, or paste API keys manually |
+| **Re-authorizing later** | No reconnect step — disconnect and reconnect to pick up changed permissions or credentials | **Reconnect** re-runs the approval on your store |
 | **Initial catalog sync** | Starts automatically at connect | Starts automatically on the guided flow; the manual key path needs a **Re-sync now** — see [WooCommerce](/commerce/woocommerce#after-a-manual-connect) |
 | **Inventory freshness** | Dedicated inventory updates, so a stock-only change arrives on its own, usually within seconds | Stock changes arrive with product updates, so a stock-only change waits for the next product edit or reconcile |
 | **Checkout handoff** | One cart link covering every line | Depends on the permission your keys carry — see [Checkout](/commerce/checkout) |
@@ -86,7 +86,7 @@ That agent is chosen for you, not by you. If you have connected this same store 
 
 ## Related
 
-- [Shopify](/commerce/shopify) — App Store install and workspace linking
+- [Shopify](/commerce/shopify) — creating your app and connecting the store
 - [WooCommerce](/commerce/woocommerce) — guided authorization and manual API keys
 - [Telegram Storefront](/integrations/telegram-mini-app) — the in-bot storefront a catalog-linked store can feed
 - [Analytics](/commerce/analytics) — measuring what commerce is doing for you

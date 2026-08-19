@@ -1,10 +1,10 @@
 ---
-description: Install Cuneiform Chat from the Shopify App Store and link it to your workspace so your AI agents answer from your synced Shopify catalog, orders, and inventory.
+description: Connect your Shopify store to Cuneiform Chat so your AI agents answer from your synced Shopify catalog, orders, and inventory.
 ---
 
 # Shopify
 
-**Install once from the Shopify App Store, link it to your workspace, and your agents are answering from your store's catalog, orders, and inventory.** No API keys to generate, no redirect URLs to configure, no plugin to install.
+**Connect your Shopify store once and your agents are answering from your catalog, orders, and inventory.** Setup takes about five minutes, happens entirely inside Cuneiform Chat, and needs no theme edits and no plugin.
 
 import { Callout } from 'nextra/components'
 
@@ -14,7 +14,7 @@ import { Callout } from 'nextra/components'
 
 ## What you get
 
-Once your store is linked, your store agent can:
+Once your store is connected, your store agent can:
 
 - **Answer catalog questions** from your real products, variants, options, and prices
 - **Read stock and price from your synced catalog**, kept current by webhooks so it isn't offering what you just sold out of
@@ -26,46 +26,28 @@ Once your store is linked, your store agent can:
 ## Prerequisites
 
 - A **Shopify store** you administer
-- A Cuneiform Chat workspace, and an **Owner or Admin** account on it — linking a store is an admin action
+- A Cuneiform Chat workspace, and an **Owner or Admin** account on it — connecting a store is an admin action
 - At least one agent, or room in your plan to create one (see [Your store agent](/commerce#your-store-agent))
+
+<Callout type="warning">
+  **Collaborator accounts can't complete setup.** Part of the setup happens in your Shopify admin's Dev Dashboard, which Shopify does not offer to collaborator accounts. If an agency manages your store, the store owner — or a staff account with app permissions — has to do that part.
+</Callout>
 
 ## How connecting works
 
-Connecting Shopify is a two-part handshake: Shopify installs the app, then **you** link that installed app to your Cuneiform Chat workspace. Shopify knows which store you are; only you know which workspace it belongs to.
+You create a small app inside your own Shopify admin, install it on your store, and paste its credentials into Cuneiform Chat. Your store's data never leaves your Shopify account by any other route, and the app belongs to you rather than to us.
 
-### 1. Install from the Shopify App Store
+**The step-by-step walkthrough lives in the product**, where it can show you the exact values to enter for your store — those values depend on your workspace and on the API version we're currently running, so a copy of them here would go stale without telling you.
 
-Find **Cuneiform Chat - AI Commerce** in the Shopify App Store and install it. Shopify handles the installation itself and asks you to approve the permissions below. Nothing on our side is involved yet.
+To start: open **Commerce → Shopify** in Cuneiform Chat and follow the setup steps on the connect screen. It walks you through creating the app, requesting the permissions below, installing it, and pasting in the credentials.
 
-### 2. Open the app in your Shopify admin
-
-The app opens **inside `admin.shopify.com`** as an embedded app. This is your Shopify-side home for the integration — setup, connection status, configuration, a dashboard, and billing all live here.
-
-### 3. Click "Link your workspace"
-
-Until the store is linked, the embedded app shows a **"Link your workspace"** banner. Clicking it opens Cuneiform Chat in a **new top-level browser tab** rather than inside the Shopify frame. That is deliberate: signing in cannot happen inside another site's iframe, so the linking step has to break out.
-
-### 4. Approve the link
-
-You land on the claim page in Cuneiform Chat with your store already identified. Confirm, and the store is attached to your workspace. You're redirected to **Commerce**, and the initial catalog sync starts.
-
-What you can see on that page:
-
-| What you see | What it means |
-|---|---|
-| **Sign-in prompt** | You weren't signed in. Sign in and the link picks up where it left off. |
-| **Confirm the link** | You're an Owner or Admin — this is the normal path. |
-| **Ask an admin to finish this** | You're a Member. Members can't connect integrations; send the link to an Owner or Admin. |
-| **Store linked** | Done. The catalog sync is already running. |
-| **This connection link expired** | The linking ticket is stale, already used, or no longer recognized. Go back to the app in your Shopify admin and click **Link your workspace** again. |
-| **This store is connected elsewhere** | The store is already linked to a different workspace. Disconnect it there first. |
-| **This workspace already has a store** | One Shopify store per workspace. Disconnect the current one before linking a new one. |
-| **Couldn't connect your store** | Something went wrong on our side. A **Try again** button retries in place — you don't need to start over from Shopify. |
-| **We couldn't complete the connection** | The link failed before it reached us. Re-open the app in your Shopify admin and start the link again. |
+<Callout type="info">
+  **Installing the app is its own step.** In Shopify's Dev Dashboard, releasing a version of your app is not the same as installing it on your store. If you stop at release, the credentials are rejected when you paste them in — the connect screen says so explicitly when that happens.
+</Callout>
 
 ## Permissions we ask for
 
-Cuneiform Chat requests **five read-only permissions**. There is no write permission in the set — the app cannot change anything in your store.
+Your app requests **five read-only permissions**. There is no write permission in the set — it cannot change anything in your store.
 
 | Permission | Why we need it |
 |---|---|
@@ -79,18 +61,28 @@ Cuneiform Chat requests **five read-only permissions**. There is no write permis
   **Read-only means read-only.** The app cannot create, edit, or delete products; cannot adjust inventory; cannot create, edit, or cancel orders; and cannot capture payments. Every purchase completes on your own Shopify checkout.
 </Callout>
 
+### If a permission isn't granted [#if-a-permission-isnt-granted]
+
+Shopify restricts customer and order access on its cheapest plans, so a store on Basic or Starter may not be able to grant `read_orders` or `read_customers`. When that happens the connection still succeeds and Cuneiform Chat tells you which permissions are missing, on the connect screen and again on **Commerce → Shopify → Connection** for as long as the gap is real.
+
+Anything that depends on a missing permission stays off rather than failing quietly — order lookup and order-status updates are the usual casualties. Once your store's plan covers them, disconnect and reconnect the store so the new permissions are picked up.
+
+## Opening Cuneiform Chat inside your Shopify admin
+
+Optionally, your app can be marked **embedded**, which makes your Cuneiform Chat dashboard open inside `admin.shopify.com` alongside the rest of your store admin — setup, connection status, configuration, and a dashboard. The connect screen gives you the two values Shopify asks for. Skipping this changes nothing about how the integration works; it only changes where you open it from.
+
 ## One store per workspace
 
 A workspace connects **one Shopify store**. It can also connect one WooCommerce store at the same time — see [Commerce](/commerce#you-can-connect-both-at-once).
 
-If someone tries to link a store that's already connected to a different workspace, the attempt is refused rather than silently taking it over.
+If you try to connect a store that's already connected to a different workspace, the attempt is refused rather than silently taking it over.
 
-## There is no "Reconnect" button
+## Changing permissions or credentials later
 
-Shopify has no reconnect step, and you should never go looking for one. Permission changes ride the app itself: when the app's permission set changes, Shopify prompts you to approve the update the next time you open it. There is nothing to re-authorize by hand.
+There is no separate "Reconnect" button. Your app's permissions and credentials are recorded when you connect and aren't rewritten afterwards, so any change you make in Shopify — adding a scope, rotating the client secret — reaches Cuneiform Chat by **disconnecting and reconnecting the store**.
 
 <Callout type="warning">
-  This is the main way the Shopify and WooCommerce flows differ. WooCommerce **does** have a **Reconnect** button, because a self-hosted store's API keys can be revoked from inside the store. Shopify's cannot.
+  Reconnecting re-runs the teardown described under [Disconnecting](#disconnecting), so read that first if you have Storefronts scoped to the store.
 </Callout>
 
 ## After you connect
@@ -101,23 +93,15 @@ Shopify has no reconnect step, and you should never go looking for one. Permissi
 
 ## Troubleshooting
 
-### The "Link your workspace" banner won't go away
+### The credentials were rejected
 
-The link hasn't completed. Click it again — it opens a fresh linking ticket in a new tab. If it opens and immediately says the link expired, the ticket sat unused too long; just start it again.
+The most common cause is that the app was released but never **installed** on the store — those are two separate actions in Shopify's Dev Dashboard. The connect screen distinguishes that case from a genuine credential mismatch, so read the message it gives you rather than assuming the Client ID and Secret are wrong.
 
-### The link opened but nothing happened
+### Order lookup and shipping updates aren't available
 
-The linking step must open in a **top-level tab**, not inside the Shopify frame. If your browser blocked the new tab, allow pop-ups for `admin.shopify.com` and try again.
+Check **Commerce → Shopify → Connection** for a missing-permission notice. On Shopify's cheapest plans `read_orders` and `read_customers` may not be grantable at all — see [If a permission isn't granted](#if-a-permission-isnt-granted).
 
-### "This store is connected elsewhere"
-
-The store is linked to another Cuneiform Chat workspace — often a trial workspace created earlier. Sign in to that workspace, disconnect the store there, then link it here.
-
-### A Member can't finish the link
-
-Linking a store requires the **Integration connect** permission, which Owners and Admins have and Members don't. Forward the link to an Owner or Admin.
-
-### The catalog is empty right after linking
+### The catalog is empty right after connecting
 
 The first import backfills the whole catalog and takes a few minutes on a large store. If it still looks empty afterwards, run **Re-sync now** from **Commerce → Shopify → Catalog & Data**. While the catalog is still empty, the checklist on the Overview tab also offers a one-click **Sync now**.
 
@@ -125,7 +109,11 @@ The first import backfills the whole catalog and takes a few minutes on a large 
 
 Check that you're talking to the **store agent** — the one wired to the store at connect time. Its agent page shows a read-only panel saying it's managed by your store. Other agents don't carry the commerce tools.
 
-## Disconnecting
+### A Member can't connect the store
+
+Connecting a store requires the **Integration connect** permission, which Owners and Admins have and Members don't.
+
+## Disconnecting [#disconnecting]
 
 Disconnect from **Commerce → Shopify → Disconnect**. Disconnecting:
 
@@ -140,7 +128,7 @@ Disconnect from **Commerce → Shopify → Disconnect**. Disconnecting:
   If you still have a **WooCommerce** store connected, only the workspace-wide steps — archiving commerce Agent Forms and deleting quiz suggestions — are skipped. The Shopify store's own catalog, product knowledge, Storefronts, analytics and store agent are always torn down.
 </Callout>
 
-Uninstalling the app from your Shopify admin ends Shopify's side of the relationship as well.
+**Your app stays installed in your Shopify admin.** Disconnecting here removes our side of the relationship, not the app you created — it belongs to your store. Delete it from your Shopify admin if you want it gone.
 
 ## Related
 

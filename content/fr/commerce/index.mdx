@@ -8,7 +8,7 @@ description: Connectez une boutique Shopify ou WooCommerce pour que vos agents I
 
 Cuneiform Chat se connecte à deux plateformes de commerce, et les traite en égales :
 
-- **[Shopify](/commerce/shopify)** — installée depuis le Shopify App Store et exécutée comme application intégrée dans votre admin Shopify.
+- **[Shopify](/commerce/shopify)** — connectée via une application que vous créez dans votre propre admin Shopify et, si vous le souhaitez, ouverte depuis `admin.shopify.com`.
 - **[WooCommerce](/commerce/woocommerce)** — connectée à votre boutique auto-hébergée via la WooCommerce REST API.
 
 import { Callout } from 'nextra/components'
@@ -37,8 +37,8 @@ Shopify et WooCommerce sont ici sur un pied d'égalité — il n'y a pas une pri
 
 | Différence | Shopify | WooCommerce |
 |---|---|---|
-| **Comment vous vous connectez** | Installez depuis le Shopify App Store, puis reliez votre espace de travail depuis l'application intégrée | Saisissez l'URL de votre boutique et approuvez une autorisation unique, ou collez des clés d'API manuellement |
-| **Réautoriser plus tard** | Pas d'étape de reconnexion — les changements de permissions voyagent avec l'application elle-même | **Reconnect** relance l'approbation sur votre boutique |
+| **Comment vous vous connectez** | Créez une application dans votre admin Shopify, installez-la et collez ses identifiants dans Cuneiform Chat | Saisissez l'URL de votre boutique et approuvez une autorisation unique, ou collez des clés d'API manuellement |
+| **Réautoriser plus tard** | Pas d'étape de reconnexion — déconnectez puis reconnectez pour prendre en compte des permissions ou des identifiants modifiés | **Reconnect** relance l'approbation sur votre boutique |
 | **Synchronisation initiale du catalogue** | Démarre automatiquement à la connexion | Démarre automatiquement sur le parcours guidé ; la voie des clés manuelles nécessite un **Re-sync now** — voir [WooCommerce](/commerce/woocommerce#after-a-manual-connect) |
 | **Fraîcheur du stock** | Mises à jour de stock dédiées, donc un changement de stock seul arrive de lui-même, généralement en quelques secondes | Les changements de stock arrivent avec les mises à jour de produit, donc un changement de stock seul attend la prochaine modification du produit ou la prochaine réconciliation |
 | **Transfert vers le checkout** | Un seul lien de panier couvrant toutes les lignes | Dépend de la permission portée par vos clés — voir [Checkout](/commerce/checkout) |
@@ -86,7 +86,7 @@ Cet agent est choisi pour vous, pas par vous. Si vous avez déjà connecté cett
 
 ## Lié
 
-- [Shopify](/commerce/shopify) — installation depuis l'App Store et liaison de l'espace de travail
+- [Shopify](/commerce/shopify) — créer votre application et connecter la boutique
 - [WooCommerce](/commerce/woocommerce) — autorisation guidée et clés d'API manuelles
 - [Boutique Telegram](/integrations/telegram-mini-app) — la boutique intégrée au bot qu'une boutique reliée au catalogue peut alimenter
 - [Analytique](/commerce/analytics) — mesurer ce que le commerce fait pour vous

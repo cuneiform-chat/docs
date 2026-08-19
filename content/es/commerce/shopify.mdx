@@ -1,151 +1,139 @@
 ---
-description: Instala Cuneiform Chat desde la Shopify App Store y vincúlalo a tu workspace para que tus agents de IA respondan desde tu catálogo, pedidos e inventario de Shopify sincronizados.
+description: Conecta tu tienda de Shopify a Cuneiform Chat para que tus agentes de IA respondan con tu catálogo, tus pedidos y tu inventario sincronizados.
 ---
 
 # Shopify
 
-**Instala una vez desde la Shopify App Store, vincúlalo a tu workspace y tus agents ya responden desde el catálogo, los pedidos y el inventario de tu tienda.** Sin claves de API que generar, sin URLs de redirección que configurar, sin plugin que instalar.
+**Conecta tu tienda de Shopify una vez y tus agentes responderán con tu catálogo, tus pedidos y tu inventario.** La configuración lleva unos cinco minutos, se hace entera dentro de Cuneiform Chat y no requiere tocar la plantilla ni instalar ningún plugin.
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Shopify está incluido para todo el mundo, prueba gratuita incluida. Conectar una tienda no cuesta nada extra.
+  Shopify funciona en todos los planes, incluida la prueba gratuita. Conectar una tienda no cuesta nada extra.
 </Callout>
 
 ## Qué obtienes
 
-Una vez vinculada tu tienda, tu agent de tienda puede:
+Una vez conectada tu tienda, tu agente de tienda puede:
 
-- **Responder preguntas de catálogo** a partir de tus productos, variantes, opciones y precios reales
-- **Leer stock y precio de tu catálogo sincronizado**, que los webhooks mantienen al día para que no ofrezca lo que acabas de agotar
-- **Recomendar productos en stock** en lugar de lo que recuerde
-- **Consultar pedidos** para compradores que puedan demostrar que el pedido es suyo
-- **Enviar actualizaciones de estado del pedido** a los compradores que se suscriben, en el mismo chat
-- **Llevar a un comprador listo para comprar a tu checkout de Shopify** con todo su carrito intacto
+- **Responder preguntas del catálogo** con tus productos, variantes, opciones y precios reales
+- **Leer stock y precio de tu catálogo sincronizado**, al día gracias a los webhooks, para que no ofrezca lo que acabas de agotar
+- **Recomendar productos disponibles** en lugar de lo que recuerde
+- **Consultar pedidos** para los compradores que puedan demostrar que el pedido es suyo
+- **Enviar actualizaciones del estado del pedido** a los compradores que se suscriban, en el mismo chat
+- **Llevar al comprador decidido a tu checkout de Shopify** con todo su carrito intacto
 
 ## Requisitos previos
 
-- Una **tienda Shopify** que administres
-- Un workspace de Cuneiform Chat y una cuenta de **Owner o Admin** en él — vincular una tienda es una acción de administración
-- Al menos un agent, o espacio para crear uno (consulta [Tu agent de tienda](/commerce#your-store-agent))
+- Una **tienda de Shopify** que administres
+- Un workspace de Cuneiform Chat y una cuenta **Owner o Admin** en él: conectar una tienda es una acción de administración
+- Al menos un agent, o margen en tu plan para crear uno (ver [Tu agente de tienda](/commerce#your-store-agent))
+
+<Callout type="warning">
+  **Las cuentas de colaborador no pueden completar la configuración.** Parte del proceso ocurre en el Dev Dashboard de tu panel de Shopify, que Shopify no ofrece a las cuentas de colaborador. Si una agencia gestiona tu tienda, esa parte la tiene que hacer el propietario de la tienda o una cuenta de staff con permisos sobre apps.
+</Callout>
 
 ## Cómo funciona la conexión
 
-Conectar Shopify es un apretón de manos en dos partes: Shopify instala la app y luego **tú** vinculas esa app instalada a tu workspace de Cuneiform Chat. Shopify sabe qué tienda eres; solo tú sabes a qué workspace pertenece.
+Creas una pequeña app dentro de tu propio panel de Shopify, la instalas en tu tienda y pegas sus credenciales en Cuneiform Chat. Los datos de tu tienda no salen de tu cuenta de Shopify por ninguna otra vía, y la app te pertenece a ti, no a nosotros.
 
-### 1. Instala desde la Shopify App Store
+**El paso a paso vive en el producto**, donde puede mostrarte los valores exactos que hay que introducir para tu tienda: esos valores dependen de tu workspace y de la versión de la API que estemos ejecutando, así que una copia aquí quedaría desactualizada sin avisarte.
 
-Busca **Cuneiform Chat - AI Commerce** en la Shopify App Store e instálala. Shopify se encarga de la instalación y te pide aprobar los permisos de más abajo. Todavía no interviene nada de nuestro lado.
+Para empezar: abre **Commerce → Shopify** en Cuneiform Chat y sigue los pasos de la pantalla de conexión. Te guía para crear la app, pedir los permisos de abajo, instalarla y pegar las credenciales.
 
-### 2. Abre la app en tu panel de Shopify
-
-La app se abre **dentro de `admin.shopify.com`** como app integrada. Este es tu hogar de la integración del lado de Shopify — configuración, estado de la conexión, ajustes, un dashboard y la facturación viven todos aquí.
-
-### 3. Haz clic en «Link your workspace»
-
-Hasta que la tienda esté vinculada, la app integrada muestra un banner **«Link your workspace»**. Al hacer clic se abre Cuneiform Chat en una **pestaña nueva de nivel superior** en lugar de dentro del marco de Shopify. Es deliberado: iniciar sesión no puede ocurrir dentro del iframe de otro sitio, así que el paso de vinculación tiene que salir fuera.
-
-### 4. Aprueba la vinculación
-
-Llegas a la página de vinculación en Cuneiform Chat con tu tienda ya identificada. Confirma, y la tienda queda asociada a tu workspace. Te redirige a **Commerce** y arranca la sincronización inicial del catálogo.
-
-Lo que puedes ver en esa página:
-
-| Lo que ves | Qué significa |
-|---|---|
-| **Aviso para iniciar sesión** | No habías iniciado sesión. Inicia sesión y la vinculación continúa donde se quedó. |
-| **Confirmar la vinculación** | Eres Owner o Admin — esta es la vía normal. |
-| **Pide a un administrador que lo termine** | Eres Member. Los Members no pueden conectar integraciones; envía el enlace a un Owner o Admin. |
-| **Tienda vinculada** | Listo. La sincronización del catálogo ya está en marcha. |
-| **Este enlace de conexión ha caducado** | El ticket de vinculación está obsoleto, ya se usó o ya no se reconoce. Vuelve a la app en tu panel de Shopify y haz clic otra vez en **Link your workspace**. |
-| **Esta tienda está conectada en otro sitio** | La tienda ya está vinculada a otro workspace. Desconéctala allí primero. |
-| **Este workspace ya tiene una tienda** | Una tienda Shopify por workspace. Desconecta la actual antes de vincular otra. |
-| **No se pudo conectar tu tienda** | Algo falló de nuestro lado. Un botón **Try again** lo reintenta ahí mismo — no hace falta que empieces de nuevo desde Shopify. |
-| **No pudimos completar la conexión** | La vinculación falló antes de llegar hasta nosotros. Vuelve a abrir la app en tu panel de Shopify y empieza la vinculación otra vez. |
+<Callout type="info">
+  **Instalar la app es un paso aparte.** En el Dev Dashboard de Shopify, publicar una versión de tu app no es lo mismo que instalarla en tu tienda. Si te quedas en la publicación, las credenciales se rechazan al pegarlas; la pantalla de conexión te lo dice explícitamente cuando pasa.
+</Callout>
 
 ## Permisos que pedimos
 
-Cuneiform Chat solicita **cinco permisos de solo lectura**. No hay ningún permiso de escritura en el conjunto — la app no puede cambiar nada en tu tienda.
+Tu app pide **cinco permisos de solo lectura**. No hay ningún permiso de escritura en el conjunto: no puede cambiar nada en tu tienda.
 
-| Permiso | Por qué lo necesitamos |
+| Permiso | Para qué lo necesitamos |
 |---|---|
 | `read_products` | Leer tu catálogo: productos, variantes, opciones, precios, imágenes |
-| `read_inventory` | Leer niveles de stock para que el agent solo recomiende lo que está disponible |
-| `read_orders` | Consultar el pedido de un comprador y enviarle actualizaciones de estado |
-| `read_fulfillments` | Informar del progreso de envío de esos pedidos |
-| `read_customers` | Cotejar el teléfono de un comprador con el pedido por el que pregunta |
+| `read_inventory` | Leer el stock para que el agent solo recomiende lo disponible |
+| `read_orders` | Consultar el pedido de un comprador y enviarle actualizaciones |
+| `read_fulfillments` | Informar del progreso del envío de esos pedidos |
+| `read_customers` | Cotejar el teléfono del comprador con el pedido por el que pregunta |
 
 <Callout type="info">
-  **Solo lectura significa solo lectura.** La app no puede crear, editar ni eliminar productos; no puede ajustar el inventario; no puede crear, editar ni cancelar pedidos; y no puede cobrar pagos. Cada compra se completa en tu propio checkout de Shopify.
+  **Solo lectura significa solo lectura.** La app no puede crear, editar ni eliminar productos; no puede ajustar el inventario; no puede crear, editar ni cancelar pedidos; y no puede cobrar. Cada compra se completa en tu propio checkout de Shopify.
 </Callout>
+
+### Si algún permiso no se concede [#if-a-permission-isnt-granted]
+
+Shopify restringe el acceso a clientes y pedidos en sus planes más económicos, así que una tienda en Basic o Starter puede no llegar a conceder `read_orders` ni `read_customers`. Cuando ocurre, la conexión se completa igualmente y Cuneiform Chat te dice qué permisos faltan: en la pantalla de conexión y de nuevo en **Commerce → Shopify → Connection** mientras la carencia siga siendo real.
+
+Todo lo que dependa de un permiso ausente queda desactivado en lugar de fallar en silencio; las víctimas habituales son la consulta de pedidos y las actualizaciones de estado. Cuando el plan de tu tienda los cubra, desconecta y vuelve a conectar la tienda para que se recojan los nuevos permisos.
+
+## Abrir Cuneiform Chat dentro de tu panel de Shopify
+
+Opcionalmente, tu app puede marcarse como **embedded**, lo que hace que tu panel de Cuneiform Chat se abra dentro de `admin.shopify.com`, junto al resto de la administración de tu tienda: configuración inicial, estado de la conexión, ajustes y un dashboard. La pantalla de conexión te da los dos valores que pide Shopify. Saltarte esto no cambia nada del funcionamiento de la integración; solo cambia desde dónde la abres.
 
 ## Una tienda por workspace
 
-Un workspace conecta **una tienda Shopify**. También puede conectar una tienda WooCommerce al mismo tiempo — consulta [Commerce](/commerce#you-can-connect-both-at-once).
+Un workspace conecta **una tienda de Shopify**. También puede tener conectada una tienda de WooCommerce al mismo tiempo: ver [Commerce](/commerce#you-can-connect-both-at-once).
 
-Si alguien intenta vincular una tienda que ya está conectada a otro workspace, el intento se rechaza en lugar de arrebatarla en silencio.
+Si intentas conectar una tienda que ya está conectada a otro workspace, el intento se rechaza en lugar de apropiársela en silencio.
 
-## No hay botón de «Reconnect»
+## Cambiar permisos o credenciales más adelante
 
-Shopify no tiene paso de reconexión, y nunca deberías salir a buscarlo. Los cambios de permisos viajan con la propia app: cuando cambia el conjunto de permisos de la app, Shopify te pide aprobar la actualización la próxima vez que la abras. No hay nada que volver a autorizar a mano.
+No hay un botón de «Reconnect» aparte. Los permisos y las credenciales de tu app se registran al conectar y no se reescriben después, así que cualquier cambio que hagas en Shopify —añadir un scope, rotar el client secret— llega a Cuneiform Chat **desconectando y volviendo a conectar la tienda**.
 
 <Callout type="warning">
-  Esta es la principal diferencia entre los flujos de Shopify y WooCommerce. WooCommerce **sí** tiene un botón **Reconnect**, porque las claves de API de una tienda autoalojada se pueden revocar desde dentro de la tienda. Las de Shopify no.
+  Volver a conectar repite el desmontaje que se describe en [Desconectar](#disconnecting), así que léelo antes si tienes Storefronts asociadas a la tienda.
 </Callout>
 
 ## Después de conectar
 
-- **Tu catálogo empieza a sincronizarse de inmediato.** Consulta [Catálogo y Conocimiento](/commerce/catalog-and-knowledge) para saber qué cubre la sincronización y cómo se mantiene al día.
-- **Un agent se convierte en tu agent de tienda**, que elegimos nosotros por ti al conectar. Consulta [Tu agent de tienda](/commerce#your-store-agent).
-- **Las actualizaciones de estado del pedido están activadas por defecto**, y la única puerta le pertenece al comprador: se suscribe después de verificar su pedido. Consulta [Pedidos](/commerce/orders#order-status-updates).
+- **Tu catálogo empieza a sincronizarse de inmediato.** Ver [Catálogo y conocimiento](/commerce/catalog-and-knowledge) para saber qué cubre la sincronización y cómo se mantiene al día.
+- **Un agent se convierte en tu agente de tienda**, elegido por ti automáticamente al conectar. Ver [Tu agente de tienda](/commerce#your-store-agent).
+- **Las actualizaciones de estado del pedido están activas por defecto**, y la única barrera es del comprador: se suscribe después de verificar su pedido. Ver [Pedidos](/commerce/orders#order-status-updates).
 
 ## Solución de problemas
 
-### El banner «Link your workspace» no desaparece
+### Las credenciales fueron rechazadas
 
-La vinculación no se completó. Haz clic otra vez — abre un ticket de vinculación nuevo en una pestaña nueva. Si se abre y dice inmediatamente que el enlace caducó, el ticket estuvo demasiado tiempo sin usar; simplemente empieza de nuevo.
+La causa más habitual es que la app se publicó pero nunca se **instaló** en la tienda: son dos acciones distintas en el Dev Dashboard de Shopify. La pantalla de conexión distingue ese caso de un desajuste real de credenciales, así que lee el mensaje que te da en lugar de dar por hecho que el Client ID y el Secret están mal.
 
-### El enlace se abrió pero no pasó nada
+### La consulta de pedidos y las actualizaciones de envío no están disponibles
 
-El paso de vinculación tiene que abrirse en una **pestaña de nivel superior**, no dentro del marco de Shopify. Si tu navegador bloqueó la pestaña nueva, permite las ventanas emergentes para `admin.shopify.com` e inténtalo otra vez.
+Revisa **Commerce → Shopify → Connection** por si hay un aviso de permiso ausente. En los planes más económicos de Shopify puede que `read_orders` y `read_customers` no se puedan conceder en absoluto: ver [Si algún permiso no se concede](#if-a-permission-isnt-granted).
 
-### «Esta tienda está conectada en otro sitio»
+### El catálogo está vacío justo después de conectar
 
-La tienda está vinculada a otro workspace de Cuneiform Chat — a menudo un workspace de prueba creado antes. Inicia sesión en ese workspace, desconecta la tienda allí y luego vincúlala aquí.
-
-### Un Member no puede terminar la vinculación
-
-Vincular una tienda requiere el permiso **Integration connect**, que tienen los Owners y los Admins y no tienen los Members. Reenvía el enlace a un Owner o Admin.
-
-### El catálogo está vacío justo después de vincular
-
-La primera importación rellena todo el catálogo y tarda unos minutos en una tienda grande. Si después sigue pareciendo vacío, ejecuta **Re-sync now** desde **Commerce → Shopify → Catalog & Data**. Mientras el catálogo siga vacío, la checklist de la pestaña Overview también ofrece un **Sync now** de un solo clic.
+La primera importación trae el catálogo entero y tarda unos minutos en una tienda grande. Si después sigue pareciendo vacío, ejecuta **Re-sync now** desde **Commerce → Shopify → Catalog & Data**. Mientras el catálogo siga vacío, la lista de comprobación de la pestaña Overview también ofrece un **Sync now** de un clic.
 
 ### El agent no responde preguntas de producto
 
-Comprueba que estás hablando con el **agent de tienda** — el que quedó conectado a la tienda al conectar. Su página de agent muestra un panel de solo lectura que dice que está gestionado por tu tienda. Los demás agents no llevan las herramientas de comercio.
+Comprueba que estás hablando con el **agente de tienda**, el que quedó asociado a la tienda al conectar. Su página de agent muestra un panel de solo lectura que indica que lo gestiona tu tienda. Los demás agents no llevan las herramientas de commerce.
 
-## Desconectar
+### Un Member no puede conectar la tienda
+
+Conectar una tienda requiere el permiso **Integration connect**, que tienen Owners y Admins y no tienen los Members.
+
+## Desconectar [#disconnecting]
 
 Desconecta desde **Commerce → Shopify → Disconnect**. Al desconectar:
 
 - Se elimina la conexión guardada y el catálogo sincronizado
 - Se borra el conocimiento de producto construido a partir de ese catálogo, así que los agents dejan de responder con él
-- Se restablece el permiso de comercio del agent de tienda, se revierte su persona de comercio si nunca la editaste y **se archiva el propio agent** — volver a conectar la misma tienda lo recupera con su ajuste fino y su historial de versiones intactos
-- **Se elimina permanentemente cualquier Tienda acotada a tu tienda de Shopify**, junto con su historial de analíticas. Las Tiendas que construiste a mano no se tocan
-- Se archivan los Agent Forms de comercio que vinieron con la tienda
-- Se eliminan del todo las sugerencias de cuestionario de la IA, así que una futura reconexión empieza de cero
+- Se restablece la concesión de commerce del agente de tienda, se revierte su persona de commerce si nunca la editaste y **se archiva el propio agent**: volver a conectar la misma tienda lo recupera con su ajuste fino y su historial de versiones intactos
+- **Se eliminan permanentemente las Storefronts asociadas a esa tienda**, junto con su histórico de analítica. Las Storefronts que hiciste a mano no se tocan
+- Se archivan los Agent Forms de commerce que vinieron con la tienda
+- Se borran las sugerencias de quiz generadas por IA, para que una futura reconexión empiece de cero
 
 <Callout type="warning">
-  Si todavía tienes una tienda **WooCommerce** conectada, solo se omiten los pasos que afectan a todo el workspace — archivar los Agent Forms de comercio y eliminar las sugerencias de cuestionario. El catálogo, el conocimiento de producto, las Tiendas, las analíticas y el agent de tienda propios de la tienda Shopify se desmontan siempre.
+  Si todavía tienes una tienda de **WooCommerce** conectada, solo se saltan los pasos que afectan a todo el workspace: archivar los Agent Forms de commerce y borrar las sugerencias de quiz. El catálogo, el conocimiento de producto, las Storefronts, la analítica y el agente de tienda propios de la tienda de Shopify se desmontan siempre.
 </Callout>
 
-Desinstalar la app desde tu panel de Shopify también termina la relación del lado de Shopify.
+**Tu app sigue instalada en tu panel de Shopify.** Desconectar aquí elimina nuestra parte de la relación, no la app que creaste: es de tu tienda. Bórrala desde tu panel de Shopify si quieres que desaparezca.
 
 ## Relacionado
 
-- [Descripción general de Commerce](/commerce) — qué te da conectar una tienda
+- [Visión general de Commerce](/commerce) — qué te da conectar una tienda
 - [WooCommerce](/commerce/woocommerce) — la otra plataforma compatible
-- [Catálogo y Conocimiento](/commerce/catalog-and-knowledge) — cómo se sincroniza el catálogo y se mantiene fresco
+- [Catálogo y conocimiento](/commerce/catalog-and-knowledge) — cómo se sincroniza el catálogo y se mantiene al día
 - [Pedidos](/commerce/orders) — consulta de pedidos y actualizaciones de estado
-- [Checkout](/commerce/checkout) — llevar a un comprador a comprar
+- [Checkout](/commerce/checkout) — llevar al comprador hasta la compra

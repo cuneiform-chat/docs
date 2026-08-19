@@ -1,151 +1,139 @@
 ---
-description: Shopify App Store থেকে Cuneiform Chat install করুন এবং আপনার workspace-এর সাথে যুক্ত করুন যাতে আপনার AI agent আপনার sync করা Shopify catalog, order ও inventory থেকে উত্তর দেয়।
+description: আপনার Shopify store-টি Cuneiform Chat-এর সঙ্গে যুক্ত করুন, যাতে আপনার AI agent সিঙ্ক হওয়া catalog, order আর inventory থেকে উত্তর দিতে পারে।
 ---
 
 # Shopify
 
-**Shopify App Store থেকে একবার install করুন, আপনার workspace-এর সাথে যুক্ত করুন, আর আপনার agent-রা আপনার store-এর catalog, order ও inventory থেকে উত্তর দিতে শুরু করবে।** তৈরি করার মতো কোনো API key নেই, configure করার মতো কোনো redirect URL নেই, install করার মতো কোনো plugin নেই।
+**একবার আপনার Shopify store যুক্ত করুন, তারপর আপনার agent আপনার catalog, order আর inventory থেকেই উত্তর দেবে।** সেটআপে লাগে প্রায় পাঁচ মিনিট, পুরোটাই হয় Cuneiform Chat-এর ভেতরে — theme বদলানোর দরকার নেই, কোনো plugin-ও লাগে না।
 
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  Shopify সবার জন্য উন্মুক্ত, ফ্রি ট্রায়াল সহ। একটি store যুক্ত করতে বাড়তি কোনো খরচ নেই।
+  Shopify সব plan-এই কাজ করে, বিনামূল্যের ট্রায়াল সহ। store যুক্ত করতে বাড়তি কোনো খরচ নেই।
 </Callout>
 
 ## আপনি যা পান [#what-you-get]
 
-আপনার store যুক্ত হয়ে গেলে আপনার store agent পারে:
+store যুক্ত হয়ে গেলে আপনার store agent পারে:
 
-- **Catalog সংক্রান্ত প্রশ্নের উত্তর দিতে** আপনার আসল product, variant, option ও দাম থেকে
-- **আপনার sync করা catalog থেকে stock ও দাম পড়তে**, যা webhook দিয়ে হালনাগাদ রাখা হয়, তাই আপনি সদ্য যা ফুরিয়ে ফেলেছেন সে তা সাধতে বসে না
-- **স্টকে থাকা product সুপারিশ করতে**, তার মনে থাকা যা-কিছু নয়
-- **Order খুঁজে দিতে** সেই ক্রেতাদের জন্য যারা order-টি নিজের বলে প্রমাণ করতে পারে
-- **Order-status আপডেট পাঠাতে** সেই ক্রেতাদের যারা opt-in করে, একই chat-এ
-- **কিনতে প্রস্তুত ক্রেতাকে পুরো cart অক্ষত রেখে আপনার Shopify checkout-এ পাঠাতে**
+- **catalog-এর প্রশ্নের উত্তর দিতে** — আপনার আসল product, variant, option আর দাম থেকে
+- **সিঙ্ক হওয়া catalog থেকে stock আর দাম পড়তে**, যা webhook দিয়ে হালনাগাদ থাকে, তাই সদ্য ফুরিয়ে যাওয়া জিনিস সে আর কাউকে দেয় না
+- **stock-এ আছে এমন product সুপারিশ করতে**, মুখস্থ কিছু নয়
+- **order খুঁজে দিতে** — যে ক্রেতা প্রমাণ করতে পারেন order-টি তাঁরই
+- **order-এর status আপডেট পাঠাতে** — যাঁরা চেয়েছেন তাঁদের, একই চ্যাটে
+- **কিনতে প্রস্তুত ক্রেতাকে আপনার Shopify checkout-এ পৌঁছে দিতে**, পুরো cart অক্ষত রেখে
 
 ## পূর্বশর্ত [#prerequisites]
 
-- একটি **Shopify store** যা আপনি পরিচালনা করেন
-- একটি Cuneiform Chat workspace, এবং তাতে একটি **Owner বা Admin** অ্যাকাউন্ট — একটি store যুক্ত করা একটি admin কাজ
-- অন্তত একটি agent, অথবা নতুন একটি তৈরি করার মতো জায়গা (দেখুন [আপনার store agent](/commerce#your-store-agent))
+- একটি **Shopify store** যেটি আপনি চালান
+- একটি Cuneiform Chat workspace, আর তাতে একটি **Owner বা Admin** অ্যাকাউন্ট — store যুক্ত করা admin-এর কাজ
+- অন্তত একটি agent, বা plan-এ নতুন একটি বানানোর জায়গা (দেখুন [আপনার store agent](/commerce#your-store-agent))
+
+<Callout type="warning">
+  **collaborator অ্যাকাউন্ট দিয়ে সেটআপ শেষ করা যায় না।** এর একটি অংশ হয় আপনার Shopify admin-এর Dev Dashboard-এ, যেটি Shopify collaborator অ্যাকাউন্টকে দেয় না। কোনো এজেন্সি যদি আপনার store দেখে, তবে ওই অংশটি store-এর মালিক — বা app-এর অনুমতি আছে এমন কোনো staff অ্যাকাউন্ট — কে করতে হবে।
+</Callout>
 
 ## যুক্ত হওয়া যেভাবে কাজ করে [#how-connecting-works]
 
-Shopify যুক্ত করা দুই ধাপের একটি handshake: Shopify app-টি install করে, তারপর **আপনি** সেই install করা app-কে আপনার Cuneiform Chat workspace-এর সাথে যুক্ত করেন। Shopify জানে আপনি কোন store; কেবল আপনিই জানেন সেটি কোন workspace-এর।
+আপনি নিজের Shopify admin-এর ভেতরেই ছোট একটি app বানান, সেটি নিজের store-এ install করেন, আর তার credential দুটি Cuneiform Chat-এ পেস্ট করেন। আপনার store-এর data অন্য কোনো পথে আপনার Shopify অ্যাকাউন্ট ছাড়ে না, আর app-টির মালিক আমরা নই — আপনি।
 
-### ১. Shopify App Store থেকে install করুন [#1-install-from-the-shopify-app-store]
+**ধাপে ধাপে নির্দেশনাটি প্রোডাক্টের ভেতরেই থাকে**, কারণ সেখানে আপনার store-এর জন্য ঠিক কোন মানগুলো বসাতে হবে তা দেখানো যায় — সেগুলো নির্ভর করে আপনার workspace আর আমরা এখন যে API version চালাচ্ছি তার উপর, তাই এখানে একটি কপি রাখলে সেটি নীরবেই পুরোনো হয়ে যেত।
 
-Shopify App Store-এ **Cuneiform Chat - AI Commerce** খুঁজে নিয়ে install করুন। Shopify নিজেই installation সামলায় এবং নিচের permission-গুলো অনুমোদন করতে বলে। এই পর্যায়ে আমাদের দিকের কিছুই জড়িত নয়।
+শুরু করতে: Cuneiform Chat-এ **Commerce → Shopify** খুলুন আর connect স্ক্রিনের ধাপগুলো অনুসরণ করুন। সেটি আপনাকে app বানানো, নিচের permission গুলো চাওয়া, install করা আর credential পেস্ট করা — সবটাই দেখিয়ে দেয়।
 
-### ২. আপনার Shopify admin-এ app-টি খুলুন [#2-open-the-app-in-your-shopify-admin]
-
-App-টি একটি embedded app হিসেবে **`admin.shopify.com`-এর ভেতরে** খোলে। integration-এর জন্য এটিই আপনার Shopify-দিকের ঘর — setup, সংযোগের অবস্থা, configuration, একটি dashboard ও billing সবই এখানে।
-
-### ৩. "Link your workspace" ক্লিক করুন [#3-click-link-your-workspace]
-
-store যুক্ত না হওয়া পর্যন্ত embedded app একটি **"Link your workspace"** banner দেখায়। সেটিতে ক্লিক করলে Cuneiform Chat খোলে একটি **নতুন top-level browser tab**-এ, Shopify frame-এর ভেতরে নয়। এটি ইচ্ছাকৃত: অন্য একটি সাইটের iframe-এর ভেতরে sign in করা যায় না, তাই যুক্ত হওয়ার ধাপটিকে বেরিয়ে আসতে হয়।
-
-### ৪. সংযোগটি অনুমোদন করুন [#4-approve-the-link]
-
-আপনি Cuneiform Chat-এর claim পাতায় পৌঁছান, আপনার store আগে থেকেই শনাক্ত করা অবস্থায়। নিশ্চিত করুন, আর store-টি আপনার workspace-এর সাথে যুক্ত হয়ে যাবে। আপনাকে **Commerce**-এ পাঠানো হয়, আর প্রথম catalog sync শুরু হয়।
-
-সেই পাতায় আপনি যা দেখতে পারেন:
-
-| আপনি যা দেখেন | এর মানে কী |
-|---|---|
-| **Sign-in prompt** | আপনি sign in করা ছিলেন না। sign in করুন, সংযোগটি যেখানে থেমেছিল সেখান থেকে চলবে। |
-| **Confirm the link** | আপনি একজন Owner বা Admin — এটিই স্বাভাবিক পথ। |
-| **Ask an admin to finish this** | আপনি একজন Member। Member-রা integration যুক্ত করতে পারে না; লিঙ্কটি একজন Owner বা Admin-কে পাঠান। |
-| **Store linked** | হয়ে গেছে। catalog sync ইতিমধ্যেই চলছে। |
-| **This connection link expired** | সংযোগের টিকিটটি বাসি হয়ে গেছে, আগেই ব্যবহৃত হয়েছে, বা আর চেনা যাচ্ছে না। আপনার Shopify admin-এ app-এ ফিরে গিয়ে আবার **Link your workspace** ক্লিক করুন। |
-| **This store is connected elsewhere** | store-টি অন্য একটি workspace-এর সাথে আগেই যুক্ত। আগে সেখান থেকে disconnect করুন। |
-| **This workspace already has a store** | প্রতি workspace-এ একটি Shopify store। নতুন একটি যুক্ত করার আগে বর্তমানটি disconnect করুন। |
-| **Couldn't connect your store** | আমাদের দিকে কিছু একটা ভুল হয়েছে। একটি **Try again** বোতাম সেখানেই আবার চেষ্টা করে — Shopify থেকে নতুন করে শুরু করার দরকার নেই। |
-| **We couldn't complete the connection** | সংযোগটি আমাদের কাছে পৌঁছানোর আগেই ব্যর্থ হয়েছে। আপনার Shopify admin-এ app-টি আবার খুলে সংযোগটি নতুন করে শুরু করুন। |
+<Callout type="info">
+  **app install করাটা আলাদা একটি ধাপ।** Shopify-র Dev Dashboard-এ app-এর একটি version release করা আর সেটিকে store-এ install করা এক জিনিস নয়। release-এ থেমে গেলে credential পেস্ট করার সময় সেগুলো প্রত্যাখ্যাত হয় — আর তেমন হলে connect স্ক্রিন সেটি স্পষ্ট করেই বলে দেয়।
+</Callout>
 
 ## আমরা যেসব permission চাই [#permissions-we-ask-for]
 
-Cuneiform Chat **পাঁচটি read-only permission** চায়। সেটে কোনো write permission নেই — app আপনার store-এ কিছুই বদলাতে পারে না।
+আপনার app **পাঁচটি read-only permission** চায়। এর মধ্যে লেখার (write) কোনো permission নেই — আপনার store-এর কিছুই সে বদলাতে পারে না।
 
-| Permission | কেন আমাদের দরকার |
+| Permission | কেন দরকার |
 |---|---|
 | `read_products` | আপনার catalog পড়া: product, variant, option, দাম, ছবি |
-| `read_inventory` | Stock লেভেল পড়া যাতে agent কেবল যা পাওয়া যায় তা-ই সুপারিশ করে |
-| `read_orders` | একজন ক্রেতার order খুঁজে দেওয়া ও তাকে status আপডেট পাঠানো |
-| `read_fulfillments` | সেই order-গুলোর shipping অগ্রগতি জানানো |
-| `read_customers` | ক্রেতা যে order-এর কথা জিজ্ঞাসা করছে তার সাথে তার ফোন নম্বর মেলানো |
+| `read_inventory` | stock পড়া, যাতে agent শুধু যা আছে তা-ই সুপারিশ করে |
+| `read_orders` | ক্রেতার order খুঁজে দেওয়া আর তাঁকে status আপডেট পাঠানো |
+| `read_fulfillments` | ওই order গুলোর শিপিং অগ্রগতি জানানো |
+| `read_customers` | ক্রেতার ফোন নম্বর যে order নিয়ে প্রশ্ন, তার সঙ্গে মিলিয়ে দেখা |
 
 <Callout type="info">
-  **Read-only মানে read-only।** app product তৈরি, সম্পাদনা বা মুছতে পারে না; inventory বদলাতে পারে না; order তৈরি, সম্পাদনা বা বাতিল করতে পারে না; এবং পেমেন্ট নিতে পারে না। প্রতিটি কেনাকাটা আপনার নিজের Shopify checkout-এ সম্পন্ন হয়।
+  **read-only মানে সত্যিই শুধু পড়া।** app কোনো product বানাতে, বদলাতে বা মুছতে পারে না; stock বদলাতে পারে না; order বানাতে, বদলাতে বা বাতিল করতে পারে না; আর টাকা নিতেও পারে না। প্রতিটি কেনাকাটা শেষ হয় আপনার নিজের Shopify checkout-এ।
 </Callout>
+
+### কোনো permission না পাওয়া গেলে [#if-a-permission-isnt-granted]
+
+Shopify তার সবচেয়ে সস্তা plan গুলোতে customer আর order-এর অ্যাক্সেস সীমিত রাখে, তাই Basic বা Starter-এ থাকা store হয়তো `read_orders` বা `read_customers` দিতেই পারবে না। তেমন হলেও সংযোগ হয়ে যায়, আর কোন permission গুলো নেই তা Cuneiform Chat আপনাকে জানায় — connect স্ক্রিনে, এবং ঘাটতিটি যতদিন সত্যি ততদিন **Commerce → Shopify → Connection**-এও।
+
+অনুপস্থিত permission-এর উপর নির্ভরশীল সবকিছু নীরবে ব্যর্থ না হয়ে বন্ধ থাকে; সাধারণত এতে বাদ পড়ে order খোঁজা আর status আপডেট। আপনার store-এর plan সেগুলো কভার করা শুরু করলে store-টি disconnect করে আবার connect করুন, তাহলে নতুন permission গুলো ধরা পড়বে।
+
+## Shopify admin-এর ভেতরেই Cuneiform Chat খোলা [#opening-inside-shopify-admin]
+
+চাইলে আপনার app-কে **embedded** হিসেবে চিহ্নিত করতে পারেন, তাতে আপনার Cuneiform Chat dashboard `admin.shopify.com`-এর ভেতরেই খুলবে, store-এর বাকি administration-এর পাশে — setup, connection status, configuration আর একটি dashboard। Shopify যে দুটি মান চায়, connect স্ক্রিন সেগুলো দিয়ে দেয়। এটি বাদ দিলে integration-এর কাজে কিছুই বদলায় না; শুধু আপনি কোথা থেকে সেটি খুলবেন তা বদলায়।
 
 ## প্রতি workspace-এ একটি store [#one-store-per-workspace]
 
-একটি workspace **একটি Shopify store** যুক্ত করে। একই সাথে এটি একটি WooCommerce store-ও যুক্ত করতে পারে — দেখুন [Commerce](/commerce#you-can-connect-both-at-once)।
+একটি workspace **একটি Shopify store** যুক্ত করে। একই সঙ্গে একটি WooCommerce store-ও যুক্ত থাকতে পারে — দেখুন [Commerce](/commerce#you-can-connect-both-at-once)।
 
-কেউ যদি এমন একটি store যুক্ত করতে চায় যা আগেই অন্য একটি workspace-এর সাথে যুক্ত, তাহলে চেষ্টাটি প্রত্যাখ্যান করা হয়, নীরবে দখল করে নেওয়া হয় না।
+অন্য কোনো workspace-এ ইতিমধ্যে যুক্ত আছে এমন store যুক্ত করতে গেলে চেষ্টাটি নীরবে দখল না করে বরং ফিরিয়ে দেওয়া হয়।
 
-## কোনো "Reconnect" বোতাম নেই [#there-is-no-reconnect-button]
+## পরে permission বা credential বদলানো [#changing-permissions-or-credentials-later]
 
-Shopify-তে reconnect ধাপ নেই, আর আপনার সেটি খুঁজতেও যাওয়া উচিত নয়। Permission পরিবর্তন app-এর সাথেই আসে: app-এর permission সেট বদলালে Shopify পরের বার app খোলার সময় আপনাকে সেই পরিবর্তন অনুমোদন করতে বলে। হাতে করে পুনরায় অনুমোদন করার কিছু নেই।
+আলাদা কোনো "Reconnect" বোতাম নেই। আপনার app-এর permission আর credential যুক্ত হওয়ার সময়ই লিপিবদ্ধ হয় এবং পরে আর নতুন করে লেখা হয় না — তাই Shopify-তে করা যেকোনো বদল (নতুন scope যোগ করা, client secret বদলানো) Cuneiform Chat-এ পৌঁছায় **store-টি disconnect করে আবার connect করলে**।
 
 <Callout type="warning">
-  Shopify ও WooCommerce-এর পথ দুটির মূল পার্থক্য এখানেই। WooCommerce-এ একটি **Reconnect** বোতাম **আছে**, কারণ একটি সেল্ফ-হোস্টেড store-এর API key তার ভেতর থেকেই বাতিল করা যায়। Shopify-এরটি যায় না।
+  আবার connect করলে [Disconnect করা](#disconnecting)-য় বর্ণিত পুরো teardown আবার চলে, তাই store-এর সঙ্গে যুক্ত Storefront থাকলে আগে ওই অংশটি পড়ে নিন।
 </Callout>
 
 ## যুক্ত হওয়ার পরে [#after-you-connect]
 
-- **আপনার catalog সাথে সাথেই sync হতে শুরু করে।** sync কী কী নেয় ও কীভাবে হালনাগাদ থাকে তার জন্য দেখুন [Catalog ও Knowledge](/commerce/catalog-and-knowledge)।
-- **একটি agent আপনার store agent হয়ে যায়**, যুক্ত হওয়ার সময় আপনার হয়ে বেছে নেওয়া। দেখুন [আপনার store agent](/commerce#your-store-agent)।
-- **Order-status আপডেট ডিফল্টভাবে চালু থাকে**, আর একমাত্র শর্তটি ক্রেতার হাতে: তিনি তাঁর order যাচাই করার পর opt-in করেন। দেখুন [Order](/commerce/orders#order-status-updates)।
+- **আপনার catalog সঙ্গে সঙ্গেই sync হতে শুরু করে।** sync কী কী ধরে আর কীভাবে হালনাগাদ থাকে, দেখুন [Catalog ও Knowledge](/commerce/catalog-and-knowledge)।
+- **একটি agent হয়ে যায় আপনার store agent**, যুক্ত হওয়ার সময়ই আপনার হয়ে বেছে নেওয়া। দেখুন [আপনার store agent](/commerce#your-store-agent)।
+- **order status আপডেট ডিফল্টে চালু থাকে**, আর একমাত্র শর্তটি ক্রেতার নিজের: order যাচাই করার পর তিনি সেটি চেয়ে নেন। দেখুন [Order](/commerce/orders#order-status-updates)।
 
 ## সমস্যা সমাধান [#troubleshooting]
 
-### "Link your workspace" banner যাচ্ছে না [#the-link-your-workspace-banner-wont-go-away]
+### credential প্রত্যাখ্যাত হলো [#the-credentials-were-rejected]
 
-সংযোগটি সম্পন্ন হয়নি। আবার ক্লিক করুন — এটি একটি নতুন tab-এ একটি নতুন সংযোগ-টিকিট খোলে। খোলার সাথে সাথেই যদি বলে যে লিঙ্কের মেয়াদ শেষ, তার মানে টিকিটটি অব্যবহৃত অবস্থায় বেশিক্ষণ পড়ে ছিল; আবার শুরু করুন।
+দশবারের নয়বারই কারণ হলো app **release** হয়েছে কিন্তু store-এ কখনো **install** হয়নি — Shopify-র Dev Dashboard-এ এ দুটি আলাদা কাজ। connect স্ক্রিন এই ক্ষেত্রটিকে সত্যিকারের credential ভুলের থেকে আলাদা করে দেখায়, তাই Client ID আর Secret ভুল ধরে নেওয়ার আগে সেখানকার বার্তাটি পড়ুন।
 
-### লিঙ্ক খুলল কিন্তু কিছুই হলো না [#the-link-opened-but-nothing-happened]
+### order খোঁজা আর শিপিং আপডেট পাওয়া যাচ্ছে না [#order-lookup-unavailable]
 
-সংযোগের ধাপটিকে একটি **top-level tab**-এ খুলতে হয়, Shopify frame-এর ভেতরে নয়। আপনার browser নতুন tab আটকে দিলে `admin.shopify.com`-এর জন্য pop-up অনুমোদন করে আবার চেষ্টা করুন।
+**Commerce → Shopify → Connection**-এ permission-ঘাটতির নোটিশ আছে কি না দেখুন। Shopify-র সবচেয়ে সস্তা plan গুলোতে `read_orders` আর `read_customers` আদৌ দেওয়া না-ও যেতে পারে — দেখুন [কোনো permission না পাওয়া গেলে](#if-a-permission-isnt-granted)।
 
-### "This store is connected elsewhere" [#this-store-is-connected-elsewhere]
+### যুক্ত হওয়ার ঠিক পরেই catalog খালি [#the-catalog-is-empty-right-after-connecting]
 
-store-টি অন্য একটি Cuneiform Chat workspace-এর সাথে যুক্ত — প্রায়ই আগে তৈরি করা কোনো trial workspace। সেই workspace-এ sign in করে সেখান থেকে store-টি disconnect করুন, তারপর এখানে যুক্ত করুন।
-
-### একজন Member সংযোগটি শেষ করতে পারছে না [#a-member-cant-finish-the-link]
-
-একটি store যুক্ত করতে **Integration connect** permission লাগে, যা Owner ও Admin-দের আছে এবং Member-দের নেই। লিঙ্কটি একজন Owner বা Admin-কে ফরোয়ার্ড করুন।
-
-### যুক্ত হওয়ার ঠিক পরেই catalog খালি [#the-catalog-is-empty-right-after-linking]
-
-প্রথম import পুরো catalog ভরে দেয় এবং বড় store-এ কয়েক মিনিট লাগে। এরপরও খালি দেখালে **Commerce → Shopify → Catalog & Data** থেকে **Re-sync now** চালান। catalog যতক্ষণ খালি থাকে, Overview ট্যাবের চেকলিস্টও এক ক্লিকে একটি **Sync now** দেয়।
+প্রথম import পুরো catalog নিয়ে আসে, আর বড় store-এ তাতে কয়েক মিনিট লাগে। তারপরও খালি দেখালে **Commerce → Shopify → Catalog & Data** থেকে **Re-sync now** চালান। catalog যতক্ষণ খালি, Overview ট্যাবের checklist-এও এক ক্লিকের **Sync now** থাকে।
 
 ### agent product-এর প্রশ্নের উত্তর দিচ্ছে না [#the-agent-isnt-answering-product-questions]
 
-দেখে নিন আপনি **store agent**-এর সাথেই কথা বলছেন কি না — যেটিকে যুক্ত হওয়ার সময় store-এর সাথে জোড়া হয়েছিল। তার agent পাতায় একটি read-only প্যানেল থাকে যাতে লেখা থাকে এটি আপনার store দ্বারা পরিচালিত। অন্য agent-রা commerce টুল বহন করে না।
+দেখুন আপনি **store agent**-এর সঙ্গেই কথা বলছেন কি না — যুক্ত হওয়ার সময় store-এর সঙ্গে যেটি বাঁধা হয়েছিল। তার agent পাতায় একটি read-only প্যানেল থাকে, যাতে লেখা থাকে এটি আপনার store দিয়ে পরিচালিত। বাকি agent গুলো commerce-এর টুল বহন করে না।
+
+### একজন Member store যুক্ত করতে পারছে না [#a-member-cant-connect-the-store]
+
+store যুক্ত করতে **Integration connect** permission লাগে, যা Owner আর Admin-দের আছে, Member-দের নেই।
 
 ## Disconnect করা [#disconnecting]
 
-**Commerce → Shopify → Disconnect** থেকে disconnect করুন। Disconnect করলে:
+**Commerce → Shopify → Disconnect** থেকে disconnect করুন। disconnect করলে:
 
-- সংরক্ষিত সংযোগ ও sync করা catalog মুছে যায়
-- সেই catalog থেকে তৈরি product knowledge মুছে যায়, তাই agent-রা সেখান থেকে উত্তর দেওয়া বন্ধ করে
-- store agent-এর commerce বরাদ্দ রিসেট হয়, আপনি কখনো সম্পাদনা না করে থাকলে তার commerce persona ফিরিয়ে দেওয়া হয়, আর **agent-টি নিজেই আর্কাইভ হয়ে যায়** — একই store আবার যুক্ত করলে সেটিকে তার tuning ও version ইতিহাস অক্ষত রেখেই ফিরিয়ে নেওয়া হয়
-- **সেই store-এর সাথে বাঁধা যেকোনো Storefront স্থায়ীভাবে মুছে যায়**, তার analytics ইতিহাসসহ। আপনার হাতে তৈরি Storefront-গুলো অক্ষত থাকে
-- store-এর সাথে আসা commerce Agent Forms আর্কাইভ হয়
-- AI quiz suggestion একেবারে মুছে ফেলা হয়, তাই ভবিষ্যতে আবার যুক্ত হলে সেটি একেবারে পরিষ্কার অবস্থা থেকে শুরু করে
+- সংরক্ষিত সংযোগ আর sync হওয়া catalog মুছে যায়
+- ওই catalog থেকে বানানো product knowledge মুছে যায়, তাই agent আর সেখান থেকে উত্তর দেয় না
+- store agent-এর commerce অনুমোদন রিসেট হয়, আপনি কখনো সম্পাদনা না করে থাকলে তার commerce persona আগের অবস্থায় ফেরে, আর **agent-টি নিজেই archive হয়ে যায়** — একই store আবার যুক্ত করলে তার টিউনিং আর version ইতিহাস অক্ষত রেখেই সেটি ফিরে পাওয়া যায়
+- **ওই store-এর সঙ্গে যুক্ত যেকোনো Storefront স্থায়ীভাবে মুছে যায়**, সঙ্গে তার analytics ইতিহাসও। হাতে বানানো Storefront-এ হাত পড়ে না
+- store-এর সঙ্গে আসা commerce Agent Form গুলো archive হয়
+- AI-এর বানানো quiz সাজেশন একেবারেই মুছে যায়, যাতে ভবিষ্যতে আবার যুক্ত করলে শুরুটা পরিষ্কার হয়
 
 <Callout type="warning">
-  আপনার যদি এখনো একটি **WooCommerce** store যুক্ত থাকে, তাহলে কেবল workspace-জুড়ে প্রযোজ্য ধাপগুলোই — commerce Agent Forms আর্কাইভ করা ও quiz suggestion মুছে ফেলা — বাদ দেওয়া হয়। Shopify store-এর নিজের catalog, product knowledge, Storefront, analytics ও store agent সবসময়ই ভেঙে ফেলা হয়।
+  আপনার যদি এখনো একটি **WooCommerce** store যুক্ত থাকে, তবে কেবল পুরো workspace জুড়ে প্রযোজ্য ধাপ দুটি বাদ যায় — commerce Agent Form archive করা আর quiz সাজেশন মোছা। Shopify store-এর নিজস্ব catalog, product knowledge, Storefront, analytics আর store agent সবসময়ই সরিয়ে ফেলা হয়।
 </Callout>
 
-আপনার Shopify admin থেকে app-টি uninstall করলে Shopify-এর দিকের সম্পর্কও শেষ হয়ে যায়।
+**আপনার app আপনার Shopify admin-এ install হয়েই থাকে।** এখানে disconnect করলে সম্পর্কের আমাদের দিকটি সরে যায়, আপনার বানানো app নয় — সেটি আপনার store-এর। একেবারে সরাতে চাইলে Shopify admin থেকে সেটি মুছে দিন।
 
 ## সম্পর্কিত [#related]
 
-- [Commerce সংক্ষিপ্ত বিবরণ](/commerce) — একটি store যুক্ত করলে আপনি যা পান
-- [WooCommerce](/commerce/woocommerce) — সমর্থিত অন্য platform
-- [Catalog ও Knowledge](/commerce/catalog-and-knowledge) — catalog কীভাবে sync হয় ও হালনাগাদ থাকে
-- [Order](/commerce/orders) — order খোঁজা ও status আপডেট
-- [Checkout](/commerce/checkout) — ক্রেতাকে কেনার জন্য পাঠানো
+- [Commerce পরিচিতি](/commerce) — store যুক্ত করলে কী পাওয়া যায়
+- [WooCommerce](/commerce/woocommerce) — সমর্থিত অন্য প্ল্যাটফর্মটি
+- [Catalog ও Knowledge](/commerce/catalog-and-knowledge) — catalog কীভাবে sync হয় আর হালনাগাদ থাকে
+- [Order](/commerce/orders) — order খোঁজা আর status আপডেট
+- [Checkout](/commerce/checkout) — ক্রেতাকে কেনা পর্যন্ত পৌঁছে দেওয়া

@@ -8,7 +8,7 @@ description: একটি Shopify বা WooCommerce store যুক্ত ক�
 
 Cuneiform Chat দুটি commerce platform-এর সাথে যুক্ত হয়, এবং দুটিকেই সমান মর্যাদা দেয়:
 
-- **[Shopify](/commerce/shopify)** — Shopify App Store থেকে install হয় এবং আপনার Shopify admin-এর ভেতরে একটি embedded app হিসেবে চলে।
+- **[Shopify](/commerce/shopify)** — আপনার নিজের Shopify admin-এ বানানো একটি app দিয়ে যুক্ত হয়, আর চাইলে `admin.shopify.com`-এর ভেতর থেকেই খোলে।
 - **[WooCommerce](/commerce/woocommerce)** — WooCommerce REST API-এর মাধ্যমে আপনার সেল্ফ-হোস্টেড store-এর সাথে যুক্ত হয়।
 
 import { Callout } from 'nextra/components'
@@ -37,8 +37,8 @@ import { Callout } from 'nextra/components'
 
 | পার্থক্য | Shopify | WooCommerce |
 |---|---|---|
-| **কীভাবে যুক্ত হন** | Shopify App Store থেকে install করুন, তারপর embedded app-এর ভেতর থেকে আপনার workspace যুক্ত করুন | আপনার store URL দিন ও এককালীন একটি অনুমোদন দিন, অথবা API key নিজে হাতে পেস্ট করুন |
-| **পরে পুনরায় অনুমোদন** | কোনো reconnect ধাপ নেই — permission পরিবর্তন app-এর সাথেই আসে | **Reconnect** আপনার store-এ অনুমোদনটি আবার চালায় |
+| **কীভাবে যুক্ত হন** | আপনার Shopify admin-এ একটি app বানান, সেটি install করুন আর তার credential Cuneiform Chat-এ পেস্ট করুন | আপনার store URL দিন ও এককালীন একটি অনুমোদন দিন, অথবা API key নিজে হাতে পেস্ট করুন |
+| **পরে পুনরায় অনুমোদন** | কোনো reconnect ধাপ নেই — বদলে যাওয়া permission বা credential ধরতে disconnect করে আবার connect করুন | **Reconnect** আপনার store-এ অনুমোদনটি আবার চালায় |
 | **প্রথম catalog sync** | যুক্ত হওয়ার সাথে সাথেই স্বয়ংক্রিয়ভাবে শুরু হয় | গাইডেড পথে স্বয়ংক্রিয়ভাবে শুরু হয়; manual key পথে একটি **Re-sync now** লাগে — দেখুন [WooCommerce](/commerce/woocommerce#after-a-manual-connect) |
 | **Inventory কত দ্রুত হালনাগাদ হয়** | আলাদা inventory আপডেট, তাই কেবল stock বদলালেও সেটি নিজে থেকেই আসে, সাধারণত কয়েক সেকেন্ডের মধ্যে | Stock পরিবর্তন product আপডেটের সাথে আসে, তাই কেবল stock বদলালে সেটি পরবর্তী product সম্পাদনা বা reconcile-এর জন্য অপেক্ষা করে |
 | **Checkout handoff** | একটি cart লিঙ্কেই প্রতিটি line | আপনার key যে permission বহন করে তার উপর নির্ভর করে — দেখুন [Checkout](/commerce/checkout) |
@@ -86,7 +86,7 @@ Commerce একসাথে সব agent-এর জন্য চালু হয
 
 ## সম্পর্কিত [#related]
 
-- [Shopify](/commerce/shopify) — App Store install ও workspace যুক্ত করা
+- [Shopify](/commerce/shopify) — নিজের app বানানো আর store যুক্ত করা
 - [WooCommerce](/commerce/woocommerce) — গাইডেড অনুমোদন ও manual API key
 - [Telegram Storefront](/integrations/telegram-mini-app) — যে in-bot storefront-কে একটি catalog-linked store খাওয়াতে পারে
 - [Analytics](/commerce/analytics) — commerce আপনার জন্য কী করছে তা মাপা
