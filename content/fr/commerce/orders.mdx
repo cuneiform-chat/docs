@@ -31,7 +31,7 @@ La correspondance est tolérante sur le format, pas sur l'identité. La casse de
 
 Un suivi vérifié renvoie le statut de la commande, le détail d'expédition que la boutique est capable de fournir et — lorsqu'il est disponible — un lien vers la commande sur votre propre boutique.
 
-Le niveau de détail d'expédition renvoyé dépend de la plateforme. Shopify fournit le transporteur, le suivi et les dates de livraison pour chaque expédition. WooCommerce n'a pas de fiche d'expédition native : le transporteur et le suivi viennent d'un plugin de suivi d'expédition. Sans lui, une réponse WooCommerce porte le statut de la commande mais ni transporteur ni numéro de suivi.
+Le niveau de détail d'expédition renvoyé dépend de la plateforme. Shopify fournit le transporteur, le suivi et les dates de livraison pour chaque expédition. WooCommerce n'a pas de fiche d'expédition native : le transporteur et le suivi viennent d'un plugin de suivi d'expédition pris en charge. Sans lui, une réponse WooCommerce porte le statut de la commande mais ni transporteur ni numéro de suivi.
 
 Un acheteur qui a déjà vérifié une commande dans la conversation peut aussi demander ses **commandes récentes** sans re-vérifier chacune d'elles. Sur **WhatsApp**, ce raccourci est disponible immédiatement, parce que WhatsApp a déjà vérifié le numéro de téléphone de l'acheteur et que les commandes sont rapprochées de ce même numéro — un acheteur ne voit jamais que les commandes passées sous son propre numéro vérifié. Sur tous les autres canaux, il reste verrouillé tant qu'il n'a pas vérifié une commande dans cette conversation. Dans tous les cas, ce n'est jamais une porte d'entrée vers les commandes de quelqu'un d'autre.
 
@@ -39,13 +39,19 @@ Un acheteur qui a déjà vérifié une commande dans la conversation peut aussi 
 
 Le suivi de commande a besoin d'une boutique connectée dont la permission sur les commandes est saine. Si les identifiants de votre boutique ont été révoqués ou si la connexion est devenue défaillante, l'agent cesse de proposer le suivi de commande plutôt que d'échouer au milieu d'une conversation. Vérifiez l'état de la connexion dans **Commerce → Shopify** ou **Commerce → WooCommerce**.
 
+### Quand l'agent ne peut pas répondre
+
+Certaines questions sur une commande n'ont pas de réponse dans la boutique — un litige sur un remboursement, un article erroné, une livraison qui n'est jamais arrivée. Vous pouvez activer le **Human Handoff** sur votre agent de boutique pour que ces conversations arrivent à une personne plutôt qu'à une impasse. Il est disponible sur tous les forfaits, essai compris, mais il reste désactivé tant que vous ne l'activez pas pour cet agent. Voir [Inbox et Human Handoff](/agents/inbox).
+
 ## Mises à jour de statut de commande [#order-status-updates]
 
 Une fois qu'un acheteur a vérifié une commande dans la conversation, l'agent peut proposer de le tenir informé. S'il accepte, il reçoit les mises à jour d'expédition dans la même conversation, sur le même canal qu'il utilisait déjà.
 
 Une seule porte doit s'ouvrir, et elle appartient à l'acheteur : il doit s'abonner, dans la conversation, après avoir vérifié sa commande. Vous ne pouvez pas abonner un acheteur à sa place, et un acheteur ne peut pas s'abonner à une commande dont il n'a pas prouvé qu'elle est la sienne.
 
-De votre côté, les trois types de mise à jour sont **actifs par défaut** dès qu'une boutique est connectée — il n'y a rien à activer au préalable. Vous pouvez désactiver chacun d'eux individuellement sur la page de la boutique, dans **Commerce** ; en désactiver un coupe cette mise à jour pour tous les acheteurs, y compris ceux qui s'étaient déjà abonnés.
+Les mises à jour n'arrivent que sur **Telegram**, **WhatsApp** et **Messenger**. Sur tout autre canal — le widget du site, Discord, Slack, Google Chat, le playground — l'agent refuse l'abonnement et le dit, plutôt que de promettre une mise à jour qu'il ne peut pas envoyer. La limite est la même sur les deux plateformes.
+
+De votre côté, les types de mise à jour sont **actifs par défaut** dès qu'une boutique est connectée — il n'y a rien à activer au préalable. Une boutique **Shopify** en a trois ; une boutique **WooCommerce** en a deux. Vous pouvez désactiver chacun d'eux individuellement sur la page de la boutique, dans **Commerce** ; en désactiver un coupe cette mise à jour pour tous les acheteurs, y compris ceux qui s'étaient déjà abonnés.
 
 <Callout type="info">
   Modifier ces réglages est une action d'administration ; les Members peuvent les voir mais ne peuvent pas les modifier.
@@ -53,9 +59,15 @@ De votre côté, les trois types de mise à jour sont **actifs par défaut** dè
 
 ### Ce qui déclenche une mise à jour
 
-Les mises à jour se déclenchent sur l'avancement de la commande : quand elle est **confirmée comme payée**, quand elle **part**, et quand le **statut de l'envoi change**. Rien qui ressemble à du marketing n'est jamais envoyé par ce canal ; il existe pour répondre à « où est ma commande ? » avant que l'acheteur ait à le redemander.
+Les mises à jour se déclenchent sur l'avancement de la commande, et ce qui compte comme avancement dépend de la plateforme.
 
-Les mises à jour WooCommerce et Shopify sont livrées par le même mécanisme, donc l'expérience est identique quelle que soit la boutique dont vient la commande.
+Sur **Shopify**, trois choses en déclenchent une : la commande est **confirmée comme payée**, elle **part**, et le **transporteur signale une étape** — en cours de livraison, livrée, une tentative échouée ou un incident de livraison.
+
+Sur **WooCommerce**, deux : la commande est **confirmée comme payée**, et la commande passe à **`completed`** dans votre boutique, ce qui envoie le message « en route ». Il n'y a pas de message de livraison distinct — WooCommerce n'a pas de flux d'événements transporteur à écouter, donc `completed` est la dernière mise à jour que reçoit l'acheteur. Si la commande porte des données de suivi, le message inclut le lien de suivi ; sinon, le même message part sans lui.
+
+Rien qui ressemble à du marketing n'est jamais envoyé par ce canal ; il existe pour répondre à « où est ma commande ? » avant que l'acheteur ait à le redemander.
+
+Le mécanisme de livraison est le même — même abonnement, mêmes canaux, mêmes textes. WooCommerce porte simplement moins de types de mise à jour, parce qu'il n'a pas de flux d'événements transporteur.
 
 ## Avec deux boutiques connectées
 
@@ -87,7 +99,9 @@ Vérifiez les réglages de notification de la connexion à la boutique. Ils sont
 
 ### Des détails d'expédition manquent dans une réponse par ailleurs correcte
 
-La commande a été trouvée et vérifiée, mais une partie du détail d'expédition n'a pas pu être lue. L'agent répond avec ce qu'il a plutôt que de faire échouer tout le suivi. Sur **WooCommerce**, cela signifie généralement qu'aucun plugin de suivi d'expédition n'est installé : il n'y a donc ni transporteur ni numéro de suivi à annoncer.
+La commande a été trouvée et vérifiée, mais une partie du détail d'expédition n'a pas pu être lue. L'agent répond avec ce qu'il a plutôt que de faire échouer tout le suivi.
+
+Sur **WooCommerce**, cela signifie généralement que les données de suivi ne sont pas là où nous les lisons. Nous lisons un seul endroit : l'enregistrement écrit par le plugin officiel **WooCommerce Shipment Tracking**, dans lequel **Advanced Shipment Tracking (AST)** écrit également. Ces deux-là passent. Tout autre plugin de suivi stocke ses données autrement et ne sera pas lu du tout : la commande paraît alors sans suivi même si votre boutique affiche un numéro. Si aucun plugin de suivi n'est installé, il n'y a rien à annoncer au départ.
 
 ### Sur Shopify, la commande est trouvée mais la vérification par téléphone échoue ou le lien vers la commande manque
 

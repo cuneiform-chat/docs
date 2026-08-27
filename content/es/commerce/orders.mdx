@@ -31,7 +31,7 @@ La coincidencia es tolerante con el formato, no con la identidad. Las mayúscula
 
 Una consulta verificada devuelve el estado del pedido, todo el detalle de envío que la tienda pueda aportar y — cuando está disponible — un enlace al pedido en tu propia tienda.
 
-Cuánto detalle de envío vuelve depende de la plataforma. Shopify aporta transportista, seguimiento y fechas de entrega por cada envío. WooCommerce no tiene registro de envíos propio: el transportista y el seguimiento vienen de un plugin de seguimiento de envíos. Sin uno, una respuesta de WooCommerce lleva el estado del pedido pero ningún transportista ni número de seguimiento.
+Cuánto detalle de envío vuelve depende de la plataforma. Shopify aporta transportista, seguimiento y fechas de entrega por cada envío. WooCommerce no tiene registro de envíos propio: el transportista y el seguimiento vienen de un plugin de seguimiento de envíos compatible. Sin uno, una respuesta de WooCommerce lleva el estado del pedido pero ningún transportista ni número de seguimiento.
 
 Un comprador que ya ha verificado un pedido en la conversación también puede pedir sus **pedidos recientes** sin volver a verificar cada uno. En **WhatsApp** ese atajo está disponible de inmediato, porque WhatsApp ya ha verificado el número de teléfono del comprador y los pedidos se cotejan con ese mismo número — un comprador solo ve pedidos hechos con su propio número verificado. En los demás canales sigue bloqueado hasta que verifique un pedido en esa conversación. En cualquier caso, nunca es una puerta de entrada a los pedidos de otra persona.
 
@@ -39,13 +39,19 @@ Un comprador que ya ha verificado un pedido en la conversación también puede p
 
 La consulta de pedidos necesita una tienda conectada cuyo permiso de pedidos esté sano. Si las credenciales de tu tienda se revocaron o la conexión dejó de estar sana, el agent deja de ofrecer la consulta de pedidos en lugar de fallar a mitad de una conversación. Comprueba el estado de la conexión en **Commerce → Shopify** o **Commerce → WooCommerce**.
 
+### Cuando el agent no puede responder
+
+Algunas preguntas sobre pedidos no tienen respuesta en la tienda — una disputa por un reembolso, un artículo equivocado, una entrega que nunca llegó. Puedes activar el **Human Handoff** en tu agent de tienda para que esas conversaciones lleguen a una persona en lugar de a un callejón sin salida. Está disponible en todos los planes, incluida la prueba, pero permanece apagado hasta que lo actives para ese agent. Consulta [Inbox y Human Handoff](/agents/inbox).
+
 ## Actualizaciones de estado del pedido [#order-status-updates]
 
 Después de que un comprador haya verificado un pedido en el chat, el agent puede ofrecerse a mantenerlo al día. Si acepta, recibe actualizaciones de envío en la misma conversación, en el mismo canal que ya estaba usando.
 
 Solo una puerta tiene que abrirse, y le pertenece al comprador: tiene que suscribirse, en la conversación, después de verificar su pedido. No puedes suscribir a un comprador en su nombre, y un comprador no puede suscribirse a un pedido que no ha demostrado que sea suyo.
 
-Por tu parte, los tres tipos de actualización están **activados por defecto** en cuanto conectas una tienda — no hay nada que activar primero. Puedes desactivar cualquiera de ellos por separado en la página de la tienda, dentro de **Commerce**; desactivar uno detiene esa actualización para todos los compradores, incluidos los que ya se habían suscrito.
+Las actualizaciones llegan solo a **Telegram**, **WhatsApp** y **Messenger**. En cualquier otro canal — el widget del sitio web, Discord, Slack, Google Chat, el playground — el agent rechaza la suscripción y lo dice, en lugar de prometer una actualización que no puede enviar. El límite es el mismo en ambas plataformas.
+
+Por tu parte, los tipos de actualización están **activados por defecto** en cuanto conectas una tienda — no hay nada que activar primero. Una tienda **Shopify** tiene tres; una tienda **WooCommerce** tiene dos. Puedes desactivar cualquiera de ellos por separado en la página de la tienda, dentro de **Commerce**; desactivar uno detiene esa actualización para todos los compradores, incluidos los que ya se habían suscrito.
 
 <Callout type="info">
   Cambiar esos interruptores es una acción de administración; los Members pueden verlos pero no cambiarlos.
@@ -53,9 +59,15 @@ Por tu parte, los tres tipos de actualización están **activados por defecto** 
 
 ### Qué dispara una actualización
 
-Las actualizaciones se disparan con el progreso del pedido: cuando se **confirma como pagado**, cuando **sale** y cuando **cambia el estado del envío**. Por este canal nunca se envía nada con forma de marketing; existe para responder «¿dónde está mi pedido?» antes de que el comprador tenga que volver a preguntar.
+Las actualizaciones se disparan con el progreso del pedido, y qué cuenta como progreso depende de la plataforma.
 
-Las actualizaciones de WooCommerce y las de Shopify se entregan por el mismo mecanismo, así que la experiencia es idéntica venga el pedido de la tienda que venga.
+En **Shopify** hay tres disparadores: el pedido se **confirma como pagado**, **sale**, y el **transportista informa de un hito** — en reparto, entregado, un intento fallido o una incidencia de entrega.
+
+En **WooCommerce** hay dos: el pedido se **confirma como pagado**, y el pedido pasa a **`completed`** en tu tienda, que es lo que envía el mensaje de «va en camino». No hay un mensaje de entrega aparte — WooCommerce no tiene un flujo de eventos del transportista al que escuchar, así que `completed` es la última actualización que recibe el comprador. Si el pedido lleva datos de seguimiento, el mensaje incluye el enlace de seguimiento; si no, sale el mismo mensaje sin él.
+
+Por este canal nunca se envía nada con forma de marketing; existe para responder «¿dónde está mi pedido?» antes de que el comprador tenga que volver a preguntar.
+
+El mecanismo de entrega es el mismo — misma suscripción, mismos canales, mismos textos. WooCommerce simplemente lleva menos tipos de actualización, porque no tiene un flujo de eventos del transportista.
 
 ## Con dos tiendas conectadas
 
@@ -87,7 +99,9 @@ Revisa los interruptores de notificación de la conexión de la tienda. Están a
 
 ### Faltan detalles de envío en una respuesta por lo demás correcta
 
-El pedido se encontró y se verificó, pero parte del detalle de envío no se pudo leer. El agent responde con lo que tiene en lugar de hacer fallar toda la consulta. En **WooCommerce** esto suele significar que no hay ningún plugin de seguimiento de envíos instalado, así que no hay transportista ni número de seguimiento que informar.
+El pedido se encontró y se verificó, pero parte del detalle de envío no se pudo leer. El agent responde con lo que tiene en lugar de hacer fallar toda la consulta.
+
+En **WooCommerce** esto suele significar que los datos de seguimiento no están donde los leemos. Leemos un único sitio: el registro que escribe el plugin oficial **WooCommerce Shipment Tracking**, en el que también escribe **Advanced Shipment Tracking (AST)**. Esos dos sí llegan. Cualquier otro plugin de seguimiento guarda sus datos de otra forma y no se leerá en absoluto, así que el pedido parece no tener seguimiento aunque tu tienda muestre un número. Si no hay ningún plugin de seguimiento instalado, no hay nada que informar de entrada.
 
 ### En Shopify, el pedido se encuentra pero la verificación por teléfono falla o falta el enlace al pedido
 

@@ -31,7 +31,7 @@ A comparação é tolerante com formato, não com identidade. Maiúsculas no e-m
 
 Uma consulta verificada devolve o status do pedido, o detalhe de envio que a loja conseguir fornecer e — quando disponível — um link para o pedido na sua própria loja.
 
-Quanto detalhe de envio volta depende da plataforma. A Shopify fornece transportadora, rastreio e datas de entrega por remessa. O WooCommerce não tem registro de envio nativo: transportadora e rastreio vêm de um plugin de rastreamento de remessa. Sem um, uma resposta do WooCommerce traz o status do pedido, mas nenhuma transportadora nem número de rastreio.
+Quanto detalhe de envio volta depende da plataforma. A Shopify fornece transportadora, rastreio e datas de entrega por remessa. O WooCommerce não tem registro de envio nativo: transportadora e rastreio vêm de um plugin de rastreamento de remessa compatível. Sem um, uma resposta do WooCommerce traz o status do pedido, mas nenhuma transportadora nem número de rastreio.
 
 Um comprador que já verificou um pedido na conversa também pode pedir os **pedidos recentes** dele sem verificar cada um de novo. No **WhatsApp** esse atalho fica disponível de cara, porque o WhatsApp já verificou o número de telefone do comprador e os pedidos são casados contra esse mesmo número — um comprador só vê pedidos feitos sob o próprio número verificado. Em todos os outros canais ele fica trancado até que o comprador verifique um pedido naquela conversa. De um jeito ou de outro, ele nunca é uma porta de entrada para os pedidos de outra pessoa.
 
@@ -39,13 +39,19 @@ Um comprador que já verificou um pedido na conversa também pode pedir os **ped
 
 A consulta de pedidos precisa de uma loja conectada cuja permissão de pedidos esteja saudável. Se as credenciais da sua loja foram revogadas ou a conexão ficou insalubre, o agent para de oferecer a consulta de pedidos em vez de falhar no meio de uma conversa. Confira o status da conexão em **Commerce → Shopify** ou **Commerce → WooCommerce**.
 
+### Quando o agent não consegue responder
+
+Algumas perguntas sobre pedido não têm resposta na loja — uma disputa de reembolso, um item errado, uma entrega que nunca chegou. Você pode ligar o **Human Handoff** no seu agent de loja para que essas conversas cheguem a uma pessoa em vez de morrerem ali. Ele está disponível em todos os planos, inclusive no teste, mas fica desligado até você ligar para aquele agent. Veja [Inbox e Human Handoff](/agents/inbox).
+
 ## Atualizações de status do pedido [#order-status-updates]
 
 Depois que um comprador verificou um pedido na conversa, o agent pode se oferecer para mantê-lo informado. Se ele aceitar, recebe atualizações de envio na mesma conversa, no mesmo canal que já estava usando.
 
 Só uma porta precisa se abrir, e ela é do comprador: ele tem que optar por receber, na conversa, depois de verificar o pedido dele. Você não pode inscrever um comprador no lugar dele, e um comprador não pode se inscrever em um pedido que ele não provou ser dele.
 
-Do seu lado, os três tipos de atualização já vêm **ligados por padrão** assim que uma loja é conectada — não há nada para ligar antes. Você pode desligar qualquer um deles individualmente na página da loja, dentro de **Commerce**; desligar um interrompe aquela atualização para todos os compradores, inclusive os que já tinham optado por receber.
+As atualizações chegam só no **Telegram**, no **WhatsApp** e no **Messenger**. Em qualquer outro canal — o widget do site, Discord, Slack, Google Chat, o playground — o agent recusa a inscrição e avisa, em vez de prometer uma atualização que não tem como enviar. O limite é o mesmo nas duas plataformas.
+
+Do seu lado, os tipos de atualização já vêm **ligados por padrão** assim que uma loja é conectada — não há nada para ligar antes. Uma loja **Shopify** tem três; uma loja **WooCommerce** tem duas. Você pode desligar qualquer um deles individualmente na página da loja, dentro de **Commerce**; desligar um interrompe aquela atualização para todos os compradores, inclusive os que já tinham optado por receber.
 
 <Callout type="info">
   Mexer nessas chaves é uma ação de administração; Members podem vê-las, mas não podem mudá-las.
@@ -53,9 +59,15 @@ Do seu lado, os três tipos de atualização já vêm **ligados por padrão** as
 
 ### O que dispara uma atualização
 
-As atualizações disparam a partir do andamento do pedido: quando ele é **confirmado como pago**, quando **sai** e quando o **status da remessa muda**. Nada com cara de marketing é enviado por este canal; ele existe para responder "cadê meu pedido?" antes que o comprador precise perguntar de novo.
+As atualizações disparam a partir do andamento do pedido, e o que conta como andamento depende da plataforma.
 
-As atualizações do WooCommerce e da Shopify são entregues pelo mesmo mecanismo, então a experiência é idêntica venha o pedido da loja que vier.
+Na **Shopify** são três gatilhos: o pedido é **confirmado como pago**, ele **sai**, e a **transportadora informa um marco** — saiu para entrega, entregue, uma tentativa que falhou ou um problema na entrega.
+
+No **WooCommerce** são dois: o pedido é **confirmado como pago**, e o pedido chega a **`completed`** na sua loja, que é o que dispara a mensagem de "está a caminho". Não existe uma mensagem de entrega separada — o WooCommerce não tem um fluxo de eventos da transportadora para escutarmos, então `completed` é a última atualização que o comprador recebe. Se o pedido carregar dados de rastreio, a mensagem inclui o link de rastreio; se não, a mesma mensagem sai sem ele.
+
+Nada com cara de marketing é enviado por este canal; ele existe para responder "cadê meu pedido?" antes que o comprador precise perguntar de novo.
+
+O mecanismo de entrega é o mesmo — mesma inscrição, mesmos canais, mesmos textos. O WooCommerce só carrega menos tipos de atualização, porque não tem um fluxo de eventos da transportadora.
 
 ## Com duas lojas conectadas
 
@@ -87,7 +99,9 @@ Confira as chaves de notificação da conexão da loja. Elas vêm ligadas por pa
 
 ### Faltam detalhes de envio em uma resposta que no resto está correta
 
-O pedido foi encontrado e verificado, mas parte do detalhe de envio não pôde ser lida. O agent responde com o que tem em vez de derrubar a consulta inteira. No **WooCommerce** isso normalmente significa que nenhum plugin de rastreamento de remessa está instalado, então não há transportadora nem número de rastreio para informar.
+O pedido foi encontrado e verificado, mas parte do detalhe de envio não pôde ser lida. O agent responde com o que tem em vez de derrubar a consulta inteira.
+
+No **WooCommerce** isso normalmente significa que os dados de rastreio não estão onde a gente lê. A gente lê um lugar só: o registro que o plugin oficial **WooCommerce Shipment Tracking** grava, e no qual o **Advanced Shipment Tracking (AST)** também grava. Esses dois chegam. Qualquer outro plugin de rastreamento guarda os dados de outro jeito e não vai ser lido, então o pedido parece sem rastreio mesmo que a sua loja mostre um número. Se não houver nenhum plugin de rastreamento instalado, não há nada para informar desde o começo.
 
 ### Na Shopify, o pedido é encontrado mas a verificação por telefone falha ou falta o link do pedido
 
