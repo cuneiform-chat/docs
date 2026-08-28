@@ -1,5 +1,5 @@
 ---
-description: Commerce Analytics and the Commerce Analyst — what shoppers asked for, what they were shown, what they added to a cart, and where they stopped.
+description: Commerce Analytics and the Commerce Analyst — attributed revenue in two tiers, AI-AOV, the daily series, and the funnel from what a shopper asked for to the order it became.
 ---
 
 # Commerce Analytics
@@ -8,7 +8,21 @@ description: Commerce Analytics and the Commerce Analyst — what shoppers asked
 
 Find it at **Commerce → your store → Commerce Analytics**.
 
-## What it covers
+## What it measures
+
+It measures money, not just activity.
+
+| Measure | What it is |
+|---|---|
+| **Attributed revenue** | Revenue from orders your agent had a hand in, reported in two tiers — [assisted and generated](#assisted-and-generated) |
+| **AI-AOV** | Average order value across those attributed orders. Whether agent-touched baskets are bigger than your others is one of the more useful things on the page |
+| **Attributed orders** | How many orders those were, as a count |
+| **Revenue by day** | Attributed revenue as a daily series, so you're reading a trend rather than one lump total |
+| **By channel** | The same numbers split across Telegram, WhatsApp, your website widget and the rest — which channel actually sells |
+| **By agent** | The same split across your agents, if you run more than one |
+| **Conversation outcomes** | Two rates: how many conversations never needed a human at all, and a behavioural read of how many the agent genuinely resolved |
+
+Alongside the money, the funnel that produced it:
 
 | Question | Where the answer comes from |
 |---|---|
@@ -19,6 +33,17 @@ Find it at **Commerce → your store → Commerce Analytics**.
 | Where do people stop? | The drop between each of the steps above |
 
 Because in-chat orders carry the conversation they came from, the path from "a shopper asked a question" to "an order exists in your store" is a chain you can follow, rather than two unrelated numbers you have to eyeball.
+
+The page reports on aggregates. It never shows a shopper's contact details — customers are counted through a one-way hash, so you can tell a returning shopper from a new one without the page holding anything identifying.
+
+### Assisted and generated: two kinds of attributed revenue [#assisted-and-generated]
+
+Attributed revenue is split in two, because two very different levels of certainty are involved and averaging them together would flatter the number.
+
+- **Generated** is **verified**. The order itself carries the conversation it came from, written onto the order in your store at the moment it was created. Nothing is inferred: this conversation produced this order.
+- **Assisted** is **correlational**. The conversation and the order are associated, but nothing on the order proves the link. The conversation plausibly contributed.
+
+Read **generated** as the floor of what your agent earned and **assisted** as the ceiling. The real figure sits between them — and which of the two moves after you change something usually tells you more than either number on its own.
 
 ## Each store, its own page
 
@@ -53,14 +78,15 @@ Commerce Analytics is visible to anyone with either **analytics access** or **in
 A few things worth knowing before you draw conclusions:
 
 - **Storefront inquiries and in-chat carts are different funnels.** A Storefront inquiry ends as a message in your Inbox for a human to answer; an in-chat cart ends at your checkout. Don't add them together. See [the three carts](/commerce/shoppable-chat#three-carts).
-- **Attribution is strongest on in-chat orders**, which carry the conversation explicitly. An order that started with a Storefront handoff is attributed more loosely.
+- **Attribution is strongest on in-chat orders**, which carry the conversation explicitly and land in **generated**. An order that started with a Storefront handoff is associated more loosely and lands in **assisted**.
+- **On WooCommerce, your connection's permission decides which tier you can reach at all.** A `Read/Write` connection creates the pending order itself and writes the conversation onto it, so those orders are hard-attributed — **generated**. A **read-only** connection can only hand the shopper a single-line add-to-cart link, which carries no marker of any kind, so nothing it produces can ever be more than **assisted**. If generated revenue sits at zero on a WooCommerce store, check the permission before concluding the agent isn't selling. See [the permission table](/commerce/checkout#woocommerce-permission).
 - **A recommendation that never converts isn't automatically a failure.** Shoppers use an agent to rule things out as much as to choose.
 
 ## Troubleshooting
 
-### The page is empty
+### Everything reads zero
 
-Nothing has happened yet. Commerce Analytics reports on real shopper activity, so a store connected this morning with no conversations yet has nothing to show.
+Nothing has happened yet. Commerce Analytics reports on real shopper activity, so a store connected this morning with no conversations yet shows zero revenue, zero orders and zero rates. That's the honest empty state, not a broken page — the numbers move as soon as shoppers start arriving.
 
 ### I can't find the provider selector
 

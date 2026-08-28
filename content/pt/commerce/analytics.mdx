@@ -1,5 +1,5 @@
 ---
-description: Commerce Analytics e o Commerce Analyst — o que os compradores pediram, o que foi mostrado a eles, o que foi para o carrinho e onde eles pararam.
+description: Commerce Analytics e o Commerce Analyst — receita atribuída em dois níveis, AI-AOV, a série diária e o funil do que um comprador pediu até o pedido em que aquilo virou.
 ---
 
 # Commerce Analytics
@@ -8,7 +8,21 @@ description: Commerce Analytics e o Commerce Analyst — o que os compradores pe
 
 Encontre em **Commerce → sua loja → Commerce Analytics**.
 
-## O que ele cobre
+## O que ele mede
+
+Ele mede dinheiro, não só atividade.
+
+| Medida | O que é |
+|---|---|
+| **Receita atribuída** | A receita dos pedidos em que o seu agent teve alguma participação, em dois níveis — [assisted e generated](#assisted-and-generated) |
+| **AI-AOV** | O ticket médio desses pedidos atribuídos. Saber se os carrinhos que passam pelo agent são maiores que os outros é uma das coisas mais úteis da página |
+| **Pedidos atribuídos** | Quantos pedidos foram, em número |
+| **Receita por dia** | A receita atribuída como série diária, para você ler uma tendência em vez de um total único |
+| **Por canal** | Os mesmos números divididos entre Telegram, WhatsApp, o widget do seu site e o resto — qual canal vende de verdade |
+| **Por agent** | A mesma divisão entre os seus agents, se você tiver mais de um |
+| **Desfecho das conversas** | Duas taxas: quantas conversas não precisaram de ninguém humano, e uma leitura por comportamento de quantas o agent resolveu de fato |
+
+Ao lado do dinheiro, o funil que gerou ele:
 
 | Pergunta | De onde vem a resposta |
 |---|---|
@@ -19,6 +33,17 @@ Encontre em **Commerce → sua loja → Commerce Analytics**.
 | Onde as pessoas param? | A queda entre cada uma das etapas acima |
 
 Como os pedidos feitos dentro da conversa carregam a conversa de onde vieram, o caminho de "um comprador fez uma pergunta" até "existe um pedido na sua loja" é uma corrente que você pode seguir, em vez de dois números sem relação que você precisa olhar no olho.
+
+A página reporta agregados. Ela nunca mostra os dados de contato de um comprador — os clientes são contados através de um hash de mão única, então você consegue distinguir um comprador que voltou de um novo sem que a página guarde nada que identifique alguém.
+
+### Assisted e generated: dois tipos de receita atribuída [#assisted-and-generated]
+
+A receita atribuída é dividida em duas, porque são dois níveis de certeza bem diferentes e misturar os dois numa média só embelezaria o número.
+
+- **Generated** é **verificado**. O próprio pedido carrega a conversa de onde veio, gravada nele dentro da sua loja no momento em que foi criado. Nada é inferido: esta conversa produziu este pedido.
+- **Assisted** é **correlacional**. A conversa e o pedido estão associados, mas nada no pedido prova o vínculo. É plausível que a conversa tenha contribuído.
+
+Leia **generated** como o piso do que o seu agent faturou e **assisted** como o teto. O número real fica entre os dois — e qual dos dois se mexe depois de você mudar alguma coisa costuma dizer mais do que qualquer um deles sozinho.
 
 ## Cada loja, sua própria página
 
@@ -53,14 +78,15 @@ O Commerce Analytics fica visível para qualquer pessoa com **acesso a analític
 Algumas coisas que vale saber antes de tirar conclusões:
 
 - **Consultas vindas da Loja e carrinhos dentro da conversa são funis diferentes.** Uma consulta da Loja termina como mensagem na sua Inbox para uma pessoa responder; um carrinho dentro da conversa termina no seu checkout. Não some os dois. Veja [os três carrinhos](/commerce/shoppable-chat#three-carts).
-- **A atribuição é mais forte nos pedidos feitos dentro da conversa**, que carregam a conversa explicitamente. Um pedido que começou com um repasse da Loja é atribuído de forma mais frouxa.
+- **A atribuição é mais forte nos pedidos feitos dentro da conversa**, que carregam a conversa explicitamente e caem em **generated**. Um pedido que começou com um repasse da Loja é associado de forma mais frouxa e cai em **assisted**.
+- **No WooCommerce, a permissão da sua conexão decide até que nível você consegue chegar.** Uma conexão `Read/Write` cria ela mesma o pedido pendente e grava a conversa nele, então esses pedidos vêm atribuídos com firmeza — **generated**. Uma conexão **somente leitura** só consegue entregar ao comprador um link de adicionar ao carrinho de uma linha só, que não carrega marca nenhuma, então nada que ela produza passa de **assisted**. Se a receita generated está parada em zero numa loja WooCommerce, confira a permissão antes de concluir que o agent não está vendendo. Veja [a tabela de permissões](/commerce/checkout#woocommerce-permission).
 - **Uma recomendação que nunca converte não é automaticamente um fracasso.** Compradores usam um agent tanto para descartar coisas quanto para escolher.
 
 ## Solução de problemas
 
-### A página está vazia
+### Está tudo zerado
 
-Ainda não aconteceu nada. O Commerce Analytics reporta atividade real de compradores, então uma loja conectada hoje de manhã e ainda sem conversas não tem nada para mostrar.
+Ainda não aconteceu nada. O Commerce Analytics reporta atividade real de compradores, então uma loja conectada hoje de manhã e ainda sem conversas mostra receita zero, zero pedidos e zero nas taxas. Esse é o estado vazio honesto, não uma página quebrada — os números se mexem assim que os compradores começam a chegar.
 
 ### Não encontro o seletor de provedor
 

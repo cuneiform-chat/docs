@@ -41,8 +41,32 @@ On a `Read/Write` connection, checking out creates a **pending order** in WooCom
 - Is **not paid** and **not fulfilled** — it's waiting for the shopper, exactly like an abandoned cart that got as far as the payment page
 - **Carries the conversation it came from**, so you can see which chats turn into orders
 - Is the **only order** the integration ever creates. It never edits a product, never adjusts stock, and never modifies an existing order
+- **Stays pending until the shopper pays, or your own store cancels it.** We never cancel or delete an order
 
 The integration does also register a small set of **webhooks** on your store when you connect — that's how it hears about new orders and product changes as they happen. They're named `Cuneiform …`, and disconnecting removes them.
+
+### What happens to a pending order nobody pays for [#unpaid-pending-orders]
+
+Most shoppers who reach a payment page don't pay. Those pending orders don't disappear on their own, and **Cuneiform Chat is not what removes them** — creating that one order is the only write we make, and cleaning up afterwards is your store's job.
+
+WooCommerce has a setting built for exactly this: **WooCommerce → Settings → Products → Inventory → "Hold stock (minutes)"**. It auto-cancels unpaid pending orders once that many minutes have passed. Two things have to be true for it to run — stock management has to be enabled, and the field has to have a number in it.
+
+| Your store's inventory settings | Unpaid pending orders |
+|---|---|
+| Stock management **on**, hold-stock **set** | Your store cancels them for you, on the schedule you chose. Nothing to do |
+| Stock management **off**, or hold-stock **empty** | Nothing cancels them. They accumulate in your Orders list indefinitely — **that cleanup is yours** |
+
+<Callout type="warning">
+  **If you run without stock management, the sweeping is yours to do.** Filter your WooCommerce Orders list to `Pending payment` every so often and cancel or delete the ones that are clearly dead. Nothing in Cuneiform Chat sweeps them up, and nothing tells you they're piling up.
+</Callout>
+
+### Two pending orders for what looks like the same cart [#duplicate-pending-orders]
+
+Tapping checkout again on the **same cart** within about **five minutes** re-opens the **same** pending order instead of making a new one. That covers the ordinary double-tap and the shopper who closes the payment page and comes straight back.
+
+Outside that window, a second tap creates a second pending order. Changing the cart at all — adding a line, removing one, changing a quantity — makes it a different cart, and so a new order too. The protection is also best-effort: it leans on a short-lived cache, so if that's briefly unavailable the next tap creates another order rather than failing.
+
+So two near-identical pending orders a few minutes apart is this, not a double charge. Neither is paid, and the shopper only ever pays for the one they actually finish.
 
 ### If multi-line checkout isn't working
 
@@ -83,6 +107,10 @@ Same cause. Nothing is dropped — the cart is preserved either way. From a Stor
 ### A shopper reached checkout but the discount wasn't applied
 
 Discounts ride the Shopify handoff link **from a Storefront only** — an in-chat cart never carries one. If the handoff did come from a Storefront, confirm the discount is still valid and applicable to the products in the cart; an expired or non-applicable code is dropped by Shopify at checkout, not by us.
+
+### My WooCommerce Orders list is filling up with unpaid pending orders
+
+Expected, if your store isn't set to clear them. Every abandoned checkout leaves one behind, and nothing on our side removes it. Set **hold stock (minutes)** under WooCommerce → Settings → Products → Inventory so your store auto-cancels them, or sweep the `Pending payment` list yourself. See [what happens to a pending order nobody pays for](#unpaid-pending-orders).
 
 ### Orders aren't showing which conversation they came from
 

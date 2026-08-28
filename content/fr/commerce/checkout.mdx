@@ -41,8 +41,32 @@ Sur une connexion `Read/Write`, passer au checkout crée une **commande en atten
 - **N'est pas payée** ni **préparée** — elle attend l'acheteur, exactement comme un panier abandonné arrivé jusqu'à la page de paiement
 - **Porte la conversation dont elle est issue**, pour que vous voyiez quelles discussions se transforment en commandes
 - Est la **seule commande** que l'intégration crée. Elle ne modifie jamais un produit, n'ajuste jamais le stock et ne modifie jamais une commande existante
+- **Reste en attente jusqu'à ce que l'acheteur paie, ou que votre propre boutique l'annule.** Nous n'annulons ni ne supprimons jamais une commande
 
 L'intégration enregistre aussi un petit ensemble de **webhooks** sur votre boutique au moment de la connexion — c'est ainsi qu'elle est informée des nouvelles commandes et des changements de produit au moment où ils se produisent. Ils portent des noms commençant par `Cuneiform …`, et la déconnexion les supprime.
+
+### Ce que devient une commande en attente que personne ne paie [#unpaid-pending-orders]
+
+La plupart des acheteurs qui atteignent une page de paiement ne paient pas. Ces commandes en attente ne disparaissent pas d'elles-mêmes, et **ce n'est pas Cuneiform Chat qui les supprime** : créer cette commande est la seule écriture que nous faisons, et le ménage ensuite revient à votre boutique.
+
+WooCommerce dispose d'un réglage prévu exactement pour cela : **WooCommerce → Réglages → Produits → Inventaire → « Conserver le stock (minutes) »**. Il annule automatiquement les commandes en attente non payées une fois ce délai écoulé. Deux conditions pour qu'il s'applique : la gestion des stocks doit être activée, et le champ doit contenir un nombre.
+
+| Les réglages d'inventaire de votre boutique | Les commandes en attente non payées |
+|---|---|
+| Gestion des stocks **activée**, conservation du stock **renseignée** | Votre boutique les annule pour vous, selon le délai que vous avez choisi. Rien à faire |
+| Gestion des stocks **désactivée**, ou conservation du stock **vide** | Rien ne les annule. Elles s'accumulent indéfiniment dans votre liste de commandes — **ce ménage vous revient** |
+
+<Callout type="warning">
+  **Si vous travaillez sans gestion des stocks, le ménage est à votre charge.** Filtrez de temps en temps votre liste de commandes WooCommerce sur `Attente paiement` et annulez ou supprimez celles qui n'aboutiront manifestement pas. Rien dans Cuneiform Chat ne les ramasse, et rien ne vous prévient qu'elles s'accumulent.
+</Callout>
+
+### Deux commandes en attente pour ce qui semble être le même panier [#duplicate-pending-orders]
+
+Retoucher le checkout sur le **même panier** dans un délai d'environ **cinq minutes** rouvre la **même** commande en attente au lieu d'en créer une nouvelle. Cela couvre le double appui ordinaire et l'acheteur qui ferme la page de paiement puis revient aussitôt.
+
+Passé ce délai, un second appui crée une seconde commande en attente. Modifier le panier en fait aussi un autre panier — ajouter une ligne, en retirer une, changer une quantité — et donc une nouvelle commande. La protection est par ailleurs au mieux : elle repose sur un cache de courte durée, donc si ce cache est brièvement indisponible, l'appui suivant crée une autre commande plutôt que d'échouer.
+
+Deux commandes en attente presque identiques à quelques minutes d'intervalle, c'est donc cela, et non un double paiement. Aucune des deux n'est payée, et l'acheteur ne paie jamais que celle qu'il mène réellement à son terme.
 
 ### Si le checkout multi-lignes ne fonctionne pas
 
@@ -83,6 +107,10 @@ Même cause. Rien n'est abandonné — le panier est préservé dans les deux ca
 ### Un acheteur a atteint le checkout mais la remise n'a pas été appliquée
 
 Les remises voyagent sur le lien de transfert Shopify **uniquement depuis une Boutique** — un panier constitué dans la conversation n'en porte jamais. Si le transfert venait bien d'une Boutique, vérifiez que la remise est toujours valide et applicable aux produits du panier ; un code expiré ou non applicable est écarté par Shopify au checkout, pas par nous.
+
+### Ma liste de commandes WooCommerce se remplit de commandes en attente non payées
+
+C'est attendu si votre boutique n'est pas réglée pour les évacuer. Chaque checkout abandonné en laisse une derrière lui, et rien de notre côté ne la retire. Réglez **conserver le stock (minutes)** dans WooCommerce → Réglages → Produits → Inventaire pour que votre boutique les annule seule, ou passez vous-même en revue la liste `Attente paiement`. Voir [ce que devient une commande en attente que personne ne paie](#unpaid-pending-orders).
 
 ### Les commandes n'indiquent pas de quelle conversation elles viennent
 

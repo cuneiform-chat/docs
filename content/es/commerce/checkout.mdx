@@ -41,8 +41,32 @@ En una conexión `Read/Write`, hacer checkout crea un **pedido pendiente** en Wo
 - **No está pagado** ni **preparado** — está esperando al comprador, exactamente como un carrito abandonado que llegó hasta la página de pago
 - **Lleva la conversación de la que salió**, así que puedes ver qué chats se convierten en pedidos
 - Es el **único pedido** que la integración crea. Nunca edita un producto, nunca ajusta el stock y nunca modifica un pedido existente
+- **Sigue pendiente hasta que el comprador paga, o hasta que tu propia tienda lo cancela.** Nosotros nunca cancelamos ni borramos un pedido
 
 La integración sí registra además un pequeño conjunto de **webhooks** en tu tienda al conectar — así es como se entera de los pedidos nuevos y de los cambios de producto en el momento en que ocurren. Se llaman `Cuneiform …`, y al desconectar se eliminan.
+
+### Qué pasa con un pedido pendiente que nadie paga [#unpaid-pending-orders]
+
+La mayoría de los compradores que llegan a una página de pago no pagan. Esos pedidos pendientes no desaparecen solos, y **Cuneiform Chat no es quien los elimina**: crear ese pedido es la única escritura que hacemos, y limpiarlo después le toca a tu tienda.
+
+WooCommerce tiene un ajuste hecho justo para esto: **WooCommerce → Ajustes → Productos → Inventario → «Retener stock (minutos)»**. Cancela automáticamente los pedidos pendientes sin pagar una vez pasados esos minutos. Hacen falta dos cosas para que funcione: que la gestión de inventario esté activada, y que el campo tenga un número.
+
+| Los ajustes de inventario de tu tienda | Los pedidos pendientes sin pagar |
+|---|---|
+| Gestión de inventario **activada**, retención de stock **con valor** | Tu tienda los cancela por ti, según el plazo que elegiste. No hay nada que hacer |
+| Gestión de inventario **desactivada**, o retención de stock **vacía** | Nada los cancela. Se acumulan en tu lista de pedidos indefinidamente — **esa limpieza es tuya** |
+
+<Callout type="warning">
+  **Si trabajas sin gestión de inventario, la limpieza te toca a ti.** Filtra de vez en cuando tu lista de pedidos de WooCommerce por `Pendiente de pago` y cancela o borra los que claramente ya no van a ninguna parte. Nada en Cuneiform Chat los recoge, y nada te avisa de que se están acumulando.
+</Callout>
+
+### Dos pedidos pendientes de lo que parece el mismo carrito [#duplicate-pending-orders]
+
+Volver a pulsar checkout sobre el **mismo carrito** dentro de unos **cinco minutos** reabre el **mismo** pedido pendiente en lugar de crear uno nuevo. Eso cubre el doble toque de siempre y al comprador que cierra la página de pago y vuelve enseguida.
+
+Fuera de esa ventana, un segundo toque crea un segundo pedido pendiente. Cambiar el carrito también lo convierte en otro carrito — añadir una línea, quitar una, cambiar una cantidad — y por tanto en un pedido nuevo. La protección además es de mejor esfuerzo: se apoya en una caché de vida corta, así que si esa caché no está disponible un momento, el siguiente toque crea otro pedido en vez de fallar.
+
+Así que dos pedidos pendientes casi idénticos con pocos minutos de diferencia son esto, no un cobro doble. Ninguno está pagado, y el comprador solo paga el que llega a completar.
 
 ### Si el checkout de varias líneas no funciona
 
@@ -83,6 +107,10 @@ La misma causa. No se descarta nada — el carrito se conserva en cualquier caso
 ### Un comprador llegó al checkout pero no se aplicó el descuento
 
 Los descuentos viajan en el enlace de transferencia de Shopify **solo desde una Tienda** — un carrito dentro del chat nunca lleva ninguno. Si la transferencia sí venía de una Tienda, confirma que el descuento sigue siendo válido y aplicable a los productos del carrito; un código caducado o no aplicable lo descarta Shopify en el checkout, no nosotros.
+
+### Mi lista de pedidos de WooCommerce se está llenando de pendientes sin pagar
+
+Es lo esperable si tu tienda no está configurada para limpiarlos. Cada checkout abandonado deja uno atrás, y por nuestra parte nada lo elimina. Configura **retener stock (minutos)** en WooCommerce → Ajustes → Productos → Inventario para que tu tienda los cancele sola, o repasa tú mismo la lista de `Pendiente de pago`. Consulta [qué pasa con un pedido pendiente que nadie paga](#unpaid-pending-orders).
 
 ### Los pedidos no muestran de qué conversación vienen
 

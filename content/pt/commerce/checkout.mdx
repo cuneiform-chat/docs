@@ -41,8 +41,32 @@ Em uma conexão `Read/Write`, fazer checkout cria um **pedido pendente** no WooC
 - **Não está pago** nem **preparado** — está esperando o comprador, exatamente como um carrinho abandonado que chegou até a página de pagamento
 - **Carrega a conversa de onde veio**, para que você veja quais conversas viram pedidos
 - É o **único pedido** que a integração cria. Ela nunca edita um produto, nunca ajusta estoque e nunca modifica um pedido existente
+- **Fica pendente até o comprador pagar, ou até a sua própria loja cancelar.** A gente nunca cancela nem apaga um pedido
 
 A integração também registra um pequeno conjunto de **webhooks** na sua loja quando você conecta — é assim que ela fica sabendo de pedidos novos e de mudanças de produto no momento em que acontecem. Eles se chamam `Cuneiform …`, e desconectar os remove.
+
+### O que acontece com um pedido pendente que ninguém paga [#unpaid-pending-orders]
+
+A maior parte dos compradores que chega numa página de pagamento não paga. Esses pedidos pendentes não somem sozinhos, e **não é o Cuneiform Chat que apaga eles**: criar aquele pedido é a única escrita que fazemos, e limpar depois é tarefa da sua loja.
+
+O WooCommerce tem uma configuração feita exatamente para isso: **WooCommerce → Configurações → Produtos → Estoque → "Manter estoque (minutos)"**. Ela cancela automaticamente os pedidos pendentes não pagos depois desse tanto de minutos. Duas coisas precisam estar valendo para funcionar: o gerenciamento de estoque tem que estar ativado, e o campo precisa ter um número.
+
+| As configurações de estoque da sua loja | Os pedidos pendentes não pagos |
+|---|---|
+| Gerenciamento de estoque **ativado**, manter estoque **preenchido** | Sua loja cancela por você, no prazo que você escolheu. Não tem nada a fazer |
+| Gerenciamento de estoque **desativado**, ou manter estoque **em branco** | Nada cancela. Eles se acumulam na sua lista de pedidos para sempre — **essa limpeza é sua** |
+
+<Callout type="warning">
+  **Se você trabalha sem gerenciamento de estoque, a limpeza fica com você.** De tempos em tempos, filtre a lista de pedidos do WooCommerce por `Pagamento pendente` e cancele ou apague os que claramente não vão dar em nada. Nada no Cuneiform Chat recolhe esses pedidos, e nada avisa que eles estão se acumulando.
+</Callout>
+
+### Dois pedidos pendentes do que parece ser o mesmo carrinho [#duplicate-pending-orders]
+
+Tocar em checkout de novo no **mesmo carrinho** dentro de uns **cinco minutos** reabre o **mesmo** pedido pendente em vez de criar um novo. Isso cobre o toque duplo de sempre e o comprador que fecha a página de pagamento e volta logo em seguida.
+
+Fora dessa janela, um segundo toque cria um segundo pedido pendente. Mexer no carrinho também faz dele outro carrinho — adicionar uma linha, tirar uma, mudar uma quantidade — e portanto um pedido novo. A proteção também é de melhor esforço: ela se apoia num cache de vida curta, então se esse cache ficar indisponível por um instante, o toque seguinte cria outro pedido em vez de falhar.
+
+Então dois pedidos pendentes quase iguais com poucos minutos de diferença são isso, não uma cobrança dobrada. Nenhum dos dois está pago, e o comprador só paga aquele que ele realmente concluir.
 
 ### Se o checkout de várias linhas não estiver funcionando
 
@@ -83,6 +107,10 @@ A mesma causa. Nada é descartado — o carrinho é preservado nos dois casos. A
 ### Um comprador chegou ao checkout mas o desconto não foi aplicado
 
 Descontos viajam no link de repasse da Shopify **só a partir de uma Loja** — um carrinho de dentro da conversa nunca leva um. Se o repasse veio mesmo de uma Loja, confirme que o desconto ainda é válido e aplicável aos produtos do carrinho; um código expirado ou não aplicável é descartado pela Shopify no checkout, não por nós.
+
+### Minha lista de pedidos do WooCommerce está enchendo de pendentes não pagos
+
+É o esperado, se a sua loja não está configurada para limpar. Todo checkout abandonado deixa um para trás, e do nosso lado nada remove. Configure **manter estoque (minutos)** em WooCommerce → Configurações → Produtos → Estoque para a sua loja cancelar sozinha, ou passe você mesmo na lista de `Pagamento pendente`. Veja [o que acontece com um pedido pendente que ninguém paga](#unpaid-pending-orders).
 
 ### Os pedidos não mostram de qual conversa vieram
 

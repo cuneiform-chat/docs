@@ -1,5 +1,5 @@
 ---
-description: Commerce Analytics et le Commerce Analyst — ce que les acheteurs ont demandé, ce qu'on leur a montré, ce qu'ils ont mis au panier et où ils se sont arrêtés.
+description: Commerce Analytics et le Commerce Analyst — le chiffre d'affaires attribué en deux niveaux, l'AI-AOV, la série quotidienne et l'entonnoir qui va de la demande d'un acheteur à la commande qu'elle est devenue.
 ---
 
 # Commerce Analytics
@@ -8,7 +8,21 @@ description: Commerce Analytics et le Commerce Analyst — ce que les acheteurs 
 
 Vous le trouverez dans **Commerce → votre boutique → Commerce Analytics**.
 
-## Ce qu'il couvre
+## Ce qu'il mesure
+
+Il mesure de l'argent, pas seulement de l'activité.
+
+| Mesure | Ce que c'est |
+|---|---|
+| **Chiffre d'affaires attribué** | Le chiffre d'affaires des commandes dans lesquelles votre agent est intervenu, en deux niveaux — [assisted et generated](#assisted-and-generated) |
+| **AI-AOV** | Le panier moyen de ces commandes attribuées. Savoir si les paniers passés par l'agent sont plus gros que les autres est l'une des choses les plus utiles de la page |
+| **Commandes attribuées** | Combien de commandes cela représente, en nombre |
+| **Chiffre d'affaires par jour** | Le chiffre d'affaires attribué en série quotidienne, pour lire une tendance plutôt qu'un total unique |
+| **Par canal** | Les mêmes chiffres répartis entre Telegram, WhatsApp, le widget de votre site et le reste — quel canal vend vraiment |
+| **Par agent** | La même répartition entre vos agents, si vous en avez plusieurs |
+| **Issue des conversations** | Deux taux : combien de conversations n'ont eu besoin de personne, et une lecture comportementale du nombre de celles que l'agent a réellement résolues |
+
+À côté de l'argent, l'entonnoir qui l'a produit :
 
 | Question | D'où vient la réponse |
 |---|---|
@@ -19,6 +33,17 @@ Vous le trouverez dans **Commerce → votre boutique → Commerce Analytics**.
 | Où les gens s'arrêtent-ils ? | La déperdition entre chacune des étapes ci-dessus |
 
 Parce que les commandes issues d'une conversation portent la conversation dont elles viennent, le chemin de « un acheteur a posé une question » à « une commande existe dans votre boutique » est une chaîne que vous pouvez suivre, plutôt que deux chiffres sans lien qu'il faut rapprocher à l'œil.
+
+La page rend compte d'agrégats. Elle n'affiche jamais les coordonnées d'un acheteur — les clients sont comptés via une empreinte à sens unique, si bien que vous distinguez un acheteur qui revient d'un nouveau sans que la page conserve quoi que ce soit d'identifiant.
+
+### Assisted et generated : deux sortes de chiffre d'affaires attribué [#assisted-and-generated]
+
+Le chiffre d'affaires attribué est scindé en deux, parce que deux niveaux de certitude très différents sont en jeu et que les moyenner ensemble flatterait le chiffre.
+
+- **Generated** est **vérifié**. La commande elle-même porte la conversation dont elle est issue, inscrite sur la commande dans votre boutique au moment de sa création. Rien n'est déduit : cette conversation a produit cette commande.
+- **Assisted** est **corrélationnel**. La conversation et la commande sont associées, mais rien sur la commande ne prouve le lien. Il est plausible que la conversation y ait contribué.
+
+Lisez **generated** comme le plancher de ce que votre agent a rapporté et **assisted** comme le plafond. Le chiffre réel se situe entre les deux — et lequel des deux bouge après un changement de votre part en dit généralement plus que l'un ou l'autre pris seul.
 
 ## Chaque boutique, sa propre page
 
@@ -53,14 +78,15 @@ Commerce Analytics est visible par toute personne disposant de l'**accès analyt
 Quelques points à connaître avant de tirer des conclusions :
 
 - **Les demandes venues de la Boutique et les paniers dans la conversation sont deux entonnoirs différents.** Une demande de la Boutique se termine par un message dans votre Inbox auquel un humain répond ; un panier dans la conversation se termine sur votre checkout. Ne les additionnez pas. Voir [les trois paniers](/commerce/shoppable-chat#three-carts).
-- **L'attribution est la plus solide sur les commandes issues d'une conversation**, qui portent la conversation explicitement. Une commande partie d'un transfert depuis la Boutique est rattachée plus lâchement.
+- **L'attribution est la plus solide sur les commandes issues d'une conversation**, qui portent la conversation explicitement et relèvent de **generated**. Une commande partie d'un transfert depuis la Boutique est associée plus lâchement et relève d'**assisted**.
+- **Sur WooCommerce, la permission de votre connexion décide du niveau que vous pouvez atteindre.** Une connexion `Read/Write` crée elle-même la commande en attente et y inscrit la conversation : ces commandes sont solidement attribuées — **generated**. Une connexion en **lecture seule** ne peut donner à l'acheteur qu'un lien d'ajout au panier mono-ligne, qui ne porte aucune marque, si bien que rien de ce qu'elle produit ne dépassera jamais **assisted**. Si le chiffre d'affaires generated reste bloqué à zéro sur une boutique WooCommerce, vérifiez la permission avant de conclure que l'agent ne vend pas. Voir [le tableau des permissions](/commerce/checkout#woocommerce-permission).
 - **Une recommandation qui ne convertit jamais n'est pas automatiquement un échec.** Les acheteurs se servent d'un agent autant pour écarter des options que pour choisir.
 
 ## Dépannage
 
-### La page est vide
+### Tout affiche zéro
 
-Il ne s'est encore rien passé. Commerce Analytics rend compte d'une activité réelle d'acheteurs ; une boutique connectée ce matin et sans aucune conversation n'a donc rien à montrer.
+Il ne s'est encore rien passé. Commerce Analytics rend compte d'une activité réelle d'acheteurs ; une boutique connectée ce matin et sans aucune conversation affiche donc zéro chiffre d'affaires, zéro commande et zéro sur les taux. C'est l'état vide honnête, pas une page cassée — les chiffres bougent dès que les acheteurs arrivent.
 
 ### Je ne trouve pas le sélecteur de fournisseur
 
