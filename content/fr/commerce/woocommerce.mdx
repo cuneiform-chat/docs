@@ -124,6 +124,35 @@ Après qu'un acheteur a vérifié sa commande dans la conversation, il peut s'ab
 
 Contrairement à Shopify, WooCommerce dispose d'un bouton **Reconnect**. Utilisez-le quand vous faites tourner ou révoquez les clés d'API de votre boutique, ou quand vous vous êtes connecté manuellement avec la mauvaise permission et souhaitez passer au parcours guidé. Il relance l'approbation sur votre boutique et remplace les clés enregistrées sur place.
 
+## Ce qui se synchronise depuis votre boutique
+
+WooCommerce a quatre types de produit natifs. Les quatre se synchronisent, mais ils ne se comportent pas tous de la même façon dans une conversation.
+
+| Type | Ce que l'agent peut en faire |
+|---|---|
+| **`simple`** | Tout. Il est catalogué, il a un prix et il peut aller dans un panier — achetable tant que votre boutique le déclare achetable et en stock. |
+| **`variable`** | Tout. Chaque déclinaison se synchronise avec son propre prix et son propre stock. Le prix du produit vient de ses déclinaisons, et il compte comme en stock tant que **l'une** d'elles l'est. Ce qui entre dans le panier, c'est la déclinaison choisie par l'acheteur, pas le produit parent. |
+| **`grouped`** | Catalogué, et l'agent peut répondre à son sujet. Un produit groupé n'a pas de prix propre, et son stock est celui que WooCommerce déduit lui-même de ses produits enfants. Ce sont les enfants qui sont réellement vendus. |
+| **`external`** | Catalogué, et l'agent peut répondre à son sujet, mais jamais achetable depuis le panier. Votre lien externe et le texte de votre bouton se synchronisent avec le produit, et l'agent peut répondre aux questions le concernant — mais un produit d'affiliation est toujours traité comme indisponible à la vente, donc il ne peut jamais être ajouté à un panier. |
+
+### Tout le reste est traité comme `simple`
+
+<Callout type="warning">
+  **Les types de produit ajoutés par une extension ne sont pas modélisés.** Abonnements, réservations, lots, produits composés — tout ce qui n'est pas l'un des quatre ci-dessus — retombe sur le traitement `simple`.
+
+  Ce n'est pas rejeté pour autant. Le produit se synchronise, il est catalogué, et l'agent peut en parler et le recommander, en reprenant le prix et le stock que porte la ligne du produit parent. Pour ces types, ce prix est généralement faux, et souvent tout simplement absent.
+
+  Si votre activité repose sur un type de produit d'extension, **gardez ces produits hors du catalogue synchronisé** plutôt que de laisser l'agent les chiffrer, et dites-nous ce que vous utilisez — `support@cuneiform.chat`. Recommander un abonnement au prix de sa ligne parent est pire que de ne pas le mentionner.
+</Callout>
+
+### Plugins de suivi d'expédition
+
+Le transporteur et le numéro de suivi sont lus à un seul endroit : l'enregistrement écrit par le plugin officiel **WooCommerce Shipment Tracking**, dans lequel **Advanced Shipment Tracking (AST)** écrit également. Ces deux-là passent. Tout autre plugin de suivi range ses données ailleurs et n'est pas lu du tout : la commande paraîtra sans suivi alors même que votre boutique affiche un numéro. Voir [Commandes](/commerce/orders).
+
+### Boutiques traduites
+
+Rien dans la synchronisation ne tient compte de la langue. Si vous utilisez **WPML** ou **Polylang**, chaque version traduite d'un produit se synchronise comme un produit distinct ordinaire, et non comme la traduction d'un autre, et l'agent peut faire remonter n'importe laquelle d'entre elles.
+
 ## Sécurité
 
 - **Aucune écriture dans votre catalogue, votre stock ou vos commandes existantes** — l'intégration lit produits, stock et commandes, et ne les modifie jamais

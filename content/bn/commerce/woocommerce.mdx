@@ -124,6 +124,35 @@ Webhook-ও যুক্ত হওয়ার সময় নিবন্ধ�
 
 Shopify-এর বিপরীতে WooCommerce-এ একটি **Reconnect** বোতাম আছে। আপনার store-এর API key বদলালে বা বাতিল করলে, অথবা ভুল permission নিয়ে manual-ভাবে যুক্ত হয়ে থাকলে ও গাইডেড পথে যেতে চাইলে এটি ব্যবহার করুন। এটি আপনার store-এ অনুমোদনটি আবার চালায় এবং সংরক্ষিত key-গুলো জায়গামতো বদলে দেয়।
 
+## আপনার store থেকে যা sync হয় [#what-syncs-from-your-store]
+
+WooCommerce-এ চার ধরনের নিজস্ব product type আছে। চারটিই sync হয়, কিন্তু কথোপকথনের ভেতরে সবগুলো একইভাবে কাজ করে না।
+
+| ধরন | agent এটি দিয়ে কী করতে পারে |
+|---|---|
+| **`simple`** | সবকিছু। catalog-এ ওঠে, দাম থাকে, এবং cart-এ যোগ করা যায় — যতক্ষণ আপনার store একে purchasable ও stock-এ আছে বলে দেখায় ততক্ষণ কেনা যায়। |
+| **`variable`** | সবকিছু। প্রতিটি variation নিজের দাম আর নিজের stock নিয়ে sync হয়। product-এর দাম আসে তার variation থেকে, এবং **যেকোনো একটি** variation stock-এ থাকলেই product-টি stock-এ ধরা হয়। cart-এ যায় ক্রেতার বেছে নেওয়া variation, parent product নয়। |
+| **`grouped`** | catalog-এ ওঠে এবং agent এটি নিয়ে উত্তর দিতে পারে। grouped product-এর নিজের কোনো দাম নেই, আর তার stock হলো WooCommerce নিজেই তার child product থেকে যেটি হিসাব করে। আসলে বিক্রি হয় child product-গুলোই। |
+| **`external`** | catalog-এ ওঠে এবং agent এটি নিয়ে উত্তর দিতে পারে, কিন্তু cart থেকে কখনো কেনা যায় না। আপনার নিজের external লিঙ্ক ও button-এর লেখা product-এর সাথে sync হয়, এবং agent এটি নিয়ে প্রশ্নের উত্তর দিতে পারে — কিন্তু affiliate product সবসময়ই বিক্রয়ের জন্য অনুপলব্ধ ধরা হয়, তাই সেটি কখনো cart-এ যোগ করা যায় না। |
+
+### বাকি সবকিছু `simple` হিসেবে ধরা হয় [#anything-else-is-treated-as-simple]
+
+<Callout type="warning">
+  **কোনো extension যে product type যোগ করে, সেগুলো model করা নেই।** subscription, booking, bundle, composite product — উপরের চারটির বাইরে যা কিছু — সবই `simple`-এর ব্যবহারে গিয়ে পড়ে।
+
+  তবে সেগুলো বাতিল করা হয় না। সেগুলো sync হয়, catalog-এ ওঠে, এবং agent সেগুলো নিয়ে উত্তর দিতে ও সেগুলো সুপারিশ করতে পারে — parent product-এর সারিতে যে দাম আর stock আছে সেটাই নিয়ে। এই ধরনগুলোর ক্ষেত্রে সেই দাম সাধারণত ভুল থাকে, আর প্রায়ই একেবারেই থাকে না।
+
+  আপনার ব্যবসা যদি extension-এর কোনো product type-এর উপর নির্ভর করে, তাহলে agent-কে সেগুলোর দাম বলতে দেওয়ার বদলে **সেই product-গুলো sync করা catalog-এর বাইরে রাখুন**, এবং আপনি কী ব্যবহার করছেন আমাদের জানান — `support@cuneiform.chat`। parent সারির দামে একটি subscription সুপারিশ করার চেয়ে সেটির কথা না তোলাই ভালো।
+</Callout>
+
+### Shipment-tracking plugin [#shipment-tracking-plugins]
+
+Carrier আর tracking number একটিমাত্র জায়গা থেকে পড়া হয়: official **WooCommerce Shipment Tracking** plugin যে রেকর্ডটি লেখে সেটি, যেখানে **Advanced Shipment Tracking (AST)**-ও লেখে। এই দুটি আসে। অন্য যেকোনো tracking plugin তার তথ্য অন্য কোথাও রাখে এবং সেটি একেবারেই পড়া হয় না, তাই আপনার store-এ tracking number দেখালেও order-টিকে tracking ছাড়া মনে হবে। দেখুন [Order](/commerce/orders)।
+
+### অনূদিত store [#translated-stores]
+
+sync-এর কোনো অংশই ভাষা বোঝে না। আপনি **WPML** বা **Polylang** ব্যবহার করলে একটি product-এর প্রতিটি অনূদিত সংস্করণ কোনো একটির অনুবাদ হিসেবে নয়, বরং সাধারণ আলাদা product হিসেবেই sync হয়, এবং agent সেগুলোর যেকোনোটি দেখাতে পারে।
+
 ## নিরাপত্তা [#security]
 
 - **আপনার catalog, stock বা বিদ্যমান order-এ কোনো লেখালেখি নয়** — integration product, inventory ও order পড়ে, কখনো সেগুলো বদলায় না

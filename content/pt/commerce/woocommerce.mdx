@@ -124,6 +124,35 @@ Depois que um comprador verifica o pedido dele na conversa, ele pode optar por r
 
 Diferente da Shopify, o WooCommerce tem um botão **Reconnect**. Use quando você rotacionar ou revogar as chaves de API da sua loja, ou quando tiver conectado manualmente com a permissão errada e quiser mudar para o fluxo guiado. Ele roda a aprovação de novo na sua loja e substitui as chaves salvas no lugar.
 
+## O que sincroniza da sua loja
+
+O WooCommerce tem quatro tipos de produto nativos. Os quatro sincronizam, mas eles não se comportam do mesmo jeito dentro de uma conversa.
+
+| Tipo | O que o agent consegue fazer com ele |
+|---|---|
+| **`simple`** | Tudo. É catalogado, tem preço e pode ir para um carrinho — comprável enquanto sua loja o marcar como comprável e em estoque. |
+| **`variable`** | Tudo. Cada variação sincroniza com preço e estoque próprios. O preço do produto vem das variações, e ele conta como em estoque enquanto **qualquer** variação estiver. O que entra no carrinho é a variação que o comprador escolheu, não o produto pai. |
+| **`grouped`** | É catalogado e o agent consegue responder sobre ele. Um produto agrupado não tem preço próprio, e o estoque dele é o que o próprio WooCommerce deriva dos produtos filhos. Quem é realmente vendido são os filhos. |
+| **`external`** | É catalogado e o agent consegue responder sobre ele, mas nunca dá para comprar pelo carrinho. Seu link externo e o texto do seu botão sincronizam junto com o produto, e o agent consegue responder perguntas sobre ele — mas um produto de afiliado é sempre tratado como indisponível para venda, então nunca pode ser adicionado a um carrinho. |
+
+### Qualquer outro tipo é tratado como `simple`
+
+<Callout type="warning">
+  **Tipos de produto criados por uma extensão não são modelados.** Assinaturas, agendamentos, kits, produtos compostos — qualquer coisa que não seja um dos quatro acima — cai no tratamento de `simple`.
+
+  Não é rejeitado. Ele sincroniza, é catalogado, e o agent consegue responder sobre ele e recomendá-lo, carregando o preço e o estoque que a linha do produto pai por acaso tiver. Para esses tipos esse preço costuma estar errado, e muitas vezes nem existe.
+
+  Se você depende de um tipo de produto de extensão, **mantenha esses produtos fora do catálogo sincronizado** em vez de deixar o agent cotá-los, e conte pra gente o que você usa — `support@cuneiform.chat`. Recomendar uma assinatura pelo preço da linha pai é pior do que não mencioná-la.
+</Callout>
+
+### Plugins de rastreamento de envio
+
+Transportadora e código de rastreio são lidos de um único lugar: o registro gravado pelo plugin oficial **WooCommerce Shipment Tracking**, no qual o **Advanced Shipment Tracking (AST)** também grava. Esses dois chegam. Qualquer outro plugin de rastreamento guarda os dados em outro lugar e não é lido de jeito nenhum, então o pedido parece sem rastreio mesmo que sua loja mostre um código. Veja [Pedidos](/commerce/orders).
+
+### Lojas traduzidas
+
+Nada na sincronização entende idioma. Se você usa **WPML** ou **Polylang**, cada versão traduzida de um produto sincroniza como um produto separado comum, e não como a tradução de um, e o agent pode mostrar qualquer uma delas.
+
 ## Segurança
 
 - **Nenhuma escrita no seu catálogo, estoque ou pedidos existentes** — a integração lê produtos, estoque e pedidos, e nunca os modifica

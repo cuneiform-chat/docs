@@ -124,6 +124,35 @@ After a shopper verifies their order in chat, they can opt in to shipping update
 
 Unlike Shopify, WooCommerce has a **Reconnect** button. Use it when you rotate or revoke your store's API keys, or when you connected manually with the wrong permission and want to switch to the guided flow. It re-runs the approval on your store and replaces the stored keys in place.
 
+## What syncs from your store
+
+WooCommerce has four built-in product types. All four sync, but they don't all behave the same way in a conversation.
+
+| Type | What the agent can do with it |
+|---|---|
+| **`simple`** | Everything. Catalogued, priced, and addable to a cart — buyable while your store marks it purchasable and in stock. |
+| **`variable`** | Everything. Every variation syncs with its own price and stock. The product's price comes from its variations, and it counts as in stock while **any** variation is. What goes into a cart is the variation the shopper chose, not the parent product. |
+| **`grouped`** | Catalogued and answerable. A grouped product has no price of its own, and its stock is the roll-up WooCommerce itself derives from its child products. The child products are the things actually sold. |
+| **`external`** | Catalogued and answerable, never cart-buyable. Your own external link and button text sync with the product, and the agent can answer questions about it — but an affiliate product is always treated as unavailable for sale, so it can never be added to a cart. |
+
+### Anything else is treated as `simple`
+
+<Callout type="warning">
+  **Product types added by an extension are not modelled.** Subscriptions, bookings, bundles, composite products — anything that isn't one of the four above — falls through to the `simple` handling.
+
+  It is **not rejected**. It syncs, it's catalogued, and the agent can answer about it and recommend it, carrying whatever price and stock the parent product row happens to hold. For these types that price is usually wrong, and often missing entirely.
+
+  If you rely on an extension product type, **keep those products out of the synced catalog** rather than letting the agent quote them, and tell us what you're running — `support@cuneiform.chat`. Recommending a subscription at its parent-row price is worse than not mentioning it at all.
+</Callout>
+
+### Shipment-tracking plugins
+
+Carrier and tracking numbers are read from one place: the record written by the official **WooCommerce Shipment Tracking** plugin, which **Advanced Shipment Tracking (AST)** writes to as well. Those two come through. Any other tracking plugin keeps its data somewhere else and is not read at all, so an order looks untracked even though your store shows a tracking number. See [Orders](/commerce/orders).
+
+### Translated stores
+
+Nothing in the sync is language-aware. If you run **WPML** or **Polylang**, each translated version of a product syncs as an ordinary separate product rather than as a translation of one, and the agent can surface any of them.
+
 ## Security
 
 - **No writes to your catalog, stock, or existing orders** — the integration reads products, inventory, and orders, and never modifies them
