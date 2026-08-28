@@ -91,6 +91,20 @@ Il n'y a pas de bouton « Reconnect » distinct. Les permissions et les identifi
 - **Un agent devient votre agent de boutique**, choisi pour vous à la connexion. Voir [Votre agent de boutique](/commerce#your-store-agent).
 - **Les mises à jour de statut sont actives par défaut**, et la seule condition appartient à l'acheteur : il s'y abonne après avoir vérifié sa commande. Voir [Commandes](/commerce/orders#order-status-updates).
 
+## Les prix et la devise de votre boutique
+
+Les prix se synchronisent avec les montants que votre boutique détient, dans **la devise de votre propre boutique** — celle que nomment les réglages de votre boutique Shopify. Nous la lisons dans la boutique, jamais chez l'acheteur, et les acheteurs la voient sous la forme du code à trois lettres accolé au montant : `USD 19,99`, `EUR 19,99`, `BDT 1900`.
+
+Un code plutôt qu'un symbole, c'est délibéré. `$` à lui seul désigne le dollar de quatre pays différents, et un symbole faux affirmé avec aplomb sur un prix est pire qu'un code sans ambiguïté.
+
+La devise est relue lors de la réconciliation nocturne du catalogue : si vous la changez dans Shopify, le code cité suit sous un jour. Jusqu'à ce premier passage nocturne, une boutique connectée avant que nous ne la lisions cite des montants sans code — le prix reste juste, il n'est simplement pas encore étiqueté.
+
+<Callout type="warning">
+  **La tarification Shopify Markets n'est pas répercutée.** Si vous vendez sur plusieurs marchés dotés de leurs propres devises, Shopify présente à chaque acheteur un prix local sur votre boutique. Nous stockons **une** devise par boutique — celle de votre boutique — donc l'agent cite la même à tous les acheteurs, où qu'ils soient.
+
+  Les montants restent justes dans la devise dont ils portent l'étiquette ; ils ne sont simplement pas les chiffres convertis par marché que ce même acheteur verrait sur votre site. Le paiement n'est pas affecté : l'acheteur termine sur votre checkout Shopify, qui applique vos règles de marché comme d'habitude.
+</Callout>
+
 ## Dépannage
 
 ### Les identifiants ont été refusés

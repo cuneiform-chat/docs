@@ -91,6 +91,20 @@ No hay un botón de «Reconnect» aparte. Los permisos y las credenciales de tu 
 - **Un agent se convierte en tu agente de tienda**, elegido por ti automáticamente al conectar. Ver [Tu agente de tienda](/commerce#your-store-agent).
 - **Las actualizaciones de estado del pedido están activas por defecto**, y la única barrera es del comprador: se suscribe después de verificar su pedido. Ver [Pedidos](/commerce/orders#order-status-updates).
 
+## Los precios y la moneda de tu tienda
+
+Los precios se sincronizan con los importes que guarda tu tienda, en **la moneda de tu propia tienda** — la que nombran los ajustes de tu tienda de Shopify. La leemos de la tienda, nunca del comprador, y los compradores la ven como el código de tres letras junto al importe: `USD 19,99`, `EUR 19,99`, `BDT 1900`.
+
+Que sea un código y no un símbolo es deliberado. `$` por sí solo es el dólar de cuatro países distintos, y un símbolo equivocado con aplomo sobre un precio es peor que un código inconfundible.
+
+La moneda se vuelve a leer en la reconciliación nocturna del catálogo, así que si la cambias en Shopify el código citado te sigue en un día. Hasta esa primera pasada nocturna, una tienda conectada antes de que empezáramos a leerla cita importes sin código — el precio sigue siendo correcto, solo que aún no está etiquetado.
+
+<Callout type="warning">
+  **Los precios de Shopify Markets no se reflejan.** Si vendes en varios mercados con sus propias monedas, Shopify le muestra a cada comprador un precio local en tu tienda. Nosotros guardamos **una** moneda por tienda — la de tu tienda — así que el agent cita esa misma a todos los compradores, estén donde estén.
+
+  Los importes siguen siendo correctos en la moneda con la que están etiquetados; simplemente no son las cifras convertidas por mercado que ese mismo comprador vería en tu web. El pago no se ve afectado: el comprador termina en tu checkout de Shopify, que aplica tus reglas de mercado como siempre.
+</Callout>
+
 ## Solución de problemas
 
 ### Las credenciales fueron rechazadas

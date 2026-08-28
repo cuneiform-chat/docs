@@ -133,7 +133,7 @@ WooCommerce tiene cuatro tipos de producto nativos. Los cuatro se sincronizan, p
 | **`simple`** | Todo. Se cataloga, tiene precio y se puede añadir a un carrito — comprable mientras tu tienda lo marque como comprable y con stock. |
 | **`variable`** | Todo. Cada variación se sincroniza con su propio precio y su propio stock. El precio del producto sale de sus variaciones, y cuenta como disponible mientras lo esté **alguna** de ellas. Lo que entra en el carrito es la variación que eligió el comprador, no el producto padre. |
 | **`grouped`** | Se cataloga y el agent puede responder sobre él. Un producto agrupado no tiene precio propio, y su stock es el que WooCommerce deriva de sus productos hijos. Lo que realmente se vende son los hijos. |
-| **`external`** | Se cataloga y el agent puede responder sobre él, pero nunca se compra desde el carrito. Tu enlace externo y el texto de tu botón se sincronizan con el producto, y el agent puede responder preguntas sobre él — pero un producto de afiliado se trata siempre como no disponible para la venta, así que nunca puede añadirse a un carrito. |
+| **`external`** | Se cataloga y el agent puede responder sobre él, pero nunca se compra desde el carrito. El agent responde preguntas sobre un producto de afiliado como sobre cualquier otro — nombre, descripción, precio — pero nunca le entrega al comprador tu enlace externo ni el texto de tu botón: esos campos se sincronizan con el producto y se guardan, y nada los muestra en una conversación. Además, un producto de afiliado se trata siempre como no disponible para la venta, así que nunca puede añadirse a un carrito. Los compradores llegan a él como siempre, desde tu propia tienda. |
 
 ### Cualquier otro tipo se trata como `simple`
 
@@ -143,6 +143,20 @@ WooCommerce tiene cuatro tipos de producto nativos. Los cuatro se sincronizan, p
   No se rechaza. Se sincroniza, se cataloga, y el agent puede responder sobre él y recomendarlo, arrastrando el precio y el stock que resulte que tenga la fila del producto padre. Para estos tipos ese precio suele estar mal, y a menudo directamente no existe.
 
   Si dependes de un tipo de producto de una extensión, **mantén esos productos fuera del catálogo sincronizado** en lugar de dejar que el agent los cotice, y cuéntanos qué usas — `support@cuneiform.chat`. Recomendar una suscripción al precio de su fila padre es peor que no mencionarla.
+</Callout>
+
+### Los precios y la moneda de tu tienda
+
+Los precios se sincronizan con los importes que guarda tu tienda, en **la moneda de tu propia tienda**. Esa moneda la leemos de los ajustes de WooCommerce — nunca del comprador — y los compradores la ven como el código de tres letras junto al importe: `USD 19,99`, `EUR 19,99`, `BDT 1900`.
+
+Que sea un código y no un símbolo es deliberado. `$` por sí solo es el dólar de cuatro países distintos, y un símbolo equivocado con aplomo sobre un precio es peor que un código inconfundible.
+
+La moneda se vuelve a leer en la reconciliación nocturna del catálogo, así que si la cambias en WooCommerce el código citado te sigue en un día. Hasta esa primera pasada nocturna, una tienda conectada antes de que empezáramos a leer el ajuste cita importes sin código — el precio sigue siendo correcto, solo que aún no está etiquetado.
+
+<Callout type="warning">
+  **Un plugin de multidivisa no se refleja.** Las extensiones que muestran a cada comprador una moneda distinta según su ubicación hacen eso dentro de tu tienda. Nosotros guardamos **una** moneda por tienda — la moneda base que nombran tus ajustes — así que el agent cita esa misma a todos los compradores, estén donde estén.
+
+  Los importes siguen siendo correctos en la moneda con la que están etiquetados; simplemente no son las cifras convertidas que ese mismo comprador vería en tu web. El pago no se ve afectado: el comprador termina en tu propia tienda, donde tu plugin hace lo que hace siempre.
 </Callout>
 
 ### Plugins de seguimiento de envíos

@@ -91,6 +91,20 @@ There is no separate "Reconnect" button. Your app's permissions and credentials 
 - **One agent becomes your store agent**, chosen for you at connect. See [Your store agent](/commerce#your-store-agent).
 - **Order-status updates are on by default**, and the only gate belongs to the shopper: they opt in after verifying their order. See [Orders](/commerce/orders#order-status-updates).
 
+## Prices and your store's currency
+
+Prices sync as the amounts your store holds, in **your store's own currency** — the one your Shopify store settings name. We read it from the store, never from the shopper, and shoppers see it as the three-letter code beside the amount: `USD 19.99`, `EUR 19.99`, `BDT 1900`.
+
+A code rather than a symbol is deliberate. `$` alone is the dollar of four different countries, and a confidently wrong symbol on a price is worse than an unmistakable code.
+
+The currency is re-read on the nightly catalog reconcile, so if you change it in Shopify the quoted code follows within a day. Until that first nightly pass, a store connected before we started reading it quotes plain amounts with no code — the price is still correct, it just isn't labelled yet.
+
+<Callout type="warning">
+  **Shopify Markets pricing is not reflected.** If you sell into several markets with their own currencies, Shopify presents each shopper a local price on your storefront. We store **one** currency per store — your store's own — so the agent quotes that same one to every shopper, wherever they are.
+
+  The amounts are still right in the currency they're labelled with; they simply aren't the market-converted figures the same shopper would see on your site. Checkout is unaffected: the shopper finishes on your Shopify checkout, which applies your market rules as usual.
+</Callout>
+
 ## Troubleshooting
 
 ### The credentials were rejected

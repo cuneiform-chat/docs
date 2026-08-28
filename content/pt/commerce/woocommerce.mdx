@@ -133,7 +133,7 @@ O WooCommerce tem quatro tipos de produto nativos. Os quatro sincronizam, mas el
 | **`simple`** | Tudo. É catalogado, tem preço e pode ir para um carrinho — comprável enquanto sua loja o marcar como comprável e em estoque. |
 | **`variable`** | Tudo. Cada variação sincroniza com preço e estoque próprios. O preço do produto vem das variações, e ele conta como em estoque enquanto **qualquer** variação estiver. O que entra no carrinho é a variação que o comprador escolheu, não o produto pai. |
 | **`grouped`** | É catalogado e o agent consegue responder sobre ele. Um produto agrupado não tem preço próprio, e o estoque dele é o que o próprio WooCommerce deriva dos produtos filhos. Quem é realmente vendido são os filhos. |
-| **`external`** | É catalogado e o agent consegue responder sobre ele, mas nunca dá para comprar pelo carrinho. Seu link externo e o texto do seu botão sincronizam junto com o produto, e o agent consegue responder perguntas sobre ele — mas um produto de afiliado é sempre tratado como indisponível para venda, então nunca pode ser adicionado a um carrinho. |
+| **`external`** | É catalogado e o agent consegue responder sobre ele, mas nunca dá para comprar pelo carrinho. O agent responde perguntas sobre um produto de afiliado como sobre qualquer outro — nome, descrição, preço — mas nunca entrega ao comprador seu link externo nem o texto do seu botão: esses campos sincronizam junto com o produto e ficam guardados, e nada os mostra numa conversa. Além disso, um produto de afiliado é sempre tratado como indisponível para venda, então nunca pode ser adicionado a um carrinho. Os compradores chegam até ele do jeito de sempre, pela sua própria loja. |
 
 ### Qualquer outro tipo é tratado como `simple`
 
@@ -143,6 +143,20 @@ O WooCommerce tem quatro tipos de produto nativos. Os quatro sincronizam, mas el
   Não é rejeitado. Ele sincroniza, é catalogado, e o agent consegue responder sobre ele e recomendá-lo, carregando o preço e o estoque que a linha do produto pai por acaso tiver. Para esses tipos esse preço costuma estar errado, e muitas vezes nem existe.
 
   Se você depende de um tipo de produto de extensão, **mantenha esses produtos fora do catálogo sincronizado** em vez de deixar o agent cotá-los, e conte pra gente o que você usa — `support@cuneiform.chat`. Recomendar uma assinatura pelo preço da linha pai é pior do que não mencioná-la.
+</Callout>
+
+### Os preços e a moeda da sua loja
+
+Os preços sincronizam com os valores que sua loja guarda, na **moeda da sua própria loja**. A gente lê essa moeda nas configurações do WooCommerce — nunca do comprador — e os compradores a veem como o código de três letras ao lado do valor: `USD 19,99`, `EUR 19,99`, `BDT 1900`.
+
+Ser um código e não um símbolo é proposital. `$` sozinho é o dólar de quatro países diferentes, e um símbolo errado dito com convicção num preço é pior do que um código inconfundível.
+
+A moeda é relida na reconciliação noturna do catálogo, então se você mudá-la no WooCommerce o código citado acompanha em um dia. Até essa primeira passada noturna, uma loja conectada antes de a gente começar a ler a configuração cita valores sem código — o preço continua certo, só ainda não está rotulado.
+
+<Callout type="warning">
+  **Um plugin de multimoeda não é refletido.** As extensões que mostram uma moeda diferente para cada comprador conforme a região fazem isso dentro da sua loja. A gente guarda **uma** moeda por loja — a moeda base que suas configurações nomeiam — então o agent cita essa mesma para todo comprador, esteja ele onde estiver.
+
+  Os valores continuam certos na moeda com que estão rotulados; eles só não são os números convertidos que esse mesmo comprador veria no seu site. O checkout não é afetado: o comprador termina na sua própria loja, onde seu plugin faz o que sempre faz.
 </Callout>
 
 ### Plugins de rastreamento de envio

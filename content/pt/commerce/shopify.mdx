@@ -91,6 +91,20 @@ Não existe um botão "Reconnect" separado. As permissões e as credenciais do s
 - **Um agent vira seu agente de loja**, escolhido para você na conexão. Veja [Seu agente de loja](/commerce#your-store-agent).
 - **As atualizações de status do pedido vêm ligadas por padrão**, e o único gate é do comprador: ele opta por recebê-las depois de verificar o pedido. Veja [Pedidos](/commerce/orders#order-status-updates).
 
+## Os preços e a moeda da sua loja
+
+Os preços sincronizam com os valores que sua loja guarda, na **moeda da sua própria loja** — a que as configurações da sua loja Shopify nomeiam. A gente lê da loja, nunca do comprador, e os compradores a veem como o código de três letras ao lado do valor: `USD 19,99`, `EUR 19,99`, `BDT 1900`.
+
+Ser um código e não um símbolo é proposital. `$` sozinho é o dólar de quatro países diferentes, e um símbolo errado dito com convicção num preço é pior do que um código inconfundível.
+
+A moeda é relida na reconciliação noturna do catálogo, então se você mudá-la no Shopify o código citado acompanha em um dia. Até essa primeira passada noturna, uma loja conectada antes de a gente começar a ler isso cita valores sem código — o preço continua certo, só ainda não está rotulado.
+
+<Callout type="warning">
+  **Os preços do Shopify Markets não são refletidos.** Se você vende para vários mercados com moedas próprias, o Shopify mostra a cada comprador um preço local na sua loja. A gente guarda **uma** moeda por loja — a da sua loja — então o agent cita essa mesma para todo comprador, esteja ele onde estiver.
+
+  Os valores continuam certos na moeda com que estão rotulados; eles só não são os números convertidos por mercado que esse mesmo comprador veria no seu site. O checkout não é afetado: o comprador termina no seu checkout do Shopify, que aplica suas regras de mercado como sempre.
+</Callout>
+
 ## Solução de problemas
 
 ### As credenciais foram rejeitadas

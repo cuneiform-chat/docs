@@ -133,7 +133,7 @@ WooCommerce has four built-in product types. All four sync, but they don't all b
 | **`simple`** | Everything. Catalogued, priced, and addable to a cart — buyable while your store marks it purchasable and in stock. |
 | **`variable`** | Everything. Every variation syncs with its own price and stock. The product's price comes from its variations, and it counts as in stock while **any** variation is. What goes into a cart is the variation the shopper chose, not the parent product. |
 | **`grouped`** | Catalogued and answerable. A grouped product has no price of its own, and its stock is the roll-up WooCommerce itself derives from its child products. The child products are the things actually sold. |
-| **`external`** | Catalogued and answerable, never cart-buyable. Your own external link and button text sync with the product, and the agent can answer questions about it — but an affiliate product is always treated as unavailable for sale, so it can never be added to a cart. |
+| **`external`** | Catalogued and answerable, never cart-buyable. The agent can answer questions about an affiliate product like any other — name, description, price — but it never hands the shopper your external link or your button text: those sync with the product and are stored, and nothing shows them in a conversation. An affiliate product is also always treated as unavailable for sale, so it can never be added to a cart. Shoppers reach it the way they always have, from your own storefront. |
 
 ### Anything else is treated as `simple`
 
@@ -143,6 +143,20 @@ WooCommerce has four built-in product types. All four sync, but they don't all b
   It is **not rejected**. It syncs, it's catalogued, and the agent can answer about it and recommend it, carrying whatever price and stock the parent product row happens to hold. For these types that price is usually wrong, and often missing entirely.
 
   If you rely on an extension product type, **keep those products out of the synced catalog** rather than letting the agent quote them, and tell us what you're running — `support@cuneiform.chat`. Recommending a subscription at its parent-row price is worse than not mentioning it at all.
+</Callout>
+
+### Prices and your store's currency
+
+Prices sync as the amounts your store holds, in **your store's own currency**. We read that currency from your WooCommerce settings — never from the shopper — and shoppers see it as the three-letter code beside the amount: `USD 19.99`, `EUR 19.99`, `BDT 1900`.
+
+A code rather than a symbol is deliberate. `$` alone is the dollar of four different countries, and a confidently wrong symbol on a price is worse than an unmistakable code.
+
+The currency is re-read on the nightly catalog reconcile, so if you change it in WooCommerce the quoted code follows within a day. Until that first nightly pass, a store connected before we started reading the setting quotes plain amounts with no code — the price is still correct, it just isn't labelled yet.
+
+<Callout type="warning">
+  **A multicurrency plugin is not reflected.** Extensions that show each shopper a different currency by geography do that inside your storefront. We store **one** currency per store — the base currency your settings name — so the agent quotes that same one to every shopper, wherever they are.
+
+  The amounts are still right in the currency they're labelled with; they simply aren't the converted figures the same shopper would see on your site. Checkout is unaffected: the shopper finishes on your own storefront, where your plugin does whatever it normally does.
 </Callout>
 
 ### Shipment-tracking plugins

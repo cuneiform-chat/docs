@@ -133,7 +133,7 @@ WooCommerce a quatre types de produit natifs. Les quatre se synchronisent, mais 
 | **`simple`** | Tout. Il est catalogué, il a un prix et il peut aller dans un panier — achetable tant que votre boutique le déclare achetable et en stock. |
 | **`variable`** | Tout. Chaque déclinaison se synchronise avec son propre prix et son propre stock. Le prix du produit vient de ses déclinaisons, et il compte comme en stock tant que **l'une** d'elles l'est. Ce qui entre dans le panier, c'est la déclinaison choisie par l'acheteur, pas le produit parent. |
 | **`grouped`** | Catalogué, et l'agent peut répondre à son sujet. Un produit groupé n'a pas de prix propre, et son stock est celui que WooCommerce déduit lui-même de ses produits enfants. Ce sont les enfants qui sont réellement vendus. |
-| **`external`** | Catalogué, et l'agent peut répondre à son sujet, mais jamais achetable depuis le panier. Votre lien externe et le texte de votre bouton se synchronisent avec le produit, et l'agent peut répondre aux questions le concernant — mais un produit d'affiliation est toujours traité comme indisponible à la vente, donc il ne peut jamais être ajouté à un panier. |
+| **`external`** | Catalogué, et l'agent peut répondre à son sujet, mais jamais achetable depuis le panier. L'agent répond aux questions sur un produit d'affiliation comme sur n'importe quel autre — nom, description, prix — mais il ne transmet jamais à l'acheteur votre lien externe ni le texte de votre bouton : ces champs se synchronisent avec le produit et sont conservés, et rien ne les affiche dans une conversation. Un produit d'affiliation est en outre toujours traité comme indisponible à la vente, donc il ne peut jamais être ajouté à un panier. Les acheteurs y arrivent comme ils l'ont toujours fait, depuis votre propre boutique. |
 
 ### Tout le reste est traité comme `simple`
 
@@ -143,6 +143,20 @@ WooCommerce a quatre types de produit natifs. Les quatre se synchronisent, mais 
   Ce n'est pas rejeté pour autant. Le produit se synchronise, il est catalogué, et l'agent peut en parler et le recommander, en reprenant le prix et le stock que porte la ligne du produit parent. Pour ces types, ce prix est généralement faux, et souvent tout simplement absent.
 
   Si votre activité repose sur un type de produit d'extension, **gardez ces produits hors du catalogue synchronisé** plutôt que de laisser l'agent les chiffrer, et dites-nous ce que vous utilisez — `support@cuneiform.chat`. Recommander un abonnement au prix de sa ligne parent est pire que de ne pas le mentionner.
+</Callout>
+
+### Les prix et la devise de votre boutique
+
+Les prix se synchronisent avec les montants que votre boutique détient, dans **la devise de votre propre boutique**. Nous lisons cette devise dans vos réglages WooCommerce — jamais chez l'acheteur — et les acheteurs la voient sous la forme du code à trois lettres accolé au montant : `USD 19,99`, `EUR 19,99`, `BDT 1900`.
+
+Un code plutôt qu'un symbole, c'est délibéré. `$` à lui seul désigne le dollar de quatre pays différents, et un symbole faux affirmé avec aplomb sur un prix est pire qu'un code sans ambiguïté.
+
+La devise est relue lors de la réconciliation nocturne du catalogue : si vous la changez dans WooCommerce, le code cité suit sous un jour. Jusqu'à ce premier passage nocturne, une boutique connectée avant que nous ne lisions ce réglage cite des montants sans code — le prix reste juste, il n'est simplement pas encore étiqueté.
+
+<Callout type="warning">
+  **Une extension multidevise n'est pas répercutée.** Les extensions qui présentent à chaque acheteur une devise différente selon sa zone géographique font cela à l'intérieur de votre boutique. Nous stockons **une** devise par boutique — la devise de base que nomment vos réglages — donc l'agent cite la même à tous les acheteurs, où qu'ils soient.
+
+  Les montants restent justes dans la devise dont ils portent l'étiquette ; ils ne sont simplement pas les chiffres convertis que ce même acheteur verrait sur votre site. Le paiement n'est pas affecté : l'acheteur termine sur votre propre boutique, où votre extension fait ce qu'elle fait d'habitude.
 </Callout>
 
 ### Plugins de suivi d'expédition
