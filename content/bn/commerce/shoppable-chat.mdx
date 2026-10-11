@@ -66,11 +66,22 @@ agent-এর হাতে cart-সংক্রান্ত ছোট, সুন�
 
 ## এর যা দরকার [#what-it-needs]
 
-- একটি **যুক্ত store** যার catalog sync হয়েছে — card-গুলো আসল product, তাই সেগুলো টেনে আনার মতো একটি catalog থাকতেই হবে
+- একটি **catalog** — card-গুলো আসল product, তাই সেগুলো টেনে আনার মতো একটি catalog থাকতেই হবে
 - উপরের টেবিলের একটি **card-সক্ষম channel**
-- আপনার **store agent** — আপনি যখন store যুক্ত করেছিলেন তখন তার সাথে জোড়া agent-টি
+- catalog যুক্ত আছে এমন একটি **agent**
 
 Shopify ও WooCommerce দুটিই সমর্থিত। WooCommerce-এ checkout ধাপে কী ঘটে তা আপনার সংযোগের permission-এর উপর নির্ভর করে — দেখুন [Checkout](/commerce/checkout#woocommerce-permission)।
+
+### Store নেই? হাতে সাজানো catalog দিয়েও চলবে [#manual-catalog]
+
+Shopify বা WooCommerce সংযোগ লাগবে না। আপনি যদি **Commerce → Manual → Products**-এ নিজের হাতে product রাখেন, সেই product-গুলোও chat থেকে কেনা যাবে — একই card, একই cart, একই কথোপকথন।
+
+দুটি জিনিসে এটি চালু হয়:
+
+১. আপনার manual catalog-এ অন্তত একটি **active** product।
+২. ওই Products পেজে **Enable shopping in chat** চাপা। আমরা আপনার জন্য একটি "Shop Assistant" তৈরি করে দিই (বা আপনার আগেরটিই ব্যবহার করি) — *করবেন কি না* আপনি ঠিক করেন, *কোনটি* আমরা ঠিক করি।
+
+আপনি না চাপা পর্যন্ত এটি বন্ধ থাকে, আর ওই agent archive করলে আবার বন্ধ হয়ে যায়। হাতে সাজানো catalog-এ checkout ধাপটি আলাদাভাবে শেষ হয় — order কোনো payment পেজে না গিয়ে সরাসরি আপনার কাছে আসে। দেখুন [Checkout](/commerce/checkout#manual-orders)।
 
 ## Attribution [#attribution]
 

@@ -66,11 +66,22 @@ The shopper can also tap the buttons on the cards themselves — talking to the 
 
 ## What it needs
 
-- A **connected store** with a synced catalog — the cards are real products, so there has to be a catalog to draw them from
+- A **catalog** — the cards are real products, so there has to be a catalog to draw them from
 - A **card-capable channel** from the table above
-- Your **store agent** — the agent wired to the store when you connected it
+- An **agent** with the catalog attached
 
 Both Shopify and WooCommerce are supported. On WooCommerce, what happens at the checkout step depends on your connection's permission — see [Checkout](/commerce/checkout#woocommerce-permission).
+
+### No store? A hand-curated catalog works too [#manual-catalog]
+
+You do not need a Shopify or WooCommerce connection. If you keep your products by hand in **Commerce → Manual → Products**, those products can be shoppable in chat as well — same cards, same cart, same conversation.
+
+Two things turn it on:
+
+1. At least one **active** product in your manual catalog.
+2. Press **Enable shopping in chat** on that Products page. We set up a "Shop Assistant" for you (or reuse the one you already have) — you decide *whether*, we decide *which*.
+
+It stays off until you press it, and archiving that agent turns it back off. A hand-curated catalog finishes differently at the checkout step — the order comes to you rather than to a payment page. See [Checkout](/commerce/checkout#manual-orders).
 
 ## Attribution
 

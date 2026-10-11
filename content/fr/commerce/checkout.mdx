@@ -4,7 +4,7 @@ description: Comment un acheteur prêt à acheter est transféré vers votre pro
 
 # Checkout
 
-**Cuneiform Chat n'encaisse jamais de paiement.** Chaque achat se conclut sur le checkout de votre propre boutique, avec votre propre configuration de paiement. Ce que nous faisons, c'est y amener l'acheteur sans l'obliger à reconstituer son panier.
+**Cuneiform Chat n'encaisse jamais de paiement.** Avec une boutique connectée, chaque achat se conclut sur le checkout de votre propre boutique, avec votre propre configuration de paiement — ce que nous faisons, c'est y amener l'acheteur sans l'obliger à reconstituer son panier. Avec un [catalogue tenu à la main](#manual-orders), il n'y a aucune page de checkout : la commande vous parvient donc directement.
 
 Un transfert peut partir de deux endroits :
 
@@ -71,6 +71,19 @@ Deux commandes en attente presque identiques à quelques minutes d'intervalle, c
 ### Si le checkout multi-lignes ne fonctionne pas
 
 Vérifiez la permission enregistrée sur votre connexion WooCommerce. Si elle indique lecture seule — y compris le cas où vous avez collé une clé `Read/Write` mais laissé le champ de permission vide sur le formulaire — faites **Reconnect** via le parcours guidé. Voir [Après une connexion manuelle](/commerce/woocommerce#after-a-manual-connect).
+
+## Pas de boutique connectée : la commande vous parvient [#manual-orders]
+
+Un **catalogue tenu à la main** n'a pas de boutique derrière lui : il n'existe donc aucune page de checkout vers laquelle envoyer qui que ce soit. Lorsqu'un acheteur dont le panier vient d'un catalogue manuel se dit prêt à acheter, l'agent ne produit pas de lien — il vous transmet la commande.
+
+Ce qui arrive dans la **Boîte de réception**, c'est la commande de l'acheteur : chaque ligne, les quantités et les prix enregistrés dans son panier, dans la conversation même où il faisait ses achats. Vous confirmez les détails et convenez du paiement directement avec lui, exactement comme pour une commande arrivée par un autre canal.
+
+Deux conséquences en découlent, toutes deux voulues :
+
+- **L'agent demande avant d'envoyer.** Comme une personne réelle récupère la commande, l'agent la confirme d'abord auprès de l'acheteur et ne la transmet qu'une fois qu'il a répondu. Il ne déclenchera pas une commande simplement parce que quelqu'un a demandé un total.
+- **Un produit sans prix lisible s'affiche sans prix.** Nous ne mettons un prix sur une card que si votre texte de prix est un seul nombre clair : `19.99` convient, `Lot de 3 — 25 €` non, car nous ne devinerons pas lequel des nombres est le prix. Saisissez un seul nombre par produit et la card l'affichera.
+
+Voir [chat marchand](/commerce/shoppable-chat#manual-catalog) pour savoir comment l'activer.
 
 ## Checkout depuis une Boutique
 

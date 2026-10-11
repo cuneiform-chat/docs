@@ -4,7 +4,7 @@ description: Como um comprador pronto para comprar é repassado ao seu próprio 
 
 # Checkout
 
-**O Cuneiform Chat nunca recebe um pagamento.** Toda compra é concluída no checkout da sua própria loja, com a sua própria configuração de pagamento. O que nós fazemos é levar o comprador até lá sem obrigá-lo a refazer o carrinho.
+**O Cuneiform Chat nunca recebe um pagamento.** Com uma loja conectada, toda compra é concluída no checkout da sua própria loja, com a sua própria configuração de pagamento — o que nós fazemos é levar o comprador até lá sem obrigá-lo a refazer o carrinho. Com um [catálogo feito à mão](#manual-orders) não existe página de checkout nenhuma, então o pedido chega até você.
 
 Há dois lugares onde um repasse pode começar:
 
@@ -71,6 +71,19 @@ Então dois pedidos pendentes quase iguais com poucos minutos de diferença são
 ### Se o checkout de várias linhas não estiver funcionando
 
 Confira a permissão registrada na sua conexão do WooCommerce. Se disser somente leitura — incluindo o caso em que você colou uma chave `Read/Write` mas deixou o campo de permissão em branco no formulário — faça **Reconnect** pelo fluxo guiado. Veja [Depois de uma conexão manual](/commerce/woocommerce#after-a-manual-connect).
+
+## Sem loja conectada: o pedido chega até você [#manual-orders]
+
+Um **catálogo feito à mão** não tem uma loja por trás, então não existe página de checkout para onde mandar ninguém. Quando um comprador com um carrinho de catálogo manual diz que está pronto para comprar, o agent não gera um link: ele repassa o pedido para você.
+
+O que aparece na **Caixa de entrada** é o pedido do comprador: cada linha, as quantidades e os preços registrados no carrinho dele, na mesma conversa em que ele estava comprando. Você confirma os detalhes e combina o pagamento diretamente com ele, exatamente como faria com um pedido que chegasse por qualquer outro caminho.
+
+Disso decorrem duas coisas, e as duas são propositais:
+
+- **O agent pergunta antes de enviar.** Como quem recebe o pedido é uma pessoa de verdade, o agent confirma antes com o comprador e só repassa depois que ele responde. Ele não vai disparar um pedido só porque alguém pediu um total.
+- **Um produto sem preço legível aparece sem preço.** Só colocamos preço em um card quando o seu texto de preço é um único número claro: `19.99` funciona, `Kit com 3 — R$ 25` não, porque não vamos adivinhar qual dos números é o preço. Digite um número por produto e o card mostra ele.
+
+Veja [chat com compra](/commerce/shoppable-chat#manual-catalog) para saber como ligar isso.
 
 ## Checkout a partir de uma Loja
 

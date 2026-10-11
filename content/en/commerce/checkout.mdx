@@ -1,10 +1,10 @@
 ---
-description: How a ready-to-buy shopper is handed off to your own Shopify or WooCommerce checkout, from a storefront or from inside the chat, with their cart intact.
+description: How a ready-to-buy shopper is handed off to your own Shopify or WooCommerce checkout — or, with a hand-curated catalog, straight to you — from a storefront or from inside the chat, with their cart intact.
 ---
 
 # Checkout
 
-**Cuneiform Chat never takes a payment.** Every purchase completes on your own store's checkout, under your own payment setup. What we do is get the shopper there without making them rebuild their cart.
+**Cuneiform Chat never takes a payment.** With a connected store, every purchase completes on your own store's checkout, under your own payment setup — what we do is get the shopper there without making them rebuild their cart. With a [hand-curated catalog](#manual-orders) there is no checkout page at all, so the order comes to you instead.
 
 There are two places a handoff can start:
 
@@ -71,6 +71,19 @@ So two near-identical pending orders a few minutes apart is this, not a double c
 ### If multi-line checkout isn't working
 
 Check the permission recorded on your WooCommerce connection. If it says read-only — including the case where you pasted a `Read/Write` key but left the permission field blank on the form — **Reconnect** through the guided flow. See [After a manual connect](/commerce/woocommerce#after-a-manual-connect).
+
+## No connected store: the order comes to you [#manual-orders]
+
+A **hand-curated catalog** has no store behind it, so there is no checkout page to send anyone to. When a shopper with a manual-catalog cart says they are ready to buy, the agent does not produce a link — it passes the order to you.
+
+What lands in **Inbox** is the shopper's order: every line, the quantities, and the prices recorded in their cart, in the same conversation they were shopping in. You confirm the details and arrange payment with them directly, exactly as you would for an order that arrived any other way.
+
+Two things follow from that, and both are deliberate:
+
+- **The agent asks before it sends.** Because a real person picks the order up, the agent confirms with the shopper first and only passes it on once they have answered. It will not fire an order just because someone asked for a total.
+- **A product with no readable price is shown without one.** We only put a price on a card when your price text is a single clear number — `19.99` works, `Pack of 3 — $25` does not, because we will not guess which number is the price. Enter one number per product and the card shows it.
+
+See [shoppable chat](/commerce/shoppable-chat#manual-catalog) for how to turn this on.
 
 ## Checkout from a Storefront
 
